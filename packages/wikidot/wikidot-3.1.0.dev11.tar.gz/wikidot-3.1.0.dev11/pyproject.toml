@@ -1,0 +1,58 @@
+[project]
+name = "wikidot"
+version = "3.1.0dev11"
+authors = [{ name = "ukwhatn", email = "ukwhatn@gmail.com" }]
+description = "Wikidot Utility Library"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+]
+
+dependencies = [
+    "httpx >= 0.25,< 0.29",
+    "beautifulsoup4 >= 4.12.2,< 4.14.0",
+    "lxml >= 4.9.3,< 5.4.0",
+]
+
+[project.optional-dependencies]
+build = [
+    "build",
+    "twine",
+]
+lint = [
+    "ruff",
+    "mypy",
+]
+format = [
+    "ruff",
+]
+docs = [
+    "sphinx>=7.2.6",
+    "sphinx-rtd-theme>=2.0.0",
+    "sphinx-intl>=2.1.0",
+    "myst-parser>=2.0.0",
+    "sphinx-autodoc-typehints>=1.25.3",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ukwhatn/wikidot.py"
+"Bug Tracker" = "https://github.com/ukwhatn/wikidot.py/issues"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+lint.select = ["E", "F", "I"]
+lint.ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+known-first-party = ["wikidot"]
