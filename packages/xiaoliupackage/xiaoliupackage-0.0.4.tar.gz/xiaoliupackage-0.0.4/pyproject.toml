@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xiaoliupackage"
+version = "0.0.4"
+authors = [
+    { name = "Liu", email = "xaliu@dolby.com" },
+]
+description = "My first Python package"
+requires-python = ">=3"
+license = { text = "Attempy free" }
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+]
+
+dependencies = []
+
+[tool.setuptools]
+packages = { find = {} }
