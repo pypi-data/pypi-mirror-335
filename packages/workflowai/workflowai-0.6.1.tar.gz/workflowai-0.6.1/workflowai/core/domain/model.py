@@ -1,0 +1,136 @@
+from enum import Enum
+from typing import Union
+
+
+# All models that were supported at one point by WorkflowAI
+# Some are deprecated an remapped.
+#
+# Notes:
+# - DO NOT remove models from this list, only add new ones. If needed, add a replacement model
+# in the model datas
+# - the order is the same as will be displayed in the UI. If you need a model to be displayed
+# higher, comment out the line where it should be in "natural" order, and add another one wherever
+# needed for the order
+class Model(str, Enum):
+    # --------------------------------------------------------------------------
+    # OpenAI Models
+    # --------------------------------------------------------------------------
+
+    GPT_4O_LATEST = "gpt-4o-latest"
+    GPT_4O_2024_11_20 = "gpt-4o-2024-11-20"
+    GPT_4O_2024_08_06 = "gpt-4o-2024-08-06"
+    GPT_4O_2024_05_13 = "gpt-4o-2024-05-13"
+    GPT_4O_MINI_LATEST = "gpt-4o-mini-latest"
+    GPT_4O_MINI_2024_07_18 = "gpt-4o-mini-2024-07-18"
+    O3_MINI_LATEST_HIGH_REASONING_EFFORT = "o3-mini-latest-high"
+    O3_MINI_LATEST_MEDIUM_REASONING_EFFORT = "o3-mini-latest-medium"
+    O3_MINI_LATEST_LOW_REASONING_EFFORT = "o3-mini-latest-low"
+    O3_MINI_2025_01_31_HIGH_REASONING_EFFORT = "o3-mini-2025-01-31-high"
+    O3_MINI_2025_01_31_MEDIUM_REASONING_EFFORT = "o3-mini-2025-01-31-medium"
+    O3_MINI_2025_01_31_LOW_REASONING_EFFORT = "o3-mini-2025-01-31-low"
+    O1_2024_12_17_HIGH_REASONING_EFFORT = "o1-2024-12-17-high"
+    O1_2024_12_17_MEDIUM_REASONING_EFFORT = "o1-2024-12-17"
+    O1_2024_12_17_LOW_REASONING_EFFORT = "o1-2024-12-17-low"
+    O1_PREVIEW_2024_09_12 = "o1-preview-2024-09-12"
+    O1_MINI_LATEST = "o1-mini-latest"
+    O1_MINI_2024_09_12 = "o1-mini-2024-09-12"
+    GPT_45_PREVIEW_2025_02_27 = "gpt-4.5-preview-2025-02-27"
+    GPT_4O_AUDIO_PREVIEW_2024_12_17 = "gpt-4o-audio-preview-2024-12-17"
+    GPT_40_AUDIO_PREVIEW_2024_10_01 = "gpt-4o-audio-preview-2024-10-01"
+    GPT_4_TURBO_2024_04_09 = "gpt-4-turbo-2024-04-09"
+    GPT_4_0125_PREVIEW = "gpt-4-0125-preview"
+    GPT_4_1106_PREVIEW = "gpt-4-1106-preview"
+    GPT_4_1106_VISION_PREVIEW = "gpt-4-1106-vision-preview"
+    GPT_3_5_TURBO_0125 = "gpt-3.5-turbo-0125"
+    GPT_3_5_TURBO_1106 = "gpt-3.5-turbo-1106"
+
+    # --------------------------------------------------------------------------
+    # Gemini Models
+    # --------------------------------------------------------------------------
+    GEMINI_2_0_FLASH_LATEST = "gemini-2.0-flash-latest"
+    GEMINI_2_0_FLASH_001 = "gemini-2.0-flash-001"
+    GEMINI_2_0_FLASH_LITE_001 = "gemini-2.0-flash-lite-001"
+    GEMINI_2_0_FLASH_LITE_PREVIEW_2502 = "gemini-2.0-flash-lite-preview-02-05"
+    GEMINI_2_0_PRO_EXP = "gemini-2.0-pro-exp-02-05"
+    GEMINI_2_0_FLASH_EXP = "gemini-2.0-flash-exp"
+    GEMINI_2_0_FLASH_THINKING_EXP_1219 = "gemini-2.0-flash-thinking-exp-1219"
+    GEMINI_2_0_FLASH_THINKING_EXP_0121 = "gemini-2.0-flash-thinking-exp-01-21"
+    GEMINI_1_5_PRO_LATEST = "gemini-1.5-pro-latest"
+    GEMINI_1_5_PRO_002 = "gemini-1.5-pro-002"
+    GEMINI_1_5_PRO_001 = "gemini-1.5-pro-001"
+    GEMINI_1_5_PRO_PREVIEW_0514 = "gemini-1.5-pro-preview-0514"
+    GEMINI_1_5_PRO_PREVIEW_0409 = "gemini-1.5-pro-preview-0409"
+    GEMINI_1_5_FLASH_LATEST = "gemini-1.5-flash-latest"
+    GEMINI_1_5_FLASH_002 = "gemini-1.5-flash-002"
+    GEMINI_1_5_FLASH_001 = "gemini-1.5-flash-001"
+    GEMINI_1_5_FLASH_8B = "gemini-1.5-flash-8b"
+    GEMINI_1_5_FLASH_PREVIEW_0514 = "gemini-1.5-flash-preview-0514"
+    GEMINI_EXP_1206 = "gemini-exp-1206"
+    GEMINI_EXP_1121 = "gemini-exp-1121"
+    GEMINI_1_0_PRO_002 = "gemini-1.0-pro-002"
+    GEMINI_1_0_PRO_001 = "gemini-1.0-pro-001"
+    GEMINI_1_0_PRO_VISION_001 = "gemini-1.0-pro-vision-001"
+
+    # --------------------------------------------------------------------------
+    # Claude Models
+    # --------------------------------------------------------------------------
+    CLAUDE_3_7_SONNET_LATEST = "claude-3-7-sonnet-latest"
+    CLAUDE_3_7_SONNET_20250219 = "claude-3-7-sonnet-20250219"
+    CLAUDE_3_5_SONNET_LATEST = "claude-3-5-sonnet-latest"
+    CLAUDE_3_5_SONNET_20241022 = "claude-3-5-sonnet-20241022"
+    CLAUDE_3_5_SONNET_20240620 = "claude-3-5-sonnet-20240620"
+    CLAUDE_3_5_HAIKU_LATEST = "claude-3-5-haiku-latest"
+    CLAUDE_3_5_HAIKU_20241022 = "claude-3-5-haiku-20241022"
+    CLAUDE_3_OPUS_20240229 = "claude-3-opus-20240229"
+    CLAUDE_3_SONNET_20240229 = "claude-3-sonnet-20240229"
+    CLAUDE_3_HAIKU_20240307 = "claude-3-haiku-20240307"
+
+    # --------------------------------------------------------------------------
+    # Llama Models
+    # --------------------------------------------------------------------------
+    LLAMA_3_3_70B = "llama-3.3-70b"
+    LLAMA_3_2_90B = "llama-3.2-90b"
+    LLAMA_3_2_11B = "llama-3.2-11b"
+    LLAMA_3_2_11B_VISION = "llama-3.2-11b-vision"
+    LLAMA_3_2_3B = "llama-3.2-3b"
+    LLAMA_3_2_1B = "llama-3.2-1b"
+    LLAMA_3_2_90B_VISION_PREVIEW = "llama-3.2-90b-vision-preview"
+    LLAMA_3_2_90B_TEXT_PREVIEW = "llama-3.2-90b-text-preview"
+    LLAMA_3_2_11B_TEXT_PREVIEW = "llama-3.2-11b-text-preview"
+    LLAMA_3_2_3B_PREVIEW = "llama-3.2-3b-preview"
+    LLAMA_3_2_1B_PREVIEW = "llama-3.2-1b-preview"
+    LLAMA_3_1_405B = "llama-3.1-405b"
+    LLAMA_3_1_70B = "llama-3.1-70b"
+    LLAMA_3_1_8B = "llama-3.1-8b"
+    LLAMA3_70B_8192 = "llama3-70b-8192"
+    LLAMA3_8B_8192 = "llama3-8b-8192"
+
+    # --------------------------------------------------------------------------
+    # Mistral AI Models
+    # --------------------------------------------------------------------------
+    MIXTRAL_8X7B_32768 = "mixtral-8x7b-32768"
+    MISTRAL_LARGE_2_LATEST = "mistral-large-2-latest"
+    MISTRAL_LARGE_2_2407 = "mistral-large-2-2407"
+    MISTRAL_LARGE_LATEST = "mistral-large-latest"
+    MISTRAL_LARGE_2411 = "mistral-large-2411"
+    PIXTRAL_LARGE_LATEST = "pixtral-large-latest"
+    PIXTRAL_LARGE_2411 = "pixtral-large-2411"
+    PIXTRAL_12B_2409 = "pixtral-12b-2409"
+    MINISTRAL_3B_2410 = "ministral-3b-2410"
+    MINISTRAL_8B_2410 = "ministral-8b-2410"
+    MISTRAL_SMALL_2409 = "mistral-small-2409"
+    CODESTRAL_MAMBA_2407 = "codestral-mamba-2407"
+
+    # --------------------------------------------------------------------------
+    # Qwen Models
+    # --------------------------------------------------------------------------
+    QWEN_QWQ_32B_PREVIEW = "qwen-v3p2-32b-instruct"
+
+    # --------------------------------------------------------------------------
+    # DeepSeek Models
+    # --------------------------------------------------------------------------
+    DEEPSEEK_V3_2412 = "deepseek-v3-2412"
+    DEEPSEEK_R1_2501 = "deepseek-r1-2501"
+
+
+ModelOrStr = Union[Model, str]
