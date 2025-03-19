@@ -1,0 +1,1 @@
+import"./BQSWrPvQ.js";import{p as c}from"./BZbDFF1N.js";import{C as r}from"./DE1eCaeQ.js";const l="http://localhost:8001/images";function i(t,e){const o=c(e,"isSelected",3,!1);r(t,{get checked(){return o()},get onCheckedChange(){return e.onSelect}})}export{l as P,i as S};

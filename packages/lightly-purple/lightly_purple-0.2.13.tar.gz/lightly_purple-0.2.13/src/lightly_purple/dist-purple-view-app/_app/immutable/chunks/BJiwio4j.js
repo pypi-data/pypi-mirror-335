@@ -1,0 +1,1 @@
+const s={dataset:{sample:a=>`/samples/${a}`,samples:a=>`/datasets/${a}/samples`,annotations:a=>`/datasets/${a}/annotations`}},t={toSamples:a=>s.dataset.samples(a),toAnnotations:a=>s.dataset.annotations(a),toSample:a=>s.dataset.sample(a)};export{t as r};
