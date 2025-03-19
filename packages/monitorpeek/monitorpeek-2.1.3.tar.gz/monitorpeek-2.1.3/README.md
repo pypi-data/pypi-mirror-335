@@ -1,0 +1,95 @@
+# MonitorPeek
+
+<div align="center">
+
+![MonitorPeek Icon](final_icon.ico)
+
+### Real-time Secondary Monitor Preview Tool
+
+[![PyPI version](https://badge.fury.io/py/monitorpeek.svg)](https://badge.fury.io/py/monitorpeek)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Windows](https://img.shields.io/badge/Platform-Windows-blue.svg)](https://github.com/zorat111/MonitorPeek/releases)
+
+*A lightweight Windows utility that lets you peek at your secondary monitor in a resizable window while tracking your cursor in real-time.*
+
+[Installation](#installation) • [Features](#features) • [Usage](#usage) • [Requirements](#requirements) • [Support](#support)
+
+</div>
+
+## 🚀 Features
+
+- 🖥️ **Real-time Monitor Preview**: Smooth, live preview of your secondary display
+- 🎯 **Cursor Tracking**: Live cursor position shown as a red dot
+- 📐 **Smart Resizing**: Window maintains 16:9 aspect ratio
+- 💾 **Position Memory**: Remembers window size and position
+- 🎨 **Clean Interface**: Minimal design with custom icon
+- 🔄 **Auto-start Option**: Optional Windows startup integration
+
+### Screenshots
+
+![Main Window](images/monitorpeek-main.png)
+![Cursor Tracking](images/monitorpeek-cursor-resized.png)
+
+## 📥 Installation
+
+### Quick Start (Windows Executable)
+1. Download [`MonitorPeek-2.1.1.exe`](https://github.com/zorat111/MonitorPeek/releases)
+2. Run the executable
+3. Start peeking at your secondary monitor!
+
+### Python Package
+```bash
+pip install monitorpeek
+```
+
+## ⚙️ Requirements
+
+- Windows 10 or later
+- Secondary monitor connected
+- Display resolution: 1920x1080 (16:9)
+- Python 3.8+ (for pip installation)
+
+## 🎮 Usage
+
+1. Launch MonitorPeek
+2. Position the preview window
+3. Resize as needed (16:9 ratio maintained)
+4. Track your cursor with the red dot
+5. Access more options via system tray
+
+## 🛠️ Development
+
+```bash
+# Clone repository
+git clone https://github.com/zorat111/MonitorPeek.git
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run application
+python MonitorPeek2.1.1.pyw
+```
+
+## 📦 Dependencies
+
+- PyQt6 ≥ 6.4.0
+- opencv-python ≥ 4.7.0
+- numpy ≥ 1.24.0
+- mss ≥ 9.0.1
+- pywin32 ≥ 305
+
+## 📄 License
+
+MIT License - For personal and non-commercial use only.
+See [license.txt](license.txt) for details.
+
+## 👤 Author
+
+Created by John (zorat111)
+
+## 🤝 Support
+
+- 🐛 [Report Issues](https://github.com/zorat111/MonitorPeek/issues)
+- 📦 [Latest Releases](https://github.com/zorat111/MonitorPeek/releases)
+- 📧 Contact: zorat@abv.bg
+  
