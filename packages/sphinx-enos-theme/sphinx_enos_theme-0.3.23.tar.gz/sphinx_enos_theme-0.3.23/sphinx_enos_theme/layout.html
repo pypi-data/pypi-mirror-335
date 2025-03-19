@@ -1,0 +1,302 @@
+{# TEMPLATE VAR SETTINGS #}
+{%- set url_root = pathto('', 1) %}
+{%- if url_root == '#' %}{% set url_root = '' %}{% endif %}
+{%- if not embedded and docstitle %}
+  {%- set titlesuffix = " &mdash; "|safe + docstitle|e %}
+{%- else %}
+  {%- set titlesuffix = "" %}
+{%- endif %}
+{%- set lang_attr = 'en' if language == None else (language | replace('_', '-')) %}
+{% if page_source_suffix %}
+{% set suffix = page_source_suffix %}
+{% else %}
+{% set suffix = source_suffix %}
+{% endif %}
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="{{ lang_attr }}" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{{ lang_attr }}" style="visibility: hidden;" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  {{ metatags }}
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% block htmltitle %}
+  <title>{{ title|striptags|e }}{{ titlesuffix }}</title>
+  {% endblock %}
+
+  {# FAVICON #}
+  <!-- {% if favicon %}
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+  {% endif %} -->
+  <!-- <link rel="shortcut icon" href="data:image/x-icon;base64,AAABAAEAICAAAAEAIACoEAAAFgAAACgAAAAgAAAAQAAAAAEAIAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAfHx9JHh4e4x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7jHx8fSR4eHuMeHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7jHh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/0RERP+Kior/aWlp/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv9QUFD/+fn5////////////oaGh/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/7Ozs//////////////////+/v7/KSkp/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/u7u7//////////////////////8wMDD/Hh4e/x4eHv8eHh7/S0tL/6Wlpf+lpaX/S0tL/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8oKCj/l5eX/5mZmf8uLi7/Hh4e/x4eHv9sbGz/////////////////w8PD/x4eHv8eHh7/Hh4e/0lJSf/6+vr////////////6+vr/SEhI/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/6Wlpf///////////8DAwP8eHh7/Hh4e/x4eHv9vb2//ubm5/5mZmf8rKyv/Hh4e/x4eHv8eHh7/oKCg//////////////////////+fn5//Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/2tra/////////////v7+/yYmJv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv+enp7//////////////////////52dnf8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv+4uLj////////////y8vL/ISEh/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/0NDQ//39/f////////////39/f/Q0ND/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/z4+Pv/g4OD/9/f3/3d3d/8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/0NDQ/+bm5v/mpqa/0NDQ/8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8iIiL/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/zY2Nv8uLi7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/SUlJ/2pqav8fHx//Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/yUlJf+3t7f///////r6+v9zc3P/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv/q6ur//////6Wlpf8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/h4eH/////////////////+jo6P8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/+Tk5P///////Pz8/yoqKv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv+3t7f/////////////////6enp/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/cHBw//39/f/09PT/JiYm/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/4iIiP////////////////+Li4v/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/QkJC/zw8PP8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/ICAg/42Njf+7u7v/eXl5/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv9GRkb/mpqa/0dHR/8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/z8/P/+2trb/4eHh/6qqqv8hISH/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/2lpaf//////8/Pz/z09Pf8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8lJSX/6Ojo/////////////////1FRUf8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/4ODg//R0dH/Tk5O/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/z4+Pv/////////////////f39//JSUl/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8fHx//mJiY/8bGxv+ZmZn/Ly8v/x4eHv8eHh7/Hh4e/3p6ev+7u7v/lpaW/zAwMP8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/y4uLv/39/f///////////+RkZH/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/z4+Pv+Ojo7/g4OD/y8vL/8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7jHh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e4x8fH0keHh7jHh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHv8eHh7/Hh4e/x4eHuMfHx9JAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="/> -->
+  {# CANONICAL URL #}
+  {% if theme_canonical_url %}
+    <link rel="canonical" href="{{ theme_canonical_url }}{{ pagename }}.html"/>
+  {% endif %}
+  <script src="/static/vendor/jquery.js"></script>
+  <script src="/docs/static/vendor/jquery.js"></script>
+  {% if enableAuth %}
+    <script>
+      window.enableAuth = true;
+    </script>
+  {% endif %}
+  <script>
+    const language = '{{ language }}';
+    let currentLang = 'en';
+    if (language === 'en' || language === 'en_us' || language === 'en_US' || language === 'EN_US') {
+      currentLang = 'en';
+    } else {
+      currentLang = 'zh_CN';
+    }
+    window.localStorage.setItem('enos-docs-locale', currentLang);
+    window.addEventListener('searchResult', (event) => {
+      const result = event.detail.payload;
+      const doSearch = event.detail.payloadFunc;
+      const query = event.detail.payloadQuery;
+      window.searchResult = result;
+      window.doSearchFunc = doSearch;
+      window.query = query;
+      const eventInner = new CustomEvent('searchResultInner', { detail: { payload: result, payloadFunc: doSearch, payloadQuery: query} });
+      window.dispatchEvent(eventInner);
+    });
+    if (!window.jQuery && require) {
+      window.$ = require("jquery");
+      window.jQuery = window.$;
+    }
+  </script>
+  <script src="{{ pathto('_static/js/docAuthLogin.84d60d46bacb4833a64b.js', 1) }}"></script>
+
+  {%- if (language == 'en') or (language == 'en_us') or (language == 'en_US') or (language == 'EN_US') %}
+  {%- set versionLang = 'en' %}
+  {%- else %}
+  {%- set versionLang = 'zh_CN' %}
+  {%- endif %}
+  <script type="text/javascript">
+
+    function loadScript(url) {
+      return new Promise(function(resolve, reject) {
+        var script = document.createElement('script');
+        script.src = url;
+        script.type = "text/javascript";
+        script.onload = function() {
+          resolve();
+        };
+        script.onerror = function() {
+          reject();
+        };
+        document.head.appendChild(script);
+      });
+    }
+
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    const timeCSS = `2025-2-19-17`;
+    link.setAttribute('href', '/docs/static/css/themeCustom.css?' + timeCSS);
+    link.setAttribute('type', 'text/css');
+    const head = document.getElementsByTagName('head')[0];
+    if (head) {
+      head.insertAdjacentElement('beforeend', link);
+    }
+
+    Promise.all([loadScript(`/docs/config/config.js?1742377267654`), loadScript(`/docs/static/js/versionTools.js?1742377267654`)])
+      .then(function() {
+        const nextVersion = '/' + ((window.versionTools && window.versionTools.findLatestVersion && window.versionTools.findLatestVersion(currentLang)) || '2.4.0') + '/';
+        const isDisplayDev = window.location.host === 'support.eniot.io' || window.displayDev;
+        if (!isDisplayDev && /\/docs\/\S+\/(zh_CN|en)\/dev\//.test(window.location.pathname)) {
+          var url = window.location.href;
+          url = url.replace(/\/dev\//, nextVersion);
+          window.location.href = url;
+        }
+      });
+  </script>
+
+  {# JAVASCRIPTS #}
+  {%- if not embedded %}
+  {# XXX Sphinx 1.8.0 made this an external js-file, quick fix until we refactor the template to inherert more blocks directly from sphinx #}
+    {% if sphinx_version >= "1.8.0" %}
+      <script type="text/javascript" id="documentation_options" data-url_root="{{ pathto('', 1) }}" src="{{ pathto('_static/documentation_options.js', 1) }}"></script>
+      {%- for scriptfile in script_files %}
+        {{ js_tag(scriptfile) }}
+      {%- endfor %}
+    {% else %}
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'{{ url_root }}',
+              VERSION:'{{ release|e }}',
+              LANGUAGE:'{{ language }}',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'{{ '' if no_search_suffix else file_suffix }}',
+              HAS_SOURCE:  {{ has_source|lower }},
+              SOURCELINK_SUFFIX: '{{ sourcelink_suffix }}'
+          };
+      </script>
+      {%- for scriptfile in script_files %}
+        <script type="text/javascript" src="{{ pathto(scriptfile, 1) }}"></script>
+      {%- endfor %}
+    {% endif %}
+    <script src="/static/javascript/MathJax.js"></script>
+
+    {# OPENSEARCH #}
+    {%- if use_opensearch %}
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="{% trans docstitle=docstitle|e %}Search within {{ docstitle }}{% endtrans %}"
+          href="{{ pathto('_static/opensearch.xml', 1) }}"/>
+    {%- endif %}
+
+    
+    {# AUTH #}
+    {% if theme_docs_auth|tobool %}
+    <script type="text/javascript">
+      localStorage.setItem('docsAuth', 'true');
+    </script>
+    {% else %}
+    <script type="text/javascript">
+      localStorage.setItem('docsAuth', '');
+    </script>
+    {% endif %}
+  {%- endif %}
+
+  {# CSS #}
+  <link rel="stylesheet" href="{{ pathto('_static/css/theme.css?aaabbb', 1) }}" type="text/css" />
+  <link rel="stylesheet" href="/docs/static/css/badge_only.css" type="text/css" />
+  <!-- <link rel="stylesheet" href="{{ pathto('_static/pygments.css', 1) }}" type="text/css" /> -->
+  {%- for css in css_files %}
+    {%- if css|attr("rel") %}
+  <link rel="{{ css.rel }}" href="{{ pathto(css.filename, 1) }}" type="text/css"{% if css.title is not none %} title="{{ css.title }}"{% endif %} />
+    {%- else %}
+  <link rel="stylesheet" href="{{ pathto(css, 1) }}" type="text/css" />
+    {%- endif %}
+  {%- endfor %}
+
+  {%- for cssfile in extra_css_files %}
+    <link rel="stylesheet" href="{{ pathto(cssfile, 1) }}" type="text/css" />
+  {%- endfor %}
+
+  {%- block linktags %}
+    {%- if hasdoc('about') %}
+    <link rel="author" title="{{ _('About these documents') }}" href="{{ pathto('about') }}" />
+    {%- endif %}
+    {%- if hasdoc('genindex') %}
+    <link rel="index" title="{{ _('Index') }}" href="{{ pathto('genindex') }}" />
+    {%- endif %}
+    {%- if hasdoc('search') %}
+    <link rel="search" title="{{ _('Search') }}" href="{{ pathto('search') }}" />
+    {%- endif %}
+    {%- if hasdoc('copyright') %}
+    <link rel="copyright" title="{{ _('Copyright') }}" href="{{ pathto('copyright') }}" />
+    {%- endif %}
+    {%- if next %}
+    <link rel="next" title="{{ next.title|striptags|e }}" href="{{ next.link|e }}" />
+    {%- endif %}
+    {%- if prev %}
+    <link rel="prev" title="{{ prev.title|striptags|e }}" href="{{ prev.link|e }}" />
+    {%- endif %}
+  {%- endblock %}
+  {%- block extrahead %} {% endblock %}
+  <script src="/static/javascript/underscore.js"></script>
+</head>
+
+<body id='root'>
+  {%include "header.html"%}
+  {% block extrabody %} {% endblock %}
+  {% if enableAuth %}
+    <div class="page-loading"></div>
+  {% endif %}
+  <div class="enos-doc">
+    <script>
+      if (window.docAuthLoginSuccess) {
+          window.PageLoadingManager.open();
+      } else {
+          window.addEventListener('docAuthLoginSuccess', async (event) => {
+              window.PageLoadingManager.open();
+          });
+      }
+    </script>
+    <div class="enos-menu-icon dplicon_direction_left_s"></div>
+    {# SIDE NAV, TOGGLES ON MOBILE #}
+    <nav data-toggle="enos-nav-shift" class="enos-doc-side">
+    {%include "side.html"%}
+    </nav>
+
+    <section data-toggle="enos-nav-shift" class="enos-doc-content">
+      <div class="enos-doc-content-body">
+        {%- block content %}
+          {% if theme_style_external_links|tobool %}
+          <div class="rst-content style-external-links">
+          {% else %}
+          <div {% if toc %} class="rst-content" {%- else %} class="rst-content toc-is-hidden" {% endif %}>
+          {% endif %}
+            <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            {%- block document %}
+            <div itemprop="articleBody">
+              {% include "breadcrumbs.html" %}
+              {% block body %}{% endblock %}
+            </div>
+            {% if self.comments()|trim %}
+            <div class="articleComments">
+              {% block comments %}{% endblock %}
+            </div>
+            {% endif%}
+            </div>
+            {%- endblock %}
+            {% include "footer.html" %}
+          </div>
+        {%- endblock %}
+        {% if toc %}
+        <div class="enos-toc-toggle dplicon_direction_right_s"></div>
+        <div class="enos-doc-local-toc">
+          <div class="toc">
+            {%- if (language == 'en') or (language == 'en_us') or (language == 'en_US') or (language == 'EN_US') %}
+            {%- set tocTitle = 'On this page' %}
+            {%- else %}
+            {%- set tocTitle = '本页内容' %}
+            {%- endif %}
+            {% if toc %}
+            <div class="toc-title">{{tocTitle}}</div>
+            {% endif %}
+            {{ toc }}
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      <!-- footer -->
+      {%- block footer %} {% endblock %}
+
+    {%include "gfooter.html"%}
+    </section>
+
+  </div>
+  <!-- if you are developing this theme, please change next line to  -->
+  <!-- <script type="text/javascript" src="_static/js/theme.js"></script> -->
+  <!-- end if -->
+  <script type="text/javascript">
+    const gitInfo = {
+      language: '{{ language }}',
+      gitLabEditHref: 'https://{{ enos_gitlab_host|default("git.eniot.io") }}/{{ enos_gitlab_group|default("enos_docs") }}/{{ enos_gitlab_repo }}/{{ theme_vcs_pageview_mode|default("blob") }}/{{ current_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}',
+      gitHubEditHref: 'https://{{ enos_github_host|default("github.com") }}/{{ enos_github_group|default("EnvisionIot") }}/{{ enos_github_repo or enos_gitlab_repo }}/{{ theme_vcs_pageview_mode|default("blob") }}/{{ current_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}',
+      bitbucketEditHref: 'https://{{ enos_bitbucket_host|default("bitbucket.org") }}/{{ enos_bitbucket_group }}/{{ enos_bitbucket_repo or enos_gitlab_repo }}/src/{{ current_version }}{{ conf_py_path }}{{ pagename }}{{ suffix }}?mode={{ theme_vcs_pageview_mode|default("view") }}'
+    }
+    window.sphinxEnosThemeHeader = {
+      language: '{{ language }}',
+      docUrl: '{{ doc_url }}',
+      g_url: '{{ g_url }}',
+      versions: {{ versions }},
+      currentVersion: '{{ current_version }}',
+    }
+    const secScript = document.createElement("script");
+    const time = new Date().getFullYear() + '-' + new Date().getMonth() + '-' + new Date().getDate() + '-' + new Date().getHours();
+    secScript.setAttribute("type", "text/javascript");
+    secScript.setAttribute("src", '/docs/static/js/theme.js?' + time);
+    secScript.async = false;
+    document.body.appendChild(secScript);
+
+    const themeScript = document.createElement("script");
+    themeScript.setAttribute("type", "text/javascript");
+    themeScript.setAttribute("src", "{{ pathto('_static/js/theme.c53245eb8119dbe242ea.js', 1) }}");
+    themeScript.async = false;
+    document.body.appendChild(themeScript);
+  </script>
+ <!-- <script type="text/javascript" src="{{ pathto('_static/js/theme.c53245eb8119dbe242ea.js', 1) }}"></script> -->
+
+</body>
+</html>

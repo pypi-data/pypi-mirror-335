@@ -1,0 +1,15 @@
+{%- if (language == 'en') or (language == 'en_us') or (language == 'en_US') or (language == 'EN_US') %}
+{%- set copyright = theme_copyright_en %}
+{%- else %}
+{%- set copyright = theme_copyright_zh %}
+{%- endif %}
+<div id="footer">
+  <footer class="footer">
+    <div class="warp">
+      <div class="copyright">
+        {{copyright}}
+      </div>
+    </div>
+  </footer>
+</div>
+
