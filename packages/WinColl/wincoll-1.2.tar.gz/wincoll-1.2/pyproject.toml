@@ -1,0 +1,54 @@
+[project]
+name = "WinColl"
+version = "1.2"
+description = "Simple rocks-and-diamonds game"
+license = {text = "GPL v3 or later"}
+authors = [{name = "Reuben Thomas", email = "rrt@sc3d.org"}]
+readme = "README.md"
+urls = {Homepage = "https://github.com/rrthomas/wincoll"}
+requires-python = ">= 3.12"
+dependencies = [
+    "chambercourt >= 0.9.26",
+]
+classifiers = [
+    "Environment :: X11 Applications",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Topic :: Games/Entertainment :: Puzzle Games",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+wincoll = "wincoll:main"
+
+[build-system]
+requires = ["build", "setuptools >= 62.3.0"]
+
+[tool.setuptools]
+packages = ["wincoll"]
+
+[tool.setuptools.package-data]
+wincoll = ["**/*.png", "**/*.wav", "**/*.tmx", "**/*.tsx", "**/*.ttf", "**/*.mo"]
+
+[tool.pyright]
+include = ["wincoll"]
+
+[tool.ruff.lint]
+select = ["D", "E", "F", "I", "UP"]
+ignore = ["D1", "D401", "E501"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[[tool.cxfreeze.executables]]
+script = "wincoll/__main__.py"
+base = "gui"
+icon = "app-icon"
+shortcut_name = "WinColl"
+shortcut_dir = "DesktopFolder"
+
+[tool.cxfreeze.build_exe]
+include_msvcr = true
