@@ -1,0 +1,85 @@
+name: 解析b站视频
+description: 规则设置成输入包含 bili 或 哔哩哔哩 或 b23.tv
+blocks:
+  - type: internal:get_message
+    name: 00de21d4-66ca-4d15-9e19-cef59339c0d3
+    params: {}
+    position:
+      x: 232
+      y: 259
+    connected_to:
+      - target: 8cc5b545-07b8-46ae-98fb-194ba5cf601c
+        mapping:
+          from: msg
+          to: msg
+      - target: ed22737a-9aa9-4fc5-8352-9b31bab5ae15
+        mapping:
+          from: sender
+          to: target
+      - target: 528fce92-a080-4120-9ee0-b00a8f672e43
+        mapping:
+          from: sender
+          to: target
+  - type: internal:im_message_to_text
+    name: 8cc5b545-07b8-46ae-98fb-194ba5cf601c
+    params: {}
+    position:
+      x: 520
+      y: 269
+    connected_to:
+      - target: fcdf9691-7bda-4e4f-91f5-af4cff21bcd1
+        mapping:
+          from: text
+          to: url
+  - type: internal:text_to_im_message
+    name: cf4f3a14-0023-4e53-974e-b945175cc76e
+    params:
+      split_by: ''
+    position:
+      x: 1148
+      y: 254
+    connected_to:
+      - target: ed22737a-9aa9-4fc5-8352-9b31bab5ae15
+        mapping:
+          from: msg
+          to: msg
+  - type: internal:send_message
+    name: ed22737a-9aa9-4fc5-8352-9b31bab5ae15
+    params:
+      im_name: onebot
+    position:
+      x: 1511
+      y: 257
+  - type: video:bilibili_rex
+    name: fcdf9691-7bda-4e4f-91f5-af4cff21bcd1
+    params: {}
+    position:
+      x: 870
+      y: 257
+    connected_to:
+      - target: cf4f3a14-0023-4e53-974e-b945175cc76e
+        mapping:
+          from: info
+          to: text
+      - target: f7664127-eeae-4066-b280-84bea78b8abd
+        mapping:
+          from: info
+          to: text
+  - type: auto:url_to_message
+    name: f7664127-eeae-4066-b280-84bea78b8abd
+    params: {}
+    position:
+      x: 1193
+      y: 418
+    connected_to:
+      - target: 528fce92-a080-4120-9ee0-b00a8f672e43
+        mapping:
+          from: message
+          to: msg
+  - type: internal:send_message
+    name: 528fce92-a080-4120-9ee0-b00a8f672e43
+    params:
+      im_name: onebot
+    position:
+      x: 1539
+      y: 406
