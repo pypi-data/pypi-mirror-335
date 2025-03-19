@@ -1,0 +1,140 @@
+name = "simulation"
+starting_date = 1990-01-01 00:00:00.000
+[files]
+pet = "pet_touques.csv"
+rainfall = "rainfall_touques.csv"
+snow = ""
+temperature = ""
+tree = "touques.csv"
+riverobs = "riverobs_touques.csv"
+riverpumping = "riverpumping_touques.csv"
+groundwaterobs = "groundwaterobs_touques.csv"
+groundwaterpumping = ""
+states = ""
+[input_format]
+meteo_files = false
+[outputs]
+budget = false
+metrics = true
+parameters = true
+toml = true
+states = true
+[spinup]
+starting_date = 1970-01-01 00:00:00.000
+ending_date = 1989-12-31 00:00:00.000
+cycles = 2
+[forecast]
+forecast = false
+correction = "no"
+quantiles_output = false
+quantiles = [ 10, 20, 50, 80, 90 ]
+norain = false
+[optimization]
+maxit = 0
+starting_date = 1990-01-01 00:00:00.000
+transformation = "square root"
+method = "all"
+river_objective_function = "nse"
+verbose = false
+[watershed.all]
+name = ""
+is_confluence = false
+meteo.columns = [ 1 ]
+meteo.weights = [ 1.00000 ]
+forecast.river.halflife = 0.00000
+forecast.groundwater.halflife = 0.00000
+correction.area = { value = 1.00000, lower = 0.80000, upper = 1.20000, opti = false, sameas = 0 }
+correction.rainfall = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+correction.pet = { lower = 0.00000, upper = 20.00000, opti = true, sameas = 0 }
+river.weight = 1.00000
+river.obslim = [ 0.00000, 0.00000 ]
+river.area = { lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+river.minimum_riverflow = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+river.concentration_time = { lower = 0.00000, upper = 10.00000, opti = true, sameas = 0 }
+river.propagation_time = { lower = 0.00000, upper = 10.00000, opti = true, sameas = 0 }
+thornthwaite.capacity = { value = 0.00000, lower = 0.00000, upper = 450.00000, opti = false, sameas = 0 }
+progressive.pet_decrease = false
+progressive.capacity = { lower = 0.00000, upper = 400.00000, opti = true, sameas = 0 }
+transfer.runsee = { lower = 1.00000, upper = 9.9990000000000000E+3, opti = true, sameas = 0 }
+transfer.halflife = { lower = 0.01000, upper = 10.00000, opti = true, sameas = 0 }
+transfer.overflow.loss = "no"
+transfer.overflow.threshold = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+transfer.overflow.halflife = { value = 0.05000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+groundwater.weight = 1.00000
+groundwater.obslim = [ 0.00000, 0.00000 ]
+groundwater.base_level = { lower = 0.00000, upper = 0.00000, opti = true, sameas = 0 }
+groundwater.storage.regression = false
+groundwater.storage.coefficient = { lower = 0.10000, upper = 50.00000, opti = true, sameas = 0 }
+groundwater.1.halflife_baseflow = { lower = 0.10000, upper = 30.00000, opti = true, sameas = 0 }
+groundwater.1.halflife_drainage = { lower = 0.10000, upper = 500.00000, opti = false, sameas = 0 }
+groundwater.1.exchanges = { lower = -50.00000, upper = 50.00000, opti = false, sameas = 0 }
+groundwater.1.overflow.threshold = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+groundwater.1.overflow.halflife = { value = 0.00000, lower = 0.00100, upper = 20.00000, opti = false, sameas = 0 }
+groundwater.2.halflife_baseflow = { lower = 1.00000, upper = 50.00000, opti = false, sameas = 0 }
+groundwater.2.halflife_drainage = { value = 0.00000, lower = 0.05000, upper = 50.00000, opti = false, sameas = 0 }
+groundwater.2.exchanges = { value = 0.00000, lower = -20.00000, upper = 20.00000, opti = false, sameas = 0 }
+groundwater.2.overflow.threshold = { value = 0.00000, lower = 0.00000, upper = 9.9990000000000000E+3, opti = false, sameas = 0 }
+groundwater.2.overflow.halflife = { value = 0.00000, lower = 0.00100, upper = 20.00000, opti = false, sameas = 0 }
+snow.correction.temperature = { value = 0.00000, lower = -3.00000, upper = 3.00000, opti = false, sameas = 0 }
+snow.correction.pet = { value = 0.00000, lower = -20.00000, upper = 20.00000, opti = false, sameas = 0 }
+snow.correction.rainfall = { value = 0.00000, lower = -20.00000, upper = 20.00000, opti = false, sameas = 0 }
+snow.degree_day.coefficient = { value = 3.50000, lower = 0.00100, upper = 7.00000, opti = false, sameas = 0 }
+snow.degree_day.temperature = { value = 0.00000, lower = -3.00000, upper = 3.00000, opti = false, sameas = 0 }
+snow.retention = { value = 5.00000, lower = 0.00100, upper = 30.00000, opti = false, sameas = 0 }
+snow.melting = { value = 5.00000, lower = 0.00100, upper = 20.00000, opti = false, sameas = 0 }
+pumping.river.coefficient = { value = 1.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+pumping.river.halflife_rise = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+pumping.river.halflife_fall = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+pumping.groundwater.coefficient = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+pumping.groundwater.halflife_rise = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+pumping.groundwater.halflife_fall = { value = 0.00000, lower = 0.00000, upper = 0.00000, opti = false, sameas = 0 }
+[watershed.1]
+name = "St_Martin_Lieue"
+correction.pet = { value = 20.00000 }
+forecast.river.halflife = 1.50000
+river.area = { value = 289.00000 }
+river.concentration_time = { value = 0.74839 }
+river.propagation_time = { value = 0.56244 }
+progressive.capacity = { value = 400.00000 }
+transfer.runsee = { value = 42.68844 }
+transfer.halflife = { value = 0.01000 }
+groundwater.observed_reservoir = 2
+groundwater.base_level = { value = 126.77116 }
+groundwater.storage.coefficient = { value = 8.94344 }
+groundwater.1.halflife_baseflow = { value = 1.07970 }
+groundwater.1.halflife_drainage = { value = 0.39820, opti = true}
+groundwater.1.exchanges = { value = 0.00000 }
+groundwater.2.halflife_baseflow = { value = 20.09816, opti = true }
+[watershed.2]
+name = "Beauvillers"
+correction.pet = { value = 20.00000 }
+river.area = { value = 332.00000 }
+river.concentration_time = { value = 0.67416 }
+river.propagation_time = { value = 0.28658 }
+progressive.capacity = { value = 278.69870 }
+transfer.runsee = { value = 43.22161 }
+transfer.halflife = { value = 0.08392 }
+groundwater.observed_reservoir = 1
+groundwater.base_level = { value = 148.27457 }
+groundwater.storage.coefficient = { value = 7.59185 }
+groundwater.1.halflife_baseflow = { value = 21.53885 }
+groundwater.1.halflife_drainage = { value = 0.00000 }
+groundwater.1.exchanges = { value = -14.00000, opti = true }
+groundwater.2.halflife_baseflow = { value = 0.00000 }
+[watershed.3]
+name = "Pierrefite"
+correction.pet = { value = 0.00000 }
+river.area = { value = 203.00000 }
+river.concentration_time = { value = 0.88191 }
+river.propagation_time = { value = 0.50000 }
+progressive.capacity = { value = 216.33485 }
+transfer.runsee = { value = 16.06299 }
+transfer.halflife = { value = 0.04477 }
+groundwater.weight = 0.000
+groundwater.observed_reservoir = 1
+groundwater.base_level = { value = 0.00000 }
+groundwater.storage.coefficient = { value = 1.00000 }
+groundwater.1.halflife_baseflow = { value = 7.30935 }
+groundwater.1.halflife_drainage = { value = 0.00000 }
+groundwater.1.exchanges = { value = 0.00000 }
+groundwater.2.halflife_baseflow = { value = 0.00000 }
