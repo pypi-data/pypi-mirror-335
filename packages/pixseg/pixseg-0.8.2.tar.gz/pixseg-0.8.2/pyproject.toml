@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pixseg"
+version = "0.8.2"
+requires-python = ">=3.10"
+dependencies = ["torch>=2.6.0", "torchvision>=0.21.0"]
+authors = [
+    { name = "Cheung Ka Fai", email = "cyrus.cheungkf@gmail.com" },
+    { email = "m19990328@gmail.com" },
+]
+description = "A simple semantic segmentation package using PyTorch"
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = ["pytorch", "semantic segmentation"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+]
+
+[project.optional-dependencies]
+full = [
+    "matplotlib>=3.10.0",
+    "seaborn>=0.13.2",
+    "scikit-learn>=1.6.1",
+    "tqdm>=4.67.1",
+    "toml>=0.10.2",
+    "wandb>=0.19.6",
+    "tensorboard>=2.19.0",
+]
+dev = [
+    "pixseg[full]",
+    "torchinfo>=1.8.0",
+    "jupyter>=1.1.1",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "build>=1.2.2",
+    "twine>=6.1.0",
+    "h5py>=3.13.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/CyrusCKF/pixseg"
+Documentation = "https://github.com/CyrusCKF/pixseg/blob/main/README.md"
+Repository = "https://github.com/CyrusCKF/pixseg"
+Issues = "https://github.com/CyrusCKF/pixseg/issues"

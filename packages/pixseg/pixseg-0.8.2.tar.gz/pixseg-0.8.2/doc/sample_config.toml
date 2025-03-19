@@ -1,0 +1,55 @@
+# Notes: 
+# 1. When batch_size > 1, make sure images all have same size OR pad_crop_size to not "none" 
+# 2. If batch_size = 1, some model using batch norm in train mode will raise error
+
+[model]
+model = "pspnet_resnet50"
+# state_file = './model.pth'             # uncomment to load model state dict
+params = {}
+
+[data.dataset]
+dataset = "VOC"
+pad_crop_size = [500, 500]            # "none", or tuple of (H, W)
+params = { root = 'path/to/dataset' }
+
+[data.loader]
+num_workers = 0
+params = { batch_size = 4, drop_last = true, shuffle = true }
+
+[data.augment]
+params = { hflip = 0.5 }
+
+[criterion]
+criterion = "CrossEntropyLoss"
+class_weight = "none"          # name of list of floats
+aux_weight = 0
+params = {}
+
+[optimizer]
+optimizer = "SGD"
+effective_batch_size = 32                                  # must be multiple of batch_size
+params = { lr = 0.1, momentum = 0.9, weight_decay = 5e-4 }
+
+[lr_scheduler]
+lr_scheduler = "PolynomialLR"
+params = { total_iters = 100, power = 0.9 }
+
+[scaler]
+params = {}
+
+[trainer]
+device = "auto"
+params = { num_epochs = 100, checkpoint_steps = 20 }
+
+[paths]
+runs_folder = '../runs'
+# checkpoint = '../runs/exp/latest_checkpoint.pth' # uncomment to resume checkpoint
+
+[log.wandb]
+# api_key = "ssssssssssssssssssssssssssssssssssssssss" # uncomment to use wandb
+# run_id = "ssssssss" # uncomment to resume run
+params = { project = "Semantic-Segmentation", job_type = "train", dir = '..\' }
+
+[log.tensorboard]
+enabled = false
+params = { parent_dir = '..\tensorboard' }
