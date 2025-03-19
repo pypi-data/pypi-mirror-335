@@ -1,0 +1,66 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## 0.1.0 - 2018-11-24
+### Added
+This is the inertial release
+
+## 0.1.4 - 2018-11-28
+### Added
+- Splitting timeseries to hours within method *get_rinex_availability*
+### Updated
+- Restructured folders and files for packaging
+
+## 0.1.5 - 2019-01-11
+### Added
+- RinexQuality: I added a static method 
+  RinexQuality.get_session_code(second_of_hour) to solve this issue
+### Updated
+- RinexQuality: fixed wrong session code of last entry. Solved with the static
+  method "RienxQuality.get_session_code(second_of_hour)
+
+## 0.1.6 - 2019-02-14
+### Updated
+- RinexFactory: class lives no in separate file, can build classes from file or by version
+- RinexObsReader: class holds now initial part for Rinex2 and Rinex3
+- RinexObsHeader: class holds now initial part for Rinex2 and Rinex3
+
+## 1.0.1 - 2022-08-30
+### Changed
+- RinexQuality: RinStat format adapted
+
+## 1.0.2 - 2023-11-24
+### Added
+- RinexObsHeader: Added REGEX for L3 signals and D obs types (descriptors)
+### Changed
+- RinexObsReader: method read_satellite correct parsing ob decriptors
+
+## 1.0.3 - 2025-02-27
+- Reset everything
+
+## 1.0.4 - 2025-02-27
+- CHG: moved rinex_parser into src directory
+- CHG: changed logger to INFO
+- ADD: pyproject.toml
+- CHG: README.md
+- CHG: obs_reader.py - to_rinex3(), parser, interval filter
+- CHG: obs_header.py - to_rinex3()
+
+## 1.1.0 - 2025-03-16
+- NEW: Filter observation types that are not used
+- REM: Pipfile, using pyproject.toml now
+- ADD: Constants for time formatting
+- FIX: Faster Rinex Epoch preparation
+- ADD: Entrypoint *ridah-main*
+
+## 1.1.1 - 2025-03-19
+- CHG: Readme update
+
+## 1.1.2 - 2025-03-19
+- FIX: Add "::RX3::" as filename
+
+## 1.1.3 - 2025-03-19
+- FIX: Adding epoch interval into header if missing
