@@ -1,0 +1,23 @@
+{
+  "name": "bare",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "bare.v",
+      "pins"      : [
+        {"set"    : "basic"},
+        {"set"    : "vga", "define" : "VGA=1"},
+        {"set"    : "spiscreen_extra", "define" : "SPISCREEN_EXTRA=1"},
+        {"set"    : "uart",   "define" : "UART=1"},
+        {"set"    : "pmod_qqspi", "define" : "PMOD_QQSPI=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "shell",
+          "command" : "bare.sh",
+          "description": "Custom shell script"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: yowasp-silice
+Version: 1.0.post338512
+Summary: Silice HDL
+Author-email: sylefeb <sylefeb@antexel.com>, Catherine <whitequark@whitequark.org>
+License: ISC
+Project-URL: Homepage, https://yowasp.org/
+Project-URL: Source Code, https://github.com/sylefeb/silice-yowasp
+Project-URL: Bug Tracker, https://github.com/sylefeb/silice-yowasp/issues
+Classifier: License :: OSI Approved :: ISC License (ISCL)
+Description-Content-Type: text/markdown
+Requires-Dist: yowasp-runtime~=1.12
+Requires-Dist: importlib-resources; python_version < "3.9"
+
+YoWASP Silice packages
+=======================
+
+The YoWASP Silice package provides [Silice](https://github.com/sylefeb/Silice) built for [WebAssembly]() and the [YoWASP project](http://yowasp.org/).
+
+Notes
+-----
+
+- Error reporting has limitations due to having to compile without C++ exceptions for WASI. This is in particular the case for preprocessor errors.
+- The [easy-riscv](https://github.com/sylefeb/Silice/tree/master/projects/easy-riscv) feature of Silice is currently not supported as it needs to call [gcc]() externally.
+
+Versioning
+----------
+
+The version of this package is derived from the upstream Silice package version, and is currently the git commit version.
+
+Configuration
+-------------
+
+See the documentation for [yowasp-runtime](https://github.com/YoWASP/runtime#configuration).
+
+License
+-------
+
+This package is covered by the [ISC license](LICENSE.txt), which is the same as the [YoWASP license](https://github.com/YoWASP/yosys/blob/develop/LICENSE.txt).
+
+Credits
+-------
+- YoWASP by whitequark, see http://yowasp.org/

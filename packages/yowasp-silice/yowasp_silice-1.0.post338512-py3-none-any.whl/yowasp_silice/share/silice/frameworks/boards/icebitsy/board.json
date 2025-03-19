@@ -1,0 +1,39 @@
+{
+  "name": "icebreaker",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "icebitsy.v",
+      "pins"      : [
+        {"set"    : "basic"},
+        {"set"    : "buttons", "define" : "BUTTONS=1"},
+        {"set"    : "uart", "define" : "UART=1"},
+        {"set"    : "vga", "define" : "VGA=1"},
+        {"set"    : "pmod", "define" : "PMOD=1"},
+        {"set"    : "spiflash", "define" : "SPIFLASH=1"},
+        {"set"    : "qspiflash", "define" : "QSPIFLASH=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "edalize",
+          "description": "Build using Edalize",
+          "tool": "icestorm",
+          "tool_options": [
+            {
+                "yosys_synth_options": ["-dsp","-abc9","-device u","-top top"],
+                "nextpnr_options": ["--up5k", "--freq 12", "--package sg48", "--timing-allow-fail"],
+                "pnr": "next"
+            }
+          ],
+          "bitstream"  : "build.bin",
+          "constraints": [{"name": "icebitsy.pcf", "file_type": "PCF"}],
+          "program": [
+            {"cmd" : "cp", "args" : "build.bin build.dfu"},
+            {"cmd" : "dfu-suffix", "args" : "-v 0006 -p 1d50 -a build.dfu"},
+            {"cmd" : "dfu-util", "args" : "-a 0 -D build.dfu"}
+          ]
+        }
+      ]
+    }
+  ]
+}
