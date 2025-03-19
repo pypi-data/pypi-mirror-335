@@ -1,0 +1,50 @@
+Metadata-Version: 2.2
+Name: atbu-pkg
+Version: 0.0.47
+Summary: ATBU package supports local/cloud backup/restore as well as local file integrity diff tool for helping in efforts to manage file integrity, duplication, and bitrot detection.
+Home-page: https://github.com/AshleyT3/atbu
+Author: Ashley R. Thomas
+Author-email: ashley.r.thomas.701@gmail.com
+Project-URL: Bug Tracker, https://github.com/AshleyT3/atbu/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: System :: Archiving :: Backup
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: atbu-common-pkg>=0.0.12
+Requires-Dist: atbu-mp-pipeline-pkg>=0.0.10
+Requires-Dist: cryptography>=44.0.0
+Requires-Dist: pwinput>=1.0.3
+Requires-Dist: keyring>=25.5.0
+Requires-Dist: apache-libcloud>=3.8.0
+Requires-Dist: azure-storage-blob>=12.24.0
+Requires-Dist: google-auth>=2.37.0
+Requires-Dist: google-cloud-storage>=2.19.0
+Requires-Dist: google-resumable-media>=2.7.2
+Requires-Dist: tabulate>=0.9.0
+Requires-Dist: Send2Trash>=1.8.3
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+
+ATBU Backup & Persistent File Information is a local/cloud backup/restore
+command-line utility with optional deduplication and bitrot detection,
+plus a little utility with useful digest-based directory file diff'ing.
+
+Install: `pip install atbu-pkg`
+
+GitHub: https://github.com/AshleyT3/atbu
+
+Documentation: https://atbu.readthedocs.io/en/latest/
