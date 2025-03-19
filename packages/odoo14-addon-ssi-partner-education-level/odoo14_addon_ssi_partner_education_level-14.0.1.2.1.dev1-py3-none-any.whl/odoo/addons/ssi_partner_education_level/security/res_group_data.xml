@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+<record id="partner_field_of_study_configurator_group" model="res.groups">
+    <field name="name">Field Of Study</field>
+    <field name="category_id" ref="ssi_partner.partner_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+<record id="partner_formal_education_level_configurator_group" model="res.groups">
+    <field name="name">Formal Education Level</field>
+    <field name="category_id" ref="ssi_partner.partner_configurator_module_category" />
+    <field
+            name="users"
+            eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"
+        />
+</record>
+</odoo>
