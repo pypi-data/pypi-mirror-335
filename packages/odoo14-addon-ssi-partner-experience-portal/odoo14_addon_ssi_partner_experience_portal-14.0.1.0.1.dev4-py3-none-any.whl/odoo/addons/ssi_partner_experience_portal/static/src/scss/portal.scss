@@ -1,0 +1,71 @@
+.o_portal_partner_academics_body {
+    @extend .mx-auto;
+    max-width: 100%;
+    section {
+        @extend .mt-4;
+        .form-group {
+            // for the absolutely positioned meter on new password
+            position: relative;
+        }
+        label,
+        button {
+            @extend .text-nowrap;
+        }
+    }
+}
+
+.o_portal_partner_academic_body {
+    @extend .mx-auto;
+    max-width: map-get($container-max-widths, sm);
+    section {
+        @extend .mt-4;
+        form.oe_partner_academic_form {
+            max-width: initial;
+            margin: initial;
+        }
+        .form-group {
+            // for the absolutely positioned meter on new password
+            position: relative;
+        }
+        label,
+        button {
+            @extend .text-nowrap;
+        }
+    }
+}
+
+.o_portal_partner_experiences_body {
+    @extend .mx-auto;
+    max-width: 100%;
+    section {
+        @extend .mt-4;
+        .form-group {
+            // for the absolutely positioned meter on new password
+            position: relative;
+        }
+        label,
+        button {
+            @extend .text-nowrap;
+        }
+    }
+}
+
+.o_portal_partner_experience_body {
+    @extend .mx-auto;
+    max-width: map-get($container-max-widths, sm);
+    section {
+        @extend .mt-4;
+        form.oe_partner_experience_form {
+            max-width: initial;
+            margin: initial;
+        }
+        .form-group {
+            // for the absolutely positioned meter on new password
+            position: relative;
+        }
+        label,
+        button {
+            @extend .text-nowrap;
+        }
+    }
+}

@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2024 OpenSynergy Indonesia
+     Copyright 2024 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_security')]" position="after">
+            <div class="o_portal_my_academic mt-3">
+                <h4>Academic Experiences </h4>
+                <hr class="mt-1 mb-1" />
+                <a href="/my/academics"><i
+                        class="fa fa-pencil mx-1"
+                    />Edit Academic Experience</a>
+            </div>
+            <div class="o_portal_my_experience mt-3">
+                <h4>Professional Experiences </h4>
+                <hr class="mt-1 mb-1" />
+                <a href="/my/experiences"><i
+                        class="fa fa-pencil mx-1"
+                    />Edit Professional Experience</a>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_my_academics">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_academics_body">
+                <t t-set="additional_title">Academic Experiences</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <div class="alert alert-danger" role="alert" t-if="get_error(errors)">
+                    <t t-esc="errors" />
+                </div>
+                <section>
+                    <h3>Academic Experiences</h3>
+                </section>
+                <t t-if="not academic_ids">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no academic experience.
+                    </div>
+                </t>
+                <div class="form-group">
+                    <a
+                        class="btn btn-secondary"
+                        href="/my/academic"
+                        title="Create"
+                    > Create</a>
+                </div>
+                <t t-if="academic_ids" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Institution</th>
+                            <th># Diploma Number</th>
+                            <th>Education Level</th>
+                            <th>Field of Study</th>
+                            <th>Date Start</th>
+                            <th>Date End</th>
+                            <th />
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="academic_ids" t-as="academic_id">
+                            <td><span t-field="academic_id.partner_address_id" /></td>
+                            <td>
+                                <a
+                                    t-attf-href="/my/academic/#{academic_id.id}?{{ keep_query() }}"
+                                ><span t-field="academic_id.diploma" /></a>
+                            </td>
+                            <td><span t-field="academic_id.education_level_id" /></td>
+                            <td><span t-field="academic_id.field_of_study_id" /></td>
+                            <td><span t-field="academic_id.date_start" /></td>
+                            <td><span t-field="academic_id.date_end" /></td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/academic/#{academic_id.id}?{{ keep_query() }}"
+                                    title="Edit"
+                                ><i class="fa fa-edit" /> Edit</a>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/academic/remove/#{academic_id.id}?{{ keep_query() }}"
+                                    title="Delete"
+                                ><i class="fa fa-remove" /> Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_academic">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_academic_body">
+                <t t-set="additional_title">Academic Experience</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <section>
+                    <h3>Academic Experience</h3>
+                    <form
+                        action="/my/academic"
+                        method="post"
+                        class="oe_partner_academic_form"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input
+                            type="hidden"
+                            name="id"
+                            t-att-value="current_academic_id.id"
+                        />
+                        <div class="form-group">
+                            <label for="category">Institution:</label>
+                            <select class="form-control" name="partner_address">
+                                <option value="" />
+                                <t
+                                    t-foreach="partner_address_ids"
+                                    t-as="partner_address_id"
+                                >
+                                    <option
+                                        t-att-value="partner_address_id.id"
+                                        t-esc="partner_address_id.name"
+                                        t-att-selected="partner_address_id.id == current_academic_id.partner_address_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Location:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="location"
+                                t-att-value="current_academic_id.location"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Date Start:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="date_start"
+                                required="required"
+                                t-att-value="current_academic_id.date_start"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Expire:</label>
+                            <input
+                                type="checkbox"
+                                t-attf-class="form-check"
+                                name="expire"
+                                t-att-checked="current_academic_id.expire"
+                                onchange="onchangeExpire()"
+                            />
+                        </div>
+                        <script type="text/javascript">
+                            function onchangeExpire(){
+                                var expire = document.getElementsByName("expire")[0].checked;
+                                document.getElementsByName("date_end")[0].required = expire;
+                            };
+                        </script>
+                        <div class="form-group">
+                            <label for="name">Date End:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="date_end"
+                                t-att-required="'required' if current_academic_id.expire else None"
+                                t-att-value="current_academic_id.date_end"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Diploma Number:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="diploma"
+                                t-att-value="current_academic_id.diploma"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="education_level">Education Level:</label>
+                            <select class="form-control" name="education_level">
+                                <option value="" />
+                                <t
+                                    t-foreach="education_level_ids"
+                                    t-as="education_level_id"
+                                >
+                                    <option
+                                        t-att-value="education_level_id.id"
+                                        t-esc="education_level_id.name"
+                                        t-att-selected="education_level_id.id == current_academic_id.education_level_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="field_of_study">Field of Study:</label>
+                            <select class="form-control" name="field_of_study">
+                                <option value="" />
+                                <t
+                                    t-foreach="field_of_study_ids"
+                                    t-as="field_of_study_id"
+                                >
+                                    <option
+                                        t-att-value="field_of_study_id.id"
+                                        t-esc="field_of_study_id.name"
+                                        t-att-selected="field_of_study_id.id == current_academic_id.field_of_study_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="gpa">Latest GPA:</label>
+                            <input
+                                type="number"
+                                t-attf-class="form-control form-control-sm"
+                                name="gpa"
+                                step=".01"
+                                t-att-value="current_academic_id.gpa"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="activities">Activities and Associations:</label>
+                            <textarea class="form-control" name="activities" rows="5"><t
+                                    t-esc="current_academic_id.activities"
+                                /></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Notes:</label>
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                name="note"
+                                rows="5"
+                            ><t t-esc="current_academic_id.note" /></textarea>
+                        </div>
+                        <div
+                            class="alert alert-danger"
+                            role="alert"
+                            t-if="error_message"
+                        >
+                            <t t-esc="error_message" />
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Save</button>
+                        <a class="btn" href="/my/academics">Discard</a>
+                    </form>
+                </section>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_experiences">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_experiences_body">
+                <t t-set="additional_title">Professional Experiences</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <div class="alert alert-danger" role="alert" t-if="get_error(errors)">
+                    <t t-esc="errors" />
+                </div>
+                <section>
+                    <h3>Professional Experiences</h3>
+                </section>
+                <t t-if="not experience_ids">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no professional experience.
+                    </div>
+                </t>
+                <div class="form-group">
+                    <a
+                        class="btn btn-secondary"
+                        href="/my/experience"
+                        title="Create"
+                    > Create</a>
+                </div>
+                <t t-if="experience_ids" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th># Job Position</th>
+                            <th>Job Level</th>
+                            <th>Employer</th>
+                            <th>Date Start</th>
+                            <th>Date End</th>
+                            <th />
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="experience_ids" t-as="experience_id">
+                            <td>
+                                <a
+                                    t-attf-href="/my/experience/#{experience_id.id}?{{ keep_query() }}"
+                                ><span t-field="experience_id.job_position" /></a>
+                            </td>
+                            <td><span t-field="experience_id.job_level" /></td>
+                            <td><span t-field="experience_id.partner_address_id" /></td>
+                            <td><span t-field="experience_id.date_start" /></td>
+                            <td><span t-field="experience_id.date_end" /></td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/experience/#{experience_id.id}?{{ keep_query() }}"
+                                    title="Edit"
+                                ><i class="fa fa-edit" /> Edit</a>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/experience/remove/#{experience_id.id}?{{ keep_query() }}"
+                                    title="Delete"
+                                ><i class="fa fa-remove" /> Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_experience">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_experience_body">
+                <t t-set="additional_title">Professional Experiences</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <section>
+                    <h3>Professional Experiences</h3>
+                    <form
+                        action="/my/experience"
+                        method="post"
+                        class="oe_partner_experience_form"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input
+                            type="hidden"
+                            name="id"
+                            t-att-value="current_experience_id.id"
+                        />
+                        <div class="form-group">
+                            <label for="name">Job Position:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="job_position"
+                                t-att-value="current_experience_id.job_position"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Job Level:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="job_level"
+                                t-att-value="current_experience_id.job_level"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Employer:</label>
+                            <select class="form-control" name="partner_address">
+                                <option value="" />
+                                <t
+                                    t-foreach="partner_address_ids"
+                                    t-as="partner_address_id"
+                                >
+                                    <option
+                                        t-att-value="partner_address_id.id"
+                                        t-esc="partner_address_id.name"
+                                        t-att-selected="partner_address_id.id == current_experience_id.partner_address_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Location:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="location"
+                                t-att-value="current_experience_id.location"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Date Start:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="date_start"
+                                required="required"
+                                t-att-value="current_experience_id.date_start"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Expire:</label>
+                            <input
+                                type="checkbox"
+                                t-attf-class="form-check"
+                                name="expire"
+                                t-att-checked="current_experience_id.expire"
+                                onchange="onchangeExpire()"
+                            />
+                        </div>
+                        <script type="text/javascript">
+                            function onchangeExpire(){
+                                var expire = document.getElementsByName("expire")[0].checked;
+                                document.getElementsByName("date_end")[0].required = expire;
+                            };
+                        </script>
+                        <div class="form-group">
+                            <label for="name">Date End:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="date_end"
+                                t-att-required="'required' if current_experience_id.expire else None"
+                                t-att-value="current_experience_id.date_end"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="note">Notes:</label>
+                            <textarea
+                                type="text"
+                                class="form-control"
+                                name="note"
+                                rows="5"
+                            ><t t-esc="current_experience_id.note" /></textarea>
+                        </div>
+                        <div
+                            class="alert alert-danger"
+                            role="alert"
+                            t-if="error_message"
+                        >
+                            <t t-esc="error_message" />
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Save</button>
+                        <a class="btn" href="/my/experiences">Discard</a>
+                    </form>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>
