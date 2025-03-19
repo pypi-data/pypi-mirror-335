@@ -1,0 +1,76 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "terminet"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Kris Treska", email = "kris.tresk@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "linkify-it-py==2.0.3",
+  "markdown-it-py==3.0.0",
+  "mdit-py-plugins==0.4.2",
+  "mdurl==0.1.2",
+  "platformdirs==4.3.6",
+  "Pygments==2.19.1",
+  "rich==13.9.4",
+  "scapy==2.6.1",
+  "textual==2.1.2",
+  "typing_extensions==4.12.2",
+  "uc-micro-py==1.0.3"
+]
+
+[project.scripts]
+terminet = "terminet.entry_points:terminet"
+
+[project.urls]
+Documentation = "https://github.com/no-kris/terminet#readme"
+Issues = "https://github.com/no-kris/terminet/issues"
+Source = "https://github.com/no-kris/terminet"
+
+[tool.hatch.version]
+path = "src/terminet/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/terminet tests}"
+
+[tool.coverage.run]
+source_pkgs = ["terminet", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/terminet/__about__.py",
+]
+
+[tool.coverage.paths]
+terminet = ["src/terminet", "*/terminet/src/terminet"]
+tests = ["tests", "*/terminet/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
