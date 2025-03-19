@@ -1,0 +1,39 @@
+{% from 'macros/upload.html' import upload_collapsible %}
+<div id="upload-page" class="upload-page">
+  {% if items | length == 0 %}
+  No uploads found :)
+  {% else %}
+  {% with swap_target="#upload-page" %}
+    {% include 'includes/pagination-buttons.html' %}
+  {% endwith %}
+  <div id="uploads-table-inner"
+       class="collapsible-table uploads-table {% if review %}review{% endif %}">
+    <div id="uploads-table-head" class="table-head">
+      <span class="marker"></span>
+      <span class="col-slug">
+          short hash
+      </span>
+      <span class="col-title">
+          title
+      </span>
+      <span class="col-title">
+          size
+      </span>
+      <span class="seeders-icon" aria-label="up arrow">⇧</span>
+      <span class="downloaders-icon" aria-label="down-arrow">⇧</span>
+      <span class="col-created">
+          created
+      </span>
+      {% if review %}<span></span><span></span>{% endif %}
+    </div>
+    <div class="upload-items">
+      {% for upload in items %}
+      {{ upload_collapsible(upload, review=review, config=config) }}
+      {% endfor %}
+    </div>
+  </div>
+  {% with swap_target="#upload-page" %}
+    {% include 'includes/pagination-buttons.html' %}
+  {% endwith %}
+  {% endif %}
+</div>
