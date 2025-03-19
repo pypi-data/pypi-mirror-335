@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "totally-real-retriever"
+version = "0.1.1"
+description = ""
+authors = ["Logan Markewich <logan.markewich@live.com>"]
+license = "MIT"
+readme = "PKG_README.md"
+include = ["totally_real_retriever"]
+packages = [{include = "totally_real_retriever"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+lorem = "^0.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
