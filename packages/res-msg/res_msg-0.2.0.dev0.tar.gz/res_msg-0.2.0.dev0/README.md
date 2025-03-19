@@ -1,0 +1,104 @@
+# res-msg
+
+一个简单的Python包，用于演示Python虚拟环境和包管理工具。
+
+## 功能
+
+- 友好的问候语
+- 调用简单的API示例
+- 获取Python版本信息
+
+
+# 指定名称显示问候语
+res-msg --name "Your Name"
+
+# 调用API示例
+res-msg --api
+
+# 显示Python版本
+res-msg --version
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 安装
+
+使用uv工具安装：
+
+```bash
+uv pip install -e .
+```
+
+或使用pip安装：
+
+```bash
+pip install -e .
+```
+
+## 使用方法
+
+### 命令行
+
+```bash
+# 显示问候语
+res-msg
+
+# 指定名称显示问候语
+res-msg --name "Your Name"
+
+# 调用API示例
+res-msg --api
+
+# 显示Python版本
+res-msg --version
+```
+
+### 作为库使用
+
+```python
+from res_msg import greet, get_simple_api, get_python_version
+
+# 显示问候语
+print(greet("Your Name"))
+
+# 调用API
+print(get_simple_api())
+
+# 获取Python版本
+print(get_python_version())
+```
+
+## 项目结构
+
+```
+res-msg/
+├── main.py              # 主入口文件
+├── pyproject.toml       # 项目配置文件
+├── README.md            # 项目说明文件
+└── src/                 # 源代码目录
+    └── res_msg/         # 包目录
+        ├── __init__.py  # 包初始化文件
+        └── cli.py       # 命令行接口
+```
+
+## 依赖
+
+- Python >= 3.11
+- requests >= 2.32.3
+
+## 许可证
+
+MIT
