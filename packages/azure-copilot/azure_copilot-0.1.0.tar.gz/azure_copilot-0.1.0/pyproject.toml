@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "azure-copilot"
+version = "0.1.0"
+description = "A package for creating chat completions with Azure OpenAI."
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "MIT"}
+
+authors = [
+  { name="CloudRoller" }
+]
+
+keywords = ["azure", "openai"]
+
+dependencies = [
+  "openai>=0.27.0",
+]
+
+[project.urls]
+Homepage = "https://oai-endpoint.developer.azure-api.net/"
+Repository = "https://github.com/cloudroller/azure-openai"
+Documentation = "https://oai-endpoint.developer.azure-api.net/api-details#api=aws&operation=ChatCompletions_Create"
