@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "Mac-letterhead"
+dynamic = ["version"]
+description = "A macOS utility to merge letterhead with PDF documents using a drag-and-drop interface"
+readme = "README.md"
+requires-python = ">=3.7"
+license = "MIT"
+authors = [
+    { name = "Erik", email = "" }
+]
+dependencies = [
+    "pyobjc-framework-Quartz",
+    "pyobjc-framework-Cocoa",
+    "importlib-resources; python_version < '3.9'",  # For accessing package resources in installed packages
+]
+
+[project.scripts]
+mac-letterhead = "letterhead_pdf.main:main"
+
+[tool.hatch.version]
+path = "letterhead_pdf/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["letterhead_pdf"]
+include = ["letterhead_pdf/resources/**/*"]
+
+# We're moving to using only in-package resources
+# to follow Python best practices for package resources
