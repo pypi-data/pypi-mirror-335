@@ -1,0 +1,48 @@
+[project]
+name = "beeai-server"
+version = "0.0.7"
+description = "BeeAI server"
+readme = "README.md"
+authors = [{ name = "IBM Corp." }]
+requires-python = ">=3.11,<4.0"
+dependencies = [
+    "beeai-sdk==0.0.16",
+    "acp-sdk", # version determined by beeai-sdk
+    "aiohttp>=3.11.11",
+    "anyio>=4.8.0",
+    "asgiref>=3.8.1",
+    "backports-tarfile>=1.2.0",
+    "fastapi[standard]>=0.115.7",
+    "httpx>=0.28.1",
+    "kink>=0.8.1",
+    "orjson>=3.10.15",
+    "packaging>=24.2",
+    "psutil>=7.0.0",
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.7.1",
+    "structlog>=25.1.0",
+    "uvicorn>=0.34.0",
+    "opentelemetry-sdk>=1.30.0",
+    "opentelemetry-api>=1.30.0",
+    "opentelemetry-exporter-otlp-proto-http>=1.30.0",
+]
+
+[tool.ruff]
+line-length = 120
+
+[project.scripts]
+beeai-server = "beeai_server:serve"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["pytest>=8.3.4", "pytest-asyncio>=0.25.3", "pytest-httpx>=0.35.0"]
+
+[tool.hatch.build.targets.wheel]
+artifacts = ["static/"]
+
+[tool.uv.sources]
+acp-sdk = { workspace = true }
+beeai-sdk = { workspace = true }
