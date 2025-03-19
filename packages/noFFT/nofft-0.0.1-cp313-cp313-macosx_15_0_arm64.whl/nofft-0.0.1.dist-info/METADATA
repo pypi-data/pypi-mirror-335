@@ -1,0 +1,71 @@
+Metadata-Version: 2.2
+Name: noFFT
+Version: 0.0.1
+Summary: A reference implementation of the Resonate algorithm in C++ for Python.
+Home-page: https://github.com/alexandrefrancois/noFFT
+Author: Alexandre R.J. Francois
+Author-email: "Alexandre R.J. Francois" <alexandrefrancois@gmail.com>
+License: Copyright (c) 2025 Alexandre R.J. Francois
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/alexandrefrancois/noFFT
+Project-URL: Issues, https://github.com/alexandrefrancois/noFFT/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: MacOS
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: requires-python
+
+# noFFT
+
+A reference implementation of the [Resonate](https://alexandrefrancois.org/Resonate)
+algorithm in C++ for Python,
+using [pybind11](https://pybind11.readthedocs.io/en/stable/).
+The C++ code uses the Accelerate framework and will only work on Mac/iOS platforms.
+
+This is a crude version to demonstrate the capabilities of the algorithm through Jupyter notebooks.
+
+The goal is to turn this into a proper Python package - contributions welcome!
+
+Author: Alexandre R.J. François
+
+## Installation
+
+- download, checkout or clone this repository
+- pip install .
+
+- see notebooks and additional Python functions for usage
+
+## Resonate Functions
+
+The C++ code implements a resonator bank class similar to that provided in the
+[Oscillators Swift package](https://github.com/alexandrefrancois/Oscillators)
+with vectorized update per sample.
+
+Python functions:
+- `resonate`: wraps creating the bank with the parameters provided and running the updates for an input signal.
+- `resonate_wrapper`: computes a resonator bank outputs from an input signal, using the C++ implementation.
+- `resonate_python`: computes a resonator bank outputs from a single frequency sinusoidal input signal (impulse). The loop over samples is done in Python, so much slower than the C++ counterpart.
+
+
+## Jupyter Notebooks
+
+- **SpectralAnalysisExperiments**: code to analyze and plot resonator and resonator bank properties.
+- **Spectrograms**: code to compute and plot spectrograms of audio signals, using [Librosa](https://librosa.org)
+- **Chromas**: code to compute and plot chromas and chromagrams on audio signals, using [Librosa](https://librosa.org)
+- **MFCCs**: code to compute and plot mel frequency scale spectrograms and chromagrams on audio signals, using [Librosa](https://librosa.org)
+
+
+## License
+
+MIT License
+
+Copyright (c) 2025 Alexandre R.J. Francois
