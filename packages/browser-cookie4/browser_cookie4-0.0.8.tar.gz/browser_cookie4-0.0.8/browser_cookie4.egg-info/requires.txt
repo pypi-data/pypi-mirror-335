@@ -1,0 +1,17 @@
+lz4
+pycryptodomex
+urllib3
+requests
+websocket-client
+
+[:python_version < "3.7" and ("bsd" in sys_platform or sys_platform == "linux")]
+dbus-python
+
+[:python_version >= "3.7" and ("bsd" in sys_platform or sys_platform == "linux")]
+jeepney
+
+[:python_version >= "3.7" and platform_system == "Windows"]
+shadowcopy
+
+[:sys_platform == "linux"]
+wslwinreg2==1.2.0
