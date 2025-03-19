@@ -1,0 +1,15 @@
+[project]
+name = "geo-skeletons"
+version = "0.20.10"
+description = "Easily extended way to build classes for structured and unstructured geophysical data."
+authors = [ { name = "Jan-Victor Björkqvist", email = "janvb@met.no" } ]
+dependencies = [ "numpy", "scipy", "xarray", "pandas", "utm", "geopy", "dask", "geo-parameters>=0.9.4" ]
+requires-python = ">=3.9,<3.12"
+readme = "README.md"
+license = {file = "LICENSE"}
+
+[tool.setuptools]
+license_files = ["LICENSE"]  # Specify your license file(s)
+[project.urls]
+repository = "http://github.com/bjorkqvi/skeletons"
+
