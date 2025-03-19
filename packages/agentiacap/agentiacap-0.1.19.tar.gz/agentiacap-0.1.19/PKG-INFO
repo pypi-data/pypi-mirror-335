@@ -1,0 +1,54 @@
+Metadata-Version: 2.3
+Name: agentiacap
+Version: 0.1.19
+Summary: 
+Author: Adrián Martínez
+Author-email: amartinez@entaconsulting.com
+Requires-Python: >=3.10.0,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: azure-ai-documentintelligence (>=1.0.0,<2.0.0)
+Requires-Dist: azure-functions (>=1.21.3,<2.0.0)
+Requires-Dist: azure-functions-durable (>=1.2.10,<2.0.0)
+Requires-Dist: azure-identity (>=1.19.0,<2.0.0)
+Requires-Dist: azure-storage-blob (>=12.24.1,<13.0.0)
+Requires-Dist: fastapi (>=0.115.8,<0.116.0)
+Requires-Dist: langchain (>=0.3.18,<0.4.0)
+Requires-Dist: langchain-community (>=0.3.19,<0.4.0)
+Requires-Dist: langchain-core (>=0.3.34,<0.4.0)
+Requires-Dist: langchain-openai (>=0.3.0,<0.4.0)
+Requires-Dist: langgraph (>=0.2.63,<0.3.0)
+Requires-Dist: langgraph-cli[inmen] (>=0.1.67,<0.2.0)
+Requires-Dist: numpy (>=1.26.4,<2.0.0)
+Requires-Dist: openpyxl (>=3.1.5,<4.0.0)
+Requires-Dist: pandas (>=2.2.3,<3.0.0)
+Requires-Dist: pymupdf (>=1.25.2,<2.0.0)
+Requires-Dist: python-dotenv (>=1.0.1,<2.0.0)
+Requires-Dist: python-multipart (>=0.0.20,<0.0.21)
+Description-Content-Type: text/markdown
+
+### Clonar el repositorio
+```bash
+git clone https://github.com/MartinezRobledo/AgenteIACAP.git
+cd AgenteIACAP
+```
+
+### Crear entorno para la Azure Function
+```bash
+py -3.11 -m venv .venv
+.venv\Scripts\Activate
+```
+
+### Instalar dependencias
+```bash
+poetry install
+```
+
+### Ejecutar Function
+```bash
+func start
+```
+
