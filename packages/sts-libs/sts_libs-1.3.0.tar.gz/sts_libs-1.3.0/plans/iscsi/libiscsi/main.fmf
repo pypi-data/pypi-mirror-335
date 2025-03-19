@@ -1,0 +1,13 @@
+discover:
+  how: fmf
+  filter:
+    - tag:libiscsi
+context:
+  component: targetcli
+adjust+:
+  - when: true
+    prepare+:
+      - name: install libiscsi-utils
+        how: install
+        copr: mhoyer/libiscsi
+        package: libiscsi-utils
