@@ -1,0 +1,29 @@
+[project]
+name = "sshpyk"
+dynamic = []
+description = "remote jupyter kernels via ssh tunnels"
+authors = [
+    { name = "National Radio Astronomy Observatory", email = "casa-feedback@nrao.edu" },
+]
+dependencies = [
+    "jupyter-client",
+]
+requires-python = ">=3.8"
+readme = "README.rst"
+version = "0.20"
+
+[project.license]
+text = "BSD-3-Clause"
+
+[tool.pdm.build]
+
+[tool.pdm.version]
+source = "scm"
+write_to = "sshpyk/__version__.py"
+write_template = "__version__ = '{}'"
+
+[build-system]
+requires = [
+    "pdm-pep517>=0.12.0",
+]
+build-backend = "pdm.pep517.api"
