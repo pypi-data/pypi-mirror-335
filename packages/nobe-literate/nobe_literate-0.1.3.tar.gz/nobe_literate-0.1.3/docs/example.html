@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>a mib document</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+  
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="mib-notebook" name="generator">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/pietroppeter/nimib/assets/atom-one-light.css'>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>hljs.highlightAll();</script>
+</head>
+
+<body>
+<main>
+<h1>Example notebook</h1>
+<p>made with <a href="https://github.com/pietroppeter/nobe">nobe</a>🐳</p>
+<h2>Capture output</h2>
+<p>Output of commands is captured (two ways to declare a code block, check in source code)</p>
+
+<pre><code class="python">print("hi")</code></pre>
+<pre>hi
+</pre>
+
+
+<pre><code class="python">print("hello")</code></pre>
+<pre>hello
+</pre>
+
+<h2>Accessing variables in blocks</h2>
+<p>Declare a variable in one block</p>
+
+<pre><code class="python">x = 0</code></pre>
+<pre></pre>
+
+<p>change it in another block and print it</p>
+
+<pre><code class="python">x += 1
+print(x)</code></pre>
+<pre>1
+</pre>
+
+<p>do it 3 times (look for the loop in source code)</p>
+
+<pre><code class="python">@nb.code
+def _():
+
+    x += 1
+    print(x)</code></pre>
+<pre>2
+</pre>
+
+
+<pre><code class="python">@nb.code
+def _():
+
+    x += 1
+    print(x)</code></pre>
+<pre>3
+</pre>
+
+
+<pre><code class="python">@nb.code
+def _():
+
+    x += 1
+    print(x)</code></pre>
+<pre>4
+</pre>
+
+<p>You have to know Python scoping in functions and use global keyword to do the above</p>
+<h2>Source code</h2>
+<p>This is the source code for this document:</p>
+<pre><code class="language-py">import nobe
+
+nb = nobe.Doc()
+
+print(nb.filename)
+
+nb.text(&quot;# Example notebook\nmade with [nobe](https://github.com/pietroppeter/nobe)🐳&quot;)
+
+nb.text(&quot;## Capture output&quot;)
+nb.text(&quot;Output of commands is captured (two ways to declare a code block, check in source code)&quot;)
+
+nb.code(lambda: print(&quot;hi&quot;))
+
+
+@nb.code
+def _():
+    print(&quot;hello&quot;)
+
+
+nb.text(&quot;## Accessing variables in blocks&quot;)
+
+nb.text(&quot;Declare a variable in one block&quot;)
+
+
+@nb.code
+def _():
+    global x
+    x = 0
+
+
+nb.text(&quot;change it in another block and print it&quot;)
+
+
+@nb.code
+def _():
+    global x
+    x += 1
+    print(x)
+
+
+nb.text(&quot;do it 3 times (look for the loop in source code)&quot;)
+
+for _ in range(3):
+
+    @nb.code
+    def _():
+        global x
+        x += 1
+        print(x)
+
+
+nb.text(&quot;You have to know Python scoping in functions and use global keyword to do the above&quot;)
+
+nb.text(f&quot;&quot;&quot;## Source code
+
+This is the source code for this document:
+
+````py
+{nb.source.replace(&quot;````&quot;, &quot;`````&quot;)}
+````
+
+&quot;&quot;&quot;)
+
+nb.save()
+
+</code></pre>
+</main>
+</body>
+</html>
