@@ -1,0 +1,33 @@
+[project]
+name = "blackwall"
+description = "Blackwall Protocol for mainframe security administration"
+dynamic = ["version"]
+requires-python = ">= 3.11"
+dependencies = [
+  "racfu",
+  "textual>=2.1.2"
+]
+authors = [
+  {name = "Emma Skovgaard"}
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = ["RACF", "security", "mainframe"]
+
+[project.scripts]
+blackwall = "blackwall.main:main"
+
+[project.urls]
+Repository = "https://github.com/EmmasBox/blackwall-protocol"
+Source = "https://github.com/EmmasBox/blackwall-protocol"
+Issues = "https://github.com/EmmasBox/blackwall-protocol/issues"
+Pypi = "https://pypi.org/project/blackwall/"
+
+[build-system]
+requires = ["setuptools >= 61.0", "setuptools-scm >= 8.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+
+[tool.setuptools.package-data]
+blackwall = ["*.css", "*.tcss"]
