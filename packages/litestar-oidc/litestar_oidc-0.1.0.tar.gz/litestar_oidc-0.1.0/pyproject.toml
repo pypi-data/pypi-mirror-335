@@ -1,0 +1,91 @@
+[project]
+name = "litestar-oidc"
+version = "0.1.0"
+description = "OIDC authentication for Litestar"
+readme = "README.md"
+authors = [
+    { name = "Niek Keijzer", email = "hello@niekkeijzer.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "httpx>=0.28.1",
+    "litestar>=2.15.1",
+    "pyjwt>=2.10.1",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "cryptography>=44.0.2",
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "ruff>=0.11.0",
+    "uvicorn>=0.34.0",
+]
+test = [
+    "pytest>=8.3.5",
+    "pytest-asyncio<=0.24.0; python_version < \"3.9\"",
+    "pytest-asyncio>0.24.0; python_version >= \"3.9\"",
+    "pytest-cov>=6.0.0",
+]
+
+[tool.mypy]
+enable_error_code = [
+    "truthy-bool",
+    "truthy-iterable",
+    "unused-awaitable",
+    "ignore-without-code",
+    "possibly-undefined",
+    "redundant-self",
+]
+packages = ["litestar_oidc", "tests", "examples"]
+plugins = []
+python_version = "3.8"
+
+disallow_any_generics = false
+local_partial_types = true
+show_error_codes = true
+strict = true
+warn_unreachable = true
+
+
+[tool.ruff]
+include = ["{litestar_oidc,tests,examples}/**/*.{py,pyi}", "pyproject.toml"]
+lint.select = [
+    # Pyflakes
+    "F",
+    # Pycodestyle
+    "E",
+    "W",
+    # isort
+    "I001"
+]
+line-length = 120
+src = ["litestar_oidc", "tests", "examples"]
+target-version = "py38"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.mccabe]
+max-complexity = 12
+
+[tool.ruff.lint.pep8-naming]
+classmethod-decorators = [
+    "classmethod",
+    "pydantic.root_validator",
+    "pydantic.validator",
+    "sqlalchemy.ext.declarative.declared_attr",
+    "sqlalchemy.orm.declared_attr.directive",
+    "sqlalchemy.orm.declared_attr",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["litestar_oidc", "tests", "examples"]
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 88
