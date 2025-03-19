@@ -1,0 +1,79 @@
+[build-system]
+requires = [
+    "numpy",
+    "setuptools",
+    "versioneer[toml]",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = 'sympytensor'
+dynamic = ['version']
+requires-python = ">=3.10"
+description = "Print sympy expressions to pytensor graphs"
+readme = "README.md"
+license = {text = "MIT License"}
+classifiers =[
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+  "Topic :: Scientific/Engineering :: Mathematics"
+]
+
+keywords = [
+    "computer algebra",
+    "pytensor",
+    "sympy",
+]
+
+dependencies = [
+    "pytensor",
+    "sympy",
+    "pymc"
+  ]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "pytest",
+    "pytest-cov",
+    "versioneer",
+]
+
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "sympytensor/_version.py"
+versionfile_build = "sympytensor/_version.py"
+tag_prefix = "v"
+
+[tool.setuptools]
+py-modules = ['sympytensor']
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+xfail_strict=true
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+    "ignore::FutureWarning"]
+
+[tool.isort]
+profile = 'black'
+
+[tool.black]
+line-length = 100
+
+[tool.nbqa.mutate]
+isort = 1
+black = 1
+pyupgrade = 1
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["sympytensor/_version.py", "setup.py"]
