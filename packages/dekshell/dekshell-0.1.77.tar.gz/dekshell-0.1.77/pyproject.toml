@@ -1,0 +1,34 @@
+[project]
+name = "dekshell"
+version = "0.1.77"
+description = ""
+authors = [
+    { name = "sanzenwin", email = "sanzenwin@gmail.com" },
+]
+dependencies = [
+    "packaging<=23.1",
+    "dektools[date,fetch]<1.0.0",
+    "dekmedia[audio]<1.0.0",
+]
+requires-python = ">=3.8"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.scripts]
+dekshell = "dekshell.click.__entry__:main"
+
+[tool.pdm.build]
+includes = [
+    "dekshell",
+]
+excludes = [
+    "samples",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
