@@ -1,0 +1,36 @@
+# filetypes to ignore
+*.py[cod]
+.DS_store
+*.swp
+
+# build files/directories to ignore
+/dist/
+/build/
+/.cache/
+/*.egg-info/
+/.eggs/
+__pycache__/
+/.coverage
+.pytest_cache/
+/coverage.xml
+/junit*.xml
+/htmlcov/
+/requests_scitokens/_version.py
+
+# documentation files to ignore
+/docs/_build/
+/docs/api/
+/docs/reference/
+
+# debian files to ignore
+/debian/.debhelper/
+/debian/*.debhelper.log
+/debian/*.postinst.debhelper
+/debian/*.prerm.debhelper
+/debian/*.substvars
+/debian/*requests-scitokens/
+/debian/files
+/.pybuild/
+
+# RPM files to ignore
+*.rpm

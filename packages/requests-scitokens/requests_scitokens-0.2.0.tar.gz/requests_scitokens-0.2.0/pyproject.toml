@@ -1,0 +1,136 @@
+[build-system]
+requires = [
+  "setuptools >= 61",
+  "setuptools-scm >= 7",
+  "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "requests-scitokens"
+description = "A requests plugin for SciToken authorisation"
+readme = "README.md"
+authors = [
+  { name = "Duncan Macleod", email = "macleoddm@cardiff.ac.uk" },
+]
+license = { text = "Apache-2.0" }
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "License :: OSI Approved :: Apache Software License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+]
+
+# requirements
+requires-python = ">=3.6"
+dependencies = [
+  "requests >= 2.20.0",
+  "scitokens >= 1.7.4",
+]
+
+# dynamic properties set by tools
+dynamic = [
+  "version",
+]
+
+[project.optional-dependencies]
+# test suite
+test = [
+  "pytest >=3.1.0",
+  "pytest-cov >=2.4.0",
+  "requests-mock",
+]
+# documentation
+docs = [
+  "furo",
+  "sphinx",
+  "sphinx-automodapi",
+  "sphinx-copybutton",
+  "sphinx-design",
+]
+
+[project.urls]
+"Bug Tracker" = "https://git.ligo.org/computing/software/requests-scitokens/-/issues"
+"Documentation" = "https://requests-scitokens.readthedocs.io/"
+"Source Code" = "https://git.ligo.org/computing/software/requests-scitokens.git"
+
+[tool.setuptools]
+license-files = [ "LICENSE" ]
+
+[tool.setuptools.packages.find]
+include = [
+  "requests_scitokens*",
+]
+
+[tool.setuptools_scm]
+write_to = "requests_scitokens/_version.py"
+
+# -- coverage.py
+
+[tool.coverage.paths]
+source = [
+  "requests_scitokens/",
+  "*/lib/python*/*-packages/requests_scitokens/",
+]
+
+[tool.coverage.run]
+source = [ "requests_scitokens" ]
+
+[tool.coverage.report]
+omit = [
+  # ignore version file created by setuptools-scm
+  "*/_version.py",
+]
+# print report with one decimal point
+precision = 1
+
+# -- pytest
+
+[tool.pytest.ini_options]
+minversion = "3.1.0"
+addopts = "-r a"
+filterwarnings = [
+  "error",
+]
+
+# -- ruff
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "ANN003",  # type annotations for **kwargs
+  "D203",  # blank line before class docstring
+  "D213",  # docstring summary on second line
+  "D413",  # blank line after last section
+  "PLR0913",  # too many arguments
+  "SIM108",  # if-else instead of ternary if
+]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+force-wrap-aliases = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+  "F401",  # unused-import
+]
+"*/tests/*" = [
+  "ANN",  # type annotations
+  "B904",  # raise from
+  "EM101",  # string literal in exception
+  "PLR2004",  # magic value used in comparison
+  "S101",  # assert
+]
+"docs/*" = [
+  "A",  # builtins
+  "ANN",  # type annotations
+  "D",  # docstrings
+  "INP001",  # implicit namespace package
+]
