@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "model_train"
+version = "0.0.4"
+authors = [
+  { name="Kevin Khang", email="kevinkhang2909@gmail.com" },
+]
+description = "A optimize model inference package"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "LICENSE"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["inference, transformers"]
+dependencies = [
+    'transformers',
+    'torch',
+    'datasets',
+    'sentencepiece',
+    'peft',
+    'einops',
+    'accelerate',
+]
+
+[project.urls]
+"Homepage" = "https://gitlab.com/sp-saas/vn/product-and-engineering/bi-kevin/model_train"
+"Bug Tracker" = "https://gitlab.com/sp-saas/vn/product-and-engineering/bi-kevin/model_train/-/issues"
