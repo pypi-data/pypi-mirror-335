@@ -1,0 +1,33 @@
+[project]
+name = "nephyx"
+version = "0.0.18"
+description = "nephyx quick project setup for FastAPI applications"
+authors = [
+    { name = "Sascha Lamp", email = "sascha.lamp@lampware.de" },
+]
+dependencies = [
+    "sqlalchemy>=2.0.37",
+    "fastapi>=0.115.7",
+    "fastapi-utilities>=0.3.0",
+    "pydantic-settings>=2.8.0",
+    "typer>=0.15.1",
+    "psycopg[binary]>=3.2.5",
+    "uvicorn>=0.34.0",
+]
+requires-python = ">=3.12"
+readme = "README.md"
+
+[project.license]
+text = "MIT"
+
+[project.scripts]
+nephyx = "nephyx.__main__:app"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
