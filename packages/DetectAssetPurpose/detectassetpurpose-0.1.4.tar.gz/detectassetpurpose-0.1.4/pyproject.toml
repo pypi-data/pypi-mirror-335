@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "DetectAssetPurpose"
+version = "0.1.4"
+packages = [{ include = "DetectAssetPurpose", from = "src" }]
+
+description = "Package provides detection of asset purpose using LLM identification: Brand Building or Conversion"
+authors = [
+    "Irina White <i.white@neuronsinc.com>",
+]
+license = "MIT"
+homepage = "https://github.com/neurons-inc/ml-purpose-detection"
+readme = "README.md"
+keywords = ["advertisement", "image", "video", "purpose"]
+repository = "https://github.com/neurons-inc/ml-purpose-detection"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.poetry.scripts]
+clean = "src.DetectAssetPurpose.clean:p"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.12"
+numpy = "*"
+pandas = "*"
+tqdm = "*"
+openpyxl = "*"
+python-Levenshtein = "*"
+ipywidgets = "*"
+Pillow = "*"
+dataclasses-json = "*"
+langchain = "*"
+langchain-google-vertexai = "*"
+Django = "*"
+langsmith = "*"
+
+[tool.poetry.group.dev.dependencies]
+twine = "*"
+python-dotenv = "*"
+
