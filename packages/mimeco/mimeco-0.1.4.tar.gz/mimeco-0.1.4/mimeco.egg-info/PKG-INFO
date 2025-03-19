@@ -1,0 +1,51 @@
+Metadata-Version: 2.2
+Name: mimeco
+Version: 0.1.4
+Summary: Multi-objective GEMs metabolic interaction inference
+Author: Anna Lambert
+Author-email: Anna LAMBERT <anna.lambert@univ-nantes.fr>
+Keywords: GEMs,Multi-objective linear programming,bioinformatics,metabolic modelling,community modelling
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/x-rst
+License-File: LICENSE.md
+Requires-Dist: pandas
+Requires-Dist: cobra
+Requires-Dist: matplotlib
+Requires-Dist: scikit-learn
+Dynamic: author
+
+/MIMEco : Metabolic Interaction Modeling in Ecosystems
+=======================================================
+
+MIMEco is python package that explores communities metabolic interactions using multi-objective linear programming on GEnome-scale Metabolic models (GEMs). 
+This tool automates the inference of interaction type, interaction score and exchanged metablites between two models in a given condition.
+
+.. image:: mimeco/resources/MIMEco_logo.png
+  :width: 500
+  :alt: MIMEco logo
+
+Documentation
+~~~~~~~~~~~~~
+
+For detailed documentation, please go to `readthedocs : mimeco <https://mimeco.readthedocs.io/en/latest/>`_
+
+Installation
+~~~~~~~~~~~~~
+
+<Under developpment>
+This tool is destined to be available using pip.
+
+Dependancies
+~~~~~~~~~~~~~
+
+To use MIMEco, you will need to download a solver, preferably CPLEX or gurobi. Both are free for academics.
+
+<Dependancies that are in pip so juste to put in setup.py : mocbapy, pickle, warnings, pandas, sklearn, math>
+
+
+Credits and License
+~~~~~~~~~~~~~~~~~~~
+
+<TODO>
