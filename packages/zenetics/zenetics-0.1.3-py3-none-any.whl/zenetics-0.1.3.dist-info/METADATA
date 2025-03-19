@@ -1,0 +1,50 @@
+Metadata-Version: 2.3
+Name: zenetics
+Version: 0.1.3
+Summary: Zenetics SDK
+Author: Zenetics
+Author-email: contact@zenetics.io
+Requires-Python: >=3.10,<3.14
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: httpx (>=0.28.0)
+Requires-Dist: openai (>=1.63.2,<2.0.0)
+Requires-Dist: pydantic (>=2.10.6,<3.0.0)
+Requires-Dist: pydantic-settings (>=2.7.1,<3.0.0)
+Requires-Dist: requests (==2.32.3)
+Requires-Dist: rich (>=13.7.0,<14.0.0)
+Requires-Dist: typer (>=0.15.1,<0.16.0)
+Project-URL: Homepage, https://github.com/zenetics/zenetics-sdk
+Project-URL: Issues, https://github.com/zenetics/zenetics-sdk/issues
+Description-Content-Type: text/markdown
+
+# Zenetics SDK
+
+Zenetics SDK is a Python library that provides a simple interface to interact with Zenetics API.
+
+### Installation
+
+```commandline
+pip install zenetics
+```
+
+### Usage
+
+Define the following environment variables: `ZENETICS_API_KEY`, `ZENETICS_APP_ID`.
+
+```python
+from zenetics import TestSuiteRunner
+
+
+def generate(input: str) -> str:
+    # Call your LLM model here and return the generated output.
+    return "Generated output from LLM model."
+
+
+runner = TestSuiteRunner(["smoke"])
+runner.run(generate)
+```
+
