@@ -1,0 +1,10 @@
+Metadata-Version: 2.2
+Name: frc-vlogger
+Version: 1.0.1
+Summary: FRC post match + live match logging reader abstraction
+Author-email: Ishan Karmakar <ishan.karmakar24@gmail.com>, Thomas Godden <thomas.godden@outlook.com>
+Requires-Python: >=3
+Requires-Dist: protobuf
+Provides-Extra: live
+Requires-Dist: msgpack; extra == "live"
+Requires-Dist: websockets; extra == "live"
