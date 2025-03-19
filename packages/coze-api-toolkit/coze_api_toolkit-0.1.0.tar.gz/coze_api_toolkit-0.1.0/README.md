@@ -1,0 +1,143 @@
+# Coze API 工具包
+
+[![Python 3.7+](https://img.shields.io/badge/python-3.7+-blue.svg)](https://www.python.org/downloads/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://opensource.org/licenses/MIT)
+
+基于 Coze 工作流 API 的简化 Python 工具包，提供函数式 API 设计，使 API 调用更加简洁直观。
+
+## 特性
+
+- **函数式设计**：直接函数调用，无需实例化对象
+- **简单易用**：无需关注底层实现，专注于业务逻辑
+- **多种认证方式**：支持参数、环境变量或配置文件方式提供API令牌
+- **完整示例**：提供命令行和 GUI 示例应用
+
+## 快速开始
+
+### 安装
+
+```bash
+# 克隆代码库
+git clone https://github.com/your-username/coze-api-toolkit.git
+cd coze-api-toolkit
+
+# 安装依赖
+pip install -r requirements.txt
+```
+
+### 配置API令牌
+
+使用工具包前，您需要配置有效的 Coze API 令牌。支持以下方式：
+
+1. **直接传入令牌**
+   ```python
+   image_urls = get_imgs_by_key(prompt="一只猫", token="您的API令牌")
+   ```
+
+2. **环境变量**
+   ```bash
+   # Linux/Mac
+   export COZE_API_TOKEN="您的API令牌"
+   
+   # Windows
+   set COZE_API_TOKEN=您的API令牌
+   ```
+
+3. **配置文件**
+   ```bash
+   # 创建配置目录
+   mkdir -p ~/.coze
+   
+   # 创建配置文件
+   echo '{"token": "您的API令牌"}' > ~/.coze/config.json
+   ```
+
+### 基本使用
+
+```python
+from api.get_imgs_by_key import get_imgs_by_key
+
+# 生成图片
+image_urls = get_imgs_by_key("一只可爱的猫")  # 自动从环境变量或配置文件加载令牌
+
+# 处理结果
+for url in image_urls:
+    print(url)
+```
+
+## 示例应用
+
+本工具包提供了多种示例，展示如何在不同场景下使用 API：
+
+### 命令行示例
+
+运行简单的命令行示例：
+
+```bash
+python examples/simple_example.py
+```
+
+此示例将引导您配置API令牌，并根据输入的关键词生成图片URL。
+
+### GUI 示例
+
+运行图形界面示例（需要安装 Pillow）：
+
+```bash
+# 先安装额外依赖
+pip install pillow
+
+# 运行 GUI 示例
+python examples/gui_example.py
+```
+
+GUI示例提供了令牌配置界面，可以保存令牌到配置文件，让使用更加便捷。
+
+## 项目结构
+
+```
+coze-api-toolkit/
+├── api/                  # API 函数实现
+│   └── get_imgs_by_key.py  # 图片生成API
+├── config/               # 配置文件
+│   └── api_catalog.json    # API 接口配置
+├── core/                 # 核心实现
+│   └── api_client.py       # API 客户端
+├── docs/                 # 文档
+│   └── design.md           # 设计文档
+├── examples/             # 示例应用
+│   ├── simple_example.py   # 命令行示例
+│   └── gui_example.py      # GUI 示例
+├── README.md             # 主文档
+├── README_TOOLKIT.md     # 工具包详细文档
+└── requirements.txt      # 项目依赖
+```
+
+## 详细文档
+
+可用 API 的完整说明请查看 [README_TOOLKIT.md](README_TOOLKIT.md)。
+
+## 设计理念
+
+该工具包采用三层架构设计：
+
+1. **API 客户端层**：负责与 Coze API 通信
+2. **函数式 API 层**：提供简化的函数接口
+3. **业务应用层**：用户自行实现的业务逻辑
+
+详细的设计思路请参考 [docs/design.md](docs/design.md) 文档。
+
+## 注意事项
+
+- 请妥善保管您的 API 令牌，不要将其硬编码在源代码中或提交到公共仓库
+- 目前支持的 API：
+  - `get_imgs_by_key`：根据关键词生成图片
+- 更多 API 将在未来版本中添加
+
+## 许可证
+
+本项目采用 MIT 许可证，详情请参阅 [LICENSE](LICENSE) 文件。
+
+## 贡献指南
+
+欢迎贡献代码、报告问题或提出建议。请通过 GitHub Issues 或 Pull Requests 参与项目开发。

@@ -1,0 +1,41 @@
+{
+  "version": "1.0.0",
+  "apis": [
+    {
+      "id": "get_imgs_by_key",
+      "name": "关键词生成图片",
+      "description": "根据关键词或描述生成图片",
+      "module": "api.get_imgs_by_key",
+      "function": "get_imgs_by_key",
+      "workflow_id": "7471274403935059983",
+      "parameters": [
+        {
+          "name": "prompt",
+          "type": "string",
+          "description": "图片描述或关键词",
+          "required": true
+        },
+        {
+          "name": "bot_id",
+          "type": "string",
+          "description": "可选的机器人ID",
+          "required": false
+        }
+      ],
+      "returns": {
+        "type": "list",
+        "item_type": "string",
+        "description": "生成的图片URL列表"
+      },
+      "example": {
+        "input": {
+          "prompt": "一只可爱的猫"
+        },
+        "output": [
+          "https://example.com/image1.png",
+          "https://example.com/image2.png"
+        ]
+      }
+    }
+  ]
+} 
