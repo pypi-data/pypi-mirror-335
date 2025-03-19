@@ -1,0 +1,29 @@
+Metadata-Version: 2.3
+Name: davidkhala.databricks
+Version: 0.1.3
+Summary: 
+License: MIT
+Author: David Liu
+Author-email: david-khala@hotmail.com
+Requires-Python: >=3.12,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: connect
+Provides-Extra: gcp
+Requires-Dist: databricks-connect (>=15,<16) ; extra == "connect"
+Requires-Dist: databricks-sdk
+Requires-Dist: davidkhala-gcp ; extra == "gcp"
+Requires-Dist: davidkhala-gcp-pubsub ; extra == "gcp"
+Requires-Dist: davidkhala-spark ; extra == "connect"
+Requires-Dist: davidkhala-utils
+Description-Content-Type: text/markdown
+
+# davidkhala.databricks
+
+## Key Dependencies
+
+Databricks Python SDK
+> [The Databricks SDK for Python is in **Beta**](https://docs.databricks.com/en/dev-tools/sdk-python.html)
+- [API](https://databricks-sdk-py.readthedocs.io/en/latest/)
