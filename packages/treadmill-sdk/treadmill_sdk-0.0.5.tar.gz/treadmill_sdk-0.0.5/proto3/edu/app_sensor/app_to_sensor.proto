@@ -1,0 +1,65 @@
+syntax = "proto3";
+import "edu_common.proto";
+
+package tech.brainco.edu;
+
+message AfeConfig {
+  AfeSampleRate  sample_rate   = 1;
+  uint32 channel_bits = 2; // 32 bits channel mask
+}
+
+enum  UploadDataType{
+  TYPE_UNSPECIFIED = 0;
+  RAW_DATA         = 1;   // upload 16bit raw data
+  CALIBRATED_DATA  = 2;   // Upload physical values computed using calibration parameters
+}
+message XYZ {
+      float x = 1;
+      float y = 2;
+      float z = 3;
+}
+
+message ImuCalibration {
+    XYZ acc_correction  = 2;  // acceleration 3-asix offset 
+    XYZ gyro_correction = 3;  // gyroscope 3-asix offset 
+}
+
+message MagCalibration {
+    XYZ mag_local_field = 2;
+    XYZ mag_hard_iron_correction = 3;          // hard iron calibration parameter
+    repeated XYZ mag_soft_iron_correction = 4; // soft iron calibration parameter
+}
+
+message ImuConfig {
+  enum ImuMode {
+    NOT_SET    = 0;
+    ACC        = 1;
+    GYRO       = 2;
+    ACC_GYRO   = 3;
+    EULER      = 4;
+  }
+
+  ImuMode       imu_mode = 1;
+  ImuSampleRate imu_sr   = 2;
+  CtrlBoxPort   port     = 3;
+  UploadDataType data_type = 4;      // request upload data stream type
+  ImuCalibration imu_calibration = 5;
+}
+
+message AccConfig {
+  SamplingRate acc_sr  = 1;
+  CtrlBoxPort  port = 2;
+  UploadDataType   data_type      = 3;
+  ImuCalibration imu_calibration  = 4;
+}
+
+message MagConfig {
+  MagSampleRate mag_sr = 1;
+  UploadDataType data_type       = 2;
+  MagCalibration mag_calibration = 3;
+}
+// flexible sensor configure
+message FlexConfig {
+  SamplingRate sample_rate = 1;
+}
+

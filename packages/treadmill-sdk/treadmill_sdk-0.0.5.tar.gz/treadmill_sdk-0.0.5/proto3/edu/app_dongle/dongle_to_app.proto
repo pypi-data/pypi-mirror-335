@@ -1,0 +1,30 @@
+syntax = "proto3";
+import "edu_common.proto";
+import "app_dongle_common.proto";
+
+package tech.brainco.edu;
+
+message DongleApp {
+  enum PairingStatus {
+    NONE = 0;         // 无配对状态
+    IDLE = 1;         // 空闲状态
+    SCANNING = 2;     // 扫描状态
+    CONNECTED = 3;    // 已连接
+    PAIRED = 4;       // 已配对
+    PAIR_REFUSED = 5; // 配对被拒绝
+  }
+  
+  enum MsgErrorCode {
+    ERR_NONE = 0;            // 无错误
+    SUCCESS = 1;             // 成功
+    INVALID_PARAM = 2;       // 无效参数
+    NVS_WRITE_FAILED = 3;    // NVS 写入失败
+  }
+  
+  uint32 msg_id = 1;                // 消息ID
+  MsgErrorCode error = 2;           // 消息错误代码
+  DeviceInfo device_info = 3;       // 设备信息
+  DeviceSetupInfo setup_info = 4;   // 设备配对和配置相关信息
+  PairingStatus pairing_status = 5; // 配对状态
+  OtaConfigResp ota_resp    = 6;    // OTA 升级配置
+}

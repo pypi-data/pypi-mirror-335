@@ -1,0 +1,37 @@
+syntax = "proto3";
+package tech.brainco.treadmill;
+
+import "treadmill_common.proto";
+import "treadmill_data.proto";
+import "treadmill_output.proto";
+
+message AppSensor {
+  uint32           msg_id     = 1;
+  ConfigReqType    msg_cmd    = 2;
+  OtaConfig     ota_cfg     = 5;
+
+  // IMU & Mag Sensor 10 - 19
+  ImuConfig   imu_config  = 10;
+
+}
+
+
+message SensorApp {
+  uint32        msg_id      = 1;
+  DeviceInfo    device_info = 2;
+  GaitAnalysisResult ga_result = 4;
+  OtaConfigResp ota_resp    = 5;
+  OTAData       ota_data    = 6;
+
+  // IMU & Mag Sensor
+  ImuData       imu_data    = 10;
+  // Imu configure response
+  ImuConfResp   imu_resp    = 11;
+
+  ImuData       imu_data2    = 17;
+
+  FlexData      flex_data   = 22;
+  FlexConfResp  flex_resp   = 23;
+  Treadmills_data tm_data   = 24;
+  AmpsData      amps_data   = 25;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+import "edu_common.proto";
+import "app_dongle_common.proto";
+
+package tech.brainco.edu;
+
+message AppDongle {
+  enum MsgType {
+    NONE = 0;         // 无消息类型
+    CONFIG_SET = 1;   // 配置设置
+    CONFIG_GET = 2;   // 配置获取
+    PAIR_SET = 3;     // 配对设置
+    PAIR_GET = 4;     // 配对获取
+    PAIR_STAT = 5;    // 配对状态
+  }
+
+  uint32  msg_id = 1;  // 消息 ID
+  MsgType msg_type = 2;   // 消息类型
+  DeviceInfoConfig device_info = 3; // 配置设备信息/获取相关数据 sn, model, hw_version
+  DeviceSetupInfo  setup_info = 4;  // 配置设备配对/获取相关数据 pair_key, model, sn, mac_address， model, sn
+  OtaConfig ota_cfg = 5; // OTA 升级数据, 无需设置 MsgType
+}

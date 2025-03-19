@@ -1,0 +1,75 @@
+syntax = "proto3";
+import "edu_common.proto";
+import "app_to_sensor.proto";
+
+package tech.brainco.edu;
+message AfeConfResp {
+  ConfigRespError error          = 1;
+  uint32          channel_subscriptions = 2;  // 32 bits channel mask
+  AfeConfig       config         = 3;
+}
+
+message ImuConfResp {
+  ConfigRespError error = 1;
+  CtrlBoxPort     port  = 2;
+  ImuConfig       config = 3;
+  float           acc_coefficient  = 4;  // coefficient for calculating acceleration, eg. acc value on the X-axis = RAW_ADC_x * acc_coefficient
+  float           gyro_coefficient = 5;  // coefficient for calculating Gyroscope, eg. Gyro value on the X-axis = RAW_ADC_x * gyro_coefficient
+
+}
+
+message AccConfResp {
+  ConfigRespError error = 1;
+  CtrlBoxPort     port  = 2;
+  AccConfig       config = 3;
+  float           acc_coefficient = 4;  // coefficient for calculating acceleration, value = RAW_ADC * acc_coefficient
+ 
+}
+
+message MagConfResp {
+  ConfigRespError respErr = 1;
+  MagConfig       config = 2;
+  float           mag_coefficient = 3;  // coefficient for calculating magnetometer, value = RAW_ADC * mag_coefficient
+}
+
+message FlexConfResp {
+  ConfigRespError error = 1;
+  FlexConfig      config = 2;
+}
+
+message AfeData {
+  uint32  seq_num         = 1;
+  uint32  lead_off_bits   = 2;  		 // each bit represents the connection status of corresponding channel
+  repeated bytes channel_adc_value = 4;  // n channels, m samples, 24-bit big endian
+}
+
+message ImuData {
+  uint32          seq_num          = 1;
+  bytes           acc_raw_data     = 4;  // 16-bit precision, sequence as x-y-z, little endian
+  bytes           gyro_raw_data    = 6;  // 16-bit precision, sequence as x-y-z, little endian
+  repeated float  eular_raw_data   = 7;  // valid range is (-180, +180), sequence as yaw-pitch-roll
+  CtrlBoxPort     port             = 8;
+  repeated float  acc_correction_data   = 9;  // sequence as x-y-z , unit(g)
+  repeated float  gyro_correction_data  = 10; // sequence as x-y-z , unit(dps)
+}
+
+message AccData {
+  uint32          seq_num         = 1;
+  CtrlBoxPort     port            = 2;
+  bytes           acc_raw_data    = 5;  // acc raw data, 16-bit precision, sequence as x-y-z, little endian
+  repeated float  acc_correction_data   = 6;  // sequence as x-y-z , unit(g)
+}
+
+message MagData {
+  uint32          seq_num         = 1;
+  bytes           mag_raw_data    = 4;  // mag raw data, 16-bit precision, sequence as x-y-z, little endian
+  repeated float  mag_correction_data   = 5;  // sequence as x-y-z , unit(gauss)
+}
+
+// flexible sensor data
+message FlexData {
+  ConfigRespError     error             = 1;
+  uint32              seq_num           = 2;
+  repeated bytes      channel_adc_value = 4;  // 12 bytes for one group, <int16><little endian>, 6 channels in one group
+}
+
