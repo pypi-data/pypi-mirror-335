@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bgun"
+version = "0.1.12"
+requires-python = ">=3.6"
+authors = [{ name = "Piotr Sydow", email = "sydow@wp.pl" }]
+dependencies = [
+    "docopt>=0.6.2",
+    "mako>=1.1.6"
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+bgun = "bgun.bgun:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+bgun = ["bgen.json"]
+
+
