@@ -1,0 +1,21 @@
+Metadata-Version: 2.2
+Name: rpkilog
+Version: 0.25031501
+Summary: A web tool for searching RPKI history
+Author-email: Jeff Wheeler <jeffsw6@gmail.com>
+Project-URL: homepage, https://rpkilog.com
+Project-URL: source, https://github.com/jeffsw/rpkilog/python/rpkilog/
+Keywords: BGP,RPKI
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: boto3
+Requires-Dist: netaddr
+Requires-Dist: opensearch-py
+Requires-Dist: psutil
+Requires-Dist: python-dateutil
+Requires-Dist: pyyaml
+Requires-Dist: requests
+Requires-Dist: requests_aws4auth
+Requires-Dist: tqdm
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
