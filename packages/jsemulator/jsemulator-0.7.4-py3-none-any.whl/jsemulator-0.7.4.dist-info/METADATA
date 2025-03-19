@@ -1,0 +1,32 @@
+Metadata-Version: 2.2
+Name: jsemulator
+Version: 0.7.4
+Summary: JavaScript to Python Translator & JavaScript interpreter written in 100% pure Python.
+Author: Blake Foster
+Author-email: blakehulsey@gmail.com
+License: MIT
+License-File: LICENSE.md
+Requires-Dist: tzlocal>=1.2
+Requires-Dist: six>=1.10
+Requires-Dist: jsparser>=2.7.3
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+Translates JavaScript to Python code. jsemulator is able to translate and execute virtually any JavaScript code.
+
+jsemulator is written in pure python and does not have any dependencies. Basically an implementation of JavaScript core in pure python.
+
+
+    import jsemulator
+
+    f = jsemulator.eval_js( "function $(name) {return name.length}" )
+
+    f("Hello world")
+
+    # returns 11
+
+Now also supports ECMA 6 through jsemulator.eval_js6(js6_code)!
