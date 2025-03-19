@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "firestart-utils"
+version = "0.2.6"
+description = ""
+authors = ["Çağdaş Öztürk <cagdas@littlerocket.nl>", "Daan Gebraad <daan@littlerocket.nl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2"
+
+[tool.poetry.group.dev.dependencies]
+dummy-notebookutils = "^1.5.3"
+pyspark = {extras = ["sql"], version = "^3.5.3"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
