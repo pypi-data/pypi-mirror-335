@@ -1,0 +1,90 @@
+Metadata-Version: 2.1
+Name: liberal-alpha
+Version: 0.1.4
+Summary: Liberal Alpha Python SDK for interacting with gRPC-based backend
+Home-page: https://github.com/capybaralabs-xyz/Liberal_Alpha
+Author: capebaralabs
+Author-email: donny@capybaralabs.xyz
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+📖 使用示例 (中文)
+1️⃣ 初始化 SDK
+你可以使用默认参数初始化：
+
+from liberal_alpha import initialize, liberal
+
+initialize()
+或者使用自定义参数：
+
+initialize(host="127.0.0.1", port=8128)
+2️⃣ 发送数据
+
+JSON_Object = {
+    "Price": 100000,
+    "Volume": 50,
+    "Volume_USD": 5000000,
+}
+
+liberal.send_data("BTC_SOURCE1", JSON_Object, record_id="1")
+3️⃣ 发送 Alpha 信号
+
+alpha_data = {
+    "signal": "buy",
+    "confidence": 0.85
+}
+
+liberal.send_alpha("Alpha_ID", alpha_data, record_id="1")
+4️⃣ 订阅数据
+如果你需要实时订阅数据，请使用 subscribe_data 方法。请确保你已经在网站的 订阅频道 (Subscribe Channel) 中订阅了你感兴趣的记录。
+
+liberal.subscribe_data(
+    api_key="YOUR_API_KEY",
+    base_url="http://your-backend-url",
+    private_key="YOUR_PRIVATE_KEY",  # 可选，用于解密消息
+    record_id=1,                     # 订阅特定记录（不传则订阅所有已订阅记录）
+    max_reconnect=5
+)
+请确保你的 API Key 和私钥正确无误，并且已在网站的订阅频道中订阅了所需的数据。
+
+📖 Usage Example (English)
+1️⃣ Initialize the SDK
+You can initialize the SDK using default parameters:
+
+from liberal_alpha import initialize, liberal
+
+initialize()
+Or customize the parameters:
+
+initialize(host="127.0.0.1", port=8128)
+2️⃣ Send Data
+
+JSON_Object = {
+    "Price": 100000,
+    "Volume": 50,
+    "Volume_USD": 5000000,
+}
+
+liberal.send_data("BTC_SOURCE1", JSON_Object, record_id="1")
+3️⃣ Send Alpha Signal
+
+alpha_data = {
+    "signal": "buy",
+    "confidence": 0.85
+}
+
+liberal.send_alpha("Alpha_ID", alpha_data, record_id="1")
+4️⃣ Subscribe to Data
+If you need to subscribe to real-time data, use the subscribe_data method. Make sure you have subscribed to the desired records via the website's Subscribe Channel.
+
+liberal.subscribe_data(
+    api_key="YOUR_API_KEY",
+    base_url="http://your-backend-url",
+    private_key="YOUR_PRIVATE_KEY",  # Optional, used for decrypting messages
+    record_id=1,                     # Subscribe to a specific record; omit to subscribe to all subscribed records
+    max_reconnect=5
+)
+Ensure that your API Key and private key are correct, and that you have subscribed to the data you wish to receive in the website's subscribe channel.
