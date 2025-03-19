@@ -1,0 +1,47 @@
+Metadata-Version: 2.2
+Name: crypticorn
+Version: 1.0.2rc3
+Summary: Maximise Your Crypto Trading Profits with AI Predictions
+Author-email: Crypticorn <timon@crypticorn.com>
+License: MIT License
+Project-URL: Homepage, https://crypticorn.com
+Keywords: machine learning,data science,crypto,modelling
+Classifier: Topic :: Scientific/Engineering
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Typing :: Typed
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Provides-Extra: trade
+Requires-Dist: urllib3<3.0.0,>=1.25.3; extra == "trade"
+Requires-Dist: python_dateutil>=2.8.2; extra == "trade"
+Requires-Dist: pydantic>=2; extra == "trade"
+Requires-Dist: typing-extensions>=4.7.1; extra == "trade"
+Provides-Extra: klines
+Requires-Dist: urllib3<3.0.0,>=1.25.3; extra == "klines"
+Requires-Dist: python_dateutil>=2.8.2; extra == "klines"
+Requires-Dist: pydantic>=2; extra == "klines"
+Requires-Dist: typing-extensions>=4.7.1; extra == "klines"
+Provides-Extra: hive
+Requires-Dist: pandas<3.0.0,>=2.2.0; extra == "hive"
+Requires-Dist: requests<3.0.0,>=2.32.0; extra == "hive"
+Requires-Dist: tqdm<5.0.0,>=4.67.0; extra == "hive"
+Requires-Dist: pydantic<3.0.0,>=2.0.0; extra == "hive"
+Provides-Extra: dev
+Requires-Dist: streamlit; extra == "dev"
+Requires-Dist: httpx; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: pyflakes; extra == "dev"
+Provides-Extra: test
+Requires-Dist: pytest>=7.2.1; extra == "test"
+Requires-Dist: pytest-cov>=2.8.1; extra == "test"
+Requires-Dist: tox>=3.9.0; extra == "test"
+Requires-Dist: flake8>=4.0.0; extra == "test"
+Requires-Dist: types-python-dateutil>=2.8.19.14; extra == "test"
+Requires-Dist: mypy>=1.5; extra == "test"

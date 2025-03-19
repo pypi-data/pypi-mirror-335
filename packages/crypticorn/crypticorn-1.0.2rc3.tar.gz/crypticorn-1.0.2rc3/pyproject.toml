@@ -1,0 +1,35 @@
+[project]
+name = "crypticorn"
+description = "Maximise Your Crypto Trading Profits with AI Predictions"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT License"}
+authors = [{name = "Crypticorn", email = "timon@crypticorn.com"}]
+version = "1.0.2rc3"
+keywords = ["machine learning", "data science", "crypto", "modelling"]
+dynamic = ["optional-dependencies"]
+dependencies = []
+
+classifiers = [
+    "Topic :: Scientific/Engineering",
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Typing :: Typed",
+]
+
+[tool.setuptools.dynamic]
+optional-dependencies.trade = { file = ["crypticorn/trade/requirements.txt"] }
+optional-dependencies.klines = { file = ["crypticorn/klines/requirements.txt"] }
+optional-dependencies.hive = { file = ["crypticorn/hive/requirements.txt"] }
+optional-dependencies.dev = { file = ["requirements-dev.txt"] }
+optional-dependencies.test = { file = ["requirements-test.txt"] }
+
+[project.urls]
+Homepage = "https://crypticorn.com"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
