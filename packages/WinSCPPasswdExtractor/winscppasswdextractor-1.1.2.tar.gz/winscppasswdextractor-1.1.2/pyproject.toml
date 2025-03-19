@@ -1,0 +1,22 @@
+[project]
+name = "WinSCPPasswdExtractor"
+version = "1.1.2"
+description = "Extract WinSCP Credentials from any Windows System or winscp config file"
+authors = [{ name = "Alexander Neff", email = "alex99.neff@gmx.de" }]
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.7,<4.0"
+packages = [
+    { include = "WinSCPPasswdExtractor" },
+]
+
+[project.urls]
+homepage = "https://github.com/NeffIsBack/WinSCPPasswdExtractor"
+repository = "https://github.com/NeffIsBack/WinSCPPasswdExtractor"
+
+[project.scripts]
+WinSCPPasswdExtractor = "WinSCPPasswdExtractor.WinSCPPasswdExtractor:run"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
