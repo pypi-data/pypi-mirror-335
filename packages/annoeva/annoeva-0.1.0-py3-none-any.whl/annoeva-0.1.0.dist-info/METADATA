@@ -1,0 +1,120 @@
+Metadata-Version: 2.2
+Name: annoeva
+Version: 0.1.0
+Summary: A command line utility for managing and executing shell scripts with enhanced logging and formatting
+Author-email: Yuan Zan <yfinddream@gmail.com>
+License: MIT
+Requires-Python: <4.0,>=3.8.1
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: colorama<0.5.0,>=0.4.6
+Requires-Dist: PyYAML<7.0,>=6.0
+Requires-Dist: pandas<3.0.0,>=2.0.0
+Requires-Dist: sphinxcontrib-mermaid<2.0.0,>=1.0.0
+
+annoeva
+=======
+
+项目概述
+--------
+
+annoeva 是一个用于生物信息分析流程的自动配置和监控系统。它通过规范化的目录结构和配置文件，实现了生物信息分析流程的自动化管理。
+
+主要功能
+--------
+
+-  自动监控项目准备状态
+-  自动配置和执行分析流程
+-  项目状态跟踪和统计
+-  失败项目重运行
+-  定期维护和清理
+
+安装
+----
+
+.. code:: bash
+
+   pip install annoeva
+
+使用说明
+--------
+
+添加项目
+~~~~~~~~
+
+.. code:: bash
+
+   annoeva addproject -p <project_id> -t <pipeline_type> -d <workdir>
+
+参数说明： - ``-p/--projectid``: 项目唯一标识符 - ``-t/--pipetype``:
+分析流程类型（默认：‘scrna’） - ``-d/--workdir``:
+项目工作目录（必须包含info/, Filter/, Analysis/子目录）
+
+查看项目状态
+~~~~~~~~~~~~
+
+.. code:: bash
+
+   annoeva stat [-p <project_id>]
+
+参数说明： - ``-p/--projectid``: 查看指定项目的详细状态（可选）
+
+重运行项目
+~~~~~~~~~~
+
+.. code:: bash
+
+   annoeva rerun -p <project_id>
+
+功能说明： - 修改数据库中项目的状态 -
+如果项目正在运行，会终止后台运行的work.sh进程 -
+系统会自动检测到项目状态变化并重新启动work.sh -
+适用于项目出错或配置修改后需要重新运行的情况
+
+参数说明： - ``-p/--projectid``: 需要重运行的项目ID
+
+删除项目
+~~~~~~~~
+
+.. code:: bash
+
+   annoeva delete -p <project_id>
+
+参数说明： - ``-p/--projectid``: 需要删除的项目ID
+
+定时任务
+~~~~~~~~
+
+.. code:: bash
+
+   annoeva cron -m <mode>
+
+功能说明： - 模式1（-m 1）： - 定时更新数据库中的项目状态 -
+自动启动autoconfig配置程序 - 自动执行work.sh分析脚本 -
+建议通过crontab定时执行（默认每18分钟一次）
+
+-  模式2（-m 2）：
+
+   -  清理一个月前已成功完成的项目记录
+   -  减少commander stat命令的输出量
+   -  建议通过crontab每月1号执行
+
+参数说明： - ``-m/--mode``: 定时任务模式 - 1: 项目状态更新和自动执行 -
+2: 清理旧项目记录
+
+项目结构要求
+------------
+
+每个项目目录必须包含以下子目录： - ``info/``: 存放客户信息表info.xlsx -
+``Filter/``: 存放分析所需数据，数据整理齐全后需要有go.sign标志文件 -
+``Analysis/``: 分析结果输出目录
+
+自动执行流程
+------------
+
+1. 添加项目后，系统会持续监控项目目录
+2. 当检测到info/info.xlsx和Filter/go.sign文件都存在时
+3. 根据项目类型调用对应的autoconfig程序
+4. 生成work.sh脚本并自动执行
+5. 记录执行状态到数据库
+6. 用户可通过stat命令查看项目状态
