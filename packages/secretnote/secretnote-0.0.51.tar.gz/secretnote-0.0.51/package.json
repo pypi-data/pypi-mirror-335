@@ -1,0 +1,20 @@
+{
+  "name": "secretnote",
+  "private": true,
+  "version": "0.0.51",
+  "type": "module",
+  "scripts": {
+    "dev:sf": "cd .. && NODE_ENV=development python -m secretnote sf --config=./secretnote/secretnote/sf/.jupyter/config_dev.py --no-browser",
+    "dev:scql": "cd .. && NODE_ENV=development python -m secretnote scql --config=./secretnote/secretnote/scql/.jupyter/config_dev.py --no-browser --party=alice --broker=http://127.0.0.1:8181",
+    "format:black": "python -m black --check ./secretnote",
+    "test:pytest": ":",
+    "typecheck:pyright": ":",
+    "build:py": "rye build --out ./dist",
+    "build:py:ci": "python -m build --out ./dist",
+    "publish:py": "python -m hatch publish ./dist"
+  },
+  "dependencies": {
+    "@difizen/libro-analyzer": "latest",
+    "@difizen/pylez": "latest"
+  }
+}

@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: secretnote
+Version: 0.0.51
+Summary: Server for SecretNote (Python) App
+Author-email: "wenyu.jqq" <wenyu.jqq@antgroup.com>, Tony Wu <tonywu6@protonmail.com>, "zhuoxu.zx" <zhuoxu.zx@antgroup.com>
+License: Apache-2.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: <3.12,>=3.10
+Requires-Dist: dataset>=1.6.2
+Requires-Dist: ipykernel>=6.24.0
+Requires-Dist: ipywidgets>=8.1.1
+Requires-Dist: jupyter-lsp>=2.2.0
+Requires-Dist: jupyter-resource-usage~=1.0
+Requires-Dist: jupyter-server-proxy
+Requires-Dist: jupyter-server~=2.7
+Requires-Dist: python-lsp-server==1.8.2
+Description-Content-Type: text/markdown
+
+# SecretNote
+
+This is the backend of the notebook suite named [SecretNote](https://github.com/secretflow/secretnote). It serves both Jupyter Server, SecretNote specified APIs and static files of the playground, for both SecretFlow in Python and the SCQL.
+
+## Installation
+
+We recommend you to install in a clean Python 3.10 environment. You can use your favorite virtual environment solution.
+
+### From PyPI
+
+```sh
+conda create -n secretnote python=3.10 # use conda for example
+conda activate secretnote
+pip install secretnote
+```
+
+### From Source
+
+```sh
+pnpm bootstrap # pnpm and rye are required
+```
+
+## Start Locally
+
+Start SecretNote SF for SecretFlow Python programming
+
+```bash
+secretnote sf . --config=/somewhere/config.py
+```
+
+Start SecretNote SCQL for SCQL programming
+
+```sh
+secretnote scql . --config=/somewhere/config.py
+```
+
+Common Jupyter Command Line Options are supported. For example, to change the port, use
+
+```bash
+secretnote sf . --ServerApp.port 8889
+```
