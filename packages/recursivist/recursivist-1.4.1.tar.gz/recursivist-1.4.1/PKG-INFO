@@ -1,0 +1,97 @@
+Metadata-Version: 2.4
+Name: recursivist
+Version: 1.4.1
+Summary: A command-line tool for visualizing directory structures
+Project-URL: Repository, https://github.com/ArmaanjeetSandhu/recursivist
+Project-URL: Documentation, https://armaanjeetsandhu.github.io/recursivist
+Author-email: Armaanjeet Singh Sandhu <armaanjeetsandhu430@gmail.com>
+License: MIT
+License-File: LICENSE
+Keywords: cli,directory,directory-structure,explorer,file-tree,filesystem,visualization
+Classifier: Environment :: Console
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: System :: Filesystems
+Classifier: Topic :: Utilities
+Requires-Python: >=3.7
+Requires-Dist: rich>=13.0.0
+Requires-Dist: shellingham>=1.5.0
+Requires-Dist: typer>=0.9.0
+Provides-Extra: dev
+Requires-Dist: black>=22.0.0; extra == 'dev'
+Requires-Dist: build; extra == 'dev'
+Requires-Dist: flake8>=5.0.0; extra == 'dev'
+Requires-Dist: hatchling; extra == 'dev'
+Requires-Dist: isort>=5.0.0; extra == 'dev'
+Requires-Dist: mypy>=1.0.0; extra == 'dev'
+Requires-Dist: pytest-cov>=4.0.0; extra == 'dev'
+Requires-Dist: pytest-mock>=3.10.0; extra == 'dev'
+Requires-Dist: pytest>=7.0.0; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: mkdocs-glightbox>=0.4.0; extra == 'docs'
+Requires-Dist: mkdocs-material>=9.6.7; extra == 'docs'
+Requires-Dist: mkdocs-minify-plugin>=0.8.0; extra == 'docs'
+Requires-Dist: mkdocs>=1.6.1; extra == 'docs'
+Requires-Dist: mkdocstrings-python>=1.16.2; extra == 'docs'
+Requires-Dist: mkdocstrings>=0.28.2; extra == 'docs'
+Requires-Dist: pymdown-extensions>=10.14.3; extra == 'docs'
+Description-Content-Type: text/markdown
+
+# Recursivist
+
+A beautiful command-line tool for visualizing directory structures with rich formatting, color-coding, and multiple export options.
+
+## Key Features
+
+- 🎨 **Colorful Visualization**: Each file type is assigned a unique color for easy identification
+- 🌳 **Tree Structure**: Displays your directories in an intuitive, hierarchical tree format
+- 📁 **Smart Filtering**: Easily exclude directories and file extensions you don't want to see
+- 🧩 **Gitignore Support**: Automatically respects your `.gitignore` patterns
+- 🔄 **Directory Comparison**: Compare two directory structures side by side with highlighted differences
+- 📊 **Multiple Export Formats**: Export to TXT, JSON, HTML, Markdown, and React components
+
+## Installation
+
+```bash
+pip install recursivist
+```
+
+## Quick Start
+
+Just run the command in any directory to see a beautifully formatted directory tree:
+
+```bash
+recursivist visualize
+```
+
+For a specific directory:
+
+```bash
+recursivist visualize /path/to/directory
+```
+
+To exclude common directories:
+
+```bash
+recursivist visualize \
+--exclude "node_modules .git"
+```
+
+To export the structure to markdown:
+
+```bash
+recursivist export \
+--format md
+```
+
+To compare two directories:
+
+```bash
+recursivist compare dir1 dir2
+```
+
+## Documentation
+
+For comprehensive documentation, including detailed usage instructions, examples, and API reference, click [here](https://armaanjeetsandhu.github.io/recursivist/).
