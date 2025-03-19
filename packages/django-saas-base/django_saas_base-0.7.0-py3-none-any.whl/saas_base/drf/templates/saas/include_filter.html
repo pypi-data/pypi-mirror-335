@@ -1,0 +1,12 @@
+{% load i18n %}
+<h2>{% trans "Include" %}</h2>
+<form class="form-inline">
+  <div class="form-group">
+    <div class="input-group">
+      <input type="text" class="form-control" style="width: 350px" name="include" value="{{ term }}">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="submit">{% trans "Include" %}</button>
+      </span>
+    </div>
+  </div>
+</form>
