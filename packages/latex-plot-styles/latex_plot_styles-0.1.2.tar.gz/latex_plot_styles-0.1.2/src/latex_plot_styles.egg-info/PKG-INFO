@@ -1,0 +1,73 @@
+Metadata-Version: 2.2
+Name: latex_plot_styles
+Version: 0.1.2
+Summary: A simple helper package to adjust matplotlib plots to fit in LaTeX documents
+Author: Tobias Weiß
+Author-email: lebottel.team@gmail.com
+License: MIT License
+        
+        Copyright (c) 2025 tobiweisss
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: matplotlib>=3.10.1
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: seaborn>=0.13.2
+
+# latex-plot-styles
+This project can be used to makte plots created with matplotlib nicer. It simplifys the styling options by providing a nice default configuration for thesis.
+
+## setup
+`latex-plot-styles` can pe installed using pip:
+```
+pip install latex-plot-styles
+```
+To use the full functionality you need a running LaTeX installation on your system. On Debian based systems this can be installed using:
+```
+sudo apt install texlive-full
+```
+
+## usage
+Instead of configuring the styles and sizes for all your plots you can just do
+```Python
+import latex_plot_styles as lps
+import matplotlib.pyplot as plt
+
+lps.set_style()
+fig, ax = plt.subplots(1, 1, figsize=lps.get_size())
+...
+plt.savefig("your_fig.pdf", bbox_inches="tight")
+```
+
+# configure your own styles
+To configure your own styles you have to create an object from class `Config` and give this config object to `lps.set_style(your_config_object)`
+
+# warning
+This is just a small side project to simlify generating plots for my masters thesis. There are no automated tests, this is not ment for production, but feel free to use and adapt it for your own stuff. 
+
+# changelog
+0.1.0 basic funcitionality for matplotlib styles<br>
+0.1.1 fix typo in package name<br>
+0.1.2 change default colors to seaborn dark<br>

@@ -1,0 +1,49 @@
+[project]
+name = "latex_plot_styles"
+version = "0.1.2"
+description = "A simple helper package to adjust matplotlib plots to fit in LaTeX documents"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "matplotlib>=3.10.1",
+    "pydantic>=2.10.6",
+    "seaborn>=0.13.2",
+]
+license = {file = "LICENSE"}
+authors = [
+    {name = "Tobias Weiß"},
+    {email = "lebottel.team@gmail.com"}
+]
+classifiers=[
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[build-system]
+requires = ["setuptools >= 65.5"]
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+exclude = ["tests"]
+
+[toll.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+docstring-code-line-length = "dynamic"
+
+[tool.ruff.lint]
+select = [
+    "F",    # pyflakes
+    "E",    # pydodestyle
+    "I",    # isort
+    "ANN",  # flake8 type annotations
+    "RUF",  # ruff specific rules
+]
+ignore = ["ANN101", "ANN102"]# ignore missing type annotations for self and cls in 
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
