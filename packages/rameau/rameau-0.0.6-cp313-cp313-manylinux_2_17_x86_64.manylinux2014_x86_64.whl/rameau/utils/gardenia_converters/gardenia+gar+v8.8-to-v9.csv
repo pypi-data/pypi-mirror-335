@@ -1,0 +1,193 @@
+line	v8.8	v9	sep	index	eval	Comment
+1	test	name	=	0	str(x)	
+2	 #<V8.8># --- Fin du texte libre --- ; Ne pas modifier/retirer cette ligne
+3	 *** Pré-Options Générales           ***
+4	          =Profil d'utilisation : 0=simple ; A=Avancé (Neige, Pompage, Prévi etc.)					"NA (always ""Avancé"")"
+5	          =Mode d'exécution (C = Contrôle sur écran ; Déf=Rapide ; D=Direct ; M=Muet)					"NA (always ""Direct"")"
+6	          =Opération : Déf=Calcul ; A=Actualisation seule du fichier des paramètres					"NA (always ""Calcul"")"
+7	 *** Options Générales               ***
+8	          =Nombre de Sites (Bassins) à modéliser successivement					NS?
+9	          =Type de donnée pour Prévision (0=Débits de Rivière , 1=Niveaux de Nappe)					?
+10	          =Observations de Débits de Rivière : Importance (entier : 0 à 10 ;  0=Non)	watershed.all.river.weight	=	0	float(x)	
+11	          =Observations de Niveaux de Nappe  : Importance (entier : 0 à 10 ;  0=Non)	watershed.all.groundwater.weight	=	0	float(x)	
+12	          =Calcul des Débits de Rivière : (0=Non  ;  1=Oui)					NA?
+13	          =Calcul des Niveaux de Nappe  : (0=Non  ;  1=Oui)					NA?
+14	          =Sauvegarde de la Recharge et de la Pluie Efficace (0=Non  ;  1=Oui)					?
+15	          =Sauvegarde des Débit/Niveaux simulés : (0=Non  ;  1=Oui)					NA?
+16	          =Sauvegarde des termes du Bilan : (0=Non ; 1=Annuel ; 2=Mensuel ; 3=Tous les pas de temps)	outputs.budget	=	0	bool(int(x))
+17	          =Allègement du Listing (0=Complet ; 1=Allégé ; 2=Supprimé)					NA?
+18	          =Schéma de calcul (0=Gardénia ; 5=Ruissell,Drainage ; etc.)					"NA (always ""Gardénia"")"
+19	          =Dessin de la série simulée (0=non ; 1=Oui ; 2=Oui avec décomposition)					"NA (not supported; always ""Non"")"
+20	          =Transformation du débit pour calibration (0=Non ; 99= Racine_Débit; 97= Logar_Débits ; etc.)	optimization.transformation	=	0	'no' if x == '0' else 'log' if x == '97' else 'square root' if x == '99' else ValueError(x)
+21	          =Poids (%) de minimisation du biais de simulation des Débits Rivière (0 = Non ; 100 = 100 %)					NS?
+22	          =Pompage influençant les Débits de Rivière (0=Non ; 1=Oui ; 2=Oui en rivière)	,	=	0,0	"ValueError(x) if x not in ['0', '1', '2'] else None#exec(""rpump = True if x in ['1', '2'] else False"")"	to control if line #169 value used; else watershed.all.pumping.river.coefficient.value set to 0
+23	          =Pompage influençant les Niveaux de Nappe (0=Non ; 1=Oui)		=	0	"exec(""gwpump = bool(int(x))"")"	to control if line #172 value used; else watershed.all.pumping.groundwater.coefficient.value set to 0
+24	          =Calcul avec Prévision (0=Non ; 1=Oui ; -1=Préparation uniquement) [3, 4 = Particulier]	forecast.forecast,	=	0,0	"bool(int(x))#exec(""frc = bool(int(x))"")"	
+25	          =Méthode de Prévision (0=Ajustement Réservoirs ; 1=Décalage avec 1/2 vie)	forecast.correction	=	0	'no' if not frc else 'halflife' if x == '1' else NotImplementedError(x) if x == '0' else ValueError(x)	
+26	          =Schéma d'échanges souterr. avec extérieur (0=% Débit Souterr. (++) ; 1=Facteur Niv_Souterr.)					NS?
+27	          =Bilan journalier même si pluie Décadaire ou Mensuelle (0=Non ; 1=Oui)					NS?
+28	          =Prise en compte de la Neige (0=Non  ;  1=Oui)					?
+29	          =Précipitations neigeuses dans un fichier propre (0 = avec pluies ; 1 = fichier séparé)					?
+30	          =Données par années hydrologiques [début 1 août] (0=années Civiles ; 1=années Hydrologiques)		=	0	"exec(""hydro = bool(int(x))"")"	
+31	          =Perte de Débit : 0=Non ; 1=Perd le Debit Souterrain le plus Lent ; -1=Perd le Ruissellement					?
+32	          =Analyse de Sensibilité (0=Non  ;  1=Oui uniquement analyse de Sensibilité)					NS?
+33	          =Sauvegarde de la 'Réponse impulsionnelle' et de la 'Réponse Cumulée' (1=Oui)					NS?
+34	          =Données de tous les sites dans différentes colonnes d'un même fichier (Déf=0)					NA? (by default it detects if 2D data or list of files?)
+35	          =Numéro de la 'colonne' des Pluies       : Déf=0 <=> 1ère colonne de données					NS?
+36	          =Numéro de la 'colonne' des ETP          : Déf=0=Identique à la pluie					NS?
+37	          =Numéro de la 'colonne' des Débits       : Déf=0=Identique à la pluie					NS?
+38	          =Numéro de la 'colonne' des Niveaux      : Déf=0=Identique à la pluie					NS?
+39	          =Numéro de la 'colonne' des Températures : Déf=0=Identique à la pluie					NS?
+40	          =Numéro de la 'colonne' de la Neige      : Déf=0=Identique à la pluie					NS?
+41	          =Numéro de la 'colonne' des Pompages     : Déf=0=Identique à la pluie					NS?
+42	          =Numéro de la 'colonne' des Pluies pour Prévision  : Déf=0=Identique à la pluie					NS?
+43	          =Numéro de la 'colonne' des Tempér. pour Prévision : Déf=0=Identique à la pluie					NS?
+44	          =Numéro de la 'colonne' des ETP pour Prévision     : Déf=0=Identique à la pluie					NS?
+45	          =Numéro de la 'colonne' de la Neige pour Prévision : Déf=0=Identique à la pluie					NS?
+46	          =Météo (Pluie, ETP, ...) pondérée à chaque pas [1=Fich. annuels SAFRAN , 2=Fichier unique]	input_format.meteo_files	=	0	True if x == '1' else False if x in ['2', '0'] else ValueError(x)	
+47	          =Sauvegarde de la météo pondérée => Fichier (futurs runs + rapides et portables) [1=Oui]					NS?
+48	          =Couplage avec le coupleur OpenPalm (0=Non ; 1=Couplage Météo)					NS?
+49	 *** Pas de temps du Fichier Pluie, Neige, Pompage    ***
+50	          = Pas de temps :  0=Journalier 1=Pentadaire 2=Décadaire 3=Mensuel 4=Autre 5=5_Jours 7=7_Jours					NS?
+51	          = Format : 0=Gardénia_Sequentiel  1=Gardénia_Annuaire  2=Libre  3=Excel					NS?
+52	 *** Pas de temps du Fichier Température              ***
+53	          = Pas de temps :  0=Journalier 1=Pentadaire 2=Décadaire 3=Mensuel 4=Autre 5=5_Jours 7=7_Jours		=	0	"exec(""dt = int(x)"")"	NS?
+54	          = Format : 0=Gardénia_Sequentiel  1=Gardénia_Annuaire  2=Libre  3=Excel					NS?
+55	 *** Pas de temps du Fichier ETP                      ***
+56	          = Pas de temps :  0=Journalier 1=Pentadaire 2=Décadaire 3=Mensuel 4=Autre 5=5_Jours 7=7_Jours					NS?
+57	          = Format : 0=Gardénia_Sequentiel  1=Gardénia_Annuaire  2=Libre  3=Excel					NS?
+58	 *** Pas de temps du Fichier Débits, Niveaux Observés ***
+59	         = Pas de temps :  0=Journalier 1=Pentadaire 2=Décadaire 3=Mensuel 4=Autre 5=5_Jours 7=7_Jours					NS?
+60	         = Format : 0=Gardénia_Sequentiel  1=Gardénia_Annuaire  2=Libre  3=Excel					NS?
+61	 *** Durée du pas de temps s'il est non-standard ***
+62	         =Unité de durée des Pas si non-standard (sec,min,heu,jou,moi,ann)	,	=	0,0	"ValueError(x) if x not in ['Standard', 'sec', 'min', 'heu', 'jou', 'moi', 'ann'] else None#exec(""unit = x"")"	to use with lines #83+#92-95 if not 'Standard' to get input_format.starting_date
+63	         =Durée du pas de temps (dans l'unité)		=	0	"exec(""step = float(x)"")"	to use with line #62 to get input_format.time_step
+64	 *** >>>>>>>>>>>>>> Fin des données communes ] >>>>>
+65	 *** <<<<<<<<<<<< Début des données du bassin [ <<<<<
+66
+67	         =Valeur Maximale du Débit de Rivière Observé prise en compte (0 = toutes)					NS?
+68	         =Valeur Minimale du Débit de Rivière Observé prise en compte (0 = toutes)					NS?
+69	         =Valeur Maximale du Niveau de Nappe Observé prise en compte (0 = toutes)					NS?
+70	         =Valeur Minimale du Niveau de Nappe Observé prise en compte (0 = toutes)					NS?
+71	         =Coefficient de réajustement pour la prévision [0 à 1]					NS?
+72	         =Écart-type de l'alimentation du Réservoir intermédiaire  (pour la prévision)					NS?
+73	         =Écart-type de l'alimentation du Réservoir Souterrain n°1 (pour la prévision)					NS?
+74	         =Écart-type de l'alimentation du Réservoir Souterrain n°2 (pour la prévision)					NS?
+75	         =Débit Rivière réservé (valeur simulée minimale possible) (Déf=0)					NS?
+76	         =Écart-type des observations de niveau de nappe (pour la prévision)					NS?
+77	         =Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)	watershed.all.forecast.river.halflife	=	0	float(x) if frc else None
+78	         =Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)	watershed.all.forecast.groundwater.halflife	=	0	float(x) if frc else None
+79	 *** Options du Bassin               ***
+80	         =Nombre d'Années des séries de données (Pluie, ETP, Observations) [0 => Toutes]		=	0	"exec(""nyear = int(x)"")"	to use with lines #81+#91 to get optimization.ending_date
+81	         =Nombre d'Années démarrage (-n pour générer n année moy fictives de démarrage)		=	0	"exec(""start = int(x)"")"	to use with line #83 to get optimization.starting_date, simulation_settings.starting_date, spinup_settings.ending_date
+82	         =Nombre de cycles de démarrage (déf. = 1)	spinup.cycles	=	0	1 if x in ['0', ''] else int(x)	
+83	         =Date de la première année des données (par ex. 2017)		=	0	"exec(""fyear = int(x)"")"	to use with line #62 to get input_format.starting_date; to use with line #81 to get optimization.starting_date, simulation_settings.starting_date, spinup_settings.ending_date
+84	         =Décalage dans la série des Pluies [+5 => Retarde de 5 pas ; -4 Avance de 4 pas]					NS?
+85	         =Décalage de la série des Débits/Niveaux observés [ex: -2 => Avance de 2 pas]					NS?
+86	         =État initial : 0=Pluie Effic. moyenne ; -1=Réservoirs vides ; -2=RuMax vide aussi					?
+87	         =Nombre maxi. d'itérations pour la calibration (0 = aucune itération, pas de calibrat.)	optimization.maxit	=	0	int(x)
+88	         =Durée des pluies en moyenne par pas (%) (utilisations avancées)[défaut = 100 %]					NS?
+89	         =Nombre de réservoirs souterrains (1 ou 2 ou -1=Double + seuil)      [déf = 1]		=	0	"exec(""nres = int(x)"")"	to use with lines #120+#122 to control if value/opti should be considered for watershed.all.groundwater.1.halflife_drainage, watershed.all.groundwater.2.halflife_baseflow
+90	         =Numéro du réservoir souterr. <=> Niveau nappe (si 2 réserv. souterr.) [déf = 1]	watershed.all.groundwater.observed_reservoir	=	0	int(x)
+91	         =Nombre d'années finales à ignorer pour la calibration (déf = 0) [< 0 => n° last ann]		=	0	"exec(""final = int(x)"")"	to use with lines #80-81 to get optimization.ending_date
+92	         =Numéro du Jour initial [Déf=1] (si durée non-standard) ; ex. 31 pour 31 Déc.		=	0	"exec(""day = int(x)"")"	to use with line #62 if not 'Standard' to get intput_format.starting_date
+93	         =Numéro du Mois initial [Déf=1] (si durée non-standard) ; ex. 12 pour 31 Déc.		=	0	"exec(""month = int(x)"")"	to use with line #62 if not 'Standard' to get intput_format.starting_date
+94	         =Heure initiale [Déf=0] (si durée non-standard) ; par ex. 15 pour 15h30		=	0	"exec(""hour = int(x)"")"	to use with line #62 if not 'Standard' to get intput_format.starting_date
+95	         =Minute initiale [Déf=0] (si durée non-standard) ; Par ex. 30 pour 15h30		=	0	"exec(""minute = int(x)"")"	to use with line #62 if not 'Standard' to get intput_format.starting_date
+96	         =Perte du débit de Ruissellement par Débordement au-dessus du Seuil [0=Non ; 1=Perte ; 2 => Rés Sout]	watershed.all.transfer.overflow.loss	=	0	'no' if x == '0' else 'loss' if x == '1' else 'groundwater' if x == '2' else ValueError(x)	
+97	         =Décroissance de l'évapotranspiration si saturation du réservoir sol < 50% (0=Non ; 1=Oui)	watershed.all.progressive.pet_decrease	=	0	bool(int(x))
+98	         =Schéma à taux de ruissellement constant (pour comparaison ; déconseillé) (0=Non ; 1=Oui)					NS?
+99	         =Méthode de calcul du coeff. d'Emmagasinement [0 = Corrélation ; 1 = Optimis entre bornes]	watershed.all.groundwater.storage.regression	=	0	True if x == '0' else False
+100	 *** Paramètres de Prévision         ***
+101	         =Nombre d'Années de données du fichier de pluies etc. pour la Prévision		=	0	"exec(""frc_nyear = int(x)"")"	to use to get forecast.emission_date
+102	         =Jour d'émission de la prévision (1-31) si pas de temps journalier (sinon : 0)		=	0	"exec(""frc_issueday = int(x)"")"	to use to get forecast.emission_date
+103	         =Numéro du Mois [si journalier ou mensuel] (ou n° du pas) d'émission de la prévision)		=	0	"exec(""frc_issuemonth = int(x)"")"	to use to get forecast.emission_date
+104	         =Portée de la Prévision (Nombre de pas de temps de la prévision)		=	0	"exec(""frc_scope = int(x) if x not in ['0', ''] else None"")"	to use to get forecast.scope
+105	         =Date de la Première Année des fichiers météo de prévision [si journalier] (déf = 0)		=	0	"exec(""frc_fyear = int(x)"")"	to use to get forecast.emission_date
+106	 *** Position des Données du bassin  ***
+107	         =N° de la 'colonne' des données : (-1 => N° d'ordre du bassin) Déf=0 <=> Col. n°1					NA? (assume same order as watersheds in data columns if in eros mode?)
+108	 *** Paramètres Hydroclimatiques            ***
+109	         =Pluie Eff. annuelle pour initialis. (0=équil.) (mm/an)					NS?
+110	         =Débit extérieur éventuel                        (m3/s) Opti=	watershed.all.river.minimum_riverflow.value,watershed.all.river.minimum_riverflow.opti	=	0,-1	float(x)#bool(int(x))	
+111	         =Superficie du bassin versant                     (km2) Opti=	watershed.all.river.area.value,watershed.all.river.area.opti	=	0,-1	float(x)#bool(int(x))	
+112	         =Niveau de base local de la nappe               (m NGF) Opti=	watershed.all.groundwater.base_level.value,watershed.all.groundwater.base_level.opti	=	0,-1	float(x)#bool(int(x))	
+113	         =Correction globale des Pluies                      (%) Opti=	watershed.all.correction.rainfall.value,watershed.all.correction.rainfall.opti	=	0,-1	float(x)#bool(int(x))	
+114	         =Correction globale de l'ETP                        (%) Opti=	watershed.all.correction.pet.value,watershed.all.correction.pet.opti	=	0,-1	float(x)#bool(int(x))	
+115	         =Capacité du réservoir sol 'réserve utile'         (mm) Opti=	watershed.all.thornthwaite.capacity.value,watershed.all.thornthwaite.capacity.opti	=	0,-1	float(x)#bool(int(x))	
+116	         =Capacité du réservoir sol progressif              (mm) Opti=	watershed.all.progressive.capacity.value,watershed.all.progressive.capacity.opti	=	0,-1	float(x)#bool(int(x))	
+117	         =Hauteur de répartition Ruissellement-Percolation  (mm) Opti=	watershed.all.transfer.runsee.value,watershed.all.transfer.runsee.opti	=	0,-1	float(x)#bool(int(x))	
+118	         =Temps de 1/2 percolation vers la nappe          (mois) Opti=	watershed.all.transfer.halflife.value,watershed.all.transfer.halflife.opti	=	0,-1	float(x)#bool(int(x))	
+119	         =Temps de 1/2 tarissement du débit souterr. n°1  (mois) Opti=	,	=	0,-1	"exec(""baseflow_1_val = float(x)"")#exec(""baseflow_1_opt = bool(int(x))"")"
+120	         =Temps de 1/2 transfert vers la nappe profonde   (mois) Opti=	watershed.all.groundwater.1.halflife_drainage.value,watershed.all.groundwater.1.halflife_drainage.opti	=	0,-1	float(x) if nres == 2 else 0#bool(int(x)) if nres == 2 else False	
+121	         =Seuil d'écoulement souterrain n°1 (rés. double)   (mm) Opti=	watershed.all.groundwater.1.overflow.threshold.value,watershed.all.groundwater.1.overflow.threshold.opti	=	0,-1	"float(x) if nres == -1 else 0.0#bool(int(x)) if nres == -1 else RuntimeError(""overflow threshold cannot be optimised because no double outflow reservoir"") if bool(int(x)) else False"
+122	         =Temps de 1/2 tarissement du débit souterr. n°2  (mois) Opti=	,	=	0,-1	"exec(""baseflow_2_val = float(x)"")#exec(""baseflow_2_opt = bool(int(x))"")"
+123	         =Temps de réaction ('retard') du débit   (pas de temps) Opti=	watershed.all.river.concentration_time.value,watershed.all.river.concentration_time.opti	=	0,-1	float(x)#bool(int(x))
+124	         =Facteur d'échange souterrain externe               (%) Opti=	watershed.all.groundwater.1.exchanges.value,watershed.all.groundwater.1.exchanges.opti	=	0,-1	float(x)#bool(int(x))	
+125	         =Déficit initial du réservoir sol 'réserve utile'  (mm) Opti=					?
+126	         =Déficit initial du réservoir sol progressif       (mm) Opti=					?
+127	         =Seuil de ruissellement par débordement            (mm) Opti=	watershed.all.transfer.overflow.threshold.value,watershed.all.transfer.overflow.threshold.opti	=	0,-1	float(x)#bool(int(x))	
+128	         =Temps de 1/2 ruissell. par débordement  (Pas de temps) Opti=	watershed.all.transfer.overflow.halflife.value,watershed.all.transfer.overflow.halflife.opti	=	0,-1	float(x)#bool(int(x))	
+129	         =Temps de 1/2 décroiss. maximal du ruissellement (mois) Opti=					NS?
+130	         =Facteur de correction de la superficie du bassin   (-) Opti=	watershed.all.correction.area.value,watershed.all.correction.area.opti	=	0,-1	float(x)#bool(int(x))	
+131	         =Coefficient d'emmagasinement de la nappe           (%) Opti=	watershed.all.groundwater.storage.coefficient.value,watershed.all.groundwater.storage.coefficient.opti	=	0,-1	float(x)#bool(int(x))	
+132	 *** Bornes des paramètres Hydroclimatiques ***
+133	         =Min : Correction globale des Pluies                      (%) Max =	watershed.all.correction.rainfall.lower,watershed.all.correction.rainfall.upper	=	0,-1	float(x)#float(x)	
+134	         =Min : Correction globale de l'ETP                        (%) Max =	watershed.all.correction.pet.lower,watershed.all.correction.pet.upper	=	0,-1	float(x)#float(x)	
+135	         =Min : Capacité du réservoir sol 'réserve utile'         (mm) Max =	watershed.all.thornthwaite.capacity.lower,watershed.all.thornthwaite.capacity.upper	=	0,-1	float(x)#float(x)	
+136	         =Min : Capacité du réservoir sol progressif              (mm) Max =	watershed.all.progressive.capacity.lower,watershed.all.progressive.capacity.upper	=	0,-1	float(x)#float(x)	
+137	         =Min : Hauteur de répartition Ruissellement-Percolation  (mm) Max =	watershed.all.transfer.runsee.lower,watershed.all.transfer.runsee.upper	=	0,-1	float(x)#float(x)	
+138	         =Min : Temps de 1/2 percolation vers la nappe          (mois) Max =	watershed.all.transfer.halflife.lower,watershed.all.transfer.halflife.upper	=	0,-1	float(x)#float(x)	
+139	         =Min : Temps de 1/2 tarissement du débit souterr. n°1  (mois) Max =	,	=	0,-1	"exec(""baseflow_1_low = float(x)"")#exec(""baseflow_1_upp = float(x)"")"
+140	         =Min : Temps de 1/2 transfert vers la nappe profonde   (mois) Max =	watershed.all.groundwater.1.halflife_drainage.lower,watershed.all.groundwater.1.halflife_drainage.upper	=	0,-1	float(x)#float(x)	
+141	         =Min : Seuil d'écoulement souterrain n°1 (rés. double)   (mm) Max =	watershed.all.groundwater.1.overflow.threshold.lower,watershed.all.groundwater.1.overflow.threshold.upper	=	0,-1	float(x)#float(x)	
+142	         =Min : Temps de 1/2 tarissement du débit souterr. n°2  (mois) Max =	,	=	0,-1	"exec(""baseflow_2_low = float(x)"")#exec(""baseflow_2_upp = float(x)"")"
+143	         =Min : Temps de réaction ('retard') du débit   (pas de temps) Max =	watershed.all.river.concentration_time.lower,watershed.all.river.concentration_time.upper	=	0,-1	float(x)#float(x)
+144	         =Min : Facteur d'échange souterrain externe               (%) Max =	watershed.all.groundwater.1.exchanges.lower,watershed.all.groundwater.1.exchanges.upper	=	0,-1	float(x)#float(x)	
+145	         =Min : Déficit initial du réservoir sol 'réserve utile'  (mm) Max =					NS?
+146	         =Min : Déficit initial du réservoir sol progressif       (mm) Max =					NS?
+147	         =Min : Seuil de ruissellement par débordement            (mm) Max =	watershed.all.transfer.overflow.threshold.lower,watershed.all.transfer.overflow.threshold.upper	=	0,-1	float(x)#float(x)	
+148	         =Min : Temps de 1/2 ruissell. par débordement  (Pas de temps) Max =	watershed.all.transfer.overflow.halflife.lower,watershed.all.transfer.overflow.halflife.upper	=	0,-1	float(x)#float(x)	
+149	         =Min : Temps de 1/2 décroiss. maximal du ruissellement (mois) Max =					NS?
+150	         =Min : Facteur de correction de la superficie du bassin   (-) Max =	watershed.all.correction.area.lower,watershed.all.correction.area.upper	=	0,-1	float(x)#float(x)	
+151	         =Min : Coefficient d'emmagasinement de la nappe           (%) Max =	watershed.all.groundwater.storage.coefficient.lower,watershed.all.groundwater.storage.coefficient.upper	=	0,-1	float(x)#float(x)	
+152	 *** Paramètres de Fonte de Neige           ***
+153	         =Correction globale de la température              (°C) Opti=	watershed.all.snow.correction.temperature.value,watershed.all.snow.correction.temperature.opti	=	0,-1	float(x)#bool(int(x))	
+154	         =Taux de rétention de la neige                      (%) Opti=	watershed.all.snow.retention.value,watershed.all.snow.retention.opti	=	0,-1	float(x)#bool(int(x))	
+155	         =Facteur d'évaporation de la neige                  (%) Opti=	watershed.all.snow.correction.pet.value,watershed.all.snow.correction.pet.opti	=	0,-1	float(x)#bool(int(x))	
+156	         =Correction de fonte de la neige par la pluie       (%) Opti=	watershed.all.snow.correction.rainfall.value,watershed.all.snow.correction.rainfall.opti	=	0,-1	float(x)#bool(int(x))	
+157	         =Température seuil de fonte naturelle de la neige  (°C) Opti=	watershed.all.snow.degree_day.temperature.value,watershed.all.snow.degree_day.temperature.opti	=	0,-1	float(x)#bool(int(x))	
+158	         =Constante de fonte par la température     (mm/°C/jour) Opti=	watershed.all.snow.degree_day.coefficient.value,watershed.all.snow.degree_day.coefficient.opti	=	0,-1	float(x)#bool(int(x))	
+159	         =Fonte de la neige au contact du sol     (1/10 mm/jour) Opti=	watershed.all.snow.melting.value,watershed.all.snow.melting.opti	=	0,-1	float(x)#bool(int(x))	
+160	 *** Bornes des paramètres Neige            ***
+161	         =Min : Correction globale de la température              (°C) Max =	watershed.all.snow.correction.temperature.lower,watershed.all.snow.correction.temperature.upper	=	0,-1	float(x)#float(x)	
+162	         =Min : Taux de rétention de la neige                      (%) Max =	watershed.all.snow.retention.lower,watershed.all.snow.retention.upper	=	0,-1	float(x)#float(x)	
+163	         =Min : Facteur d'évaporation de la neige                  (%) Max =	watershed.all.snow.correction.pet.lower,watershed.all.snow.correction.pet.upper	=	0,-1	float(x)#float(x)	
+164	         =Min : Correction de fonte de la neige par la pluie       (%) Max =	watershed.all.snow.correction.rainfall.lower,watershed.all.snow.correction.rainfall.upper	=	0,-1	float(x)#float(x)	
+165	         =Min : Température seuil de fonte naturelle de la neige  (°C) Max =	watershed.all.snow.degree_day.temperature.lower,watershed.all.snow.degree_day.temperature.upper	=	0,-1	float(x)#float(x)	
+166	         =Min : Constante de fonte par la température     (mm/°C/jour) Max = 	watershed.all.snow.degree_day.coefficient.lower,watershed.all.snow.degree_day.coefficient.upper	=	0,-1	float(x)#float(x)	
+167	         =Min : Fonte de la neige au contact du sol     (1/10 mm/jour) Max = 	watershed.all.snow.melting.lower,watershed.all.snow.melting.upper	=	0,-1	float(x)#float(x)	
+168	 *** Paramètres de Pompage           ***
+169	         =Coefficient d'influence du pompage => Débit Rivière (-) Opti=	watershed.all.pumping.river.coefficient.value,watershed.all.pumping.river.coefficient.opti	=	0,-1	float(x) if rpump else 0#bool(int(x)) if rpump else False
+170	         =Temps de 1/2 montée du pompage infl. => Rivière  (mois) Opti=	watershed.all.pumping.river.halflife_rise.value,watershed.all.pumping.river.halflife_rise.opti	=	0,-1	float(x)#bool(int(x))	
+171	         =Temps de 1/2 stabilisation du pompage => Rivière (mois) Opti=	watershed.all.pumping.river.halflife_fall.value,watershed.all.pumping.river.halflife_fall.opti	=	0,-1	float(x)#bool(int(x))	
+172	         =Coefficient d'influence du pompage => Niveau Nappe  (-) Opti=	watershed.all.pumping.groundwater.coefficient.value,watershed.all.pumping.groundwater.coefficient.opti	=	0,-1	float(x) if gwpump else 0#bool(int(x)) if gwpump else False
+173	         =Temps de 1/2 montée du pompage infl. => Nappe    (mois) Opti=	watershed.all.pumping.groundwater.halflife_rise.value,watershed.all.pumping.groundwater.halflife_rise.opti	=	0,-1	float(x)#bool(int(x))	
+174	         =Temps de 1/2 stabilisation du pompage => Nappe   (mois) Opti=	watershed.all.pumping.groundwater.halflife_fall.value,watershed.all.pumping.groundwater.halflife_fall.opti	=	0,-1	float(x)#bool(int(x))	
+175	 *** Bornes des paramètres Pompage   ***
+176	         =Min : Temps de 1/2 montée du pompage infl. => Rivière  (mois) Max = 	watershed.all.pumping.river.halflife_rise.lower,watershed.all.pumping.river.halflife_rise.upper	=	0,-1	float(x)#float(x)	
+177	         =Min : Temps de 1/2 stabilisation du pompage => Rivière (mois) Max = 	watershed.all.pumping.river.halflife_fall.lower,watershed.all.pumping.river.halflife_fall.upper	=	0,-1	float(x)#float(x)	
+178	         =Min : Temps de 1/2 montée du pompage infl. => Nappe    (mois) Max =	watershed.all.pumping.groundwater.halflife_rise.lower,watershed.all.pumping.groundwater.halflife_rise.upper	=	0,-1	float(x)#float(x)	
+179	         =Min : Temps de 1/2 stabilisation du pompage => Nappe   (mois) Max =	watershed.all.pumping.groundwater.halflife_fall.lower,watershed.all.pumping.groundwater.halflife_fall.upper	=	0,-1	float(x)#float(x)	
+180	 *** >>>>>>>>>>>>>> Fin des données du bassin ] >>>>>
+-1					"exec(""time_step = datetime.timedelta(**{'seconds' if unit.startswith('sec') else 'minutes' if unit.startswith('min') else 'hours' if unit.startswith('heu') else 'days' if unit.startswith('jou') else 'days': step}) if unit != 'Standard' else (datetime.timedelta(days=1) if dt == 0 else datetime.timedelta(days=10) if dt == 2 else datetime.timedelta(days=5) if dt == 5 else datetime.timedelta(days=7) if dt == 7 else datetime.timedelta(days=30.4) if dt == 3 else ValueError(x))"")"
+-1		input_format.starting_date			datetime.datetime(fyear, month, day, hour, minute) if ((unit != 'Standard') and (fyear != 0) and (month != 0) and (day !=0)) else None	related to lines #62+#63
+-1		input_format.time_step			time_step	
+-1		optimization.starting_date			datetime.datetime(fyear + start, 8 if hydro else 1, 1)	
+-1		starting_date			datetime.datetime(fyear + start, 8 if hydro else 1, 1)
+-1		spinup.starting_date,spinup.ending_date		,	datetime.datetime(fyear, 8 if hydro else 1, 1)#datetime.datetime(fyear + start, 8 if hydro else 1, 1) - time_step
+-1		optimization.ending_date			datetime.datetime(fyear + nyear - final, 8 if hydro else 1, 1) - time_step if (final >= 0 and nyear !=0) else datetime.datetime(-final, 8 if hydro else 1, 1) - time_step if final < 0 else None	
+-1		forecast.emission_date			datetime.datetime(frc_fyear, frc_issuemonth, frc_issueday) if ((frc_fyear != 0) and (frc_issuemonth != 0) and (frc_issueday !=0)) else None
+-1		forecast.scope			time_step * frc_scope if frc_scope else None	
+-1		watershed.all.groundwater.1.halflife_baseflow.value,watershed.all.groundwater.1.halflife_baseflow.opti,watershed.all.groundwater.1.halflife_baseflow.lower,watershed.all.groundwater.1.halflife_baseflow.upper		,,,	baseflow_2_val if nres == -1 else baseflow_1_val#baseflow_2_opt if nres == -1 else baseflow_1_opt#baseflow_2_low if nres == -1 else baseflow_1_low#baseflow_2_upp if nres == -1 else baseflow_1_upp
+-1		watershed.all.groundwater.2.halflife_baseflow.value,watershed.all.groundwater.2.halflife_baseflow.opti,watershed.all.groundwater.2.halflife_baseflow.lower,watershed.all.groundwater.2.halflife_baseflow.upper		,,,	baseflow_2_val if nres == 2 else 0#baseflow_2_opt if nres == 2 else False#baseflow_2_low#baseflow_2_upp
+-1		watershed.all.groundwater.1.overflow.halflife.value,watershed.all.groundwater.1.overflow.halflife.opti,watershed.all.groundwater.1.overflow.halflife.lower,watershed.all.groundwater.1.overflow.halflife.upper		,,,	baseflow_1_val if nres == -1 else 0#baseflow_1_opt if nres == -1 else False#baseflow_1_low#baseflow_1_upp
