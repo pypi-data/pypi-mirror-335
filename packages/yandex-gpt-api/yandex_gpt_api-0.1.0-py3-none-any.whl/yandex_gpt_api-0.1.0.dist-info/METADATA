@@ -1,0 +1,267 @@
+Metadata-Version: 2.4
+Name: yandex-gpt-api
+Version: 0.1.0
+Summary: Библиотека для работы с Yandex GPT API с поддержкой синхронного и асинхронного режимов
+Project-URL: Homepage, https://github.com/synergy/yandex-gpt-api
+Project-URL: Bug Tracker, https://github.com/synergy/yandex-gpt-api/issues
+Author-email: Alexey Savin <avsavin@synergy.ru>
+License: MIT
+Requires-Python: >=3.7
+Requires-Dist: httpx>=0.23.0
+Requires-Dist: python-dotenv>=0.19.0
+Requires-Dist: requests>=2.25.0
+Description-Content-Type: text/markdown
+
+# Библиотека для работы с Yandex GPT API
+
+Эта библиотека предоставляет удобные функции для взаимодействия с Yandex GPT API, поддерживая как синхронный, так и асинхронный режимы работы, включая потоковую обработку ответов.
+
+## Особенности
+
+- **Синхронный режим** - для простых запросов с блокирующим выполнением
+- **Асинхронный режим** - для эффективной обработки нескольких запросов без блокировки
+- **Потоковый режим** - для получения ответов по мере их генерации (синхронный)
+- **Асинхронный потоковый режим** - с использованием библиотеки httpx
+- **Обработка JSON-ответов** - корректное извлечение текста из структурированных ответов
+- **Параллельное выполнение запросов** - для одновременной обработки нескольких промптов
+- **Отладочный режим** - для детального анализа запросов и ответов
+
+## Требования
+
+- Python 3.7+
+- Библиотеки:
+  - requests - для синхронных запросов
+  - httpx - для асинхронных запросов
+  - python-dotenv - для работы с переменными окружения
+  - asyncio - для асинхронного выполнения
+
+## Установка
+
+### С использованием pip
+
+```bash
+pip install requests httpx python-dotenv
+```
+
+### С использованием uv (рекомендуется)
+
+```bash
+# Установка uv, если еще не установлен
+curl -sSf https://install.python-poetry.org | python3 -
+pip install uv
+
+# Установка зависимостей с помощью uv
+uv pip install requests httpx python-dotenv
+```
+
+## Настройка
+
+Для работы с API необходимо создать файл `.env` в корне проекта со следующими переменными:
+
+```env
+API_KEY=ваш_api_ключ
+FOLDER_ID=идентификатор_вашей_папки_в_yandex_cloud
+```
+
+Или использовать IAM токен:
+
+```env
+IAM_TOKEN=ваш_iam_токен
+FOLDER_ID=идентификатор_вашей_папки_в_yandex_cloud
+```
+
+## Использование
+
+### Импорт функций
+
+```python
+# Для синхронного режима
+from yandex_gpt_api import gpt, gpt_streaming
+
+# Для асинхронного режима
+from yandex_gpt_api import gpt_async, gpt_streaming_httpx
+```
+
+### Настройка аутентификации
+
+```python
+# С использованием API ключа
+headers = {
+    'Authorization': f'Api-Key ваш_api_ключ',
+    'Content-Type': 'application/json'
+}
+
+# Или с использованием IAM токена
+headers = {
+    'Authorization': f'Bearer ваш_iam_токен',
+    'Content-Type': 'application/json'
+}
+```
+
+### Синхронный режим
+
+```python
+from yandex_gpt_api import gpt
+
+messages = [
+    {
+        "role": "system",
+        "text": "Вы - полезный ассистент"
+    },
+    {
+        "role": "user",
+        "text": "Расскажи короткую историю о роботе"
+    }
+]
+
+# Простой запрос
+response = gpt(headers, messages)
+print(response)
+
+# С дополнительными параметрами
+response = gpt(
+    headers, 
+    messages, 
+    temperature=0.7,  # Контролирует случайность (0.0 до 1.0)
+    max_tokens=1000   # Максимальное количество токенов для генерации
+)
+print(response)
+```
+
+### Синхронный потоковый режим
+
+```python
+from yandex_gpt_api import gpt_streaming
+
+# Базовое использование
+for chunk in gpt_streaming(headers, messages):
+    print(chunk, end='', flush=True)
+
+# С отладочной информацией
+for chunk in gpt_streaming(headers, messages, debug=True):
+    print(chunk, end='', flush=True)
+```
+
+### Асинхронный режим
+
+```python
+import asyncio
+from yandex_gpt_api import gpt_async
+
+async def main():
+    response = await gpt_async(headers, messages)
+    print(response)
+
+    # С дополнительными параметрами
+    response = await gpt_async(
+        headers, 
+        messages, 
+        temperature=0.8,
+        max_tokens=500
+    )
+    print(response)
+
+asyncio.run(main())
+```
+
+### Асинхронный потоковый режим
+
+```python
+import asyncio
+from yandex_gpt_api import gpt_streaming_httpx
+
+async def main():
+    async for chunk in gpt_streaming_httpx(headers, messages):
+        print(chunk, end='', flush=True)
+    
+    # С отладочной информацией
+    async for chunk in gpt_streaming_httpx(headers, messages, debug=True):
+        print(chunk, end='', flush=True)
+
+asyncio.run(main())
+```
+
+### Параллельное выполнение запросов
+
+```python
+import asyncio
+import time
+from yandex_gpt_api import gpt_async
+
+async def main():
+    prompts = [
+        "Что такое Python?",
+        "Что такое асинхронное программирование?",
+        "Какие преимущества у асинхронного кода?"
+    ]
+    
+    start_time = time.time()
+    
+    # Создаем список задач для параллельного выполнения
+    tasks = [
+        gpt_async(
+            headers, 
+            [{"role": "user", "text": prompt}]
+        ) for prompt in prompts
+    ]
+    
+    # Выполняем все задачи параллельно
+    results = await asyncio.gather(*tasks)
+    
+    end_time = time.time()
+    
+    # Выводим результаты
+    for i, (prompt, result) in enumerate(zip(prompts, results)):
+        print(f"Запрос {i+1}: {prompt}")
+        print(f"Ответ {i+1}: {result[:100]}...")  # Показываем только начало ответа
+        print()
+    
+    print(f"Время выполнения: {end_time - start_time:.2f} секунд")
+    print(f"Среднее время на запрос: {(end_time - start_time) / len(prompts):.2f} секунд")
+
+asyncio.run(main())
+```
+
+## Обработка ошибок
+
+```python
+from yandex_gpt_api import gpt
+import json
+
+try:
+    response = gpt(headers, messages)
+    
+    # Парсим JSON ответ
+    data = json.loads(response)
+    
+    # Извлекаем текст из структуры ответа
+    if 'result' in data and 'alternatives' in data['result']:
+        for alt in data['result']['alternatives']:
+            if 'message' in alt and 'text' in alt['message']:
+                text = alt['message']['text']
+                print(f"Ответ: {text}")
+    
+except Exception as e:
+    print(f"Произошла ошибка: {e}")
+```
+
+## Примеры
+
+В репозитории есть два примера использования библиотеки:
+
+1. `async_chat_example.py` - демонстрирует использование асинхронных функций, включая потоковый режим и параллельное выполнение запросов.
+2. `test_yandex_gpt_api.py` - автотест для проверки работы всех функций библиотеки.
+
+## Запуск примеров
+
+```bash
+# Запуск асинхронного чата
+python async_chat_example.py
+
+# Запуск автотестов
+python test_yandex_gpt_api.py
+```
+
+## Лицензия
+
+MIT
