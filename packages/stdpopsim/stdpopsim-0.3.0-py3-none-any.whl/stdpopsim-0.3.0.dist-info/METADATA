@@ -1,0 +1,55 @@
+Metadata-Version: 2.2
+Name: stdpopsim
+Version: 0.3.0
+Summary: A library of population genetic simulation models
+Home-page: https://github.com/popsim-consortium/stdpopsim
+Author: PopSim Consortium
+Author-email: popgen_benchmark@lists.uoregon.edu
+License: GNU GPLv3+
+Project-URL: Documentation, https://popsim-consortium.github.io/stdpopsim-docs/stable/index.html
+Project-URL: Source Code, https://github.com/popsim-consortium/stdpopsim
+Project-URL: Bug Tracker, https://github.com/popsim-consortium/stdpopsim/issues
+Keywords: simulations,selection,recombination map,models
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: msprime>=1.0.4
+Requires-Dist: attrs>=19.1.0
+Requires-Dist: appdirs
+Requires-Dist: humanize
+Requires-Dist: pyslim>=1.0.4
+Requires-Dist: numpy
+
+# stdpopsim
+
+![codecov](https://codecov.io/gh/popsim-consortium/stdpopsim/branch/main/graph/badge.svg)
+![tests](https://github.com/popsim-consortium/stdpopsim/actions/workflows/tests.yml/badge.svg)
+![docs](https://github.com/popsim-consortium/stdpopsim/actions/workflows/docs.yml/badge.svg)
+
+A community-maintained library of standard population genetic simulation models.
+Please see the [stable documentation](https://popsim-consortium.github.io/stdpopsim-docs/stable/index.html) for further details.
+(That's the link to docs for the last stable release,
+for in-development docs, see [this link](https://popsim-consortium.github.io/stdpopsim-docs/latest/index.html).)
+
+Click [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/popsim-consortium/stdpopsim/main?filepath=stdpopsim_example.ipynb) to start an interactive Jupyter Notebook and start playing with ``stdpopsim`` now!
+
+If you use ``stdpopsim`` in your work, please cite our papers:
+
+* [Adrion, et al. (2020)](https://doi.org/10.7554/eLife.54967)
+* [Lauterbur, et al. (2023)](https://doi.org/10.7554/eLife.84874)
+
+See [here](https://popsim-consortium.github.io/stdpopsim-docs/stable/introduction.html#citations)
+for full citation details.
