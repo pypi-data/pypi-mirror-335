@@ -1,0 +1,46 @@
+Metadata-Version: 2.3
+Name: matchescu-base
+Version: 0.9.0
+Summary: 
+Author: Andrei Olar
+Author-email: andrei.olar@ubbcluj.ro
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Description-Content-Type: text/markdown
+
+# matchescu-base
+Common abstract data types (`adt` package) and utilities
+(`common` package) for the **matchescu** entity resolution
+comparison framework.
+
+## Set up dev environment
+
+1. (_optional_) install pyenv
+2. install Python 3.11
+3. install [Poetry](https://python-poetry.org)
+4. clone this repository
+5. run a couple of shell commands
+```shell
+$ cd <REPO_ROOT>
+$ poetry install
+```
+
+## Run tests
+
+```shell
+$ poetry run pytest
+```
+
+## Activate virtual environment
+
+```shell
+$ poetry shell
+```
+-or-
+```shell
+$ source .venv/bin/activate
+```
+
