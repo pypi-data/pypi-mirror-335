@@ -1,0 +1,147 @@
+Metadata-Version: 2.1
+Name: Gentoro
+Version: 0.1.8
+Summary: Gentoro Python SDK for AI tool execution and authentication
+Home-page: https://github.com/gentoro-GT/python-sdk
+Author: Gentoro R&D
+Author-email: communitysupport@gentoro.com
+License: Apache-2.0
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.8.0
+Requires-Dist: backports.tarfile==1.2.0
+Requires-Dist: certifi==2025.1.31
+Requires-Dist: charset-normalizer==3.4.1
+Requires-Dist: colorama==0.4.6
+Requires-Dist: distro==1.9.0
+Requires-Dist: docutils==0.21.2
+Requires-Dist: h11==0.14.0
+Requires-Dist: httpcore==1.0.7
+Requires-Dist: httpx==0.28.1
+Requires-Dist: id==1.5.0
+Requires-Dist: idna==3.10
+Requires-Dist: importlib-metadata==8.6.1
+Requires-Dist: jaraco.classes==3.4.0
+Requires-Dist: jaraco.context==6.0.1
+Requires-Dist: jaraco.functools==4.1.0
+Requires-Dist: jiter==0.8.2
+Requires-Dist: keyring==25.6.0
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: more-itertools==10.6.0
+Requires-Dist: nh3==0.2.20
+Requires-Dist: openai>=1.64.0
+Requires-Dist: packaging==24.2
+Requires-Dist: pydantic==2.10.6
+Requires-Dist: pydantic-core==2.27.2
+Requires-Dist: Pygments==2.19.1
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: pywin32-ctypes==0.2.3
+Requires-Dist: readme-renderer==44.0
+Requires-Dist: requests>=2.32.3
+Requires-Dist: requests-toolbelt>=1.0.0
+Requires-Dist: rfc3986==2.0.0
+Requires-Dist: rich==13.9.4
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: twine==6.1.0
+Requires-Dist: typing-extensions>=4.12.2
+Requires-Dist: urllib3==2.3.0
+Requires-Dist: zipp==3.21.0
+
+# Gentoro Python SDK
+
+## Overview
+Welcome to the **Gentoro Python SDK** documentation. This guide will help you integrate and use the SDK in your project.
+
+## Supported Python Versions
+This SDK is compatible with **Python >= 3.10**.
+
+## Installation
+To get started with the SDK, install it using **pip**:
+
+```bash
+pip install Gentoro==0.1.8
+```
+
+## Authentication
+The Gentoro API uses an **API Key (`X-API-Key`)** for authentication. You must provide this key when making API requests.
+
+To obtain an API Key, register at **Gentoro's API Portal**.
+
+### Setting the API Key
+When initializing the SDK, provide the configuration as follows:
+
+```python
+import os
+from Gentoro import Gentoro, SdkConfig, Providers
+from dotenv import load_dotenv
+import openai
+
+# Load environment variables from .env file
+load_dotenv()
+
+
+# Initialize the Gentoro and OpenAI instances
+_gentoro = Gentoro(SdkConfig(provider=Providers.OPENAI))
+_openAI = openai.OpenAI()
+
+# Define the OpenAI model we want to use
+MODEL = 'gpt-4o-mini'
+
+# Initial messages to OpenAI
+messages = [{"role": "user", "content": "list 10 of my slack channels"}]
+
+# Send message, along with available tools to OpenAI
+openai_response = _openAI.chat.completions.create(
+    model=MODEL,
+    messages=messages,
+    tools=_gentoro.get_tools(os.getenv("GENTORO_BRIDGE_UID"), messages)
+)
+messages += _gentoro.run_tools(os.getenv("GENTORO_BRIDGE_UID"), messages, openai_response)
+
+# Continue with communication with OpenAI
+response = _openAI.chat.completions.create(
+  model=MODEL,
+  messages=messages,
+  tools=_gentoro.get_tools(os.getenv("GENTORO_BRIDGE_UID"), messages)
+)
+
+# Prints the response with the answer
+print("final response",response.choices[0].message.content)
+    
+```
+
+## SDK Services
+### Methods
+#### `get_tools(bridge_uid: str, messages: Optional[List[Dict]] = None) -> List[Dict]`
+Fetches available tools for a specific `bridge_uid`.
+
+Example usage:
+```python
+tools = _gentoro.get_tools("BRIDGE_ID", messages=[])
+print("Tools:", tools)
+```
+
+#### `run_tools(bridge_uid: str, messages: List[Dict], tool_calls: List[Dict]) -> List[Dict]`
+Executes the tools requested by the AI model.
+
+Example usage:
+```python
+execution_result = _gentoro.run_tools("BRIDGE_ID", messages=[], tool_calls=tool_calls)
+print("Execution Result:", execution_result)
+```
+
+## Providers
+A provider defines how the SDK should handle and generate content:
+
+
+## License
+This SDK is licensed under the **Apache-2.0 License**. See the `LICENSE` file for more details.
+
+
