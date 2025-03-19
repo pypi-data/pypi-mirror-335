@@ -1,0 +1,44 @@
+Metadata-Version: 2.2
+Name: livekit-plugins-rime
+Version: 0.2.2
+Summary: LiveKit Agents Plugin for Rime
+Home-page: https://github.com/livekit/agents
+License: Apache-2.0
+Project-URL: Documentation, https://docs.livekit.io
+Project-URL: Website, https://livekit.io/
+Project-URL: Source, https://github.com/livekit/agents
+Keywords: webrtc,realtime,audio,video,livekit,rime
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Multimedia :: Sound/Audio
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.9.0
+Description-Content-Type: text/markdown
+Requires-Dist: livekit-agents[codecs]<1.0.0,>=0.12.16
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# LiveKit Plugins Rime
+
+Agent Framework plugin for voice synthesis with the [Rime](https://rime.ai/) API ([documentation](https://rimelabs.mintlify.app/api-reference/quickstart)).
+
+## Installation
+
+```bash
+pip install livekit-plugins-rime
+```
+
+## Pre-requisites
+
+You'll need an API key from Rime. It can be set as an environment variable: `RIME_API_KEY`
