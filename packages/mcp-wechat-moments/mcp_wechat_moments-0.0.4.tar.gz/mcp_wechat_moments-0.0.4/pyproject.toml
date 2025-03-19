@@ -1,0 +1,19 @@
+[project]
+version = "0.0.4"
+name = "mcp-wechat-moments"
+description = "MCP server for publish wechat moments"
+dependencies = [
+    "mcp"
+]
+authors = [
+    {name = "Gemini Wen", email = "coffeesherk@gmail.com"}
+]
+requires-python = ">= 3.11"
+readme = "README.md"
+
+[project.scripts]
+mcp-wechat-moments = "moments.server:main"
+
+[tool.setuptools.package-data]
+"moments" = ["*.scpt"]
+"*" = ["README.md", "intro.png"]
