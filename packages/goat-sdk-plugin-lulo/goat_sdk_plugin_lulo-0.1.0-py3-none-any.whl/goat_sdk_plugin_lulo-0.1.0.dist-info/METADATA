@@ -1,0 +1,58 @@
+Metadata-Version: 2.3
+Name: goat-sdk-plugin-lulo
+Version: 0.1.0
+Summary: Goat plugin for lulo
+Keywords: goat,sdk,agents,ai,lulo
+Author: Your Name
+Author-email: your_email@example.com
+Requires-Python: >=3.10,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: aiohttp (>=3.8.6,<4.0.0)
+Requires-Dist: goat-sdk (>=0.1.0,<0.2.0)
+Requires-Dist: goat-sdk-wallet-solana (>=0.1.1,<0.2.0)
+Requires-Dist: python-dotenv (>=1.0.0,<2.0.0)
+Project-URL: Bug Tracker, https://github.com/goat-sdk/goat/issues
+Project-URL: Homepage, https://ohmygoat.dev/
+Project-URL: Repository, https://github.com/goat-sdk/goat
+Description-Content-Type: text/markdown
+
+# lulo Plugin for GOAT SDK
+
+A plugin for the GOAT SDK that provides lulo functionality.
+
+## Installation
+
+```bash
+# Install the plugin
+poetry add goat-sdk-plugin-lulo
+
+# Install required wallet dependency
+poetry add goat-sdk-wallet-solana
+```
+
+## Usage
+
+```python
+from goat_plugins.lulo import lulo, LuloPluginOptions
+
+# Initialize the plugin
+options = LuloPluginOptions(
+    api_key="your-api-key"
+)
+plugin = lulo(options)
+```
+
+## Features
+
+- Example query functionality
+- Example action functionality
+- Solana chain support
+
+## License
+
+This project is licensed under the terms of the MIT license.
+
