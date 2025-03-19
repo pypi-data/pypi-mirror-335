@@ -1,0 +1,294 @@
+name: Build and Package
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  release:
+    types:
+      - published
+
+jobs:
+  build_python_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-2019, macos-13, macos-14]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build wheels
+        uses: pypa/cibuildwheel@v2.23
+        env:
+          CIBW_BUILD: "cp39-macosx* cp39-manylinux_x86_64 cp39-win_amd64"
+
+      - name: Upload wheels
+        uses: actions/upload-artifact@v4
+        with:
+          name: python-wheels-${{ runner.os }}-${{ runner.arch }}
+          path: ./wheelhouse/*.whl
+
+  test_python_wheels:
+    name: Python ${{ matrix.python-version }} tests on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    needs: [build_python_wheels]
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-13, macos-14]
+        python-version: ["3.8", "3.13"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download wheels
+        uses: actions/download-artifact@v4
+        with:
+          name: python-wheels-${{ runner.os }}-${{ runner.arch }}
+          path: dist
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt update && sudo apt install -y libglvnd0 libdbus-1-3 libopengl0
+
+      - name: Install Pytest
+        run: python -m pip install pytest
+
+      - name: Install wheels
+        if: runner.os != 'Windows'
+        run: |
+          python -m pip install dist/*.whl
+
+      - name: Install wheels
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          python -m pip install $(dir dist/*.whl)
+
+      - name: Run tests
+        run: |
+          python -m pytest
+
+  standalone_linux:
+    name: Build standalone on Linux
+    runs-on: ubuntu-latest
+    container:
+      image: quay.io/pypa/manylinux_2_28_x86_64
+    steps:
+    - name: Install dependencies
+      run: |
+        yum install -y wayland-devel libxkbcommon-devel libXcursor-devel libXi-devel libXinerama-devel libXrandr-devel libdwarf-devel binutils-devel dbus-devel cmake ninja-build curl zip unzip tar
+
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    # Workaround for https://github.com/actions/runner/issues/2033
+    - name: Fix git safe.directory
+      run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+    
+    - name: Install vcpkg for optional libtiff dependencies
+      run: |
+        git clone --depth 1 https://github.com/microsoft/vcpkg.git /usr/local/vcpkg
+        /usr/local/vcpkg/bootstrap-vcpkg.sh
+
+    - name: Configure and build
+      run: |
+        cmake -Bbuild -G "Ninja" -Wdev -DSTATIC_GCC=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_TOOLCHAIN_FILE=/usr/local/vcpkg/scripts/buildsystems/vcpkg.cmake -DVCPKG_TARGET_TRIPLET="x64-linux-release" .
+        cd build
+        cmake --build . --parallel 4
+    
+    - name: Download linuxdeploy
+      run: |
+        cd build
+        curl -L -o linuxdeploy-x86_64.AppImage https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
+        chmod +x linuxdeploy-x86_64.AppImage
+
+    - name: Create AppImage
+      run: |
+        cd build
+        DESTDIR=AppDir cmake --build . --target install
+        ./linuxdeploy-x86_64.AppImage --appimage-extract-and-run --appdir AppDir --output appimage
+        mkdir -p ../dist
+        mv Monochrome-*.AppImage ../dist
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: standalone-linux
+        path: dist/Monochrome-*.AppImage
+
+  standalone_windows:
+    name: Build standalone on Windows
+    runs-on: windows-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Configure and build
+      run: |
+        cmake -Bbuild -G "Visual Studio 17 2022" -DCMAKE_GENERATOR_PLATFORM="x64" -DCMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake" -DVCPKG_TARGET_TRIPLET="x64-windows-static-md-release" -Wdev .
+        cd build
+        cmake --build . --config "Release" --parallel 4
+
+    # - name: Package
+    #   run: |
+    #     cd build
+    #     cpack -G ZIP
+    #     mkdir -p ../dist
+    #     mv Monochrome-*.zip ../dist
+
+    - name: Package
+      run: |
+        mkdir dist
+        cp build/Release/Monochrome.exe dist
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: standalone-windows
+        path: dist/Monochrome.exe
+
+  standalone_macos:
+    name: Build standalone on macOS
+    runs-on: macos-14
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: Run vcpkg and fuse libs into universal binaries
+      run: |
+        export VCPKG_OSX_DEPLOYMENT_TARGET="10.13"
+        export MACOSX_DEPLOYMENT_TARGET="10.13" 
+        git clone --depth 1 https://github.com/microsoft/vcpkg.git
+        cd vcpkg
+        ./bootstrap-vcpkg.sh
+        cd ..
+        ./vcpkg/vcpkg install --triplet arm64-osx-release
+        ./vcpkg/vcpkg install --x-install-root vcpkg_installed_x64 --triplet x64-osx-release
+        for lib in $(ls vcpkg_installed_x64/x64-osx-release/lib/*.a); do
+          lib_name=$(basename $lib)
+          echo "Creating universal binary for $lib_name"
+          lipo -create -output vcpkg_installed/arm64-osx-release/lib/$lib_name \
+            vcpkg_installed_x64/x64-osx-release/lib/$lib_name \
+            vcpkg_installed/arm64-osx-release/lib/$lib_name
+        done
+      env:
+        VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+
+    - name: Configure and build
+      run: |
+        export MACOSX_DEPLOYMENT_TARGET="10.13"
+        export CMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+        export CMAKE_IGNORE_PATH="/usr/local/Cellar/lib"
+        mkdir build dist
+        cmake -DCMAKE_TOOLCHAIN_FILE=$PWD/vcpkg/scripts/buildsystems/vcpkg.cmake  -DVCPKG_TARGET_TRIPLET=arm64-osx-release -DVCPKG_MANIFEST_MODE=OFF -DVCPKG_INSTALLED_DIR=$PWD/vcpkg_installed -Bbuild -Wdev
+        cd build
+        cmake --build . --parallel 4
+      env:
+        VCPKG_ROOT: "${{ github.workspace }}/vcpkg"
+
+    - name: Package
+      run: |
+        cd build
+        cpack -G DragNDrop
+        mkdir -p ../dist
+        mv Monochrome-*.dmg ../dist
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: standalone-macos
+        path: dist/Monochrome-*.dmg
+
+  build_python_sdist:
+    name: Build python sdist
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'release' && github.event.action == 'published') || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build sdist
+        run: pipx run build --sdist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: python-wheels-sdist
+          path: dist/*.tar.gz
+
+  upload_pypi:
+    name: Upload to PyPI
+    needs: [test_python_wheels, build_python_sdist]
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+    if: github.event_name == 'release' && github.event.action == 'published'
+    # or, alternatively, upload to PyPI on every tag starting with 'v' (remove on: release above to use this)
+    # if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: python-wheels-*
+          path: dist
+          merge-multiple: true
+
+      - name: Upload to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+  
+  upload_github_release:
+    name: Upload to GitHub Releases
+    needs: [test_python_wheels, standalone_linux, standalone_windows, standalone_macos]
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: write
+      attestations: write
+      id-token: write
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: standalone-*
+          path: dist
+          merge-multiple: true
+
+      - name: Attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            ${{ github.workspace }}/dist/*.AppImage
+            ${{ github.workspace }}/dist/*.exe
+            ${{ github.workspace }}/dist/*.dmg
+
+      - name: Upload release assets
+        uses: softprops/action-gh-release@v1
+        with:
+          files: dist/*
+
+      - name: VirusTotal Scan
+        uses: crazy-max/ghaction-virustotal@v4
+        with:
+          vt_api_key: ${{ secrets.VT_API_KEY }}
+          update_release_body: true
+          files: dist/*
