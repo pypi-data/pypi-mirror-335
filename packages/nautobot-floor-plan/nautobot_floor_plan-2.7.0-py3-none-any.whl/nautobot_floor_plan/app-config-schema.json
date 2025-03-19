@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nautobot/nautobot-app-floor-plan/develop/nautobot_floor_plan/app-config-schema.json",
+  "$comment": "TBD: Update $id, replace `develop` with the future release tag",
+  "type": "object",
+  "properties": {
+    "default_x_axis_labels": {
+      "type": "string",
+      "default": "numbers"
+    },
+    "default_y_axis_labels": {
+      "type": "string",
+      "default": "numbers"
+    },
+    "x_size_limit": {
+      "type": ["integer", "null"],
+      "description": "Maximum allowed X size for the floor plan. Set to null for no limit."
+    },
+    "y_size_limit": {
+      "type": ["integer", "null"],
+      "description": "Maximum allowed Y size for the floor plan. Set to null for no limit."
+    },
+    "default_statuses": {
+      "type": "object",
+      "properties": {
+        "FloorPlanTile": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "color": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
