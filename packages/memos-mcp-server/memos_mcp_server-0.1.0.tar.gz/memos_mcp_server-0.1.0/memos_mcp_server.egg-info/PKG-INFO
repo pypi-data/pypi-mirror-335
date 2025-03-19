@@ -1,0 +1,47 @@
+Metadata-Version: 2.2
+Name: memos-mcp-server
+Version: 0.1.0
+Summary: A MCP server for the Memos API
+Author-email: Leslie Leung <lesily9@gmail.com>
+Project-URL: Homepage, https://github.com/leslieleung/mcp-server-memos
+Project-URL: Bug Tracker, https://github.com/leslieleung/mcp-server-memos/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: mcp[cli]>=1.4.1
+Requires-Dist: requests>=2.32.3
+
+# memos-mcp-server
+
+A [MCP(Model Context Protocol)](https://modelcontextprotocol.io) server for [Memos](https://github.com/usememos/memos).
+
+## Tools
+
+- `search_memos`: Search memos with keyword.
+- `create_memo`: Create a new memo.
+
+## Usage
+
+```
+{
+    "mcpServers": [
+        "memos": {
+            "command": "uvx",
+            "args": [
+                "memos-mcp-server"
+            ],
+            "env": {
+                "MEMOS_URL": "https://memos.example.com",
+                "MEMOS_API_KEY": "your_api_key",
+                "DEFAULT_TAG": "#mcp"
+            }
+        }
+    ]
+}
+```
