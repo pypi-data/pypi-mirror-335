@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tychos_skyfield"
+version = "1.0.8"
+authors = [
+  { name="Mindaugas Lekaveckas", email="mindelek@gmail.com" },
+]
+description = "Package for Tychos model implementation in Python and Tychos model interface to the Skyfield package. https://github.com/mindaugl/tychos_skyfield"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-2.0-only"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+  "numpy",
+  "scipy",
+]
+
+[project.urls]
+Homepage = "https://github.com/mindaugl/tychos_skyfield"
+Issues = "https://github.com/mindaugl/tychos_skyfield/issues"
