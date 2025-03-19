@@ -1,0 +1,236 @@
+Metadata-Version: 2.1
+Name: flask-mvc-core
+Version: 0.1.1
+Summary: Wrapper personalizado para Flask com estrutura MVC
+Home-page: https://github.com/celiovmjr/flask-mvc-core
+Author: Célio Junior
+Author-email: profissional.celiojunior@outlook.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Flask MVC Core - PT-BR
+
+**Flask MVC Core** é uma extensão para o framework Flask que facilita a implementação da arquitetura MVC (Model-View-Controller) em suas aplicações. Ele permite a definição modular de rotas e facilita o carregamento dinâmico de controladores, proporcionando uma estrutura mais limpa e escalável para seus projetos Flask.
+
+## Recursos
+
+- **Arquitetura MVC**: Separação clara entre modelo, visão e controlador.
+- **Roteamento Modular**: Permite o registro de rotas por meio de decorators personalizados.
+- **Carregamento Dinâmico de Controllers**: Carregamento automático dos controllers com base na estrutura de diretórios e prefixos.
+- **Suporte a vários métodos HTTP**: Suporta GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD e TRACE.
+- **Integração com Waitress**: Para servir a aplicação em produção.
+
+## Estrutura do Projeto
+
+A estrutura do projeto é organizada para facilitar a manutenção e escalabilidade. Veja como você pode organizar seu projeto:
+
+```
+project/
+├── app/
+│   ├── controllers/
+│   │   ├── web/
+│   │   │   ├── home_controller.py
+│   │   │   └── form_controller.py
+│   │   └── api/
+│   │       ├── api_controller.py
+│   ├── models/
+│   │   ├── user.py
+│   │   └── post.py
+│   ├── views/
+│   │   ├── index.html
+│   │   └── form.html
+├── public/
+│   ├── assets/
+│   │   ├── css/
+│   │   └── js/
+│   └── uploads/
+│       └── images/
+├── routes/
+│   ├── __init__.py
+│   ├── web.py
+│   ├── api.py
+│   └── console.py
+│   └── folder_example/
+│       ├── example.py
+│       └── etc...
+├── main.py
+└── requirements.txt
+```
+
+## Instalação
+
+Você pode instalar o `flask-mvc-core` diretamente do PyPI:
+
+```bash
+pip install flask-mvc-core
+```
+
+Se preferir, pode instalar a partir do código-fonte:
+
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/celiovmjr/flask-mvc-core.git
+   cd flask-mvc-core
+   ```
+
+2. Instale o pacote:
+
+   ```bash
+   pip install .
+   ```
+
+## Como Usar
+
+Aqui está um exemplo simples de como usar o `FlaskMVC` em sua aplicação.
+
+### 1. Definindo o `main.py`
+
+No arquivo `main.py`, você irá configurar a aplicação FlaskMVC e registrar as rotas:
+
+```python
+from waitress import serve
+from flask_mvc_core import FlaskMVCWithPrefix, Register
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+)
+
+# Criando a instância da aplicação FlaskMVC com prefixo
+app = FlaskMVCWithPrefix(__name__)
+
+# Registrando as rotas
+Register.routes(app)
+
+if __name__ == "__main__":
+    # Servindo a aplicação usando Waitress
+    serve(app, host="localhost", port=80, _quiet=True)
+```
+
+### 2. Definindo as Rotas em `routes/web.py`
+
+No arquivo `routes/web.py`, você define as rotas da sua aplicação. A biblioteca `flask-mvc-core` permite que você registre rotas com uma sintaxe simples e modular.
+
+```python
+from flask_mvc_core.register import register
+
+@register
+def web(app):
+    # Definindo o prefixo para as rotas dessa seção (web)
+    app.prefix(path="web", prefix="/web")
+
+    # Definindo uma rota GET para a página inicial
+    app.get("/", "HomeController@index")
+
+    # Definindo uma rota POST
+    app.post("/submit", "FormController@submit")
+```
+
+### 3. Definindo as Rotas em `routes/api.py`
+
+No arquivo `routes/api.py`, você define as rotas para sua API.
+
+```python
+from flask_mvc_core.register import register
+
+@register
+def api(app):
+    # Definindo o prefixo para as rotas da API
+    app.prefix(path="api", prefix="/api")
+
+    # Definindo uma rota GET para obter dados
+    app.get("/data", "ApiController@getData")
+
+    # Definindo uma rota POST para enviar dados
+    app.post("/data", "ApiController@postData")
+```
+
+### 4. Criando Controladores
+
+Agora, crie os controladores que serão chamados para processar as rotas. Por exemplo, para a rota `"HomeController@index"`, o controlador seria `HomeController`.
+
+#### `app/controllers/web/home_controller.py`
+
+```python
+from flask_mvc_core import Request, Response
+
+class HomeController:
+    def index(self, request: Request, response: Response):
+        # Retornando uma resposta simples
+        return response.render("index.html", request.all())
+```
+
+#### `app/controllers/api/api_controller.py`
+
+```python
+from flask_mvc_core import Request, Response
+
+class ApiController:
+    def getData(self, request: Request, response: Response):
+        # Retorna alguns dados fictícios
+        data = {"id": 1, "name": "Item 1"}
+        return response.json({"data": data})
+
+    def postData(self, request: Request, response: Response):
+        # Processa os dados do formulário
+        data = request.json
+        return response.json({"status": "sucesso", "data": data})
+```
+
+### 5. Rodando a Aplicação
+
+Com tudo configurado, basta rodar a aplicação com o seguinte comando:
+
+```bash
+python main.py
+```
+
+Isso irá iniciar a aplicação no endereço `http://localhost` e você poderá acessar as rotas definidas.
+
+## Como Funciona
+
+### `FlaskMVCWithPrefix`
+
+A classe `FlaskMVCWithPrefix` estende o Flask e adiciona funcionalidades específicas para o padrão MVC, incluindo a lógica de prefixos:
+
+- **Prefixos de Rota**: O método `prefix()` permite adicionar prefixos e caminhos às suas rotas.
+- **Métodos HTTP**: Métodos como `get`, `post`, `put`, `delete`, etc., são usados para registrar as rotas de acordo com o método HTTP.
+- **Carregamento Dinâmico de Controllers**: Os controllers são carregados dinamicamente a partir do diretório correto com base na estrutura de pastas e nomes de classes.
+
+### `Register`
+
+O decorador `@register` é usado para registrar as rotas dentro de um arquivo específico. Você pode criar arquivos como `routes/web.py` para manter suas rotas organizadas.
+
+## Exemplos de Uso
+
+### Exemplo 1: Rota Simples
+
+```python
+@app.get("/hello", "HelloController@index")
+```
+
+### Exemplo 2: Rota com parâmetros
+
+```python
+@app.get("/user/<int:id>", "UserController@show")
+```
+
+### Exemplo 3: Definindo métodos POST
+
+```python
+@app.post("/login", "AuthController@login")
+```
+
+## Licença
+
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+**Do you speak English? Read the README in English _[aqui](README_en.md)_**
