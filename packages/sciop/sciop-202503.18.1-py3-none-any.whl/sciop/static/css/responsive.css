@@ -1,0 +1,138 @@
+/*
+ * Adding some adjustments to accomodate smaller screens in
+ * its own file instead of attaching the responsive fixes directly to
+ * the respective elements' rules.
+ */
+
+@media only screen and (max-width: 768px) {
+  nav.navbar .cta-wrapper {
+		width: 100%;
+
+		& > *:first-child {
+			margin-left: auto;
+		}
+  }
+
+  .page-container {
+    width: 100%;
+		padding: 0 0.5em;
+		box-sizing: border-box;
+  }
+
+  .datasets-table,
+  .accounts-table {
+
+    .table-head,
+    .dataset-collapsible > .collapsible-summary,
+    .account-collapsible > .collapsible-summary {
+			display: flex;
+			flex-wrap: wrap;
+			grid-column-gap: 0.5em;
+
+			& > span {
+				line-height: 28px;
+				align-self: baseline;
+			}
+
+			& *:last-child:not(.success-button) {
+			 margin-left: auto;
+			}
+			& button:first-of-type {
+				margin-left: auto;
+			}
+	  }
+
+		& .collapsible-marker {
+			width: 1em;
+		}
+		& .dataset-slug {
+			width: calc(100% - 2em);
+		}
+  }
+
+	.uploads-table {
+		.upload-collapsible > .collapsible-summary {
+			display: grid;
+			grid-gap: 0.1em;
+			grid-template-columns: 1em 5em 1fr 4em 3em 3em  4em;
+			grid-template-rows: 1.5em 1.6em;
+			align-items: center;
+
+			.upload-title {
+				grid-row: 2 / 2;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				grid-column: 1/8;
+			}
+			.upload-size {
+				grid-column: 4/4;
+			}
+			&>.download-link {
+				display: none;
+			}
+			&>.upload-size, &>.seeders .seeders-number, &>.downloaders .downloaders-number,
+			&>.upload-timestamp {
+				color: var(--color-text-deemphasized);
+				font-size: 0.8em;
+			}
+			&>.downloaders, &>.seeders {
+				display: flex;
+				flex-direction: row;
+				flex-wrap:nowrap;
+			}
+			&>.upload-timestamp {
+				align-self: right;
+				grid-column: 7/7;
+			}
+		}
+	}
+
+	.collapsible-table {
+		display: flex;
+		flex-direction: column;
+	}
+
+  .topmatter {
+		.header, .infobox {
+			flex-basis: 100%;
+		}
+  }
+
+	.pagination-container {
+		display: flex;
+		flex-wrap: wrap;
+
+		.pagination-links {
+			width: 100%;
+			justify-content: space-evenly;
+			gap: 0;
+		}
+		.pagination-total {
+			margin: auto;
+		}
+	}
+
+	nav.tabs {
+
+		a.tab-link {
+			padding-left: unset;
+			padding-right: unset;
+		}
+	}
+
+	nav.navbar {
+		.site-title.text {
+			display: none;
+		}
+
+		.site-title.responsive {
+			display: inline-block;
+			max-height: 0.8em;
+
+				margin: unset;
+			img {
+				height: 1em;
+			}
+		}
+	}
+}

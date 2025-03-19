@@ -1,0 +1,210 @@
+.form {
+    display: grid;
+    grid-template-columns: minmax(10px, auto) 3fr;
+    gap: 1em 1em;
+
+    .form-item {
+        display: grid;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-template-columns: subgrid;
+    }
+
+    @media screen and (max-width: 700px) {
+        grid-template-columns: 1fr;
+
+        .form-item {
+            grid-column-end: 2;
+        }
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        text-wrap: wrap;
+    }
+
+    .form-input,
+    .form-textarea
+    {
+        width: 100%;
+
+        &[type="checkbox"] {
+            width: unset;
+        }
+
+        &:user-invalid,
+        &.invalid {
+            border: 1px solid var(--color-caution);
+        }
+
+    }
+
+    .form-item-description {
+        grid-column-start: 2;
+        color: var(--color-text-deemphasized);
+        margin-top: 0.5em;
+    }
+
+    .constraint-gutter {
+        font-family: var(--font-mono);
+        color: var(--color-text-deemphasized);
+        font-size: 0.8em;
+        display: flex;
+        justify-content: space-between;
+        margin-right: 1em;
+    }
+
+    .error-feedback {
+        color: var(--color-caution);
+
+        &.changed {
+            color: var(--color-primary);
+        }
+    }
+
+    .constraint {
+        margin-left: 1em;
+    }
+    .optional {
+        border-color: var(--color-border-deemphasized);
+    }
+}
+
+.form.login-form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+
+    input {
+        width: 100%;
+    }
+}
+.login-form-container {
+    margin: 3em auto;
+    width: 50%;
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+
+    .login-buttons {
+        margin-top: 1em;
+        display: flex;
+        justify-content: flex-end;
+        gap: 1em;
+        button {
+            padding: 0.5em 1em;
+            font-size: 1em;
+        }
+    }
+}
+
+.add-subform-button {
+    width: 80%;
+    margin: 1em auto 1em auto;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+.model-list-input {
+    border: 1px solid var(--color-border-deemphasized);
+
+
+    .model-list-item {
+        padding: 1em;
+
+        &:not(:nth-last-child(2)){
+            border-bottom: 1px solid var(--color-border-deemphasized);
+            margin-bottom: 1em;
+            padding-bottom: 1em;
+        }
+
+        &.model-list-item.invalid {
+            border-left: 1px solid var(--color-caution);
+        }
+    }
+
+
+
+    .form-item:not(:first-child){
+        margin-top: 1em;
+    }
+}
+
+form.parts-add-bulk {
+    display: flex;
+    flex-direction:column;
+}
+
+div.dataset-parts-add-container {
+    border: 1px solid var(--color-border-deemphasized);
+    padding: 1em;
+}
+
+form.upload-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .status-bar{
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+
+        progress {
+            flex-grow: 1;
+        }
+    }
+}
+
+.color-strip {
+    --strip-color: var(--color-primary);
+    --strip-color-contrast: var(--color-primary-contrast);
+    margin-left: -0.25em;
+    margin-right: -0.25em;
+    display: flex;
+
+    background-color: var(--strip-color);
+
+    &.primary {
+        --strip-color: var(--color-primary);
+        --strip-color-contrast: var(--color-primary-contrast);
+    }
+
+    input[type="checkbox"]{
+        /*font-size: 1.1em;*/
+        width: 1.5em;
+        height: 1.5em;
+        padding: 0;
+        /*font-size: 0.8em;*/
+        appearance:none;
+          text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+        background-color: var(--color-background);
+        &:hover {
+            border: 1px solid color-mix(in lch, var(--strip-color) 50%, var(--strip-color-contrast));
+        }
+
+        &:checked {
+            background-color: var(--strip-color);
+        }
+        &:checked:after {
+          content: '\2713';
+          color: var(--strip-color-contrast);
+        }
+    }
+}
+
+summary .color-strip {
+    margin-top: -0.25em;
+    margin-bottom: -0.25em;
+    height: calc(100% + 0.5em);
+
+    justify-content: center;
+    align-items: center;
+}

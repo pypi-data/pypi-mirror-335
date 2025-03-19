@@ -1,0 +1,24 @@
+<nav class="navbar">
+  <a href="/" class="site-title text redacted">SciOp</a>
+	<a href="/" class="site-title responsive">
+		<img src="/static/img/android-chrome-512x512.png"
+				 alt="SciOp logo: three white arrows facing down and to the left against a pink stripe"
+			/>
+	</a>
+  <a href="/datasets" class="nav-link">Datasets</a>
+	<a href="/uploads" class="nav-link">Uploads</a>
+  <a href="/feeds" class="nav-link">Feeds</a>
+  <a href="/docs" class="nav-link">Docs</a>
+
+  <div class="spacer"></div>
+
+	<div class="cta-wrapper">
+    {% include "includes/theme-toggle.html" %}
+		<a class="nav-button outline" href="/request">Add Dataset</a>
+		{% if current_account %}
+		<a href="/self" class="nav-button">{{ current_account.username }}</a>
+		{% else %}
+		<a href="/login" class="nav-button">Login</a>
+		{% endif %}
+	</div>
+</nav>
