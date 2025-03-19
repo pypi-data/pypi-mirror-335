@@ -1,0 +1,29 @@
+[build-system]
+# Versões mais recentes do setuptools e wheel para suportar PEP 621
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SmartLogs"
+version = "0.1.1"
+description = "Um logger inteligente para projetos Python, com suporte a cores, arquivos e integrações com Slack/Telegram."
+readme = "README.md"
+license = { file = "LICENSE" } # Ou "MIT" direto, se preferir.
+authors = [
+  { name = "Roberto Lima", email = "robertolima.izphera@gmail.com" }
+]
+requires-python = ">=3.7"
+dependencies = [
+  "colorama",  
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+# Links úteis, como repositório e issue tracker.
+[project.urls]
+"Source" = "https://github.com/robertolima-dev/SmartLogs"
+"Tracker" = "https://github.com/robertolima-dev/SmartLogs/issues"
