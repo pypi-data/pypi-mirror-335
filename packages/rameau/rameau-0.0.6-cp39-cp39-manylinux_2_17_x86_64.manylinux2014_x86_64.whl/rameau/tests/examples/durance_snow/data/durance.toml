@@ -1,0 +1,25 @@
+[optimization]
+maxit = 20
+transformation = "square root"
+starting_date = 1974-01-01
+[files]
+pet = "pet_durance_1971_2009.prn"
+rainfall = "rainfall_durance_1971_2009.prn"
+temperature = "temp_durance_1971_2009.prn"
+riverobs = "riverflow_durance_1971_2009.prn"
+[watershed.all]
+name = "Durance"
+river.area = {value=2170, opti=false}
+river.concentration_time = {value=0, opti=true, sameas=0, lower=0, upper=45}
+progressive.capacity = {value=240, opti=true, sameas=0, lower=0.000, upper=650}
+transfer.runsee = {value=30, opti=true, sameas=0, lower=1e-3, upper=800}
+transfer.halflife = {value=5, opti=true, sameas=0, lower=0.05, upper=20}
+groundwater.1.exchanges = {value=60, opti=true, sameas=0, lower=-80, upper=70}
+groundwater.1.halflife_baseflow = {value=25, opti=true, sameas=0, lower=0.3, upper=35}
+correction.pet = {value=-30, opti=true, sameas=0, lower=-35, upper=35}
+snow.correction.temperature = {value=-2, opti=true, lower=-3, upper=3}
+snow.correction.rainfall = {value=-20, opti=true, lower=-20, upper=20}
+snow.degree_day.coefficient = {value=1.8, opti=true, lower=1, upper=7}
+snow.degree_day.temperature = {value=-0.3, opti=true, lower=-2, upper=2}
+snow.retention = {value=5, opti=false, lower=1e-3, upper=7}
+snow.melting = {value=6.5, opti=true, lower=1e-3, upper=10}
