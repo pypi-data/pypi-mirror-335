@@ -1,0 +1,207 @@
+Metadata-Version: 2.2
+Name: locallab
+Version: 0.4.44
+Summary: LocalLab: Run language models locally or in Google Collab with a friendly API
+Home-page: https://github.com/UtkarshTheDev/LocalLab
+Author: Utkarsh Tiwari
+Author-email: utkarshweb2023@gmail.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi<1.0.0,>=0.95.0
+Requires-Dist: uvicorn<1.0.0,>=0.21.1
+Requires-Dist: pydantic<3.0.0,>=2.0.0
+Requires-Dist: python-dotenv<1.0.0,>=0.21.0
+Requires-Dist: python-multipart>=0.0.5
+Requires-Dist: dataclasses-json<1.0.0,>=0.5.7
+Requires-Dist: torch<3.0.0,>=2.0.0
+Requires-Dist: transformers<5.0.0,>=4.28.1
+Requires-Dist: accelerate<1.0.0,>=0.18.0
+Requires-Dist: bitsandbytes<1.0.0,>=0.38.0
+Requires-Dist: llama-cpp-python<1.0.0,>=0.1.74
+Requires-Dist: click<9.0.0,>=8.1.3
+Requires-Dist: rich<14.0.0,>=13.3.4
+Requires-Dist: pyngrok<7.0.0,>=6.0.0
+Requires-Dist: requests<3.0.0,>=2.28.2
+Requires-Dist: netifaces>=0.11.0
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: colorama>=0.4.4
+Requires-Dist: websockets>=10.0
+Requires-Dist: psutil>=5.8.0
+Requires-Dist: nest-asyncio>=1.5.1
+Requires-Dist: fastapi-cache2>=0.2.1
+Requires-Dist: nvidia-ml-py3>=7.352.0
+Requires-Dist: huggingface_hub>=0.16.0
+Requires-Dist: pynvml>=11.0.0
+Requires-Dist: typing_extensions>=4.0.0
+Requires-Dist: questionary>=1.10.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.15.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 🚀 LocalLab: Your Personal AI Lab
+
+LocalLab lets you run AI language models on your computer or Google Colab - no cloud services needed! Think of it as having ChatGPT-like capabilities right on your machine.
+
+## 🤔 What is LocalLab?
+
+LocalLab consists of two parts working together:
+
+```mermaid
+graph LR
+    A[LocalLab Server] -->|Runs| B[AI Models]
+    C[Your Code] -->|Uses| D[LocalLab Client] -->|Talks to| A
+```
+
+### The Server (Your AI Engine)
+
+Think of the server as your personal AI engine. It:
+
+- Downloads and runs AI models on your computer
+- Manages memory and resources automatically
+- Optimizes performance based on your hardware
+- Provides a simple API for accessing models
+
+You can run it:
+
+- On your computer (local mode)
+- On Google Colab (free GPU mode)
+
+### The Client (Your AI Controller)
+
+The client is how your code talks to the AI. It:
+
+- Connects to your LocalLab server
+- Sends requests for text generation
+- Handles chat conversations
+- Processes multiple requests at once
+- Streams responses in real-time
+
+## ✨ How It Works Together
+
+When you use LocalLab:
+
+1. **Server Setup**
+
+   ```python
+   from locallab import start_server
+   start_server()  # Server starts and loads AI model
+   ```
+
+2. **Client Connection**
+
+   ```python
+   from locallab.client import LocalLabClient
+   server_url = "http://localhost:8000" # or "https://your-ngrok-url.ngrok.app"
+   client = LocalLabClient(server_url)
+   ```
+
+3. **AI Interaction**
+   ```python
+   # Your code sends requests through the client
+   response = await client.generate("Write a story")
+   print(response)  # Server processes and returns AI response
+   ```
+
+## 💡 Quick Examples
+
+```python
+# Generate text
+response = await client.generate("Hello!")
+
+# Chat with AI
+response = await client.chat([
+    {"role": "user", "content": "Hi!"}
+])
+
+# Process multiple prompts
+responses = await client.batch_generate([
+    "Write a joke",
+    "Tell a story"
+])
+```
+
+[➡️ See More Examples](./docs/guides/examples.md)
+
+## 💻 Requirements
+
+**Local Computer:**
+
+- Python 3.8+
+- 4GB RAM minimum
+- GPU optional (but recommended)
+
+**Google Colab:**
+
+- Just a Google account!
+- Free tier works fine
+
+## 📚 Getting Started
+
+### 1. Choose Your Path
+
+**New to AI/Programming?**
+
+1. Start with our [Getting Started Guide](./docs/guides/getting-started.md)
+2. Try the [Basic Examples](./docs/guides/examples.md)
+3. Join our [Community](https://github.com/UtkarshTheDev/LocalLab/discussions)
+
+**Developer?**
+
+1. Check [API Reference](./docs/guides/api.md)
+2. See [Client Libraries](./docs/clients/README.md)
+3. Read [Advanced Features](./docs/guides/advanced.md)
+
+### 2. Read the Docs
+
+Our [Documentation Guide](./docs/README.md) will help you:
+
+- Understand LocalLab's features
+- Learn best practices
+- Find solutions to common issues
+- Master advanced features
+
+## 🌟 Features
+
+- **Easy Setup**: Just pip install and run
+- **Multiple Models**: Use any Hugging Face model
+- **Resource Efficient**: Automatic optimization
+- **Privacy First**: All local, no data sent to cloud
+- **Free GPU**: Google Colab integration
+
+[➡️ See All Features](./docs/features/README.md)
+
+## 🔍 Need Help?
+
+- Check [FAQ](./docs/guides/faq.md)
+- Visit [Troubleshooting](./docs/guides/troubleshooting.md)
+- Ask in [Discussions](https://github.com/UtkarshTheDev/LocalLab/discussions)
+
+## 📖 Additional Resources
+
+- [Contributing Guide](./docs/guides/contributing.md)
+- [Changelog](./CHANGELOG.md)
+- [License](./LICENSE)
+
+---
+
+Made with ❤️ by Utkarsh Tiwari  
+[GitHub](https://github.com/UtkarshTheDev) • [Twitter](https://twitter.com/UtkarshTheDev) • [LinkedIn](https://linkedin.com/in/utkarshthedev)
