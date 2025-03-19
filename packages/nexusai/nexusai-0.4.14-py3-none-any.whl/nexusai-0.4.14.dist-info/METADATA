@@ -1,0 +1,33 @@
+Metadata-Version: 2.2
+Name: nexusai
+Version: 0.4.14
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: toml>=0.10.2
+Requires-Dist: termcolor>=2.5.0
+Requires-Dist: base58>=2.1.1
+Requires-Dist: fastapi>=0.115.3
+Requires-Dist: uvicorn>=0.32.0
+Requires-Dist: pydantic-settings>=2.6.0
+Requires-Dist: requests>=2.32.3
+Requires-Dist: colorlog>=6.8.2
+Requires-Dist: wandb>=0.18.5
+Requires-Dist: aiohttp>=3.10.10
+Requires-Dist: psutil>=7.0.0
+Requires-Dist: twilio>=9.4.6
+Requires-Dist: speedtest-cli>=2.1.3
+
+## Immediate TODO
+
+- [x] more agressive job killing
+- [x] after job completes, show complete logs
+- [ ] cleanup git functions
+- [ ] cleanup git tags optional
+- [ ] dependent jobs (a after b is done)
+- [ ] nicer error messages on the cli instead of showing apierror
+- [ ] better secrets management
+- [ ] git branch mode
+- [ ] multi node and auth with dht and dqlite
+- [ ] documentation
+- [ ] job execution isolation
