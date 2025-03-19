@@ -1,0 +1,115 @@
+Metadata-Version: 2.4
+Name: jexchange-mcp-server
+Version: 0.1.0
+Summary: 一个提供实时全球货币汇率查询功能的模型上下文协议（Model Context Protocol）服务器。该服务器使大型语言模型（LLMs）能够获取实时货币汇率情况。
+Author-email: juhemcp <dev@juheapi.com>
+Requires-Python: >=3.10
+Requires-Dist: mcp[cli]>=1.4.1
+Description-Content-Type: text/markdown
+
+# Juhe Exchange Rates MCP Server
+
+一个提供实时全球货币汇率查询功能的模型上下文协议（Model Context Protocol）服务器。该服务器使大型语言模型（LLMs）能够获取实时货币汇率情况。
+
+## Components
+
+### Tools
+
+服务器实现了一个工具:
+
+- query_exchange_rates: 根据货币的三位字母代码查询两者之间的兑换汇率
+  - 需要传入 "from_code"（货币的三位字母货币代码）作为必须的字符串参数。
+  - 需要传入 "to_code"（货币的三位字母货币代码）作为必须的字符串参数。
+```
+async def query_exchange_rates(
+    from_code: str = Field(description="您希望转换的货币的三位字母货币代码。如：CNY"),
+    to_code : str = Field(description="您希望转换为目标货币的三位字母货币代码。如：USD")
+) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+```
+
+
+## Install
+This server requires Python 3.10 or higher. Install dependencies using uv (recommended) or pip
+
+### Using uv (recommended)
+When using [uv](https://docs.astral.sh/uv/) no specific installation is needed. We will use [uvx](https://docs.astral.sh/uv/guides/tools/) to directly run jexchange-mcp-server.
+
+```bash
+uvx jexchange-mcp-server
+```
+
+### Using PIP
+Alternatively you can install jexchange-mcp-server via pip:
+```
+pip install jexchange-mcp-server
+```
+After installation, you can run it as a script using:
+```
+python -m jexchange_mcp_server
+```
+
+### Configuration
+
+#### Environment Variables
+`JUHE_EXCHANGE_API_KEY`: 聚合数据的天气预报查询API密钥。获取：[https://www.juhe.cn/docs/api/id/73](https://www.juhe.cn/docs/api/id/73)
+
+```
+JUHE_EXCHANGE_API_KEY=your_api_key
+```
+
+#### Configure For CLINE
+
+<details>
+  <summary>Using uvx</summary>
+
+  ```
+  "mcpServers": {
+    "jexchange-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "jexchange-mcp-server"
+      ],
+      "env": {
+        "JUHE_EXCHANGE_API_KEY": "your_api_key"
+      }
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>Using pip installation</summary>
+
+  ```
+  "mcpServers": {
+    "jexchange-mcp-server": {
+      "command": "python",
+      "args": [
+        "-m",
+        "jmobile_location_mcp_server"
+      ],
+      "env": {
+        "JUHE_EXCHANGE_API_KEY": "your_api_key"
+      }
+    }
+  }
+  ```
+</details>
+
+## Debugging
+You can use the MCP inspector to debug the server. For uvx installations:
+
+```bash
+npx @modelcontextprotocol/inspector uvx jexchange-mcp-server 
+```
+
+Or if you've installed the package in a specific directory or are developing on it:
+
+```bash
+cd path/to/servers/src/jexchange-mcp-server
+npx @modelcontextprotocol/inspector uv run jexchange-mcp-server
+```
+
+## Examples of Questions for Cline
+1. "查询下苏州的天气"
+2. "今天上海的天气如何？"
