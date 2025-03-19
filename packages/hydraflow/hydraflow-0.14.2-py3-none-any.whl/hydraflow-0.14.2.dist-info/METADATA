@@ -1,0 +1,121 @@
+Metadata-Version: 2.4
+Name: hydraflow
+Version: 0.14.2
+Summary: Hydraflow integrates Hydra and MLflow to manage and track machine learning experiments.
+Project-URL: Documentation, https://daizutabi.github.io/hydraflow/
+Project-URL: Source, https://github.com/daizutabi/hydraflow
+Project-URL: Issues, https://github.com/daizutabi/hydraflow/issues
+Author-email: daizutabi <daizutabi@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Daizu
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.10
+Requires-Dist: hydra-core>=1.3
+Requires-Dist: mlflow>=2.15
+Requires-Dist: omegaconf>=2.3
+Requires-Dist: python-ulid>=3.0.0
+Requires-Dist: rich>=13.9
+Requires-Dist: typer>=0.15
+Description-Content-Type: text/markdown
+
+# Hydraflow
+
+[![PyPI Version][pypi-v-image]][pypi-v-link]
+[![Python Version][python-v-image]][python-v-link]
+[![Build Status][GHAction-image]][GHAction-link]
+[![Coverage Status][codecov-image]][codecov-link]
+
+<!-- Badges -->
+[pypi-v-image]: https://img.shields.io/pypi/v/hydraflow.svg
+[pypi-v-link]: https://pypi.org/project/hydraflow/
+[python-v-image]: https://img.shields.io/pypi/pyversions/hydraflow.svg
+[python-v-link]: https://pypi.org/project/hydraflow
+[GHAction-image]: https://github.com/daizutabi/hydraflow/actions/workflows/ci.yaml/badge.svg?branch=main&event=push
+[GHAction-link]: https://github.com/daizutabi/hydraflow/actions?query=event%3Apush+branch%3Amain
+[codecov-image]: https://codecov.io/github/daizutabi/hydraflow/coverage.svg?branch=main
+[codecov-link]: https://codecov.io/github/daizutabi/hydraflow?branch=main
+
+## Overview
+
+Hydraflow is a library designed to seamlessly integrate
+[Hydra](https://hydra.cc/) and [MLflow](https://mlflow.org/), making it easier to
+manage and track machine learning experiments. By combining the flexibility of
+Hydra's configuration management with the robust experiment tracking capabilities
+of MLflow, Hydraflow provides a comprehensive solution for managing complex
+machine learning workflows.
+
+## Key Features
+
+- **Configuration Management**: Utilize Hydra's advanced configuration management
+  to handle complex parameter sweeps and experiment setups.
+- **Experiment Tracking**: Leverage MLflow's tracking capabilities to log parameters,
+  metrics, and artifacts for each run.
+- **Artifact Management**: Automatically log and manage artifacts, such as model
+  checkpoints and configuration files, with MLflow.
+- **Seamless Integration**: Easily integrate Hydra and MLflow in your machine learning
+  projects with minimal setup.
+
+## Installation
+
+You can install Hydraflow via pip:
+
+```bash
+pip install hydraflow
+```
+
+## Getting Started
+
+Here is a simple example to get you started with Hydraflow:
+
+```python
+from __future__ import annotations
+
+from dataclasses import dataclass
+from typing import TYPE_CHECKING
+
+import hydraflow
+
+if TYPE_CHECKING:
+    from mlflow.entities import Run
+
+
+@dataclass
+class Config:
+    count: int = 1
+    name: str = "a"
+
+
+@hydraflow.main(Config)
+def app(run: Run, cfg: Config):
+    """Your app code here."""
+
+
+if __name__ == "__main__":
+    app()
+```
