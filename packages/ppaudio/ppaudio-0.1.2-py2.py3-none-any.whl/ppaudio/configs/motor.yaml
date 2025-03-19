@@ -1,0 +1,40 @@
+dataset_conf:
+  dataset:
+    adjust_audio_length: false
+    is_full_path: false
+    use_dB_normalization: true
+  sampler:
+    batch_size: 16
+    drop_last: true
+    shuffle: true
+  test_data: dataset/test_data.csv
+  test_data_root: ./dataset/test_data
+  train_data: dataset/train_data.csv
+  train_data_root: ./dataset/train_data
+  val_data: dataset/val_data.csv
+  val_data_root: ./dataset/val_data
+loss_conf:
+  criterion: CrossEntropyLoss
+optimizer_conf:
+  learning_rate: 0.001
+  optimizer: Adam
+preprocess_conf:
+  feature_method: LogMelSpectrogram
+  method_args:
+    f_max: 14000
+    f_min: 50
+    hop_length: 512
+    n_fft: 1024
+    n_mels: 64
+    sr: 48000
+    win_length: 1024
+    window: hann
+sys_conf:
+  log_freq: 1
+  max_epoch: 50
+  model_info: date:03-18;acc=0.74;epoch=50
+  model_path: models/model_best.pdparams
+  model_type: cnn14
+  save_train_process: false
+  show_train_process: true
+  use_GPU: true
