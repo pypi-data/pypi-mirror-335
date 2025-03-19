@@ -1,0 +1,117 @@
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# https://github.com/charliermarsh/ruff#reference
+select = [
+    # pyflakes
+    "F",
+
+    # pycodestyle
+    "E",
+    "W",
+
+    # pydocstyle
+    "D200", # One-line docstring should fit on one line
+    "D204", # 1 blank line required after class docstring
+    "D206", # Docstring should be indented with spaces, not tabs
+    "D207", # Docstring is under-indented
+    "D208", # Docstring is over-indented
+    "D209", # Multi-line docstring closing quotes should be on a separate line
+    "D210", # No whitespaces allowed surrounding docstring text
+    "D211", # No blank lines allowed before class docstring
+    "D403", # First word of the first line should be properly capitalized
+    "D419", # Docstring is empty
+    "D300", # Use """triple double quotes"""
+
+    # pyupgrade
+    "UP003", # Use str instead of type(...)
+    "UP005", # assertEquals is deprecated, use assertEqual
+    "UP008", # Use super() instead of super(__class__, self)
+    "UP015", # Unnecessary open mode parameters
+    "UP017", # Use datetime.UTC alias
+    "UP018", # Unnecessary call to `str` and `bytes`
+    "UP020", # Use builtin `open` instead
+    "UP021", # universal_newlines is deprecated, use text
+    "UP022", # Sending stdout and stderr to pipe is deprecated, use capture_output
+
+    # flake8-2020
+    "YTT",
+
+    # flake8-bugbear
+    "B",
+
+    # flake8-builtins
+    "A",
+
+    # flake8-comprehensions
+    "C4",
+
+    # flake8-debugger
+    "T10",
+
+    # flake8-import-conventions
+    "ICN",
+
+    # flake8-pytest-style
+    "PT",
+
+    # flake8-simplify
+    "SIM",
+
+    # Pylint
+    "PLC",
+    "PLE",
+    "PLW",
+
+    # flake8-commas
+    "COM812", # Trailing comma missing
+
+    # Ruff-specific rules
+    "B026", # Keyword argument ... must come after starred arguments
+    "RUF100", # Unused noqa directive
+]
+
+ignore = [
+    # Disabled by default. :)
+    # https://github.com/gforcada/flake8-builtins/pull/76
+    "A003", # Class attribute `...` is shadowing a python builtin
+
+    "B905", # `zip()` without an explicit `strict=` parameter
+
+    "C400", # Unnecessary `tuple` call (rewrite as a literal)
+    "C401", # Unnecessary generator (rewrite as a set comprehension)
+    "C408", # Unnecessary `dict` call (rewrite as a literal)
+
+    "PLW0120", # Else clause on loop without a break statement.
+
+    "SIM102", # Use a single `if` statement instead of nested `if` statements
+    "SIM108", # Use ternary operator ... instead of if-else-block
+    "SIM117", # (Python 3.10) Use a single with statement with multiple contexts instead of nested with statements
+
+    "PT006", # Wrong name(s) type in `@pytest.mark.parametrize`, expected `tuple`
+    "PT007", # Wrong values type in `@pytest.mark.parametrize` expected `list` of `tuple`
+    "PT011", # `pytest.raises(ValueError)` is too broad, set the `match` parameter or use a more specific exception
+    "PT019", # Fixture `_` without value is injected as parameter, use `@pytest.mark.usefixtures` instead
+]
+
+[tool.black]
+line-length = 120
+skip-string-normalization = true
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 120
