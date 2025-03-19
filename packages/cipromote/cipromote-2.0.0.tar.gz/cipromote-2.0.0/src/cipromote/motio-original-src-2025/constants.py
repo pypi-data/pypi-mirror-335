@@ -1,0 +1,5 @@
+CI_URL = ""
+LOGIN_URL = "/api/login"
+LOGOUT_URL = "/api/logout"
+GRAPH_URL = "/api/graphql"
+X_AUTH_TOKEN = ""
