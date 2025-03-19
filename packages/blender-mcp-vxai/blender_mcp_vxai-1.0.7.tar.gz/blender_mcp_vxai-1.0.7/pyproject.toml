@@ -1,0 +1,25 @@
+[project]
+requires-python = ">=3.7"
+name = "blender-mcp-vxai"
+version = "1.0.7"  # Updated from 1.0.3
+description = "MCP server for Blender integration to enable dynamic 3D scene manipulation"
+authors = [{name = "VxAI", email = "vxasi7@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+dependencies = [
+    "mcp"  # Add version if needed, e.g., "mcp>=1.0.0"
+]
+
+[project.scripts]
+blender-mcp-vxai = "blender_mcp_vxai.server:main"
+start = "blender_mcp_vxai.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["blender_mcp_vxai"]
