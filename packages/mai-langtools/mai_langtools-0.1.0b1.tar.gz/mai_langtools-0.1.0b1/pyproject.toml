@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mai-langtools"
+version = "0.1.0b1"
+authors = [
+  { name="MSAI Team", email="langtoolsdev@microsoft.com" },
+]
+description = "Complete language tools package including core functionality and Azure service connectors"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "langtools-core>=0.1.0b1",
+    "langtools-connectors>=0.1.0b4"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/ai-microsoft/langtools"
+Issues = "https://github.com/ai-microsoft/langtools/issues"
