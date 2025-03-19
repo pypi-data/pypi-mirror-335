@@ -1,0 +1,105 @@
+Metadata-Version: 2.3
+Name: elogs
+Version: 0.3.0
+Summary: Tracking batch processing tasks and logs on a cluster
+Author: VITO RS Vegetation team
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Requires-Dist: boto3>=1.37.0
+Requires-Dist: flask-session>=0.8
+Requires-Dist: flask>=3.1.0
+Requires-Dist: geopandas>=1.0.1
+Requires-Dist: loguru
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: tqdm>=4.5
+Provides-Extra: image
+Requires-Dist: rasterio>=1.4; extra == 'image'
+Requires-Dist: scikit-image>=0.25; extra == 'image'
+Description-Content-Type: text/markdown
+
+# ELOGS
+
+Streamlined batch processing jobs.
+
+Elogs wraps batch jobs tasks, intercepting errors and logging them to S3
+preventing the job to fail.
+
+## Usage
+
+```python
+import os
+from pathlib import Path
+
+from elogs import Elogs, ElogsTask
+
+# load credentials as env vars
+aws_env = Path.home() / 'Private/configs/aws.env'
+load_dotenv(aws_env)
+
+app_id = "userx_test_app"
+elogs = Elogs(app_id=app_id)
+
+@elogs
+def process(x, y):
+    return x + y
+
+# decorating a function with an elogs instance transforms it in a function
+# that will accept 1 single argument, which should be a ElogsTask, containing
+# the task_id and original args/kwargs
+
+tasks = [ElogsTask(f"{x}-{y}-{z}", x, y)
+         for x in range(5)
+         for y in range(5)]
+
+# to track the app progress in the dashboard use the context
+with elogs.start(tasks) as filtered_tasks: # removes done tasks
+    for task in filtered_tasks:
+        _ = process(task)
+
+```
+
+## Dashboard
+
+Once installed the elogs package, you can run the monitoring dashboard with:
+
+```bash
+elogs-dashboard
+```
+
+this supports optional arguments `--aws-env /path/to/aws.env` and `-p/--port 18080`
+to specify credentials and custom port number (defaults to 18080)
+
+If credentials are not specified they will be searched in the env vars and if not
+present an error will be raised.
+
+To automatically start the dashboard as system service to run constantly in background,
+you can follow this example:
+
+
+Create the file `/etc/systemd/system/elogs-dashboard.service` (adapt for your user and environment)
+```bash
+[Unit]
+Description=Elogs Dashboard Service
+After=network.target
+
+[Service]
+ExecStart=/home/dzanaga/miniconda3/envs/eo/bin/elogs-dashboard --aws-env /home/dzanaga/Private/configs/aws.env
+Restart=always
+Environment="PATH=/home/dzanaga/miniconda3/envs/eo/bin:/home/dzanaga/miniconda3/condabin:/usr/lib64/qt-3.3/bin:/usr/local/bin:/usr/bin:/usr/lib/maven/bin:/opt/puppetlabs/bin:/usr/local/bin:/home/dzanaga/.local/bin/go/bin:/home/dzanaga/.local/share/coursier/bin:/usr/local/sbin:/usr/sbin:/usr/lib/maven/bin:/usr/lib/maven/bin:/usr/local/bin:/home/dzanaga/.local/bin/go/bin:/home/dzanaga/.local/share/coursier/bin:/home/dzanaga/.local/bin:/home/dzanaga/bin"
+
+[Install]
+WantedBy=multi-user.target
+```
+
+and then run:
+```
+sudo systemctl daemon-reload
+sudo systemctl start elogs-dashboard
+sudo systemctl enable elogs-dashboard
+```
+
+to check the dashboard server status:
+```
+sudo systemctl status elogs-dashboard
+```

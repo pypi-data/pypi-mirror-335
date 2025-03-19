@@ -1,0 +1,136 @@
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/underscore@1.13.1/underscore-min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/flatgeobuf@3.22.0/dist/flatgeobuf-geojson.min.js"></script>
+    <script src="https://unpkg.com/json-formatter-js"></script>
+
+    <style>
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        table,
+        tr,
+        td,
+        th,
+        div,
+        h1,
+        h2,
+        input {
+            font-family: "Calibri", "Trebuchet MS", "Ubuntu", Serif;
+            font-size: 11pt;
+        }
+    </style>
+</head>
+
+<body>
+
+
+    <div id="map"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // basic OSM Leaflet map
+            let map = L.map('map').setView(["{{lat}}", "{{lon}}"], 6);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+
+            // optionally show some meta-data about the FGB file
+            // function handleHeaderMeta(headerMeta) {
+            //     const header = document.getElementById('header')
+            //     const formatter = new JSONFormatter(headerMeta, 10)
+            //     header.appendChild(formatter.render())
+            // }
+
+            // For the example, we fix a visible Rect representing the query
+            // bounding box in the middle of the map
+            function getBoundForRect() {
+                const widthMeters = 2500000;
+                return map.getCenter().toBounds(widthMeters);
+            }
+
+            // convert the rect into the format flatgeobuf expects
+            function fgBoundingBox() {
+                const bounds = getBoundForRect();
+                return {
+                    minX: bounds.getWest(),
+                    minY: bounds.getSouth(),
+                    maxX: bounds.getEast(),
+                    maxY: bounds.getNorth(),
+                };
+            }
+
+            // track the previous results so we can remove them when adding new results
+            let previousResults = L.layerGroup().addTo(map);
+            async function updateResults() {
+                // remove the old results
+                previousResults.remove();
+                const nextResults = L.layerGroup().addTo(map);
+                previousResults = nextResults;
+
+                // Use flatgeobuf JavaScript API to iterate features as geojson.
+                // Because we specify a bounding box, flatgeobuf will only fetch the relevant subset of data,
+                // rather than the entire file.
+                let iter = flatgeobuf.deserialize('/static/s2grid.fgb', fgBoundingBox());
+                for await (let feature of iter) {
+                    const defaultStyle = {
+                        color: '#34b4eb',
+                        weight: 1,
+                        fillOpacity: 0,
+                    };
+
+                    L.geoJSON(feature, {
+                        style: defaultStyle,
+                    }).on({
+                        'mouseover': function (e) {
+                            const layer = e.target;
+                            layer.setStyle({
+                                color: 'red',
+                                weight: 2,
+                                fillOpacity: 0,
+                            });
+                            layer.bringToFront();
+                        },
+                        'mouseout': function (e) {
+                            const layer = e.target;
+                            layer.setStyle(defaultStyle);
+                        }
+                    }).bindPopup(`<h5><ul>Tile: ${feature.properties["tile"]}</ul><ul>EPSG: ${feature.properties["epsg"]}</ul><ul>UTM Bounds: ${feature.properties["bounds"]}</ul></h5>`)
+                        .addTo(nextResults);
+                }
+            }
+            // if the user is panning around alot, only update once per second max
+            updateResults = _.throttle(updateResults, 1000);
+
+            // // show a leaflet rect corresponding to our bounding box
+            // let rectangle = L.rectangle(getBoundForRect(), { color: "yellow", fillOpacity: 0, opacity: 0 }).addTo(map);
+            let rectangle = L.rectangle(getBoundForRect(), { color: "yellow", fillOpacity: 0, opacity: 0 });
+            // show results based on the initial map
+            updateResults();
+
+            // ...and update the results whenever the map moves
+            map.on("moveend", function (s) {
+                rectangle.setBounds(getBoundForRect());
+                updateResults();
+            });
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

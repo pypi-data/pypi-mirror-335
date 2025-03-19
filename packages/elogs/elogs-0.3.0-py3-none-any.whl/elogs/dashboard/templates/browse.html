@@ -1,0 +1,68 @@
+{% extends "_layout.html" %}
+
+{% block nav_s3 %}active{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-sm shadow-sm rounded bg-light">
+        <h6 class="text-center">Folders and Files:</h6>
+        <form class="form-inline" method="get">
+            <input type="text" name="q" placeholder="Search" value="{{ q }}">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        <hr>
+        {% if folders %}
+        <h6 class="text-center">Folders:</h6>
+        <ul class="list-unstyled">
+            {% for f in folders %}
+            <li><a class="text-decoration-none" href="{{ url_for('browse_folder', prefix=encode_prefix(f)) }}">{{ f
+                    }}</a></li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% if files %}
+        <h6 class="text-center">Files:</h6>
+        <ul class="list-unstyled">
+            {% for f in files %}
+            <li><a class="text-decoration-none" href="{{ url_for('browse_file', prefix=encode_prefix(f)) }}">{{ f }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if page > 1 %}
+                <li class="page-item">
+                    <a class="page-link"
+                        href="{{ url_for('browse_folder', prefix=encode_prefix(prefix), page=page-1) }}"
+                        aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {% endif %}
+                {% for p in range(1, total_pages + 1) %}
+                {% if p == 1 or p == total_pages or (p >= page - 1 and p <= page + 1) %} <li
+                    class="page-item {% if p == page %}active{% endif %}">
+                    <a class="page-link"
+                        href="{{ url_for('browse_folder', prefix=encode_prefix(prefix), page=p) }}">{{ p }}</a>
+                    </li>
+                    {% elif p == 2 or p == total_pages - 1 %}
+                    <li class="page-item">
+                        <span class="page-link">...</span>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if page < total_pages %} <li class="page-item">
+                        <a class="page-link"
+                            href="{{ url_for('browse_folder', prefix=encode_prefix(prefix), page=page+1) }}"
+                            aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                        </li>
+                        {% endif %}
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %}

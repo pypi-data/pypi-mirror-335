@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+    <title>Custom Viewer</title>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@0.7.5/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@0.7.5/dist/leaflet.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        table,
+        tr,
+        td,
+        th,
+        div,
+        h1,
+        h2,
+        input {
+            font-family: "Calibri", "Trebuchet MS", "Ubuntu", Serif;
+            font-size: 11pt;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        /* full size */
+        .ctl {
+            padding: 2px 10px 2px 10px;
+            background: white;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            text-align: right;
+        }
+
+        .title {
+            font-size: 18pt;
+            font-weight: bold;
+        }
+
+        .src {
+            font-size: 10pt;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        /* **** Leaflet **** */
+
+        var minzoom = 2
+        var maxzoom = 18
+
+        // Base layers
+        //  .. OpenStreetMap
+        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors', minZoom: minzoom, maxZoom: maxzoom });
+
+        //  .. Google Sat
+        var google = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { attribution: "", minZoom: minzoom, maxZoom: maxzoom });
+
+        //  .. White background
+        var white = L.tileLayer("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEAAQMAAABmvDolAAAAA1BMVEX///+nxBvIAAAAH0lEQVQYGe3BAQ0AAADCIPunfg43YAAAAAAAAAAA5wIhAAAB9aK9BAAAAABJRU5ErkJggg==", { minZoom: minzoom, maxZoom: maxzoom });
+
+        // // Overlay layers (TMS)
+        // var lyr = L.tileLayer('./mv202_italy/{z}/{x}/{y}.png', {tms: 1, opacity: 0.7, attribution: "", minZoom: 4, maxZoom: 9});
+
+        var Xmin = "{{ ymin }}"
+        var Xmax = "{{ ymax }}"
+        var Ymin = "{{ xmin }}"
+        var Ymax = "{{ xmax }}"
+
+        // Overlay image
+        var imageUrl = "{{url}}",
+            imageBounds = [[Xmin, Ymin], [Xmax, Ymax]];
+
+        // Map
+        var map = L.map('map', {
+            center: [(Xmax - Xmin) / 2, (Ymax - Ymin) / 2],
+            zoom: 4,
+            minZoom: minzoom,
+            maxZoom: maxzoom,
+            layers: [osm]
+        });
+
+        var lyr = L.imageOverlay(imageUrl, imageBounds);
+        lyr.addTo(map)
+
+        var basemaps = { "OpenStreetMap": osm, "Google Satellite": google, "Without background": white }
+        var overlaymaps = { "geotiff": lyr }
+
+        // Title
+        var title = L.control();
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'ctl title');
+            this.update();
+            return this._div;
+        };
+        title.update = function (props) {
+            this._div.innerHTML = "Custom WorldCover Viewer";
+        };
+        title.addTo(map);
+
+        // Note
+        var src = 'VITO';
+        var title = L.control({ position: 'bottomleft' });
+        title.onAdd = function (map) {
+            this._div = L.DomUtil.create('div', 'ctl src');
+            this.update();
+            return this._div;
+        };
+        title.update = function (props) {
+            this._div.innerHTML = src;
+        };
+        title.addTo(map);
+
+
+        // Add base layers
+        L.control.layers(basemaps, overlaymaps, { collapsed: false }).addTo(map);
+
+        // Fit to overlay bounds (SW and NE points with (lat, lon))
+        map.fitBounds([[Xmin, Ymin], [Xmax, Ymax]]);
+
+    </script>
+
+</body>
+
+</html>

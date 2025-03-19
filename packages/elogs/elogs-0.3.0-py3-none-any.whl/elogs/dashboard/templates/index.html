@@ -1,0 +1,42 @@
+{% extends "_layout.html" %}
+<!-- This line extends the base layout template "_layout.html" -->
+
+{% block nav_apps %}active{% endblock %}
+<!-- This block sets the 'nav_apps' block to 'active', likely to highlight the navigation item for the current page -->
+
+{% block content %}
+<!-- This block defines the main content of the page -->
+
+<style>
+    .container {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+</style>
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+<!-- This link includes the CSS for DataTables, a jQuery plugin for creating dynamic tables -->
+
+<div class="container">
+    {{ df_table|safe }}
+    <!-- This div contains the table data, which is rendered safe for HTML output -->
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- This script includes jQuery, a JavaScript library for DOM manipulation -->
+
+<!-- DataTables JS -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+<!-- This script includes the DataTables JavaScript library -->
+
+<script>
+    $(document).ready(function() {
+        $('#dataframe-table').DataTable();
+        <!-- This script initializes the DataTable on the element with the ID 'dataframe-table' when the document is ready -->
+    });
+</script>
+{% endblock %}
+<!-- End of the content block -->
