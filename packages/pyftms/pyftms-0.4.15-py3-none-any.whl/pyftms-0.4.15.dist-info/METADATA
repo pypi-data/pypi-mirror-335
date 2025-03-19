@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: pyftms
+Version: 0.4.15
+Summary: Bluetooth Fitness Machine Service async client library.
+Project-URL: Documentation, https://github.com/dudanov/pyftms
+Project-URL: Home Page, https://github.com/dudanov/pyftms
+Project-URL: Issue Tracker, https://github.com/dudanov/pyftms/issues
+Project-URL: Source Code, https://github.com/dudanov/pyftms.git
+Author-email: Sergey Dudanov <sergey.dudanov@gmail.com>
+Maintainer-email: Sergey Dudanov <sergey.dudanov@gmail.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Keywords: async,bluetooth,client,fitness,fitshow,ftms
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: AsyncIO
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: <3.14,>=3.12
+Requires-Dist: bleak-retry-connector>=3.5
+Requires-Dist: bleak>=0.21
+Provides-Extra: docs
+Requires-Dist: pdoc; extra == 'docs'
+Description-Content-Type: text/markdown
+
+# PyFTMS - Bluetooth Fitness Machine Service async client library
+
+**PyFTMS** is a Python client library for the **FTMS** service, which is a standard for fitness equipment with a Bluetooth interface. **Bleak** is used as the Bluetooth library. Currently four main types of fitness machines are supported:
+ 1. **Treadmill**
+ 2. **Cross Trainer** (Elliptical Trainer)
+ 3. **Rower** (Rowing Machine)
+ 4. **Indoor Bike** (Spin Bike)
+
+**Step Climber** and **Stair Climber** machines are **not supported** due to incomplete protocol information and low popularity.
+
+## Requirments
+
+1. `bleak`
+2. `bleak-retry-connector`
+
+## Install it from PyPI
+
+```bash
+pip install pyftms
+```
+
+## Usage
+
+Please read API [documentation](https://dudanov.github.io/python-pyftms/pyftms.html).
