@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2024 OpenSynergy Indonesia
+     Copyright 2024 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_security')]" position="after">
+            <div class="o_portal_my_identification mt-3">
+                <h4>Identification </h4>
+                <hr class="mt-1 mb-1" />
+                <a href="/my/identifications"><i
+                        class="fa fa-pencil mx-1"
+                    />Edit Identification</a>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_my_identifications">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_identifications_body">
+                <t t-set="additional_title">Identification</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <div class="alert alert-danger" role="alert" t-if="get_error(errors)">
+                    <t t-esc="errors" />
+                </div>
+                <section>
+                    <h3>ID Numbers</h3>
+                </section>
+                <t t-if="not id_numbers">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no ID numbers.
+                    </div>
+                </t>
+                <div class="form-group">
+                    <a
+                        class="btn btn-secondary"
+                        href="/my/identification"
+                        title="Create"
+                    > Create</a>
+                </div>
+                <t t-if="id_numbers" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Category</th>
+                            <th># ID Number</th>
+                            <th>Issued by</th>
+                            <th>Issued on</th>
+                            <th>Valid From</th>
+                            <th>Valid Until</th>
+                            <th>Status</th>
+                            <th />
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="id_numbers" t-as="id_number">
+                            <td><span t-field="id_number.category_id" /></td>
+                            <td>
+                                <a
+                                    t-attf-href="/my/identification/#{id_number.id}?{{ keep_query() }}"
+                                ><span t-field="id_number.name" /></a>
+                            </td>
+                            <td><span t-field="id_number.partner_issued_id" /></td>
+                            <td><span t-field="id_number.date_issued" /></td>
+                            <td><span t-field="id_number.valid_from" /></td>
+                            <td><span t-field="id_number.valid_until" /></td>
+                            <td class="tx_status">
+                                <t t-if="id_number.status == 'draft'">
+                                    <span class="badge badge-pill badge-info"><i
+                                            class="fa fa-fw fa-clock-o"
+                                            aria-label="New"
+                                            title="New"
+                                            role="img"
+                                        /><span
+                                            class="d-none d-md-inline"
+                                        >New</span></span>
+                                </t>
+                                <t t-if="id_number.status == 'open'">
+                                    <span class="badge badge-pill badge-info"><i
+                                            class="fa fa-fw fa-clock-o"
+                                            aria-label="Running"
+                                            title="Running"
+                                            role="img"
+                                        /><span
+                                            class="d-none d-md-inline"
+                                        >Running</span></span>
+                                </t>
+                                <t t-if="id_number.status == 'pending'">
+                                    <span class="badge badge-pill badge-info"><i
+                                            class="fa fa-fw fa-clock-o"
+                                            aria-label="To Renew"
+                                            title="To Renew"
+                                            role="img"
+                                        /><span
+                                            class="d-none d-md-inline"
+                                        >To Renew</span></span>
+                                </t>
+                                <t t-if="id_number.status == 'close'">
+                                    <span class="badge badge-pill badge-info"><i
+                                            class="fa fa-fw fa-clock-o"
+                                            aria-label="Expired"
+                                            title="Expired"
+                                            role="img"
+                                        /><span
+                                            class="d-none d-md-inline"
+                                        >Expired</span></span>
+                                </t>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/identification/#{id_number.id}?{{ keep_query() }}"
+                                    title="Edit"
+                                ><i class="fa fa-edit" /> Edit</a>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/identification/remove/#{id_number.id}?{{ keep_query() }}"
+                                    title="Delete"
+                                ><i class="fa fa-remove" /> Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_identification">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_identification_body">
+                <t t-set="additional_title">Identification</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <section>
+                    <h3>Identification</h3>
+                    <form
+                        action="/my/identification"
+                        method="post"
+                        class="oe_identification_form"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input
+                            type="hidden"
+                            name="id"
+                            t-att-value="current_id_number_id.id"
+                        />
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select
+                                class="form-control"
+                                name="category"
+                                required="required"
+                            >
+                                <option value="" />
+                                <t t-foreach="category_ids" t-as="category_id">
+                                    <option
+                                        t-att-value="category_id.id"
+                                        t-esc="category_id.name"
+                                        t-att-selected="category_id.id == current_id_number_id.category_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">ID Number:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="name"
+                                required="required"
+                                t-att-value="current_id_number_id.name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="partner_issued">Issued by:</label>
+                            <select class="form-control" name="partner_issued">
+                                <option value="" />
+                                <t
+                                    t-foreach="partner_issued_ids"
+                                    t-as="partner_issued_id"
+                                >
+                                    <option
+                                        t-att-value="partner_issued_id.id"
+                                        t-esc="partner_issued_id.name"
+                                        t-att-selected="partner_issued_id.id == current_id_number_id.partner_issued_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="date_issued">Issued on:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="date_issued"
+                                t-att-value="current_id_number_id.date_issued"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="place_issuance">Place of Issuance:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="place_issuance"
+                                t-att-value="current_id_number_id.place_issuance"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="valid_from">Valid from:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="valid_from"
+                                t-att-value="current_id_number_id.valid_from"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="valid_until">Valid until:</label>
+                            <input
+                                type="date"
+                                t-attf-class="form-control form-control-sm"
+                                name="valid_until"
+                                t-att-value="current_id_number_id.valid_until"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select class="form-control" name="status">
+                                <option value="" />
+                                <t t-foreach="status_list" t-as="s">
+                                    <option
+                                        t-att-value="s[0]"
+                                        t-esc="s[1]"
+                                        t-att-selected="s[0] == current_id_number_id.status"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Notes:</label>
+                            <textarea class="form-control" name="comment" rows="5"><t
+                                    t-esc="current_id_number_id.comment"
+                                /></textarea>
+                        </div>
+                        <div
+                            class="alert alert-danger"
+                            role="alert"
+                            t-if="error_message"
+                        >
+                            <t t-esc="error_message" />
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Save</button>
+                        <a class="btn" href="/my/identifications">Discard</a>
+                    </form>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>

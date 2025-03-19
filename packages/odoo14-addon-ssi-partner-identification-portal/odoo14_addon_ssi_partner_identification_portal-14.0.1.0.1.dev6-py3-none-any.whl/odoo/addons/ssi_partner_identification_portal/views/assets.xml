@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="assets_frontend"
+        inherit_id="web_editor.assets_frontend"
+        name="Portal Assets"
+        priority="15"
+    >
+        <xpath expr="//link[last()]" position="after">
+            <link
+                rel="stylesheet"
+                type="text/scss"
+                href="/ssi_partner_identification_portal/static/src/scss/portal.scss"
+            />
+        </xpath>
+    </template>
+</odoo>
