@@ -1,0 +1,14 @@
+site_name: MPF Utils
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - API Reference: reference.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [./src/mpfutils]
