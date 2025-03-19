@@ -1,0 +1,104 @@
+[build-system]
+requires = [
+    "setuptools>=42",
+    "wheel",
+    "cmake>=3.23",
+    "ninja>=1.11",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iprm"
+version = "0.1.0-rc3"
+authors = [
+]
+description = "Intermediate Project Representation Model"
+# TODO: Add this only for the 0.1.0 public release
+#readme = "README.md"
+requires-python = ">=3.12"
+
+[project.urls]
+[project.scripts]
+iprm = "iprm.main:cli_main"
+iprm-cmake = "iprm.main:cli_cmake_main"
+iprm-meson = "iprm.main:cli_meson_main"
+iprm-studio = "iprm.main:studio_main"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q"
+testpaths = [
+    'tests/cli',
+    # TODO: Once AK is building via IPRM, we can start testing things here
+    #'tests/LibJS',
+]
+python_files = [
+    'test.py'
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = { find = { where = ["src"] } }
+
+[tool.setuptools.package-data]
+"iprm" = [
+    "CMakeLists.txt",
+    "third_party/CMakeLists.txt",
+    "third_party/lemon/CMakeLists.txt",
+    "third_party/lemon/lemon-1.3.1.tar.gz",
+    "third_party/pybind11/CMakeLists.txt",
+    "third_party/graphviz/CMakeLists.txt",
+    "third_party/graphviz/PLATFORM-win64/graphviz_12.2.1.zip",
+    "third_party/K-Editor/CMakeLists.txt",
+    "third_party/K-Editor/initial_iprm_modifications.patch",
+    "third_party/K-Editor/src/K-Editor.tar.gz",
+    "third_party/qt/CMakeLists.txt",
+    "third_party/qt/PLATFORM-win64/qt_6_8_0_slim.tar.gz",
+]
+"iprm.core" = [
+    "CMakeLists.txt",
+    "src/*.cpp",
+    "src/*.hpp",
+    "core.pdb",
+    "core.cp312-win_amd64.pyd",
+    "core.cpython-312-darwin.so",
+    "core.cpython-312-x86_64-linux-gnu.so",
+]
+"iprm.custom_uri" = [
+    "CMakeLists.txt",
+    "src/*.cpp",
+    "src/*.hpp",
+    "include/iprm/curi/*.hpp",
+]
+"iprm.graphviz" = [
+    "CMakeLists.txt",
+    "src/*.cpp",
+    "src/*.hpp",
+    "include/iprm/gv/*.hpp",
+]
+"iprm.studio" = [
+    "bin/iprm_studio*",
+    "bin/*.dll",
+    "bin/*.so",
+    "bin/*.pdb",
+    "CMakeLists.txt",
+    "res/res.qrc",
+    "res/langs/*.xml",
+    "res/logos/*.svg",
+    "res/logos/*.png",
+    "res/styles/*.xml",
+    "res/styles/*.qss",
+    "src/*.cpp",
+    "src/*.hpp",
+    "src/views/*.cpp",
+    "src/views/*.hpp",
+    "src/views/*.h",
+    "src/models/*.cpp",
+    "src/models/*.hpp",
+]
+"iprm.web" = [
+    # TODO: Add the files once this actually is built/used
+]
+"iprm.worker" = [
+    # TODO: Add the files once this actually is built/used
+]

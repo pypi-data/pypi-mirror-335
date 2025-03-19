@@ -1,0 +1,3274 @@
+diff --git a/.gitignore b/.gitignore
+index bb13ce8..52d05d6 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -1,6 +1,54 @@
+-cmake-build-debug/
+-cmake-build-release/
+-.idea/
+-*~
++#=============================================
++# IDEs
++#=============================================
++.vscode
++.idea
++
++
++#=============================================
++# C++
++#=============================================
++*.d
++*.slo
++*.lo
++*.o
++*.obj
++*.gch
++*.pch
++*.so
++*.dylib
++*.dll
++*.mod
++*.smod
++*.lai
++*.la
++*.a
++*.lib
++*.ilk
++*.pdb
++*.exe
++*.out
++*.app
++*.exp
++
++#=============================================
++# CMake
++#=============================================
+ CMakeLists.txt.user
+-build/
++CMakeCache.txt
++CMakeFiles
++CMakeScripts
++Testing
++Makefile
++cmake_install.cmake
++install_manifest.txt
++compile_commands.json
++CTestTestfile.cmake
++_deps
++CMakeUserPresets.json
++
++#=============================================
++# K-Editor
++#=============================================
++build*
++qt.conf
+diff --git a/example/CMakeLists.txt b/example/CMakeLists.txt
+index 0881a50..1f0732c 100644
+--- a/example/CMakeLists.txt
++++ b/example/CMakeLists.txt
+@@ -44,3 +44,17 @@ set_target_properties(${PROJECT_NAME}
+     AUTORCC ON
+     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+ )
++
++configure_file(
++        ${CMAKE_CURRENT_SOURCE_DIR}/qt.conf
++        "${CMAKE_BINARY_DIR}/bin/qt.conf"
++        COPYONLY
++)
++
++add_custom_command(TARGET ${PROJECT_NAME}
++        POST_BUILD
++        COMMAND ${CMAKE_COMMAND} -E copy_if_different
++        $<TARGET_RUNTIME_DLLS:${PROJECT_NAME}>
++        $<TARGET_FILE_DIR:${PROJECT_NAME}>
++        COMMAND_EXPAND_LISTS
++)
+diff --git a/example/include/MainWindow.hpp b/example/include/MainWindow.hpp
+index d3dbb39..ecc7f1c 100644
+--- a/example/include/MainWindow.hpp
++++ b/example/include/MainWindow.hpp
+@@ -32,8 +32,6 @@ public:
+ 
+ private:
+ 
+-    void loadStyle(QString path);
+-
+     QString loadCode(QString path);
+ 
+     void initData();
+diff --git a/example/resources/code_samples/cxx.cpp b/example/resources/code_samples/cxx.cpp
+deleted file mode 100644
+index dcd757a..0000000
+--- a/example/resources/code_samples/cxx.cpp
++++ /dev/null
+@@ -1,17 +0,0 @@
+-#include <iostream>
+-
+-int main()
+-{
+-    int n, sum = 0;
+-
+-    std::cout << "Enter a positive integer: ";
+-    std::cin >> n;
+-
+-    for (int i = 1; i <= n; ++i)
+-    {
+-        sum += i;
+-    }
+-
+-    std::cout << "Sum = " << sum;
+-    return 0;
+-}
+\ No newline at end of file
+diff --git a/example/resources/code_samples/json.json b/example/resources/code_samples/json.json
+deleted file mode 100644
+index f9000c8..0000000
+--- a/example/resources/code_samples/json.json
++++ /dev/null
+@@ -1,9 +0,0 @@
+-{
+-    "root": {
+-        "some array": [1, 2, 3],
+-        "some string": "Hello world",
+-        "some dbl": 2.121323,
+-        "some bool": true,
+-        "some null": null
+-    }
+-}
+\ No newline at end of file
+diff --git a/example/resources/code_samples/lua.lua b/example/resources/code_samples/lua.lua
+deleted file mode 100644
+index 678ab08..0000000
+--- a/example/resources/code_samples/lua.lua
++++ /dev/null
+@@ -1,414 +0,0 @@
+--- Two dashes start a one-line comment.
+---[[
+-   Adding two ['s and ]'s makes it a
+-   multi-line comment.
+---]]
+-
+-----------------------------------------------------
+--- 1. Variables and flow control.
+-----------------------------------------------------
+-
+-num = 42  -- All numbers are doubles.
+--- Don't freak out, 64-bit doubles have 52 bits for
+--- storing exact int values; machine precision is
+--- not a problem for ints that need < 52 bits.
+-
+-s = 'walternate'  -- Immutable strings like Python.
+-t = "double-quotes are also fine"
+-u = [[ Double brackets
+-     start and end
+-     multi-line strings.]]
+-t = nil  -- Undefines t; Lua has garbage collection.
+-
+--- Blocks are denoted with keywords like do/end:
+-while num < 50 do
+-num = num + 1  -- No ++ or += type operators.
+-end
+-
+--- If clauses:
+-if num > 40 then
+-print('over 40')
+-elseif s ~= 'walternate' then  -- ~= is not equals.
+--- Equality check is == like Python; ok for strs.
+-io.write('not over 40\n')  -- Defaults to stdout.
+-else
+--- Variables are global by default.
+-thisIsGlobal = 5  -- Camel case is common.
+-
+--- How to make a variable local:
+-local line = io.read()  -- Reads next stdin line.
+-
+--- String concatenation uses the .. operator:
+-print('Winter is coming, ' .. line)
+-end
+-
+--- Undefined variables return nil.
+--- This is not an error:
+-foo = anUnknownVariable  -- Now foo = nil.
+-
+-aBoolValue = false
+-
+--- Only nil and false are falsy; 0 and '' are true!
+-if not aBoolValue then print('twas false') end
+-
+--- 'or' and 'and' are short-circuited.
+--- This is similar to the a?b:c operator in C/js:
+-ans = aBoolValue and 'yes' or 'no'  --> 'no'
+-
+-karlSum = 0
+-for i = 1, 100 do  -- The range includes both ends.
+-karlSum = karlSum + i
+-end
+-
+--- Use "100, 1, -1" as the range to count down:
+-fredSum = 0
+-for j = 100, 1, -1 do fredSum = fredSum + j end
+-
+--- In general, the range is begin, end[, step].
+-
+--- Another loop construct:
+-repeat
+-print('the way of the future')
+-num = num - 1
+-until num == 0
+-
+-
+-----------------------------------------------------
+--- 2. Functions.
+-----------------------------------------------------
+-
+-function fib(n)
+-if n < 2 then return 1 end
+-return fib(n - 2) + fib(n - 1)
+-end
+-
+--- Closures and anonymous functions are ok:
+-function adder(x)
+--- The returned function is created when adder is
+--- called, and remembers the value of x:
+-return function (y) return x + y end
+-end
+-a1 = adder(9)
+-a2 = adder(36)
+-print(a1(16))  --> 25
+-print(a2(64))  --> 100
+-
+--- Returns, func calls, and assignments all work
+--- with lists that may be mismatched in length.
+--- Unmatched receivers are nil;
+--- unmatched senders are discarded.
+-
+-x, y, z = 1, 2, 3, 4
+--- Now x = 1, y = 2, z = 3, and 4 is thrown away.
+-
+-function bar(a, b, c)
+-print(a, b, c)
+-return 4, 8, 15, 16, 23, 42
+-end
+-
+-x, y = bar('zaphod')  --> print zaphod  nil nil
+--- Now x = 4, y = 8, values 15..42 are discarded.
+-
+--- Functions are first-class, may be local/global.
+--- These are the same:
+-function f(x) return x * x end
+-f = function (x) return x * x end
+-
+--- And so are these:
+-local function g(x) return math.sin(x) end
+-local g; g  = function (x) return math.sin(x) end
+--- the 'local g' decl makes g-self-references ok.
+-
+--- Trig funcs work in radians, by the way.
+-
+--- Calls with one string param don't need parens:
+-print 'hello'  -- Works fine.
+-
+-
+-----------------------------------------------------
+--- 3. Tables.
+-----------------------------------------------------
+-
+--- Tables = Lua's only compound data structure;
+---          they are associative arrays.
+--- Similar to php arrays or js objects, they are
+--- hash-lookup dicts that can also be used as lists.
+-
+--- Using tables as dictionaries / maps:
+-
+--- Dict literals have string keys by default:
+-t = {key1 = 'value1', key2 = false}
+-
+--- String keys can use js-like dot notation:
+-print(t.key1)  -- Prints 'value1'.
+-t.newKey = {}  -- Adds a new key/value pair.
+-t.key2 = nil   -- Removes key2 from the table.
+-
+--- Literal notation for any (non-nil) value as key:
+-u = {['@!#'] = 'qbert', [{}] = 1729, [6.28] = 'tau'}
+-print(u[6.28])  -- prints tau
+-
+--- Key matching is basically by value for numbers
+--- and strings, but by identity for tables.
+-a = u['@!#']  -- Now a = 'qbert'.
+-b = u[{}]     -- We might expect 1729, but it's nil:
+--- b = nil since the lookup fails. It fails
+--- because the key we used is not the same object
+--- as the one used to store the original value. So
+--- strings & numbers are more portable keys.
+-
+--- A one-table-param function call needs no parens:
+-function h(x) print(x.key1) end
+-h{key1 = 'Sonmi~451'}  -- Prints 'Sonmi~451'.
+-
+-for key, val in pairs(u) do  -- Table iteration.
+-print(key, val)
+-end
+-
+--- _G is a special table of all globals.
+-print(_G['_G'] == _G)  -- Prints 'true'.
+-
+--- Using tables as lists / arrays:
+-
+--- List literals implicitly set up int keys:
+-v = {'value1', 'value2', 1.21, 'gigawatts'}
+-for i = 1, #v do  -- #v is the size of v for lists.
+-print(v[i])  -- Indices start at 1 !! SO CRAZY!
+-end
+--- A 'list' is not a real type. v is just a table
+--- with consecutive integer keys, treated as a list.
+-
+-----------------------------------------------------
+--- 3.1 Metatables and metamethods.
+-----------------------------------------------------
+-
+--- A table can have a metatable that gives the table
+--- operator-overloadish behavior. Later we'll see
+--- how metatables support js-prototypey behavior.
+-
+-f1 = {a = 1, b = 2}  -- Represents the fraction a/b.
+-f2 = {a = 2, b = 3}
+-
+--- This would fail:
+--- s = f1 + f2
+-
+-metafraction = {}
+-function metafraction.__add(f1, f2)
+-sum = {}
+-sum.b = f1.b * f2.b
+-sum.a = f1.a * f2.b + f2.a * f1.b
+-return sum
+-end
+-
+-setmetatable(f1, metafraction)
+-setmetatable(f2, metafraction)
+-
+-s = f1 + f2  -- call __add(f1, f2) on f1's metatable
+-
+--- f1, f2 have no key for their metatable, unlike
+--- prototypes in js, so you must retrieve it as in
+--- getmetatable(f1). The metatable is a normal table
+--- with keys that Lua knows about, like __add.
+-
+--- But the next line fails since s has no metatable:
+--- t = s + s
+--- Class-like patterns given below would fix this.
+-
+--- An __index on a metatable overloads dot lookups:
+-defaultFavs = {animal = 'gru', food = 'donuts'}
+-myFavs = {food = 'pizza'}
+-setmetatable(myFavs, {__index = defaultFavs})
+-eatenBy = myFavs.animal  -- works! thanks, metatable
+-
+--- Direct table lookups that fail will retry using
+--- the metatable's __index value, and this recurses.
+-
+--- An __index value can also be a function(tbl, key)
+--- for more customized lookups.
+-
+--- Values of __index,add, .. are called metamethods.
+--- Full list. Here a is a table with the metamethod.
+-
+--- __add(a, b)                     for a + b
+--- __sub(a, b)                     for a - b
+--- __mul(a, b)                     for a * b
+--- __div(a, b)                     for a / b
+--- __mod(a, b)                     for a % b
+--- __pow(a, b)                     for a ^ b
+--- __unm(a)                        for -a
+--- __concat(a, b)                  for a .. b
+--- __len(a)                        for #a
+--- __eq(a, b)                      for a == b
+--- __lt(a, b)                      for a < b
+--- __le(a, b)                      for a <= b
+--- __index(a, b)  <fn or a table>  for a.b
+--- __newindex(a, b, c)             for a.b = c
+--- __call(a, ...)                  for a(...)
+-
+-----------------------------------------------------
+--- 3.2 Class-like tables and inheritance.
+-----------------------------------------------------
+-
+--- Classes aren't built in; there are different ways
+--- to make them using tables and metatables.
+-
+--- Explanation for this example is below it.
+-
+-Dog = {}                                   -- 1.
+-
+-function Dog:new()                         -- 2.
+-newObj = {sound = 'woof'}                -- 3.
+-self.__index = self                      -- 4.
+-return setmetatable(newObj, self)        -- 5.
+-end
+-
+-function Dog:makeSound()                   -- 6.
+-print('I say ' .. self.sound)
+-end
+-
+-mrDog = Dog:new()                          -- 7.
+-mrDog:makeSound()  -- 'I say woof'         -- 8.
+-
+--- 1. Dog acts like a class; it's really a table.
+--- 2. function tablename:fn(...) is the same as
+---    function tablename.fn(self, ...)
+---    The : just adds a first arg called self.
+---    Read 7 & 8 below for how self gets its value.
+--- 3. newObj will be an instance of class Dog.
+--- 4. self = the class being instantiated. Often
+---    self = Dog, but inheritance can change it.
+---    newObj gets self's functions when we set both
+---    newObj's metatable and self's __index to self.
+--- 5. Reminder: setmetatable returns its first arg.
+--- 6. The : works as in 2, but this time we expect
+---    self to be an instance instead of a class.
+--- 7. Same as Dog.new(Dog), so self = Dog in new().
+--- 8. Same as mrDog.makeSound(mrDog); self = mrDog.
+-
+-----------------------------------------------------
+-
+--- Inheritance example:
+-
+-LoudDog = Dog:new()                           -- 1.
+-
+-function LoudDog:makeSound()
+-s = self.sound .. ' '                       -- 2.
+-print(s .. s .. s)
+-end
+-
+-seymour = LoudDog:new()                       -- 3.
+-seymour:makeSound()  -- 'woof woof woof'      -- 4.
+-
+--- 1. LoudDog gets Dog's methods and variables.
+--- 2. self has a 'sound' key from new(), see 3.
+--- 3. Same as LoudDog.new(LoudDog), and converted to
+---    Dog.new(LoudDog) as LoudDog has no 'new' key,
+---    but does have __index = Dog on its metatable.
+---    Result: seymour's metatable is LoudDog, and
+---    LoudDog.__index = LoudDog. So seymour.key will
+---    = seymour.key, LoudDog.key, Dog.key, whichever
+---    table is the first with the given key.
+--- 4. The 'makeSound' key is found in LoudDog; this
+---    is the same as LoudDog.makeSound(seymour).
+-
+--- If needed, a subclass's new() is like the base's:
+-function LoudDog:new()
+-newObj = {}
+--- set up newObj
+-self.__index = self
+-return setmetatable(newObj, self)
+-end
+-
+-----------------------------------------------------
+--- 4. Modules.
+-----------------------------------------------------
+-
+-
+---[[ I'm commenting out this section so the rest of
+---   this script remains runnable.
+--- Suppose the file mod.lua looks like this:
+-local M = {}
+-
+-local function sayMyName()
+-print('Hrunkner')
+-end
+-
+-function M.sayHello()
+-print('Why hello there')
+-sayMyName()
+-end
+-
+-return M
+-
+--- Another file can use mod.lua's functionality:
+-local mod = require('mod')  -- Run the file mod.lua.
+-
+--- require is the standard way to include modules.
+--- require acts like:     (if not cached; see below)
+-local mod = (function ()
+-<contents of mod.lua>
+-end)()
+--- It's like mod.lua is a function body, so that
+--- locals inside mod.lua are invisible outside it.
+-
+--- This works because mod here = M in mod.lua:
+-mod.sayHello()  -- Says hello to Hrunkner.
+-
+--- This is wrong; sayMyName only exists in mod.lua:
+-mod.sayMyName()  -- error
+-
+--- require's return values are cached so a file is
+--- run at most once, even when require'd many times.
+-
+--- Suppose mod2.lua contains print('Hi!').
+-local a = require('mod2')  -- Prints Hi!
+-local b = require('mod2')  -- Doesn't print; a=b.
+-
+--- dofile is like require without caching:
+-dofile('mod2.lua')  --> Hi!
+-dofile('mod2.lua')  --> Hi! (runs it again)
+-
+--- loadfile loads a lua file but doesn't run it yet.
+-f = loadfile('mod2.lua')  -- Call f() to run it.
+-
+--- loadstring is loadfile for strings.
+-g = loadstring('print(343)')  -- Returns a function.
+-g()  -- Prints out 343; nothing printed before now.
+-
+---]]
+-
+-----------------------------------------------------
+--- 5. References.
+-----------------------------------------------------
+-
+---[[
+-
+-I was excited to learn Lua so I could make games
+-with the Löve 2D game engine. That's the why.
+-
+-I started with BlackBulletIV's Lua for programmers.
+-Next I read the official Programming in Lua book.
+-That's the how.
+-
+-It might be helpful to check out the Lua short
+-reference on lua-users.org.
+-
+-The main topics not covered are standard libraries:
+-* string library
+-* table library
+-* math library
+-* io library
+-* os library
+-
+-By the way, this entire file is valid Lua; save it
+-as learn.lua and run it with "lua learn.lua" !
+-
+-This was first written for tylerneylon.com. It's
+-also available as a github gist. Tutorials for other
+-languages, in the same style as this one, are here:
+-
+-http://learnxinyminutes.com/
+-
+-Have fun with Lua!
+-
+---]]
+\ No newline at end of file
+diff --git a/example/resources/code_samples/shader.glsl b/example/resources/code_samples/shader.glsl
+deleted file mode 100644
+index 641a288..0000000
+--- a/example/resources/code_samples/shader.glsl
++++ /dev/null
+@@ -1,69 +0,0 @@
+-precision mediump float;
+-
+-uniform vec2 resolution;
+-uniform float time;
+- 
+-vec3 trans(vec3 p)
+-{
+-    return mod(p, 8.0)-4.0;
+-}
+-
+-float distanceFunction(vec3 pos)
+-{
+-    return length(trans(pos)) - 1.5;
+-}
+- 
+-vec3 getNormal(vec3 p)
+-{
+-    const float d = 0.0001;
+-    return
+-      normalize
+-      (
+-        vec3
+-        (
+-          distanceFunction(p+vec3(d,   0.0, 0))-distanceFunction(p+vec3(-d,0.0,0.0)),
+-          distanceFunction(p+vec3(0.0, d,   0.0))-distanceFunction(p+vec3(0.0,-d,0.0)),
+-          distanceFunction(p+vec3(0.0, 0.0, d))-distanceFunction(p+vec3(0.0,0.0,-d))
+-        )
+-      );
+-}
+- 
+-void main() {
+-    vec2 pos = (gl_FragCoord.xy*2.0 -resolution) / resolution.y;
+- 
+-    vec3 camPos = vec3(0.0, 0.0, 3.0);
+-    vec3 camDir = vec3(0.0, 0.0, -1.0);
+-    vec3 camUp = vec3(0.0, 1.0, 0.0);
+-    vec3 camSide = cross(camDir, camUp);
+-    float focus = sin(time)*1.5+4.0;
+- 
+-    mat3 lense = mat3(1.,0.,0.,
+-		        0.,888989898989898989,0.,
+-		        0.,0.,1.);
+-	vec3 pos3 = vec3(pos,camDir.z*10.);
+-	camDir = vec3(
+-		camDir.x,
+-		camDir.y,
+-		camDir.z);
+-	camDir*=normalize(dot(camDir,pos3));
+-    vec3 rayDir = normalize(camSide*pos.x + camUp*pos.y + camDir*focus);
+-
+-    float t = 0.0, d;
+-    vec3 posOnRay = camPos;
+- 
+-    for(int i=0; i<64; ++i)
+-    {
+-        d = distanceFunction(posOnRay);
+-        t += d;
+-        posOnRay = camPos + t*rayDir;
+-    }
+- 
+-    vec3 normal = getNormal(posOnRay);
+-    if(abs(d) < 0.001)
+-    {
+-        gl_FragColor = vec4(normal, 1.0);
+-    }else
+-    {
+-        gl_FragColor = vec4(0.0);
+-    }
+-}
+\ No newline at end of file
+diff --git a/example/resources/code_samples/xml.xml b/example/resources/code_samples/xml.xml
+deleted file mode 100644
+index e8ff347..0000000
+--- a/example/resources/code_samples/xml.xml
++++ /dev/null
+@@ -1,57 +0,0 @@
+-<?xml version="1.0"?>
+-<?xml-stylesheet type="text/xsl" href="myfile.xsl" ?>
+-<bookstore specialty="novel">
+-    <book style="autobiography">
+-        <author>
+-            <first-name>Joe</first-name>
+-            <last-name>Bob</last-name>
+-            <award>Trenton Literary Review Honorable Mention</award>
+-        </author>
+-        <price>12</price>
+-    </book>
+-    <book style="textbook">
+-        <author>
+-            <first-name>Mary</first-name>
+-            <last-name>Bob</last-name>
+-            <publication>Selected Short Stories of
+-                <first-name>Mary</first-name>
+-                <last-name>Bob</last-name>
+-            </publication>
+-        </author>
+-        <editor>
+-            <first-name>Britney</first-name>
+-            <last-name>Bob</last-name>
+-        </editor>
+-        <price>55</price>
+-    </book>
+-    <magazine style="glossy" frequency="monthly">
+-        <price>2.50</price>
+-        <subscription price="24" per="year"/>
+-    </magazine>
+-    <book style="novel" id="myfave">
+-        <author>
+-            <first-name>Toni</first-name>
+-            <last-name>Bob</last-name>
+-            <degree from="Trenton U">B.A.</degree>
+-            <degree from="Harvard">Ph.D.</degree>
+-            <award>Pulitzer</award>
+-            <publication>Still in Trenton</publication>
+-            <publication>Trenton Forever</publication>
+-        </author>
+-        <price intl="Canada" exchange="0.7">6.50</price>
+-        <excerpt>
+-            <p>It was a dark and stormy night.</p>
+-            <p>But then all nights in Trenton seem dark and
+-                stormy to someone who has gone through what
+-                <emph>I</emph> have.</p>
+-            <definition-list>
+-                <term>Trenton</term>
+-                <definition>misery</definition>
+-            </definition-list>
+-        </excerpt>
+-    </book>
+-    <my:book xmlns:my="uri:mynamespace" style="leather" price="29.50">
+-        <my:title>Who's Who in Trenton</my:title>
+-        <my:author>Robert Bob</my:author>
+-    </my:book>
+-</bookstore>
+\ No newline at end of file
+diff --git a/example/resources/demo_resources.qrc b/example/resources/demo_resources.qrc
+index 146657b..c576214 100644
+--- a/example/resources/demo_resources.qrc
++++ b/example/resources/demo_resources.qrc
+@@ -1,11 +1,5 @@
+ <RCC>
+     <qresource prefix="/">
+-        <file>styles/drakula.xml</file>
+-        <file>code_samples/cxx.cpp</file>
+-        <file>code_samples/shader.glsl</file>
+-        <file>code_samples/xml.xml</file>
+-        <file>code_samples/json.json</file>
+-        <file>code_samples/lua.lua</file>
+         <file>code_samples/python.py</file>
+     </qresource>
+ </RCC>
+diff --git a/example/src/MainWindow.cpp b/example/src/MainWindow.cpp
+index abad203..d89009e 100644
+--- a/example/src/MainWindow.cpp
++++ b/example/src/MainWindow.cpp
+@@ -3,15 +3,8 @@
+ 
+ // K-Editor
+ #include <QCodeEditor>
+-#include <QGLSLCompleter>
+-#include <QLuaCompleter>
+-#include <QPythonCompleter>
+ #include <QSyntaxStyle>
+-#include <QCXXHighlighter>
+-#include <QGLSLHighlighter>
+-#include <QXMLHighlighter>
+-#include <QJSONHighlighter>
+-#include <QLuaHighlighter>
++#include <QPythonCompleter>
+ #include <QPythonHighlighter>
+ 
+ // Qt
+@@ -51,37 +44,38 @@ MainWindow::MainWindow(QWidget* parent) :
+ void MainWindow::initData()
+ {
+     m_codeSamples = {
+-        {"C++",  loadCode(":/code_samples/cxx.cpp")},
+-        {"GLSL", loadCode(":/code_samples/shader.glsl")},
+-        {"XML",  loadCode(":/code_samples/xml.xml")},
+-        {"JSON",  loadCode(":/code_samples/json.json")},
+-        {"LUA",  loadCode(":/code_samples/lua.lua")},
+         {"Python",  loadCode(":/code_samples/python.py")}
+     };
+ 
+     m_completers = {
+         {"None", nullptr},
+-        {"GLSL", new QGLSLCompleter(this)},
+-        {"LUA", new QLuaCompleter(this)},
+         {"Python", new QPythonCompleter(this)},
+     };
+ 
+     m_highlighters = {
+         {"None", nullptr},
+-        {"C++",  new QCXXHighlighter},
+-        {"GLSL", new QGLSLHighlighter},
+-        {"XML",  new QXMLHighlighter},
+-        {"JSON", new QJSONHighlighter},
+-        {"LUA",  new QLuaHighlighter},
+         {"Python",  new QPythonHighlighter},
+     };
+ 
+     m_styles = {
+-        {"Default", QSyntaxStyle::defaultStyle()}
++        {"Default", QSyntaxStyle::getDefault()},
++        {"Catppuccin Macchiato", QSyntaxStyle::getCatppmpuccinMacciato()},
++        {"Deep Ocean", QSyntaxStyle::getDeepOcean()},
++        {"Drakula", QSyntaxStyle::getDrakula()},
++        {"Forest Light", QSyntaxStyle::getForestNight()},
++        {"Github Light", QSyntaxStyle::getGithubLight()},
++        {"Gruvbox", QSyntaxStyle::getGruvBox()},
++        {"Material Palenight", QSyntaxStyle::getMaterialPalenight()},
++        {"Midnight Blue", QSyntaxStyle::getMightnightBlue()},
++        {"Monokai", QSyntaxStyle::getMonokai()},
++        {"Nord", QSyntaxStyle::getNord()},
++        {"One Dark", QSyntaxStyle::getOneDark()},
++        {"Paper", QSyntaxStyle::getPaper()},
++        {"Sea Shell", QSyntaxStyle::getSeashell()},
++        {"Solarized Light", QSyntaxStyle::getSolarizedLight()},
++        {"Tokyo Night", QSyntaxStyle::getToktoNight()},
++        {"Twilight", QSyntaxStyle::getTwilight()},
+     };
+-
+-    // Loading styles
+-    loadStyle(":/styles/drakula.xml");
+ }
+ 
+ QString MainWindow::loadCode(QString path)
+@@ -96,26 +90,6 @@ QString MainWindow::loadCode(QString path)
+     return fl.readAll();
+ }
+ 
+-void MainWindow::loadStyle(QString path)
+-{
+-    QFile fl(path);
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    auto style = new QSyntaxStyle(this);
+-
+-    if (!style->load(fl.readAll()))
+-    {
+-        delete style;
+-        return;
+-    }
+-
+-    m_styles.append({style->name(), style});
+-}
+-
+ void MainWindow::createWidgets()
+ {
+     // Layout
+@@ -170,11 +144,16 @@ void MainWindow::setupWidgets()
+ {
+     setWindowTitle("K-Editor Demo");
+ 
++    resize(1280, 720);
++    showMaximized();
++
++
++
+     // CodeEditor
+     m_codeEditor->setPlainText  (m_codeSamples[0].second);
+-    m_codeEditor->setSyntaxStyle(m_styles[0].second);
+-    m_codeEditor->setCompleter  (m_completers[0].second);
+-    m_codeEditor->setHighlighter(m_highlighters[0].second);
++    m_codeEditor->setSyntaxStyle(m_styles[3].second);
++    m_codeEditor->setCompleter  (m_completers[1].second);
++    m_codeEditor->setHighlighter(m_highlighters[1].second);
+ 
+     QStringList list;
+     // Code samples
+@@ -255,15 +234,15 @@ void MainWindow::performConnections()
+ 
+     connect(
+         m_readOnlyCheckBox,
+-        &QCheckBox::stateChanged,
+-        [this](int state)
++        &QCheckBox::checkStateChanged,
++        [this](Qt::CheckState state)
+         { m_codeEditor->setReadOnly(state != 0); }
+     );
+ 
+     connect(
+         m_wordWrapCheckBox,
+-        &QCheckBox::stateChanged,
+-        [this](int state)
++        &QCheckBox::checkStateChanged,
++        [this](Qt::CheckState state)
+         {
+             if (state != 0)
+             {
+@@ -278,15 +257,15 @@ void MainWindow::performConnections()
+ 
+     connect(
+         m_parenthesesEnabledCheckbox,
+-        &QCheckBox::stateChanged,
+-        [this](int state)
++        &QCheckBox::checkStateChanged,
++        [this](Qt::CheckState state)
+         { m_codeEditor->setAutoParentheses(state != 0); }
+     );
+ 
+     connect(
+         m_tabReplaceEnabledCheckbox,
+-        &QCheckBox::stateChanged,
+-        [this](int state)
++        &QCheckBox::checkStateChanged,
++        [this](Qt::CheckState state)
+         { m_codeEditor->setTabReplace(state != 0); }
+     );
+ 
+@@ -299,8 +278,8 @@ void MainWindow::performConnections()
+ 
+     connect(
+         m_autoIndentationCheckbox,
+-        &QCheckBox::stateChanged,
+-        [this](int state)
++        &QCheckBox::checkStateChanged,
++        [this](Qt::CheckState state)
+         { m_codeEditor->setAutoIndentation(state != 0); }
+     );
+ }
+diff --git a/lib/CMakeLists.txt b/lib/CMakeLists.txt
+index 83df6c9..df53771 100644
+--- a/lib/CMakeLists.txt
++++ b/lib/CMakeLists.txt
+@@ -21,14 +21,7 @@ set(INCLUDE_FILES
+     public/QLineNumberArea
+     public/QStyleSyntaxHighlighter
+     public/QSyntaxStyle
+-    public/QCXXHighlighter
+-    public/QGLSLHighlighter
+-    public/QXMLHighlighter
+-    public/QJSONHighlighter
+-    public/QLuaHighlighter
+     public/QPythonHighlighter
+-    public/QGLSLCompleter
+-    public/QLuaCompleter
+     public/QPythonCompleter
+ 
+     #public
+@@ -43,17 +36,10 @@ set(INCLUDE_FILES
+ 
+     #public
+     #highliters
+-    public/highlighters/QCXXHighlighter.hpp
+-    public/highlighters/QGLSLHighlighter.hpp
+-    public/highlighters/QXMLHighlighter.hpp
+-    public/highlighters/QJSONHighlighter.hpp
+-    public/highlighters/QLuaHighlighter.hpp
+     public/highlighters/QPythonHighlighter.hpp
+ 
+     #public
+     #completers
+-    public/completers/QGLSLCompleter.hpp
+-    public/completers/QLuaCompleter.hpp
+     public/completers/QPythonCompleter.hpp
+ )
+ 
+@@ -68,17 +54,10 @@ set(SOURCE_FILES
+ 
+     #src
+     #highlighters
+-    src/highlighters/QCXXHighlighter.cpp
+-    src/highlighters/QGLSLHighlighter.cpp
+-    src/highlighters/QLuaHighlighter.cpp
+     src/highlighters/QPythonHighlighter.cpp
+-    src/highlighters/QXMLHighlighter.cpp
+-    src/highlighters/QJSONHighlighter.cpp
+ 
+     #src
+     #completers
+-    src/completers/QGLSLCompleter.cpp
+-    src/completers/QLuaCompleter.cpp
+     src/completers/QPythonCompleter.cpp
+ )
+ 
+diff --git a/lib/public/QCXXHighlighter b/lib/public/QCXXHighlighter
+deleted file mode 100644
+index 0642dee..0000000
+--- a/lib/public/QCXXHighlighter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/highlighters/QCXXHighlighter.hpp>
+diff --git a/lib/public/QGLSLCompleter b/lib/public/QGLSLCompleter
+deleted file mode 100644
+index c1ed154..0000000
+--- a/lib/public/QGLSLCompleter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/completers/QGLSLCompleter.hpp>
+\ No newline at end of file
+diff --git a/lib/public/QGLSLHighlighter b/lib/public/QGLSLHighlighter
+deleted file mode 100644
+index f1e689e..0000000
+--- a/lib/public/QGLSLHighlighter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/highlighters/QGLSLHighlighter.hpp>
+diff --git a/lib/public/QJSONHighlighter b/lib/public/QJSONHighlighter
+deleted file mode 100644
+index a76584d..0000000
+--- a/lib/public/QJSONHighlighter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/highlighters/QJSONHighlighter.hpp>
+diff --git a/lib/public/QLuaCompleter b/lib/public/QLuaCompleter
+deleted file mode 100644
+index 0758d0d..0000000
+--- a/lib/public/QLuaCompleter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/completers/QLuaCompleter.hpp>
+diff --git a/lib/public/QLuaHighlighter b/lib/public/QLuaHighlighter
+deleted file mode 100644
+index 9dd06c2..0000000
+--- a/lib/public/QLuaHighlighter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/highlighters/QLuaHighlighter.hpp>
+diff --git a/lib/public/QSyntaxStyle.hpp b/lib/public/QSyntaxStyle.hpp
+index 17b2505..67ecf7d 100644
+--- a/lib/public/QSyntaxStyle.hpp
++++ b/lib/public/QSyntaxStyle.hpp
+@@ -54,9 +54,31 @@ public:
+      * @brief Static method for getting default style.
+      * @return Pointer to default style.
+      */
+-    static QSyntaxStyle* defaultStyle();
++    static QSyntaxStyle* getDefault();
++
++    /**
++     * @brief Collect of static methods for getting custom styles, imported from other popular text editors/IDEs
++     * @return Pointer to default style.
++     */
++    static QSyntaxStyle* getCatppmpuccinMacciato();
++    static QSyntaxStyle* getDeepOcean();
++    static QSyntaxStyle* getDrakula();
++    static QSyntaxStyle* getForestNight();
++    static QSyntaxStyle* getGithubLight();
++    static QSyntaxStyle* getGruvBox();
++    static QSyntaxStyle* getMaterialPalenight();
++    static QSyntaxStyle* getMightnightBlue();
++    static QSyntaxStyle* getMonokai();
++    static QSyntaxStyle* getNord();
++    static QSyntaxStyle* getOneDark();
++    static QSyntaxStyle* getPaper();
++    static QSyntaxStyle* getSeashell();
++    static QSyntaxStyle* getSolarizedLight();
++    static QSyntaxStyle* getToktoNight();
++    static QSyntaxStyle* getTwilight();
+ 
+ private:
++    static void loadStyle(QSyntaxStyle &style, const QString& fileName);
+ 
+     QString m_name;
+ 
+diff --git a/lib/public/QXMLHighlighter b/lib/public/QXMLHighlighter
+deleted file mode 100644
+index 0698fce..0000000
+--- a/lib/public/QXMLHighlighter
++++ /dev/null
+@@ -1,3 +0,0 @@
+-#pragma once
+-
+-#include <public/highlighters/QXMLHighlighter.hpp>
+diff --git a/lib/public/completers/QGLSLCompleter.hpp b/lib/public/completers/QGLSLCompleter.hpp
+deleted file mode 100644
+index 960c41b..0000000
+--- a/lib/public/completers/QGLSLCompleter.hpp
++++ /dev/null
+@@ -1,23 +0,0 @@
+-#pragma once
+-
+-// Qt
+-#include <QCompleter> // Required for inheritance
+-
+-/**
+- * @brief Class, that describes completer with
+- * glsl specific types and functions.
+- */
+-class QGLSLCompleter : public QCompleter
+-{
+-    Q_OBJECT
+-
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param parent Pointer to parent QObject.
+-     */
+-    explicit QGLSLCompleter(QObject* parent=nullptr);
+-};
+-
+-
+diff --git a/lib/public/completers/QLuaCompleter.hpp b/lib/public/completers/QLuaCompleter.hpp
+deleted file mode 100644
+index fc7eb33..0000000
+--- a/lib/public/completers/QLuaCompleter.hpp
++++ /dev/null
+@@ -1,21 +0,0 @@
+-#pragma once
+-
+-// Qt
+-#include <QCompleter> // Required for inheritance
+-
+-/**
+- * @brief Class, that describes completer with
+- * glsl specific types and functions.
+- */
+-class QLuaCompleter : public QCompleter
+-{
+-    Q_OBJECT
+-
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param parent Pointer to parent QObject.
+-     */
+-    explicit QLuaCompleter(QObject* parent=nullptr);
+-};
+diff --git a/lib/public/highlighters/QCXXHighlighter.hpp b/lib/public/highlighters/QCXXHighlighter.hpp
+deleted file mode 100644
+index 29a6a9d..0000000
+--- a/lib/public/highlighters/QCXXHighlighter.hpp
++++ /dev/null
+@@ -1,42 +0,0 @@
+-#pragma once
+-
+-// QCodeEditor
+-#include <QStyleSyntaxHighlighter> // Required for inheritance
+-#include <QHighlightRule>
+-
+-// Qt
+-#include <QRegularExpression>
+-#include <QVector>
+-
+-class QSyntaxStyle;
+-
+-/**
+- * @brief Class, that describes C++ code
+- * highlighter.
+- */
+-class QCXXHighlighter : public QStyleSyntaxHighlighter
+-{
+-    Q_OBJECT
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param document Pointer to document.
+-     */
+-    explicit QCXXHighlighter(QTextDocument* document=nullptr);
+-
+-protected:
+-    void highlightBlock(const QString& text) override;
+-
+-private:
+-
+-    QVector<QHighlightRule> m_highlightRules;
+-
+-    QRegularExpression m_includePattern;
+-    QRegularExpression m_functionPattern;
+-    QRegularExpression m_defTypePattern;
+-
+-    QRegularExpression m_commentStartPattern;
+-    QRegularExpression m_commentEndPattern;
+-};
+-
+diff --git a/lib/public/highlighters/QGLSLHighlighter.hpp b/lib/public/highlighters/QGLSLHighlighter.hpp
+deleted file mode 100644
+index a47b3b0..0000000
+--- a/lib/public/highlighters/QGLSLHighlighter.hpp
++++ /dev/null
+@@ -1,42 +0,0 @@
+-#pragma once
+-
+-// QCodeEditor
+-#include <QStyleSyntaxHighlighter> // Required for inheritance
+-#include <QHighlightRule>
+-
+-// Qt
+-#include <QRegularExpression>
+-#include <QVector>
+-
+-class QSyntaxStyle;
+-
+-/**
+- * @brief Class, that describes Glsl code
+- * highlighter.
+- */
+-class QGLSLHighlighter : public QStyleSyntaxHighlighter
+-{
+-    Q_OBJECT
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param document Pointer to document.
+-     */
+-    explicit QGLSLHighlighter(QTextDocument* document=nullptr);
+-
+-protected:
+-    void highlightBlock(const QString& text) override;
+-
+-private:
+-
+-    QVector<QHighlightRule> m_highlightRules;
+-
+-    QRegularExpression m_includePattern;
+-    QRegularExpression m_functionPattern;
+-    QRegularExpression m_defTypePattern;
+-
+-    QRegularExpression m_commentStartPattern;
+-    QRegularExpression m_commentEndPattern;
+-};
+-
+diff --git a/lib/public/highlighters/QJSONHighlighter.hpp b/lib/public/highlighters/QJSONHighlighter.hpp
+deleted file mode 100644
+index 6f2c8c5..0000000
+--- a/lib/public/highlighters/QJSONHighlighter.hpp
++++ /dev/null
+@@ -1,33 +0,0 @@
+-#pragma once
+-
+-// QCodeEditor
+-#include <QStyleSyntaxHighlighter> // Required for inheritance
+-#include <QHighlightRule>
+-
+-// Qt
+-#include <QVector>
+-
+-/**
+- * @brief Class, that describes JSON code
+- * highlighter.
+- */
+-class QJSONHighlighter : public QStyleSyntaxHighlighter
+-{
+-    Q_OBJECT
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param document Pointer to document.
+-     */
+-    explicit QJSONHighlighter(QTextDocument* document=nullptr);
+-
+-protected:
+-
+-    void highlightBlock(const QString& text) override;
+-
+-private:
+-    QVector<QHighlightRule> m_highlightRules;
+-    QRegularExpression m_keyRegex;
+-};
+-
+diff --git a/lib/public/highlighters/QLuaHighlighter.hpp b/lib/public/highlighters/QLuaHighlighter.hpp
+deleted file mode 100644
+index 81f5b16..0000000
+--- a/lib/public/highlighters/QLuaHighlighter.hpp
++++ /dev/null
+@@ -1,40 +0,0 @@
+-#pragma once
+-
+-// QCodeEditor
+-#include <QStyleSyntaxHighlighter> // Required for inheritance
+-#include <QHighlightRule>
+-#include <QHighlightBlockRule>
+-
+-// Qt
+-#include <QRegularExpression>
+-#include <QVector>
+-#include <QMap>
+-
+-class QSyntaxStyle;
+-
+-/**
+- * @brief Class, that describes C++ code
+- * highlighter.
+- */
+-class QLuaHighlighter : public QStyleSyntaxHighlighter
+-{
+-    Q_OBJECT
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param document Pointer to document.
+-     */
+-    explicit QLuaHighlighter(QTextDocument* document=nullptr);
+-
+-protected:
+-    void highlightBlock(const QString& text) override;
+-
+-private:
+-    QVector<QHighlightRule> m_highlightRules;
+-    QVector<QHighlightBlockRule> m_highlightBlockRules;
+-
+-    QRegularExpression m_requirePattern;
+-    QRegularExpression m_functionPattern;
+-    QRegularExpression m_defTypePattern;
+-};
+diff --git a/lib/public/highlighters/QXMLHighlighter.hpp b/lib/public/highlighters/QXMLHighlighter.hpp
+deleted file mode 100644
+index bdca057..0000000
+--- a/lib/public/highlighters/QXMLHighlighter.hpp
++++ /dev/null
+@@ -1,43 +0,0 @@
+-#pragma once
+-
+-// QCodeEditor
+-#include <QStyleSyntaxHighlighter> // Required for inheritance
+-
+-// Qt
+-#include <QVector>
+-#include <QRegularExpression>
+-
+-/**
+- * @brief Class, that describes XML code
+- * highlighter.
+- */
+-class QXMLHighlighter : public QStyleSyntaxHighlighter
+-{
+-    Q_OBJECT
+-public:
+-
+-    /**
+-     * @brief Constructor.
+-     * @param document Pointer to document.
+-     */
+-    explicit QXMLHighlighter(QTextDocument* document=nullptr);
+-
+-protected:
+-
+-    void highlightBlock(const QString& text) override;
+-
+-private:
+-
+-    void highlightByRegex(const QTextCharFormat& format,
+-                          const QRegularExpression& regex,
+-                          const QString& text);
+-
+-    QVector<QRegularExpression> m_xmlKeywordRegexes;
+-    QRegularExpression          m_xmlElementRegex;
+-    QRegularExpression          m_xmlAttributeRegex;
+-    QRegularExpression          m_xmlValueRegex;
+-    QRegularExpression          m_xmlCommentBeginRegex;
+-    QRegularExpression          m_xmlCommentEndRegex;
+-
+-};
+-
+diff --git a/lib/resources/languages/cpp.xml b/lib/resources/languages/cpp.xml
+deleted file mode 100644
+index e9c9e62..0000000
+--- a/lib/resources/languages/cpp.xml
++++ /dev/null
+@@ -1,103 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" ?>
+-<root>
+-    <section name="Keyword">
+-        <name>alignas</name>
+-        <name>alignof</name>
+-        <name>and</name>
+-        <name>and_eq</name>
+-        <name>asm</name>
+-        <name>atomic_cancel</name>
+-        <name>atomic_commit</name>
+-        <name>atomic_noexcept</name>
+-        <name>auto</name>
+-        <name>bitand</name>
+-        <name>bitor</name>
+-        <name>break</name>
+-        <name>case</name>
+-        <name>catch</name>
+-        <name>class</name>
+-        <name>compl</name>
+-        <name>concept</name>
+-        <name>const</name>
+-        <name>constexpr</name>
+-        <name>const_cast</name>
+-        <name>continue</name>
+-        <name>co_await</name>
+-        <name>co_return</name>
+-        <name>co_yield</name>
+-        <name>decltype</name>
+-        <name>default</name>
+-        <name>delete</name>
+-        <name>do</name>
+-        <name>dynamic_cast</name>
+-        <name>else</name>
+-        <name>enum</name>
+-        <name>explicit</name>
+-        <name>export</name>
+-        <name>extern</name>
+-        <name>false</name>
+-        <name>for</name>
+-        <name>friend</name>
+-        <name>goto</name>
+-        <name>if</name>
+-        <name>import</name>
+-        <name>inline</name>
+-        <name>module</name>
+-        <name>mutable</name>
+-        <name>namespace</name>
+-        <name>new</name>
+-        <name>noexcept</name>
+-        <name>not</name>
+-        <name>not_eq</name>
+-        <name>nullptr</name>
+-        <name>operator</name>
+-        <name>or</name>
+-        <name>or_eq</name>
+-        <name>private</name>
+-        <name>protected</name>
+-        <name>public</name>
+-        <name>reflexpr</name>
+-        <name>register(2)</name>
+-        <name>reinterpret_cast</name>
+-        <name>requires</name>
+-        <name>return</name>
+-        <name>sizeof</name>
+-        <name>static</name>
+-        <name>static_assert</name>
+-        <name>static_cast</name>
+-        <name>struct</name>
+-        <name>switch</name>
+-        <name>synchronized</name>
+-        <name>template</name>
+-        <name>this</name>
+-        <name>thread_local</name>
+-        <name>throw</name>
+-        <name>true</name>
+-        <name>try</name>
+-        <name>typedef</name>
+-        <name>typeid</name>
+-        <name>typename</name>
+-        <name>union</name>
+-        <name>using</name>
+-        <name>virtual</name>
+-        <name>volatile</name>
+-        <name>while</name>
+-        <name>xor</name>
+-        <name>xor_eq</name>
+-    </section>
+-    <section name="PrimitiveType">
+-        <name>bool</name>
+-        <name>char</name>
+-        <name>char16_t</name>
+-        <name>char32_t</name>
+-        <name>double</name>
+-        <name>float</name>
+-        <name>int</name>
+-        <name>long</name>
+-        <name>short</name>
+-        <name>signed</name>
+-        <name>unsigned</name>
+-        <name>void</name>
+-        <name>wchar_t</name>
+-    </section>
+-</root>
+\ No newline at end of file
+diff --git a/lib/resources/languages/glsl.xml b/lib/resources/languages/glsl.xml
+deleted file mode 100644
+index b543233..0000000
+--- a/lib/resources/languages/glsl.xml
++++ /dev/null
+@@ -1,354 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" ?>
+-<root>
+-    <section name="Keyword">
+-        <name>attribute</name>
+-        <name>const</name>
+-        <name>uniform</name>
+-        <name>varying</name>
+-        <name>buffer</name>
+-        <name>shared</name>
+-        <name>coherent</name>
+-        <name>volatile</name>
+-        <name>restrict</name>
+-        <name>readonly</name>
+-        <name>writeonly</name>
+-        <name>layout</name>
+-        <name>centroid</name>
+-        <name>flat</name>
+-        <name>smooth</name>
+-        <name>noperspective</name>
+-        <name>patch</name>
+-        <name>sample</name>
+-        <name>break</name>
+-        <name>continue</name>
+-        <name>do</name>
+-        <name>for</name>
+-        <name>while</name>
+-        <name>switch</name>
+-        <name>case</name>
+-        <name>default</name>
+-        <name>if</name>
+-        <name>else</name>
+-        <name>subroutine</name>
+-        <name>in</name>
+-        <name>out</name>
+-        <name>inout</name>
+-        <name>invariant</name>
+-        <name>precise</name>
+-        <name>discard</name>
+-        <name>return</name>
+-        <name>lowp</name>
+-        <name>mediump</name>
+-        <name>highp</name>
+-        <name>precision</name>
+-        <name>struct</name>
+-    </section>
+-    <section name="Function">
+-        <name>radians</name>
+-        <name>degrees</name>
+-        <name>sin</name>
+-        <name>cos</name>
+-        <name>tan</name>
+-        <name>asin</name>
+-        <name>acos</name>
+-        <name>atan</name>
+-        <name>sinh</name>
+-        <name>cosh</name>
+-        <name>tanh</name>
+-        <name>asinh</name>
+-        <name>acosh</name>
+-        <name>atanh</name>
+-        <name>pow</name>
+-        <name>exp</name>
+-        <name>log</name>
+-        <name>exp2</name>
+-        <name>log2</name>
+-        <name>sqrt</name>
+-        <name>inversesqrt</name>
+-        <name>abs</name>
+-        <name>sign</name>
+-        <name>floor</name>
+-        <name>trunc</name>
+-        <name>round</name>
+-        <name>roundEven</name>
+-        <name>ceil</name>
+-        <name>fract</name>
+-        <name>mod</name>
+-        <name>modf</name>
+-        <name>min</name>
+-        <name>max</name>
+-        <name>clamp</name>
+-        <name>mix</name>
+-        <name>step</name>
+-        <name>smoothstep</name>
+-        <name>isnan</name>
+-        <name>isinf</name>
+-        <name>floatBitsToInt</name>
+-        <name>floatBitsToUint</name>
+-        <name>intBitsToFloat</name>
+-        <name>uintBitsToFloat</name>
+-        <name>fma</name>
+-        <name>frexp</name>
+-        <name>ldexp</name>
+-        <name>packUnorm2x16</name>
+-        <name>packSnorm2x16</name>
+-        <name>packUnorm4x8</name>
+-        <name>packSnorm4x8</name>
+-        <name>unpackUnorm2x16</name>
+-        <name>unpackSnorm2x16</name>
+-        <name>unpackUnorm4x8</name>
+-        <name>unpackSnorm4x8</name>
+-        <name>packDouble2x32</name>
+-        <name>unpackDouble2x32</name>
+-        <name>packHalf2x16</name>
+-        <name>unpackHalf2x16</name>
+-        <name>length</name>
+-        <name>distance</name>
+-        <name>dot</name>
+-        <name>cross</name>
+-        <name>normalize</name>
+-        <name>ftransform</name>
+-        <name>faceforward</name>
+-        <name>reflect</name>
+-        <name>refract</name>
+-        <name>matrixCompMult</name>
+-        <name>outerProduct</name>
+-        <name>transpose</name>
+-        <name>determinant</name>
+-        <name>inverse</name>
+-        <name>lessThan</name>
+-        <name>lessThanEqual</name>
+-        <name>greaterThan</name>
+-        <name>greaterThanEqual</name>
+-        <name>equal</name>
+-        <name>notEqual</name>
+-        <name>any</name>
+-        <name>all</name>
+-        <name>not</name>
+-        <name>uaddCarry</name>
+-        <name>usubBorrow</name>
+-        <name>umulExtended</name>
+-        <name>imulExtended</name>
+-        <name>bitfieldExtract</name>
+-        <name>bitfieldInsert</name>
+-        <name>bitfieldReverse</name>
+-        <name>bitCount</name>
+-        <name>findLSB</name>
+-        <name>findMSB</name>
+-        <name>textureSize</name>
+-        <name>textureQueryLod</name>
+-        <name>textureQueryLevels</name>
+-        <name>textureSamples</name>
+-        <name>texture</name>
+-        <name>textureProj</name>
+-        <name>textureLod</name>
+-        <name>textureOffset</name>
+-        <name>texelFetch</name>
+-        <name>texelFetchOffset</name>
+-        <name>textureProjOffset</name>
+-        <name>textureLodOffset</name>
+-        <name>textureProjLod</name>
+-        <name>textureProjLodOffset</name>
+-        <name>textureGrad</name>
+-        <name>textureGradOffset</name>
+-        <name>textureProjGrad</name>
+-        <name>textureProjGradOffset</name>
+-        <name>textureGather</name>
+-        <name>textureGatherOffset</name>
+-        <name>textureGatherOffsets</name>
+-        <name>texture1D</name>
+-        <name>texture1DProj</name>
+-        <name>texture1DLod</name>
+-        <name>texture1DProjLod</name>
+-        <name>texture2D</name>
+-        <name>texture2DProj</name>
+-        <name>texture2DLod</name>
+-        <name>texture2DProjLod</name>
+-        <name>texture3D</name>
+-        <name>texture3DProj</name>
+-        <name>texture3DLod</name>
+-        <name>texture3DProjLod</name>
+-        <name>textureCube</name>
+-        <name>textureCubeLod</name>
+-        <name>shadow1D</name>
+-        <name>shadow2D</name>
+-        <name>shadow1DProj</name>
+-        <name>shadow2DProj</name>
+-        <name>shadow1DLod</name>
+-        <name>shadow2DLod</name>
+-        <name>shadow1DProjLod</name>
+-        <name>shadow2DProjLod</name>
+-        <name>atomicCounterIncrement</name>
+-        <name>atomicCounterDecrement</name>
+-        <name>atomicCounter</name>
+-        <name>atomicAdd</name>
+-        <name>atomicMin</name>
+-        <name>atomicMax</name>
+-        <name>atomicAnd</name>
+-        <name>atomicOr</name>
+-        <name>atomicXor</name>
+-        <name>atomicExchange</name>
+-        <name>atomicCompSwap</name>
+-        <name>imageSize</name>
+-        <name>imageSamples</name>
+-        <name>imageLoad</name>
+-        <name>imageStore</name>
+-        <name>imageAtomicAdd</name>
+-        <name>imageAtomicMin</name>
+-        <name>imageAtomicMax</name>
+-        <name>imageAtomicAnd</name>
+-        <name>imageAtomicOr</name>
+-        <name>imageAtomicXor</name>
+-        <name>imageAtomicExchange</name>
+-        <name>imageAtomicCompSwap</name>
+-        <name>dFdx</name>
+-        <name>dFdy</name>
+-        <name>dFdxFine</name>
+-        <name>dFdyFine</name>
+-        <name>dFdxCoarse</name>
+-        <name>dFdyCoarse</name>
+-        <name>fwidth</name>
+-        <name>fwidthFine</name>
+-        <name>fwidthCoarse</name>
+-        <name>interpolateAtCentroid</name>
+-        <name>interpolateAtSample</name>
+-        <name>interpolateAtOffset</name>
+-        <name>noise1</name>
+-        <name>noise2</name>
+-        <name>noise3</name>
+-        <name>noise4</name>
+-        <name>EmitStreamVertex</name>
+-        <name>EndStreamPrimitive</name>
+-        <name>EndStreamPrimitive</name>
+-        <name>EndStreamPrimitive</name>
+-        <name>memoryBarrier</name>
+-        <name>memoryBarrierAtomicCounter</name>
+-        <name>memoryBarrierBuffer</name>
+-        <name>memoryBarrierShared</name>
+-        <name>memoryBarrierImage</name>
+-        <name>groupMemoryBarrier</name>
+-    </section>
+-    <section name="PrimitiveType">
+-        <name>float</name>
+-        <name>atomic_uint</name>
+-        <name>double</name>
+-        <name>int</name>
+-        <name>void</name>
+-        <name>bool</name>
+-        <name>true</name>
+-        <name>false</name>
+-        <name>mat2</name>
+-        <name>mat3</name>
+-        <name>mat4</name>
+-        <name>dmat2</name>
+-        <name>dmat3</name>
+-        <name>dmat4</name>
+-        <name>mat2x2</name>
+-        <name>mat2x3</name>
+-        <name>mat2x4</name>
+-        <name>dmat2x2</name>
+-        <name>dmat2x3</name>
+-        <name>dmat2x4</name>
+-        <name>mat3x2</name>
+-        <name>mat3x3</name>
+-        <name>mat3x4</name>
+-        <name>dmat3x2</name>
+-        <name>dmat3x3</name>
+-        <name>dmat3x4</name>
+-        <name>mat4x2</name>
+-        <name>mat4x3</name>
+-        <name>mat4x4</name>
+-        <name>dmat4x2</name>
+-        <name>dmat4x3</name>
+-        <name>dmat4x4</name>
+-        <name>vec2</name>
+-        <name>vec3</name>
+-        <name>vec4</name>
+-        <name>ivec2</name>
+-        <name>ivec3</name>
+-        <name>ivec4</name>
+-        <name>bvec2</name>
+-        <name>bvec3</name>
+-        <name>bvec4</name>
+-        <name>dvec2</name>
+-        <name>dvec3</name>
+-        <name>dvec4</name>
+-        <name>uint</name>
+-        <name>uvec2</name>
+-        <name>uvec3</name>
+-        <name>uvec4</name>
+-        <name>sampler1D</name>
+-        <name>sampler2D</name>
+-        <name>sampler3D</name>
+-        <name>samplerCube</name>
+-        <name>sampler1DShadow</name>
+-        <name>sampler2DShadow</name>
+-        <name>samplerCubeShadow</name>
+-        <name>sampler1DArray</name>
+-        <name>sampler2DArray</name>
+-        <name>sampler1DArrayShadow</name>
+-        <name>sampler2DArrayShadow</name>
+-        <name>sampler1D</name>
+-        <name>isampler2D</name>
+-        <name>isampler3D</name>
+-        <name>isamplerCube</name>
+-        <name>isampler1DArray</name>
+-        <name>isampler2DArray</name>
+-        <name>usampler1D</name>
+-        <name>usampler2D</name>
+-        <name>usampler3D</name>
+-        <name>usamplerCube</name>
+-        <name>usampler1DArray</name>
+-        <name>usampler2DArray</name>
+-        <name>sampler2DRect</name>
+-        <name>sampler2DRectShadow</name>
+-        <name>isampler2DRect</name>
+-        <name>usampler2DRect</name>
+-        <name>samplerBuffer</name>
+-        <name>isamplerBuffer</name>
+-        <name>usamplerBuffer</name>
+-        <name>sampler2DMS</name>
+-        <name>isampler2DMS</name>
+-        <name>usampler2DMS</name>
+-        <name>sampler2DMSArray</name>
+-        <name>isampler2DMSArray</name>
+-        <name>usampler2DMSArray</name>
+-        <name>samplerCubeArray</name>
+-        <name>samplerCubeArrayShadow</name>
+-        <name>isamplerCubeArray</name>
+-        <name>usamplerCubeArray</name>
+-        <name>image1D</name>
+-        <name>iimage1D</name>
+-        <name>uimage1D</name>
+-        <name>image2D</name>
+-        <name>iimage2D</name>
+-        <name>uimage2D</name>
+-        <name>image3D</name>
+-        <name>iimage3D</name>
+-        <name>uimage3D</name>
+-        <name>image2DRect</name>
+-        <name>iimage2DRect</name>
+-        <name>uimage2DRect</name>
+-        <name>imageCube</name>
+-        <name>iimageCube</name>
+-        <name>uimageCube</name>
+-        <name>imageBuffer</name>
+-        <name>iimageBuffer</name>
+-        <name>uimageBuffer</name>
+-        <name>image1DArray</name>
+-        <name>iimage1DArray</name>
+-        <name>uimage1DArray</name>
+-        <name>image2DArray</name>
+-        <name>iimage2DArray</name>
+-        <name>uimage2DArray</name>
+-        <name>imageCubeArray</name>
+-        <name>iimageCubeArray</name>
+-        <name>uimageCubeArray</name>
+-        <name>image2DMS</name>
+-        <name>iimage2DMS</name>
+-        <name>uimage2DMS</name>
+-        <name>image2DMSArray</name>
+-        <name>iimage2DMSArray</name>
+-        <name>uimage2DMSArray</name>
+-    </section>
+-</root>
+\ No newline at end of file
+diff --git a/lib/resources/languages/lua.xml b/lib/resources/languages/lua.xml
+deleted file mode 100644
+index 189fcc4..0000000
+--- a/lib/resources/languages/lua.xml
++++ /dev/null
+@@ -1,50 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8" ?>
+-<root>
+-    <section name="Keyword">
+-        <name>break</name>
+-        <name>do</name>
+-        <name>else</name>
+-        <name>elseif</name>
+-        <name>end</name>
+-        <name>false</name>
+-        <name>for</name>
+-        <name>function</name>
+-        <name>if</name>
+-        <name>in</name>
+-        <name>repeat</name>
+-        <name>return</name>
+-        <name>then</name>
+-        <name>until</name>
+-        <name>while</name>
+-    </section>
+-    <section name="Type">
+-        <name>local</name>
+-        <name>nil</name>
+-        <name>boolean</name>
+-        <name>number</name>
+-        <name>string</name>
+-        <name>function</name>
+-        <name>userdata</name>
+-        <name>thread</name>
+-        <name>table</name>
+-    </section>
+-    <section name="Operator">
+-        <name>\+</name>
+-        <name>\-</name>
+-        <name>\*</name>
+-        <name>\/</name>
+-        <name>\%</name>
+-        <name>\^</name>
+-        <name>==</name>
+-        <name>~=</name>
+-        <name>&gt;</name>
+-        <name>&lt;</name>
+-        <name>&gt;=</name>
+-        <name>&lt;=</name>
+-        <name>and</name>
+-        <name>or</name>
+-        <name>not</name>
+-        <name>\.\.</name>
+-        <name>\#</name>
+-    </section>
+-</root>
+diff --git a/lib/resources/qcodeeditor_resources.qrc b/lib/resources/qcodeeditor_resources.qrc
+index ff73feb..ed803b2 100644
+--- a/lib/resources/qcodeeditor_resources.qrc
++++ b/lib/resources/qcodeeditor_resources.qrc
+@@ -1,9 +1,22 @@
+ <RCC>
+     <qresource prefix="/">
+-        <file>default_style.xml</file>
+-        <file>languages/glsl.xml</file>
+-        <file>languages/cpp.xml</file>
+-        <file>languages/lua.xml</file>
+         <file>languages/python.xml</file>
++        <file>styles/catppuccinmacchiato.xml</file>
++        <file>styles/deepocean.xml</file>
++        <file>styles/default.xml</file>
++        <file>styles/drakula.xml</file>
++        <file>styles/forestnight.xml</file>
++        <file>styles/githublight.xml</file>
++        <file>styles/gruvbox.xml</file>
++        <file>styles/materialpalenight.xml</file>
++        <file>styles/midnightblue.xml</file>
++        <file>styles/monokai.xml</file>
++        <file>styles/nord.xml</file>
++        <file>styles/onedark.xml</file>
++        <file>styles/paper.xml</file>
++        <file>styles/seashell.xml</file>
++        <file>styles/solarizedlight.xml</file>
++        <file>styles/tokyonight.xml</file>
++        <file>styles/twilight.xml</file>
+     </qresource>
+ </RCC>
+diff --git a/lib/resources/styles/deepocean.xml b/lib/resources/styles/deepocean.xml
+new file mode 100644
+index 0000000..31697d3
+--- /dev/null
++++ b/lib/resources/styles/deepocean.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="DeepOcean">
++    <style name="Text" foreground="#c4cad1" background="#0f111a"/>
++    <style name="Link" foreground="#82aaff" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#1f2233"/>
++    <style name="LineNumber" foreground="#3b3f5c"/>
++    <style name="SearchResult" foreground="#f78c6c" bold="true"/>
++    <style name="CurrentLine" background="#171b29"/>
++    <style name="Number" foreground="#c792ea"/>
++    <style name="String" foreground="#c3e88d"/>
++    <style name="Type" foreground="#82aaff"/>
++    <style name="Local" foreground="#c4cad1"/>
++    <style name="Global" foreground="#f78c6c"/>
++    <style name="Function" foreground="#89ddff"/>
++    <style name="Keyword" foreground="#c792ea" bold="true"/>
++    <style name="PrimitiveType" foreground="#82aaff" italic="true"/>
++    <style name="Comment" foreground="#545c7e"/>
++</style-scheme>
+diff --git a/lib/resources/default_style.xml b/lib/resources/styles/default.xml
+similarity index 100%
+rename from lib/resources/default_style.xml
+rename to lib/resources/styles/default.xml
+diff --git a/example/resources/styles/drakula.xml b/lib/resources/styles/drakula.xml
+similarity index 100%
+rename from example/resources/styles/drakula.xml
+rename to lib/resources/styles/drakula.xml
+diff --git a/lib/resources/styles/forestnight.xml b/lib/resources/styles/forestnight.xml
+new file mode 100644
+index 0000000..9941790
+--- /dev/null
++++ b/lib/resources/styles/forestnight.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="ForestNight">
++    <style name="Text" foreground="#d3c6aa" background="#2b3339"/>
++    <style name="Link" foreground="#7fbbb3" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#3a4248"/>
++    <style name="LineNumber" foreground="#4f5b58"/>
++    <style name="SearchResult" foreground="#e69875" bold="true"/>
++    <style name="CurrentLine" background="#323c41"/>
++    <style name="Number" foreground="#d699b6"/>
++    <style name="String" foreground="#a7c080"/>
++    <style name="Type" foreground="#7fbbb3"/>
++    <style name="Local" foreground="#d3c6aa"/>
++    <style name="Global" foreground="#e69875"/>
++    <style name="Function" foreground="#83c092"/>
++    <style name="Keyword" foreground="#d699b6" bold="true"/>
++    <style name="PrimitiveType" foreground="#7fbbb3" italic="true"/>
++    <style name="Comment" foreground="#859289"/>
++</style-scheme>
+diff --git a/lib/resources/styles/githublight.xml b/lib/resources/styles/githublight.xml
+new file mode 100644
+index 0000000..30647cf
+--- /dev/null
++++ b/lib/resources/styles/githublight.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="GitHubLight">
++    <style name="Text" foreground="#24292e" background="#ffffff"/>
++    <style name="Link" foreground="#0366d6" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#c8e1ff"/>
++    <style name="LineNumber" foreground="#959da5"/>
++    <style name="SearchResult" foreground="#e36209" bold="true"/>
++    <style name="SearchScope" foreground="#000000" background="#c8e1ff"/>
++    <style name="Parentheses" foreground="#24292e" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#cb2431"/>
++    <style name="AutoComplete" foreground="#24292e"/>
++    <style name="CurrentLine" background="#f6f8fa"/>
++    <style name="CurrentLineNumber" foreground="#24292e"/>
++    <style name="Occurrences" background="#f6f8fa"/>
++    <style name="Occurrences.Unused" foreground="#959da5"/>
++    <style name="Number" foreground="#005cc5"/>
++    <style name="String" foreground="#032f62"/>
++    <style name="Type" foreground="#6f42c1"/>
++    <style name="Local" foreground="#24292e"/>
++    <style name="Global" foreground="#e36209"/>
++    <style name="Field" foreground="#24292e"/>
++    <style name="Static" foreground="#e36209"/>
++    <style name="VirtualMethod" foreground="#6f42c1" italic="true"/>
++    <style name="Function" foreground="#6f42c1"/>
++    <style name="Keyword" foreground="#d73a49" bold="true"/>
++    <style name="PrimitiveType" foreground="#005cc5" italic="true"/>
++    <style name="Operator" foreground="#24292e"/>
++    <style name="Preprocessor" foreground="#d73a49"/>
++    <style name="Label" foreground="#e36209"/>
++    <style name="Comment" foreground="#6a737d"/>
++    <style name="Doxygen.Comment" foreground="#6a737d"/>
++    <style name="Doxygen.Tag" foreground="#6a737d" bold="true"/>
++    <style name="Warning" underlineColor="#e36209" underlineStyle="SingleUnderline"/>
++    <style name="Error" underlineColor="#cb2431" underlineStyle="SingleUnderline"/>
++</style-scheme>
+diff --git a/lib/resources/styles/midnightblue.xml b/lib/resources/styles/midnightblue.xml
+new file mode 100644
+index 0000000..d1bf8fa
+--- /dev/null
++++ b/lib/resources/styles/midnightblue.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="MidnightBlue">
++    <style name="Text" foreground="#c5d1eb" background="#1e2433"/>
++    <style name="Link" foreground="#77aaff" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#2c3448"/>
++    <style name="LineNumber" foreground="#4b5975"/>
++    <style name="SearchResult" foreground="#e6a26f" bold="true"/>
++    <style name="CurrentLine" background="#262b3d"/>
++    <style name="Number" foreground="#b48cff"/>
++    <style name="String" foreground="#9cd098"/>
++    <style name="Type" foreground="#77aaff"/>
++    <style name="Local" foreground="#c5d1eb"/>
++    <style name="Global" foreground="#e6a26f"/>
++    <style name="Function" foreground="#66ccee"/>
++    <style name="Keyword" foreground="#b48cff" bold="true"/>
++    <style name="PrimitiveType" foreground="#77aaff" italic="true"/>
++    <style name="Comment" foreground="#627187"/>
++</style-scheme>
+diff --git a/lib/resources/styles/monokai.xml b/lib/resources/styles/monokai.xml
+new file mode 100644
+index 0000000..467fe2a
+--- /dev/null
++++ b/lib/resources/styles/monokai.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="Monokai">
++    <style name="Text" foreground="#f8f8f2" background="#272822"/>
++    <style name="Link" foreground="#66d9ef" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#49483e"/>
++    <style name="LineNumber" foreground="#90908a"/>
++    <style name="SearchResult" foreground="#fd971f" bold="true"/>
++    <style name="SearchScope" foreground="#000000" background="#f8f8f2"/>
++    <style name="Parentheses" foreground="#f8f8f2" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#f92672"/>
++    <style name="AutoComplete" foreground="#f8f8f2"/>
++    <style name="CurrentLine" background="#3e3d32"/>
++    <style name="CurrentLineNumber" foreground="#f8f8f2"/>
++    <style name="Occurrences" background="#49483e"/>
++    <style name="Occurrences.Unused" foreground="#90908a"/>
++    <style name="Number" foreground="#ae81ff"/>
++    <style name="String" foreground="#e6db74"/>
++    <style name="Type" foreground="#66d9ef"/>
++    <style name="Local" foreground="#f8f8f2"/>
++    <style name="Global" foreground="#fd971f"/>
++    <style name="Field" foreground="#f8f8f2"/>
++    <style name="Static" foreground="#fd971f"/>
++    <style name="VirtualMethod" foreground="#a6e22e" italic="true"/>
++    <style name="Function" foreground="#a6e22e"/>
++    <style name="Keyword" foreground="#f92672" bold="true"/>
++    <style name="PrimitiveType" foreground="#66d9ef" italic="true"/>
++    <style name="Operator" foreground="#f8f8f2"/>
++    <style name="Preprocessor" foreground="#f92672"/>
++    <style name="Label" foreground="#fd971f"/>
++    <style name="Comment" foreground="#75715e"/>
++    <style name="Doxygen.Comment" foreground="#75715e"/>
++    <style name="Doxygen.Tag" foreground="#75715e" bold="true"/>
++    <style name="Warning" underlineColor="#fd971f" underlineStyle="SingleUnderline"/>
++    <style name="Error" underlineColor="#f92672" underlineStyle="SingleUnderline"/>
++</style-scheme>
+diff --git a/lib/resources/styles/nord.xml b/lib/resources/styles/nord.xml
+new file mode 100644
+index 0000000..f4e3b44
+--- /dev/null
++++ b/lib/resources/styles/nord.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="Nord">
++    <style name="Text" foreground="#d8dee9" background="#2e3440"/>
++    <style name="Link" foreground="#88c0d0" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#434c5e"/>
++    <style name="LineNumber" foreground="#4c566a"/>
++    <style name="SearchResult" foreground="#d08770" bold="true"/>
++    <style name="SearchScope" foreground="#2e3440" background="#d8dee9"/>
++    <style name="Parentheses" foreground="#d8dee9" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#bf616a"/>
++    <style name="AutoComplete" foreground="#d8dee9"/>
++    <style name="CurrentLine" background="#3b4252"/>
++    <style name="CurrentLineNumber" foreground="#d8dee9"/>
++    <style name="Occurrences" background="#434c5e"/>
++    <style name="Occurrences.Unused" foreground="#4c566a"/>
++    <style name="Number" foreground="#b48ead"/>
++    <style name="String" foreground="#a3be8c"/>
++    <style name="Type" foreground="#8fbcbb"/>
++    <style name="Local" foreground="#d8dee9"/>
++    <style name="Global" foreground="#ebcb8b"/>
++    <style name="Field" foreground="#d8dee9"/>
++    <style name="Static" foreground="#ebcb8b"/>
++    <style name="VirtualMethod" foreground="#88c0d0" italic="true"/>
++    <style name="Function" foreground="#88c0d0"/>
++    <style name="Keyword" foreground="#81a1c1" bold="true"/>
++    <style name="PrimitiveType" foreground="#8fbcbb" italic="true"/>
++    <style name="Operator" foreground="#d8dee9"/>
++    <style name="Preprocessor" foreground="#81a1c1"/>
++    <style name="Label" foreground="#ebcb8b"/>
++    <style name="Comment" foreground="#616e88"/>
++    <style name="Doxygen.Comment" foreground="#616e88"/>
++    <style name="Doxygen.Tag" foreground="#616e88" bold="true"/>
++    <style name="Warning" underlineColor="#ebcb8b" underlineStyle="SingleUnderline"/>
++    <style name="Error" underlineColor="#bf616a" underlineStyle="SingleUnderline"/>
++</style-scheme>
+diff --git a/lib/resources/styles/onedark.xml b/lib/resources/styles/onedark.xml
+new file mode 100644
+index 0000000..5a9169b
+--- /dev/null
++++ b/lib/resources/styles/onedark.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="OneDark">
++    <style name="Text" foreground="#abb2bf" background="#282c34"/>
++    <style name="Link" foreground="#61afef" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#3e4451"/>
++    <style name="LineNumber" foreground="#495162"/>
++    <style name="SearchResult" foreground="#d19a66" bold="true"/>
++    <style name="SearchScope" foreground="#000000" background="#abb2bf"/>
++    <style name="Parentheses" foreground="#abb2bf" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#e06c75"/>
++    <style name="AutoComplete" foreground="#abb2bf"/>
++    <style name="CurrentLine" background="#2c313c"/>
++    <style name="CurrentLineNumber" foreground="#abb2bf"/>
++    <style name="Occurrences" background="#3e4451"/>
++    <style name="Occurrences.Unused" foreground="#495162"/>
++    <style name="Number" foreground="#d19a66"/>
++    <style name="String" foreground="#98c379"/>
++    <style name="Type" foreground="#56b6c2"/>
++    <style name="Local" foreground="#abb2bf"/>
++    <style name="Global" foreground="#e5c07b"/>
++    <style name="Field" foreground="#abb2bf"/>
++    <style name="Static" foreground="#e5c07b"/>
++    <style name="VirtualMethod" foreground="#61afef" italic="true"/>
++    <style name="Function" foreground="#61afef"/>
++    <style name="Keyword" foreground="#c678dd" bold="true"/>
++    <style name="PrimitiveType" foreground="#56b6c2" italic="true"/>
++    <style name="Operator" foreground="#abb2bf"/>
++    <style name="Preprocessor" foreground="#c678dd"/>
++    <style name="Label" foreground="#e5c07b"/>
++    <style name="Comment" foreground="#5c6370"/>
++    <style name="Doxygen.Comment" foreground="#5c6370"/>
++    <style name="Doxygen.Tag" foreground="#5c6370" bold="true"/>
++    <style name="Warning" underlineColor="#e5c07b" underlineStyle="SingleUnderline"/>
++    <style name="Error" underlineColor="#e06c75" underlineStyle="SingleUnderline"/>
++</style-scheme>
+diff --git a/lib/resources/styles/paper.xml b/lib/resources/styles/paper.xml
+new file mode 100644
+index 0000000..2aa8352
+--- /dev/null
++++ b/lib/resources/styles/paper.xml
+@@ -0,0 +1,27 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="Paper">
++    <style name="Text" foreground="#2c3e50" background="#ffffff"/>
++    <style name="Link" foreground="#2980b9" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#e8f0fe"/>
++    <style name="LineNumber" foreground="#bdc3c7"/>
++    <style name="SearchResult" foreground="#e67e22" bold="true"/>
++    <style name="SearchScope" foreground="#000000" background="#f5f5f5"/>
++    <style name="Parentheses" foreground="#2c3e50" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#c0392b"/>
++    <style name="AutoComplete" foreground="#2c3e50"/>
++    <style name="CurrentLine" background="#f7f9fc"/>
++    <style name="CurrentLineNumber" foreground="#34495e"/>
++    <style name="Occurrences" background="#f5f5f5"/>
++    <style name="Number" foreground="#8e44ad"/>
++    <style name="String" foreground="#27ae60"/>
++    <style name="Type" foreground="#2980b9"/>
++    <style name="Local" foreground="#2c3e50"/>
++    <style name="Global" foreground="#c0392b"/>
++    <style name="Field" foreground="#2c3e50"/>
++    <style name="Static" foreground="#d35400"/>
++    <style name="VirtualMethod" foreground="#16a085" italic="true"/>
++    <style name="Function" foreground="#16a085"/>
++    <style name="Keyword" foreground="#3498db" bold="true"/>
++    <style name="PrimitiveType" foreground="#2980b9" italic="true"/>
++    <style name="Comment" foreground="#95a5a6"/>
++</style-scheme>
+diff --git a/lib/resources/styles/seashell.xml b/lib/resources/styles/seashell.xml
+new file mode 100644
+index 0000000..74bc970
+--- /dev/null
++++ b/lib/resources/styles/seashell.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="Seashell">
++    <style name="Text" foreground="#4a4a4a" background="#fff5ee"/>
++    <style name="Link" foreground="#0087be" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#e3d7ca"/>
++    <style name="LineNumber" foreground="#a8a8a8"/>
++    <style name="SearchResult" foreground="#d68000" bold="true"/>
++    <style name="CurrentLine" background="#faf0e6"/>
++    <style name="Number" foreground="#9b59b6"/>
++    <style name="String" foreground="#2ecc71"/>
++    <style name="Type" foreground="#3498db"/>
++    <style name="Local" foreground="#4a4a4a"/>
++    <style name="Global" foreground="#e67e22"/>
++    <style name="Function" foreground="#16a085"/>
++    <style name="Keyword" foreground="#2980b9" bold="true"/>
++    <style name="PrimitiveType" foreground="#3498db" italic="true"/>
++    <style name="Comment" foreground="#95a5a6"/>
++</style-scheme>
+diff --git a/lib/resources/styles/solarizedlight.xml b/lib/resources/styles/solarizedlight.xml
+new file mode 100644
+index 0000000..70dd309
+--- /dev/null
++++ b/lib/resources/styles/solarizedlight.xml
+@@ -0,0 +1,35 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="SolarizedLight">
++    <style name="Text" foreground="#657b83" background="#fdf6e3"/>
++    <style name="Link" foreground="#2aa198" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#eee8d5"/>
++    <style name="LineNumber" foreground="#93a1a1"/>
++    <style name="SearchResult" foreground="#cb4b16" bold="true"/>
++    <style name="SearchScope" foreground="#002b36" background="#eee8d5"/>
++    <style name="Parentheses" foreground="#657b83" bold="true"/>
++    <style name="ParenthesesMismatch" foreground="#dc322f"/>
++    <style name="AutoComplete" foreground="#657b83"/>
++    <style name="CurrentLine" background="#eee8d5"/>
++    <style name="CurrentLineNumber" foreground="#002b36"/>
++    <style name="Occurrences" background="#eee8d5"/>
++    <style name="Occurrences.Unused" foreground="#93a1a1"/>
++    <style name="Number" foreground="#d33682"/>
++    <style name="String" foreground="#2aa198"/>
++    <style name="Type" foreground="#607c8a"/>
++    <style name="Local" foreground="#657b83"/>
++    <style name="Global" foreground="#b58900"/>
++    <style name="Field" foreground="#657b83"/>
++    <style name="Static" foreground="#b58900"/>
++    <style name="VirtualMethod" foreground="#268bd2" italic="true"/>
++    <style name="Function" foreground="#268bd2"/>
++    <style name="Keyword" foreground="#859900" bold="true"/>
++    <style name="PrimitiveType" foreground="#607c8a" italic="true"/>
++    <style name="Operator" foreground="#657b83"/>
++    <style name="Preprocessor" foreground="#cb4b16"/>
++    <style name="Label" foreground="#b58900"/>
++    <style name="Comment" foreground="#93a1a1"/>
++    <style name="Doxygen.Comment" foreground="#93a1a1"/>
++    <style name="Doxygen.Tag" foreground="#93a1a1" bold="true"/>
++    <style name="Warning" underlineColor="#b58900" underlineStyle="SingleUnderline"/>
++    <style name="Error" underlineColor="#dc322f" underlineStyle="SingleUnderline"/>
++</style-scheme>
+diff --git a/lib/resources/styles/twilight.xml b/lib/resources/styles/twilight.xml
+new file mode 100644
+index 0000000..c64076c
+--- /dev/null
++++ b/lib/resources/styles/twilight.xml
+@@ -0,0 +1,18 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<style-scheme version="1.0" name="Twilight">
++    <style name="Text" foreground="#d6d6d6" background="#1c1c1c"/>
++    <style name="Link" foreground="#7aa6da" underlineStyle="SingleUnderline"/>
++    <style name="Selection" background="#2d2d2d"/>
++    <style name="LineNumber" foreground="#707070"/>
++    <style name="SearchResult" foreground="#e78c45" bold="true"/>
++    <style name="CurrentLine" background="#252525"/>
++    <style name="Number" foreground="#b4a4d6"/>
++    <style name="String" foreground="#99c794"/>
++    <style name="Type" foreground="#7aa6da"/>
++    <style name="Local" foreground="#d6d6d6"/>
++    <style name="Global" foreground="#e78c45"/>
++    <style name="Function" foreground="#70c0b1"/>
++    <style name="Keyword" foreground="#c397d8" bold="true"/>
++    <style name="PrimitiveType" foreground="#7aa6da" italic="true"/>
++    <style name="Comment" foreground="#8e908c"/>
++</style-scheme>
+diff --git a/lib/src/QCodeEditor.cpp b/lib/src/QCodeEditor.cpp
+index 2194f01..6388902 100644
+--- a/lib/src/QCodeEditor.cpp
++++ b/lib/src/QCodeEditor.cpp
+@@ -4,7 +4,6 @@
+ #include <QCodeEditor>
+ #include <QStyleSyntaxHighlighter>
+ #include <QFramedTextAttribute>
+-#include <QCXXHighlighter>
+ 
+ 
+ // Qt
+@@ -44,7 +43,7 @@ QCodeEditor::QCodeEditor(QWidget* widget) :
+     initFont();
+     performConnections();
+ 
+-    setSyntaxStyle(QSyntaxStyle::defaultStyle());
++    setSyntaxStyle(QSyntaxStyle::getMonokai());
+ }
+ 
+ void QCodeEditor::initDocumentLayoutHandlers()
+diff --git a/lib/src/QSyntaxStyle.cpp b/lib/src/QSyntaxStyle.cpp
+index ae01061..43dd32f 100644
+--- a/lib/src/QSyntaxStyle.cpp
++++ b/lib/src/QSyntaxStyle.cpp
+@@ -131,25 +131,146 @@ bool QSyntaxStyle::isLoaded() const
+     return m_loaded;
+ }
+ 
+-QSyntaxStyle* QSyntaxStyle::defaultStyle()
+-{
+-    static QSyntaxStyle style;
+ 
++void QSyntaxStyle::loadStyle(QSyntaxStyle& style, const QString& fileName)
++{
+     if (!style.isLoaded())
+     {
+         Q_INIT_RESOURCE(qcodeeditor_resources);
+-        QFile fl(":/default_style.xml");
++        QFile fl(QString(":/styles/%0").arg(fileName));
+ 
+         if (!fl.open(QIODevice::ReadOnly))
+         {
+-            return &style;
++            return;
+         }
+ 
+         if (!style.load(fl.readAll()))
+         {
+-            qDebug() << "Can't load default style.";
++            qDebug() << QString("Can't load style '%0'.").arg(fileName);
+         }
+     }
+ 
++}
++
++
++QSyntaxStyle* QSyntaxStyle::getDefault()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "default.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getCatppmpuccinMacciato()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "catppuccinmacchiato.xml");
++    return &style;
++}
++
++
++ QSyntaxStyle* QSyntaxStyle::getDeepOcean()
++ {
++     static QSyntaxStyle style;
++     loadStyle(style, "deepocean.xml");
++     return &style;
++ }
++
++
++QSyntaxStyle* QSyntaxStyle::getDrakula()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "drakula.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getForestNight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "forestnight.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getGithubLight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "githublight.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getGruvBox()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "gruvbox.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getMaterialPalenight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "materialpalenight.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getMightnightBlue()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "midnightblue.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getMonokai()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "monokai.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getNord()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "nord.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getOneDark()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "onedark.xml");
++    return &style;
++}
++
++
++QSyntaxStyle* QSyntaxStyle::getPaper()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "paper.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getSeashell()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "seashell.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getSolarizedLight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "solarizedlight.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getToktoNight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "tokyonight.xml");
++    return &style;
++}
++
++QSyntaxStyle* QSyntaxStyle::getTwilight()
++{
++    static QSyntaxStyle style;
++    loadStyle(style, "twilight.xml");
+     return &style;
+ }
+diff --git a/lib/src/completers/QGLSLCompleter.cpp b/lib/src/completers/QGLSLCompleter.cpp
+deleted file mode 100644
+index c57c998..0000000
+--- a/lib/src/completers/QGLSLCompleter.cpp
++++ /dev/null
+@@ -1,42 +0,0 @@
+-// QCodeEditor
+-#include <QGLSLCompleter>
+-#include <QLanguage>
+-
+-// Qt
+-#include <QStringListModel>
+-#include <QFile>
+-
+-QGLSLCompleter::QGLSLCompleter(QObject *parent) :
+-    QCompleter(parent)
+-{
+-    // Setting up GLSL types
+-    QStringList list;
+-
+-    Q_INIT_RESOURCE(qcodeeditor_resources);
+-    QFile fl(":/languages/glsl.xml");
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    QLanguage language(&fl);
+-
+-    if (!language.isLoaded())
+-    {
+-        return;
+-    }
+-
+-    auto keys = language.keys();
+-    for (auto&& key : keys)
+-    {
+-        auto names = language.names(key);
+-        list.append(names);
+-    }
+-
+-    setModel(new QStringListModel(list, this));
+-    setCompletionColumn(0);
+-    setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+-    setCaseSensitivity(Qt::CaseSensitive);
+-    setWrapAround(true);
+-}
+diff --git a/lib/src/completers/QLuaCompleter.cpp b/lib/src/completers/QLuaCompleter.cpp
+deleted file mode 100644
+index b9c5dff..0000000
+--- a/lib/src/completers/QLuaCompleter.cpp
++++ /dev/null
+@@ -1,42 +0,0 @@
+-// K-Editor
+-#include <QLuaCompleter>
+-#include <QLanguage>
+-
+-// Qt
+-#include <QStringListModel>
+-#include <QFile>
+-
+-QLuaCompleter::QLuaCompleter(QObject *parent) :
+-    QCompleter(parent)
+-{
+-    // Setting up GLSL types
+-    QStringList list;
+-
+-    Q_INIT_RESOURCE(qcodeeditor_resources);
+-    QFile fl(":/languages/lua.xml");
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    QLanguage language(&fl);
+-
+-    if (!language.isLoaded())
+-    {
+-        return;
+-    }
+-
+-    auto keys = language.keys();
+-    for (auto&& key : keys)
+-    {
+-        auto names = language.names(key);
+-        list.append(names);
+-    }
+-
+-    setModel(new QStringListModel(list, this));
+-    setCompletionColumn(0);
+-    setModelSorting(QCompleter::CaseInsensitivelySortedModel);
+-    setCaseSensitivity(Qt::CaseSensitive);
+-    setWrapAround(true);
+-}
+diff --git a/lib/src/highlighters/QCXXHighlighter.cpp b/lib/src/highlighters/QCXXHighlighter.cpp
+deleted file mode 100644
+index 354d99c..0000000
+--- a/lib/src/highlighters/QCXXHighlighter.cpp
++++ /dev/null
+@@ -1,179 +0,0 @@
+-// K-Editor
+-#include <QCXXHighlighter>
+-#include <QSyntaxStyle>
+-#include <QLanguage>
+-
+-// Qt
+-#include <QFile>
+-
+-
+-QCXXHighlighter::QCXXHighlighter(QTextDocument* document) :
+-    QStyleSyntaxHighlighter(document),
+-    m_highlightRules     (),
+-    m_includePattern     (QRegularExpression(R"(^\s*#\s*include\s*([<"][^:?"<>\|]+[">]))")),
+-    m_functionPattern    (QRegularExpression(R"(\b([_a-zA-Z][_a-zA-Z0-9]*\s+)?((?:[_a-zA-Z][_a-zA-Z0-9]*\s*::\s*)*[_a-zA-Z][_a-zA-Z0-9]*)(?=\s*\())")),
+-    m_defTypePattern     (QRegularExpression(R"(\b([_a-zA-Z][_a-zA-Z0-9]*)\s+[_a-zA-Z][_a-zA-Z0-9]*\s*[;=])")),
+-    m_commentStartPattern(QRegularExpression(R"(/\*)")),
+-    m_commentEndPattern  (QRegularExpression(R"(\*/)"))
+-{
+-    Q_INIT_RESOURCE(qcodeeditor_resources);
+-    QFile fl(":/languages/cpp.xml");
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    QLanguage language(&fl);
+-
+-    if (!language.isLoaded())
+-    {
+-        return;
+-    }
+-
+-    auto keys = language.keys();
+-    for (auto&& key : keys)
+-    {
+-        auto names = language.names(key);
+-        for (auto&& name : names)
+-        {
+-            m_highlightRules.append({
+-                QRegularExpression(QString(R"(\b%1\b)").arg(name)),
+-                key
+-            });
+-        }
+-    }
+-
+-    // Numbers
+-    m_highlightRules.append({
+-        QRegularExpression(R"((?<=\b|\s|^)(?i)(?:(?:(?:(?:(?:\d+(?:'\d+)*)?\.(?:\d+(?:'\d+)*)(?:e[+-]?(?:\d+(?:'\d+)*))?)|(?:(?:\d+(?:'\d+)*)\.(?:e[+-]?(?:\d+(?:'\d+)*))?)|(?:(?:\d+(?:'\d+)*)(?:e[+-]?(?:\d+(?:'\d+)*)))|(?:0x(?:[0-9a-f]+(?:'[0-9a-f]+)*)?\.(?:[0-9a-f]+(?:'[0-9a-f]+)*)(?:p[+-]?(?:\d+(?:'\d+)*)))|(?:0x(?:[0-9a-f]+(?:'[0-9a-f]+)*)\.?(?:p[+-]?(?:\d+(?:'\d+)*))))[lf]?)|(?:(?:(?:[1-9]\d*(?:'\d+)*)|(?:0[0-7]*(?:'[0-7]+)*)|(?:0x[0-9a-f]+(?:'[0-9a-f]+)*)|(?:0b[01]+(?:'[01]+)*))(?:u?l{0,2}|l{0,2}u?)))(?=\b|\s|$))"),
+-        "Number"
+-    });
+-
+-    // Strings
+-    m_highlightRules.append({
+-        QRegularExpression(R"("[^\n"]*")"),
+-        "String"
+-    });
+-
+-    // Define
+-    m_highlightRules.append({
+-        QRegularExpression(R"(#[a-zA-Z_]+)"),
+-        "Preprocessor"
+-    });
+-
+-    // Single line
+-    m_highlightRules.append({
+-        QRegularExpression(R"(//[^\n]*)"),
+-        "Comment"
+-    });
+-}
+-
+-void QCXXHighlighter::highlightBlock(const QString& text)
+-{
+-    // Checking for include
+-    {
+-        auto matchIterator = m_includePattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Preprocessor")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(1),
+-                match.capturedLength(1),
+-                syntaxStyle()->getFormat("String")
+-            );
+-        }
+-    }
+-    // Checking for function
+-    {
+-        auto matchIterator = m_functionPattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Type")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(2),
+-                match.capturedLength(2),
+-                syntaxStyle()->getFormat("Function")
+-            );
+-        }
+-    }
+-    {
+-        auto matchIterator = m_defTypePattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(1),
+-                match.capturedLength(1),
+-                syntaxStyle()->getFormat("Type")
+-            );
+-        }
+-    }
+-
+-    for (auto& rule : m_highlightRules)
+-    {
+-        auto matchIterator = rule.pattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat(rule.formatName)
+-            );
+-        }
+-    }
+-
+-    setCurrentBlockState(0);
+-
+-    int startIndex = 0;
+-    if (previousBlockState() != 1)
+-    {
+-        startIndex = text.indexOf(m_commentStartPattern);
+-    }
+-
+-    while (startIndex >= 0)
+-    {
+-        auto match = m_commentEndPattern.match(text, startIndex);
+-
+-        int endIndex = match.capturedStart();
+-        int commentLength = 0;
+-
+-        if (endIndex == -1)
+-        {
+-            setCurrentBlockState(1);
+-            commentLength = text.length() - startIndex;
+-        }
+-        else
+-        {
+-            commentLength = endIndex - startIndex + match.capturedLength();
+-        }
+-
+-        setFormat(
+-            startIndex,
+-            commentLength,
+-            syntaxStyle()->getFormat("Comment")
+-        );
+-        startIndex = text.indexOf(m_commentStartPattern, startIndex + commentLength);
+-    }
+-}
+diff --git a/lib/src/highlighters/QGLSLHighlighter.cpp b/lib/src/highlighters/QGLSLHighlighter.cpp
+deleted file mode 100644
+index d378206..0000000
+--- a/lib/src/highlighters/QGLSLHighlighter.cpp
++++ /dev/null
+@@ -1,162 +0,0 @@
+-// K-Editor
+-#include <QGLSLHighlighter>
+-#include <QLanguage>
+-#include <QSyntaxStyle>
+-
+-// Qt
+-#include <QFile>
+-#include <QDebug>
+-
+-QGLSLHighlighter::QGLSLHighlighter(QTextDocument* document) :
+-    QStyleSyntaxHighlighter(document),
+-    m_highlightRules     (),
+-    m_includePattern     (QRegularExpression(R"(#include\s+([<"][a-zA-Z0-9*._]+[">]))")),
+-    m_functionPattern    (QRegularExpression(R"(\b([A-Za-z0-9_]+(?:\s+|::))*([A-Za-z0-9_]+)(?=\())")),
+-    m_defTypePattern     (QRegularExpression(R"(\b([A-Za-z0-9_]+)\s+[A-Za-z]{1}[A-Za-z0-9_]+\s*[;=])")),
+-    m_commentStartPattern(QRegularExpression(R"(/\*)")),
+-    m_commentEndPattern  (QRegularExpression(R"(\*/)"))
+-{
+-    Q_INIT_RESOURCE(qcodeeditor_resources);
+-    QFile fl(":/languages/glsl.xml");
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    QLanguage language(&fl);
+-
+-    if (!language.isLoaded())
+-    {
+-        return;
+-    }
+-
+-    auto keys = language.keys();
+-    for (auto&& key : keys)
+-    {
+-        auto names = language.names(key);
+-        for (auto&& name : names)
+-        {
+-            m_highlightRules.append({
+-                QRegularExpression(QString(R"(\b%1\b)").arg(name)),
+-                key
+-            });
+-        }
+-    }
+-
+-    // Following rules has higher priority to display
+-    // than language specific keys
+-    // So they must be applied at last.
+-    // Numbers
+-    m_highlightRules.append({
+-        QRegularExpression(R"(\b(0b|0x){0,1}[\d.']+\b)"),
+-        "Number"
+-    });
+-
+-    // Define
+-    m_highlightRules.append({
+-        QRegularExpression(R"(#[a-zA-Z_]+)"),
+-        "Preprocessor"
+-    });
+-
+-    // Single line
+-    m_highlightRules.append({
+-        QRegularExpression("//[^\n]*"),
+-        "Comment"
+-    });
+-}
+-
+-void QGLSLHighlighter::highlightBlock(const QString& text)
+-{
+-
+-    {
+-        auto matchIterator = m_includePattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Preprocessor")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(1),
+-                match.capturedLength(1),
+-                syntaxStyle()->getFormat("String")
+-            );
+-        }
+-    }
+-    // Checking for function
+-    {
+-        auto matchIterator = m_functionPattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Type")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(2),
+-                match.capturedLength(2),
+-                syntaxStyle()->getFormat("Function")
+-            );
+-        }
+-    }
+-
+-    for (auto& rule : m_highlightRules)
+-    {
+-        auto matchIterator = rule.pattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat(rule.formatName)
+-            );
+-        }
+-    }
+-
+-    setCurrentBlockState(0);
+-
+-    int startIndex = 0;
+-    if (previousBlockState() != 1)
+-    {
+-        startIndex = text.indexOf(m_commentStartPattern);
+-    }
+-
+-    while (startIndex >= 0)
+-    {
+-        auto match = m_commentEndPattern.match(text, startIndex);
+-
+-        int endIndex = match.capturedStart();
+-        int commentLength = 0;
+-
+-        if (endIndex == -1)
+-        {
+-            setCurrentBlockState(1);
+-            commentLength = text.length() - startIndex;
+-        }
+-        else
+-        {
+-            commentLength = endIndex - startIndex + match.capturedLength();
+-        }
+-
+-        setFormat(
+-            startIndex,
+-            commentLength,
+-            syntaxStyle()->getFormat("Comment")
+-        );
+-        startIndex = text.indexOf(m_commentStartPattern, startIndex + commentLength);
+-    }
+-}
+diff --git a/lib/src/highlighters/QJSONHighlighter.cpp b/lib/src/highlighters/QJSONHighlighter.cpp
+deleted file mode 100644
+index 6b4f6e9..0000000
+--- a/lib/src/highlighters/QJSONHighlighter.cpp
++++ /dev/null
+@@ -1,66 +0,0 @@
+-// K-Editor
+-#include <QJSONHighlighter>
+-#include <QSyntaxStyle>
+-
+-
+-QJSONHighlighter::QJSONHighlighter(QTextDocument* document) :
+-    QStyleSyntaxHighlighter(document),
+-    m_highlightRules(),
+-    m_keyRegex(R"(("[^\r\n:]+?")\s*:)")
+-{
+-    auto keywords = QStringList()
+-        << "null" << "true" << "false";
+-
+-    for (auto&& keyword : keywords)
+-    {
+-        m_highlightRules.append({
+-            QRegularExpression(QString(R"(\b%1\b)").arg(keyword)),
+-            "Keyword"
+-        });
+-    }
+-
+-    // Numbers
+-    m_highlightRules.append({
+-        QRegularExpression(R"(\b(0b|0x){0,1}[\d.']+\b)"),
+-        "Number"
+-    });
+-
+-    // Strings
+-    m_highlightRules.append({
+-        QRegularExpression(R"("[^\n"]*")"),
+-        "String"
+-    });
+-}
+-
+-void QJSONHighlighter::highlightBlock(const QString& text)
+-{
+-    for (auto&& rule : m_highlightRules)
+-    {
+-        auto matchIterator = rule.pattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat(rule.formatName)
+-            );
+-        }
+-    }
+-
+-    // Special treatment for key regex
+-    auto matchIterator = m_keyRegex.globalMatch(text);
+-
+-    while (matchIterator.hasNext())
+-    {
+-        auto match = matchIterator.next();
+-
+-        setFormat(
+-            match.capturedStart(1),
+-            match.capturedLength(1),
+-            syntaxStyle()->getFormat("Keyword")
+-        );
+-    }
+-}
+diff --git a/lib/src/highlighters/QLuaHighlighter.cpp b/lib/src/highlighters/QLuaHighlighter.cpp
+deleted file mode 100644
+index 771d8df..0000000
+--- a/lib/src/highlighters/QLuaHighlighter.cpp
++++ /dev/null
+@@ -1,196 +0,0 @@
+-// K-Editor
+-#include <QLuaHighlighter>
+-#include <QSyntaxStyle>
+-#include <QLanguage>
+-
+-// Qt
+-#include <QFile>
+-
+-
+-QLuaHighlighter::QLuaHighlighter(QTextDocument* document) :
+-    QStyleSyntaxHighlighter(document),
+-    m_highlightRules(),
+-    m_highlightBlockRules(),
+-    m_requirePattern(QRegularExpression(R"(require\s*([("'][a-zA-Z0-9*._]+['")]))")),
+-    m_functionPattern(QRegularExpression(R"(\b([A-Za-z0-9_]+(?:\s+|::))*([A-Za-z0-9_]+)(?=\())")),
+-    m_defTypePattern(QRegularExpression(R"(\b([A-Za-z0-9_]+)\s+[A-Za-z]{1}[A-Za-z0-9_]+\s*[=])"))
+-{
+-    Q_INIT_RESOURCE(qcodeeditor_resources);
+-    QFile fl(":/languages/lua.xml");
+-
+-    if (!fl.open(QIODevice::ReadOnly))
+-    {
+-        return;
+-    }
+-
+-    QLanguage language(&fl);
+-
+-    if (!language.isLoaded())
+-    {
+-        return;
+-    }
+-
+-    auto keys = language.keys();
+-    for (auto&& key : keys)
+-    {
+-        auto names = language.names(key);
+-        for (auto&& name : names)
+-        {
+-            m_highlightRules.append({
+-                QRegularExpression(QString(R"(\b\s{0,1}%1\s{0,1}\b)").arg(name)),
+-                key
+-            });
+-        }
+-    }
+-
+-    // Numbers
+-    m_highlightRules.append({
+-        QRegularExpression(R"(\b(0b|0x){0,1}[\d.']+\b)"),
+-        "Number"
+-    });
+-
+-    // Strings
+-    m_highlightRules.append({
+-        QRegularExpression(R"(["'][^\n"]*["'])"),
+-        "String"
+-    });
+-
+-    // Preprocessor
+-    m_highlightRules.append({
+-        QRegularExpression(R"(#\![a-zA-Z_]+)"),
+-        "Preprocessor"
+-    });
+-
+-    // Single line
+-    m_highlightRules.append({
+-        QRegularExpression(R"(--[^\n]*)"),
+-        "Comment"
+-    });
+-
+-    // Multiline comments
+-    m_highlightBlockRules.append({
+-         QRegularExpression(R"(--\[\[)"),
+-         QRegularExpression(R"(--\]\])"),
+-         "Comment"
+-     });
+-
+-    // Multiline string
+-    m_highlightBlockRules.append({
+-         QRegularExpression(R"(\[\[)"),
+-         QRegularExpression(R"(\]\])"),
+-         "String"
+-     });
+-}
+-
+-void QLuaHighlighter::highlightBlock(const QString& text)
+-{
+-    { // Checking for require
+-        auto matchIterator = m_requirePattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Preprocessor")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(1),
+-                match.capturedLength(1),
+-                syntaxStyle()->getFormat("String")
+-            );
+-        }
+-    }
+-    { // Checking for function
+-        auto matchIterator = m_functionPattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat("Type")
+-            );
+-
+-            setFormat(
+-                match.capturedStart(2),
+-                match.capturedLength(2),
+-                syntaxStyle()->getFormat("Function")
+-            );
+-        }
+-    }
+-    { // checking for type
+-        auto matchIterator = m_defTypePattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(1),
+-                match.capturedLength(1),
+-                syntaxStyle()->getFormat("Type")
+-            );
+-        }
+-    }
+-
+-    for (auto& rule : m_highlightRules)
+-    {
+-        auto matchIterator = rule.pattern.globalMatch(text);
+-
+-        while (matchIterator.hasNext())
+-        {
+-            auto match = matchIterator.next();
+-
+-            setFormat(
+-                match.capturedStart(),
+-                match.capturedLength(),
+-                syntaxStyle()->getFormat(rule.formatName)
+-            );
+-        }
+-    }
+-
+-    setCurrentBlockState(0);
+-    int startIndex = 0;
+-    int highlightRuleId = previousBlockState();
+-    if (highlightRuleId < 1 || highlightRuleId > m_highlightBlockRules.size()) {
+-        for(int i = 0; i < m_highlightBlockRules.size(); ++i) {
+-            startIndex = text.indexOf(m_highlightBlockRules.at(i).startPattern);
+-            if (startIndex >= 0) {
+-                highlightRuleId = i + 1;
+-                break;
+-            }
+-        }
+-    }
+-
+-    while (startIndex >= 0)
+-    {
+-        const auto &blockRules = m_highlightBlockRules.at(highlightRuleId - 1);
+-        auto match = blockRules.endPattern.match(text, startIndex);
+-
+-        int endIndex = match.capturedStart();
+-        int matchLength = 0;
+-
+-        if (endIndex == -1)
+-        {
+-            setCurrentBlockState(highlightRuleId);
+-            matchLength = text.length() - startIndex;
+-        }
+-        else
+-        {
+-            matchLength = endIndex - startIndex + match.capturedLength();
+-        }
+-
+-        setFormat(
+-            startIndex,
+-            matchLength,
+-            syntaxStyle()->getFormat(blockRules.formatName)
+-        );
+-        startIndex = text.indexOf(blockRules.startPattern, startIndex + matchLength);
+-    }
+-}
+diff --git a/lib/src/highlighters/QXMLHighlighter.cpp b/lib/src/highlighters/QXMLHighlighter.cpp
+deleted file mode 100644
+index 4504982..0000000
+--- a/lib/src/highlighters/QXMLHighlighter.cpp
++++ /dev/null
+@@ -1,111 +0,0 @@
+-// K-Editor
+-#include <QXMLHighlighter>
+-#include <QSyntaxStyle>
+-
+-
+-QXMLHighlighter::QXMLHighlighter(QTextDocument* document) :
+-    QStyleSyntaxHighlighter(document),
+-    m_xmlKeywordRegexes   (),
+-    m_xmlElementRegex     (R"(<[\s]*[/]?[\s]*([^\n][a-zA-Z-_:]*)(?=[\s/>]))"),
+-    m_xmlAttributeRegex   (R"(\w+(?=\=))"),
+-    m_xmlValueRegex       (R"("[^\n"]+"(?=\??[\s/>]))"),
+-    m_xmlCommentBeginRegex(R"(<!--)"),
+-    m_xmlCommentEndRegex  (R"(-->)")
+-{
+-    m_xmlKeywordRegexes
+-        << QRegularExpression("<\\?")
+-        << QRegularExpression("/>")
+-        << QRegularExpression(">")
+-        << QRegularExpression("<")
+-        << QRegularExpression("</")
+-        << QRegularExpression("\\?>");
+-}
+-
+-void QXMLHighlighter::highlightBlock(const QString& text)
+-{
+-    // Special treatment for xml element regex as we use captured text to emulate lookbehind
+-    auto matchIterator = m_xmlElementRegex.globalMatch(text);
+-    while (matchIterator.hasNext())
+-    {
+-        auto match = matchIterator.next();
+-
+-        setFormat(
+-            match.capturedStart(),
+-            match.capturedLength(),
+-            syntaxStyle()->getFormat("Keyword") // XML ELEMENT FORMAT
+-        );
+-    }
+-
+-    // Highlight xml keywords *after* xml elements to fix any occasional / captured into the enclosing element
+-
+-    for (auto&& regex : m_xmlKeywordRegexes)
+-    {
+-        highlightByRegex(
+-            syntaxStyle()->getFormat("Keyword"),
+-            regex,
+-            text
+-        );
+-    }
+-
+-    highlightByRegex(
+-        syntaxStyle()->getFormat("Text"),
+-        m_xmlAttributeRegex,
+-        text
+-    );
+-
+-    setCurrentBlockState(0);
+-
+-    int startIndex = 0;
+-    if (previousBlockState() != 1)
+-    {
+-        startIndex = text.indexOf(m_xmlCommentBeginRegex);
+-    }
+-
+-    while (startIndex >= 0)
+-    {
+-        auto match = m_xmlCommentEndRegex.match(text, startIndex);
+-
+-        int endIndex = match.capturedStart();
+-        int commentLength = 0;
+-
+-        if (endIndex == -1)
+-        {
+-            setCurrentBlockState(1);
+-            commentLength = text.length() - startIndex;
+-        }
+-        else
+-        {
+-            commentLength = endIndex - startIndex + match.capturedLength();
+-        }
+-
+-        setFormat(
+-            startIndex,
+-            commentLength,
+-            syntaxStyle()->getFormat("Comment")
+-        );
+-
+-        startIndex = text.indexOf(m_xmlCommentBeginRegex, startIndex + commentLength);
+-    }
+-
+-    highlightByRegex(
+-        syntaxStyle()->getFormat("String"),
+-        m_xmlValueRegex,
+-        text
+-    );
+-}
+-
+-void QXMLHighlighter::highlightByRegex(const QTextCharFormat& format, const QRegularExpression& regex, const QString& text)
+-{
+-    auto matchIterator = regex.globalMatch(text);
+-
+-    while (matchIterator.hasNext())
+-    {
+-        auto match = matchIterator.next();
+-
+-        setFormat(
+-            match.capturedStart(),
+-            match.capturedLength(),
+-            format
+-        );
+-    }
+-}
