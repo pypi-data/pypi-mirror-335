@@ -1,0 +1,59 @@
+[build-system]
+requires = [
+    "setuptools>=60",
+    "setuptools-scm>=8.0"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "hipersim"
+authors = [{name="Nikolay Dimitrov", email="nkdi@dtu.dk"},]
+description = "A collection of wind energy simulation tools"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+    "xarray",
+    "netcdf4",
+    "h5netcdf",
+    "scipy",
+    "tqdm",
+    "matplotlib",
+]
+dynamic = ["version"]
+
+
+
+
+[project.urls]
+"Homepage" = "https://gitlab.windenergy.dtu.dk/HiperSim/hipersim"
+
+
+[project.optional-dependencies]
+docs = ["sphinx", "python-docs-theme", "numpydoc", "nbsphinx", "sphinx_copybutton", "sphinx_sitemap", "ipympl", "ipykernel"]
+tests = ['wetb','h2lib']
+
+[tool.setuptools]
+license-files = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["hipersim"]
+namespaces = false  # to disable scanning PEP 420 namespaces (true by default)
+
+[tool.setuptools_scm]
+version_file = "src/hipersim/version.py"
+
+[tool.coverage.report]
+fail_under = 90
+
+[tool.coverage.run]
+source = ['hipersim']
+omit = [
+    "src/hipersim/surrogates/*",
+    "src/hipersim/turbgen/constrain_field*",
+]
