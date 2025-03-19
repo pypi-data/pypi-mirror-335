@@ -1,0 +1,21 @@
+{
+    "tokens": ["Acadia", "University", "is", "a", "predominantly", "undergraduate", "university", "located", "in", "Wolfville", ",", "Nova", "Scotia", ",", "Canada", "with", "some", "graduate", "programs", "at", "the", "master", "'", "s", "level", "and", "one", "at", "the", "doctoral", "level", "."],
+    "entities": [
+        { "span": [0, 2] },
+        { "span": [9, 13] },
+        { "span": [14, 15] }
+    ],
+    "relations": [
+        {
+            "head": [0, 2],
+            "tail": [9, 13],
+            "label": "headquarters location",
+            "qualifiers": [
+                {
+                    "span": [14, 15],
+                    "label": "country"
+                }
+            ]
+        }
+    ]
+}

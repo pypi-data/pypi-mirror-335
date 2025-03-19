@@ -1,0 +1,30 @@
+{
+    "id": "valid_0",
+    "text": "In Queens , North Shore Towers , near the Nassau border , supplanted a golf course , and housing replaced a gravel quarry in Douglaston .",
+    "entity_list": [
+        {
+            "text": "Queens",
+            "char_span": [3, 9]
+        },
+        {
+            "text": "Douglaston",
+            "char_span": [125, 135]
+        }
+    ],
+    "relation_list": [
+        {
+            "subject": "Queens",
+            "object": "Douglaston",
+            "subj_char_span": [3, 9],
+            "obj_char_span": [125, 135],
+            "predicate": "/location/location/contains"
+        },
+        {
+            "subject": "Douglaston",
+            "object": "Queens",
+            "subj_char_span": [125, 135],
+            "obj_char_span": [3, 9],
+            "predicate": "/location/neighborhood/neighborhood_of"
+        }
+    ]
+}

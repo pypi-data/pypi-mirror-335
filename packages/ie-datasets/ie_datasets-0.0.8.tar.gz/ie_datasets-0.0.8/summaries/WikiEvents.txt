@@ -1,0 +1,578 @@
+================================================================================
+ONTOLOGY
+--------------------------------------------------------------------------------
+ENTITY TYPES
+  ABS: "Abstract, non-tangible artifacts such as software (e.g., programs, tool kits, apps, e-mail), measureable intellectual property, contracts, etc. (nb: does not include laws, which are LAW type)"
+  AML: "Animal, a non-human living organism which feeds on organic matter, typically having specialized sense organs and a nervous system and able to respond rapidly to stimuli"
+  BAL: "A ballot for an election, either the paper ballot used for voting, including both physical paper ballots and also the slate of candidates and ballot questions"
+  BOD: "An identifiable, living part of a human's or animal's body, such as a eye, ear, neck, leg, etc."
+  COM: "A tangible product or article of trade for which someone pays or barters, or more generally, an artifact or a thing"
+  FAC: "A functional, primarily man-made structure. Facilities are artifacts falling under the domains of architecture and civil engineering, including more temporary human constructs, such as police lines and checkpoints."
+  GPE: "Geopolitical entities such as countries, provinces, states, cities, towns, etc. GPEs are composite entities, consisting of a physical location, a government, and a population. All three of these elements must be present for an entity to be tagged as a GPE. A GPE entity may be a single geopolitical entity or a group."
+  INF: "An information object such as a field of study or topic of communication, including thoughts, opinions, etc."
+  LAW: "A law, an act that is voted on by either a legislative body or an electorate, such as a law, referendum, act, regulation, statute, ordinance, etc."
+  LOC: "Geographical entities such as geographical areas and landmasses, bodies of water"
+  MHI: "Any medical condition or health issue, to include everything from disease to broken bones to fever to general ill health, medical errors, even natural causes"
+  MON: "A monetary payment. The extent of a Money mention includes modifying quantifiers, the amount, and the currency unit, all of which can be optional."
+  NAT: "Valuable materials or substances, such as minerals, forests, water, and fertile land, that are not man-made, occur naturally within the environment and can be used for economic gain"
+  ORG: "Corporations, agencies, and other groups of people defined by an established organizational structure. An ORG entity may be a single organization or a group. A key feature of an ORG is that it can change members without changing identity."
+  PER: "Person entities are limited to humans. A PER entity may be a single person or a group."
+  PLA: "Plants/flora as well as edible fungi such as mushrooms; multicellular living organisms, typically growing in the earth and  lacking the power of locomotion, ex. grass and crops such as wheat, beans, fruit, etc."
+  PTH: "An infectious microorganism or agent, such as a virus, bacterium, protozoan, prion, viroid, or fungus"
+  RES: "The results of a voting event.  This will cover general results as well as counted results."
+  SEN: "The judicial or court sentence in a Justice event, the punishment a judge gives to a defendant found guilty of a crime"
+  SID: "The different sides of a conflict, such as  philosophical, cultural, ideological, religious, political, guiding philosophical movement or group orientation.  This will encompass sides of the battle/conflict, sports fans when salient, and other such affiliations, in addition to religions, political parties, and other philosophies."
+  TTL: "A person’s title or job role"
+  VAL: "A numerical value or non-numerical value such as an informational property such as color or make or URL"
+  VEH: "A physical device primarily designed to move an object from one location to another, by (for example) carrying, flying, pulling, or pushing the transported object. Vehicle entities may or may not have their own power source."
+  WEA: "A physical device that is primarily used as an instrument for physically harming or destroying entities"
+  CRM: "An unlawful act punishable by a state or other authority."
+--------------------------------------------------------------------------------
+EVENT TYPES
+  ArtifactExistence.DamageDestroyDisableDismantle.Damage: "<arg1> damaged <arg2> using <arg3> instrument in <arg4> place"
+    *: 0-3
+    Artifact: 0-3
+    Damager: 0-1
+    Instrument: 0-2
+    Place: 0-1
+  ArtifactExistence.DamageDestroyDisableDismantle.Destroy: "<arg1> destroyed <arg2> using <arg3> instrument in <arg4> place"
+    *: 0-3
+    Artifact: 0-3
+    Destroyer: 0-1
+    Instrument: 0-1
+    Place: 0-1
+  ArtifactExistence.DamageDestroyDisableDismantle.DisableDefuse: "<arg1> disabled or defused <arg2> using <arg3> instrument in <arg4> place"
+    *: 1-2
+    Artifact: 1-1
+    Disabler: 0-1
+    Instrument: 0-1
+    Place: 0-0
+  ArtifactExistence.DamageDestroyDisableDismantle.Dismantle: "<arg1> dismantled <arg2> into <arg4> components using <arg3> instrument in <arg5> place"
+    *: 1-3
+    Artifact: 0-1
+    Components: 0-1
+    Dismantler: 0-1
+    Instrument: 0-1
+    Place: 0-1
+  ArtifactExistence.DamageDestroyDisableDismantle.Unspecified: "<arg1> damaged or destroyed <arg2> using <arg3> instrument in <arg4> place"
+    *: 1-3
+    Artifact: 0-2
+    DamagerDestroyer: 0-1
+    Instrument: 0-1
+    Place: 0-1
+  ArtifactExistence.ManufactureAssemble.Unspecified: "<arg1> manufactured or assembled or produced <arg2> from <arg3> components using <arg4> at <arg5> place"
+    *: 0-8
+    Artifact: 0-3
+    Components: 0-7
+    Instrument: 0-0
+    ManufacturerAssembler: 0-2
+    Place: 0-2
+  Cognitive.IdentifyCategorize.Unspecified: "<arg1> identified <arg2> as <arg3> at <arg4> place"
+    *: 0-4
+    IdentifiedObject: 0-2
+    IdentifiedRole: 0-2
+    Identifier: 0-1
+    Place: 0-1
+  Cognitive.Inspection.SensoryObserve: "<arg1> observed <arg2> using <arg3> in <arg4> place"
+    *: 0-4
+    Instrument: 0-1
+    ObservedEntity: 0-3
+    Observer: 0-2
+    Place: 0-1
+  Cognitive.Research.Unspecified: "<arg1> researched <arg2> subject using <arg3> at <arg4> place"
+    *: 1-3
+    Means: 0-0
+    Place: 0-1
+    Researcher: 0-2
+    Subject: 0-1
+  Cognitive.TeachingTrainingLearning.Unspecified: "<arg1> taught <arg2> field of knowledge to <arg3> using <arg4> at <arg5> institution in <arg6> place"
+    *: 0-1
+    FieldOfKnowledge: 0-0
+    Institution: 0-0
+    Learner: 0-1
+    Means: 0-0
+    Place: 0-0
+    TeacherTrainer: 0-1
+  Conflict.Attack.DetonateExplode: "<arg1> detonated or exploded <arg4> explosive device using <arg3> to attack <arg2> target at <arg5> place"
+    *: 0-10
+    Attacker: 0-9
+    ExplosiveDevice: 0-2
+    Instrument: 0-3
+    Place: 0-7
+    Target: 0-5
+  Conflict.Attack.Unspecified: "<arg1> attacked <arg2> using <arg3> at <arg4> place"
+    *: 0-5
+    Attacker: 0-3
+    Instrument: 0-2
+    Place: 0-4
+    Target: 0-3
+  Conflict.Defeat.Unspecified: "<arg1> defeated <arg2> in <arg3> conflict at <arg4> place"
+    *: 1-5
+    ConflictOrElection: 0-0
+    Defeated: 0-1
+    Place: 0-2
+    Victor: 1-2
+  Conflict.Demonstrate.DemonstrateWithViolence: "<arg1> was in a demonstration involving violence for <arg4> topic with <arg3> visual display against <arg5> at <arg6> place, with potential involvement of <arg2> police or military"
+    *: 0-2
+    Demonstrator: 0-1
+    Place: 0-0
+    Regulator: 0-1
+    Target: 0-0
+    Topic: 0-0
+    VisualDisplay: 0-0
+  Conflict.Demonstrate.Unspecified: "<arg1> was in a demonstration for <arg4> topic with <arg3> visual display against <arg5> at <arg6> place, with potential involvement of <arg2> police or military"
+    *: 0-4
+    Demonstrator: 0-1
+    Place: 0-0
+    Regulator: 0-0
+    Target: 0-1
+    Topic: 0-2
+    VisualDisplay: 0-0
+  Contact.Contact.Broadcast: "<arg1> communicated to <arg2> about <arg4> topic using <arg3> at <arg5> place (one-way communication)"
+    *: 0-4
+    Communicator: 0-2
+    Instrument: 0-2
+    Place: 0-1
+    Recipient: 0-1
+    Topic: 0-3
+  Contact.Contact.Correspondence: "<arg1> communicated remotely with <arg2> about <arg4> topic using <arg3> at <arg5> place"
+    *: 1-4
+    Instrument: 0-0
+    Participant: 1-2
+    Place: 0-1
+    Topic: 0-1
+  Contact.Contact.Meet: "<arg1> met face-to-face with <arg2> about <arg3> topic at <arg4> place"
+    *: 0-4
+    Participant: 0-3
+    Place: 0-1
+    Topic: 0-2
+  Contact.Contact.Unspecified: "<arg1> communicated with <arg2> about <arg3> topic at <arg4> place (document does not specify in person or not, or one-way or not)"
+    *: 0-4
+    Participant: 0-3
+    Place: 0-1
+    Topic: 0-2
+  Contact.Prevarication.Unspecified: "<arg1> communicated with <arg2> about <arg3> topic at <arg4> place (document does not specify in person or not, or one-way or not)"
+  Contact.RequestCommand.Unspecified: "<arg1> communicated with <arg2> about <arg3> topic at <arg4> place (document does not specify in person or not, or one-way or not)"
+    *: 0-3
+    Communicator: 0-2
+    Place: 0-1
+    Recipient: 0-2
+    Topic: 0-1
+  Contact.ThreatenCoerce.Unspecified: "<arg1> communicated with <arg2> about <arg3> topic at <arg4> place (document does not specify in person or not, or one-way or not)"
+    *: 0-5
+    Communicator: 0-1
+    Place: 0-0
+    Recipient: 0-5
+    Topic: 0-0
+  Control.ImpedeInterfereWith.Unspecified: "<arg1> impeded or interfered with <arg2> event at <arg3> place"
+    *: 0-2
+    ImpededEvent: 0-0
+    Impeder: 0-2
+    Place: 0-1
+  Disaster.Crash.Unspecified: "<arg1> person in <arg2> vehicle crashed into <arg3> at <arg4> place"
+    *: 0-3
+    CrashObject: 0-1
+    DriverPassenger: 0-0
+    Place: 0-1
+    Vehicle: 0-1
+  Disaster.DiseaseOutbreak.Unspecified: "<arg1> disease broke out among <arg2> victims or population at <arg3> place"
+    *: 0-2
+    Disease: 0-1
+    Place: 0-1
+    Victim: 0-1
+  Disaster.FireExplosion.Unspecified: "<arg1> caught fire or exploded from <arg2> instrument at <arg3> place"
+  GenericCrime.GenericCrime.GenericCrime: "<arg1> committed a crime against <arg2> at <arg3> place"
+    *: 0-3
+    Perpetrator: 0-2
+    Place: 0-2
+    Victim: 0-1
+  Justice.Acquit.Unspecified: "<arg1> court or judge acquitted <arg2> of <arg3> crime in <arg4> place"
+    *: 1-1
+    Crime: 0-0
+    Defendant: 1-1
+    JudgeCourt: 0-0
+    Place: 0-0
+  Justice.ArrestJailDetain.Unspecified: "<arg1> arrested or jailed <arg2> for <arg3> crime at <arg4> place"
+    *: 0-8
+    Crime: 0-0
+    Detainee: 0-8
+    Jailer: 0-3
+    Place: 0-3
+  Justice.ChargeIndict.Unspecified: "<arg1> charged or indicted <arg2> before <arg3> court or judge for <arg4> crime in <arg5> place"
+    *: 0-6
+    Crime: 0-0
+    Defendant: 0-6
+    JudgeCourt: 0-1
+    Place: 0-2
+    Prosecutor: 0-4
+  Justice.Convict.Unspecified: "<arg1> court or judge convicted <arg2> of <arg3> crime in <arg4> place"
+    *: 0-4
+    Crime: 0-0
+    Defendant: 0-4
+    JudgeCourt: 0-1
+    Place: 0-0
+  Justice.InvestigateCrime.Unspecified: "<arg1> investigated <arg2> for <arg3> crime in <arg4> place"
+    *: 0-5
+    Crime: 0-0
+    Defendant: 0-3
+    Investigator: 0-3
+    Place: 0-3
+  Justice.ReleaseParole.Unspecified: "<arg1> court or judge released or paroled <arg2> from <arg3> crime in <arg4> place"
+    *: 0-2
+    Crime: 0-0
+    Defendant: 0-1
+    JudgeCourt: 0-1
+    Place: 0-0
+  Justice.Sentence.Unspecified: "<arg1> court or judge sentenced <arg2> for <arg3> crime to <arg4> sentence in <arg5> place"
+    *: 0-3
+    Crime: 0-0
+    Defendant: 0-2
+    JudgeCourt: 0-1
+    Place: 0-1
+    Sentence: 0-0
+  Justice.TrialHearing.Unspecified: "<arg1> tried <arg2> before <arg3> court or judge for <arg4> crime in <arg5> place"
+    *: 0-4
+    Crime: 0-0
+    Defendant: 0-2
+    JudgeCourt: 0-1
+    Place: 0-2
+    Prosecutor: 0-1
+  Life.Consume.Unspecified: "<arg1> consumed <arg2> at <arg3> place"
+  Life.Die.Unspecified: "<arg1> died at <arg2> place from <arg4> medical issue, killed by <arg3> killer"
+    *: 0-5
+    Killer: 0-2
+    MedicalIssue: 0-0
+    Place: 0-2
+    Victim: 0-5
+  Life.Illness.Unspecified: "<arg1> has <arg3> sickness or illness at <arg4> place, deliberately infected by <arg2>"
+  Life.Infect.Unspecified: "<arg1> was infected with <arg2> from <arg3> at <arg4> place"
+    *: 1-1
+    InfectingAgent: 0-0
+    Place: 0-0
+    Source: 0-0
+    Victim: 1-1
+  Life.Injure.Unspecified: "<arg1> was injured by <arg2> using <arg3> in <arg4> body part with <arg5> medical issue at <arg6> place"
+    *: 0-4
+    BodyPart: 0-2
+    Injurer: 0-2
+    Instrument: 0-1
+    MedicalCondition: 0-0
+    Place: 0-0
+    Victim: 0-4
+  Medical.Diagnosis.Unspecified: "<arg1> treater diagnosed <arg2> patient with <arg3> symptom for <arg4> medical issue at <arg5> place"
+  Medical.Intervention.Unspecified: "<arg1> treater treated <arg2> patient for <arg3> medical issue with <arg4> means at <arg5> place"
+    *: 0-5
+    Instrument: 0-0
+    MedicalIssue: 0-0
+    Patient: 0-3
+    Place: 0-1
+    Treater: 0-1
+  Medical.Vaccinate.Unspecified: "<arg1> treater vaccinated <arg2> patient via <arg4> vaccination method for <arg3> medical issue at <arg5> place"
+  Movement.Transportation.Evacuation: "<arg1> transported <arg2> in <arg3> from <arg4> place to <arg5> place"
+    *: 0-3
+    Destination: 0-1
+    Origin: 0-1
+    PassengerArtifact: 0-1
+    Transporter: 0-1
+    Vehicle: 0-0
+  Movement.Transportation.IllegalTransportation: "<arg1> illegally transported <arg2> in <arg3> from <arg4> place to <arg5> place"
+    *: 0-4
+    Destination: 0-1
+    Origin: 0-0
+    PassengerArtifact: 0-3
+    Transporter: 0-1
+    Vehicle: 0-1
+  Movement.Transportation.PreventPassage: "<arg4> prevents <arg1> from entering <arg6> place from <arg5> place to transport <arg2> using <arg3> vehicle"
+    *: 0-3
+    Destination: 0-1
+    Origin: 0-1
+    PassengerArtifact: 0-1
+    Preventer: 0-1
+    Transporter: 0-1
+    Vehicle: 0-1
+  Movement.Transportation.Unspecified: "<arg1> transported <arg2> in <arg3> from <arg4> place to <arg5> place"
+    *: 0-6
+    Destination: 0-2
+    Origin: 0-1
+    PassengerArtifact: 0-4
+    Transporter: 0-2
+    Vehicle: 0-3
+  Personnel.EndPosition.Unspecified: "<arg1> stopped working in <arg3> position at <arg2> organization in <arg4> place"
+    *: 0-2
+    Employee: 0-2
+    Place: 0-0
+    PlaceOfEmployment: 0-1
+    Position: 0-0
+  Personnel.StartPosition.Unspecified: "<arg1> started working in <arg3> position at <arg2> organization in <arg4> place"
+    *: 0-4
+    Employee: 0-2
+    Place: 0-1
+    PlaceOfEmployment: 0-1
+    Position: 0-1
+  Transaction.Donation.Unspecified: "<arg1> gave <arg4> to <arg2> for the benefit of <arg3> at <arg5> place"
+    *: 3-3
+    ArtifactMoney: 1-1
+    Beneficiary: 0-0
+    Giver: 1-1
+    Place: 0-0
+    Recipient: 1-1
+  Transaction.ExchangeBuySell.Unspecified: "<arg1> bought, sold, or traded <arg3> to <arg2> in exchange for <arg4> for the benefit of <arg5> at <arg6> place"
+    *: 0-5
+    AcquiredEntity: 0-4
+    Beneficiary: 0-0
+    Giver: 0-1
+    PaymentBarter: 0-2
+    Place: 0-0
+    Recipient: 0-1
+================================================================================
+train: 206 units
+             scenario_en_kairos_14:   997 chars,   205 tokens,   4 sentences,   39 entity mentions,   3 event mentions
+             scenario_en_kairos_65:  3158 chars,   657 tokens,  21 sentences,  114 entity mentions,   5 event mentions
+             scenario_en_kairos_44:  1949 chars,   374 tokens,   6 sentences,   58 entity mentions,  11 event mentions
+             scenario_en_kairos_86:  4647 chars,   871 tokens,  15 sentences,  155 entity mentions,  14 event mentions
+             scenario_en_kairos_11:   904 chars,   161 tokens,   6 sentences,   37 entity mentions,   7 event mentions
+                   scenario_en_130:  4072 chars,   760 tokens,  19 sentences,   95 entity mentions,  13 event mentions
+   19_VOA_EN_NW_2015.08.29.2937448:  4749 chars,   887 tokens,  31 sentences,  188 entity mentions,  28 event mentions
+             scenario_en_kairos_18:  1195 chars,   216 tokens,   3 sentences,   40 entity mentions,  18 event mentions
+                   scenario_en_121:  1790 chars,   333 tokens,   7 sentences,   48 entity mentions,  12 event mentions
+                    scenario_en_67:  1701 chars,   308 tokens,   6 sentences,   41 entity mentions,   7 event mentions
+              scenario_en_kairos_0:   437 chars,    76 tokens,   3 sentences,   14 entity mentions,   5 event mentions
+   61_VOA_EN_NW_2017.03.22.3777524:  6154 chars,  1219 tokens,  31 sentences,  274 entity mentions,  57 event mentions
+   35_VOA_EN_NW_2015.04.08.2711451:  7460 chars,  1700 tokens,  95 sentences,  166 entity mentions,  21 event mentions
+             scenario_en_kairos_43:  1933 chars,   369 tokens,  11 sentences,   68 entity mentions,  11 event mentions
+             scenario_en_kairos_53:  2373 chars,   454 tokens,   6 sentences,   73 entity mentions,  17 event mentions
+                         JC002YBVX:  4719 chars,   983 tokens,  87 sentences,  160 entity mentions,  25 event mentions
+   50_VOA_EN_NW_2015.06.25.2836393:  3180 chars,   622 tokens,  13 sentences,  126 entity mentions,  15 event mentions
+    8_VOA_EN_NW_2014.05.30.1925959:  2989 chars,   547 tokens,  13 sentences,  100 entity mentions,  12 event mentions
+             scenario_en_kairos_37:  1660 chars,   319 tokens,   4 sentences,  113 entity mentions,   2 event mentions
+  wiki_mass_car_bombings_0_article:  9906 chars,  1743 tokens,  34 sentences,  368 entity mentions,  81 event mentions
+                   suicide_ied_110:   316 chars,    62 tokens,   6 sentences,   13 entity mentions,   3 event mentions
+             scenario_en_kairos_46:  2042 chars,   398 tokens,  15 sentences,   79 entity mentions,  11 event mentions
+      wiki_drone_strikes_2_news_11:  4245 chars,   782 tokens,  14 sentences,  104 entity mentions,   0 event mentions
+                         K0C041NHW:   829 chars,   152 tokens,   7 sentences,   34 entity mentions,   4 event mentions
+   49_VOA_EN_NW_2015.04.15.2720171:  2476 chars,   499 tokens,  16 sentences,   79 entity mentions,   4 event mentions
+                        road_ied_7:  1874 chars,   352 tokens,  15 sentences,   87 entity mentions,  13 event mentions
+   wiki_mass_car_bombings_1_news_9:  3897 chars,   694 tokens,  24 sentences,  155 entity mentions,   8 event mentions
+   55_VOA_EN_NW_2014.06.30.1947653:  2366 chars,   443 tokens,  12 sentences,   83 entity mentions,   7 event mentions
+    7_VOA_EN_NW_2017.03.07.3753687:  8227 chars,  1690 tokens,  29 sentences,  256 entity mentions,   9 event mentions
+                       road_ied_13:  1433 chars,   245 tokens,  10 sentences,   73 entity mentions,   8 event mentions
+                   backpack_ied_16:  1373 chars,   262 tokens,   6 sentences,   40 entity mentions,   7 event mentions
+        wiki_ied_bombings_5_news_4: 13209 chars,  2481 tokens,  25 sentences,  195 entity mentions,  18 event mentions
+                    scenario_en_64:  4062 chars,   874 tokens,  21 sentences,  108 entity mentions,  15 event mentions
+   27_VOA_EN_NW_2015.04.06.2708308:  4198 chars,   849 tokens,  23 sentences,  161 entity mentions,   6 event mentions
+                   backpack_ied_18:  9624 chars,  1943 tokens,  88 sentences,  295 entity mentions,  20 event mentions
+                   backpack_ied_11:  1608 chars,   315 tokens,  13 sentences,   64 entity mentions,  22 event mentions
+             scenario_en_kairos_38:  1704 chars,   364 tokens,   8 sentences,   65 entity mentions,   2 event mentions
+   66_VOA_EN_NW_2013.05.30.1671716:  2436 chars,   466 tokens,  13 sentences,   97 entity mentions,  13 event mentions
+                    suicide_ied_12:  1755 chars,   335 tokens,  16 sentences,   68 entity mentions,   8 event mentions
+               wiki_ied_bombings_3:  5388 chars,  1008 tokens,  18 sentences,  151 entity mentions,  27 event mentions
+                   suicide_ied_106:   870 chars,   161 tokens,  12 sentences,   39 entity mentions,   8 event mentions
+      wiki_drone_strikes_1_news_14:   133 chars,    26 tokens,   1 sentences,    2 entity mentions,   0 event mentions
+                   suicide_ied_105: 15507 chars,  2874 tokens, 131 sentences,  598 entity mentions,  51 event mentions
+      wiki_drone_strikes_0_news_10: 12703 chars,  2335 tokens,  28 sentences,  370 entity mentions,  37 event mentions
+                   scenario_en_123:  5468 chars,   966 tokens,  21 sentences,  222 entity mentions,  16 event mentions
+        wiki_ied_bombings_5_news_1:  1574 chars,   307 tokens,  14 sentences,   60 entity mentions,  18 event mentions
+   21_VOA_EN_NW_2015.04.21.2728323:  3210 chars,   630 tokens,  16 sentences,  110 entity mentions,  24 event mentions
+   31_VOA_EN_NW_2015.05.15.2768933:  3271 chars,   611 tokens,  21 sentences,  105 entity mentions,  16 event mentions
+                    scenario_en_37:  9675 chars,  1851 tokens,  43 sentences,  253 entity mentions,   6 event mentions
+                        road_ied_4:  1699 chars,   331 tokens,  12 sentences,   74 entity mentions,  17 event mentions
+             scenario_en_kairos_50:  2257 chars,   455 tokens,  10 sentences,  100 entity mentions,  19 event mentions
+    2_VOA_EN_NW_2015.01.04.2583337: 20217 chars,  4077 tokens, 102 sentences,  795 entity mentions,  59 event mentions
+             scenario_en_kairos_41:  1774 chars,   367 tokens,  10 sentences,   84 entity mentions,  18 event mentions
+        wiki_ied_bombings_3_news_5:   630 chars,   128 tokens,   7 sentences,   31 entity mentions,   7 event mentions
+        wiki_ied_bombings_1_news_8:  1923 chars,   374 tokens,   7 sentences,   43 entity mentions,   1 event mentions
+                         JC002YBVY:  2126 chars,   399 tokens,  16 sentences,   76 entity mentions,  16 event mentions
+                   scenario_en_131:  2845 chars,   511 tokens,  15 sentences,   66 entity mentions,  13 event mentions
+  wiki_mass_car_bombings_0_news_10:   904 chars,   179 tokens,   6 sentences,   28 entity mentions,   6 event mentions
+   wiki_mass_car_bombings_0_news_8:  4674 chars,   877 tokens,  39 sentences,  178 entity mentions,  19 event mentions
+  wiki_mass_car_bombings_1_news_10:  2743 chars,   484 tokens,  17 sentences,  109 entity mentions,  16 event mentions
+                         K0C047Z5A:  4985 chars,   932 tokens,  40 sentences,  162 entity mentions,  16 event mentions
+                    scenario_en_63:  6956 chars,  1325 tokens,  28 sentences,  197 entity mentions,  25 event mentions
+                       road_ied_14:  1292 chars,   242 tokens,  10 sentences,   51 entity mentions,   8 event mentions
+                       road_ied_10:  1542 chars,   278 tokens,  11 sentences,   66 entity mentions,  21 event mentions
+      wiki_drone_strikes_2_news_10:  4361 chars,   802 tokens,  15 sentences,  107 entity mentions,   6 event mentions
+                   suicide_ied_102:   814 chars,   151 tokens,   8 sentences,   29 entity mentions,   8 event mentions
+        wiki_ied_bombings_5_news_5:  4163 chars,   766 tokens,  26 sentences,  114 entity mentions,  22 event mentions
+   73_VOA_EN_NW_2016.01.19.3152458:  5167 chars,   975 tokens,  37 sentences,  195 entity mentions,  45 event mentions
+                         JC002YBW2:  5830 chars,  1132 tokens,  47 sentences,  187 entity mentions,  28 event mentions
+             scenario_en_kairos_47:  2100 chars,   402 tokens,  14 sentences,   87 entity mentions,  14 event mentions
+   56_VOA_EN_NW_2015.05.28.2794068:  2004 chars,   358 tokens,  11 sentences,   83 entity mentions,   5 event mentions
+             scenario_en_kairos_42:  1776 chars,   359 tokens,  11 sentences,   65 entity mentions,   9 event mentions
+   36_VOA_EN_NW_2013.04.25.1648496:  2716 chars,   518 tokens,  17 sentences,  122 entity mentions,   3 event mentions
+             scenario_en_kairos_85:  4345 chars,   883 tokens,  23 sentences,  202 entity mentions,  42 event mentions
+                   scenario_en_112:  6026 chars,  1140 tokens,  31 sentences,  214 entity mentions,  21 event mentions
+             scenario_en_kairos_51:  2285 chars,   469 tokens,  11 sentences,   97 entity mentions,   6 event mentions
+             scenario_en_kairos_22:  1307 chars,   237 tokens,   9 sentences,   53 entity mentions,  10 event mentions
+                   suicide_ied_104:   740 chars,   139 tokens,   9 sentences,   29 entity mentions,  11 event mentions
+             scenario_en_kairos_62:  3025 chars,   570 tokens,  14 sentences,  101 entity mentions,   0 event mentions
+       wiki_drone_strikes_1_news_3:  1885 chars,   350 tokens,  12 sentences,   72 entity mentions,   8 event mentions
+   60_VOA_EN_NW_2017.06.06.3888881:  6260 chars,  1207 tokens,  42 sentences,  221 entity mentions,  21 event mentions
+                         K0C0448WJ:  3506 chars,   630 tokens,  30 sentences,   76 entity mentions,  18 event mentions
+   wiki_mass_car_bombings_0_news_1:  4152 chars,   767 tokens,  19 sentences,  140 entity mentions,  36 event mentions
+      wiki_drone_strikes_1_news_15:   133 chars,    26 tokens,   1 sentences,    2 entity mentions,   0 event mentions
+    0_VOA_EN_NW_2016.09.21.3519045:  4668 chars,   913 tokens,  23 sentences,  185 entity mentions,  40 event mentions
+                        road_ied_1:   371 chars,    64 tokens,   4 sentences,   19 entity mentions,   6 event mentions
+             scenario_en_kairos_39:  1718 chars,   355 tokens,  10 sentences,   77 entity mentions,   9 event mentions
+                   suicide_ied_103:   239 chars,    43 tokens,   3 sentences,   11 entity mentions,   3 event mentions
+   18_VOA_EN_NW_2016.09.21.3518065:  3447 chars,   668 tokens,  17 sentences,  142 entity mentions,  22 event mentions
+   33_VOA_EN_NW_2014.12.18.2564370:  4014 chars,   801 tokens,  22 sentences,  150 entity mentions,  17 event mentions
+                        road_ied_0:  5456 chars,  1097 tokens,  35 sentences,  209 entity mentions,  48 event mentions
+                         JC002YBVZ:  6642 chars,  1278 tokens,  72 sentences,  223 entity mentions,  28 event mentions
+               wiki_ied_bombings_0: 15140 chars,  2978 tokens,  55 sentences,  531 entity mentions,  96 event mentions
+    1_VOA_EN_NW_2013.04.19.1644775: 22597 chars,  4712 tokens, 204 sentences,  885 entity mentions, 100 event mentions
+             scenario_en_kairos_45:  2039 chars,   391 tokens,   7 sentences,   59 entity mentions,  13 event mentions
+                   backpack_ied_19: 15839 chars,  3176 tokens, 133 sentences,  453 entity mentions,  16 event mentions
+             scenario_en_kairos_48:  2146 chars,   447 tokens,   3 sentences,   63 entity mentions,   5 event mentions
+             scenario_en_kairos_66:  3284 chars,   669 tokens,  19 sentences,  136 entity mentions,   5 event mentions
+                     suicide_ied_1:  4748 chars,   910 tokens,  45 sentences,  170 entity mentions,  39 event mentions
+             scenario_en_kairos_17:  1181 chars,   253 tokens,   7 sentences,   55 entity mentions,   8 event mentions
+   48_VOA_EN_NW_2013.04.15.1641943: 12438 chars,  2503 tokens, 181 sentences,  361 entity mentions,   8 event mentions
+             scenario_en_kairos_54:  2489 chars,   498 tokens,  19 sentences,  115 entity mentions,  14 event mentions
+                   suicide_ied_118:   736 chars,   139 tokens,   6 sentences,   33 entity mentions,   8 event mentions
+             scenario_en_kairos_52:  2313 chars,   488 tokens,  26 sentences,   89 entity mentions,  37 event mentions
+                    suicide_ied_10:  1375 chars,   274 tokens,  17 sentences,   62 entity mentions,  15 event mentions
+                         K0C041NHV:  2488 chars,   491 tokens,  28 sentences,  104 entity mentions,  15 event mentions
+             scenario_en_kairos_21:  1306 chars,   251 tokens,   2 sentences,   43 entity mentions,   6 event mentions
+   94_VOA_EN_NW_2015.05.10.2760333:  7723 chars,  1581 tokens,  43 sentences,  287 entity mentions,  15 event mentions
+             scenario_en_kairos_40:  1758 chars,   326 tokens,   4 sentences,   51 entity mentions,  14 event mentions
+                   suicide_ied_111:   242 chars,    47 tokens,   6 sentences,    8 entity mentions,   4 event mentions
+             scenario_en_kairos_33:  1546 chars,   286 tokens,   9 sentences,   15 entity mentions,   0 event mentions
+        wiki_ied_bombings_3_news_3:  2281 chars,   450 tokens,  18 sentences,  108 entity mentions,  11 event mentions
+                         K0C0448WM:  1980 chars,   415 tokens,  25 sentences,   87 entity mentions,  13 event mentions
+             scenario_en_kairos_56:  2641 chars,   495 tokens,  11 sentences,   59 entity mentions,   6 event mentions
+   42_VOA_EN_NW_2017.05.24.3868895:  4489 chars,   869 tokens,  31 sentences,  161 entity mentions,  10 event mentions
+             scenario_en_kairos_20:  1250 chars,   272 tokens,   7 sentences,   54 entity mentions,   7 event mentions
+             scenario_en_kairos_95:  5044 chars,   989 tokens,  42 sentences,  178 entity mentions,  34 event mentions
+                         K0C03N4MW:  1757 chars,   440 tokens,  14 sentences,   53 entity mentions,   6 event mentions
+   95_VOA_EN_NW_2017.03.24.3780056:  6505 chars,  1271 tokens,  49 sentences,  262 entity mentions,  40 event mentions
+        wiki_ied_bombings_1_news_1:  2043 chars,   394 tokens,   8 sentences,   48 entity mentions,  11 event mentions
+        wiki_ied_bombings_0_news_0:  3522 chars,   768 tokens,  34 sentences,  154 entity mentions,  15 event mentions
+        wiki_ied_bombings_1_news_0: 16157 chars,  3192 tokens,  38 sentences,  539 entity mentions,  97 event mentions
+                    scenario_en_26:  4005 chars,   759 tokens,   1 sentences,   79 entity mentions,   6 event mentions
+             scenario_en_kairos_67:  3313 chars,   694 tokens,  29 sentences,  104 entity mentions,   4 event mentions
+                         K0C0448WL:  4432 chars,   870 tokens,  43 sentences,  152 entity mentions,   0 event mentions
+             scenario_en_kairos_64:  3127 chars,   610 tokens,   5 sentences,  125 entity mentions,  12 event mentions
+                    scenario_en_29:  6060 chars,  1104 tokens,  28 sentences,  159 entity mentions,   1 event mentions
+                    backpack_ied_0: 55755 chars, 11299 tokens, 523 sentences, 1803 entity mentions,   0 event mentions
+   10_VOA_EN_NW_2013.04.26.1649293:  4629 chars,   897 tokens,  27 sentences,  208 entity mentions,  27 event mentions
+   54_VOA_EN_NW_2015.04.09.2712588:  7208 chars,  1693 tokens,  95 sentences,  165 entity mentions,  12 event mentions
+              scenario_en_kairos_1:   451 chars,    96 tokens,   4 sentences,   20 entity mentions,   3 event mentions
+                   suicide_ied_101:  3339 chars,   655 tokens,  32 sentences,  119 entity mentions,  11 event mentions
+   51_VOA_EN_NW_2015.03.04.2667172:  4635 chars,   915 tokens,  43 sentences,  155 entity mentions,  27 event mentions
+             scenario_en_kairos_94:  4867 chars,   966 tokens,  22 sentences,  147 entity mentions,  28 event mentions
+             scenario_en_kairos_55:  2573 chars,   498 tokens,  21 sentences,  116 entity mentions,   9 event mentions
+       wiki_drone_strikes_0_news_8:  3896 chars,   751 tokens,  20 sentences,  131 entity mentions,   6 event mentions
+    6_VOA_EN_NW_2016.09.20.3516717:  5426 chars,  1056 tokens,  29 sentences,  201 entity mentions,  27 event mentions
+   75_VOA_EN_NW_2016.04.07.3274314:  4037 chars,   737 tokens,  24 sentences,  150 entity mentions,  26 event mentions
+       wiki_ied_bombings_5_news_10:  7573 chars,  1548 tokens,   5 sentences,  177 entity mentions,  12 event mentions
+   30_VOA_EN_NW_2017.04.05.3796934:  3951 chars,   754 tokens,  21 sentences,  151 entity mentions,  22 event mentions
+             scenario_en_kairos_36:  1653 chars,   347 tokens,   8 sentences,   67 entity mentions,   8 event mentions
+                   backpack_ied_17:  2149 chars,   432 tokens,  21 sentences,   59 entity mentions,  16 event mentions
+                   scenario_en_124:  4049 chars,   773 tokens,  25 sentences,  129 entity mentions,  21 event mentions
+   wiki_mass_car_bombings_0_news_0:  4648 chars,   859 tokens,  24 sentences,  159 entity mentions,  40 event mentions
+        wiki_ied_bombings_3_news_4:  4971 chars,   927 tokens,  19 sentences,  161 entity mentions,  10 event mentions
+                   backpack_ied_12:  1105 chars,   211 tokens,  10 sentences,   36 entity mentions,  11 event mentions
+                    scenario_en_70:  4168 chars,   982 tokens,  25 sentences,  177 entity mentions,  24 event mentions
+             scenario_en_kairos_10:   885 chars,   191 tokens,   3 sentences,   14 entity mentions,   0 event mentions
+        wiki_ied_bombings_1_news_2:  1926 chars,   369 tokens,  17 sentences,   64 entity mentions,  14 event mentions
+             scenario_en_kairos_24:  1448 chars,   296 tokens,   4 sentences,   67 entity mentions,   6 event mentions
+   37_VOA_EN_NW_2013.05.16.1662343:  2051 chars,   407 tokens,  11 sentences,   87 entity mentions,   6 event mentions
+   41_VOA_EN_NW_2013.05.03.1653704:  1825 chars,   326 tokens,  10 sentences,   79 entity mentions,  13 event mentions
+                   backpack_ied_10:  5508 chars,  1098 tokens,  37 sentences,  181 entity mentions,  30 event mentions
+       wiki_drone_strikes_0_news_9:  4952 chars,   966 tokens,   7 sentences,  163 entity mentions,   7 event mentions
+                       road_ied_11:   793 chars,   145 tokens,   8 sentences,   36 entity mentions,  17 event mentions
+        wiki_ied_bombings_1_news_9:  5053 chars,   954 tokens,  15 sentences,  103 entity mentions,   1 event mentions
+   39_VOA_EN_NW_2015.08.31.2938981:  4616 chars,   834 tokens,  30 sentences,  174 entity mentions,  16 event mentions
+             scenario_en_kairos_49:  2184 chars,   465 tokens,  13 sentences,   78 entity mentions,  11 event mentions
+                         JC002YBVW:  5787 chars,  1126 tokens,  53 sentences,  204 entity mentions,  14 event mentions
+                   suicide_ied_109:   636 chars,   116 tokens,   9 sentences,   19 entity mentions,   8 event mentions
+    9_VOA_EN_NW_2016.09.19.3515911:  4141 chars,   847 tokens,  43 sentences,  163 entity mentions,  23 event mentions
+                        road_ied_3:  1018 chars,   170 tokens,  11 sentences,   29 entity mentions,   7 event mentions
+             scenario_en_kairos_15:  1015 chars,   220 tokens,   8 sentences,   44 entity mentions,   8 event mentions
+       wiki_ied_bombings_1_news_10:  3080 chars,   515 tokens,  19 sentences,   69 entity mentions,   1 event mentions
+              scenario_en_kairos_9:   870 chars,   179 tokens,   8 sentences,   37 entity mentions,   7 event mentions
+                     scenario_en_6:  3567 chars,   669 tokens,  19 sentences,   75 entity mentions,   4 event mentions
+                         K0C041O3D:  3386 chars,   622 tokens,  26 sentences,  101 entity mentions,  16 event mentions
+                         K0C03N4OM:    81 chars,    13 tokens,   1 sentences,    2 entity mentions,   2 event mentions
+                    scenario_en_71:  5078 chars,   949 tokens,  33 sentences,  140 entity mentions,  25 event mentions
+                         K0C041NHY:  2298 chars,   460 tokens,  25 sentences,   77 entity mentions,  14 event mentions
+   28_VOA_EN_NW_2013.08.29.1739884:  2383 chars,   454 tokens,  13 sentences,   84 entity mentions,   8 event mentions
+             scenario_en_kairos_34:  1575 chars,   277 tokens,   6 sentences,   54 entity mentions,   9 event mentions
+                   suicide_ied_119:   377 chars,    72 tokens,   5 sentences,   12 entity mentions,   6 event mentions
+             scenario_en_kairos_63:  3056 chars,   586 tokens,  19 sentences,  114 entity mentions,  20 event mentions
+   52_VOA_EN_NW_2013.04.20.1645543:  2917 chars,   576 tokens,  18 sentences,  113 entity mentions,  17 event mentions
+       wiki_drone_strikes_2_news_2:  1283 chars,   238 tokens,   9 sentences,   60 entity mentions,   4 event mentions
+             scenario_en_kairos_19:  1250 chars,   272 tokens,   7 sentences,   51 entity mentions,   7 event mentions
+                        road_ied_2:   691 chars,   138 tokens,   5 sentences,   41 entity mentions,   5 event mentions
+        wiki_ied_bombings_5_news_9:  4366 chars,   812 tokens,  17 sentences,  147 entity mentions,   3 event mentions
+                         K0C047Z59:  8398 chars,  1689 tokens,  80 sentences,  270 entity mentions,  50 event mentions
+                   suicide_ied_120:  2938 chars,   557 tokens,  31 sentences,  135 entity mentions,   7 event mentions
+       wiki_drone_strikes_2_news_9:   176 chars,    33 tokens,   1 sentences,    4 entity mentions,   0 event mentions
+                         K0C03N4LR:  2657 chars,   535 tokens,  24 sentences,   89 entity mentions,  29 event mentions
+      wiki_drone_strikes_1_news_13:   133 chars,    26 tokens,   1 sentences,    2 entity mentions,   0 event mentions
+       wiki_drone_strikes_2_news_3:  7630 chars,  1451 tokens,  31 sentences,  200 entity mentions,   2 event mentions
+        wiki_ied_bombings_5_news_2:  8930 chars,  1803 tokens,  62 sentences,  317 entity mentions,  28 event mentions
+                        road_ied_9:  1210 chars,   233 tokens,   8 sentences,   57 entity mentions,  12 event mentions
+   74_VOA_EN_NW_2017.05.24.3868599:  5353 chars,  1036 tokens,  26 sentences,  234 entity mentions,  45 event mentions
+             scenario_en_kairos_23:  1448 chars,   296 tokens,   4 sentences,   65 entity mentions,   9 event mentions
+                    backpack_ied_2:  5069 chars,   978 tokens,  36 sentences,  170 entity mentions,   5 event mentions
+             scenario_en_kairos_74:  3581 chars,   690 tokens,  14 sentences,  120 entity mentions,  27 event mentions
+   46_VOA_EN_NW_2013.04.22.1646780:  3767 chars,   695 tokens,  20 sentences,  126 entity mentions,   9 event mentions
+                         JC002YBMJ:  3875 chars,   717 tokens,  25 sentences,  141 entity mentions,  20 event mentions
+   11_VOA_EN_NW_2013.04.27.1650105:  2870 chars,   525 tokens,  15 sentences,  115 entity mentions,   9 event mentions
+      wiki_drone_strikes_2_news_12:  4494 chars,   819 tokens,  17 sentences,  123 entity mentions,   6 event mentions
+   29_VOA_EN_NW_2013.05.03.1653833:  2139 chars,   389 tokens,  10 sentences,   94 entity mentions,   0 event mentions
+       wiki_drone_strikes_1_news_2:  1531 chars,   293 tokens,   8 sentences,   65 entity mentions,   5 event mentions
+       wiki_drone_strikes_2_news_4: 26097 chars,  4863 tokens,  35 sentences,  838 entity mentions,  14 event mentions
+   22_VOA_EN_NW_2015.03.05.2668545:  3025 chars,   573 tokens,  17 sentences,  127 entity mentions,  33 event mentions
+       wiki_ied_bombings_5_news_11:  3772 chars,   704 tokens,  27 sentences,  113 entity mentions,   5 event mentions
+   40_VOA_EN_NW_2015.04.03.2705423:  4974 chars,   977 tokens,  27 sentences,  179 entity mentions,  21 event mentions
+        wiki_ied_bombings_0_news_7:  3911 chars,   762 tokens,  19 sentences,  144 entity mentions,  25 event mentions
+             scenario_en_kairos_12:   923 chars,   180 tokens,   4 sentences,   38 entity mentions,   0 event mentions
+                   scenario_en_122:  3592 chars,   703 tokens,  15 sentences,   79 entity mentions,  16 event mentions
+             scenario_en_kairos_13:   926 chars,   169 tokens,   8 sentences,   25 entity mentions,   3 event mentions
+             scenario_en_kairos_35:  1575 chars,   299 tokens,   9 sentences,   56 entity mentions,   8 event mentions
+================================================================================
+dev: 20 units
+                       road_ied_8:  2959 chars,   587 tokens,  19 sentences,  148 entity mentions,  16 event mentions
+                   scenario_en_62: 10965 chars,  2127 tokens,  50 sentences,  301 entity mentions,  36 event mentions
+            scenario_en_kairos_60:  3012 chars,   631 tokens,  23 sentences,  105 entity mentions,  18 event mentions
+            scenario_en_kairos_75:  3617 chars,   647 tokens,  21 sentences,  133 entity mentions,  20 event mentions
+  64_VOA_EN_NW_2017.06.05.3887168:  4920 chars,   959 tokens,  39 sentences,  198 entity mentions,  12 event mentions
+                  suicide_ied_114:   226 chars,    40 tokens,   4 sentences,   13 entity mentions,   4 event mentions
+                    scenario_en_8:  2089 chars,   381 tokens,  12 sentences,   46 entity mentions,   4 event mentions
+                   scenario_en_85:  1934 chars,   398 tokens,   7 sentences,   42 entity mentions,   2 event mentions
+                  scenario_en_113:  2057 chars,   370 tokens,   7 sentences,   62 entity mentions,  10 event mentions
+  32_VOA_EN_NW_2014.06.04.1929720:  2424 chars,   445 tokens,  14 sentences,   89 entity mentions,  13 event mentions
+                      road_ied_12:   953 chars,   171 tokens,   7 sentences,   43 entity mentions,   4 event mentions
+       wiki_ied_bombings_1_news_4:  6324 chars,  1204 tokens,  25 sentences,  197 entity mentions,  52 event mentions
+            scenario_en_kairos_61:  3025 chars,   570 tokens,  14 sentences,  101 entity mentions,  23 event mentions
+      wiki_drone_strikes_2_news_8:  4468 chars,   841 tokens,  24 sentences,  149 entity mentions,   7 event mentions
+                   suicide_ied_11:  2610 chars,   548 tokens,  28 sentences,  117 entity mentions,  11 event mentions
+       wiki_ied_bombings_1_news_3:  3923 chars,   760 tokens,  31 sentences,  123 entity mentions,  32 event mentions
+                    scenario_en_7:  2147 chars,   423 tokens,  10 sentences,   56 entity mentions,   5 event mentions
+              wiki_ied_bombings_9:  3926 chars,   704 tokens,  12 sentences,  129 entity mentions,  26 event mentions
+  65_VOA_EN_NW_2014.07.21.1962165:  1569 chars,   293 tokens,   9 sentences,   62 entity mentions,  11 event mentions
+            scenario_en_kairos_73:  3559 chars,   776 tokens,  22 sentences,  142 entity mentions,  39 event mentions
+================================================================================
+test: 20 units
+  wiki_mass_car_bombings_1_news_8:  5997 chars,  1095 tokens,  32 sentences,  262 entity mentions,  25 event mentions
+            scenario_en_kairos_68:  3396 chars,   763 tokens,  14 sentences,  150 entity mentions,   1 event mentions
+  53_VOA_EN_NW_2015.06.24.2835606:  4521 chars,   944 tokens,  27 sentences,  191 entity mentions,  31 event mentions
+      wiki_drone_strikes_0_news_1:  2571 chars,   488 tokens,   8 sentences,   78 entity mentions,  18 event mentions
+             wiki_ied_bombings_10:  2489 chars,   475 tokens,  10 sentences,   85 entity mentions,  23 event mentions
+                  backpack_ied_13: 10473 chars,  2089 tokens, 105 sentences,  355 entity mentions,  39 event mentions
+                  backpack_ied_20:  4696 chars,   848 tokens,  28 sentences,  143 entity mentions,   9 event mentions
+  20_VOA_EN_NW_2016.11.17.3601570:  2353 chars,   456 tokens,  14 sentences,   92 entity mentions,  21 event mentions
+            scenario_en_kairos_30:  1546 chars,   286 tokens,   9 sentences,   16 entity mentions,   0 event mentions
+  38_VOA_EN_NW_2013.04.24.1647602:  2368 chars,   433 tokens,  13 sentences,  101 entity mentions,   8 event mentions
+                        JC002YBW0:  3723 chars,   725 tokens,  49 sentences,  161 entity mentions,  26 event mentions
+            scenario_en_kairos_16:  1079 chars,   198 tokens,   5 sentences,   38 entity mentions,   4 event mentions
+                  suicide_ied_100:  1722 chars,   318 tokens,  21 sentences,   62 entity mentions,  33 event mentions
+  23_VOA_EN_NW_2015.11.24.3071320:  4410 chars,   811 tokens,  21 sentences,  145 entity mentions,  41 event mentions
+                        K0C041O37:  4774 chars,   885 tokens,  25 sentences,   99 entity mentions,  16 event mentions
+  wiki_mass_car_bombings_7_news_2:  5192 chars,   993 tokens,  27 sentences,  221 entity mentions,  18 event mentions
+  wiki_mass_car_bombings_0_news_9:  2636 chars,   489 tokens,  19 sentences,  108 entity mentions,   9 event mentions
+       wiki_ied_bombings_5_news_3:  6956 chars,  1320 tokens,  47 sentences,  231 entity mentions,  28 event mentions
+      wiki_drone_strikes_1_news_1:  2837 chars,   528 tokens,  14 sentences,  112 entity mentions,   7 event mentions
+             scenario_en_kairos_2:   478 chars,    96 tokens,   4 sentences,   23 entity mentions,   8 event mentions

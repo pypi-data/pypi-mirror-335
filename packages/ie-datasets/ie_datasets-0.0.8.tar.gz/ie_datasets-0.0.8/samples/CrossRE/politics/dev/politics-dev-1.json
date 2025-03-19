@@ -1,0 +1,44 @@
+{
+    "doc_key": "politics-dev-1",
+    "sentence": [
+        "At",
+        "the",
+        "2001",
+        "Italian",
+        "general",
+        "election",
+        "the",
+        "Greens",
+        "formed",
+        "a",
+        "joint",
+        "list",
+        "with",
+        "the",
+        "Italian",
+        "Democratic",
+        "Socialists",
+        "(",
+        "SDI",
+        ")",
+        ":",
+        "The",
+        "Sunflower",
+        "."
+    ],
+    "ner": [
+        [2, 5, "election"],
+        [7, 7, "politicalparty"],
+        [14, 16, "politicalparty"],
+        [18, 18, "politicalparty"],
+        [21, 22, "politicalparty"]
+    ],
+    "relations": [
+        [2, 5, 21, 22, "part-of", "", false, false],
+        [7, 7, 21, 22, "part-of", "", false, false],
+        [7, 7, 21, 22, "role", "forms_coalition", false, false],
+        [14, 16, 21, 22, "role", "forms_coalition", false, false],
+        [18, 18, 14, 16, "named", "", false, false],
+        [21, 22, 2, 5, "temporal", "", false, false]
+    ]
+}
