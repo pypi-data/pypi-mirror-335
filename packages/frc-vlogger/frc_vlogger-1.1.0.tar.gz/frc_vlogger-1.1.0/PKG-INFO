@@ -1,0 +1,28 @@
+Metadata-Version: 2.2
+Name: frc-vlogger
+Version: 1.1.0
+Summary: FRC post match + live match logging reader abstraction
+Author-email: Ishan Karmakar <ishan.karmakar24@gmail.com>, Thomas Godden <thomas.godden@outlook.com>
+License: Apache-2.0
+Project-URL: Repository, https://git.valor6800.com/valor6800/2025/vlogger
+Project-URL: Issues, https://git.valor6800.com/valor6800/2025/vlogger/-/issues
+Keywords: frc,parser,networktables,networktables,wpilog,hoot,ctre
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.6
+Requires-Dist: protobuf
+Provides-Extra: live
+Requires-Dist: msgpack; extra == "live"
+Requires-Dist: websockets; extra == "live"
