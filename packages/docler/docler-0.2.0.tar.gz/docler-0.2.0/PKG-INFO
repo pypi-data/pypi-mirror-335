@@ -1,0 +1,122 @@
+Metadata-Version: 2.4
+Name: docler
+Version: 0.2.0
+Summary: Abstractions & Tools for OCR / document processing
+Project-URL: Documentation, https://phil65.github.io/docler/
+Project-URL: Source, https://github.com/phil65/docler
+Project-URL: Issues, https://github.com/phil65/docler/issues
+Project-URL: Discussions, https://github.com/phil65/docler/discussions
+Project-URL: Code coverage, https://app.codecov.io/gh/phil65/docler
+Author-email: Philipp Temminghoff <philipptemminghoff@googlemail.com>
+License: MIT License
+        
+        Copyright (c) 2024, Philipp Temminghoff
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3.14
+Classifier: Topic :: Documentation
+Classifier: Topic :: Software Development
+Classifier: Topic :: Utilities
+Classifier: Typing :: Typed
+Requires-Python: >=3.12
+Requires-Dist: anyenv>=0.4.1
+Requires-Dist: pydantic
+Requires-Dist: upathtools>=0.4.3
+Provides-Extra: all
+Requires-Dist: chromadb; extra == 'all'
+Requires-Dist: docling; extra == 'all'
+Requires-Dist: kreuzberg; extra == 'all'
+Requires-Dist: llama-index-readers-smart-pdf-loader; extra == 'all'
+Requires-Dist: llmling-agent[pydantic-ai]; extra == 'all'
+Requires-Dist: llmsherpa; extra == 'all'
+Requires-Dist: marker-pdf; extra == 'all'
+Requires-Dist: markitdown; extra == 'all'
+Requires-Dist: mistralai; extra == 'all'
+Requires-Dist: openai; extra == 'all'
+Requires-Dist: streamlit; extra == 'all'
+Requires-Dist: upstash-vector; extra == 'all'
+Provides-Extra: chromadb
+Requires-Dist: chromadb>=0.6.3; extra == 'chromadb'
+Provides-Extra: docling
+Requires-Dist: docling; extra == 'docling'
+Provides-Extra: kreuzberg
+Requires-Dist: kreuzberg; extra == 'kreuzberg'
+Provides-Extra: litellm
+Requires-Dist: litellm; extra == 'litellm'
+Requires-Dist: tokonomics; extra == 'litellm'
+Provides-Extra: llama-index
+Requires-Dist: llama-index; extra == 'llama-index'
+Provides-Extra: llama-parse
+Requires-Dist: llama-parse; extra == 'llama-parse'
+Provides-Extra: marker
+Requires-Dist: marker-pdf; extra == 'marker'
+Provides-Extra: mistralai
+Requires-Dist: mistralai; extra == 'mistralai'
+Provides-Extra: openai
+Requires-Dist: openai; extra == 'openai'
+Provides-Extra: smart-pdf
+Requires-Dist: llama-index-readers-smart-pdf-loader; extra == 'smart-pdf'
+Requires-Dist: llmsherpa; extra == 'smart-pdf'
+Provides-Extra: streamlit
+Requires-Dist: streamlit; extra == 'streamlit'
+Provides-Extra: upstash
+Requires-Dist: upstash-vector; extra == 'upstash'
+Description-Content-Type: text/markdown
+
+# Docler
+
+[![PyPI License](https://img.shields.io/pypi/l/docler.svg)](https://pypi.org/project/docler/)
+[![Package status](https://img.shields.io/pypi/status/docler.svg)](https://pypi.org/project/docler/)
+[![Daily downloads](https://img.shields.io/pypi/dd/docler.svg)](https://pypi.org/project/docler/)
+[![Weekly downloads](https://img.shields.io/pypi/dw/docler.svg)](https://pypi.org/project/docler/)
+[![Monthly downloads](https://img.shields.io/pypi/dm/docler.svg)](https://pypi.org/project/docler/)
+[![Distribution format](https://img.shields.io/pypi/format/docler.svg)](https://pypi.org/project/docler/)
+[![Wheel availability](https://img.shields.io/pypi/wheel/docler.svg)](https://pypi.org/project/docler/)
+[![Python version](https://img.shields.io/pypi/pyversions/docler.svg)](https://pypi.org/project/docler/)
+[![Implementation](https://img.shields.io/pypi/implementation/docler.svg)](https://pypi.org/project/docler/)
+[![Releases](https://img.shields.io/github/downloads/phil65/docler/total.svg)](https://github.com/phil65/docler/releases)
+[![Github Contributors](https://img.shields.io/github/contributors/phil65/docler)](https://github.com/phil65/docler/graphs/contributors)
+[![Github Discussions](https://img.shields.io/github/discussions/phil65/docler)](https://github.com/phil65/docler/discussions)
+[![Github Forks](https://img.shields.io/github/forks/phil65/docler)](https://github.com/phil65/docler/forks)
+[![Github Issues](https://img.shields.io/github/issues/phil65/docler)](https://github.com/phil65/docler/issues)
+[![Github Issues](https://img.shields.io/github/issues-pr/phil65/docler)](https://github.com/phil65/docler/pulls)
+[![Github Watchers](https://img.shields.io/github/watchers/phil65/docler)](https://github.com/phil65/docler/watchers)
+[![Github Stars](https://img.shields.io/github/stars/phil65/docler)](https://github.com/phil65/docler/stars)
+[![Github Repository size](https://img.shields.io/github/repo-size/phil65/docler)](https://github.com/phil65/docler)
+[![Github last commit](https://img.shields.io/github/last-commit/phil65/docler)](https://github.com/phil65/docler/commits)
+[![Github release date](https://img.shields.io/github/release-date/phil65/docler)](https://github.com/phil65/docler/releases)
+[![Github language count](https://img.shields.io/github/languages/count/phil65/docler)](https://github.com/phil65/docler)
+[![Github commits this week](https://img.shields.io/github/commit-activity/w/phil65/docler)](https://github.com/phil65/docler)
+[![Github commits this month](https://img.shields.io/github/commit-activity/m/phil65/docler)](https://github.com/phil65/docler)
+[![Github commits this year](https://img.shields.io/github/commit-activity/y/phil65/docler)](https://github.com/phil65/docler)
+[![Package status](https://codecov.io/gh/phil65/docler/branch/main/graph/badge.svg)](https://codecov.io/gh/phil65/docler/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![PyUp](https://pyup.io/repos/github/phil65/docler/shield.svg)](https://pyup.io/repos/github/phil65/docler/)
+
+[Read the documentation!](https://phil65.github.io/docler/)
+
