@@ -1,0 +1,7941 @@
+from functools import partial
+
+import gdsfactory as gf
+from gdsfactory.add_pins import add_pins_inside2um
+from gdsfactory.config import CONF
+
+CONF.max_cellname_length = 200
+
+cell = partial(gf.cell, set_name=False)
+layer_bbox = (55, 0)
+layer_bbmetal = None
+layer_pin_label = (1001, 0)
+layer_pin = (1002, 0)
+layer_pin_optical = (1003, 0)
+layer_pin_electrical = (1004, 0)
+layer_label = (56, 0)
+
+layer_text = (59, 0)
+text_function = partial(
+    gf.components.text, layer=layer_text, justify="center", size=2.0
+)
+text = text_function  # MISSING FROM read.from_updk !!!
+
+add_pins = partial(add_pins_inside2um, layer_label=layer_label, layer=layer_pin_optical)
+layer_label = (56, 0)
+
+
+@gf.cell
+def HHI_BJsingle() -> gf.Component:
+    """Single butt-joint from an E1700 to an active waveguide.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_BJsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [200.0, 60.0], [200.0, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_BJsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(200.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 200.0\n- 0.0\n- 0\n",
+        position=(200.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_BJtwin() -> gf.Component:
+    """Twin butt-joint from an E1700 to an active waveguide.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_BJtwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [200.0, 60.0], [200.0, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_BJtwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(200.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 200.0\n- 6.5\n- 0\n",
+        position=(200.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(200.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 200.0\n- -6.5\n- 0\n",
+        position=(200.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_BPD() -> gf.Component:
+    """Balanced Photo Diode
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_BPD()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 185.0], [1155.0, 185.0], [1155.0, -185.0], [0.0, -185.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_BPD"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(1155.0, 130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 1155.0\n- 130.0\n- 0\n",
+        position=(1155.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(1155.0, -130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 1155.0\n- -130.0\n- 0\n",
+        position=(1155.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(260.0, -185.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: DC bias\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 260.0\n- -185.0\n- -90\n",
+        position=(260.0, -185.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 25.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: In\ndoc: optical in 0\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 25.0\n- 180\n",
+        position=(0.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(0.0, -25.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: In\ndoc: optical in 1\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- -25.0\n- 180\n",
+        position=(0.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(260.0, 185.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: DC bias\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- 260.0\n- 185.0\n- 90\n",
+        position=(260.0, 185.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(1155.0, 0.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 1155.0\n- 0.0\n- 0\n",
+        position=(1155.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DBR(
+    L_FR: float = 200.0,
+    L_IF: float = 40.0,
+    L_IM: float = 40.0,
+    L_IR: float = 40.0,
+    L_PS: float = 50.0,
+    L_RR: float = 50.0,
+    L_SOA: float = 400.0,
+    WL_FR: float = 1550.0,
+    WL_RR: float = 1550.0,
+) -> gf.Component:
+    """Distributed Bragg reflector (DBR) grating laser based on MQWs, connecting to E1700 waveguides.
+
+    Args:
+      L_FR: length of front reflector (min: 20.0, max: 800.0, um).
+      L_IF: length of front isolation section (min: 10.0, max: 800.0, um).
+      L_IM: length of middle isolation section (min: 10.0, max: 800.0, um).
+      L_IR: length of rear isolation section (min: 10.0, max: 800.0, um).
+      L_PS: length of phase section (min: 20.0, max: 2000.0, um).
+      L_RR: length of rear reflector (min: 20.0, max: 800.0, um).
+      L_SOA: length of SOA section (min: 20.0, max: 2000.0, um).
+      WL_FR: wavelength of front reflector (min: 1500.0, max: 1580.0, nm).
+      WL_RR: wavelength of rear reflector (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DBR()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR + 400.0, 60.0],
+            [L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR + 400.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DBR:L_FR={L_FR},L_IF={L_IF},L_IM={L_IM},L_IR={L_IR},L_PS={L_PS},L_RR={L_RR},L_SOA={L_SOA},WL_FR={WL_FR},WL_RR={WL_RR}"
+    c.add_label(
+        text=f"Parameters:\nL_FR={L_FR}\nL_IF={L_IF}\nL_IM={L_IM}\nL_IR={L_IR}\nL_PS={L_PS}\nL_RR={L_RR}\nL_SOA={L_SOA}\nWL_FR={WL_FR}\nWL_RR={WL_RR}",
+        position=(0, 0),
+        layer=layer_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_RR / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact rear\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR/2+200.0\n- -60.0\n- -90\n",
+        position=(L_RR / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact gain\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA/2+200.0\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact phase\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS/2+200.0\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact front\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR/2+200.0\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: Out\ndoc: optical rear\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR + 400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: Out\ndoc: optical front\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR+400.0\n- 0.0\n- 0\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR + 400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_RR / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact rear\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR/2+200.0\n- 60.0\n- 90\n",
+        position=(L_RR / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p2",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact gain\nname: p2\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA/2+200.0\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p3",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact phase\nname: p3\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS/2+200.0\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p4",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact front\nname: p4\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR/2+200.0\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DBRsection(
+    L_FR: float = 200.0,
+    L_IF: float = 40.0,
+    L_IM: float = 40.0,
+    L_IR: float = 40.0,
+    L_PS: float = 50.0,
+    L_RR: float = 50.0,
+    L_SOA: float = 400.0,
+    WL_FR: float = 1550.0,
+    WL_RR: float = 1550.0,
+) -> gf.Component:
+    """Distributed Bragg reflector (DBR) grating laser section based on MQWs, connecting to active waveguides.
+
+    Args:
+      L_FR: length of front reflector (min: 20.0, max: 800.0, um).
+      L_IF: length of front isolation section (min: 10.0, max: 800.0, um).
+      L_IM: length of middle isolation section (min: 10.0, max: 800.0, um).
+      L_IR: length of rear isolation section (min: 10.0, max: 800.0, um).
+      L_PS: length of phase section (min: 20.0, max: 2000.0, um).
+      L_RR: length of rear reflector (min: 20.0, max: 800.0, um).
+      L_SOA: length of SOA section (min: 20.0, max: 2000.0, um).
+      WL_FR: wavelength of front reflector (min: 1500.0, max: 1580.0, nm).
+      WL_RR: wavelength of rear reflector (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DBRsection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR, 60.0],
+            [L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DBRsection:L_FR={L_FR},L_IF={L_IF},L_IM={L_IM},L_IR={L_IR},L_PS={L_PS},L_RR={L_RR},L_SOA={L_SOA},WL_FR={WL_FR},WL_RR={WL_RR}"
+    c.add_label(
+        text=f"Parameters:\nL_FR={L_FR}\nL_IF={L_IF}\nL_IM={L_IM}\nL_IR={L_IR}\nL_PS={L_PS}\nL_RR={L_RR}\nL_SOA={L_SOA}\nWL_FR={WL_FR}\nWL_RR={WL_RR}",
+        position=(0, 0),
+        layer=layer_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_RR / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact rear\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR/2\n- -60.0\n- -90\n",
+        position=(L_RR / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact gain\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA/2\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact phase\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS/2\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact front\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR/2\n- -60.0\n- -90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: Out\ndoc: optical rear\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: Out\ndoc: optical front\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR\n- 0.0\n- 0\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_RR / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact rear\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR/2\n- 60.0\n- 90\n",
+        position=(L_RR / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p2",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact gain\nname: p2\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA/2\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p3",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact phase\nname: p3\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS/2\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p4",
+        cross_section="DC",
+        center=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact front\nname: p4\nwidth: 16.0\nxsection: DC\nxya:\n- L_RR+L_IR+L_SOA+L_IM+L_PS+L_IF+L_FR/2\n- 60.0\n- 90\n",
+        position=(L_RR + L_IR + L_SOA + L_IM + L_PS + L_IF + L_FR / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DFB(WL_L: float = 1550.0) -> gf.Component:
+    """Distributed feedback (DFB) grating laser with RF modulation and thermal tuning, connecting to E1700 waveguides.
+
+    Args:
+      WL_L: wavelength of laser (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DFB()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 110.0], [600.0, 110.0], [600.0, -110.0], [0.0, -110.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DFB:WL_L={WL_L}"
+    c.add_label(text=f"Parameters:\nWL_L={WL_L}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(209.0, -110.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 209.0\n- -110.0\n- -90\n",
+        position=(209.0, -110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(391.0, -110.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 391.0\n- -110.0\n- -90\n",
+        position=(391.0, -110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(170.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 170.0\n- 110.0\n- 90\n",
+        position=(170.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(430.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 430.0\n- 110.0\n- 90\n",
+        position=(430.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: Out\ndoc: optical out\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(600.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: Out\ndoc: optical out\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 600.0\n- 0.0\n- 0\n",
+        position=(600.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(300.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 300.0\n- 110.0\n- 90\n",
+        position=(300.0, 110.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DFBsection(WL_L: float = 1550.0) -> gf.Component:
+    """Distributed feedback (DFB) grating laser with RF modulation and thermal tuning, connecting to active waveguides.
+
+    Args:
+      WL_L: wavelength of laser (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DFBsection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 110.0], [400.0, 110.0], [400.0, -110.0], [0.0, -110.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DFBsection:WL_L={WL_L}"
+    c.add_label(text=f"Parameters:\nWL_L={WL_L}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(109.0, -110.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 109.0\n- -110.0\n- -90\n",
+        position=(109.0, -110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(291.0, -110.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 291.0\n- -110.0\n- -90\n",
+        position=(291.0, -110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(70.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 70.0\n- 110.0\n- 90\n",
+        position=(70.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(330.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 330.0\n- 110.0\n- 90\n",
+        position=(330.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: Out\ndoc: optical out\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: Out\ndoc: optical out\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 400.0\n- 0.0\n- 0\n",
+        position=(400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(200.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 200.0\n- 110.0\n- 90\n",
+        position=(200.0, 110.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DirCoupE1700(L_C: float = 100.0) -> gf.Component:
+    """2x2 Directional coupler connection to E1700 waveguides.
+
+    Args:
+      L_C: length of coupling (min: 1.0, max: 1000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DirCoupE1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[L_C + 610.0, 30.0], [L_C + 610.0, -30.0], [0, -30.0], [0.0, 30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DirCoupE1700:L_C={L_C}"
+    c.add_label(text=f"Parameters:\nL_C={L_C}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_C + 610.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_C+610.0\n- 6.5\n- 0\n",
+        position=(L_C + 610.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(L_C + 610.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- L_C+610.0\n- -6.5\n- 0\n",
+        position=(L_C + 610.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_DirCoupE600(L_C: float = 100.0) -> gf.Component:
+    """2x2 Directional coupler connection to E600 waveguides.
+
+    Args:
+      L_C: length of coupling (min: 1.0, max: 1000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_DirCoupE600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[L_C + 200.0, 30.0], [L_C + 200.0, -30.0], [0, -30.0], [0.0, 30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_DirCoupE600:L_C={L_C}"
+    c.add_label(text=f"Parameters:\nL_C={L_C}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(L_C + 200.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- L_C+200.0\n- 6.5\n- 0\n",
+        position=(L_C + 200.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E600",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E600",
+        center=(L_C + 200.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: E600\nxya:\n- L_C+200.0\n- -6.5\n- 0\n",
+        position=(L_C + 200.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EAM(L_E: float = 100.0) -> gf.Component:
+    """Electro-absorbtion modulator (EAM) connecting to E1700 waveguides.
+
+    Args:
+      L_E: length of EAM (min: 60.0, max: 1000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EAM()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0, 110.0], [L_E + 400.0, 110.0], [L_E + 400.0, -110.0], [0.0, -110.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EAM:L_E={L_E}"
+    c.add_label(text=f"Parameters:\nL_E={L_E}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(L_E / 2 + 70.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- L_E/2+70.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 70.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(L_E / 2 + 330.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- L_E/2+330.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 330.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_E + 400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_E+400.0\n- 0.0\n- 0\n",
+        position=(L_E + 400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(L_E / 2 + 200.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- L_E/2+200.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 200.0, 110.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EAMsection(L_E: float = 100.0) -> gf.Component:
+    """Electro-absorbtion modulator (EAM) section connecting to active waveguides.
+
+    Args:
+      L_E: length of EAM (min: 60.0, max: 1000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EAMsection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -110.0], [L_E + 300.0, -110.0], [L_E + 300.0, 110.0], [0.0, 110.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EAMsection:L_E={L_E}"
+    c.add_label(text=f"Parameters:\nL_E={L_E}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(L_E / 2 + 20.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- L_E/2+20.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 20.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(L_E / 2 + 280.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- L_E/2+280.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 280.0, 110.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_E + 300.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_E+300.0\n- 0.0\n- 0\n",
+        position=(L_E + 300.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(L_E / 2 + 150.0, 110.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: In\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- L_E/2+150.0\n- 110.0\n- 90\n",
+        position=(L_E / 2 + 150.0, 110.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOBiasSectionSingle(L_B: float = 500.0) -> gf.Component:
+    """P-Contact Bias Pads for the upper- and lower- waveguide.
+
+    Args:
+      L_B: length of PMEO (min: 50.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOBiasSectionSingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[L_B, -60.0], [L_B, 60.0], [0.0, 60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOBiasSectionSingle:L_B={L_B}"
+    c.add_label(text=f"Parameters:\nL_B={L_B}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_B / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_B/2\n- -60.0\n- -90\n",
+        position=(L_B / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_B, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_B\n- 0.0\n- 0\n",
+        position=(L_B, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_B / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_B/2\n- 60.0\n- 90\n",
+        position=(L_B / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOBiasSectionTwin(L_B: float = 500.0) -> gf.Component:
+    """ActiveRF waveguide and containing the P-Contact Bias Pads.
+
+    Args:
+      L_B: length of the Bias Pads section (min: 50.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOBiasSectionTwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_B, 60.0], [L_B, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOBiasSectionTwin:L_B={L_B}"
+    c.add_label(text=f"Parameters:\nL_B={L_B}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_B, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_B\n- 6.5\n- 0\n",
+        position=(L_B, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(L_B, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- L_B\n- -6.5\n- 0\n",
+        position=(L_B, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_B / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 0\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_B/2\n- 60.0\n- 90\n",
+        position=(L_B / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p2",
+        cross_section="DC",
+        center=(L_B / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["p2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 1\nname: p2\nwidth: 16.0\nxsection: DC\nxya:\n- L_B/2\n- -60.0\n- -90\n",
+        position=(L_B / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOElectricalGND() -> gf.Component:
+    """ActiveRF waveguide and containing the N Contact Pad of the subsequent- or previous MZM and PMEO modulator.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOElectricalGND()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[130.0, -60.0], [130.0, 60.0], [0.0, 60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_EOElectricalGND"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(65.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- 60.0\n- 90\n",
+        position=(65.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(65.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- -60.0\n- -90\n",
+        position=(65.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(130.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 130.0\n- 6.5\n- 0\n",
+        position=(130.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(130.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 130.0\n- -6.5\n- 0\n",
+        position=(130.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOPMTWSingleDD(N: int = 4.0) -> gf.Component:
+    """Electro Optic phase modulator connecting to only one active waveguide.
+
+    Args:
+      N: Number of 250um sections (min: 1.0, max: 50.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOPMTWSingleDD()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [180.0, 60.0],
+            [180.0, 130.0],
+            [N * 250.0 + 580.0, 130.0],
+            [N * 250.0 + 580.0, 60.0],
+            [N * 250.0 + 760.0, 60.0],
+            [N * 250.0 + 760.0, -60.0],
+            [N * 250.0 + 580.0, -60.0],
+            [N * 250.0 + 580.0, -130.0],
+            [180.0, -130.0],
+            [180.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOPMTWSingleDD:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(262.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 262.0\n- -130.0\n- -90\n",
+        position=(262.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(498.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 498.0+N*250.0\n- -130.0\n- -90\n",
+        position=(498.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(65.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- 60.0\n- 90\n",
+        position=(65.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(65.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- -60.0\n- -90\n",
+        position=(65.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- 60.0\n- 90\n",
+        position=(N * 250.0 + 695.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- -60.0\n- -90\n",
+        position=(N * 250.0 + 695.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- 0.0\n- 0\n",
+        position=(N * 250.0 + 760.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(436.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 436.0\n- -130.0\n- -90\n",
+        position=(436.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(324.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 324.0+N*250.0\n- -130.0\n- -90\n",
+        position=(324.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOPMTWSingleDU(N: int = 4.0) -> gf.Component:
+    """Electro Optic phase modulator connecting to only one active waveguide where the RF-input and RF-output are directed towards opposite direction.
+
+    Args:
+      N: Number of 250um sections (min: 1.0, max: 50.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOPMTWSingleDU()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [180.0, 60.0],
+            [180.0, 130.0],
+            [N * 250.0 + 580.0, 130.0],
+            [N * 250.0 + 580.0, 60.0],
+            [N * 250.0 + 760.0, 60.0],
+            [N * 250.0 + 760.0, -60.0],
+            [N * 250.0 + 580.0, -60.0],
+            [N * 250.0 + 580.0, -130.0],
+            [180.0, -130.0],
+            [180.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOPMTWSingleDU:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(262.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 262.0\n- -130.0\n- -90\n",
+        position=(262.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(498.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 498.0+N*250.0\n- 130.0\n- 90\n",
+        position=(498.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(65.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- 60.0\n- 90\n",
+        position=(65.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(65.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- -60.0\n- -90\n",
+        position=(65.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- 60.0\n- 90\n",
+        position=(N * 250.0 + 695.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- -60.0\n- -90\n",
+        position=(N * 250.0 + 695.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- 0.0\n- 0\n",
+        position=(N * 250.0 + 760.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(436.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 436.0\n- -130.0\n- -90\n",
+        position=(436.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(324.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 324.0+N*250.0\n- 130.0\n- 90\n",
+        position=(324.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOPMTWTwinDD(N: int = 4.0) -> gf.Component:
+    """Electro Optic phase modulator connecting to only one active waveguide.
+
+    Args:
+      N: Number of 250um sections (min: 1.0, max: 50.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOPMTWTwinDD()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [180.0, 60.0],
+            [180.0, 130.0],
+            [N * 250.0 + 580.0, 130.0],
+            [N * 250.0 + 580.0, 60.0],
+            [N * 250.0 + 760.0, 60.0],
+            [N * 250.0 + 760.0, -60.0],
+            [N * 250.0 + 580.0, -60.0],
+            [N * 250.0 + 580.0, -130.0],
+            [180.0, -130.0],
+            [180.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOPMTWTwinDD:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(262.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 262.0\n- -130.0\n- -90\n",
+        position=(262.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(498.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 498.0+N*250.0\n- -130.0\n- -90\n",
+        position=(498.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(65.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- 60.0\n- 90\n",
+        position=(65.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(65.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- -60.0\n- -90\n",
+        position=(65.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- 60.0\n- 90\n",
+        position=(N * 250.0 + 695.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- -60.0\n- -90\n",
+        position=(N * 250.0 + 695.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- 6.5\n- 0\n",
+        position=(N * 250.0 + 760.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- -6.5\n- 0\n",
+        position=(N * 250.0 + 760.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(436.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 436.0\n- -130.0\n- -90\n",
+        position=(436.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(324.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 324.0+N*250.0\n- -130.0\n- -90\n",
+        position=(324.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOPMTWTwinDU(N: int = 4.0) -> gf.Component:
+    """Electro Optic phase modulator connecting to only one active waveguide where the RF-input and RF-output are directed towards opposite direction.
+
+    Args:
+      N: Number of 250um sections (min: 1.0, max: 50.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOPMTWTwinDU()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [180.0, 60.0],
+            [180.0, 130.0],
+            [N * 250.0 + 580.0, 130.0],
+            [N * 250.0 + 580.0, 60.0],
+            [N * 250.0 + 760.0, 60.0],
+            [N * 250.0 + 760.0, -60.0],
+            [N * 250.0 + 580.0, -60.0],
+            [N * 250.0 + 580.0, -130.0],
+            [180.0, -130.0],
+            [180.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_EOPMTWTwinDU:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(262.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 262.0\n- -130.0\n- -90\n",
+        position=(262.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(498.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 498.0+N*250.0\n- 130.0\n- 90\n",
+        position=(498.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(65.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- 60.0\n- 90\n",
+        position=(65.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(65.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 65.0\n- -60.0\n- -90\n",
+        position=(65.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- 60.0\n- 90\n",
+        position=(N * 250.0 + 695.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(N * 250.0 + 695.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- N*250.0+695.0\n- -60.0\n- -90\n",
+        position=(N * 250.0 + 695.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- 6.5\n- 0\n",
+        position=(N * 250.0 + 760.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(N * 250.0 + 760.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- N*250.0+760.0\n- -6.5\n- 0\n",
+        position=(N * 250.0 + 760.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(436.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 436.0\n- -130.0\n- -90\n",
+        position=(436.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(324.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 324.0+N*250.0\n- 130.0\n- 90\n",
+        position=(324.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_EOPMTermination() -> gf.Component:
+    """GS RF 50 Ohm Termination.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_EOPMTermination()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[210.0, 170.0], [0.0, 170.0], [0.0, -170.0], [210.0, -170.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_EOPMTermination"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(0.0, -87.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 0.0\n- -87.0\n- 180\n",
+        position=(0.0, -87.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(0.0, 87.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: RF signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 0.0\n- 87.0\n- 180\n",
+        position=(0.0, 87.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_FacetWGE1700(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Facet end and WG protection to E1700 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflectance (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_FacetWGE1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 20.0], [100.0, 20.0], [100.0, -20.0], [0.0, -20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_FacetWGE1700:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(100.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 100.0\n- 0.0\n- 0\n",
+        position=(100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_FacetWGE1700twin(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Facet end and WG protection to twin E1700 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflectance (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_FacetWGE1700twin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[100.0, 25.0], [100.0, -25.0], [0.0, -25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_FacetWGE1700twin:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(100.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 100.0\n- 6.5\n- 0\n",
+        position=(100.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="FACET",
+        center=(100.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 10.0\nxsection: FACET\nxya:\n- 100.0\n- -6.5\n- 0\n",
+        position=(100.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_FacetWGE200(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Facet end and WG protection to E200 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflectance (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_FacetWGE200()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 20.0], [100.0, 20.0], [100.0, -20.0], [0.0, -20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_FacetWGE200:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(100.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 100.0\n- 0.0\n- 0\n",
+        position=(100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_FacetWGE600(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Facet end and WG protection to E600 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflectance (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_FacetWGE600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 20.0], [100.0, 20.0], [100.0, -20.0], [0.0, -20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_FacetWGE600:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(100.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 100.0\n- 0.0\n- 0\n",
+        position=(100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_GRAT(L_G: float = 100.0, WL_G: float = 1550.0) -> gf.Component:
+    """Tunable distributed Bragg reflector (DBR) grating connecting to E1700 waveguides.
+
+    Args:
+      L_G: length of grating (min: 20.0, max: 800.0, um).
+      WL_G: wavelength for grating (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_GRAT()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_G + 400.0, 60.0], [L_G + 400.0, -60.0], [0.0, -60.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_GRAT:L_G={L_G},WL_G={WL_G}"
+    c.add_label(
+        text=f"Parameters:\nL_G={L_G}\nWL_G={WL_G}", position=(0, 0), layer=layer_label
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_G / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_G/2+200.0\n- -60.0\n- -90\n",
+        position=(L_G / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_G + 400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_G+400.0\n- 0.0\n- 0\n",
+        position=(L_G + 400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_G / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_G/2+200.0\n- 60.0\n- 90\n",
+        position=(L_G / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_GRATsection(L_G: float = 100.0, WL_G: float = 1550.0) -> gf.Component:
+    """Tunable distributed Bragg reflector (DBR) grating connecting to active waveguides.
+
+    Args:
+      L_G: length of grating (min: 24.0, max: 800.0, um).
+      WL_G: wavelength for grating (min: 1500.0, max: 1580.0, nm).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_GRATsection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_G, 60.0], [L_G, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_GRATsection:L_G={L_G},WL_G={WL_G}"
+    c.add_label(
+        text=f"Parameters:\nL_G={L_G}\nWL_G={WL_G}", position=(0, 0), layer=layer_label
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_G / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_G/2\n- -60.0\n- -90\n",
+        position=(L_G / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_G, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_G\n- 0.0\n- 0\n",
+        position=(L_G, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_G / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_G/2\n- 60.0\n- 90\n",
+        position=(L_G / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_GSGtoGS() -> gf.Component:
+    """GSG to GS transition
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_GSGtoGS()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[250.0, 190.0], [250.0, -190.0], [0.0, -190.0], [0.0, 190.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_GSGtoGS"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(0.0, 130.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 0.0\n- 130.0\n- 180\n",
+        position=(0.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(250.0, -105.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 250.0\n- -105.0\n- 0\n",
+        position=(250.0, -105.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(0.0, -130.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 0.0\n- -130.0\n- 180\n",
+        position=(0.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(250.0, 69.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 250.0\n- 69.0\n- 0\n",
+        position=(250.0, 69.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_ISOsectionSingle(L_I: float = 100.0) -> gf.Component:
+    """Single P-side isolation section (resistance) for in between two optical-active waveguide sections.
+
+    Args:
+      L_I: length of isolation (min: 10.0, max: 12000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_ISOsectionSingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_I, 60.0], [L_I, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_ISOsectionSingle:L_I={L_I}"
+    c.add_label(text=f"Parameters:\nL_I={L_I}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_I, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_I\n- 0.0\n- 0\n",
+        position=(L_I, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_ISOsectionTwin(L_I: float = 100.0) -> gf.Component:
+    """Twin P-side isolation section (resistance) for in between two optical-active waveguide sections.
+
+    Args:
+      L_I: length of isolation (min: 10.0, max: 12000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_ISOsectionTwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_I, 60.0], [L_I, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_ISOsectionTwin:L_I={L_I}"
+    c.add_label(text=f"Parameters:\nL_I={L_I}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_I, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_I\n- 6.5\n- 0\n",
+        position=(L_I, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(L_I, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- L_I\n- -6.5\n- 0\n",
+        position=(L_I, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_METMETx() -> gf.Component:
+    """Crossing between DC-line and another DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_METMETx()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 23.0], [76.0, 23.0], [76.0, -23.0], [0.0, -23.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_METMETx"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(76.0, 0.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 76.0\n- 0.0\n- 0\n",
+        position=(76.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e3",
+        cross_section="DC",
+        center=(38.0, -23.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e3\nwidth: 16.0\nxsection: DC\nxya:\n- 38.0\n- -23.0\n- -90\n",
+        position=(38.0, -23.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e4",
+        cross_section="DC",
+        center=(38.0, 23.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e4\nwidth: 16.0\nxsection: DC\nxya:\n- 38.0\n- 23.0\n- 90\n",
+        position=(38.0, 23.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MIR1E1700() -> gf.Component:
+    """Single port Multi-mode interference reflector (MIR) in E1700. Component for broadband power reflection.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MIR1E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[130.0, 20.0], [130.0, -20.0], [0.0, -20.0], [0.0, 20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MIR1E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MIR2E1700() -> gf.Component:
+    """Dual port Multi-mode interference reflector (MIR) in E1700. Component for broadband power reflection and splitting.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MIR2E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[190.0, 25.0], [190.0, -25.0], [0.0, -25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MIR2E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 2.0\n- 180\n",
+        position=(0.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(0.0, -2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -2.0\n- 180\n",
+        position=(0.0, -2.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI1x2ACT() -> gf.Component:
+    """1x2 Multi-mode interference (MMI) coupler in optical-active waveguide. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI1x2ACT()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [445.0, 60.0], [445.0, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI1x2ACT"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(445.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 445.0\n- 6.5\n- 0\n",
+        position=(445.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(445.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 445.0\n- -6.5\n- 0\n",
+        position=(445.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI1x2E1700() -> gf.Component:
+    """1x2 Multi-mode interference (MMI) coupler in E1700. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI1x2E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [220.0, 25.0], [220.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI1x2E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(220.0, 2.6),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 220.0\n- 2.6\n- 0\n",
+        position=(220.0, 2.6),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(220.0, -2.6),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 220.0\n- -2.6\n- 0\n",
+        position=(220.0, -2.6),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI1x2E600() -> gf.Component:
+    """1x2 Multi-mode interference (MMI) coupler in E600. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI1x2E600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [280.0, 25.0], [280.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI1x2E600"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(280.0, 3.1),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 280.0\n- 3.1\n- 0\n",
+        position=(280.0, 3.1),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E600",
+        center=(280.0, -3.1),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E600\nxya:\n- 280.0\n- -3.1\n- 0\n",
+        position=(280.0, -3.1),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI2x2ACT() -> gf.Component:
+    """2x2 Multi-mode interference (MMI) coupler in optical-active waveguide. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI2x2ACT()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [900.0, 60.0], [900.0, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI2x2ACT"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(900.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 900.0\n- 6.5\n- 0\n",
+        position=(900.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(900.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 900.0\n- -6.5\n- 0\n",
+        position=(900.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI2x2E1700() -> gf.Component:
+    """2x2 Multi-mode interference (MMI) coupler in E1700. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI2x2E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 26.0], [310.0, 26.0], [310.0, -26.0], [0.0, -26.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI2x2E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 2.0\n- 180\n",
+        position=(0.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(310.0, 2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 310.0\n- 2.0\n- 0\n",
+        position=(310.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -2.0\n- 180\n",
+        position=(0.0, -2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(310.0, -2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 310.0\n- -2.0\n- 0\n",
+        position=(310.0, -2.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MMI2x2E600() -> gf.Component:
+    """2x2 Multi-mode interference (MMI) coupler in E600. Component for power splitting and combining.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MMI2x2E600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 28.0], [490.0, 28.0], [490.0, -28.0], [0.0, -28.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MMI2x2E600"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 2.8),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 2.8\n- 180\n",
+        position=(0.0, 2.8),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(490.0, 2.8),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 490.0\n- 2.8\n- 0\n",
+        position=(490.0, 2.8),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E600",
+        center=(0.0, -2.8),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- -2.8\n- 180\n",
+        position=(0.0, -2.8),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E600",
+        center=(490.0, -2.8),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: E600\nxya:\n- 490.0\n- -2.8\n- 0\n",
+        position=(490.0, -2.8),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MZIswitch() -> gf.Component:
+    """Thermal-optical Mach-Zehnder modulator.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MZIswitch()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[1490.0, 50.0], [1490.0, -50.0], [0.0, -50.0], [0.0, 50.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_MZIswitch"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(557.0, 50.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: tuning heater 1\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 557.0\n- 50.0\n- 90\n",
+        position=(557.0, 50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(933.0, 50.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: tuning heater 1\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 933.0\n- 50.0\n- 90\n",
+        position=(933.0, 50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e3",
+        cross_section="DC",
+        center=(557.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: tuning heater 2\nname: e3\nwidth: 16.0\nxsection: DC\nxya:\n- 557.0\n- -50.0\n- -90\n",
+        position=(557.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e4",
+        cross_section="DC",
+        center=(933.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: tuning heater 2\nname: e4\nwidth: 16.0\nxsection: DC\nxya:\n- 933.0\n- -50.0\n- -90\n",
+        position=(933.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 2.0\n- 180\n",
+        position=(0.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(1490.0, 2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 1490.0\n- 2.0\n- 0\n",
+        position=(1490.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -2.0\n- 180\n",
+        position=(0.0, -2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(1490.0, -2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 1490.0\n- -2.0\n- 0\n",
+        position=(1490.0, -2.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MZMDD(N: int = 16.0) -> gf.Component:
+    """Push-Pull Mach-Zehnder Modulator with GS track connecting to E1700 waveguides and where the RF-input and RF-output are both directed downward.
+
+    Args:
+      N: Number of 250um sections (min: 2.0, max: 32.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MZMDD()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [1300.0, 60.0],
+            [1300.0, 130.0],
+            [1700.0 + N * 250.0, 130.0],
+            [1700.0 + N * 250.0, 60.0],
+            [2670.0 + N * 250.0, 60.0],
+            [2670.0 + N * 250.0, -60.0],
+            [1700.0 + N * 250.0, -60.0],
+            [1700.0 + N * 250.0, -130.0],
+            [1300.0, -130.0],
+            [1300.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_MZMDD:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(1382.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS ground 0\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 1382.0\n- -130.0\n- -90\n",
+        position=(1382.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(1618.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS ground 0\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 1618.0+N*250.0\n- -130.0\n- -90\n",
+        position=(1618.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(1185.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 1185.0\n- 60.0\n- 90\n",
+        position=(1185.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(1185.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 1185.0\n- -60.0\n- -90\n",
+        position=(1185.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(1815.0 + N * 250.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- 1815.0+N*250.0\n- 60.0\n- 90\n",
+        position=(1815.0 + N * 250.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(1815.0 + N * 250.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- 1815.0+N*250.0\n- -60.0\n- -90\n",
+        position=(1815.0 + N * 250.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(2670.0 + N * 250.0, 2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 2670.0+N*250.0\n- 2.0\n- 0\n",
+        position=(2670.0 + N * 250.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(2670.0 + N * 250.0, -2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 2670.0+N*250.0\n- -2.0\n- 0\n",
+        position=(2670.0 + N * 250.0, -2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(870.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 0\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- 870.0\n- 60.0\n- 90\n",
+        position=(870.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p2",
+        cross_section="DC",
+        center=(870.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["p2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 1\nname: p2\nwidth: 16.0\nxsection: DC\nxya:\n- 870.0\n- -60.0\n- -90\n",
+        position=(870.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(1556.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS signal 0\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 1556.0\n- -130.0\n- -90\n",
+        position=(1556.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(1444.0 + N * 250.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS signal 0\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 1444.0+N*250.0\n- -130.0\n- -90\n",
+        position=(1444.0 + N * 250.0, -130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_MZMDU(N: int = 16.0) -> gf.Component:
+    """Push-Pull Mach-Zehnder Modulator with GS track connecting to E1700 waveguides and where the RF-input and RF-output are directed towards opposite direction.
+
+    Args:
+      N: Number of 250um sections (min: 2.0, max: 32.0, null).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_MZMDU()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 60.0],
+            [1300.0, 60.0],
+            [1300.0, 130.0],
+            [1700.0 + N * 250.0, 130.0],
+            [1700.0 + N * 250.0, 60.0],
+            [2670.0 + N * 250.0, 60.0],
+            [2670.0 + N * 250.0, -60.0],
+            [1700.0 + N * 250.0, -60.0],
+            [1700.0 + N * 250.0, -130.0],
+            [1300.0, -130.0],
+            [1300.0, -60.0],
+            [0.0, -60.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_MZMDU:N={N}"
+    c.add_label(text=f"Parameters:\nN={N}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(1382.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS ground 0\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 1382.0\n- -130.0\n- -90\n",
+        position=(1382.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(1444.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS ground 0\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 1444.0+N*250.0\n- 130.0\n- 90\n",
+        position=(1444.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(1185.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 0\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 1185.0\n- 60.0\n- 90\n",
+        position=(1185.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n2",
+        cross_section="DC",
+        center=(1185.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 0\nname: n2\nwidth: 16.0\nxsection: DC\nxya:\n- 1185.0\n- -60.0\n- -90\n",
+        position=(1185.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n3",
+        cross_section="DC",
+        center=(1815.0 + N * 250.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["n3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 1\nname: n3\nwidth: 16.0\nxsection: DC\nxya:\n- 1815.0+N*250.0\n- 60.0\n- 90\n",
+        position=(1815.0 + N * 250.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="n4",
+        cross_section="DC",
+        center=(1815.0 + N * 250.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact 1\nname: n4\nwidth: 16.0\nxsection: DC\nxya:\n- 1815.0+N*250.0\n- -60.0\n- -90\n",
+        position=(1815.0 + N * 250.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(2670.0 + N * 250.0, 2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 2670.0+N*250.0\n- 2.0\n- 0\n",
+        position=(2670.0 + N * 250.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(2670.0 + N * 250.0, -2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 2670.0+N*250.0\n- -2.0\n- 0\n",
+        position=(2670.0 + N * 250.0, -2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(870.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 0\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- 870.0\n- 60.0\n- 90\n",
+        position=(870.0, 60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p2",
+        cross_section="DC",
+        center=(870.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["p2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact 1\nname: p2\nwidth: 16.0\nxsection: DC\nxya:\n- 870.0\n- -60.0\n- -90\n",
+        position=(870.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(1556.0, -130.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS signal 0\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 1556.0\n- -130.0\n- -90\n",
+        position=(1556.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(1618.0 + N * 250.0, 130.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: In\ndoc: GS signal 0\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 1618.0+N*250.0\n- 130.0\n- 90\n",
+        position=(1618.0 + N * 250.0, 130.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PDDC() -> gf.Component:
+    """DC photo-diode.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PDDC()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -30.0], [100.0, -30.0], [100.0, 30.0], [0.0, 30.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PDDC"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(50.0, -30.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- 50.0\n- -30.0\n- -90\n",
+        position=(50.0, -30.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical in\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(100.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical in\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 100.0\n- 0.0\n- 0\n",
+        position=(100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(50.0, 30.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- 50.0\n- 30.0\n- 90\n",
+        position=(50.0, 30.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PDRFsingle() -> gf.Component:
+    """RF photo-diode.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PDRFsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -200.0], [200.0, -200.0], [200.0, 200.0], [0.0, 200.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PDRFsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(200.0, 130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 200.0\n- 130.0\n- 0\n",
+        position=(200.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(200.0, -130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 200.0\n- -130.0\n- 0\n",
+        position=(200.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: In\ndoc: optical in\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(200.0, 0.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 200.0\n- 0.0\n- 0\n",
+        position=(200.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PDRFtwin() -> gf.Component:
+    """Twin RF photo-diode.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PDRFtwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -50.0], [400.0, -50.0], [400.0, 50.0], [0.0, 50.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PDRFtwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(70.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 70.0\n- -50.0\n- -90\n",
+        position=(70.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(330.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG ground\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 330.0\n- -50.0\n- -90\n",
+        position=(330.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: In\ndoc: optical in\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: In\ndoc: optical in\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 400.0\n- 0.0\n- 0\n",
+        position=(400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(200.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: Out\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 200.0\n- -50.0\n- -90\n",
+        position=(200.0, -50.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PMTOE1700(L_P: float = 200.0) -> gf.Component:
+    """Thermal-optical phase modulator in E1700.
+
+    Args:
+      L_P: length of phase shifter (min: 162.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PMTOE1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 40.0], [L_P + 248.0, 40.0], [L_P + 248.0, -30.0], [0.0, -30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_PMTOE1700:L_P={L_P}"
+    c.add_label(text=f"Parameters:\nL_P={L_P}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(117.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 117.0\n- 40.0\n- 90\n",
+        position=(117.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(L_P + 131.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- L_P+131.0\n- 40.0\n- 90\n",
+        position=(L_P + 131.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_P + 248.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_P+248.0\n- 0.0\n- 0\n",
+        position=(L_P + 248.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PMTOE200(L_P: float = 100.0) -> gf.Component:
+    """Thermal-optical phase modulator in E200.
+
+    Args:
+      L_P: length of phase shifter (min: 10.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PMTOE200()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 40.0], [L_P + 44.0, 40.0], [L_P + 44.0, -30.0], [0.0, -30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_PMTOE200:L_P={L_P}"
+    c.add_label(text=f"Parameters:\nL_P={L_P}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 40.0\n- 90\n",
+        position=(15.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(L_P + 29.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- L_P+29.0\n- 40.0\n- 90\n",
+        position=(L_P + 29.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(L_P + 44.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- L_P+44.0\n- 0.0\n- 0\n",
+        position=(L_P + 44.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PMTOE600(L_P: float = 200.0) -> gf.Component:
+    """Thermal-optical phase modulator in E600.
+
+    Args:
+      L_P: length of phase shifter (min: 162.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PMTOE600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 40.0], [L_P + 248.0, 40.0], [L_P + 248.0, -30.0], [0.0, -30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_PMTOE600:L_P={L_P}"
+    c.add_label(text=f"Parameters:\nL_P={L_P}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(117.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 117.0\n- 40.0\n- 90\n",
+        position=(117.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(L_P + 131.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- L_P+131.0\n- 40.0\n- 90\n",
+        position=(L_P + 131.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(L_P + 248.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- L_P+248.0\n- 0.0\n- 0\n",
+        position=(L_P + 248.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PolConverter45() -> gf.Component:
+    """Polarization converter for 45 degrees.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PolConverter45()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 40.0], [718.0, 40.0], [718.0, -40.0], [0.0, -40.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PolConverter45"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(718.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 718.0\n- 0.0\n- 0\n",
+        position=(718.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PolConverter90() -> gf.Component:
+    """Polarization converter for 90 degrees.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PolConverter90()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -40.0], [994.0, -40.0], [994.0, 40.0], [0.0, 40.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PolConverter90"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(994.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 994.0\n- 0.0\n- 0\n",
+        position=(994.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_PolSplitter() -> gf.Component:
+    """Polarization splitter.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_PolSplitter()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[1930.0, 50.0], [1930.0, -50.0], [0.0, -50.0], [0.0, 50.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_PolSplitter"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(997.0, 50.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater 1\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 997.0\n- 50.0\n- 90\n",
+        position=(997.0, 50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(1373.0, 50.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater 1\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 1373.0\n- 50.0\n- 90\n",
+        position=(1373.0, 50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e3",
+        cross_section="DC",
+        center=(997.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e3"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater 2\nname: e3\nwidth: 16.0\nxsection: DC\nxya:\n- 997.0\n- -50.0\n- -90\n",
+        position=(997.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e4",
+        cross_section="DC",
+        center=(1373.0, -50.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e4"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: tuning heater 2\nname: e4\nwidth: 16.0\nxsection: DC\nxya:\n- 1373.0\n- -50.0\n- -90\n",
+        position=(1373.0, -50.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 2.0\n- 180\n",
+        position=(0.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(1930.0, 2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 1\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 1930.0\n- 2.0\n- 0\n",
+        position=(1930.0, 2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -2.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -2.0\n- 180\n",
+        position=(0.0, -2.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(1930.0, -2.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O 2\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 1930.0\n- -2.0\n- 0\n",
+        position=(1930.0, -2.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_R50GSG() -> gf.Component:
+    """50 ohm resistor between GSG tracks.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_R50GSG()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[100.0, 190.0], [100.0, -190.0], [0.0, -190.0], [0.0, 190.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_R50GSG"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(0.0, 130.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 0.0\n- 130.0\n- 180\n",
+        position=(0.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(100.0, 130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 100.0\n- 130.0\n- 0\n",
+        position=(100.0, 130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(0.0, -130.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 0.0\n- -130.0\n- 180\n",
+        position=(0.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(100.0, -130.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 100.0\n- -130.0\n- 0\n",
+        position=(100.0, -130.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(100.0, 0.0),
+        orientation=0,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 100.0\n- 0.0\n- 0\n",
+        position=(100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_SGDBRTO(
+    N_B: int = 10.0, W_S: float = 1550.0, Z_0: float = 50.0, Z_1: float = 25.0
+) -> gf.Component:
+    """Thermal-optical sampled grating (max. grating length Z0*(NB-1)+Z1 = 800um)
+
+    Args:
+      N_B: Number of Bursts (min: 2.0, max: 32.0, int).
+      W_S: Wavelength (min: 1500.0, max: 1580.0, nm).
+      Z_0: Burst length (min: 25.0, max: 400.0, um).
+      Z_1: Gratings length (min: 1.52, max: 400.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_SGDBRTO()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [
+            [0.0, 40.0],
+            [N_B * Z_0 + 100.0, 40.0],
+            [N_B * Z_0 + 100.0, -30.0],
+            [0.0, -30.0],
+        ],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_SGDBRTO:N_B={N_B},W_S={W_S},Z_0={Z_0},Z_1={Z_1}"
+    c.add_label(
+        text=f"Parameters:\nN_B={N_B}\nW_S={W_S}\nZ_0={Z_0}\nZ_1={Z_1}",
+        position=(0, 0),
+        layer=layer_label,
+    )
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 40.0\n- 90\n",
+        position=(15.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(N_B * Z_0 + 85.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- N_B*Z_0+85.0\n- 40.0\n- 90\n",
+        position=(N_B * Z_0 + 85.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(N_B * Z_0 + 100.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- N_B*Z_0+100.0\n- 0.0\n- 0\n",
+        position=(N_B * Z_0 + 100.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_SOA(L_S: float = 100.0) -> gf.Component:
+    """Optical gain section with butt joints connecting to E1700 waveguides.
+
+    Args:
+      L_S: length of SOA (min: 20.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_SOA()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_S + 400.0, 60.0], [L_S + 400.0, -60.0], [0.0, -60.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_SOA:L_S={L_S}"
+    c.add_label(text=f"Parameters:\nL_S={L_S}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_S / 2 + 200.0, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_S/2+200.0\n- -60.0\n- -90\n",
+        position=(L_S / 2 + 200.0, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(L_S + 400.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- L_S+400.0\n- 0.0\n- 0\n",
+        position=(L_S + 400.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_S / 2 + 200.0, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_S/2+200.0\n- 60.0\n- 90\n",
+        position=(L_S / 2 + 200.0, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_SOAsection(L_S: float = 100.0) -> gf.Component:
+    """Optical gain section connecting to active waveguides.
+
+    Args:
+      L_S: length of SOA (min: 24.0, max: 2000.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_SOAsection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 60.0], [L_S, 60.0], [L_S, -60.0], [0.0, -60.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_SOAsection:L_S={L_S}"
+    c.add_label(text=f"Parameters:\nL_S={L_S}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="n1",
+        cross_section="DC",
+        center=(L_S / 2, -60.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["n1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: n-contact\nname: n1\nwidth: 16.0\nxsection: DC\nxya:\n- L_S/2\n- -60.0\n- -90\n",
+        position=(L_S / 2, -60.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L_S, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L_S\n- 0.0\n- 0\n",
+        position=(L_S, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="p1",
+        cross_section="DC",
+        center=(L_S / 2, 60.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["p1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: In\ndoc: p-contact\nname: p1\nwidth: 16.0\nxsection: DC\nxya:\n- L_S/2\n- 60.0\n- 90\n",
+        position=(L_S / 2, 60.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_SSCLATE1700(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Spot-size converter (SSC) to 10 um connecting to E1700 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflection (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_SSCLATE1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -57.0], [1200.0, -57.0], [1200.0, 57.0], [0.0, 57.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_SSCLATE1700:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(1200.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 1200.0\n- 0.0\n- 0\n",
+        position=(1200.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_SSCLATE200(R: float = 0.0001, n: float = 1.0) -> gf.Component:
+    """Spot-size converter (SSC) to 10 um connecting to E200 waveguides. Placement can be under an angle for lowering reflections.
+
+    Args:
+      R: Reflection (min: 0.0001, max: 1.0, ).
+      n: Refraction (min: 1.0, max: 10.0, ).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_SSCLATE200()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -57.0], [1200.0, -57.0], [1200.0, 57.0], [0.0, 57.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_SSCLATE200:R={R},n={n}"
+    c.add_label(text=f"Parameters:\nR={R}\nn={n}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="FACET",
+        center=(1200.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "FACET"
+    c.add_label(
+        text="alias: InOut\ndoc: facet\nname: o2\nwidth: 10.0\nxsection: FACET\nxya:\n- 1200.0\n- 0.0\n- 0\n",
+        position=(1200.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_TOBiasSection(L: float = 100.0) -> gf.Component:
+    """Thermal-optical phase modulator on active waveguide.
+
+    Args:
+      L: Heater length (min: 20.0, max: 800.0, um).
+
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_TOBiasSection()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[L + 44.0, -30.0], [L + 44.0, 40.0], [0.0, 40.0], [0.0, -30.0]],
+        layer=layer_bbox,
+    )
+    xc = c.x
+    yc = c.y
+    name = f"HHI_TOBiasSection:L={L}"
+    c.add_label(text=f"Parameters:\nL={L}", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: heater\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 40.0\n- 90\n",
+        position=(15.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(L + 29.0, 40.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: heater\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- L+29.0\n- 40.0\n- 90\n",
+        position=(L + 29.0, 40.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(L + 44.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- L+44.0\n- 0.0\n- 0\n",
+        position=(L + 44.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTGSGsingle() -> gf.Component:
+    """Crossing between an active waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTGSGsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [374.0, 25.0], [374.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTGSGsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 0\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 0\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 1\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 1\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(374.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 374.0\n- 0.0\n- 0\n",
+        position=(374.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTGSGtwin() -> gf.Component:
+    """Crossing between an twin active waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTGSGtwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [374.0, 25.0], [374.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTGSGtwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 0\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 0\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 1\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG ground 1\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(374.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 374.0\n- 6.5\n- 0\n",
+        position=(374.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(374.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 374.0\n- -6.5\n- 0\n",
+        position=(374.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: GSG signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTGSsingle() -> gf.Component:
+    """Crossing between an active waveguide and a GSG RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTGSsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [340.0, 25.0], [340.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTGSsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(340.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 340.0\n- 0.0\n- 0\n",
+        position=(340.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTGStwin() -> gf.Component:
+    """Crossing between an twin active waveguide and a GSG RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTGStwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, 25.0], [340.0, 25.0], [340.0, -25.0], [0.0, -25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTGStwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(340.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 340.0\n- 6.5\n- 0\n",
+        position=(340.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(340.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 340.0\n- -6.5\n- 0\n",
+        position=(340.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTsingle() -> gf.Component:
+    """Crossing between an active waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(30.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 30.0\n- 0.0\n- 0\n",
+        position=(30.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxACTtwin() -> gf.Component:
+    """Crossing between an twin active waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxACTtwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxACTtwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="ACT",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="ACT",
+        center=(30.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: ACT\nxya:\n- 30.0\n- 6.5\n- 0\n",
+        position=(30.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="ACT",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: ACT\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="ACT",
+        center=(30.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "ACT"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: ACT\nxya:\n- 30.0\n- -6.5\n- 0\n",
+        position=(30.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700GSGsingle() -> gf.Component:
+    """Crossing between an E1700 waveguide and a GSG RF-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700GSGsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [374.0, -25.0], [374.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700GSGsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(374.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 374.0\n- 0.0\n- 0\n",
+        position=(374.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700GSGtwin() -> gf.Component:
+    """Crossing between twin E1700 waveguide and a GSG RF-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700GSGtwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [374.0, -25.0], [374.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700GSGtwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(374.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 374.0\n- 6.5\n- 0\n",
+        position=(374.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(374.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 374.0\n- -6.5\n- 0\n",
+        position=(374.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700GSsingle() -> gf.Component:
+    """Crossing between an E1700 waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700GSsingle()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [340.0, -25.0], [340.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700GSsingle"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(340.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 340.0\n- 0.0\n- 0\n",
+        position=(340.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700GStwin() -> gf.Component:
+    """Crossing between twin E1700 waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700GStwin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [340.0, -25.0], [340.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700GStwin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(340.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 340.0\n- 6.5\n- 0\n",
+        position=(340.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(340.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 340.0\n- -6.5\n- 0\n",
+        position=(340.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700single() -> gf.Component:
+    """Crossing between an E1700 waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700single()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700single"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(30.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 30.0\n- 0.0\n- 0\n",
+        position=(30.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE1700twin() -> gf.Component:
+    """Crossing between twin E1700 waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE1700twin()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE1700twin"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E1700",
+        center=(0.0, 6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- 6.5\n- 180\n",
+        position=(0.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(0.0, -6.5),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 0.0\n- -6.5\n- 180\n",
+        position=(0.0, -6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o3",
+        cross_section="E1700",
+        center=(30.0, 6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o3"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o3\nwidth: 2.0\nxsection: E1700\nxya:\n- 30.0\n- 6.5\n- 0\n",
+        position=(30.0, 6.5),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o4",
+        cross_section="E1700",
+        center=(30.0, -6.5),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o4"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o4\nwidth: 2.0\nxsection: E1700\nxya:\n- 30.0\n- -6.5\n- 0\n",
+        position=(30.0, -6.5),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE200() -> gf.Component:
+    """Crossing between an E200 waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE200()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE200"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(30.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 30.0\n- 0.0\n- 0\n",
+        position=(30.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE200GS() -> gf.Component:
+    """Crossing between an E200 waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE200GS()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [340.0, -25.0], [340.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE200GS"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(340.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 340.0\n- 0.0\n- 0\n",
+        position=(340.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE200GSG() -> gf.Component:
+    """Crossing between an E200 waveguide and a GSG RF-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE200GSG()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [374.0, -25.0], [374.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE200GSG"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E200",
+        center=(374.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E200\nxya:\n- 374.0\n- 0.0\n- 0\n",
+        position=(374.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE600() -> gf.Component:
+    """Crossing between an E600 waveguide and a DC-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [30.0, -25.0], [30.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE600"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="e1",
+        cross_section="DC",
+        center=(15.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["e1"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e1\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- 25.0\n- 90\n",
+        position=(15.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="e2",
+        cross_section="DC",
+        center=(15.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["e2"].info["cross_section"] = "DC"
+    c.add_label(
+        text="alias: InOut\ndoc: electrical I/O\nname: e2\nwidth: 16.0\nxsection: DC\nxya:\n- 15.0\n- -25.0\n- -90\n",
+        position=(15.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(30.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 30.0\n- 0.0\n- 0\n",
+        position=(30.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE600GS() -> gf.Component:
+    """Crossing between an E600 waveguide and a Ground Signal RF track.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE600GS()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [340.0, -25.0], [340.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE600GS"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GS",
+        center=(83.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g1\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- 25.0\n- 90\n",
+        position=(83.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GS",
+        center=(83.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS ground\nname: g2\nwidth: 150.0\nxsection: GS\nxya:\n- 83.0\n- -25.0\n- -90\n",
+        position=(83.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(340.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 340.0\n- 0.0\n- 0\n",
+        position=(340.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GS",
+        center=(257.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s1\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- 25.0\n- 90\n",
+        position=(257.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GS",
+        center=(257.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GS"
+    c.add_label(
+        text="alias: InOut\ndoc: GS signal\nname: s2\nwidth: 150.0\nxsection: GS\nxya:\n- 257.0\n- -25.0\n- -90\n",
+        position=(257.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGMETxE600GSG() -> gf.Component:
+    """Crossing between an E600 waveguide and a GSG RF-line.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGMETxE600GSG()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -25.0], [374.0, -25.0], [374.0, 25.0], [0.0, 25.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGMETxE600GSG"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="g1",
+        cross_section="GSG",
+        center=(57.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g1\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- 25.0\n- 90\n",
+        position=(57.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g2",
+        cross_section="GSG",
+        center=(57.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 1\nname: g2\nwidth: 100.0\nxsection: GSG\nxya:\n- 57.0\n- -25.0\n- -90\n",
+        position=(57.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g3",
+        cross_section="GSG",
+        center=(317.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["g3"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g3\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- 25.0\n- 90\n",
+        position=(317.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="g4",
+        cross_section="GSG",
+        center=(317.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["g4"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF ground 2\nname: g4\nwidth: 100.0\nxsection: GSG\nxya:\n- 317.0\n- -25.0\n- -90\n",
+        position=(317.0, -25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(374.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 374.0\n- 0.0\n- 0\n",
+        position=(374.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s1",
+        cross_section="GSG",
+        center=(187.0, 25.0),
+        orientation=90,
+        port_type="electrical",
+    )
+    c.ports["s1"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s1\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- 25.0\n- 90\n",
+        position=(187.0, 25.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="s2",
+        cross_section="GSG",
+        center=(187.0, -25.0),
+        orientation=-90,
+        port_type="electrical",
+    )
+    c.ports["s2"].info["cross_section"] = "GSG"
+    c.add_label(
+        text="alias: InOut\ndoc: RF signal\nname: s2\nwidth: 60.0\nxsection: GSG\nxya:\n- 187.0\n- -25.0\n- -90\n",
+        position=(187.0, -25.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGTE200E1700() -> gf.Component:
+    """Transition element from an E200 to an E1700 waveguide.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGTE200E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -20.0], [205.0, -20.0], [205.0, 20.0], [0.0, 20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGTE200E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(205.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 205.0\n- 0.0\n- 0\n",
+        position=(205.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGTE200E600() -> gf.Component:
+    """Transition element from an E200 to an E600 waveguide.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGTE200E600()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -20.0], [205.0, -20.0], [205.0, 20.0], [0.0, 20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGTE200E600"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E200",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E200"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E200\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E600",
+        center=(205.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E600\nxya:\n- 205.0\n- 0.0\n- 0\n",
+        position=(205.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+@gf.cell
+def HHI_WGTE600E1700() -> gf.Component:
+    """Transition element from an E600 to an E1700 waveguide.
+    .. plot::
+      :include-source:
+
+      from pdk import cells
+
+      c = cells.HHI_WGTE600E1700()
+      c.draw_ports()
+      c.plot()
+    """
+    c = gf.Component()
+    c.add_polygon(
+        [[0.0, -20.0], [205.0, -20.0], [205.0, 20.0], [0.0, 20.0]], layer=layer_bbox
+    )
+    xc = c.x
+    yc = c.y
+    name = "HHI_WGTE600E1700"
+    c.add_label(text="Parameters:\n", position=(0, 0), layer=layer_label)
+    c.add_port(
+        name="o1",
+        cross_section="E600",
+        center=(0.0, 0.0),
+        orientation=180,
+        port_type="optical",
+    )
+    c.ports["o1"].info["cross_section"] = "E600"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o1\nwidth: 2.0\nxsection: E600\nxya:\n- 0.0\n- 0.0\n- 180\n",
+        position=(0.0, 0.0),
+        layer=layer_pin_label,
+    )
+    c.add_port(
+        name="o2",
+        cross_section="E1700",
+        center=(205.0, 0.0),
+        orientation=0,
+        port_type="optical",
+    )
+    c.ports["o2"].info["cross_section"] = "E1700"
+    c.add_label(
+        text="alias: InOut\ndoc: optical I/O\nname: o2\nwidth: 2.0\nxsection: E1700\nxya:\n- 205.0\n- 0.0\n- 0\n",
+        position=(205.0, 0.0),
+        layer=layer_pin_label,
+    )
+    text = c << text_function(text=name)
+    text.x = xc
+    text.y = yc
+
+    c.name = name
+    if layer_pin:
+        add_pins(c, layer=layer_pin)
+    return c
+
+
+if __name__ == "__main__":
+    c = HHI_WGTE600E1700()
+    c.show()

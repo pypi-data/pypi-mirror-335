@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: hhi
+Version: 0.2.4
+Summary: HHI photonics PDK
+Keywords: python
+Author-email: gdsfactory <contact@gdsfactory.com>
+Requires-Python: >=3.11,<3.13
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Operating System :: OS Independent
+License-File: LICENSE
+Requires-Dist: gdsfactory~=9.2.2
+Requires-Dist: gplugins[tidy3d, sax]>=1.3.0
+Requires-Dist: pre-commit ; extra == "dev"
+Requires-Dist: pytest ; extra == "dev"
+Requires-Dist: pytest-cov ; extra == "dev"
+Requires-Dist: pytest_regressions ; extra == "dev"
+Requires-Dist: pytest-github-actions-annotate-failures ; extra == "dev"
+Requires-Dist: pyppeteer ; extra == "dev"
+Requires-Dist: matplotlib ; extra == "docs"
+Requires-Dist: jupyter-book==1.0.2 ; extra == "docs"
+Requires-Dist: sphinx-autodoc-typehints ; extra == "docs"
+Requires-Dist: tbump ; extra == "maintain"
+Requires-Dist: towncrier ; extra == "maintain"
+Requires-Dist: ruff ; extra == "maintain"
+Provides-Extra: dev
+Provides-Extra: docs
+Provides-Extra: maintain
+
+# hhi 0.2.4
+
+HHI photonics PDK for gdsfactory
+
+## Installation
+
+Use python 3.12. We recommend [VSCode](https://code.visualstudio.com/) as an IDE.
+
+We recommend `uv`
+
+```bash
+# On macOS and Linux.
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```bash
+# On Windows.
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+Then you can install with:
+
+```bash
+uv venv --python 3.12
+uv pip install hhi
+```
+
+Then you need to restart Klayout to make sure the new technology installed appears.
+
