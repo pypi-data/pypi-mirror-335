@@ -1,0 +1,120 @@
+Metadata-Version: 2.3
+Name: monkdb
+Version: 1.0.5
+Summary: MonkDB Python Client to interact with MonkDB's database engine
+License: Apache-2.0
+Keywords: monkdb,db,api,dbapi,database,sql,http,rdbms,olap
+Author: MonkDB Development Team
+Author-email: devs@monkdb.com
+Requires-Python: >=3.6
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Database
+Provides-Extra: test
+Requires-Dist: orjson (<4) ; python_version >= "3.8"
+Requires-Dist: urllib3
+Requires-Dist: verlib2
+Project-URL: homepage, https://bitbucket.org/atomstatedev/monkpy
+Description-Content-Type: text/markdown
+
+![MonkDB](./assets/monk_updated_logo_normal.png)
+
+# MonkDB Python Client Driver
+
+![Python](https://img.shields.io/badge/Python-3.6%2B-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Stable](https://img.shields.io/badge/stability-stable-brightgreen) ![Version](https://img.shields.io/badge/version-1.0.5-blue) ![Last Updated](https://img.shields.io/badge/last%20updated-March%2018%202025-brightgreen)
+
+## Introduction
+
+This package is a MonkDB's Python SDK client library. It is compliant with [PEP0249](https://peps.python.org/pep-0249/) to interact with database engines using Python's established goto practices.
+
+---
+
+## Installation
+
+One can use the regular `pip` to install monkdb client driver. It installs the latest package.
+
+```sh
+pip install monkdb
+```
+
+Or if you want to install a specific version using `pip`, please run the below command.
+
+```sh
+pip install monkdb==1.0.5
+```
+
+One can also use other python package managers. For example, below is the command to install with `poetry`. It installs the latest package
+
+```sh
+poetry add monkdb
+```
+
+Or if you want to add specific version of MonkDB using `poetry`, please run the below command.
+
+```sh
+poetry add monkdb@1.0.0
+```
+
+---
+
+## Usage Instructions
+
+### Connect to MonkDB
+
+The first step in working with **MonkDB** is to establish a connection using the client instance. This is a prerequisite for performing downstream operations such as executing SQL statements, interacting with tables, and more. 
+
+```python
+from monkdb import client
+
+try:
+    connection = client.connect(
+        f"http://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}", username=DB_USER
+    )
+    cursor = connection.cursor()
+    print("✅ Database connection established successfully!")
+except Exception as e:
+    print(f"⚠️ Error connecting to the database: {e}")
+    exit(1)
+```
+
+### Sample Downstream Usage
+
+Use the `cursor` that is connected to **MonkDB** in the previous step to execute SQL statements, close the connection, and perform other database operations.
+
+In the example below, we are dropping the table if it exists:
+
+```python
+# Drop table if exists
+cursor.execute(f"DROP TABLE IF EXISTS {DB_SCHEMA}.{TABLE_NAME}")
+print(f"Dropped {DB_SCHEMA}.{TABLE_NAME} table")
+```
+
+### Closing the connection
+
+If the connection is not needed anymore, please close the connection to MonkDB.
+
+```python
+# Close connection
+cursor.close()
+connection.close()
+```
+
+---
+
+## Support
+
+For enterprise support, please write to us at [devs@monkdb.com](mailto:devs@monkdb.com).
