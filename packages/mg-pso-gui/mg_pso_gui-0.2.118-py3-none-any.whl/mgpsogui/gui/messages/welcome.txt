@@ -1,0 +1,45 @@
+--- Welcome to COSU Manager! ---
+
+COSU stands for Calibration, Optimization, Sensitivity and Uncertainty. COSU Manager is a graphical user interface built with tkinter (https://docs.python.org/3/library/tkinter.html) to execute computational services using the Cloud Services Integration Platform (CSIP; https://alm.engr.colostate.edu/cb/project/csip).  The overall workflow of COSU starts with Sampling (Halton or Random), then Sensitivity Analysis, and finally Optimization using Multigroup Particle Swarm Optimization. In each of these service modes, COSU Manager is used to build service requests, read service responses, monitor service status, and display COSU results.
+
+To get started, it is highly recommended to open a default configuration file (.json) as an example and build an understanding of how information is formatted.
+
+--- Header ---
+
+The header contains many important controls. To get started, click the "Load" button to load a default config and enter an HTTP endpoint to the service that you will be using. The refresh button can be used to make a connection with the service and verify that it is available. The next element of the header is the mode selector. The mode selector is one of the most important features of COSU Manager and will be used to execute an entire workflow. You will notice that whenever you switch modes the entire content of COSU Manager changes depending on which mode you are in. Don't worry, data are unique to each mode and not lost when modes are switched. In each mode, you will interact with the four main tabs of the application: Platform, Setup, Results, and Project.
+
+--- Platform Tab ---
+
+The platform tab consists of 3 primary editors: Service Parameters, Service Status, and Minikube (Kubernites) Environment Editor. The Service Parameters editor allows you to define attributes for the service such as timeouts and retry attempts. All of these parameters will be used when executing a step of the workflow and invoked at the service in the header. The Service Status editor is purely read-only and is used to view information returned from the service. This can be used to verify that the correct endpoint is being used and that the service is available. Service Status is populated whenever the refresh button in the header is clicked.
+
+The final editor is the Minikube Environment Editor. This tool is used to deploy a local Minikube environment of any of the workflow services. This editor can be used to start Minikube, deploy the service of the selected mode, view the status of the service, and stop Minikube. After creating the Minikube service, the endpoint can be filled into the endpoint prompt in the header to use COSU Manager in the exact same way as an externally hosted service. Minikube can be used as a testing environment before creating a cloud deployment.
+
+--- Setup Tab ---
+
+The Setup Tab is the most advanced tab and will be used to define all of the parameters used in each of the workflow modes. In all modes, the right sidebar can be used to define Model Parameters and Hyperparameters. The values here depend on the mode, but both of these editors allow for various parameters to be defined. These editors support a variety of data types including strings, floats, integers, dates, and booleans. The editor will adapt the UI and show the appropriate editor depending on the data type (e.g. dates will have a date picker, booleans a True/False dropdown, or a textbox for strings).
+
+The second editor is the Group Editor. In Optimization you will be able to define multiple groups while all other modes only support a single group. The Group Editor includes options to create new groups, delete them, rearrange their order, expand/contract them, and overwrite global parameters defined in the sidebar. In each group you can define parameter Bounds and Objective Functions. Bounds can be imported from CSV files or edited in the interface. The Bounds editor will provide information about each parameter from the service in tooltips and notify when a parameter is outside the recommended bound by highlighting them in Red. In other modes besides Optimization the Setup Tab show less information, only the attributes relevant to each mode.
+
+--- Results Tab ---
+
+The Results Tab is where data can be visualized after a workflow step has run, or view progress while Optimization is running. The main interface of the Results Tab is the left sidebar, where the figure type can be selected and then any relevant fields are displayed to edit the figure. Each mode has different figure types:
+
+Optimization:
+- Best Cost Stacked
+- Best Cost by Round
+- Custom CSV
+- Compare CSV
+
+Sensitivity Analysis: 
+- Custom CSV
+- Compare CSV
+
+Sampling:
+- Sampling CSV
+- Matrix Editor
+
+Each of the CSV editors are the most powerful figure editors with extensive options to customize how the figure is generated and which dataset is being used. Figures can be generated with different themes and then Exported in a variety of formats including HTML, Plotly JSON, PDF, and PNG. If you need to view a figure more closely, you can click the "Preview" option to open the graph in a web browser. While in the a browser each figure has an interactive interface where the figure can be zoomed, cropped, analyzed, and exported into different formats.
+
+--- Project Tab ---
+
+The Project Tab is likely used the least compared to all of the others. Here you can view the console output of the interface, including any errors that are happening. This tab also has the Project Editor where you can copy data between modes. As the workflow is built out, it is expected to start with Sampling, followed by Sensitivity Analysis, and end with Optimization. Instead of having to setup each mode individually the parameters from one can be transferred between modes using the Project Tab. The Project Folder and various other project attributes can be viewed here. Finally, the Optimal Parameters found using Optimization can be viewed here.
