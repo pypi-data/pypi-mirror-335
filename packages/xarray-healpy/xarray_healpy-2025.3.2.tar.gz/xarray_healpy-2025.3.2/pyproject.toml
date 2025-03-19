@@ -1,0 +1,71 @@
+[project]
+name = "xarray-healpy"
+requires-python = ">= 3.10"
+license = {text = "MIT"}
+dependencies = [
+    "xarray>=2023.11.0",
+    "healpy",
+    "sparse",
+    "opt_einsum",
+    "numba",
+    "numpy",
+    "sparse",
+    "scikit-learn",
+    "opt_einsum",
+    "cdshealpix",
+    "astropy",
+]
+dynamic = ["version"]
+
+[build-system]
+requires = ["setuptools>=64.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["xarray_healpy"]
+
+[tool.setuptools_scm]
+fallback_version = "9999"
+
+[tool.ruff]
+builtins = ["ellipsis"]
+exclude = [
+    ".git",
+    ".eggs",
+    "build",
+    "dist",
+    "__pycache__",
+    "docs",
+]
+target-version = "py310"
+
+extend-include = ["*.ipynb"]
+line-length = 100
+
+[tool.ruff.lint]
+ignore = [
+    "E203", # whitespace before ':' - doesn't work well with black
+    "E402", # module level import not at top of file
+    "E501", # line too long - let black worry about that
+    "E731", # do not assign a lambda expression, use a def
+]
+select = [
+    "F",  # Pyflakes
+    "E",  # Pycodestyle
+    "I",  # isort
+    "UP", # Pyupgrade
+    "TID", # tidy imports
+]
+extend-safe-fixes = [
+    "TID252",  # absolute imports
+]
+fixable = ["I", "TID"]
+
+
+[tool.ruff.lint.isort]
+known-first-party = ["xarray_healpy"]
+known-third-party = []
+
+[tool.ruff.lint.flake8-tidy-imports]
+# Disallow all relative imports.
+ban-relative-imports = "all"
