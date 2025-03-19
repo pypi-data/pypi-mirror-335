@@ -1,0 +1,110 @@
+Metadata-Version: 2.1
+Name: vistudio-image-analysis
+Version: 4.5.6.dev2
+Summary: sdk in python for vistudio-image-analysis
+Home-page: https://console.cloud.baidu-int.com/devops/icode/repos/baidu/bce-vistudio/vistudio-image-analysis/tree/master/vistudio_image_analysis
+Author: liuyawen03
+Author-email: liuyawen03@baidu.com
+License: MIT
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: bce-python-sdk ==0.8.87
+Requires-Dist: multidict ==6.0.4
+Requires-Dist: ray[all]
+Requires-Dist: pymongo
+Requires-Dist: pymongoarrow ==1.6.0
+Requires-Dist: pydantic
+Requires-Dist: windmill-compute ==1.0.0.35
+Requires-Dist: windmill-artifact
+Requires-Dist: windmill-train
+Requires-Dist: windmill-model
+Requires-Dist: windmill-endpoint ==1.0.0.23.dev14
+Requires-Dist: windmill-category
+Requires-Dist: gaea-logit
+Requires-Dist: bcelogger ==1.2.0.5
+Requires-Dist: xxhash
+Requires-Dist: opencv-python-headless
+Requires-Dist: pycocotools
+Requires-Dist: pywindmill
+Requires-Dist: gaea-tracker
+Requires-Dist: gaea-operator ==1.3.9.post20250114
+Requires-Dist: mongoengine
+Requires-Dist: shapely
+Requires-Dist: apscheduler
+Requires-Dist: tritonv2 ==1.3.8.dev2
+Requires-Dist: tritonclient
+Requires-Dist: pytest
+Requires-Dist: lmdeployv1
+Requires-Dist: openai
+Requires-Dist: bce-internal-sdk
+Requires-Dist: jobv1 ==0.0.2.dev9
+Requires-Dist: mysql-connector-python
+Requires-Dist: croniter
+Requires-Dist: graph-service ==1.0.0.5.dev3
+Requires-Dist: boto3 ==1.35.93
+Requires-Dist: aiobotocore ==2.17.0
+
+Vistudio Image Analysis
+===
+CV图片类数据分析框架。包含图片流式推理、图片处理、标注数据处理等功能。
+
+快速开始
+---
+如何构建、安装、运行
+
+测试
+---
+如何执行自动化测试
+
+如何贡献
+---
+贡献patch流程及质量要求
+
+版本信息
+---
+本项目的各版本信息和变更历史可以在[这里][changelog]查看。
+
+维护者
+---
+### owners
+* liuyawen03(liuyawen03@baidu.com)
+
+### committers
+* liuyawen03(liuyawen03@baidu.com)
+
+讨论
+---
+百度Hi交流群：群号
+
+
+[changelog]: http://icode.baidu.com/repos/baidu/bce-vistudio/vistudio-image-analysis/blob/master:CHANGELOG.md
+
+Changelog
+===
+以下记录了项目中所有值得关注的变更内容，其格式基于[Keep a Changelog]。
+
+本项目版本遵守[Semantic Versioning]和[PEP-440]。
+
+[Unreleased]
+---
+### Added
+- 这里记录新添加的内容
+### Changed
+- 这里记录变更的内容
+
+0.1.0 - 2024-04-11
+---
+### Added
+- 创建项目
+
+
+[Unreleased]: http://icode.baidu.com/repos/baidu/bce-vistudio/vistudio-image-analysis/merge/0.1.0...master
+
+[Keep a Changelog]: https://keepachangelog.com/zh-CN/1.0.0/
+[Semantic Versioning]: https://semver.org/lang/zh-CN/
+[PEP-440]: https://www.python.org/dev/peps/pep-0440/
