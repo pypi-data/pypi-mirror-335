@@ -1,0 +1,100 @@
+[project]
+name = "machinevision-toolbox-python"
+version = "1.0.1"
+authors = [
+    { name = "Peter Corke", email = "rvc@petercorke.com" },
+    { name = "Dorian Tsai" },
+]
+description = "Python tools for machine vision - education and research"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    # Indicate who your project is intended for
+    "Intended Audience :: Developers",
+    # Specify the Python versions you support here.
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = [
+    "machine vision",
+    "computer vision",
+    "multiview geometry",
+    "stereo vision",
+    "bundle adjustment",
+    "visual servoing",
+    "image features",
+    "color",
+    "blobs",
+    "morphology",
+    "image segmentation",
+    "opencv",
+    "open3d",
+]
+
+dependencies = [
+    "numpy>=1.17.4, < 2.0.0", # OpenCV requires numpy 1.x
+    "scipy",
+    "matplotlib",
+    "opencv-python",
+    "open3d",
+    "opencv-contrib-python",
+    "spatialmath-python",
+    "pgraph-python",
+    "ansitable",
+    "mvtb-data",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/petercorke/machinevision-toolbox-python"
+"Bug Tracker" = "https://github.com/pypa/sampleproject/issues"
+"Documentation" = "https://petercorke.github.io/machinevision-toolbox-python"
+"GitHub Source" = "https://github.com/petercorke/machinevision-toolbox-python"
+"Changelog" = "https://github.com/petercorke/machinevision-toolbox-python/blob/master/CHANGELOG.md"
+
+[project.optional-dependencies]
+
+dev = ["pytest", "coverage", "flake8"]
+
+docs = [
+    "sphinx",
+    "recommonmark",
+    "sphinx-rtd-theme",
+    "sphinx-autorun",
+    "sphinxcontrib-jsmath",
+    "sphinx-markdown-tables",
+    "sphinx-favicon",
+]
+
+jupyter = ["ipywidgets", "ipympl"]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "machinevisiontoolbox", "mvtb-data", "mvtb-data/mvtbdata"]
+
+[project.scripts]
+mvtbtool = "machinevisiontoolbox.bin.mvtbtool:main"
+imtool = "machinevisiontoolbox.bin.imtool:main"
+
+[build-system]
+requires = ["setuptools", "oldest-supported-numpy"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = [
+    "machinevisiontoolbox",
+    "machinevisiontoolbox.base",
+    "machinevisiontoolbox.blocks",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py37']
+exclude = "camera_derivatives.py"
+
+[tool.coverage.run]
+omit = []
