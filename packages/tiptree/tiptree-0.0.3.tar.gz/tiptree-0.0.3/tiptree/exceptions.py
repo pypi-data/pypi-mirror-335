@@ -1,0 +1,2 @@
+class ActxAPIError(Exception):
+    pass

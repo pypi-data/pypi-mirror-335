@@ -1,0 +1,91 @@
+Metadata-Version: 2.4
+Name: tiptree
+Version: 0.0.3
+Summary: Client library for the Tiptree Platform API
+Project-URL: Homepage, https://github.com/tiptreesystems/tiptree-clients
+Project-URL: Bug Tracker, https://github.com/tiptreesystems/tiptree-clients/issues
+Author: Tiptree Advanced Systems Corporation
+License: MIT License
+        
+        Copyright (c) 2025 Tiptree Advanced Systems Corporation
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.9
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: typing-extensions>=4.0.0
+Description-Content-Type: text/markdown
+
+# Tiptree Client
+
+A Python client library for interacting with the Tiptree's Agent Runtime Platform. This client provides both synchronous and asynchronous methods for all API endpoints.
+
+## Installation
+
+```bash
+pip install tiptree
+```
+
+## Quick Start
+
+Please make sure your API keys are either saved in `~/.tiptreerc/credentials` or passed as an environment variable:
+
+```bash
+export TIPTREE_API_KEY=<your-api-key>
+```
+
+Here's a simple example of how to use the client:
+
+```python
+from tiptree import Agent
+
+# Create an agent
+agent = Agent.get_or_create()
+
+# Create an agent session
+session = agent.create_agent_session()
+
+# Send message to session
+sent_message = session.send_message("What's the weather like in Berlin right now?")
+
+# Wait for the response
+received_message = session.wait_for_next_message()
+print(received_message.content)
+```
+
+## Features
+
+- Full support for the Tiptree Platform API
+- Both synchronous and asynchronous APIs
+- Type hints for better IDE integration
+- Comprehensive models for all API entities
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
