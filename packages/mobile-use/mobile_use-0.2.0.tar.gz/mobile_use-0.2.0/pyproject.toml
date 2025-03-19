@@ -1,0 +1,31 @@
+[project]
+name = "mobile-use"
+version = "0.2.0"
+description = "Mobile Use​: Automate your mobile with AI - Any app, any task."
+authors = [
+    {name = "zhoujiamu"},
+    {name = "moxiaoyun"},
+    {name = "lining"},
+    {name = "pengqiuying"}
+]
+license = {text = "MIT License"}
+readme = "README.md"
+requires-python = ">=3.10"
+
+[dependencies]
+openai = ">=1.62.0,<2.0.0"
+gradio = ">=5.16.0,<6.0.0"
+adbutils = ">=2.8.0,<3.0.0"
+python-dotenv = ">=1.0.1,<2.0.0"
+immutabledict = ">=4.2.1"
+colorama = ">=0.4.6"
+pyregister = "0.0.1"
+
+[dependency-groups]
+dev = [
+  "pytest >=8.1.1,<9"
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
