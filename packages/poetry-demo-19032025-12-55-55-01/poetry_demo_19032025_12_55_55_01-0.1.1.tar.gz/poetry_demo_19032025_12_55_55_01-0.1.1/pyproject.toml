@@ -1,0 +1,19 @@
+[project]
+name = "poetry-demo-19032025-12-55-55-01"
+version = "0.1.1"
+description = ""
+authors = [
+    {name = "Raja D",email = "raja.d@thehindu.co.in"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "poetry_demo_19032025_12_55_55_01", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
