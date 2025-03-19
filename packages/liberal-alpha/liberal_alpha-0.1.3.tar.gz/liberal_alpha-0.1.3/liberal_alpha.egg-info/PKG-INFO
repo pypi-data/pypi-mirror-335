@@ -1,0 +1,48 @@
+Metadata-Version: 2.1
+Name: liberal-alpha
+Version: 0.1.3
+Summary: Liberal Alpha Python SDK for interacting with gRPC-based backend
+Home-page: https://github.com/capybaralabs-xyz/Liberal_Alpha
+Author: capebaralabs
+Author-email: donny@capybaralabs.xyz
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# Liberal Alpha SDK
+
+📡 **Liberal Alpha SDK** 是一个用于与 gRPC 后端交互的 Python SDK，适用于需要提交数据、处理 Alpha 信号的用户。
+
+---
+
+## 🚀 安装
+
+在终端运行以下命令：
+```bash
+pip install liberal_alpha
+
+📖 使用示例
+1️⃣ 初始化 SDK
+你可以使用 默认参数 初始化：
+from liberal_alpha import initialize, liberal
+
+initialize()
+或者 自定义参数：
+initialize(host="127.0.0.1", port=8128)
+2️⃣ 发送数据
+JSON_Object = {
+    "Price": 100000,
+    "Volume": 50,
+    "Volume_USD": 5000000,
+}
+
+liberal.send_data("BTC_SOURCE1", JSON_Object, record_id="1")
+3️⃣ 发送 Alpha 信号
+alpha_data = {
+    "signal": "buy",
+    "confidence": 0.85
+}
+
+liberal.send_alpha("Alpha_ID", alpha_data, record_id="1")
