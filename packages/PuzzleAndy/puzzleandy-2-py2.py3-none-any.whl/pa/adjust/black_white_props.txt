@@ -1,0 +1,37 @@
+def lerp(x,f0,f1): return (1-x)*f0+x*f1
+def unlerp(fx,f0,f1): return (fx-f0)/(f1-f0)
+def black_hor(im,b): return unlerp(im,b,1)
+def white_hor(im,w): return unlerp(im,0,w)
+def black_white_hor(im,b,w): return unlerp(im,b,w)
+def black_vert(im,b): return lerp(im,b,1)
+def white_vert(im,w): return lerp(im,0,w)
+def black_white_vert(im,b,w): return lerp(im,b,w)
+im = var('im')
+
+bv = var('bv')
+bh = unlerp(0,bv,1)
+print(bool(black_hor(im,bh) == black_vert(im,bv)))
+
+wv = var('wv')
+wh = unlerp(1,0,wv)
+print(bool(white_hor(im,wh) == white_vert(im,wv)))
+
+bv = var('bv')
+wv = var('wv')
+bh = unlerp(0,bv,wv)
+wh = unlerp(1,bv,wv)
+print(bool(black_white_hor(im,bh,wh) == black_white_vert(im,bv,wv)))
+
+bh = var('bh')
+bv = unlerp(0,bh,1)
+print(bool(black_vert(im,bv) == black_hor(im,bh)))
+
+wh = var('wh')
+wv = unlerp(1,0,wh)
+print(bool(white_vert(im,wv) == white_hor(im,wh)))
+
+bh = var('bh')
+wh = var('wh')
+bv = unlerp(0,bh,wh)
+wv = unlerp(1,bh,wh)
+print(bool(black_white_vert(im,bv,wv) == black_white_hor(im,bh,wh)))
