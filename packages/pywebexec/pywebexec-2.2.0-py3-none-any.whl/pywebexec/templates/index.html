@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/static/css/form.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/markdown.css">
+    <link rel="stylesheet" href="/static/css/xterm.css">
+</head>
+<body>
+    <div id="dimmer" class="dimmer">
+        <div class="dimmer-text">Server not available</div>
+    </div>
+    <h2><span class="status-icon title-icon">{{ title }}&nbsp;<a class="swaggerlink" href="/v0/documentation" target="_blank">swagger</a></span></h2>
+    <form id="launchForm" class="form-inline">
+        <label for="command">Command</label>
+        <div class="input-group">
+            <input type="text" id="command" name="command" size=5 autocomplete="off" style="width: 100px;" autofocus>
+            <div id="showCommandListButton" class="show-command-list-button">
+                <span class="arrow">&#9660;</span>
+            </div>
+            <div id="commandList" class="command-list"></div>
+            <input type="text" id="params" name="params" oninput="this.style.width = ((this.value.length + 1) * 8) + 'px';">
+        </div>
+        <button class="run" type="submit">Run</button>
+    </form>
+    <div id="paramsContainer">
+        <div id="schemaContainer">
+            <form id="schemaForm"></form>
+        </div>
+        <div id="paramsHelp" class="markdown"></div>
+    </div>
+    <div class="table-container" id="tableContainer">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Start Time</th>
+                    <th>Duration</th>
+                    <th id="thStatus"><span class="status-icon status-norun"></span>Status</th>
+                    <th>Action</th>
+                    <th>Command</th>
+                    <th>Output</th>
+                </tr>
+            </thead>
+            <tbody id="commands"></tbody>
+        </table>
+    </div>
+    <div class="resizer-container">
+        <div class="resizer" id="resizer"></div>
+    </div>
+    <div id="output" class="output"></div>
+    <div id="pausedMessage" class="paused-message">Paused</div>
+    <div class="slider-container">
+        <span class="command-info"><span id="commandStatus" class="status-icon"></span><span id="commandInfo"></span></span>
+        <input type="range" id="outputSlider" min="0" max="1000" value="1000">
+        <label for="outputSlider"><span id="outputPercentage">100%</span></label>
+        <button id="toggleFetch" class="pause-resume-button pause"></button>
+        <button id="decreaseFontSize" class="font-size-button font-decrease"></button>
+        <button id="increaseFontSize" class="font-size-button font-increase"></button>
+        <button id="toggleFit" class="fit-button fit-window" title="terminal fit window"></button>
+    </div>
+    <script src="/static/js/xterm/xterm.js"></script>
+    <script src="/static/js/xterm/addon-canvas.js"></script>
+    <script src="/static/js/xterm/addon-unicode11.js"></script>
+    <script src="/static/js/xterm/addon-unicode-graphemes.js"></script>
+    <script src="/static/js/xterm/addon-fit.js"></script>
+    <script src="/static/js/marked/marked.min.js"></script>
+    <script type="text/javascript" src="/static/jsonform/deps/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/jsonform/deps/underscore.js"></script>
+    <script type="text/javascript" src="/static/jsonform/deps/jsv.js"></script>
+    <script type="text/javascript" src="/static/jsonform/lib/jsonform.js"></script>
+    <script type="text/javascript" src="/static/js/script.js"></script>
+    <script type="text/javascript" src="/static/js/executables.js"></script>
+    <script type="text/javascript" src="/static/js/schemaform.js"></script>
+
+
+</body>
+</html>
