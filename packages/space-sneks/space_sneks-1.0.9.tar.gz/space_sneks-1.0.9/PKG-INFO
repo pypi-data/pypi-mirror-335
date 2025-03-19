@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: space-sneks
+Version: 1.0.9
+Summary: Sneks in SPACE
+Author-email: Nathaniel Schaaf <nathaniel.schaaf@gmail.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Typing :: Typed
+Requires-Python: >=3.10
+Requires-Dist: pygame>=2.6.1
+Requires-Dist: pytest
+Provides-Extra: dev
+Requires-Dist: boto3-stubs-lite[cognito-idp,essential,sns,stepfunctions]; extra == 'dev'
+Requires-Dist: myst-parser; extra == 'dev'
+Requires-Dist: pyright; extra == 'dev'
+Requires-Dist: requests; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Requires-Dist: sphinx; extra == 'dev'
+Requires-Dist: sphinx-rtd-theme; extra == 'dev'
+Requires-Dist: types-requests; extra == 'dev'
+Provides-Extra: docs
+Requires-Dist: myst-parser; extra == 'docs'
+Requires-Dist: requests; extra == 'docs'
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinx-rtd-theme; extra == 'docs'
+Provides-Extra: infra
+Requires-Dist: aws-cdk-aws-cognito-identitypool-alpha; extra == 'infra'
+Requires-Dist: aws-cdk-lib>=2.164.1; extra == 'infra'
+Requires-Dist: constructs>=10; extra == 'infra'
+Provides-Extra: record
+Requires-Dist: boto3; extra == 'record'
+Requires-Dist: imageio-ffmpeg; extra == 'record'
+Provides-Extra: types
+Requires-Dist: boto3-stubs-lite[cognito-idp,essential,sns,stepfunctions]; extra == 'types'
+Requires-Dist: types-requests; extra == 'types'
+Description-Content-Type: text/markdown
+
+# Sneks in SPACE

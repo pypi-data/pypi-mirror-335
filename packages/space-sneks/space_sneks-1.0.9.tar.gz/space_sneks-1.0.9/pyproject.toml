@@ -1,0 +1,155 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["src/sneks"]
+exclude = [
+    "src/sneks/backend",
+    "src/sneks/infrastructure",
+    "src/sneks/submission.py",
+]
+
+[tool.hatch.build.targets.custom]
+path = ".config/backend_wheel.py"
+exclude = ["src/sneks/submission.py"]
+directory = "dist-backend"
+
+[project]
+name = "space-sneks"
+version = "1.0.9"
+description = "Sneks in SPACE"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0"
+authors = [
+    {name = "Nathaniel Schaaf", email = "nathaniel.schaaf@gmail.com"}
+]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pytest",
+    "pygame>=2.6.1",
+]
+
+[project.optional-dependencies]
+docs = [
+    "requests",
+    "sphinx",
+    "sphinx-rtd-theme",
+    "myst-parser",
+]
+types = [
+    "boto3-stubs-lite[essential,sns,stepfunctions,cognito-idp]",
+    "types-requests",
+]
+dev = [
+    "space-sneks[docs,types]",
+    "pyright",
+    "ruff",
+]
+infra = [
+    "aws-cdk-lib>=2.164.1",
+    "aws-cdk.aws-cognito-identitypool-alpha",
+    "constructs>=10",
+]
+record = [
+    "boto3",
+    "imageio_ffmpeg",
+]
+
+[project.scripts]
+cdk-app = "sneks.infrastructure.app:main"
+validate = "sneks.engine.validator.main:main"
+run = "sneks.engine.engine.runner:main"
+demo = "sneks.engine.engine.runner:demo"
+poster = "sneks.engine.gui.poster:main"
+
+# Ruff
+[tool.ruff]
+extend-exclude = [
+    "src/web",
+]
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+extend-select = ["I", "N", "UP"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+# Pyright
+[tool.pyright]
+include = ["src"]
+exclude = ["src/web"]
+
+# Hatch envs
+[tool.hatch.envs.default]
+path = ".venv"
+python = "3.13"
+installer = "uv"
+skip-install = false
+features = ["dev", "infra", "record"]
+
+[tool.hatch.envs.hatch-test]
+template = "default"
+
+[tool.hatch.envs.hatch-static-analysis]
+template = "default"
+
+# Test matrix
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.10", "3.11", "3.12", "3.13"]
+
+# Scripts
+[tool.hatch.envs.hatch-static-analysis.scripts]
+format-check = [
+    "ruff format --check",
+    "cd src/web && npm run lint",
+]
+format-fix = [
+    "ruff format",
+    "cd src/web && npm run format",
+]
+lint-check = [
+    "ruff check",
+    "pyright",
+]
+lint-fix = [
+    "ruff check --fix",
+]
+
+[tool.hatch.envs.default.scripts]
+build = [
+    "hatch build",
+    "hatch build -t custom",
+    "cd src/web && npm install",
+    "cd src/web && npm run build",
+]
+
+synth = [
+    "npx -y --package aws-cdk@latest --package aws-cdk-lib@latest -c 'cdk synth --quiet'",
+]
+
+diff = [
+    "npx -y --package aws-cdk@latest --package aws-cdk-lib@latest -c 'cdk diff'",
+]
+
+deploy = [
+    "npx -y --package aws-cdk@latest --package aws-cdk-lib@latest -c 'cdk deploy'",
+]
+
+deploy-finch = [
+    "CDK_DOCKER=finch npx -y --package aws-cdk@latest --package aws-cdk-lib@latest -c 'cdk deploy'",
+]
+
+gc = [
+    "npx -y --package aws-cdk@latest --package aws-cdk-lib@latest -c 'cdk gc --unstable=gc --type=all -v'",
+]
