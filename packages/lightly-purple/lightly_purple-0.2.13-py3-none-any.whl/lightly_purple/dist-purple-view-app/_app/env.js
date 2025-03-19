@@ -1,0 +1,1 @@
+export const env={"PUBLIC_SAMPLES_URL":"http://localhost:8001/images"}
