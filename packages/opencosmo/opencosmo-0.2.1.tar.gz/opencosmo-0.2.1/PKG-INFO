@@ -1,0 +1,32 @@
+Metadata-Version: 2.3
+Name: opencosmo
+Version: 0.2.1
+Summary: OpenCosmo Python Toolkit
+Author: Patrick Wells
+Author-email: pwells@anl.gov
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: astropy (>=7.0.1,<8.0.0)
+Requires-Dist: h5py (>=3.12.1,<4.0.0)
+Requires-Dist: hdf5plugin (>=5.0.0,<6.0.0)
+Requires-Dist: pydantic (>=2.10.6,<3.0.0)
+Description-Content-Type: text/markdown
+
+## OpenCosmo
+
+Repository for the OpenCosmo python toolkit
+
+
+## Testing
+
+To run tests, first download the test data [from Google Drive](https://drive.google.com/drive/folders/1CYmZ4sE-RdhRdLhGuYR3rFfgyA3M1mU-?usp=sharing). Set environment variable `OPENCOSMO_DATA_PATH` to the path where the data is stored. Then run the tests with `pytest`:
+
+```bash
+export OPENCOSMO_DATA_PATH=/path/to/data
+# From the repository root
+pytest
+```
+
