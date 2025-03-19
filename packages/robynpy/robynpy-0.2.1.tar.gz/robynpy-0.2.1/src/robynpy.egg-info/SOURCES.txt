@@ -1,0 +1,205 @@
+LICENSE
+README.md
+pyproject.toml
+src/robyn/__init__.py
+src/robyn/robyn.py
+src/robyn/_deprecate/ridge_model_builder_e2e_wrong_scaling.py
+src/robyn/_deprecate/ridge_model_builder_preallocator_fix.py
+src/robyn/_deprecate/ridge_model_builder_preallocator_fix_nov26.py
+src/robyn/_deprecate/allocator_dec1_good_v1/constants.py
+src/robyn/_deprecate/allocator_dec1_good_v1/data_preparation.py
+src/robyn/_deprecate/allocator_dec1_good_v1/optimizer.py
+src/robyn/_deprecate/allocator_dec1_good_v1/utils.py
+src/robyn/_deprecate/allocator_dec1_good_v1/entities/allocation_params.py
+src/robyn/_deprecate/allocator_dec1_good_v1/entities/allocation_result.py
+src/robyn/_deprecate/allocator_dec1_good_v1/entities/constraints.py
+src/robyn/_deprecate/allocator_dec1_good_v1/entities/optimization_result.py
+src/robyn/_deprecate/ridge/ridge_data_builder.py
+src/robyn/_deprecate/ridge/ridge_evaluate_model.py
+src/robyn/_deprecate/ridge/ridge_metrics_calculator.py
+src/robyn/_deprecate/ridge_dec4/ridge_data_builder.py
+src/robyn/_deprecate/ridge_dec4/ridge_evaluate_model.py
+src/robyn/_deprecate/ridge_dec4/ridge_metrics_calculator.py
+src/robyn/_deprecate/ridge_nov30/ridge_data_builder.py
+src/robyn/_deprecate/ridge_nov30/ridge_evaluate_model.py
+src/robyn/_deprecate/ridge_nov30/ridge_metrics_calculator.py
+src/robyn/_deprecate/ridge_nov30_good_v1/ridge_data_builder.py
+src/robyn/_deprecate/ridge_nov30_good_v1/ridge_evaluate_model.py
+src/robyn/_deprecate/ridge_nov30_good_v1/ridge_metrics_calculator.py
+src/robyn/_deprecate/utils/compare_data.py
+src/robyn/_deprecate/utils/data_mapper.py
+src/robyn/_deprecate/utils/plot_utils.py
+src/robyn/allocator/constants.py
+src/robyn/allocator/data_preparation.py
+src/robyn/allocator/optimizer.py
+src/robyn/allocator/utils.py
+src/robyn/allocator/entities/allocation_params.py
+src/robyn/allocator/entities/allocation_result.py
+src/robyn/allocator/entities/constraints.py
+src/robyn/allocator/entities/optimization_result.py
+src/robyn/calibration/media_effect_calibration.py
+src/robyn/calibration/media_transformation.py
+src/robyn/common/common_util.py
+src/robyn/common/constants.py
+src/robyn/common/logger.py
+src/robyn/data/entities/calibration_input.py
+src/robyn/data/entities/enums.py
+src/robyn/data/entities/holidays_data.py
+src/robyn/data/entities/hyperparameters.py
+src/robyn/data/entities/mmmdata.py
+src/robyn/data/validation/calibration_input_validation.py
+src/robyn/data/validation/holidays_data_validation.py
+src/robyn/data/validation/hyperparameter_validation.py
+src/robyn/data/validation/mmmdata_validation.py
+src/robyn/data/validation/validation.py
+src/robyn/debug/__init__.py
+src/robyn/debug/data_mapper.py
+src/robyn/debug/ridge_regression_rpy2.py
+src/robyn/debug/test_run_transformations.py
+src/robyn/debug/modeling_approach/test_rpy2.py
+src/robyn/debug/modeling_approach/test_rpy2_modeling.py
+src/robyn/debug/modeling_approach/test_rpy2_sklearn.py
+src/robyn/debug/modeling_approach/test_sklearn.py
+src/robyn/debug/modeling_backup_Feb21/__init__.py
+src/robyn/debug/modeling_backup_Feb21/base_model_executor.py
+src/robyn/debug/modeling_backup_Feb21/feature_engineering.py
+src/robyn/debug/modeling_backup_Feb21/model_executor.py
+src/robyn/debug/modeling_backup_Feb21/ridge_model_builder.py
+src/robyn/debug/modeling_backup_Feb21/clustering/cluster_builder.py
+src/robyn/debug/modeling_backup_Feb21/clustering/clustering_config.py
+src/robyn/debug/modeling_backup_Feb21/convergence/convergence.py
+src/robyn/debug/modeling_backup_Feb21/entities/ci_collection_data.py
+src/robyn/debug/modeling_backup_Feb21/entities/clustering_results.py
+src/robyn/debug/modeling_backup_Feb21/entities/convergence_data.py
+src/robyn/debug/modeling_backup_Feb21/entities/enums.py
+src/robyn/debug/modeling_backup_Feb21/entities/featurized_mmm_data.py
+src/robyn/debug/modeling_backup_Feb21/entities/model_refit_output.py
+src/robyn/debug/modeling_backup_Feb21/entities/modeloutputs.py
+src/robyn/debug/modeling_backup_Feb21/entities/modelrun_trials_config.py
+src/robyn/debug/modeling_backup_Feb21/entities/pareto_data.py
+src/robyn/debug/modeling_backup_Feb21/entities/pareto_result.py
+src/robyn/debug/modeling_backup_Feb21/pareto/data_aggregator.py
+src/robyn/debug/modeling_backup_Feb21/pareto/hill_calculator.py
+src/robyn/debug/modeling_backup_Feb21/pareto/pareto_optimizer.py
+src/robyn/debug/modeling_backup_Feb21/pareto/pareto_utils.py
+src/robyn/debug/modeling_backup_Feb21/pareto/plot_data_generator.py
+src/robyn/debug/modeling_backup_Feb21/pareto/response_curve.py
+src/robyn/debug/modeling_backup_Feb21/ridge/ridge_data_builder.py
+src/robyn/debug/modeling_backup_Feb21/ridge/ridge_evaluate_model.py
+src/robyn/debug/modeling_backup_Feb21/ridge/ridge_metrics_calculator.py
+src/robyn/debug/modeling_backup_Feb21/transformations/transformations.py
+src/robyn/debug/modeling_r/core/robyn_mmm/decomp_rssd.py
+src/robyn/debug/modeling_r/core/robyn_mmm/iterations.py
+src/robyn/debug/modeling_r/core/robyn_mmm/lambda_setup.py
+src/robyn/debug/modeling_r/core/robyn_mmm/mmm.py
+src/robyn/debug/modeling_r/core/robyn_mmm/nevergrad_setup.py
+src/robyn/debug/modeling_r/core/robyn_mmm/spend_share.py
+src/robyn/debug/modeling_r/core/robyn_train/checks.py
+src/robyn/debug/modeling_r/core/robyn_train/train.py
+src/robyn/debug/modeling_r/transformations/transformations.py
+src/robyn/debug/modeling_r/utils/lambda_calc.py
+src/robyn/debug/old/modeling_new/code/convergence.py
+src/robyn/debug/old/modeling_new/code/model_executor.py
+src/robyn/debug/old/modeling_new/code/model_trainer.py
+src/robyn/debug/old/modeling_new/code/validation.py
+src/robyn/debug/old/modeling_new/data/inputs/featurized_mmm_data.py
+src/robyn/debug/old/modeling_new/data/inputs/holidays_data.py
+src/robyn/debug/old/modeling_new/data/inputs/hyperparameters.py
+src/robyn/debug/old/modeling_new/data/inputs/mmmdata.py
+src/robyn/debug/old/modeling_new/data/outputs/convergence_data.py
+src/robyn/debug/old/modeling_new/data/outputs/model_refit_output.py
+src/robyn/debug/old/modeling_new/data/outputs/modeloutputs.py
+src/robyn/debug/old/modeling_new/data/outputs/modelrun_trials_config.py
+src/robyn/debug/old/modeling_rewrite/__init__.py
+src/robyn/debug/old/modeling_rewrite copy/__init__.py
+src/robyn/debug/old/modeling_rewrite copy/code/constants.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/convergence.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/decomposition.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/mmm.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/model_executor.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/model_fit.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/model_iteration.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/model_trainer.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/nevergrad_loop.py
+src/robyn/debug/old/modeling_rewrite copy/code/core/transformations.py
+src/robyn/debug/old/modeling_rewrite copy/code/hyperparameters/hyper_collector.py
+src/robyn/debug/old/modeling_rewrite copy/code/types/config_types.py
+src/robyn/debug/old/modeling_rewrite copy/code/utils/hyper_utils.py
+src/robyn/debug/old/modeling_rewrite copy/code/utils/lambda_utils.py
+src/robyn/debug/old/modeling_rewrite copy/data/inputs/featurized_mmm_data.py
+src/robyn/debug/old/modeling_rewrite copy/data/inputs/holidays_data.py
+src/robyn/debug/old/modeling_rewrite copy/data/inputs/hyperparameters.py
+src/robyn/debug/old/modeling_rewrite copy/data/inputs/mmmdata.py
+src/robyn/debug/old/modeling_rewrite copy/data/outputs/convergence_data.py
+src/robyn/debug/old/modeling_rewrite copy/data/outputs/model_refit_output.py
+src/robyn/debug/old/modeling_rewrite copy/data/outputs/modeloutputs.py
+src/robyn/debug/old/modeling_rewrite copy/data/outputs/modelrun_trials_config.py
+src/robyn/debug/old/modeling_rewrite/code/constants.py
+src/robyn/debug/old/modeling_rewrite/code/core/convergence.py
+src/robyn/debug/old/modeling_rewrite/code/core/decomposition.py
+src/robyn/debug/old/modeling_rewrite/code/core/mmm.py
+src/robyn/debug/old/modeling_rewrite/code/core/model_executor.py
+src/robyn/debug/old/modeling_rewrite/code/core/model_fit.py
+src/robyn/debug/old/modeling_rewrite/code/core/model_iteration.py
+src/robyn/debug/old/modeling_rewrite/code/core/model_trainer.py
+src/robyn/debug/old/modeling_rewrite/code/core/nevergrad_loop.py
+src/robyn/debug/old/modeling_rewrite/code/core/transformations.py
+src/robyn/debug/old/modeling_rewrite/code/hyperparameters/hyper_collector.py
+src/robyn/debug/old/modeling_rewrite/code/types/config_types.py
+src/robyn/debug/old/modeling_rewrite/code/utils/hyper_utils.py
+src/robyn/debug/old/modeling_rewrite/code/utils/lambda_utils.py
+src/robyn/debug/old/modeling_rewrite/data/inputs/featurized_mmm_data.py
+src/robyn/debug/old/modeling_rewrite/data/inputs/holidays_data.py
+src/robyn/debug/old/modeling_rewrite/data/inputs/hyperparameters.py
+src/robyn/debug/old/modeling_rewrite/data/inputs/mmmdata.py
+src/robyn/debug/old/modeling_rewrite/data/outputs/convergence_data.py
+src/robyn/debug/old/modeling_rewrite/data/outputs/model_refit_output.py
+src/robyn/debug/old/modeling_rewrite/data/outputs/modeloutputs.py
+src/robyn/debug/old/modeling_rewrite/data/outputs/modelrun_trials_config.py
+src/robyn/debug/test/test_ori.csv
+src/robyn/debug/utils/modeling_debug.py
+src/robyn/modeling/__init__.py
+src/robyn/modeling/base_model_executor.py
+src/robyn/modeling/feature_engineering.py
+src/robyn/modeling/model_executor.py
+src/robyn/modeling/ridge_model_builder.py
+src/robyn/modeling/clustering/cluster_builder.py
+src/robyn/modeling/clustering/clustering_config.py
+src/robyn/modeling/convergence/convergence.py
+src/robyn/modeling/entities/ci_collection_data.py
+src/robyn/modeling/entities/clustering_results.py
+src/robyn/modeling/entities/convergence_data.py
+src/robyn/modeling/entities/enums.py
+src/robyn/modeling/entities/featurized_mmm_data.py
+src/robyn/modeling/entities/model_refit_output.py
+src/robyn/modeling/entities/modeloutputs.py
+src/robyn/modeling/entities/modelrun_trials_config.py
+src/robyn/modeling/entities/pareto_data.py
+src/robyn/modeling/entities/pareto_result.py
+src/robyn/modeling/pareto/data_aggregator.py
+src/robyn/modeling/pareto/hill_calculator.py
+src/robyn/modeling/pareto/pareto_optimizer.py
+src/robyn/modeling/pareto/pareto_utils.py
+src/robyn/modeling/pareto/plot_data_generator.py
+src/robyn/modeling/pareto/response_curve.py
+src/robyn/modeling/ridge/ridge_data_builder.py
+src/robyn/modeling/ridge/ridge_evaluate_model.py
+src/robyn/modeling/ridge/ridge_metrics_calculator.py
+src/robyn/modeling/ridge/models/ridge_utils.py
+src/robyn/modeling/transformations/transformations.py
+src/robyn/reporting/onepager_reporting.py
+src/robyn/tutorials/resources/dt_prophet_holidays.csv
+src/robyn/tutorials/resources/dt_simulated_weekly.csv
+src/robyn/visualization/allocator_visualizer.py
+src/robyn/visualization/base_visualizer.py
+src/robyn/visualization/cluster_visualizer.py
+src/robyn/visualization/feature_visualization.py
+src/robyn/visualization/model_convergence_visualizer.py
+src/robyn/visualization/pareto_visualizer.py
+src/robyn/visualization/response_visualizer.py
+src/robyn/visualization/transformation_visualizer.py
+src/robynpy.egg-info/PKG-INFO
+src/robynpy.egg-info/SOURCES.txt
+src/robynpy.egg-info/dependency_links.txt
+src/robynpy.egg-info/requires.txt
+src/robynpy.egg-info/top_level.txt
