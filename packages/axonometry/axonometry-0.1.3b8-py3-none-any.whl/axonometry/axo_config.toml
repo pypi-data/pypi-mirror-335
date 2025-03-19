@@ -1,0 +1,26 @@
+# SPDX-FileCopyrightText: 2022-2025 Julien Rippinger
+#
+# SPDX-License-Identifier: GPL-3.0-or-later
+
+point_radius = 0
+css_pixel = 3.7795275591 # To multiply with the size values
+
+[sizes]
+
+[sizes.A1]
+portrait = [594, 841]
+landscape = [841, 594]
+
+[layers]
+
+[layers.axo_system]
+id = 1
+vp_cli = "color --layer 1 black name --layer 1 axo_system penwidth --layer 1 0.7mm"
+
+[layers.projection_traces]
+id = 2
+vp_cli = "color --layer 2 grey name --layer 2 projection_traces penwidth --layer 2 0.35mm"
+
+[layers.geometry]
+id = 3
+vp_cli = "color --layer 3 black name --layer 3 geometry penwidth --layer 3 1mm"
