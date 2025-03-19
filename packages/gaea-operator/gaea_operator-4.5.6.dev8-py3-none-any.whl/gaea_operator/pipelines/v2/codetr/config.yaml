@@ -1,0 +1,178 @@
+pipeline:
+  name: codetr
+  algorithm: CODETR/Model
+
+nodes:
+  train:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/train/maskformer/nvidia:20241029_1730182413646
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/train/codetr/p800:20241216_1734332337430-autofix
+    models:
+      - key: model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - PaddlePaddle
+      - key: model_name
+        acceleratorName: P800
+        modelFormats:
+          - PyTorch
+
+  eval:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/train/maskformer/nvidia:20241029_1730182413646
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/train/codetr/p800:20241216_1734332337430-autofix
+    models:
+      - key: model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - PaddlePaddle
+      - key: model_name
+        acceleratorName: P800
+        modelFormats:
+          - PyTorch
+
+  transform:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/transform:1.3.7-hotfix-20240923
+      - acceleratorKind: Kunlun
+        name: iregistry.baidu-int.com/windmill-public/transform:1.3.7-hotfix-20240923
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/transform:20241216_1734349184360-autofix
+      - acceleratorKind: Ascend
+        name: iregistry.baidu-int.com/windmill-public/transform:1.3.7-hotfix-20240923
+    models:
+      - key: train_model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - PaddlePaddle
+      - key: train_model_name
+        acceleratorName: P800
+        modelFormats:
+          - PyTorch
+      - key: transform_model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - TensorRT
+      - key: transform_model_name
+        acceleratorKind: Kunlun
+        modelFormats:
+          - PaddleLite
+      - key: transform_model_name
+        acceleratorName: P800
+        modelFormats:
+          - PaddleLite
+      - key: transform_model_name
+        acceleratorKind: Ascend
+        modelFormats:
+          - Other
+
+  transform-eval:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/inference/nvidia:1.3.7-hotfix-20240919
+      - acceleratorKind: Kunlun
+        name: iregistry.baidu-int.com/windmill-public/inference/kunlun:1.3.7-hotfix-20240919
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/inference/codetr/p800:20241219_1734589999134-autofix
+      - acceleratorKind: Ascend
+        name: iregistry.baidu-int.com/windmill-public/inference/kunlun:1.3.7-hotfix-20240919
+    models:
+      - key: model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - TensorRT
+      - key: model_name
+        acceleratorKind: Kunlun
+        modelFormats:
+          - PaddleLite
+      - key: model_name
+        acceleratorName: P800
+        modelFormats:
+          - PaddleLite
+      - key: model_name
+        acceleratorKind: Ascend
+        modelFormats:
+          - Other
+
+  package:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/inference/nvidia:1.3.7-hotfix-20240919
+      - acceleratorKind: Kunlun
+        name: iregistry.baidu-int.com/windmill-public/inference/maskformer/p800:20241029_1730172232731
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/inference/codetr/p800:20241219_1734589999134-autofix
+    models:
+      - key: transform_model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - TensorRT
+      - key: transform_model_name
+        acceleratorKind: Kunlun
+        modelFormats:
+          - PaddleLite
+      - key: transform_model_name
+        acceleratorName: P800
+        modelFormats:
+          - PaddleLite
+      - key: transform_model_name
+        acceleratorKind: Ascend
+        modelFormats:
+          - Other
+      - key: ensemble_model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - Python
+          - TensorRT
+      - key: ensemble_model_name
+        acceleratorKind: Kunlun
+        modelFormats:
+          - Python
+          - PaddleLite
+      - key: ensemble_model_name
+        acceleratorName: P800
+        modelFormats:
+          - Python
+          - PaddleLite
+      - key: ensemble_model_name
+        acceleratorKind: Ascend
+        modelFormats:
+          - Python
+          - Other
+
+  inference:
+    images:
+      - acceleratorKind: Nvidia
+        name: iregistry.baidu-int.com/windmill-public/inference/nvidia:1.3.7-hotfix-20240919
+      - acceleratorKind: Kunlun
+        name: iregistry.baidu-int.com/windmill-public/inference/kunlun:1.3.7-hotfix-20240919
+      - acceleratorName: P800
+        name: iregistry.baidu-int.com/windmill-public/inference/codetr/p800:20241219_1734589999134-autofix
+      - acceleratorKind: Ascend
+        name: iregistry.baidu-int.com/windmill-public/inference/kunlun:1.3.7-hotfix-20240919
+    models:
+      - key: model_name
+        acceleratorKind: Nvidia
+        modelFormats:
+          - Python
+          - TensorRT
+      - key: model_name
+        acceleratorKind: Kunlun
+        modelFormats:
+          - Python
+          - PaddleLite
+      - key: model_name
+        acceleratorName: P800
+        modelFormats:
+          - Python
+          - PaddleLite
+      - key: model_name
+        acceleratorKind: Ascend
+        modelFormats:
+          - Python
+          - Other
