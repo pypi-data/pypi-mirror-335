@@ -1,0 +1,481 @@
+-- main.py --
+import os
+
+import frontmatter
+
+ingredients_foods = [
+    "/Users/mtm/Documents/Obsidian Vault/beef bouillon.md",
+    "/Users/mtm/Documents/Obsidian Vault/couscous.md",
+    "/Users/mtm/Documents/Obsidian Vault/Dino Kale.md",
+    "/Users/mtm/Documents/Obsidian Vault/dried cranberries.md",
+    "/Users/mtm/Documents/Obsidian Vault/extra virgin olive oil.md",
+    "/Users/mtm/Documents/Obsidian Vault/Farro Wheat.md",
+    "/Users/mtm/Documents/Obsidian Vault/Farro Wheat.sync-conflict-20240315-221725-G6QCYAQ.md",
+    "/Users/mtm/Documents/Obsidian Vault/Green Beans.md",
+    "/Users/mtm/Documents/Obsidian Vault/Green Chili.md",
+    "/Users/mtm/Documents/Obsidian Vault/Lemon.md",
+    "/Users/mtm/Documents/Obsidian Vault/Lime.md",
+    "/Users/mtm/Documents/Obsidian Vault/Medjool dates.md",
+    "/Users/mtm/Documents/Obsidian Vault/Organic Russet Potato.md",
+    "/Users/mtm/Documents/Obsidian Vault/pecans.md",
+    "/Users/mtm/Documents/Obsidian Vault/potato starch.md",
+    "/Users/mtm/Documents/Obsidian Vault/Red Potatoes.md",
+    "/Users/mtm/Documents/Obsidian Vault/Seafood Mushroom.md",
+    "/Users/mtm/Documents/Obsidian Vault/Yukon Gold Potato.md",
+]
+
+for file_path in ingredients_foods:
+    with open(file_path, "r", encoding="utf-8") as file:
+        content = file.read()
+        post = frontmatter.loads(content)
+
+    if "filetype" not in post.metadata:
+        post.metadata["filetype"] = "product"
+        new_content = frontmatter.dumps(post)
+
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(new_content)
+
+    print(f"Processed: {os.path.basename(file_path)}")
+-- parse_section_headers.py --
+import mistletoe
+
+
+def extract_headers(file_path):
+    with open(file_path, "r") as file:
+        markdown_content = file.read()
+
+    parsed_markdown = mistletoe.Document(markdown_content)
+    headers = []
+
+    def _traverse(node):
+        if isinstance(node, mistletoe.block_token.Heading):
+            headers.append(node.children[0].content)
+        for child in getattr(node, "children", []):
+            _traverse(child)
+
+    _traverse(parsed_markdown)
+    return headers
+
+
+file_path = "/Users/mtm/Documents/Obsidian Vault/Lime.md"
+headers = extract_headers(file_path)
+sorted_headers = sorted(headers)
+
+print("Sorted headers:")
+for header in sorted_headers:
+    print(header)
+-- pyproject.toml --
+[project]
+name = "itshire"
+version = "0.1.21"
+description = "Add your description here"
+authors = [
+    { name = "Taylor Monacelli", email = "taylormonacelli@gmail.com" }
+]
+dependencies = [
+    "jinja2>=3.1.3",
+    "python-frontmatter>=1.1.0",
+    "mistletoe>=1.3.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[project.scripts]
+itshire = "itshire:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "black>=24.2.0",
+    "pytest>=8.2.1",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/itshire"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+-- ricotta cheese.md --
+---
+filetype: product
+---
+
+
+
+![Homemade Ricotta Cheese Recipe](https://www.tastingtable.com/img/gallery/Homemade-Ricotta-Cheese-Receipe/from-the-tasting-table-test-kitchen-1668539266.jpg)
+
+
+
+
+
+
+![Galbani Whole Milk Ricotta Cheese, 32 oz (Refrigerated)](https://i5.walmartimages.com/seo/Galbani-Whole-Milk-Ricotta-Cheese-32-oz-Refrigerated_f2410704-f934-423a-91d6-eb543546386c.99a1627ee135342a93ce3913db804aef.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF)
+
+
+
+
+![Adding Ricotta Cheese to a Balanced Diet](https://www.verywellfit.com/thmb/pXGks8WgqFbrsXZDe8jXHGIK77k=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/ricotta_annotated-2e59933174ad4b84b10e90083334c122.jpg)
+
+
+
+
+ricotta cheese
+## [[Amazon.com]]
+- [x] shopping
+
+## [[Central Co-op]]
+- [x] shopping
+
+## [[Grocery Outlet]]
+- [x] shopping
+
+## [[Chef's Store]]
+- [x] shopping
+
+## [[Hau Hau Market]]
+- [x] shopping
+
+## [[Lam's Seafood Asian Market]]
+- [x] shopping
+
+## [[M2M]]
+- [x] shopping
+
+## [[Pacific Supply]]
+- [x] shopping
+
+## [[PCC]]
+- [x] shopping
+
+## [[QFC]]
+- [x] shopping
+
+## [[Safeway]]
+- [x] shopping
+
+## [[Target]]
+- [x] shopping
+
+## [[Trader Joes]]
+- [x] shopping
+
+## [[Uwajimaya]]
+- [x] shopping
+
+## [[Walgreens]]
+- [x] shopping
+
+## [[Walmart]]
+- [x] shopping
+
+## [[Whole Foods]]
+- [x] shopping
+-- src/itshire/__init__.py --
+import logging
+
+from . import add_sections, cli, log
+
+__project_name__ = "itshire"
+
+
+def main() -> int:
+    args = cli.parse_args()
+    log.configure_logging(args.verbose)
+    logging.debug("fart")
+
+    if args.command == "addstores":
+        add_sections.main(args.directory)
+    else:
+        print("hello")
+
+    return 0
+-- src/itshire/__main__.py --
+import sys
+
+import itshire
+
+sys.exit(itshire.main())
+-- src/itshire/add_frontmatter.py --
+import os
+
+import frontmatter
+
+with open("filelist.txt", "r") as file:
+    ingredients_foods = [line.strip() for line in file]
+
+for file_path in ingredients_foods:
+    with open(file_path, "r", encoding="utf-8") as file:
+        content = file.read()
+        post = frontmatter.loads(content)
+
+    if "filetype" not in post.metadata:
+        post.metadata["filetype"] = "product"
+        new_content = frontmatter.dumps(post)
+
+        with open(file_path, "w", encoding="utf-8") as file:
+            file.write(new_content)
+
+    print(f"Processed: {os.path.basename(file_path)}")
+-- src/itshire/add_sections.py --
+import logging
+import pathlib
+
+import frontmatter
+import mistletoe
+
+
+def extract_headers(file_path):
+    with open(file_path, "r") as file:
+        markdown_content = file.read()
+    parsed_markdown = mistletoe.Document(markdown_content)
+    headers = []
+
+    def _traverse(node):
+        if isinstance(node, mistletoe.block_token.Heading):
+            header_text = "".join(_extract_text(child) for child in node.children)
+            headers.append(header_text.strip())
+        for child in getattr(node, "children", []):
+            _traverse(child)
+
+    def _extract_text(node):
+        if isinstance(node, mistletoe.span_token.RawText):
+            return node.content
+        elif isinstance(node, mistletoe.span_token.InlineCode):
+            return node.children[0].content
+        else:
+            return "".join(_extract_text(child) for child in node.children)
+
+    _traverse(parsed_markdown)
+    return headers
+
+
+def add_sections(file_path, section_names):
+    with open(file_path, "r") as file:
+        markdown_content = file.read()
+
+    original_content = markdown_content
+
+    for section_name in section_names:
+        if section_name not in markdown_content:
+            markdown_content += f"\n## [[{section_name}]]\n- [x] shopping\n"
+
+    if markdown_content != original_content:
+        with open(file_path, "w") as file:
+            file.write(markdown_content)
+
+
+def find_markdown_files(directory):
+    return list(pathlib.Path(directory).rglob("*.md"))
+
+
+def filter_markdown_files(files):
+    filtered_files = []
+    for file in files:
+        try:
+            with open(file, "r", encoding="utf-8") as f:
+                post = frontmatter.load(f)
+                if post.get("filetype") == "product":
+                    filtered_files.append(file)
+        except Exception as e:
+            logging.error(f"Error processing file {file}: {str(e)}")
+    return filtered_files
+
+
+def main(directory):
+    markdown_files = find_markdown_files(directory)
+    filtered_files = filter_markdown_files(markdown_files)
+    logging.debug(f"Filtered files: {filtered_files}")
+
+    stores = [
+        "Amazon.com",
+        "Central Co-op",
+        "Grocery Outlet",
+        "Chef's Store",
+        "Hau Hau Market",
+        "Lam's Seafood Asian Market",
+        "M2M",
+        "Pacific Supply",
+        "PCC",
+        "QFC",
+        "Safeway",
+        "Target",
+        "Trader Joes",
+        "Uwajimaya",
+        "Walgreens",
+        "Walmart",
+        "Whole Foods",
+    ]
+
+    for file_path in filtered_files:
+        logging.info(f"Processing file: {file_path}")
+        existing_headers = extract_headers(file_path)
+        missing_sections = [
+            store_name for store_name in stores if store_name not in existing_headers
+        ]
+        if missing_sections:
+            add_sections(file_path, missing_sections)
+
+    print("Sections added successfully.")
+-- src/itshire/cli.py --
+import argparse
+
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="Add sections to markdown files.")
+    parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Enable verbose output"
+    )
+
+    subparsers = parser.add_subparsers(dest="command")
+
+    addstores_parser = subparsers.add_parser(
+        "addstores", help="Add stores as sections to markdown files"
+    )
+    addstores_parser.add_argument(
+        "directory", help="Directory to search for Markdown files"
+    )
+    addstores_parser.add_argument(
+        "-v", "--verbose", action="store_true", help="Enable verbose output"
+    )
+
+    args = parser.parse_args()
+    return args
+-- src/itshire/log.py --
+import logging
+
+
+def configure_logging(verbose=False):
+    log_level = logging.DEBUG if verbose else logging.INFO
+    logging.basicConfig(
+        level=log_level,
+        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s (%(filename)s:%(lineno)d)",
+    )
+-- src/itshire/main2.py --
+import pathlib
+
+import jinja2
+
+
+def get_template(template_name):
+    TEMPLATES_PATH = pathlib.Path(__file__).resolve().parent / "templates"
+    loader = jinja2.FileSystemLoader(searchpath=TEMPLATES_PATH)
+    env = jinja2.Environment(loader=loader)
+    return env.get_template(template_name)
+
+
+def render_template(template_name, data=None):
+    template = get_template(template_name)
+    return template.render(data=data)
+-- src/itshire/templates/base.j2 --
+I am base.j2
+{% block content %}base
+{% endblock %}
+-- src/itshire/templates/extended.j2 --
+{% extends 'base.j2' %}
+{% block content %}I am extended.j2
+{% endblock %}
+-- tests/test_add_sections.py --
+import os
+
+import pytest
+from itshire.add_sections import extract_headers
+
+
+@pytest.fixture
+def test_file_strong(tmp_path):
+    test_file_path = tmp_path / "test_file_strong.md"
+    with open(test_file_path, "w") as file:
+        file.write("## **Section 1**\ntest")
+    yield test_file_path
+    os.remove(test_file_path)
+
+
+@pytest.fixture
+def test_file_italics(tmp_path):
+    test_file_path = tmp_path / "test_file_italics.md"
+    with open(test_file_path, "w") as file:
+        file.write("## *Section 2*\ntest")
+    yield test_file_path
+    os.remove(test_file_path)
+
+
+@pytest.fixture
+def test_file_levels(tmp_path):
+    test_file_path = tmp_path / "test_file_levels.md"
+    with open(test_file_path, "w") as file:
+        file.write(
+            "# Level **1**\n## Level *2*\n### **Level** 3\n#### *Level* 4\n##### Level ***5***"
+        )
+    yield test_file_path
+    os.remove(test_file_path)
+
+
+@pytest.fixture
+def test_file_inline_code(tmp_path):
+    test_file_path = tmp_path / "test_file_inline_code.md"
+    with open(test_file_path, "w") as file:
+        file.write(
+            "# Section `code`\n## Section *`code`*\n### Section **`code`**\n#### `Section` *code*\n##### **`Section`** `code`"
+        )
+    yield test_file_path
+    os.remove(test_file_path)
+
+
+def test_extract_headers_strong(test_file_strong):
+    headers = extract_headers(test_file_strong)
+    assert headers == ["Section 1"]
+
+
+def test_extract_headers_italics(test_file_italics):
+    headers = extract_headers(test_file_italics)
+    assert headers == ["Section 2"]
+
+
+def test_extract_headers_levels(test_file_levels):
+    headers = extract_headers(test_file_levels)
+    assert headers == ["Level 1", "Level 2", "Level 3", "Level 4", "Level 5"]
+
+
+def test_extract_headers_inline_code(test_file_inline_code):
+    headers = extract_headers(test_file_inline_code)
+    assert headers == [
+        "Section code",
+        "Section code",
+        "Section code",
+        "Section code",
+        "Section code",
+    ]
+
+
+@pytest.fixture
+def test_file_internal_links(tmp_path):
+    test_file_path = tmp_path / "test_file_internal_links.md"
+    with open(test_file_path, "w") as file:
+        file.write(
+            "# Section [[link1]]\n"
+            "## Section [[link2]] with text\n"
+            "### **Section** [[link3]] and *more* text\n"
+            "#### Section with [[link4]] and `code`\n"
+            "##### [[link5]] at the beginning"
+        )
+    yield test_file_path
+    os.remove(test_file_path)
+
+
+def test_extract_headers_internal_links(test_file_internal_links):
+    headers = extract_headers(test_file_internal_links)
+    assert headers == [
+        "Section [[link1]]",
+        "Section [[link2]] with text",
+        "Section [[link3]] and more text",
+        "Section with [[link4]] and code",
+        "[[link5]] at the beginning",
+    ]
