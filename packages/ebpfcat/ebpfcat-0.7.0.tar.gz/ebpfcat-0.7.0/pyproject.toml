@@ -1,0 +1,14 @@
+[project]
+authors = [
+    {name = "Martin Teichmann", email = "martin.teichmann@gmail.com"},
+]
+description = 'An EtherCAT master written in Python using EBPF and XDP'
+name = "ebpfcat"
+version = "0.7.0"
+dependencies = []
+
+[project.scripts]
+ec-scanbus = "ebpfcat.scripts:scanbus"
+ec-info = "ebpfcat.scripts:info"
+ec-eeprom = "ebpfcat.scripts:eeprom"
+ec-create-test = "ebpfcat.scripts:create_test"
