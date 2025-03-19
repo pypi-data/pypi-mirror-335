@@ -1,0 +1,42 @@
+[project]
+name = "{{cookiecutter.project_name}}"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115.8",
+    "uvicorn>=0.34.0",
+    "pydantic-settings>=2.7.1",
+    "pydantic>=2.10.6",
+    "loguru>=0.7.3",
+    "yarl>=1.18.3",
+    "ruff>=0.9.4",
+    {%- if cookiecutter.use_postgres -%}
+    "sqlalchemy[asyncio]>=2.0.37",
+    {% endif %}
+    {%- if cookiecutter.use_postgres -%}
+    "asyncpg>=0.30.0",
+    {% endif %}
+    {%- if cookiecutter.use_builtin_auth -%}
+    "pyjwt>=2.10.1",
+    "passlib>=1.7.4",
+    {% endif %}
+    {%- if cookiecutter.use_alembic -%}
+    "alembic>=1.14.1",
+    {% endif %}
+    "pytest>=8.3.4",
+    "pytest-env>=1.1.5",
+    "httpx==0.28.1",
+    "factory-boy>=3.3.3",
+    {%- if cookiecutter.use_redis -%}
+    "redis>=5.2.1",
+    {% endif %}
+    {%- if cookiecutter.use_rabbitmq -%}
+    "aio-pika>=9.5.5",
+    {% endif %}
+]
+
+
+[tool.pytest.ini_options]
+env = ["{{ cookiecutter.project_name|upper|replace('-', '_') }}_PG_DATABASE=test", "{{ cookiecutter.project_name|upper|replace('-', '_') }}_ENV=test"]
