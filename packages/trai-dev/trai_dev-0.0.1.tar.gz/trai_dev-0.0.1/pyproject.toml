@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "trai-dev"
+version = "0.0.1"
+description = "Python library to upload traces to trai.dev 🚀"
+authors = ["deependujha <deependujha21@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "trai_dev", from="src"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
