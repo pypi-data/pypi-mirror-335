@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>
+{%-    if site.status.css == "success" -%}
+✓
+{%-    endif -%}
+{%-    if site.status.css == "warning" -%}
+⚠
+{%-    endif -%}
+{%-    if site.status.css == "danger" -%}
+✗
+{%-    endif -%}
+</text></svg>">
+    <link href="/vendor/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>{{ site.definition.title }}</title>
+<style>
+.rounded-pill {
+	min-width:25.5px;
+}
+</style>
+  </head>
+  <body>
+<div class="container">
+  <h1 class="mb-5 mt-5">
+{%  if site.definition.url %}
+    <a class="text-dark" target="_blank" rel="noopener noreferrer"
+       href="{{ site.definition.url }}">{{ site.definition.title }}</a>
+
+{%  else %}
+    {{ site.definition.title }}
+{%  endif %}
+  </h1>
+  <div class="alert alert-{{ site.status.css }} mb-5 mt-5" role="alert">
+    <h4 class="alert-heading">
+{%  if site.site_config.force_state %}
+{{     site.site_config.message | markdown }}
+{%  else %}
+{%     if site.status.css == "success" %}
+        Everything is OK
+{%     endif %}
+{%     if site.status.css == "warning" %}
+        Some services may be affected
+{%     endif %}
+{%     if site.status.css == "danger" %}
+{%         if site.monitoring_is_down %}
+        Monitoring may be down!
+{%         else %}
+        Some services are seriously affected
+{%         endif %}
+{%     endif %}
+{%  endif %}
+    </h4>
+  </div>
+{%  for _, service in site.service_managers.items() %}
+    <div class="card mt-5">
+      <h5 class="card-header">
+        <span class="badge rounded-pill text-bg-{{ service.status.css }}">
+{%   if service.definition.url %}
+          <a class="text-light" target="_blank" rel="noopener noreferrer"
+             href="{{ service.definition.url }}">{{ service.definition.name }}</a>
+
+{%   else %}
+{{          service.definition.name }}
+{%   endif %}
+        </span>
+      </h5>
+      <div class="card-body">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+{%   for component in service.components %}
+          <div class="col"><div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">
+                <span class="badge rounded-pill text-bg-{{ component.status.css }}">&nbsp;</span>
+{%     if component.definition.url %}
+                <a class="text-dark" target="_blank" rel="noopener noreferrer"
+                   href="{{ component.definition.url }}">{{ component.definition.name }}</a>
+{%     else %}
+{{                component.definition.name }}
+{%     endif %}
+              </h5>
+              <p class="card-text">{{ component.definition.description }}</p>
+            </div>
+            <!--<div class="card-footer">
+              <small class="text-muted">Last incident: {{ (loop.index + 1) * 42 % 5 }} mins ago</small>
+            </div>-->
+          </div></div>
+{%  endfor %}
+        </div>
+      </div>
+{%  if service.status.css != "success" %}
+      <div class="card-footer">
+        <ul>
+{%    if site.monitoring_is_down %}
+          <li class="text-danger">Monitoring is down!</li>
+{%    endif %}
+{%    set service_alerts = service.current_incident.active_alerts if service.current_incident else {} %}
+{%    for alertname in service_alerts.keys() %}
+{%      set alert = service_alerts[alertname] %}
+          <li>
+{%      set alert_has_dashboard = alert.annotations.dashboard and alert.annotations.dashboard != "TODO" %}
+{%      set alert_has_runbook = alert.annotations.runbook and alert.annotations.runbook != "TODO" %}
+{%      if alert_has_dashboard or alert_has_runbook %}
+(
+{%-       if alert_has_dashboard %}
+            <a class="text-{{ alert.status.css }}" target="_blank" rel="noopener noreferrer"
+               title="Dashboard" href="{{ alert.annotations.dashboard }}" >
+              📈 Dashboard
+            </a>
+{%        endif %}
+{%        if alert_has_dashboard and alert_has_runbook %}
+ |
+{%        endif %}
+{%        if alert_has_runbook %}
+            <a class="text-{{ alert.status.css }}" target="_blank" rel="noopener noreferrer"
+               title="Runbook" href="{{ alert.annotations.runbook }}" >
+              📖 Runbook
+            </a>
+{%        endif -%}
+)
+{%      endif %}
+            <strong class="text-{{ alert.status.css }}">{{ alert.annotations.summary if alert.annotations.summary else alertname }}</strong>
+            {{ alert.annotations.description }}
+          </li>
+{%    endfor %}
+        </ul>
+      </div>
+{%   endif %}
+    </div>
+{%  endfor %}
+  <div class="text-center text-muted mb-2 mt-5 pt-5">
+    <p class="mb-3 mt-0">
+      Last status update: {{ site.last_updated.getStr() }}
+    </p>
+    <p class="my-0">
+      Created in a rush at
+      <a class="text-dark" target="_blank" rel="noopener"
+          href="https://hack4glarus.ch">
+        Hack4Glarus
+      </a>, winter edition 2018.
+    </p>
+    <p class="mb-3 mt-0">
+      Originally written by
+      <a class="text-dark" target="_blank" rel="noopener"
+         href="https://kamila.is">AnotherKamila</a>
+      and
+      <a class="text-dark" target="_blank" rel="noopener"
+         href="https://evilham.com">Evilham</a>.
+    </p>
+    <p class="pb-3 mt-0">
+      <a class="text-dark" target="_blank" rel="noopener"
+         href="https://farga.exo.cat/exo/prometheus-adlermanager">
+        Source code
+      </a>
+    </p>
+  </div>
+</div>
+    <script src="/vendor/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>
