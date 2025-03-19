@@ -1,0 +1,242 @@
+# SPDX-License-Identifier: Apache-2.0
+
+"""
+Common shared types
+"""
+
+# Standard
+from typing import Any, List, Optional, Union
+
+# Third Party
+from typing_extensions import Literal, TypeAlias
+import httpx
+import pydantic
+
+
+class FunctionCall(pydantic.BaseModel):
+    id: str
+    name: str
+
+    # This field should adhere to the argument schema from the  associated
+    # FunctionDefinition in the generation request that produced it.
+    arguments: dict[str, Any] | None
+
+
+class Hallucination(pydantic.BaseModel):
+    """Hallucination data as returned by the model output parser"""
+
+    hallucination_id: str
+    risk: str
+    response_text: str
+    response_begin: int
+    response_end: int
+
+
+class Citation(pydantic.BaseModel):
+    """Citation data as returned by the model output parser"""
+
+    citation_id: str
+    doc_id: str
+    context_text: str
+    context_begin: int
+    context_end: int
+    response_text: str
+    response_begin: int
+    response_end: int
+
+
+class Document(pydantic.BaseModel):
+    """Document data as returned by the model output parser"""
+
+    doc_id: str
+    text: str
+
+
+class _ChatMessageBase(pydantic.BaseModel):
+    """Base class for all message types.
+
+    Due to the vaguaries of Pydantic's JSON parser, we use this class only for common
+    functionality, and NOT for defining a common dataclass base type. Use the
+    :class:`ChatMessage` type alias to annotate a field or argument as accepting all
+    subclasses of this one."""
+
+    content: str
+    """Every message has raw string content, even if it also contains parsed structured
+    content such as a JSON record."""
+
+    def to_openai_json(self):
+        result = {"role": self.role, "content": self.content}
+        return result
+
+
+class UserMessage(_ChatMessageBase):
+    role: Literal["user"] = "user"
+
+
+class AssistantMessage(_ChatMessageBase):
+    role: Literal["assistant"] = "assistant"
+    tool_calls: list[FunctionCall] = []
+    reasoning_content: str | None = None
+    # Raw response content without any parsing for re-serialization
+    _raw: str | None = None
+    citations: list[Citation] | None = None
+    documents: list[Document] | None = None
+    hallucinations: list[Hallucination] | None = None
+    stop_reason: str | None = None
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self._raw = kwargs.pop("raw", None)
+
+    @property
+    def raw(self) -> str:
+        """Get the raw content of the response"""
+        return self._raw if self._raw is not None else self.content
+
+
+class ToolResultMessage(_ChatMessageBase):
+    role: Literal["tool"] = "tool"
+    tool_call_id: str
+
+
+class SystemMessage(_ChatMessageBase):
+    role: Literal["system"] = "system"
+
+
+ChatMessage: TypeAlias = (
+    UserMessage | AssistantMessage | ToolResultMessage | SystemMessage
+)
+"""Type alias for all message types. We use this Union instead of the actual base class
+:class:`_ChatMessageBase` so that Pydantic can parse the message list from JSON."""
+
+
+class FunctionDefinition(pydantic.BaseModel):
+    name: str
+    description: str | None = None
+
+    # This field holds a JSON schema for a record, but the `jsonschema` package doesn't
+    # define an object type for such a schema, instead using a dictionary.
+    parameters: dict[str, Any] | None = None
+
+    def to_openai_json(self) -> dict:
+        """
+        :returns: JSON representation of this function, as the Python equivalent of the
+            standard JSON used in the OpenAI chat completions API for the `tools`
+            argument.
+        """
+        raise NotImplementedError("TODO: Implement this")
+
+
+class GenerateInputs(pydantic.BaseModel):
+    """Common inputs for backends
+
+    prompt: The prompt(s) to generate completions for.
+    model: Model name or ID.
+    best_of: Generates best_of completions server-side.
+    echo: Echo back the prompt in addition to the completion.
+    frequency_penalty: Penalize new tokens based on their existing frequency.
+    logit_bias: Modify the likelihood of specified tokens.
+    logprobs: Include the log probabilities on the most likely tokens.
+    max_tokens: The maximum number of tokens to generate in the completion.
+    n: How many completions to generate for each prompt.
+    presence_penalty: Penalize new tokens based on whether they appear in the text.
+    stop: Sequences where the API will stop generating further tokens.
+    stream: Whether to stream back partial progress.
+    stream_options: A dictionary containing options for the streaming response.
+    suffix: The suffix that comes after a completion of inserted text.
+    temperature: The temperature parameter for controlling the randomness of the output.
+    top_p: The top-p parameter for nucleus sampling.
+    user: A unique identifier representing your end-user.
+    timeout: The maximum execution time in seconds for the completion request.
+    """
+
+    prompt: Optional[Union[str, List[Union[str, List[Union[str, List[int]]]]]]] = None
+    model: Optional[str] = None
+    best_of: Optional[int] = None
+    echo: Optional[bool] = None
+    frequency_penalty: Optional[float] = None
+    logit_bias: Optional[dict] = None
+    logprobs: Optional[Union[int, bool]] = None
+    max_tokens: Optional[int] = None
+    n: Optional[int] = None
+    presence_penalty: Optional[float] = None
+    stop: Union[Optional[str], List[str], None] = None
+    stream: Optional[bool] = None
+    stream_options: Optional[dict] = None
+    suffix: Optional[str] = None
+    temperature: Optional[float] = None
+    top_p: Optional[float] = None
+    user: Optional[str] = None
+    timeout: Optional[Union[float, str, httpx.Timeout]] = None
+
+    model_config = pydantic.ConfigDict(
+        # Pass through arbitrary additional keyword arguments for handling by model- or
+        # specific I/O processors.
+        arbitrary_types_allowed=True,
+        extra="allow",
+    )
+
+
+class ChatCompletionInputs(pydantic.BaseModel):
+    """
+    Class that represents the lowest-common-denominator inputs to a chat completion
+    call.  Individual input/output processors can extend this schema with their own
+    additional proprietary fields.
+    """
+
+    messages: list[ChatMessage]
+    tools: list[FunctionDefinition] = []
+    generate_inputs: Optional[GenerateInputs] = None
+
+    model_config = pydantic.ConfigDict(
+        # Pass through arbitrary additional keyword arguments for handling by model- or
+        # specific I/O processors.
+        extra="allow"
+    )
+
+    def __getattr__(self, name: str) -> any:
+        """Allow attribute access for unknown attributes"""
+        try:
+            return super().__getattr__(name)
+        except AttributeError:
+            return None
+
+
+class ChatCompletionResult(pydantic.BaseModel):
+    """
+    Class that represents the lowest-common-denominator outputs of a chat completion
+    call.  Individual input/output processors can extend this schema with their own
+    additional proprietary fields.
+    """
+
+    next_message: ChatMessage
+
+    def __getattr__(self, name: str) -> any:
+        """Allow attribute access for unknown attributes"""
+        try:
+            return super().__getattr__(name)
+        except AttributeError:
+            return None
+
+
+class ChatCompletionResults(pydantic.BaseModel):
+    results: list[ChatCompletionResult]
+
+
+class GenerateResult(pydantic.BaseModel):
+    """
+    All the things that our internal :func:`generate()` methods return,
+    rolled into a dataclass for ease of maintenance.
+    """
+
+    # Not including input characters
+    completion_string: str
+
+    # Not including input tokens
+    completion_tokens: list[int]
+
+    stop_reason: str
+
+
+class GenerateResults(pydantic.BaseModel):
+    results: list[GenerateResult]
