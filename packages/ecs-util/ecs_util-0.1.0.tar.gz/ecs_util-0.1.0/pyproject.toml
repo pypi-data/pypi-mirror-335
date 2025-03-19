@@ -1,0 +1,47 @@
+[project]
+name = "ecs-util"
+version = "0.1.0"
+description = "Tool for managing ECS deployments"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "awscli>=1.37.12",
+    "click>=8.1.8",
+    "boto3>=1.36.12",
+    "tomli>=2.2.1",
+]
+
+[project.scripts]
+ecs-util = "ecs_util.main:cli"
+
+[build-system]
+requires = ["uv-build>=0.6,<0.7"]
+build-backend = "uv_build"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.11.0",
+    "pre-commit>=4.2.0",
+]
+
+[tool.uv.build-backend]
+source-exclude = ["src/ecs_util/agent"]
+wheel-exclude = ["src/ecs_util/agent"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+lint.select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "UP",  # pyupgrade
+    "N",   # pep8-naming
+    "SIM", # flake8-simplify
+    "TCH", # flake8-type-checking
+    "TID", # flake8-tidy-imports
+    "RUF", # ruff-specific rules
+]
