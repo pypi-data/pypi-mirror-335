@@ -1,0 +1,50 @@
+Metadata-Version: 2.2
+Name: pymupump
+Version: 0.1.5
+Summary: Python interface for controlling Harvard Apparatus Microliter OEM Syringe Pump
+Author: Raphael Kriegl
+Project-URL: Homepage, https://github.com/rk-exxec/pymupump
+Project-URL: Issues, https://github.com/rk-exxec/pymupump/issues
+Keywords: pump control,harvard apparatus,microliter OEM
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: pyserial
+
+# pymupump
+Python interface for controlling Harvard Apparatus Microliter OEM Syringe Pump
+
+Derived from now inactive library [pumpy](https://github.com/tomwphillips/pumpy), thanks to tomwphillips.
+
+## Installation
+
+`pip install pymupump`
+
+
+## Usage
+
+```py
+import pymupump as pmp
+
+chain = pmp.Chain('COM1') # your port
+pump = pmp.Microliter(chain) 
+# if using multiple pumps on the same port
+# you might want to specify another adress and name
+pump2 = pmp.Microliter(chain, 1, "Pump2")
+
+pump.setdiameter(2) # diameter of syringe in mm, range is 0.1 - 4.61
+pump.setflowrate(3) # set flowrte in ul/min
+
+pump.settargetvolume(2) # set infuse or withdraw target volume in ul
+
+pump.infuse()
+# or
+pump.withdraw()
+
+pump.waituntiltarget() # block until pump finishes
+
+pump.stop() # stop pump
+
+```
