@@ -1,0 +1,83 @@
+Metadata-Version: 2.2
+Name: metafold
+Version: 0.8.dev1
+Summary: Metafold SDK for Python
+Author-email: Metafold 3D <info@metafold3d.com>
+License: Copyright 2024 Metafold 3D
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+Project-URL: Homepage, https://www.metafold3d.com/
+Project-URL: Documentation, https://metafold3d.github.io/metafold-python/
+Project-URL: Repository, https://github.com/Metafold3d/metafold-python.git
+Project-URL: Issues, https://github.com/Metafold3d/metafold-python/issues
+Keywords: metafold,api,sdk,implicit geometry
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: attrs~=23.2
+Requires-Dist: auth0-python~=4.7
+Requires-Dist: numpy~=1.23
+Requires-Dist: requests~=2.31
+Requires-Dist: scipy~=1.11
+Provides-Extra: docs
+Requires-Dist: sphinx~=7.2; extra == "docs"
+Requires-Dist: sphinx_rtd_theme~=2.0; extra == "docs"
+Provides-Extra: lint
+Requires-Dist: mypy~=1.10; extra == "lint"
+Requires-Dist: types-requests~=2.31; extra == "lint"
+Provides-Extra: test
+Requires-Dist: pytest~=7.3; extra == "test"
+Requires-Dist: requests-toolbelt~=1.0; extra == "test"
+Provides-Extra: networkx
+Requires-Dist: networkx~=3.2; extra == "networkx"
+Requires-Dist: types-networkx~=3.2; extra == "networkx"
+
+# Metafold SDK for Python
+
+[![PyPi](https://img.shields.io/pypi/v/metafold.svg)](https://pypi.python.org/pypi/metafold)
+
+> [!IMPORTANT]
+> Until the package is at major version one (1.x.x) the API should be considered unstable.
+
+## Installation
+
+```
+pip install metafold
+```
+
+## Usage
+
+```python
+from metafold import MetafoldClient
+
+access_token = "..."
+project_id = "123"
+
+metafold = MetafoldClient(access_token, project_id)
+
+assets = metafold.assets.list()
+print(assets[0].name)
+
+asset = metafold.assets.get("123")
+print(asset.name)
+```
+
+Read the [documentation][] for more info or play around with one of the
+[examples](examples).
+
+[documentation]: https://Metafold3d.github.io/metafold-python/
