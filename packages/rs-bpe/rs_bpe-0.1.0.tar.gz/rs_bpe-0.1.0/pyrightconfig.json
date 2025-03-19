@@ -1,0 +1,48 @@
+{
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/__pycache__",
+        "**/.venv"
+    ],
+    "ignore": [
+        "benchmark/stubs"
+    ],
+    "typeCheckingMode": "basic",
+    "reportMissingImports": "warning",
+    "reportMissingTypeStubs": "information",
+    "reportUnknownMemberType": false,
+    "reportUnknownVariableType": false,
+    "reportAttributeAccessIssue": false,
+    "pythonVersion": "3.13",
+    "pythonPlatform": "Linux",
+    "stubPath": "python/rs_bpe",
+    "extraPaths": [
+        "python"
+    ],
+    "disableLanguageServices": false,
+    "useLibraryCodeForTypes": true,
+    
+    "reportGeneralTypeIssues": "warning",
+    "reportOptionalSubscript": "warning",
+    "reportOptionalMemberAccess": "warning",
+    "reportOptionalCall": "warning",
+    "reportOptionalIterable": "warning",
+    "reportOptionalContextManager": "warning",
+    "reportOptionalOperand": "warning",
+    "reportTypedDictNotRequiredAccess": "warning",
+    "reportUntypedFunctionDecorator": "information",
+    
+    "diagnosticRuleSet": {
+        "reportAttributeAccessIssue": {
+            "level": "none",
+            "moduleIncludes": [
+                "rs_bpe",
+                "rs_bpe.bpe",
+                "rs_bpe.bpe.openai"
+            ]
+        }
+    }
+} 

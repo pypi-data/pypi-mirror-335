@@ -1,0 +1,22 @@
+[build]
+# Enable link time optimization in release builds
+rustflags = ["-C", "opt-level=3"]
+
+[profile.release]
+# Enable link time optimization
+lto = true
+# Optimize for size
+opt-level = 3
+# Strip debug information
+strip = true
+# Enable codegen units for parallel compilation
+codegen-units = 1
+
+[target.x86_64-unknown-linux-gnu]
+rustflags = ["-C", "target-feature=+sse,+sse2,+sse3,+sse4.1,+sse4.2,+avx,+avx2"]
+
+[target.x86_64-apple-darwin]
+rustflags = ["-C", "target-feature=+sse,+sse2,+sse3,+sse4.1,+sse4.2,+avx,+avx2"]
+
+[target.aarch64-apple-darwin]
+rustflags = ["-C", "target-feature=+neon"] 

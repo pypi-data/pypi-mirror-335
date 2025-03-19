@@ -1,0 +1,29 @@
+[MASTER]
+# Python Pylint configuration file
+python-version=3.13
+# Enable color for message outputs
+output-format=colorized
+
+# Ignore these warning codes for Rust extensions
+disable=
+    no-name-in-module,  # For Rust-generated modules
+    no-member,         # For dynamically-added attributes
+    import-error       # For modules that might not be installed
+
+[MESSAGES CONTROL]
+# Disables specific messages globally
+disable=fixme,line-too-long,bad-continuation
+
+[TYPECHECK]
+# List of members which are set dynamically and missed by pylint inference system
+generated-members=
+    # Rust extensions
+    rs_bpe.bpe.openai.*,
+    rs_bpe.bpe.byte_pair_encoding.*
+
+# List of modules that don't fully expose their API to static analysis
+ignored-modules=
+    rs_bpe,
+    rs_bpe.bpe,
+    rs_bpe.bpe.openai,
+    rs_bpe.bpe.byte_pair_encoding 
