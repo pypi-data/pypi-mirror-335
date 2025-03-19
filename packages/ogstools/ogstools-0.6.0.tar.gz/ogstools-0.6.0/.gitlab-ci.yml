@@ -1,0 +1,441 @@
+stages:
+  - test
+  - maintenance
+  - prepare
+  - deploy
+
+variables:
+  POETRY_CACHE_DIR: "$CI_PROJECT_DIR/.cache"
+  DOCKER_IMAGE: registry.opengeosys.org/ogs/tools/ogstools/devcontainer-3.10-feflow-10.0
+  DOCKER_USER_IMAGE: registry.opengeosys.org/ogs/tools/ogstools/main-3.10-feflow-10.0
+  ARTIFACTS_PAGES_URL: https://$CI_PROJECT_ROOT_NAMESPACE.$CI_PAGES_DOMAIN/-/$SUBGROUP_SLUG$CI_PROJECT_NAME/-/jobs/$CI_JOB_ID/artifacts
+
+workflow:
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+    - if: $CI_COMMIT_TAG
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PROJECT_PATH == "ogs/tools/ogstools"'
+
+image: $DOCKER_IMAGE
+
+cache:
+  paths:
+    - .cache
+
+.pip-setup-extra-headless: &pip-setup-extra-headless
+  - pip install --extra-index-url https://wheels.vtk.org --upgrade --force-reinstall vtk-osmesa
+  - pip install -i https://gmsh.info/python-packages-dev-nox --upgrade --force-reinstall gmsh
+
+.pip-setup-activate: &pip-setup-activate
+  - python -m venv .venv --upgrade-deps
+  - source .venv/bin/activate
+
+.conda-setup-activate: &conda-setup-activate
+  - conda --version
+  - export CONDA_ENV_NAME=ogstools_conda_${PYTHON_VERSION}
+  - conda create -y -n $CONDA_ENV_NAME python=${PYTHON_VERSION} font-ttf-dejavu-sans-mono -c conda-forge
+  - conda activate $CONDA_ENV_NAME
+
+.pip-install-ogs-latest: &pip-install-ogs-latest
+#  - pip uninstall ogs -y
+  - pip install ogs --index-url https://gitlab.opengeosys.org/api/v4/projects/120/packages/pypi/simple --pre
+
+.regression-rules: &regression-rules
+  - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+.maintenance-rules: &maintenance-rules
+  - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    when: manual
+    allow_failure: true
+  - if: $CI_PIPELINE_SOURCE == "schedule"
+
+
+pre-commit:
+  tags: [shell, envinf]
+  rules:
+    - if: $CI_MERGE_REQUEST_IID
+  needs: []
+  script:
+    - git fetch origin ${CI_MERGE_REQUEST_DIFF_BASE_SHA}
+    - pre-commit run --from-ref ${CI_MERGE_REQUEST_DIFF_BASE_SHA} --to-ref HEAD
+
+build:
+  script:
+    - pip install build
+    - pyproject-build
+
+tests (arch - conda) [R]:
+  stage: test
+  tags: [shell, envinf]
+  needs: []
+  before_script:
+    - *conda-setup-activate
+    - pip install -e ".[ogs,pinned,test]"
+    - *pip-setup-extra-headless
+  script:
+    - pytest
+    - rm -rf "$(python -c 'import matplotlib as mpl; print(mpl.get_cachedir())')"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: "3.10"
+      - PYTHON_VERSION: "3.11"
+      - PYTHON_VERSION: "3.12"
+      - PYTHON_VERSION: "3.13"
+
+tests (arch - conda - ogs wheel release) [M]:
+  stage: maintenance
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  needs: []
+  before_script:
+    - *conda-setup-activate
+    - pip install -e ".[ogs,test]"
+    - *pip-setup-extra-headless
+  script:
+    - pytest
+    - rm -rf "$(python -c 'import matplotlib as mpl; print(mpl.get_cachedir())')"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: "3.10"
+      - PYTHON_VERSION: "3.11"
+      - PYTHON_VERSION: "3.12"
+      - PYTHON_VERSION: "3.13"
+
+tests (arch - pip - ogs latest) [M]:
+  stage: maintenance
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  needs: []
+  before_script:
+    - *pip-setup-activate
+    - *pip-install-ogs-latest
+    - pip install -e .[test]
+    - *pip-setup-extra-headless
+  script:
+    - pytest
+
+
+tests (arch - pip - no OGS) [M]:
+  stage: maintenance
+  rules:
+    - *maintenance-rules
+  tags: [shell, envinf]
+  needs: []
+  before_script:
+    - *pip-setup-activate
+    - pip install -e .[test]
+    - *pip-setup-extra-headless
+  script:
+    - python -c "import ogstools as ot; ot.status(verbose=True)"
+    - pytest -m "not (tools or system)"
+
+# tests (arch - pip - with OGS_IN_PATH) [M]:
+# Actually a test with OGS in path was planned (just another export -> export PATH=$PWD/.venv_only_ogs/bin:$PATH )
+# It will not work easily -> https://stackoverflow.com/questions/46242623/modify-path-for-gitlab-runner
+# So we will skip this test for now, and remove the option to have OGS in path in the future, anyway
+
+tests (arch - pip - with OGS_BIN_PATH) [M]:
+  stage: maintenance
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  needs: []
+  before_script:
+    - python -m venv .venv_only_ogs --upgrade-deps
+    - source .venv_only_ogs/bin/activate
+    - pip install ogs
+    - export OGS_BIN_PATH=$PWD/.venv_only_ogs/bin
+    - deactivate
+    - *pip-setup-activate
+    - pip install -e .[test]
+    - *pip-setup-extra-headless
+  script:
+    - python -c "import ogstools as ot; ot.status(verbose=True)"
+    - pytest -m "tools"
+    - pytest -m "system"
+
+
+tests (arch - conda - ogs custom latest) [M]:
+  stage: maintenance
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  needs: []
+  before_script:
+    - *conda-setup-activate
+    - *pip-install-ogs-latest
+    - pip install -e .[test]
+    - *pip-setup-extra-headless
+  script:
+    - pytest
+    - rm -rf "$(python -c 'import matplotlib as mpl; print(mpl.get_cachedir())')"
+  parallel:
+    matrix:
+      - PYTHON_VERSION: "3.11"
+      - PYTHON_VERSION: "3.12"
+      - PYTHON_VERSION: "3.13"
+
+
+
+
+tests (arch - pip - no OGS) [R]:
+  stage: test
+  tags: [shell, envinf]
+  needs: []
+  before_script:
+    - *pip-setup-activate
+    - pip install -e .[pinned,test]
+    - *pip-setup-extra-headless
+  script:
+    - python -c "import ogstools as ot; ot.status(verbose=True)"
+    - pytest -m "not (tools or system)"
+
+
+tests coverage (arch - container) [R]:
+  stage: test
+  script:
+    - make setup_devcontainer
+    - source .venv-devcontainer/bin/activate
+    - make coverage
+  coverage: '/(?i)total.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%)$/'
+  artifacts:
+    when: always
+    paths:
+      - htmlcov
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: coverage.xml
+  environment:
+    name: code coverage $CI_MERGE_REQUEST_IID
+    url: ${ARTIFACTS_PAGES_URL}/htmlcov/index.html
+
+tests (win - pip) [R]:
+  stage: test
+  tags: [windows]
+  rules:
+    - *regression-rules
+  needs: []
+  variables:
+    MPLBACKEND: Agg  # non-interactive backend for matplotlib
+  before_script:
+    - python -m venv .venv
+    - .venv\Scripts\Activate.ps1
+    - pip install -e ".[ogs,pinned,test]"
+  script:
+    - pytest
+
+tests (mac - pip) [R]:
+  stage: test
+  tags: [mac, arm64]
+  rules:
+    - *regression-rules
+  needs: []
+  before_script:
+    - python() { python3.10 "$@"; } # alias don't work in non-interactive shells
+    - *pip-setup-activate
+    - pip install -e ".[ogs,pinned,test]"
+  script:
+    - pytest
+
+# Remove -j 1 when this is resolved:
+# https://github.com/pydata/pydata-sphinx-theme/issues/1643
+.docs-script: &docs-script
+  - make setup_devcontainer
+  - source .venv-devcontainer/bin/activate
+  - make docs SPHINXOPTS="-W --keep-going -n -j 4"
+  - mv docs/_build/html public
+
+docs preview [R]:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - *docs-script
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: docs preview $CI_MERGE_REQUEST_IID $CI_PROJECT_ROOT_NAMESPACE
+    url: "${ARTIFACTS_PAGES_URL}/public/index.html"
+
+docs preview [M]:
+  stage: maintenance
+  needs: []
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  before_script:
+    - *pip-setup-activate
+    - *pip-install-ogs-latest
+    - pip install -e .[ogs,docs]
+    - *pip-setup-extra-headless
+  script:
+    - make docs SPHINXOPTS="--keep-going -n -j 4" | tee sphinx_output.log
+    - echo "Counting warnings in Sphinx output..."
+    # Count lines with "WARNING" in the Sphinx log
+    - warning_count=$(grep -c "WARNING" sphinx_output.log || true)
+    - echo "Found $warning_count warnings in Sphinx documentation."
+    # Set the warning threshold
+    - warning_threshold=7
+    # Check if warnings exceed the threshold
+    - if [ "$warning_count" -lt "$warning_threshold" ]; then
+        echo "Warnings ($warning_count) are below the threshold ($warning_threshold). Pipeline is green.";
+        exit 0;
+      else
+        echo "Warnings ($warning_count) exceeded the threshold ($warning_threshold). Pipeline failed.";
+        exit 1;
+      fi
+    - mv docs/_bpublicuild/html
+  artifacts:
+    paths:
+      - public
+  environment:
+    name: docs preview $CI_COMMIT_REF_SLUG
+    url: "${ARTIFACTS_PAGES_URL}/public/index.html"
+
+setup maintainer [M]:
+  stage: maintenance
+  needs: []
+  tags: [shell, envinf]
+  rules:
+    - *maintenance-rules
+  before_script:
+    - *pip-setup-activate
+    - *pip-install-ogs-latest
+  script:
+    - pip install -e .[dev,test,docs,feflow,ogs]
+    - *pip-setup-extra-headless
+
+setup developer [R]:
+  stage: test
+  tags: [shell, envinf]
+  rules:
+    - *regression-rules
+  before_script:
+    - *pip-setup-activate
+    - *pip-install-ogs-latest
+  script:
+    - pip install -e .[ogs,pinned,dev,test,docs,feflow]
+    - *pip-setup-extra-headless
+
+pages:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    - *docs-script
+  artifacts:
+    paths:
+      - public
+  environment: production
+
+pages-tag:
+  stage: prepare
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - *docs-script
+  artifacts:
+    paths:
+      - public
+
+deploy-pages-tag:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG
+  needs: [pages-tag]
+  variables:
+    GIT_STRATEGY: none
+  script:
+    - rm -rf ogstools-docs
+    - git config --global user.name "GitLab CI"
+    - git config --global user.email "gitlab-ci-no-reply@opengeosys.org"
+    - git clone https://${CI_SERVER_HOST}/ogs/tools/ogstools-docs.git
+    - cd ogstools-docs
+    - mv ../public $CI_COMMIT_TAG
+    - git add $CI_COMMIT_TAG
+    - >
+      jq 'map(if has("preferred") then del(.preferred) else . end) + [{"version": "$CI_COMMIT_TAG","url": "https://ogstools.opengeosys.org/$CI_COMMIT_TAG/","preferred": true}]' _static/versions.json > versions.tmp
+    - mv versions.tmp _static/versions.json
+    - git add _static/versions.json
+    - rm stable && ln -s $CI_COMMIT_TAG stable && git add stable
+    - git commit -m "Release $CI_COMMIT_TAG"
+    - git push "https://${CI_COMMITTER_USER_AND_TOKEN}@${CI_SERVER_HOST}/ogs/tools/ogstools-docs.git" HEAD:main
+
+publish:
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: manual
+  variables:
+    TWINE_REPOSITORY: pypi
+    PYTHON_KEYRING_BACKEND: keyring.backends.null.Keyring
+  script:
+    - pip install build twine
+    - pyproject-build
+    - twine upload dist/*
+
+devcontainer image:
+  stage: .pre
+  tags:
+    - envinf
+    - shell
+  rules:
+    - when: manual
+      allow_failure: true
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    # --push true will be done manually on a developers machine
+    - devcontainer build --workspace-folder . --image-name ${DOCKER_IMAGE}
+
+user container image:
+  stage: .pre
+  needs: []
+  tags:
+    - envinf
+    - shell
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      allow_failure: true
+    - if: $CI_COMMIT_TAG
+      variables:
+        DOCKER_USER_IMAGE: registry.opengeosys.org/ogs/tools/ogstools/main-3.10:$CI_COMMIT_TAG
+      allow_failure: true
+    - if: $CI_MERGE_REQUEST_IID
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $DOCKER_USER_IMAGE .
+    - docker push $DOCKER_USER_IMAGE
+
+code_quality_ruff [R]:
+  image: python:3.10-slim
+  needs: []
+  script:
+    # Use same ruff as in .pre-commit-config.yaml
+    - pip install ruff==0.0.277
+    - ruff . --format gitlab > ruff-code-quality-report.json || true
+  artifacts:
+    reports:
+      codequality: ruff-code-quality-report.json
+
+code_quality_mypy [R]:
+  image: python:3.10-slim
+  needs: []
+  script:
+    # Use same mypy as in .pre-commit-config.yaml
+    - pip install mypy==1.4.1 mypy-to-codeclimate
+    - mypy ogstools > mypy-output.txt || true
+    - mypy-to-codeclimate mypy-output.txt mypy-code-quality-report.json || true
+  artifacts:
+    reports:
+      codequality: mypy-code-quality-report.json
+
+
+
+ogs/tools/feflow-converter-tests:
+  stage: test
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  trigger: ogs/tools/feflow-converter-tests
