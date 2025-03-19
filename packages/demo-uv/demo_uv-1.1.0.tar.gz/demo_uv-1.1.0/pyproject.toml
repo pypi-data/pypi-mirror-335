@@ -1,0 +1,29 @@
+[project]
+name = "demo-uv"
+version = "1.1.0"
+description = "uv demo"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.2.3",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+demo-uv = "demo_uv:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+include = [
+    "/src",
+    "pyproject.toml",
+    "README.md",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
