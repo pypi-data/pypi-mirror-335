@@ -1,0 +1,38 @@
+Metadata-Version: 2.2
+Name: pyshipstation
+Version: 0.0.7
+Project-URL: Homepage, https://github.com/go-swag/py-shipstation
+Project-URL: Issues, https://github.com/go-swag/py-shipstation/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: requests==2.32.3
+Requires-Dist: pydantic==2.10.6
+
+# py-shipstation
+
+An unofficial [ShipStation API](https://www.shipstation.com/docs/api/) Python Client
+
+Install
+
+```bash
+pip install pyshipstation
+```
+
+# Publishing to PyPi
+
+```bash
+python -m build
+```
+
+```bash
+python -m twine upload --repository pypi dist/*
+```
+
+# Tests
+
+Run the test suite
+```bash
+pytest tests/
+```
