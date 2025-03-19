@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cmdline-preparation-hook"
+version = "3.1.3"
+description = "Pytest hook for custom argument handling and Allure reporting. This plugin allows you to add arguments before running a test."
+readme = "README.md"
+authors = [{ name = "Yevhen Halitsyn", email = "halitsyny@science.regn.net" }]
+license = { text = "MIT" }
+
+
+[tool.setuptools]
+packages = ["cmdline_preparse_hook"]
+
+[project.entry-points."pytest11"]
+cmdline_add_args = "cmdline_preparse_hook.plugin"
+
+#local install as development
+#cd pytest_hook
+#pip install -e .
+
+# publication
+#cd pytest_hook
+#pip install build twine
+#python -m build
+#twine upload dist/*
