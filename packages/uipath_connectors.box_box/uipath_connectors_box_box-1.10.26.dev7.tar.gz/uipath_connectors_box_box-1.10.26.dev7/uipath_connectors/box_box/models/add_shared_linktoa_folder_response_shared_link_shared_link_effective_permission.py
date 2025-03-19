@@ -1,0 +1,9 @@
+from enum import Enum
+
+
+class AddSharedLinktoaFolderResponseSharedLinkSharedLinkEffectivePermission(str, Enum):
+    CAN_DOWNLOAD = "can_download"
+    CAN_PREVIEW = "can_preview"
+
+    def __str__(self) -> str:
+        return str(self.value)
