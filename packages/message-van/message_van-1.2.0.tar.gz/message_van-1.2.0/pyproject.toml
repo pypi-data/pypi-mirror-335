@@ -1,0 +1,146 @@
+[project]
+name = "message-van"
+version = "1.2.0"
+description = "Python Event-Driven Architecture without the Administration."
+authors = [
+    { name = "Thomas Vanhelden", email = "thomas.vanhelden@gmail.com" }
+]
+dependencies = [
+    "pydantic>=2.0.0",
+    "tomli>=2.0.0",
+    "asyncclick>=8.0.0",
+    "wrapt>=1.17.0",
+]
+readme = "README.md"
+requires-python = ">= 3.10"
+license = { text = "MIT" }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "ruff>=0.9.0",
+    "pdbpp>=0.10.0",
+    "bump-my-version>=1.0.0",
+]
+
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/message_van"]
+
+
+[tool.bumpversion]
+current_version = "1.2.0"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
+search = "{current_version}"
+replace = "{new_version}"
+regex = false
+ignore_missing_version = false
+commit = true
+tag = true
+sign_tags = true
+tag_name = "{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = false
+message = "Bump version: {current_version} → {new_version}"
+commit_args = "--gpg-sign"
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
+
+
+[tool.ruff]
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".git-rewrite",
+    ".hg",
+    ".ipynb_checkpoints",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pyenv",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    ".vscode",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "site-packages",
+    "venv",
+]
+
+line-length = 79
+indent-width = 4
+
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+
+fixable = ["ALL"]
+unfixable = []
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+
+indent-style = "space"
+
+skip-magic-trailing-comma = false
+
+line-ending = "auto"
+
+docstring-code-format = false
+
+docstring-code-line-length = "dynamic"
+
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+asyncio_mode = "auto"
+addopts = [
+    "-ra",
+    "-q",
+    "-vv",
+    "-s",
+    "--disable-warnings",
+    "--strict-markers",
+    "--cache-clear",
+    "--cov=.",
+    "--cov-report=xml",
+    "--cov-report=html",
+    "--cov=append",
+    "--cov-config=.coveragerc"
+]
+markers = [
+    "unit: Unit tests.",
+    "integration: Integration tests.",
+    "e2e: End-to-End tests.",
+    "asyncio: Async functions."
+]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test"]
+python_functions = ["test"]
+pythonpath = [".", "src"]
