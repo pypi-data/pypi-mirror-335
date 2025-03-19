@@ -1,0 +1,50 @@
+Metadata-Version: 2.2
+Name: sunbather
+Version: 1.0.0
+Summary: sunbather
+Author-email: Dion Linssen <d.c.linssen@uva.nl>, Antonija Oklopčić <a.oklopcic@uva.nl>, Steven Rieder <s.rieder@uva.nl>
+License: MIT License
+        
+        Copyright (c) 2023 Dion Linssen
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Issues, https://github.com/antonpannekoek/sunbather/issues
+Project-URL: Repository, https://github.com/antonpannekoek/sunbather
+Keywords: astrophysics
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy<3,>=1.24.3
+Requires-Dist: pandas<3,>=1.1.4
+Requires-Dist: matplotlib<4,>=3.7.1
+Requires-Dist: scipy<1.14,>=1.9.0
+Requires-Dist: astropy<7,>=5.0
+Requires-Dist: p-winds<2,>=1.3.4
+
+<img src="logo/Logo + text.png" alt="sunbather logo" width="300"/>
+
+This is a Python package to simulate the upper atmospheres of exoplanets and their observational signatures.
+
+The main use of the code is to construct 1D Parker wind profiles (Parker 1958) using the Python _[p-winds](https://github.com/ladsantos/p-winds)_ package (dos Santos et al. 2022), to simulate these with photoionization code _[Cloudy](https://gitlab.nublado.org/cloudy/cloudy)_ (Ferland et al. 1998; 2017, Chatzikos et al. 2023), and to postprocess the output with a custom radiative transfer module to predict the transmission spectra of exoplanets.
+
+If you make use of _sunbather_, please cite Linssen et al. (2024).
+
+## Installation
+Installation instructions can be found in the [wiki](https://github.com/dlinssen/sunbather/wiki).
