@@ -1,0 +1,55 @@
+Metadata-Version: 2.1
+Name: simple-image-annotator
+Version: 0.2.1
+Summary: A simple annotation-tool for image data.
+License: MIT
+Author: Raphael Spiekermann
+Author-email: rs15061998@gmail.com
+Requires-Python: >=3.9,<3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: PyOpenGL (>=3.1.0,<4.0.0)
+Requires-Dist: PyOpenGL-accelerate (>=3.1.0,<4.0.0)
+Requires-Dist: PyQt6 (>=6.7,<7.0)
+Requires-Dist: numpy (>=1.26,<1.27)
+Requires-Dist: opencv-python (>=4.10.0.84,<4.11.0.0)
+Requires-Dist: opencv-python-headless (>=4.10.0.84,<4.11.0.0)
+Requires-Dist: pandas (>=2.2,<2.3)
+Requires-Dist: pillow (>=11.0.0,<11.1.0)
+Requires-Dist: pyarrow (>=18.0,<18.1)
+Description-Content-Type: text/markdown
+
+<div align="center">
+
+![PyPI - Version](https://img.shields.io/pypi/v/simple-image-annotator)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/simple-image-annotator)
+![PyPI - License](https://img.shields.io/pypi/l/simple-image-annotator?color=brightgreen)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/simple-image-annotator)
+
+</div>
+
+# Installation
+
+All stable versions can be installed from [PyPI] by using [pip] or your favorite package manager
+
+    pip install simple-image-annotator
+
+After installation the annotation tool can be run as simple as
+
+    image-annotator
+
+# Development
+
+**Requirements:**
+- Python 3.9 or higher
+- [poetry] 1.2 or higher
+- [make]
+
+For installing the development environment run
+
+```bash
+make setup
+```
