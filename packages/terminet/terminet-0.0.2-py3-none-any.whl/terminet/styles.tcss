@@ -1,0 +1,64 @@
+Horizontal#footer-outer {
+    height: 1;
+    dock: bottom;
+}
+
+Horizonal#footer-inner {
+    width: 75%;
+}
+
+Label#right-label {
+    width: 20%;
+    text-align: right;
+}
+
+DataTable {
+    border: solid blue;
+    width: 100%;
+    height: 60%;
+    margin: 1;
+}
+
+Sparkline {
+    width: 100%;
+    height: 5;
+    color: yellow;
+    margin: 1;
+}
+
+Monitor {
+    background: $boost;
+    height: 5;
+    margin: 1;
+    padding: 1;
+    min-width: 50;
+}
+
+Button {
+    width: 16;
+}
+
+#start {
+    color: white;
+    dock: left;
+}
+
+#stop {
+    color: white;
+    display: none;
+    dock: left;
+}
+
+#clear {
+    background: yellow;
+    color: black;
+    dock: right;
+}
+
+.started #start {
+    display: none;
+}
+
+.started #stop {
+    display: block;
+}
