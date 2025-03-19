@@ -1,0 +1,44 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "describecsv"
+version = "0.5.0"
+authors = [
+  { name="Neal Caren", email="neal.caren@unc.edu" },
+]
+description = "A tool for analyzing and describing CSV files"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas",
+    "chardet",
+    "tqdm",
+    "numpy",
+    "python-dateutil",
+    "pytz",
+    "tzdata"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/nealcaren/describecsv"
+"Bug Tracker" = "https://github.com/nealcaren/describecsv/issues"
+"Documentation" = "https://github.com/nealcaren/describecsv#readme"
+
+[project.scripts]
+describecsv = "describecsv:cli"
+
+[tool.hatch.build]
+artifacts = [
+    "*.pyc",
+    "__pycache__",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/describecsv"]
