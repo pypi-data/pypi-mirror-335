@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cscoder"
+version = "0.2.1"
+description = "A Python package for matching unstructure job titles with China Standard Classifications of Occupations (CSCO)."
+authors = [{name = "Antao Li", email = "anthony.li.antao@outlook.com"}]
+readme = "README.md"
+license = {text = "MIT"}
+dependencies = [
+    "sentence-transformers",
+    "scipy",
+    "numpy",
+    "pandas",
+    "tqdm",
+    "pytest"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+]
+
+[project.optional-dependencies]
+dev = ["black", "flake8", "pytest"]
+
+[project.scripts]
+cscoder = "cscoder.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["cscoder*"]
+
+[project.urls]
+"Homepage" = "https://github.com/anthonyliantao/cscoder"
