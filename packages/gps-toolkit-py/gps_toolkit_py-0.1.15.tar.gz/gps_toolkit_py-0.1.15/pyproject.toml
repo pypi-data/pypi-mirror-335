@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gps-toolkit-py"
+version = "0.1.15"
+description = "A Python package for working with GPS coordinates"
+readme = "README.md"
+authors = [
+    {name = "GPS Tools Team"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+keywords = ["gps", "geospatial", "coordinates", "utm", "mgrs"]
+requires-python = ">=3.7"
+dependencies = [
+    "numpy",
+    "scipy",
+    "pyproj",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov",
+    "black",
+    "flake8",
+    "mypy",
+    "pre-commit",
+]
+viz = [
+    "matplotlib",
+    "folium",
+]
+gis = [
+    "shapely",
+    "geopandas",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/username/gps-toolkit-py"
+"Bug Tracker" = "https://github.com/username/gps-toolkit-py/issues"
+"Documentation" = "https://github.com/username/gps-toolkit-py/documentation"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests*", "examples*", "documentation*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py" 
