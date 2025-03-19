@@ -1,0 +1,150 @@
+from time import sleep
+
+import pytest
+
+from waveline import AERecord, RecordType
+
+
+@pytest.mark.parametrize(
+    "samples",
+    [
+        10,
+        1024,
+        65536,
+        200_000,
+    ],
+)
+def test_get_tr_snapshot(sw, samples):
+    sw.set_tr_decimation(1)
+    tr_record = sw.get_tr_snapshot(samples)
+    assert tr_record.channel == 1
+    assert tr_record.trai == 0
+    assert tr_record.time == 0
+    assert tr_record.samples == samples
+    assert len(tr_record.data) == samples
+
+
+@pytest.mark.parametrize("status_interval_seconds", [0.1, 0.2])
+def test_acq_only_status(sw, status_interval_seconds):
+    sw.set_threshold(10_000_000)  # above range
+    sw.set_continuous_mode(False)
+    sw.set_logging_mode(False)
+    sw.set_status_interval(status_interval_seconds)
+    sw.clear_buffer()
+    sw.start_acquisition()
+    sleep(1)
+    sw.stop_acquisition()
+
+    ae_data = list(sw.get_ae_data())
+    assert len(ae_data) == pytest.approx(1 / status_interval_seconds, abs=1)
+
+    for i, record in enumerate(ae_data, start=1):
+        assert record.time == pytest.approx(i * status_interval_seconds)
+        assert record.type_ == RecordType.STATUS
+        assert record.duration == status_interval_seconds
+        assert record.trai == 0
+
+
+@pytest.mark.parametrize("tr_enabled", [False, True])
+def test_acq_continuous(sw, tr_enabled):
+    ddt_seconds = 0.01  # 10 ms
+    acq_duration = 0.1
+
+    sw.set_continuous_mode(True)
+    sw.set_logging_mode(False)
+    sw.set_ddt(ddt_seconds * 1e6)
+    sw.set_status_interval(0)
+    sw.set_tr_enabled(tr_enabled)
+    sw.set_tr_decimation(1)
+    sw.clear_buffer()
+    sw.start_acquisition()
+    sleep(acq_duration)
+    sw.stop_acquisition()
+
+    ae_data = list(sw.get_ae_data())
+    assert len(ae_data) == pytest.approx(acq_duration / ddt_seconds, abs=1)
+
+    for i, record in enumerate(ae_data, start=0):
+        assert record.time == i * ddt_seconds
+        assert record.type_ == RecordType.HIT
+        assert record.duration == ddt_seconds
+        if tr_enabled:
+            assert record.trai == i + 1
+        else:
+            assert record.trai == 0
+
+    tr_data = list(sw.get_tr_data())
+    if tr_enabled:
+        assert len(tr_data) == pytest.approx(acq_duration / ddt_seconds, abs=1)
+    else:
+        assert len(tr_data) == 0
+        return  # skip rest of test
+
+    for i, record in enumerate(tr_data, start=0):
+        assert record.trai == i + 1
+        assert record.time == i * ddt_seconds
+        assert record.samples == ddt_seconds * 2e6
+
+
+@pytest.mark.xfail(reason="continous mode, especiall with high sampling rates, is unspecified")
+@pytest.mark.parametrize("ddt_us", [1000, 2500, 5000, 10_000, 25_000, 50_000, 100_000])
+@pytest.mark.parametrize("decimation", [1, 2, 4])
+def test_acq_continuous_tr_loss(sw, ddt_us, decimation, duration_acq):
+    sw.set_continuous_mode(True)
+    sw.set_ddt(ddt_us)
+    sw.set_tr_enabled(True)
+    sw.set_tr_decimation(decimation)
+    sw.set_status_interval(0)
+    sw.clear_buffer()
+
+    for record in sw.acquire():
+        if isinstance(record, AERecord):
+            assert record.trai != 0, f"TR loss after {record.time} seconds"
+        if record.time > duration_acq:
+            break
+
+
+def test_pulsing(sw):
+    assert not sw.get_status().pulsing
+    sw.start_pulsing(1, 4)
+    assert sw.get_status().pulsing
+    sw.stop_pulsing()
+    assert not sw.get_status().pulsing
+
+
+def test_logging_only_status(sw, duration_acq):
+    status_interval_seconds = 0.1  # 100 ms
+
+    sw.clear_data_log()
+    sw.set_datetime()
+    sw.set_continuous_mode(False)
+    sw.set_logging_mode(True)
+    sw.set_status_interval(status_interval_seconds)
+    sw.set_threshold(10_000_000)  # above range
+    assert sw.get_setup().extra["logging"] == "1"
+
+    sw.start_acquisition()
+    sleep(duration_acq)
+    sw.stop_acquisition()
+
+    ae_data = list(sw.get_data_log())
+    assert len(ae_data) == pytest.approx(duration_acq / status_interval_seconds, abs=1)
+
+
+def test_logging_continuous(sw, duration_acq):
+    ddt_seconds = 0.01  # 10 ms
+
+    sw.clear_data_log()
+    sw.set_datetime()
+    sw.set_continuous_mode(True)
+    sw.set_logging_mode(True)
+    sw.set_ddt(ddt_seconds * 1e6)
+    sw.set_status_interval(0)
+    assert sw.get_setup().extra["logging"] == "1"
+
+    sw.start_acquisition()
+    sleep(duration_acq)
+    sw.stop_acquisition()
+
+    ae_data = list(sw.get_data_log())
+    assert len(ae_data) == pytest.approx(duration_acq / ddt_seconds, abs=1)

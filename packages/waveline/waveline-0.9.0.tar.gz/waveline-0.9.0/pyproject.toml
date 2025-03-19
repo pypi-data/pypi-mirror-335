@@ -1,0 +1,167 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "waveline"
+version = "0.9.0"
+description = "Library to easily interface with Vallen Systeme WaveLine™ devices"
+authors = [{ name = "Lukas Berbuer", email = "software@vallen.de" }]
+readme = "README.md"
+license = { text = "MIT License" }
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+]
+keywords = [
+    "vallen",
+    "acoustic emission",
+    "ultrasonic",
+    "data acquisition",
+    "waveline",
+    "conditionwave",
+    "linwave",
+    "spotwave",
+]
+dependencies = [
+    "numpy",
+    "pyserial>=3",
+]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx>=5",
+    "sphinx-autodoc-typehints",
+    "furo",
+    "myst-parser",  # include markdown files
+]
+tests = [
+    "asyncmock>=0.4.2; python_version<'3.8'",
+    "coverage[toml]>=5",  # pyproject.toml support
+    "freezegun",
+    "pytest>=6",  # pyproject.toml support
+    "pytest-asyncio",
+    "pytest-benchmark",
+    "pytest-repeat",
+]
+tools = [
+    "mypy>=0.9",  # pyproject.toml support
+    "ruff~=0.3",
+    "tox>=3.4",  # pyproject.toml support
+]
+dev = [
+    "waveline[docs,tests,tools]", # recursive dependency since pip 21.2
+]
+
+[project.urls]
+Changelog = "https://github.com/vallen-systems/pyWaveLine/blob/master/CHANGELOG.md"
+Source = "https://github.com/vallen-systems/pyWaveLine"
+Issues = "https://github.com/vallen-systems/pyWaveLine/issues"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = [
+    "F", # pyflakes
+    "E", "W", # pycodestyle
+    "I", # isort
+    "N", # pep8 naming
+    "B", # flake8 bugbear
+    "A", # flake8 builtins
+    "C4", # flake8 comprehensions
+    "G", # flake8 logging format
+    "PIE", # flake8 pie
+    "RET", # flake8 return
+    "SIM", # flake8 simplify
+    "PT", # flake8 pytest style
+    "PL", # pylint
+    "PERF", # perflint
+    "RUF", # ruff specific rules
+]
+ignore = [
+    "PLR0913", # too many arguments in function call
+    "PLR2004", # magic value used in comparison
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = [
+    "PT011", # use a more specific exception in pytest.raises
+]
+"examples/*" = [
+    "E501", # line too long
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["waveline"]
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-q --benchmark-columns=mean,stddev"
+testpaths = ["tests/unit"]
+log_cli = true
+log_cli_level = "WARNING"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+isolated_build = True
+envlist = ruff, mypy, py37, py38, py39, py310, py311, py312, coverage-report
+
+[testenv:ruff]
+skip_install = true
+deps = ruff
+commands = ruff check .
+
+[testenv:mypy]
+skip_install = true
+deps =
+    mypy
+    types-dataclasses
+commands = mypy src/
+
+[testenv]
+extras = tests
+commands = 
+    coverage run -m pytest --benchmark-disable
+
+[testenv:coverage-report]
+skip_install = true
+deps =
+    coverage[toml]>=5
+commands =
+    - coverage combine
+    coverage report
+    coverage xml
+
+[testenv:docs]
+extras = docs
+changedir = docs
+commands =
+    sphinx-build -b linkcheck . _build
+    sphinx-build -b dummy . _build
+"""
