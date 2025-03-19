@@ -1,0 +1,28 @@
+[files]
+pet = "pet_mean_9_stat_selle_1985_2003.prn"
+rainfall = "rainfall_mean_9_stat_selle_1985_2003.prn"
+tree = "selle_morvillers.csv"
+riverobs = "riverflow_selle_plachy_1985_2003.prn"
+groundwaterobs = "watertable_morvillers_00608X0028_1985_2003.prn"
+[spinup]
+cycles = 1
+ending_date = 1988-12-31
+[optimization]
+maxit = 200
+starting_date = 1989-01-01
+river_objective_function = "nse"
+[watershed.all]
+name = "Selle à Plachy"
+river.weight = 5
+river.area = {value=524, opti=false}
+thornthwaite.capacity = {value=0, opti=true, sameas=0, lower=0.1, upper=350}
+progressive.capacity = {value=180, opti=true, sameas=0, lower=0.000, upper=650}
+transfer.runsee = {value=600, opti=true, sameas=0, lower=5, upper=9999}
+transfer.halflife = {value=5, opti=true, sameas=0, lower=0.15, upper=50}
+groundwater.observed_reservoir = 1
+groundwater.weight = 2
+groundwater.base_level = {value=125, opti=true}
+groundwater.storage.regression = true
+groundwater.storage.coefficient = {value=1, opti=true, lower=0.02, upper=50}
+groundwater.1.exchanges = {value=0, opti=false, sameas=0, lower=-50, upper=50}
+groundwater.1.halflife_baseflow = {value=20, opti=true, sameas=0, lower=0.1, upper=70}
