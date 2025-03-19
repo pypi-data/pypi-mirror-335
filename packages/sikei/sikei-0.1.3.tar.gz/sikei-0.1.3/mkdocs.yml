@@ -1,0 +1,57 @@
+site_name: "SiKei"
+site_description: SiKei is a Python library for implementing CQRS pattern in your Python applications forked from Diator (https://akhundmurad.github.io/diator/).
+site_url: https://github.com/LabMarket/sikei/
+
+theme:
+  name: "material"
+  features:
+    - navigation.instant
+  palette:
+    - scheme: "default"
+      primary: "red"
+      accent: "amber"
+      media: "(prefers-color-scheme: light)"
+      toggle:
+        icon: "material/weather-night"
+        name: "Switch to dark mode"
+    - scheme: "slate"
+      primary: "red"
+      accent: "amber"
+      media: "(prefers-color-scheme: dark)"
+      toggle:
+        icon: "material/weather-sunny"
+        name: "Switch to light mode"
+
+repo_name: LabMarket/sikei
+repo_url: https://github.com/LabMarket/sikei
+edit_uri: "blob/main/docs/"
+
+nav:
+  - Introduction: index.md
+  - Examples: examples.md
+  - Architecture: architecture.md
+  - Requests: requests.md
+  - Events: events.md
+  - Dependency Injection: di.md
+  - Middlewares: middlewares.md
+  - Contributing: contributing.md
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - attr_list
+  - md_in_html
+
+plugins:
+  - mkdocstrings
+  - search:
