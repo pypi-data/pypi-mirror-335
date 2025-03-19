@@ -1,0 +1,19 @@
+name: test cmakepresets
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  run-tests:
+    uses: ./.github/workflows/reusable-test.yml
+
+  test:
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    needs: run-tests
+    steps:
+      - run: exit 1
+        if: ${{ contains(toJSON(needs.*.result), 'failure') || contains(toJSON(needs.*.result), 'cancelled') }}
