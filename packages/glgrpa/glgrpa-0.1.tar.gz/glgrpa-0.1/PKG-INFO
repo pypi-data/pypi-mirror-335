@@ -1,0 +1,108 @@
+Metadata-Version: 2.2
+Name: glgrpa
+Version: 0.1
+Summary: Librería para automatización de tareas en RPA dentro de Grupo Los Grobo
+Home-page: https://GrupoLosGrobo@dev.azure.com/GrupoLosGrobo/GrupoLosGrobo%20RPA/_git/GrupoLosGrobo%20RPA
+Author: Bellome, Gabriel <gabriel.bellome@losgrobo.com>
+Author-email: gabriel.bellome@losgrobo.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: selenium
+Requires-Dist: pandas
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# glgrpa
+
+`glgrpa` es una librerÃ­a diseÃ±ada para automatizar tareas relacionadas con RPA (Robotic Process Automation) dentro del entorno del Grupo Los Grobo. Esta librerÃ­a proporciona herramientas para interactuar con navegadores web, manejar archivos Excel, gestionar descargas y realizar operaciones especÃ­ficas en aplicaciones como ARCA.
+
+## InstalaciÃ³n
+
+Puedes instalar la librerÃ­a directamente desde PyPI (cuando estÃ© publicada) utilizando pip:
+
+```bash
+pip install glgrpa
+```
+
+## CaracterÃ­sticas
+
+- **AutomatizaciÃ³n de Navegadores** : Basado en Selenium, permite interactuar con elementos web, realizar clics, ingresar texto, manejar ventanas y mÃ¡s.
+- **GestiÃ³n de Descargas** : Facilita la organizaciÃ³n y limpieza de carpetas de descargas personalizadas.
+- **Manejo de Archivos Excel** : Permite leer archivos Excel y convertirlos en DataFrames de pandas.
+- **InteracciÃ³n con ARCA** : Automatiza tareas especÃ­ficas en la plataforma ARCA, como el inicio de sesiÃ³n, selecciÃ³n de relaciones y descarga de cartas de porte electrÃ³nicas.
+- **Terminal y Logs** : Incluye herramientas para mostrar mensajes en la consola con colores y formatos para facilitar el seguimiento de la ejecuciÃ³n.
+
+## Estructura del Proyecto
+
+La librerÃ­a estÃ¡ organizada en los siguientes mÃ³dulos:
+
+- **`src/Terminal`** : Proporciona herramientas para mostrar mensajes en la consola y gestionar tiempos de espera.
+- **`src/Chrome`** : Contiene funcionalidades para interactuar con el navegador Chrome utilizando Selenium.
+- **`src/Windows`** : Maneja operaciones relacionadas con el sistema de archivos en Windows, como mover archivos y crear estructuras de carpetas.
+- **`src/Excel`** : Facilita la lectura de archivos Excel.
+- **`src/ARCA`** : Incluye clases especÃ­ficas para interactuar con la plataforma ARCA.
+
+## Uso
+
+### Ejemplo de Uso BÃ¡sico
+
+```python
+from glgrpa.src.ARCA.Cartas_de_porte_electronicas.AplicativoCartasDePorteElectronicas import AplicativoCartaDePorteElectronica
+
+# Inicializar la clase
+app = AplicativoCartaDePorteElectronica(dev=True)
+
+# Abrir navegador y navegar a ARCA
+app.abrir_navegador()
+app.navegar_inicio()
+
+# Ingresar credenciales
+app.ingresar_credenciales()
+
+# Cambiar relaciÃ³n
+app.cambiar_relacion("Nombre de la relaciÃ³n")
+
+# Descargar cartas de porte
+cpe_list = app.obtener_listado_cpe()
+for cpe in cpe_list:
+    app.descargar_carta_de_porte(cpe)
+```
+
+### Leer un Archivo Excel
+
+```python
+from glgrpa.src.Excel.Excel import Excel
+
+# Leer un archivo Excel
+excel = Excel("ruta_del_archivo.xlsx")
+dataframe = excel.leer_excel("NombreHoja")
+print(dataframe)
+```
+
+## Requisitos
+
+Los requisitos de la librerÃ­a estÃ¡n especificados en el archivo `requirements.txt`:
+
+- `selenium`
+- `pandas`
+- `colorama`
+- `openpyxl`
+
+## Autor
+
+**Gabriel Bellome**
+Correo: [gabriel.bellome@losgrobo.com](vscode-file://vscode-app/c:/Users/gabriel.bellome/AppData/Local/Programs/Microsoft%20VS%20Code/resources/app/out/vs/code/electron-sandbox/workbench/workbench.html)
+
+## Licencia
+
+Este proyecto estÃ¡ bajo una licencia privada y es propiedad del Grupo Los Grobo.
