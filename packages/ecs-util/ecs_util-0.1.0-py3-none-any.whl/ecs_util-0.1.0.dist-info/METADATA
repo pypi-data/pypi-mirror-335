@@ -1,0 +1,23 @@
+Metadata-Version: 2.3
+Name: ecs-util
+Version: 0.1.0
+Summary: Tool for managing ECS deployments
+Requires-Dist: awscli>=1.37.12
+Requires-Dist: click>=8.1.8
+Requires-Dist: boto3>=1.36.12
+Requires-Dist: tomli>=2.2.1
+Requires-Dist: ruff>=0.11.0 ; extra == 'dev'
+Requires-Dist: pre-commit>=4.2.0 ; extra == 'dev'
+Requires-Python: >=3.12
+Provides-Extra: dev
+Description-Content-Type: text/markdown
+
+# ECS Util
+
+ECS Util is a small tool for managing applications deployed to ECS.
+
+Run with:
+
+```
+uv tool run ecs-util
+```
