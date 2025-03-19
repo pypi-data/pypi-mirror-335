@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "testmichalk-calc"
+version = "0.2.0"
+description = "Pierwszy projekt Poetry podczas naszej nauki a to jest jego opis."
+authors = ["Michał Kaczmarek <michalkaczmarek788@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pytz = "^2024.2"
+
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.13.0"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
