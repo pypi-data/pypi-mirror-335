@@ -1,0 +1,161 @@
+[project]
+name = "django-fingerprint-rt"
+requires-python = ">=3.9"
+description = "Users fingerprinting for your django app"
+keywords = []
+readme = "README.md"
+authors = [
+    { name = "Reef Technologies", email = "opensource@reef.pl" },
+    { name = "Aleksandr Goncharov", email = "aleksandr.goncharov@reef.pl" },
+]
+classifiers = [
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dynamic = []
+dependencies = [
+    "django-ipware~=6.0.4",
+    "django>=3.1",
+]
+version = "0.2.0"
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Source = "https://github.com/reef-technologies/django-fingerprint-rt"
+"Issue Tracker" = "https://github.com/reef-technologies/django-fingerprint-rt/issues"
+
+[project.optional-dependencies]
+cache = [
+    "django-cacheops>=7.0.2",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.version]
+source = "scm"
+
+[tool.pdm.dev-dependencies]
+test = [
+    "freezegun",
+    "pytest",
+    "pytest-apiver",
+    "pytest-asyncio",
+    "pytest-django",
+    "pytest-xdist",
+    "django-debug-toolbar>=4.4.2",
+    "ipdb",
+]
+lint = [
+    "codespell[toml]",
+    "django-stubs>=1.12.0",
+    "mypy>=1.8",
+    "ruff",
+    "types-freezegun",
+    "types-python-dateutil",
+    "types-requests",
+]
+release = [
+    "towncrier",
+]
+dev = [
+    "nox>=2024.4.15",
+    "ipdb>=0.13.13",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [
+    ".",
+    "demo",
+]
+target_package_name = "fingerprint"
+DJANGO_SETTINGS_MODULE = "demo.settings"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "D",
+    "E",
+    "F",
+    "I",
+    "UP",
+    "TCH005",
+]
+ignore = [
+    "D100",
+    "D105",
+    "D107",
+    "D200",
+    "D202",
+    "D203",
+    "D205",
+    "D212",
+    "D400",
+    "D401",
+    "D415",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "F401",
+]
+"test/**" = [
+    "D",
+    "F403",
+    "F405",
+]
+
+[tool.codespell]
+skip = "*.js,*.min.js,pdm.lock"
+ignore-words-list = "datas"
+
+[tool.towncrier]
+directory = "changelog.d"
+filename = "CHANGELOG.md"
+start_string = "<!-- towncrier release notes start -->\n"
+underlines = [
+    "",
+    "",
+    "",
+]
+title_format = "## [{version}](https://github.com/reef-technologies/django-fingerprint-rt/releases/tag/v{version}) - {project_date}"
+issue_format = "[#{issue}](https://github.com/reef-technologies/django-fingerprint-rt/issues/{issue})"
+type = [
+    { directory = "removed", name = "Removed", showcontent = true },
+    { directory = "changed", name = "Changed", showcontent = true },
+    { directory = "fixed", name = "Fixed", showcontent = true },
+    { directory = "deprecated", name = "Deprecated", showcontent = true },
+    { directory = "added", name = "Added", showcontent = true },
+    { directory = "doc", name = "Doc", showcontent = true },
+    { directory = "infrastructure", name = "Infrastructure", showcontent = true },
+]
+
+[[tool.mypy.overrides]]
+module = [
+    "ipware",
+    "nox",
+    "pytest",
+    "tests.*",
+]
+ignore_missing_imports = true
