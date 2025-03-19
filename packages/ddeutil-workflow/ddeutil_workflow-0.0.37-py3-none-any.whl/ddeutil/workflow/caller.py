@@ -1,0 +1,174 @@
+# ------------------------------------------------------------------------------
+# Copyright (c) 2022 Korawich Anuttra. All rights reserved.
+# Licensed under the MIT License. See LICENSE in the project root for
+# license information.
+# ------------------------------------------------------------------------------
+from __future__ import annotations
+
+import inspect
+import logging
+from dataclasses import dataclass
+from functools import wraps
+from importlib import import_module
+from typing import Any, Callable, Protocol, TypeVar
+
+try:
+    from typing import ParamSpec
+except ImportError:
+    from typing_extensions import ParamSpec
+
+from ddeutil.core import lazy
+
+from .__types import Re
+from .conf import config
+
+T = TypeVar("T")
+P = ParamSpec("P")
+
+logger = logging.getLogger("ddeutil.workflow")
+
+
+class TagFunc(Protocol):
+    """Tag Function Protocol"""
+
+    name: str
+    tag: str
+
+    def __call__(self, *args, **kwargs): ...  # pragma: no cov
+
+
+ReturnTagFunc = Callable[P, TagFunc]
+DecoratorTagFunc = Callable[[Callable[[...], Any]], ReturnTagFunc]
+
+
+def tag(
+    name: str, alias: str | None = None
+) -> DecoratorTagFunc:  # pragma: no cov
+    """Tag decorator function that set function attributes, ``tag`` and ``name``
+    for making registries variable.
+
+    :param: name: A tag name for make different use-case of a function.
+    :param: alias: A alias function name that keeping in registries. If this
+        value does not supply, it will use original function name from __name__.
+
+    :rtype: Callable[P, TagFunc]
+    """
+
+    def func_internal(func: Callable[[...], Any]) -> ReturnTagFunc:
+        func.tag = name
+        func.name = alias or func.__name__.replace("_", "-")
+
+        @wraps(func)
+        def wrapped(*args: P.args, **kwargs: P.kwargs) -> TagFunc:
+            # NOTE: Able to do anything before calling the call function.
+            return func(*args, **kwargs)
+
+        return wrapped
+
+    return func_internal
+
+
+Registry = dict[str, Callable[[], TagFunc]]
+
+
+def make_registry(submodule: str) -> dict[str, Registry]:
+    """Return registries of all functions that able to called with task.
+
+    :param submodule: A module prefix that want to import registry.
+
+    :rtype: dict[str, Registry]
+    """
+    rs: dict[str, Registry] = {}
+    regis_calls: list[str] = config.regis_call
+    regis_calls.extend(["ddeutil.vendors"])
+    for module in regis_calls:
+        # NOTE: try to sequential import task functions
+        try:
+            importer = import_module(f"{module}.{submodule}")
+        except ModuleNotFoundError:
+            continue
+
+        for fstr, func in inspect.getmembers(importer, inspect.isfunction):
+            # NOTE: check function attribute that already set tag by
+            #   ``utils.tag`` decorator.
+            if not (
+                hasattr(func, "tag") and hasattr(func, "name")
+            ):  # pragma: no cov
+                continue
+
+            # NOTE: Define type of the func value.
+            func: TagFunc
+
+            # NOTE: Create new register name if it not exists
+            if func.name not in rs:
+                rs[func.name] = {func.tag: lazy(f"{module}.{submodule}.{fstr}")}
+                continue
+
+            if func.tag in rs[func.name]:
+                raise ValueError(
+                    f"The tag {func.tag!r} already exists on "
+                    f"{module}.{submodule}, you should change this tag name or "
+                    f"change it func name."
+                )
+            rs[func.name][func.tag] = lazy(f"{module}.{submodule}.{fstr}")
+
+    return rs
+
+
+@dataclass(frozen=True)
+class CallSearchData:
+    """Call Search dataclass that use for receive regular expression grouping
+    dict from searching call string value.
+    """
+
+    path: str
+    func: str
+    tag: str
+
+
+def extract_call(call: str) -> Callable[[], TagFunc]:
+    """Extract Call function from string value to call partial function that
+    does run it at runtime.
+
+    :raise NotImplementedError: When the searching call's function result does
+        not exist in the registry.
+    :raise NotImplementedError: When the searching call's tag result does not
+        exist in the registry with its function key.
+
+    :param call: A call value that able to match with Task regex.
+
+        The format of call value should contain 3 regular expression groups
+    which match with the below config format:
+
+        >>> "^(?P<path>[^/@]+)/(?P<func>[^@]+)@(?P<tag>.+)$"
+
+    Examples:
+        >>> extract_call("tasks/el-postgres-to-delta@polars")
+        ...
+        >>> extract_call("tasks/return-type-not-valid@raise")
+        ...
+
+    :rtype: Callable[[], TagFunc]
+    """
+    if not (found := Re.RE_TASK_FMT.search(call)):
+        raise ValueError(
+            f"Call {call!r} does not match with the call regex format."
+        )
+
+    # NOTE: Pass the searching call string to `path`, `func`, and `tag`.
+    call: CallSearchData = CallSearchData(**found.groupdict())
+
+    # NOTE: Registry object should implement on this package only.
+    rgt: dict[str, Registry] = make_registry(f"{call.path}")
+    if call.func not in rgt:
+        raise NotImplementedError(
+            f"`REGISTER-MODULES.{call.path}.registries` does not "
+            f"implement registry: {call.func!r}."
+        )
+
+    if call.tag not in rgt[call.func]:
+        raise NotImplementedError(
+            f"tag: {call.tag!r} does not found on registry func: "
+            f"`REGISTER-MODULES.{call.path}.registries.{call.func}`"
+        )
+    return rgt[call.func][call.tag]
