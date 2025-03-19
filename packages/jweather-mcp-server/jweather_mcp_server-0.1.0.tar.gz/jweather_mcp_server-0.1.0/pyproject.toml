@@ -1,0 +1,19 @@
+[project]
+name = "jweather-mcp-server"
+version = "0.1.0"
+description = "一个提供全国天气预报查询功能的模型上下文协议（Model Context Protocol）服务器。该服务器使大型语言模型（LLMs）能够获取全国城市、地区的天气预报情况。"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "mcp[cli]>=1.4.1",
+]
+[[project.authors]]
+name = "juhemcp"
+email = "dev@juheapi.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+jweather-mcp-server = "jweather_mcp_server:main"

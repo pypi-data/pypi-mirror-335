@@ -1,0 +1,104 @@
+# Juhe Weather MCP Server
+
+一个提供全国天气预报查询功能的模型上下文协议（Model Context Protocol）服务器。该服务器使大型语言模型（LLMs）能够获取全国城市、地区的天气预报情况。
+
+## Components
+
+### Tools
+
+服务器实现了一个工具:
+
+- query_weather: 根据城市、地区、区县名称查询当地实时天气预报情况.
+  - 需要传入 "city"（城市、区县等名称）作为必须的字符串参数。
+```
+async def query_weather(
+    city: str = Field(description="查询的城市名称，如北京、上海、广州、深圳、泰顺等；城市或区县或地区名使用简写，严格按照规范填写，否则会导致查询失败")
+) -> list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+```
+
+
+## Install
+This server requires Python 3.10 or higher. Install dependencies using uv (recommended) or pip
+
+### Using uv (recommended)
+When using [uv](https://docs.astral.sh/uv/) no specific installation is needed. We will use [uvx](https://docs.astral.sh/uv/guides/tools/) to directly run jweather-mcp-server.
+
+```bash
+uvx jweather-mcp-server
+```
+
+### Using PIP
+Alternatively you can install jweather-mcp-server via pip:
+```
+pip install jweather-mcp-server
+```
+After installation, you can run it as a script using:
+```
+python -m jweather_mcp_server
+```
+
+### Configuration
+
+#### Environment Variables
+`JUHE_WEATHER_API_KEY`: 聚合数据的天气预报查询API密钥。获取：[https://www.juhe.cn/docs/api/id/73](https://www.juhe.cn/docs/api/id/73)
+
+```
+JUHE_WEATHER_API_KEY=your_api_key
+```
+
+#### Configure For CLINE
+
+<details>
+  <summary>Using uvx</summary>
+
+  ```
+  "mcpServers": {
+    "jweather-mcp-server": {
+      "command": "uvx",
+      "args": [
+        "jweather-mcp-server"
+      ],
+      "env": {
+        "JUHE_WEATHER_API_KEY": "your_api_key"
+      }
+    }
+  }
+  ```
+</details>
+
+<details>
+  <summary>Using pip installation</summary>
+
+  ```
+  "mcpServers": {
+    "jweather-mcp-server": {
+      "command": "python",
+      "args": [
+        "-m",
+        "jmobile_location_mcp_server"
+      ],
+      "env": {
+        "JUHE_WEATHER_API_KEY": "your_api_key"
+      }
+    }
+  }
+  ```
+</details>
+
+## Debugging
+You can use the MCP inspector to debug the server. For uvx installations:
+
+```bash
+npx @modelcontextprotocol/inspector uvx jweather-mcp-server 
+```
+
+Or if you've installed the package in a specific directory or are developing on it:
+
+```bash
+cd path/to/servers/src/jweather-mcp-server
+npx @modelcontextprotocol/inspector uv run jweather-mcp-server
+```
+
+## Examples of Questions for Cline
+1. "查询下苏州的天气"
+2. "今天上海的天气如何？"
