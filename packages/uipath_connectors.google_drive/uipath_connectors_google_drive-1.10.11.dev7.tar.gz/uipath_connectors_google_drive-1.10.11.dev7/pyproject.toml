@@ -1,0 +1,42 @@
+[project]
+name = "uipath_connectors.google_drive"
+version = "1.10.11dev7"
+description = "A client library for accessing Google Drive"
+authors = []
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+   "httpx >=0.20.0",
+   "attrs >=22.2.0",
+   "python-dateutil >=2.8.0",
+   "uipath_sdk >=0.0.72"
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+maintainers = [
+    { name = "Marius Cosareanu", email = "marius.cosareanu@uipath.com" },
+    { name = "Cristian Pufu", email = "cristian.pufu@uipath.com" }
+]
+
+[project.urls]
+Homepage = "https://uipath.com"
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["uipath_connectors*"]
+namespaces = true
+
+
+[project.entry-points."uipath_sdk.connectors"]
+register = "uipath_connectors.google_drive:register_connector"
