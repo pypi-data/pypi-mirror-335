@@ -1,0 +1,55 @@
+Metadata-Version: 2.2
+Name: opensubmarine
+Version: 0.1.19
+Summary: A library for secure smart contract development on Algorand
+Author-email: OpenSubmarine Team <hello@nautilus.sh>
+License: MIT License
+        
+        Copyright (c) 2024 Nautilus
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/NautilusOSS/opensubmarine-contracts
+Keywords: algorand,smart-contracts,blockchain,crypto
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Security
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: py-algorand-sdk
+Requires-Dist: algopy
+
+OpenSubmarine | Contracts
+
+A library for secure smart contract development. Build on a solid foundation of community-vetted code similar to OpenZeppelin but for the Algorand Virtual Machine (AVM) and using Algorand Python instead of Solidity. Testing is done using Algorand Pythnon Testing and Mocha and Chai frameworks.
+
+* Implementations of token standards like ARC200 and ARC72.
+* Flexible role-based permissioning scheme.
+* Reusable Algorand python components to build custom contracts and complex decentralized systems.
+
+## Contributing
+Please see our [Contributing Guide](CONTRIBUTING.md) for instructions on how to set up the development environment and submit changes.
+
+## Publishing
+For maintainers: See the [Contributing Guide](CONTRIBUTING.md#publishing-to-pypi) for instructions on publishing new versions to PyPI.
