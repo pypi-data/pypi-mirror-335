@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "CALegInfo"
+version = "0.0.3"
+authors = [
+  { name="Mike Bernico", email="mike.bernico@gmail.com" },
+]
+description = "An API for interacting with CA Legislative Information at https://leginfo.legislature.ca.gov"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = {text = "Apache2"}
+dependencies = [
+    "requests",
+    "beautifulsoup4",
+]
+
+[project.urls]
+Homepage = "https://github.com/mbernico/ca_leginfo_api"
+Issues = "https://github.com/mbernico/ca_leginfo_api"
