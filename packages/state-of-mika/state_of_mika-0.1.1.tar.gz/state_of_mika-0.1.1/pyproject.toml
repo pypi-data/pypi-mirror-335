@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "state-of-mika"
+dynamic = ["version"]
+description = "A streamlined connector for Language Models to interact with MCP servers"
+readme = "README.md"
+authors = [
+    {name = "State of Mika Team", email = "info@stateofmika.com"}
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "aiohttp>=3.8.0",
+    "pyyaml>=6.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/stateofmika/state-of-mika"
+"Bug Tracker" = "https://github.com/stateofmika/state-of-mika/issues"
+
+[project.optional-dependencies]
+claude = ["anthropic>=0.5.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+som-cli = "state_of_mika.cli:main"
+
+[tool.setuptools]
+packages = ["state_of_mika", "state_of_mika.adapters", "state_of_mika.examples", "state_of_mika.registry"]
+
+[tool.setuptools.dynamic]
+version = {attr = "state_of_mika.__version__"}
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 
