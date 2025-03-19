@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "virgui"
+dynamic = ["version"]
+authors = [
+  { name="Miron van der Kolk", email="mkolk@nikhef.nl" },
+]
+description = "Prototype for the Virgo control room GUI"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+scripts = { "virgui" = "virgui.main:main" }
+dependencies = [
+    "pyside6",
+    "finesse",
+    "lxml", # this is just lazy because I need to the `.parent` attribute
+    # need this until these upstream issues are resolved
+    # https://gitlab.com/ifosim/finesse/finesse3/-/issues/700
+    # https://gitlab.com/ifosim/finesse/finesse3/-/merge_requests/293
+    "ipython<9",
+]
+[project.optional-dependencies]
+test = [
+  "pytest"
+]
+lint = [
+  "ruff",
+  "pre-commit",
+  "tox"
+]
+
+[tool.setuptools]
+# ...
+# By default, include-package-data is true in pyproject.toml,
+# so you do NOT have to specify this line.
+include-package-data = true
+
+[tool.setuptools_scm]
+version_file = "src/virgui/version.py"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+mypkg = ["*.svg", "*.kat"]
+
+[tool.ruff]
+# select = ["ALL"]
