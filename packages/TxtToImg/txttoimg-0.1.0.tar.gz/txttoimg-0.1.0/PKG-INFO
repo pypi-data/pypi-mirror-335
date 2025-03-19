@@ -1,0 +1,84 @@
+Metadata-Version: 2.2
+Name: TxtToImg
+Version: 0.1.0
+Summary: A Python library to create images with customizable text overlays.
+Home-page: https://github.com/nelvinjazieldeveloper/txt2img
+Author: Nelvin Jaziel Marquez (Jaziel Developer)
+Author-email: nelvinjazieldeveloper@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: opencv-python>=4.5.5
+Requires-Dist: numpy>=1.21.0
+Requires-Dist: requests>=2.26.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Txt2Img
+
+Txt2Img is a Python library that allows you to add text to an image, either by providing a URL for the background image or by generating a gradient background.
+
+## Installation
+
+To install Txt2Img, you can use pip:
+
+```
+pip install opencv-python
+pip install requests
+```
+
+## Usage
+
+Here's an example of how to use the Txt2Img class:
+
+```python
+from Txt2Img import Txt2Img
+
+# Create an instance of the Txt2Img class
+img_generator = Txt2Img(
+    text="Hello, World!",
+    url="https://example.com/background.jpg",
+    width=800,
+    height=600,
+    text_color=(255, 255, 255),  # White text
+    text_background_color=(0, 0, 0),  # Black background
+    font_scale=2,
+    font_thickness=3,
+    text_position="center"
+)
+
+# Create the image
+img_generator.create()
+
+# Show the image
+img_generator.show()
+
+# Save the image
+img_generator.download()
+```
+
+## API
+
+The Txt2Img class has the following methods:
+
+- `__init__(self, text, url=None, width=800, height=600, **kwargs)`: Initializes the Txt2Img class with the specified parameters.
+- `open_image_from_url(self)`: Downloads the image from the provided URL and returns it as a NumPy array.
+- `create_gradient(self)`: Creates a gradient background image.
+- `add_text(self, img)`: Adds the specified text to the image.
+- `create(self)`: Generates the final image by either opening the image from the URL or creating a gradient background, and then adding the text to the image.
+- `show(self)`: Displays the generated image using OpenCV.
+- `download(self)`: Saves the generated image to a file with the same name as the text.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
