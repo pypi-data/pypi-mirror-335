@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: uv-development-toggle
+Version: 0.2.1
+Summary: Easily toggle between development and production packages with uv. Quickly close development packages locally.
+Project-URL: Repository, https://github.com/iloveitaly/uv-development-toggle
+Author-email: Michael Bianco <mike@mikebian.co>
+Keywords: development,package,uv
+Requires-Python: >=3.9
+Requires-Dist: tomlkit>=0.13.2
+Description-Content-Type: text/markdown
+
+
+# Python Development Source Toggler
+
+A utility script for easily switching between local development and published sources for Python packages in your `pyproject.toml`.
+
+## Features
+
+- Automatically toggles between local development paths and GitHub sources
+- Preserves TOML file comments and structure
+- Automatically clones repositories when switching to local development
+- Supports branch tracking
+- Falls back to PyPI metadata if direct GitHub repository is not found
+- Integrates with GitHub CLI for username detection
+
+## Installation
+
+
+pip install -r requirements.txt
+
+
+## Usage
+
+To toggle a module named "activemodel":
+
+```shell
+pip install uv-development-toggle
+uv-development-toggle activemodel --published
+```
+
+This will:
+
+1. Check if the package exists in your `PYTHON_DEVELOPMENT_TOGGLE` directory
+2. If switching to local and the repository doesn't exist, clone it automatically (attempts to determine the repo URL from pypi information)
+3. Update your `pyproject.toml` with the appropriate source configuration
+4. Preserve any existing branch information when toggling
+
+### Arguments
+
+- `MODULE_NAME`: The name of the Python module to toggle
+- `--local`: Force using local development path
+- `--published`: Force using published source
+
+### Environment Variables
+
+- `PYTHON_DEVELOPMENT_TOGGLE`: Directory for local development repositories (default: "pypi")
