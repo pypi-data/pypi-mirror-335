@@ -1,0 +1,908 @@
+Marne EROS : SIMUL 11/2017 - Grappe 11 bassins. Simul 1 pas journalier
+ << Calage 1985-2017 >>
+ #<V7.3c># --- Fin du texte libre --- ; Ne pas modifier/retirer cette ligne
+ ***  Paramètres généraux de la simulation : Paragraphe 1 ***
+         0=Nombre d'années des séries temporelles (0 = toutes)
+         0=Données par années hydrologiques [début 1 août] (0=ann civiles ; 1=années hydrologiques)
+      1979=Date de la première année des données (par ex. 2015)
+         6=Nombre d'années de démarrage
+         0=Nombre de cycles de démarrage (déf. = 1)
+         0=Nombre d'années finales à ignorer pour la calibration (déf = 0) [< 0 => n° last année]
+       365=Dernier pas de temps observé de la dernière année (pour dessin)
+         1=Observations de Débits de rivière : Importance (entier : 0 à 10 ;  0=Non)
+         1=Observations de Niveaux de nappe  : Importance (entier : 0 à 10 ;  0=Non)
+         0=Calcul des Débits de Rivière : (0 <=> 1=Oui ; -1=Non, uniquement Niveaux)
+         1=Calcul des Niveaux de nappe  : (0=Non  ;  1=Oui)
+         0=Pas de temps des données (0=Jour ; 24=Heure ; 2=Décade ; 3=Mois ; 5=5_Jou ; 7=7_Jou ; 4=Autre)
+         0=Format des données [0=Excel_Simultané ; 3=Excel (obsolète)]
+         0=Schéma de calcul (0=Gardénia ; 5=Ruissellement, Drainage ; etc.)
+         0=Décroissance de l'évapotranspiration si saturation du réservoir sol < 50% (0=Non ; 1=Oui)
+         0=Schéma à taux de ruissellement constant (pour comparaison ; déconseillé) (0=Non ; 1=Oui)
+         1=Schéma d'échange souterrain extérieur (0=% Débit souterrain (++) ; 1=Fact Niv_souterrain)
+         0=Prise en compte de la Neige (0=Non  ;  1=Oui)
+         0=Précipitations neigeuses dans un fichier propre (0 = Neige+Pluie ; 1 = Neige séparée)
+         0=Nombre d'années de données pour la Prévision
+         0=Date de la Première Année des fichiers météo de prévision [si journalier ou horaire] (déf = 0)
+         0=Prévision de débits de rivières et de niveaux de nappe avec scénarios de pluie : (0=Non ; 1=Oui)
+         0=Méthode de correction des écarts de Prévision (1 => Écart décroissant avec 1/2 vie)
+         0=Jour d'émission de la prévision (1-31) (Si pas de temps journalier ou horaire sinon : 0)
+        48=Numéro du mois [si journalier, horaire ou mensuel] (ou du pas de temps) d'émission de la Prévision
+        24=Portée de la prévision (Nombre de pas de temps de la prévision)
+         1=Taux de réajustement pour la prévision des débits/niveaux [0 à 1] (Déf. 0 => 1 = Conseillé)
+ ***  Durée du pas de temps s'il est de durée non-standard ***
+  Standard=Unité de durée du pas de temps s'il est non-standard (sec, min, heu, jou, moi, ann)
+     1.000=Durée du pas de temps (dans l'unité)
+         0=Numéro du Jour initial [Def=1] (si durée non-standard) ; ex. 31 pour 31 Déc.
+         0=Numéro du Mois initial [Def=1] (si durée non-standard) ; ex. 12 pour 31 Déc.
+         0=Heure initiale [Def=0] (si durée non-standard) ; par ex. 15 pour 15h30
+         0=Minute initiale [Def=0] (si durée non-standard) ; par ex. 30 pour 15h30
+ ***  Paramètres généraux de la simulation : Paragraphe 2 ***
+         0=Sauvegarde de la Pluie efficace (0=Non ; 1=Oui)
+         2=Sauvegarde des Débits et/ou Niveaux Simulés-Observés (1=Oui ; 2=Aussi des effets des prélèvements)
+         1=Sauvegarde des Débits et/ou Niveaux simulés de tous les bassins (même sans observations) (1=Oui)
+         1=Écriture sur listing du bilan mensuel de tous les bassins (0=Non 1=Oui) [déconseillé]
+         0=Dessin des simulations (0=Non ; 1=Oui ; 2=Dessin aussi des effets des prélèvements)
+         1=Écriture de contrôle sur listing des données hydroclimatiques lues (1=Oui)
+         1=Génération d'un listing (Déf. 0 => Oui ; -1=Listing allégé ; -2=Quasi-supprimé)
+        97=Transformation du débit pour la calibration (0=Non ; 99= Racine_carrée; 97= Logar ; 96=Carré)
+         0=Minimisation du biais sur les Débits de Rivière (0 = Non ; 100 = 100 %)
+       600=Nombre total de simulations (itérations) pour la calibration des paramètres
+         1=Nombre de cycles de calibration des paramètres (Déf. 0 => 1 cycle)
+         0=Schéma de calibration des paramètres (0=Standard ; 1=Sans rotation des axes)
+         0=Sauvegarde des termes du bilan global d'un bassin (1=Tous les pas de temps ; 2=Annuel)
+         0=Numéro du bassin dont on sauvegarde les termes du bilan global
+         1=Sauvegarde des composantes de débit des sous-bassins (0=Non ; 1=m3/s ; 2=mm/pas de temps)
+        -1=Bassins versants tous indépendants (0=Automatique ; -1=Non : Pas indépendants ; -2=Rotat. Cultures)
+         0=Sauvegarde des débits locaux simulés dans tous les sous-bassins (0=Non ; 1=Oui)
+         0=Météo (Pluie, ETP, ...) pondérée à chaque pas [1=Fichiers annuels SAFRAN , 2=Fichier unique]
+         0=Sauvegarde de la météo pondérée => Fichier 1 colonne par bassin (runs rapides et portables) [1=Oui]
+         0=Couplage avec le coupleur OpenPalm (0=Non ; 1=Couplage Météo)
+         0=Restart à partir des états de réservoirs sauvegardés dans un fichier (0=Non ; 1=Oui)
+ ***  Paramètres généraux pour le transfert de Nitrate    ***
+         0=Observations de la concentration en NO3 dans les rivières : Importance (entier : 0 à 10 ; 0=Non)
+         0=Observations de la concentration en NO3 dans les nappes   : Importance (entier : 0 à 10 ; 0=Non)
+         0=Calcul de la concentration en NO3 dans les rivières : (0=Non  ;  1=Oui)
+         0=Calcul de la concentration en NO3 dans les nappes   : (0=Non  ;  1=Oui)
+         0=Sauvegarde des concentrations en NO3 Simulées-Observées (dans la rivière et/ou la nappe) (1=Oui)
+         0=Sauvegarde des concentrations en NO3 simulées de tous les bassins (même sans observations) (1=Oui)
+         0=Sauvegarde des concentrations en NO3 simulées dans les débits locaux des sous-bassins (1=Oui)
+         0=Les cultures sont irriguées (complément pour satisfaire l'ETP) : (0=Non ; 1=Oui)
+         0=Unité des données pour les apports/besoins en nitrate : (1=kg-Azote ; 2=kg-NO3 [Déf=1])
+         0=Nombre de Bassins générés pour le calcul (0 = Automatique = 50 Bassins si Rotat. cultures)
+         0=Paramètres de calcul transfert de NO3 identiques dans tous les bassins (0=Non ; 1=Oui)
+         0=Édition des termes du bilan NO3 de toutes les cultures (Max 30) (0=Non ; 1=Oui)
+ ***  Bornes des paramètres Hydroclimatiques              ***
+ -20.00000=Min : Correction globale des pluies                      (%) Max =  20.00000
+ -20.00000=Min : Correction globale de l'ETP                        (%) Max =  20.00000
+   0.10000=Min : Capacité du réservoir sol de type 'réserve utile' (mm) Max = 500.00000
+   0.10000=Min : Capacité du réservoir sol Progressif              (mm) Max = 600.00000
+   0.10000=Min : Hauteur de répartition Ruissellement-Percolation  (mm) Max =2500.00000
+ 1.000E-02=Min : Temps de 1/2 percolation vers la nappe          (mois) Max =  10.00000
+ 1.000E-03=Min : Temps de 1/2 tarissement souterrain n°1         (mois) Max =  40.00000
+   0.00000=Min : Temps de 1/2 transfert vers la nappe profonde   (mois) Max =  40.00000
+   0.00000=Min : Seuil d'écoulement souterrain n°1 (rés. double)   (mm) Max = 500.00000
+   0.00000=Min : Temps de 1/2 tarissement souterrain n°2         (mois) Max =  80.00000
+   0.00000=Min : Temps de réaction ('retard') du débit   (pas de temps) Max =  10.00000
+ -30.00000=Min : Facteur d'échange souterrain externe               (%) Max =  20.00000
+   0.00000=Min : Temps de propagat. débit => Bassin aval (pas de temps) Max =  15.00000
+   0.00000=Min : Seuil de ruissellement par débordement            (mm) Max =   0.00000
+   0.00000=Min : Temps de 1/2 ruissell. par débordement  (Pas de temps) Max =   0.00000
+   0.00000=Min : Temps de 1/2 décroiss. maximal du ruissellement (mois) Max =   0.00000
+   0.80000=Min : Facteur de correction de la superficie du bassin   (-) Max =   1.20000
+   2.00000=Min : Coefficient d'emmagasinement de nappe              (%) Max =5000.00000
+ ***  Bornes des paramètres de Fonte de Neige             ***
+   0.00000=Min : Correction globale de la température              (°C) Max =   0.00000
+   0.00000=Min : Taux de rétention de la neige                      (%) Max =   0.00000
+   0.00000=Min : Facteur d'évaporation de la neige                  (%) Max =   0.00000
+   0.00000=Min : Correction de fonte de la neige par la pluie       (%) Max =   0.00000
+   0.00000=Min : Temperature seuil de fonte naturelle de la neige  (°C) Max =   0.00000
+   0.00000=Min : Constante de fonte par la température     (mm/°C/jour) Max =   0.00000
+   0.00000=Min : Fonte de la neige au contact du sol     (1/10 mm/jour) Max =   0.00000
+ ***  Bornes des paramètres de Pompage => Débit & Niveaux ***
+   0.00000=Min : Temps de 1/2 montée du pompage infl. => Rivière (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 stabilisation du pompage => Rivière(mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 montée du pompage infl. => Nappe   (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 stabilisation du pompage => Nappe  (mois) Max =   0.00000
+ ***  Bornes des paramètres de transfert de Nitrate       ***
+   0.00000=Min : Temps de mélange du réservoir sol 'rés. utile'  (mois) Max =   0.00000
+   0.00000=Min : Temps de mélange du réservoir sol progressif    (mois) Max =   0.00000
+   0.00000=Min : Temps de mélange dans le réservoir Interméd.    (mois) Max =   0.00000
+   0.00000=Min : Temps de mélange dans le réservoir Souterrain 1 (mois) Max =   0.00000
+   0.00000=Min : Temps de mélange dans le réservoir Souterrain 2 (mois) Max =   0.00000
+   0.00000=Min : Volume d'Eau Liée du réservoir sol 'réser. utile' (mm) Max =   0.00000
+   0.00000=Min : Volume d'Eau Liée du réservoir sol Progressif     (mm) Max =   0.00000
+   0.00000=Min : Volume d'Eau Liée dans le réservoir Intermédiaire (mm) Max =   0.00000
+   0.00000=Min : Volume d'Eau Liée dans le réservoir Souterrain 1  (mm) Max =   0.00000
+   0.00000=Min : Volume d'Eau Liée dans le réservoir Souterrain 2  (mm) Max =   0.00000
+   0.00000=Min : Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 dégrad. réservoir sol Progressif   (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois) Max =   0.00000
+   0.00000=Min : Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois) Max =   0.00000
+   0.00000=Min : Coefficient de correction des Applications NO3     (%) Max =   0.00000
+   0.00000=Min : Coefficient de correction des Besoins en NO3       (%) Max =   0.00000
+   0.00000=Min : Coefficient de correction de la Minéralisation NO3 (%) Max =   0.00000
+   0.00000=Min : Concentration maxi dans la Pluie pour dissolut. (mg/l) Max =   0.00000
+   0.00000=Min : Temps de libération par les racines pour NO3    (mois) Max =   0.00000
+ ***  Options hydroclimatiques du Bassin 1 : Marnay ***
+         2=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 1 : Marnay ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 360.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 354.52135=Niveau de base local                           (m NGF)  Opti= 0
+  -1.21245=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+  -8.01566=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.12116=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 164.69561=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+   8.01460=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.93292=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+  32.65000=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   8.80075=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 1 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+   0.08000=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 1 Même_Que=   0
+   0.65624=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 1 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+  17.84396=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 1 : Marnay ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 1 : Marnay ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 1 : Marnay ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 2 : Mussey ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 2 : Mussey ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+1500.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 209.53485=Niveau de base local                           (m NGF)  Opti= 0
+  20.00000=Correction globale des pluies                      (%)  Opti= 1 Même_Que=   0
+  -4.73124=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.12116=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 197.05810=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+   5.42008=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   1.37352=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   0.46069=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.39606=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+ 1.000E-02=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   1.74420=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+ -30.00000=Facteur d'échange souterrain externe               (%)  Opti= 1 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   0.22963=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 2 : Mussey ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 2 : Mussey ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 2 : Mussey ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 3 : Chamouilley ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 3 : Chamouilley ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 384.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 172.92238=Niveau de base local                           (m NGF)  Opti= 0
+   0.27813=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   4.74375=Correction globale de l'ETP                        (%)  Opti= 1 Même_Que=   0
+   0.12116=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 213.03750=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  26.98128=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.13745=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   0.18985=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.13823=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+ 1.000E-02=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   3.00007=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+  20.00000=Facteur d'échange souterrain externe               (%)  Opti= 1 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   0.85028=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 3 : Chamouilley ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 3 : Chamouilley ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 3 : Chamouilley ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 4 : St_Dizier ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 4 : St_Dizier ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 125.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 172.91136=Niveau de base local                           (m NGF)  Opti= 0
+  20.00000=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   0.94375=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.12116=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 234.03750=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+ 112.34375=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.13241=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   0.21722=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.18510=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+ 1.000E-02=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   3.00408=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   1.26724=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 4 : St_Dizier ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 4 : St_Dizier ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 4 : St_Dizier ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 5 : Blaise_Louvem ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 5 : Blaise_Louvem ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 463.00003=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 172.86587=Niveau de base local                           (m NGF)  Opti= 0
+   9.60618=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   0.44532=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.10000=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 242.33311=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  41.03569=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.22192=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   0.18195=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.14291=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+ 1.000E-02=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   0.87748=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+ -13.12500=Facteur d'échange souterrain externe               (%)  Opti= 1 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   0.66206=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 5 : Blaise_Louvem ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 5 : Blaise_Louvem ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 5 : Blaise_Louvem ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 6 : Compl_Frignic ***
+         2=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 6 : Compl_Frignic ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 458.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 133.18988=Niveau de base local                           (m NGF)  Opti= 0
+  20.00000=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   0.63125=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.73271=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 206.72813=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  18.98638=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.26145=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+  36.00000=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   1.28668=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 1 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+   0.32406=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 1 Même_Que=   0
+   4.57117=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   4.04132=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 6 : Compl_Frignic ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 6 : Compl_Frignic ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 6 : Compl_Frignic ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 7 : Saulx_Vitry ***
+         2=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 7 : Saulx_Vitry ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+2100.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 172.90257=Niveau de base local                           (m NGF)  Opti= 0
+  20.00000=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   0.23438=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.16009=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 260.23766=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  93.21563=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.20664=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   0.15287=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.41479=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 1 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+   0.01010=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 1 Même_Que=   0
+   1.62486=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+  -4.66396=Facteur d'échange souterrain externe               (%)  Opti= 1 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   0.79240=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 7 : Saulx_Vitry ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 7 : Saulx_Vitry ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 7 : Saulx_Vitry ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 8 : Compl_Chalons ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 8 : Compl_Chalons ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 901.00018=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+  77.50395=Niveau de base local                           (m NGF)  Opti= 0
+  13.49375=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   0.23125=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.22679=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+  95.29518=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+   7.54630=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   7.04375=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   1.55939=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   1.73668=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+   0.19749=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   7.30489=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   0.06430=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 8 : Compl_Chalons ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 8 : Compl_Chalons ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 8 : Compl_Chalons ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 9 : Compl_Ferté ***
+         0=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 9 : Compl_Ferté ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+2472.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 183.84970=Niveau de base local                           (m NGF)  Opti= 0
+   1.60625=Correction globale des pluies                      (%)  Opti= 1 Même_Que=   0
+   0.63125=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   0.11901=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 182.68583=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  63.14375=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.04600=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   3.80001=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+   0.03510=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+ 1.000E-02=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 0 Même_Que=   0
+   9.49546=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+   0.00000=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   5.58716=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 9 : Compl_Ferté ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 9 : Compl_Ferté ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 9 : Compl_Ferté ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 10 : Grand_Morin ***
+         2=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 10 : Grand_Morin ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+ 772.00000=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+ 183.88184=Niveau de base local                           (m NGF)  Opti= 0
+  11.55618=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+ -10.60315=Correction globale de l'ETP                        (%)  Opti= 0 Même_Que=   0
+   5.16009=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 168.61266=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  13.35242=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   0.18018=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+   5.00938=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+  13.66635=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 1 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+  79.23510=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 1 Même_Que=   0
+   0.81549=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   3.70734=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 10 : Grand_Morin ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 10 : Grand_Morin ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 10 : Grand_Morin ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ ***  Options hydroclimatiques du Bassin 11 : Compl_Gournay ***
+         2=Nombre de réservoirs souterrains (1 ou 2 ou -1=Réservoir double + seuil) [déf = 1]
+         0=Numéro du réservoir souterrain <=> Niveau nappe (si 2 réservoirs souterrains) [déf = 1]
+         0=Perte du débit de Ruissellement par Débordement au-dessus du seuil [0=Non ; 1=Perte ; 2 => Rés Sout]
+         0=Méthode de calcul du coeff. d'Emmagasinement [0 = Par corrélation ; 1 = Par optimis. entre bornes]
+ ***  Paramètres hydroclimatiques du Bassin 11 : Compl_Gournay ***
+   0.00000=Pluie efficace annuelle moyenne pour démarrage (mm/an)
+   0.00000=Débit rivière réservé (débit minimum possible)  (m3/s)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Débit  de rivière (pas de temps)
+   0.00000=Temps de 1/2 vie de l'écart de prévision de Niveau de Nappe   (pas de temps)
+3061.00024=Superficie élémentaire du sous-bassin            (km2)  Opti= 0
+  76.68870=Niveau de base local                           (m NGF)  Opti= 0
+  14.68125=Correction globale des pluies                      (%)  Opti= 0 Même_Que=   0
+   1.77500=Correction globale de l'ETP                        (%)  Opti= 1 Même_Que=   0
+   0.10932=Capacité du réservoir sol de type 'réserve utile' (mm)  Opti= 0 Même_Que=   0
+ 456.07500=Capacité du réservoir sol Progressif              (mm)  Opti= 1 Même_Que=   0
+  10.54844=Hauteur de répartition Ruissellement-Percolation  (mm)  Opti= 1 Même_Que=   0
+   4.30625=Temps de 1/2 percolation vers la nappe          (mois)  Opti= 1 Même_Que=   0
+  39.90000=Temps de 1/2 tarissement souterrain n°1         (mois)  Opti= 1 Même_Que=   0
+  19.04760=Temps de 1/2 transfert vers la nappe profonde   (mois)  Opti= 1 Même_Que=   0
+   0.00000=Seuil d'écoulement souterrain n°1 (rés. double)   (mm)  Opti= 0 Même_Que=   0
+  79.90000=Temps de 1/2 tarissement souterrain n°2         (mois)  Opti= 1 Même_Que=   0
+   6.37666=Temps de réaction ('retard') du débit   (pas de temps)  Opti= 1 Même_Que=   0
+   0.00000=Facteur d'échange souterrain externe               (%)  Opti= 0 Même_Que=   0
+ 1.000E-04=Temps de propagat. débit => Bassin aval (pas de temps)  Opti= 0 Même_Que=   0
+   0.00000=Seuil de ruissellement par débordement            (mm)  Opti= 0 Même_Que=   0
+   0.05000=Temps de 1/2 ruissell. par débordement  (Pas de temps)  Opti= 0 Même_Que=   0
+ 1.000E-03=Temps de 1/2 décroiss. maximal du ruissellement (mois)  Opti= 0 Même_Que=   0
+   1.00000=Facteur de correction de la superficie du bassin   (-)  Opti= 1 Même_Que=   0
+   1.56587=Coefficient d'emmagasinement de nappe              (%)  Opti= 1 Même_Que=   0
+ ***  Paramètres de Fonte de Neige du Bassin 11 : Compl_Gournay ***
+   0.00000=Correction globale de la température              (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Taux de rétention de la neige                      (%)  Opti= 0 Même_Que=   0
+   0.00000=Facteur d'évaporation de la neige                  (%)  Opti= 0 Même_Que=   0
+   0.00000=Correction de fonte de la neige par la pluie       (%)  Opti= 0 Même_Que=   0
+   0.00000=Temperature seuil de fonte naturelle de la neige  (°C)  Opti= 0 Même_Que=   0
+ 1.000E-03=Constante de fonte par la température     (mm/°C/jour)  Opti= 0 Même_Que=   0
+ 1.000E-03=Fonte de la neige au contact du sol     (1/10 mm/jour)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Pompage sur Rivière et Nappe du Bassin 11 : Compl_Gournay ***
+   0.00000=Coefficient d'influence du pompage => Débit Rivi.  (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Rivière (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Rivière(mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient d'influence du pompage => Niveau Nappe (-)  Opti= 0
+   0.00000=Temps de 1/2 montée du pompage infl. => Nappe   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 stabilisation du pompage => Nappe  (mois)  Opti= 0 Même_Que=   0
+ ***  Paramètres de Nitrate du Bassin 11 : Compl_Gournay ***
+   0.00000=Concentration initiale dans l'eau Libre         (mg/l)
+   0.00000=Concentration initiale dans l'eau Liée          (mg/l)
+   0.00000=Concentr. NO3 Rivière constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 Nappe   constante (bruit de fond) (mg/l)
+   0.00000=Concentr. NO3 du flux extérieur entrant Nappe   (mg/l)
+   0.00000=Temps de mélange du réservoir sol 'rés. utile'  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange du réservoir sol progressif    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Interméd.    (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de mélange dans le réservoir Souterrain 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol 'réser. utile' (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée du réservoir sol Progressif     (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Intermédiaire (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 1  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Volume d'Eau Liée dans le réservoir Souterrain 2  (mm)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol 'rés. utile' (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. réservoir sol Progressif   (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Interméd.  (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 1 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Temps de 1/2 dégrad. dans le réserv. Souterr. 2 (mois)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Applications NO3     (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction des Besoins en NO3       (%)  Opti= 0 Même_Que=   0
+   0.00000=Coefficient de correction de la Minéralisation NO3 (%)  Opti= 0 Même_Que=   0
+   0.00000=Concentration maxi dans la Pluie pour dissolut. (mg/l)  Opti= 0 Même_Que=   0
+   0.00000=Temps de libération par les racines pour NO3    (mois)  Opti= 0 Même_Que=   0
+ *** Fin du fichier Paramètres ÉROS   V7.3c ***

@@ -1,0 +1,73 @@
+starting_date = 1994-01-01 00:00:00
+
+[files]
+rainfall = "data/fake_rainfall.prn"
+pet = "data/fake_pet.prn"
+riverobs = ""
+groundwaterobs = "data/fake_groundwaterobs.prn"
+temperature = ""
+snow = ""
+riverpumping = ""
+groundwaterpumping = ""
+
+[input_format]
+meteo_files = false
+time_step = { seconds = 86400 }
+
+[outputs]
+budget = false
+
+[spinup]
+cycles = 3
+starting_date = 1975-01-01 00:00:00
+ending_date = 1993-12-31 00:00:00
+
+[forecast]
+forecast = false
+correction = "no"
+
+[optimization]
+transformation = "no"
+maxit = 1000
+starting_date = 1994-01-01 00:00:00
+
+[watershed.all]
+river.weight = 0.0
+groundwater.weight = 2.0
+groundwater.observed_reservoir = 1
+transfer.overflow.loss = "no"
+progressive.pet_decrease = false
+groundwater.storage.regression = false
+river.minimum_riverflow = { value = 0.0, opti = false }
+river.area = { value = 524.0, opti = false }
+groundwater.base_level = { value = 225.20802, opti = true }
+correction.rainfall = { value = 0.0, opti = false, lower = -10.0, upper = 10.0 }
+correction.pet = { value = 0.0, opti = false, lower = -15.0, upper = 15.0 }
+thornthwaite.capacity = { value = 0.0, opti = false, lower = 0.0, upper = 500.0 }
+progressive.capacity = { value = 293.99454, opti = true, lower = 0.01, upper = 600.0 }
+transfer.runsee = { value = 92.92283, opti = true, lower = 0.001, upper = 1000.0 }
+transfer.halflife = { value = 3.03453, opti = true, lower = 0.01, upper = 10.0 }
+groundwater.1.halflife_drainage = { value = 0, opti = false, lower = 0.05, upper = 50.0 }
+groundwater.1.overflow.threshold = { value = 0.0, opti = false, lower = 0.0, upper = 9999.0 }
+river.concentration_time = { value = 0.0, opti = false, lower = 0.0, upper = 10.0 }
+groundwater.1.exchanges = { value = 0.0, opti = false, lower = -70.0, upper = 80.0 }
+transfer.overflow.threshold = { value = 0.0, opti = false, lower = 0.0, upper = 9999.0 }
+transfer.overflow.halflife = { value = 0.05, opti = false, lower = 0.05, upper = 9999.0 }
+correction.area = { value = 1.0, opti = false, lower = 0.02, upper = 50.0 }
+groundwater.storage.coefficient = { value = 5.30621, opti = true, lower = 0.5, upper = 40.0 }
+snow.correction.temperature = { value = 0.0, opti = false, lower = -3.0, upper = 3.0 }
+snow.retention = { value = 0.0, opti = false, lower = 0.001, upper = 30.0 }
+snow.correction.pet = { value = 0.0, opti = false, lower = 0.0, upper = 20.0 }
+snow.correction.rainfall = { value = 0.0, opti = false, lower = 0.0, upper = 20.0 }
+snow.degree_day.temperature = { value = 0.0, opti = false, lower = -2.0, upper = 2.0 }
+snow.degree_day.coefficient = { value = 0.0, opti = false, lower = 0.001, upper = 7.0 }
+snow.melting = { value = 0.0, opti = false, lower = 0.001, upper = 20.0 }
+pumping.river.coefficient = { value = 0, opti = false }
+pumping.river.halflife_rise = { value = 0.0, opti = false, lower = 0.05, upper = 10.0 }
+pumping.river.halflife_fall = { value = 0.0, opti = false, lower = 0.05, upper = 15.0 }
+pumping.groundwater.coefficient = { value = 0, opti = false }
+pumping.groundwater.halflife_rise = { value = 0.0, opti = false, lower = 0.05, upper = 10.0 }
+pumping.groundwater.halflife_fall = { value = 0.0, opti = false, lower = 0.05, upper = 15.0 }
+groundwater.1.halflife_baseflow = { value = 13.81101, opti = true, lower = 1.0, upper = 1000.0 }
+groundwater.2.halflife_baseflow = { value = 0, opti = false, lower = 0.05, upper = 50.0 }
+groundwater.1.overflow.halflife = { value = 0, opti = false, lower = 1.0, upper = 1000.0 }
