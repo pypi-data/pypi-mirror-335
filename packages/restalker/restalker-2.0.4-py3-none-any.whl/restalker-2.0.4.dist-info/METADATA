@@ -1,0 +1,136 @@
+Metadata-Version: 2.1
+Name: restalker
+Version: 2.0.4
+Summary: Text analyzer package
+License: MIT
+Author: Javier Junquera-Sánchez
+Author-email: javier@junquera.io
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: based58
+Requires-Dist: bech32ref
+Requires-Dist: bip-utils
+Requires-Dist: bs4 (>=0.0.2,<0.0.3)
+Requires-Dist: monero
+Requires-Dist: nltk
+Requires-Dist: numpy
+Requires-Dist: rake-nltk
+Requires-Dist: web3
+Description-Content-Type: text/markdown
+
+![doc/img/icon.png](doc/img/icon.png)
+
+# reStalker
+
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](https://github.com/dwyl/esta/issues)
+
+IOC and entities extractor.
+
+## Detection
+
+`reStalker` can extract these entities from any binary or text source:
+
+- Phone
+
+- Email
+
+- Digital assets
+
+    - BTC Wallet
+
+    - ETH Wallet
+
+    - XMR Wallet
+
+    - ZEC Wallet
+
+    - DASH Wallet
+
+    - DOT Wallet
+
+    - XRP Wallet
+
+    - BNB Wallet
+
+- TW Account
+
+- Tor URL
+
+- I2P URL
+
+- Freenet URL
+
+- Zeronet URL
+
+- IPFS URL
+
+- Username
+
+- Password
+
+- Base64
+
+- OwnName
+
+- Telegram URL
+
+- Whatsapp URL
+
+- Skype URL
+
+- Paste
+
+- MD5
+
+- SHA1
+
+- SHA256
+
+## Install
+
+Console:
+
+```sh
+pip3 install "restalker<3"
+```
+
+In `requeriments.txt`:
+
+* Production
+
+```
+restalker<3
+```
+
+* Development
+
+```
+git+https://github.com/junquera/restalker.git#egg=restalker
+```
+
+## Usage
+
+```python
+import restalker
+
+# Define which elements we desire
+# for example Tor URLs
+s = restalker.reStalker(tor=True, i2p=True)
+
+elements = s.parse(input_text)
+
+for element in elements:
+    print("[*] Darknet IOC found:", element)
+```
+
+# Acknowledgements
+
+[Byron Labs](https://byronlabs.io/) is an active supporter of the `reStalker` development.
+
+![](https://gitlab.com/junquera/restalker/-/raw/master/doc/img/byronlabs-300x142.png)
+
