@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=60", "setuptools-scm>=8.0", "wheel"]
+
+[project]
+name = "breathing-earth-system-simulator"
+version = "1.2.2"
+description = "Breathing Earth System Simulator (BESS) Gross Primary Production (GPP) and Evapotranspiration (ET) Model Python"
+readme = "README.md"
+authors = [
+    { name = "Gregory Halverson", email = "gregory.h.halverson@jpl.nasa.gov" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "FLiESANN",
+    "gedi-canopy-height>=1.1.0",
+    "geos5fp",
+    "koppengeiger>=1.0.4",
+    "modisci",
+    "numpy",
+    "rasters"
+]
+
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "pytest>=6.0",
+    "pytest-cov",
+    "jupyter",
+    "pytest",
+    "twine"
+]
+
+[tool.setuptools.package-data]
+breathing_earth_system_simulator = ["*.txt", ".tif", "*.jpeg", "*.h5"]
+
+[project.urls]
+"Homepage" = "https://github.com/JPL-Evapotranspiration-Algorithms/breathing-earth-system-simulator"
