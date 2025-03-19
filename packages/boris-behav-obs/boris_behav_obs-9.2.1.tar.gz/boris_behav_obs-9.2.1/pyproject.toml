@@ -1,0 +1,67 @@
+[project]
+name = "boris-behav-obs"
+version = "9.2.1"
+description = "BORIS - Behavioral Observation Research Interactive Software"
+authors = [{ name="Olivier Friard", email="olivier.friard@unito.it" }]
+readme = "README.rst"
+license = { file = "LICENSE.TXT" }
+requires-python = ">=3.12"
+classifiers=[
+        "Topic :: Scientific/Engineering",
+        "Intended Audience :: Science/Research",
+        "Intended Audience :: Education",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",        
+        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+        "Operating System :: OS Independent",
+    ]
+dependencies = [
+    "exifread>=3.0.0",
+    "numpy>=1.26.4",
+    "matplotlib>=3.3.3",
+    "pandas>=2.2.2",
+    "tablib[html, ods, xls, xlsx, pandas, cli]>=3",
+    "pyreadr",
+    "pyside6==6.8.0.2",
+    "hachoir>=3.3.0",
+]
+
+[project.optional-dependencies]
+dev = ["black", "ruff", "pytest", "pytest-cov"]
+
+[project.urls]
+Homepage = "http://www.boris.unito.it"
+Documentation = "https://boris.readthedocs.io/en/latest/"
+Change_log = "https://github.com/olivierfriard/BORIS/wiki/BORIS-change-log-v.8"
+Source_code = "https://github.com/olivierfriard/BORIS"
+Issues = "https://github.com/olivierfriard/BORIS/issues"
+
+[project.scripts]
+boris-behav-obs = "boris:main"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[tool.distutils.bdist_wheel]
+universal = true
+
+[tool.ruff]
+line-length = 140
+exclude = ["*_ui.py", "mpv*"]
+
+[tool.bumpver]
+current_version = "9.2.1"
+version_pattern = "MAJOR.MINOR.PATCH"
+
+
+[tool.bumpver.file_patterns]
+"pyproject.toml" = [
+    'current_version = "{version}"',
+    'version = "{version}"',
+]
+
