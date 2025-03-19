@@ -1,0 +1,99 @@
+Metadata-Version: 2.2
+Name: rubberize
+Version: 0.1.0
+Summary: Turn Python calculations into well-formatted, math-rich documents.
+Author-email: Chito Peralta <chitoangeloperalta@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Chito Peralta
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: repository, https://github.com/chitoperalta/rubberize
+Project-URL: homepage, https://github.com/chitoperalta/rubberize
+Keywords: latex,markdown,jupyter,notebook,math,engineering
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: markdown<4.0,>=3.7
+Requires-Dist: titlecase<3.0.0,>=2.4.1
+Provides-Extra: notebook
+Requires-Dist: ipython<10.0.0,>=9.0.2; extra == "notebook"
+Requires-Dist: playwright<2.0.0,>=1.51.0; extra == "notebook"
+Provides-Extra: dev
+Requires-Dist: ipython<10.0.0,>=9.0.2; extra == "dev"
+Requires-Dist: playwright<2.0.0,>=1.51.0; extra == "dev"
+Requires-Dist: jupyterlab<5.0.0,>=4.3.6; extra == "dev"
+Requires-Dist: pint<0.25.0,>=0.24.4; extra == "dev"
+Requires-Dist: sympy<2.0.0,>=1.13.3; extra == "dev"
+Requires-Dist: numpy<3.0.0,>=2.2.4; extra == "dev"
+
+# Rubberize
+
+**Turn Python calculations into well-formatted, math-rich documents.**
+
+## Installation
+
+Install Rubberize with `pip`:
+
+```bash
+pip install rubberize
+```
+
+Rubberize is primarily built for Jupyter. To enable notebook magics:
+
+```bash
+pip install rubberize[notebook]
+```
+
+## Basic Usage
+
+### In Modules
+
+Here's a quick example of how to use Rubberize:
+
+```python
+import rubberize
+
+source = """\
+a + b
+a - b
+"""
+
+namespace = {"a": 1, "b": 2}
+stmts_latex = rubberize.latexer(source, namespace)
+```
+
+`stmts_latex` will be a list of `StmtLatex` objects that contain LaTeX representations of each statement.
+
+### In Notebooks
+
+Rubberize is more impressive in notebooks (assuming `rubberize[notebooks]` is installed). In a Code cell, use `%%tap` and your code in the cell will be displayed as math notation, along with substitutions, results, and comments.
+
+## Contributing
+
+To set up a development environment, install the supported dependencies:
+
+```bash
+pip install rubberize[dev]
+```
+
+## License
+
+MIT License © 2025 [Chito Peralta](mailto:chitoangeloperalta@gmail.com)
+
