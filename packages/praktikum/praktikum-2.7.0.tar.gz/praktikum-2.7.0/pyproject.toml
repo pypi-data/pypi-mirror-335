@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "praktikum"
+version = "2.7.0"
+authors = [
+  { name="Henning Gast", email="henning@physik.rwth-aachen.de" },
+]
+description = "Tools for the beginners' lab courses in physics at RWTH Aachen University"
+readme = "README.rst"
+requires-python = ">=3.10"
+dependencies = ['numpy', 'scipy', 'matplotlib', 'uncertainties']
+classifiers = [
+   "Development Status :: 5 - Production/Stable",
+   "Intended Audience :: Education",
+   "Natural Language :: German",
+   "Programming Language :: Python :: 3",
+   "License :: OSI Approved :: MIT License",
+   "Operating System :: OS Independent",
+   "Topic :: Education",
+]
+
+[project.urls]
+Homepage = "https://grundpraktikum.physik.rwth-aachen.de/software"
+
+[project.scripts]
+cassy_info = "praktikum.cassy_tools:cassy_info"
+cassy_plot = "praktikum.cassy_tools:cassy_plot"
