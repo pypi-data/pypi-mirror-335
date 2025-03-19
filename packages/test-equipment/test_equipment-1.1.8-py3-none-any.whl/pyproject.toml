@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "test-equipment"
+version = "1.1.8"
+description = "Interfaces to various pieces of test equipment."
+authors = ["Paul Austen <pjaos@gmail.com>"]
+license = "MIT License"
+readme = "README.md"
+homepage = "https://github.com/pjaos/test_equipment"
+repository = "https://github.com/pjaos/test_equipment"
+
+include = [
+    { path = "assets", format = ["sdist", "wheel"] },
+    { path = "pyproject.toml", format = ["sdist", "wheel"] },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+p3lib = "^1.1.107"
+pyserial = "*"
+pyvisa-py = "*"
+pyvisa = "*"
+pymodbus = "*"
+requests = "*"
+bleak = "*"
+
+[tool.poetry.scripts]
+psu_ctrl = "test_equipment.psu_ctrl:main"
+dmm_hm8112 = "test_equipment.dmm_8112_3:main"
+shelly = "test_equipment.shelly:main"
+cm2100b = "test_equipment.cm2100b:main"
+# These two are not so useful, really as example code.
+serial_helper = "test_equipment.serial_helper:test"
+visa_helper = "test_equipment.visa_helper:test"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
