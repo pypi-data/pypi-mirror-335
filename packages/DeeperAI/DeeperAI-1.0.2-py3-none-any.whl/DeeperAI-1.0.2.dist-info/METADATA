@@ -1,0 +1,782 @@
+Metadata-Version: 2.1
+Name: DeeperAI
+Version: 1.0.2
+Summary: A comprehensive AI library featuring deep learning, reinforcement learning, computer vision, and more.
+Home-page: https://github.com/mr-r0ot/DeeperAI
+Author: Muhammad Taha Gorji
+Author-email: MohammadTahaGorjiProfile@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: rich >=10.0.0
+Requires-Dist: requests >=2.25.1
+Requires-Dist: beautifulsoup4 >=4.9.3
+Requires-Dist: googlesearch-python >=1.1.0
+Requires-Dist: Pillow >=8.0.0
+Requires-Dist: torch >=1.8.0
+Requires-Dist: nltk >=3.6.0
+Requires-Dist: joblib >=1.0.1
+Requires-Dist: spacy >=3.0.0
+Requires-Dist: numpy >=1.19.2
+Requires-Dist: matplotlib >=3.3.3
+Requires-Dist: opencv-python >=4.5.1.48
+Requires-Dist: transformers >=4.0.0
+Requires-Dist: langdetect >=1.0.8
+Requires-Dist: textblob >=0.15.3
+Requires-Dist: scikit-learn >=0.24.1
+Requires-Dist: tensorflow >=2.4.1
+Requires-Dist: selenium >=3.141.0
+Requires-Dist: scipy >=1.5.2
+
+```markdown
+# DeeperAI
+
+DeeperAI is an extensive Python library designed for Artificial Intelligence research and development. It provides a comprehensive suite of tools, classes, and functions for various AI domains including Natural Language Processing (NLP), Machine Learning, Deep Learning, Computer Vision, Robotics, Expert Systems, and classic algorithms. Whether you are a researcher, developer, or student, this library aims to simplify the development of sophisticated AI applications by unifying many commonly used methods in one place.
+
+DeeperAI can be easily installed using pip:
+
+```bash
+pip install DeeperAI
+```
+
+For source code and further documentation, please visit our GitHub repository: [https://github.com/mr-r0ot/DeeperAI](https://github.com/mr-r0ot/DeeperAI)
+
+Developed by **Mohammad Taha Gorji**
+
+---
+
+## Table of Contents
+
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [Getting Started](#getting-started)
+4. [Library Architecture and Structure](#library-architecture-and-structure)
+   - [Narrow_AI Module](#narrow_ai-module)
+   - [RootTools Module](#roottools-module)
+   - [Models Module](#models-module)
+   - [Autoencoder Module](#autoencoder-module)
+   - [ReinforcementLearning Module](#reinforcementlearning-module)
+   - [DeeperAIModels Module](#deeperaimodels-module)
+   - [Algorithms Module](#algorithms-module)
+5. [Practical Examples and Usage Guides](#practical-examples-and-usage-guides)
+6. [Advanced Documentation and Tips](#advanced-documentation-and-tips)
+7. [Contributors and How to Contribute](#contributors-and-how-to-contribute)
+8. [License](#license)
+9. [Conclusion](#conclusion)
+
+---
+
+## Introduction
+
+DeeperAI is a state-of-the-art library that brings together a wide range of AI techniques under a single, unified framework. Its purpose is to lower the barrier to entry for AI development by providing easy-to-use classes and functions that cover many areas of artificial intelligence. From scraping web data and processing natural language to training machine learning models and deploying reinforcement learning agents, DeeperAI has been crafted with versatility and ease-of-use in mind.
+
+This library supports:
+- **Narrow_AI**: Tools for data collection from the internet, code generation, and image creation.
+- **RootTools**: Core utilities for natural language processing, machine learning, deep learning, computer vision, robotics, and expert systems.
+- **Models**: Advanced implementations for transformer-based models and other state-of-the-art AI architectures.
+- **Autoencoder**: Modules to build, train, and utilize autoencoders for data compression and denoising.
+- **ReinforcementLearning**: Both model-free and model-based reinforcement learning algorithms, such as Q-Learning and SARSA.
+- **DeeperAIModels**: Specialized computer vision tools for face detection, age and gender prediction, and object recognition.
+- **Algorithms**: A comprehensive collection of supervised and unsupervised learning algorithms, including classification, regression, clustering, and matrix factorization techniques.
+
+This README provides an in-depth explanation of every module, class, and function available in DeeperAI, ensuring that no aspect of the project remains unexplained.
+
+---
+
+## Installation
+
+To install DeeperAI, simply run:
+
+```bash
+pip install DeeperAI
+```
+
+If you prefer to install from source, clone the repository and install manually:
+
+```bash
+git clone https://github.com/mr-r0ot/DeeperAI.git
+cd DeeperAI
+pip install .
+```
+
+Make sure that you have the required dependencies installed, such as `torch`, `tensorflow`, `opencv-python`, `nltk`, among others.
+
+---
+
+## Getting Started
+
+After installation, you can start using DeeperAI by importing it into your Python project. Here’s a simple example to get you started with the NLP module:
+
+```python
+from DeeperAI.RootTools import NLP
+
+# Sample text for analysis
+text = "Artificial Intelligence is the future of technology. This field is rapidly evolving."
+
+# Initialize the NLP tool
+nlp_tool = NLP(text)
+
+# Tokenize the text into words
+tokens = nlp_tool.tokenize()
+# Clean the text from unnecessary characters
+cleaned_text = nlp_tool.clean_text()
+# Analyze sentiment of the text
+sentiment = nlp_tool.sentiment_analysis()
+
+print("Tokens:", tokens)
+print("Cleaned Text:", cleaned_text)
+print("Sentiment Analysis:", sentiment)
+```
+
+This example demonstrates how easy it is to perform text processing with DeeperAI. Similar examples exist for other modules, as explained in the sections below.
+
+---
+
+## Library Architecture and Structure
+
+DeeperAI is organized into several modules, each responsible for a different aspect of AI development. The following sections provide detailed information about each module, its classes, and functions.
+
+### Narrow_AI Module
+
+The **Narrow_AI** module is dedicated to data collection and pre-processing tasks, including web scraping, code generation, and image creation.
+
+#### DataCreator
+
+This part of the module includes several utilities for collecting and creating data:
+
+- **WebScraper**  
+  - **Purpose:** Automatically extract text and data from web pages.
+  - **Key Function:**  
+    - `scrape_website(base_url, data_file)`: Starts at a base URL and recursively visits linked pages within the same domain, extracting text content and saving it to a file.
+  - **Usage:**  
+    Use this function to collect large amounts of textual data from a website for further analysis or training of NLP models.
+
+- **CodeGenerator**  
+  - **Purpose:** Retrieve code snippets or summaries from web search results.
+  - **Key Functions:**  
+    - `perform_search()`: Uses the Google search API to retrieve results based on a query.
+    - `fetch_site_content()`: Fetches the HTML content from the first search result.
+    - `run()`: Combines search and content extraction for convenience.
+  - **Usage:**  
+    Ideal for developers looking to extract sample code or brief summaries from online resources to accelerate learning and development.
+
+- **PhotoGenerator**  
+  - **Purpose:** Generate images based on text input using online services.
+  - **Method:**  
+    - `PhotoGenerator(text, output_name, model_name='DreamShaper 8')`: Sends the provided text to an image generation service (via Selenium automation) and saves the generated image.
+  - **Usage:**  
+    Useful for artistic projects or for visualizing concepts described in text.
+
+#### InternetDataScanner
+
+- **Purpose:** Automate the process of scanning the internet for data related to a list of keywords.
+- **Key Features:**  
+  - Executes search queries using Google, retrieves URLs, and extracts textual content.
+  - Supports re-searching (ReSearch) to refine and expand the dataset.
+- **Usage:**  
+  Perfect for building large datasets for training machine learning models, especially in text-based applications.
+
+---
+
+### RootTools Module
+
+The **RootTools** module is the core utility library of DeeperAI, offering various tools for NLP, machine learning, deep learning, computer vision, robotics, and expert systems.
+
+#### NLP (Natural Language Processing)
+
+The NLP class is designed to offer a comprehensive suite of text processing tools.
+
+- **Tokenization:**  
+  - `tokenize()`: Splits the input text into tokens (words).
+- **Cleaning:**  
+  - `clean_text()`: Removes punctuation and unnecessary characters from the text.
+- **Counting and Frequency Analysis:**  
+  - `count_words()`: Counts the number of words.
+  - `word_frequency()`: Computes the frequency of each token in the text.
+- **Language Detection:**  
+  - `detect_language()`: Uses libraries like `langdetect` to identify the language of the text.
+- **Sentiment Analysis:**  
+  - `sentiment_analysis()`: Evaluates the sentiment (positive/negative) of the text.
+- **Named Entity Recognition:**  
+  - `named_entity_recognition()`: Extracts entities such as names, organizations, and locations using SpaCy.
+- **Lemmatization:**  
+  - `lemmatize()`: Converts words to their base form.
+- **Sentence Length Analysis and Topic Extraction:**  
+  - `sentence_length_analysis()`: Analyzes the length of sentences.
+  - `analyze_multiple_texts(texts)`: Processes multiple texts and returns a JSON report of various metrics.
+  - `topic_analysis(topics, texts)`: Analyzes text content based on pre-defined topics.
+  - `extract_main_topic()`: Extracts the main topic from each paragraph or sentence.
+  
+**Example Usage:**
+
+```python
+from DeeperAI.RootTools import NLP
+
+sample_text = """
+Artificial Intelligence is revolutionizing industries. With advances in machine learning and deep learning, 
+systems are now capable of processing natural language, recognizing images, and making intelligent decisions.
+"""
+
+nlp_instance = NLP(sample_text)
+print("Tokens:", nlp_instance.tokenize())
+print("Cleaned Text:", nlp_instance.clean_text())
+print("Word Frequency:", nlp_instance.word_frequency())
+print("Detected Language:", nlp_instance.detect_language())
+print("Sentiment:", nlp_instance.sentiment_analysis())
+print("Named Entities:", nlp_instance.named_entity_recognition())
+print("Lemmatized Words:", nlp_instance.lemmatize())
+```
+
+#### MachineLearning
+
+This class facilitates various machine learning tasks:
+
+- **Data Preprocessing:**  
+  - `preprocess_data(X, y, test_size=0.2, random_state=42)`: Splits the dataset into training and testing sets, and applies standard scaling.
+- **Training:**  
+  - `train_model()`: Trains the model on the training dataset.
+- **Evaluation:**  
+  - `evaluate_model()`: Evaluates the model using accuracy, confusion matrix, and classification report.
+- **Prediction:**  
+  - `predict(X_new)`: Makes predictions on new data.
+- **Hyperparameter Tuning:**  
+  - `hyperparameter_tuning(param_grid, cv=5)`: Uses GridSearchCV to find the best model parameters.
+  
+**Example Usage:**
+
+```python
+import numpy as np
+from sklearn.datasets import load_iris
+from DeeperAI.RootTools import MachineLearning
+from sklearn.ensemble import RandomForestClassifier
+
+iris = load_iris()
+X, y = iris.data, iris.target
+
+ml_instance = MachineLearning(RandomForestClassifier())
+ml_instance.preprocess_data(X, y)
+ml_instance.train_model()
+ml_instance.evaluate_model()
+
+sample_input = np.array([[5.1, 3.5, 1.4, 0.2]])
+print("Prediction:", ml_instance.predict(sample_input))
+```
+
+#### DeepLearningModel
+
+The DeepLearningModel class is built for constructing and training neural network models:
+
+- **Data Preparation:**  
+  - `prepare_data(X, y, test_size=0.2, random_state=42)`: Splits data for training and testing.
+- **Preprocessing:**  
+  - `preprocess_data(X)`: Normalizes or standardizes data.
+- **Model Building:**  
+  - `build_model(layers_config)`: Constructs a sequential neural network based on a given layer configuration. It uses dense layers with activation functions and dropout layers to prevent overfitting.
+- **Training:**  
+  - `train_model(X_train, y_train, epochs=10, batch_size=32)`: Trains the neural network using early stopping and model checkpoint callbacks.
+- **Evaluation and Prediction:**  
+  - `evaluate_model(X_test, y_test)`: Evaluates model performance on test data.
+  - `predict(X)`: Generates predictions for new data.
+- **Model Loading:**  
+  - `load_model(filepath)`: Loads a previously saved model.
+
+**Example Usage:**
+
+```python
+from DeeperAI.RootTools import DeepLearningModel
+
+# Assuming X and y are preprocessed data arrays
+dl_model = DeepLearningModel(input_shape=(10,), num_classes=3)
+dl_model.build_model(layers_config=[(64, 'relu'), (32, 'relu')])
+X_train, X_test, y_train, y_test = dl_model.prepare_data(X, y)
+dl_model.train_model(X_train, y_train, epochs=20, batch_size=16)
+dl_model.evaluate_model(X_test, y_test)
+```
+
+#### Computer_Vision
+
+The Computer_Vision class provides utilities for image processing and computer vision tasks:
+
+- **Image Loading and Display:**  
+  - `load_image()`: Reads an image from a given path and converts its color space.
+  - `show_image(title)`: Displays the image using matplotlib.
+- **Preprocessing:**  
+  - `preprocess_image(resize_dim, grayscale)`: Resizes the image and optionally converts it to grayscale.
+- **Edge Detection:**  
+  - `detect_edges()`: Applies the Canny edge detection algorithm.
+- **Feature Detection:**  
+  - `detect_features(method='ORB')`: Extracts keypoints using ORB or SIFT.
+- **Image Rotation and Saving:**  
+  - `rotate_image(angle)`: Rotates the image by a specified angle.
+  - `save_image(save_path)`: Saves the processed image to disk.
+
+**Example Usage:**
+
+```python
+from DeeperAI.RootTools import Computer_Vision
+import cv2
+
+cv_instance = Computer_Vision("sample.jpg")
+cv_instance.show_image("Original Image")
+cv_instance.preprocess_image(resize_dim=(256, 256))
+edges = cv_instance.detect_edges()
+cv2.imshow("Edges", edges)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+#### Robotics
+
+The Robotics class is aimed at controlling and monitoring robotic systems:
+
+- **Movement Functions:**  
+  - `move_forward(distance)`: Moves the robot forward.
+  - `move_backward(distance)`: Moves the robot backward.
+  - `turn(angle)`: Rotates the robot by a specified angle.
+  - `move_to(target_position)`: Moves the robot to a specific coordinate.
+- **Battery and Status Management:**  
+  - `charge_battery(amount)`: Charges the robot’s battery.
+  - `display_status()`: Displays the current status including position, orientation, battery level, and movement history.
+- **Serial Communication:**  
+  - `send_to_arduino(message)`: Sends commands to the Arduino board via serial communication.
+
+**Example Usage:**
+
+```python
+from DeeperAI.RootTools import Robotics
+
+robot = Robotics(name="AlphaBot", serial_port='/dev/ttyUSB0')
+robot.move_forward(15)
+robot.turn(90)
+robot.move_to((25, 40))
+robot.charge_battery(15)
+robot.display_status()
+```
+
+#### ExpertSystems
+
+ExpertSystems is designed for building rule-based expert systems:
+
+- **Data Loading:**  
+  - `load_data(filename)`: Reads expert system data from a JSON file.
+- **Query Response:**  
+  - `ModelAnswer(topic)`: Returns an answer based on the queried topic using the loaded data.
+
+**Example Usage:**
+
+```python
+from DeeperAI.RootTools import ExpertSystems
+
+expert_system = ExpertSystems("expert_data.json")
+answer = expert_system.ModelAnswer("Artificial Intelligence")
+print("Expert System Response:", answer)
+```
+
+---
+
+### Models Module
+
+This module implements advanced models based on modern architectures and classical algorithms.
+
+#### RandomForest
+
+- **Purpose:**  
+  Implements a custom Random Forest classifier.
+- **Key Methods:**  
+  - `fit(X, y)`: Trains the model using bootstrap sampling and decision tree induction.
+  - `predict(X)`: Predicts outcomes by aggregating results from individual trees.
+  - `score(X, y)`: Calculates accuracy.
+  
+#### Transformer-based Models (XLNet, RoBERTa, T5, BERT, GPT)
+
+Each model class in this group provides methods for:
+- **Loading the Pre-trained Model and Tokenizer:**  
+  - Automatically loads state-of-the-art models and tokenizers from the Hugging Face Transformers library.
+- **Text Generation:**  
+  - Methods such as `generate_text(prompt, max_length=...)` produce text outputs based on given prompts.
+- **Saving and Loading Models:**  
+  - Functions to save and reload model states for further use or fine-tuning.
+
+**Example Usage (T5Model):**
+
+```python
+from DeeperAI.Models import T5Model
+
+t5_instance = T5Model()
+generated_text = t5_instance.generate_text("Summarize the importance of AI in modern society", max_length=150)
+print("Generated Summary:", generated_text)
+```
+
+---
+
+### Autoencoder Module
+
+The Autoencoder class is designed for creating, training, and using autoencoders for tasks like dimensionality reduction and denoising.
+
+- **Building the Model:**  
+  - `build_model()`: Constructs an encoder-decoder network using layers such as Dense, Flatten, and Reshape.
+- **Training:**  
+  - `train(x_train, x_val, epochs=50, batch_size=256)`: Trains the autoencoder on input data.
+- **Encoding and Decoding:**  
+  - `encode(data)`: Transforms input data into its encoded representation.
+  - `decode(encoded_data)`: Reconstructs the original data from the encoded representation.
+  - `reconstruct(data)`: Provides the full reconstruction of the input.
+
+**Example Usage:**
+
+```python
+from DeeperAI.Autoencoder import Autoencoder
+import numpy as np
+
+# Suppose x_train and x_val are your training and validation image datasets
+autoencoder = Autoencoder(input_shape=(28, 28, 1), encoding_dim=64)
+autoencoder.train(x_train, x_val, epochs=30, batch_size=128)
+encoded_images = autoencoder.encode(x_val)
+decoded_images = autoencoder.decode(encoded_images)
+```
+
+---
+
+### ReinforcementLearning Module
+
+This module includes implementations of both model-free and model-based reinforcement learning algorithms.
+
+#### Model-Free: QLearningAgent
+
+- **Purpose:**  
+  Learn optimal policies by directly interacting with the environment without a model.
+- **Key Methods:**  
+  - `choose_action(state)`: Chooses an action based on the exploration rate.
+  - `update_q_value(state, action, reward, next_state)`: Updates the Q-value using the Q-learning formula.
+  - `decay_exploration()`: Gradually reduces the exploration rate.
+  - `train(episodes, env)`: Trains the agent by running episodes in the environment.
+
+#### Model-Based: SARSA
+
+- **Purpose:**  
+  Implements the SARSA algorithm to update Q-values based on the current state-action pair and the next state-action pair.
+- **Key Methods:**  
+  - `choose_action(state)`: Selects an action using an epsilon-greedy strategy.
+  - `update(state, action, reward, next_state, next_action)`: Updates Q-values using the SARSA update rule.
+  - `train(env, num_episodes)`: Trains the agent over a specified number of episodes.
+  - `get_q_values()`: Returns the learned Q-table.
+
+**Example Usage (QLearningAgent):**
+
+```python
+from DeeperAI.ReinforcementLearning import ModelFree
+
+# Assuming you have a simulated environment 'env'
+agent = ModelFree.QLearningAgent(state_size=10, action_size=4)
+agent.train(episodes=1000, env=env)
+```
+
+---
+
+### DeeperAIModels Module
+
+This module provides advanced computer vision tools specifically tailored for tasks such as face detection, age and gender prediction, and object detection.
+
+#### ComputerVision (in DeeperAIModels)
+
+- **Face Detection and Annotation:**  
+  - `highlight_face(frame, conf_threshold=0.7)`: Detects faces in an image and draws rectangles around them.
+  - `detect_age_and_gender(frame, padding=20)`: Predicts age and gender for detected faces and annotates the image.
+- **Image Input Methods:**  
+  - `detect_from_image(image_path)`: Processes an image file.
+  - `detect_from_webcam()`: Uses the webcam to capture real-time video for analysis.
+  - `save_results(frame, detected_info, save_path)`: Saves the annotated image and detection details.
+  - `get_webcam_photo()`: Captures a single photo from the webcam.
+- **Object Detection:**  
+  - `find_objects(frame)`: Uses a YOLO model to detect objects in the image and annotate them with labels and confidence scores.
+
+**Example Usage:**
+
+```python
+from DeeperAI.DeeperAIModels import ComputerVision
+import cv2
+
+cv_model = ComputerVision()
+result_image, info = cv_model.detect_from_image("group_photo.jpg")
+cv2.imshow("Detection Results", result_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+---
+
+### Algorithms Module
+
+This module includes a variety of classical algorithms for both supervised and unsupervised learning tasks.
+
+#### Supervised Learning Algorithms
+
+##### Classifier
+
+- **Purpose:**  
+  Create a classifier using popular algorithms such as RandomForest or SVM.
+- **Key Methods:**  
+  - `train(X, y, test_size=0.2, random_state=42)`: Splits the dataset, trains the model, and stores training history.
+  - `predict(X)`: Returns predictions for input samples.
+  - `evaluate()`: Provides metrics such as accuracy, classification report, and confusion matrix.
+
+##### Regression Algorithms
+
+- **DecisionTree:**  
+  - **Purpose:**  
+    Implements a decision tree for regression tasks.
+  - **Key Methods:**  
+    - `fit(X, y)`: Trains the decision tree model.
+    - `predict(X)`: Predicts continuous outputs.
+    - `score(X, y)`: Evaluates the model’s performance.
+  
+- **SupportVectorMachine:**  
+  - **Purpose:**  
+    Uses the SVM algorithm for regression or classification.
+  - **Key Methods:**  
+    - `fit(X, y)`: Trains the SVM model.
+    - `predict(X)`: Returns predicted values.
+    - `score(X, y)`: Computes accuracy.
+
+##### NaiveBayes
+
+- **Purpose:**  
+  Implements the Naive Bayes algorithm for probabilistic classification.
+- **Key Methods:**  
+  - `fit(X, y)`: Trains the model by computing prior and conditional probabilities.
+  - `predict(X)`: Returns predictions using logarithmic probabilities to avoid numerical issues.
+
+##### LogisticRegression
+
+- **Purpose:**  
+  A binary classifier using logistic regression.
+- **Key Methods:**  
+  - `fit(X, y)`: Uses gradient descent to learn weights.
+  - `predict(X)`: Converts model output to binary class predictions.
+  - `accuracy(y_true, y_pred)`: Computes the model accuracy.
+
+##### LinearRegression
+
+- **Purpose:**  
+  Implements a linear regression model for continuous output prediction.
+- **Key Methods:**  
+  - `fit(X, y)`: Learns coefficients using linear algebra techniques.
+  - `predict(X)`: Outputs the predicted continuous values.
+  - `mean_squared_error(y_true, y_pred)`: Calculates the mean squared error.
+  - `score(X, y)`: Computes the R² coefficient.
+
+#### Unsupervised Learning Algorithms
+
+##### KMeans
+
+- **Purpose:**  
+  Performs k-means clustering on datasets.
+- **Key Methods:**  
+  - `fit(X)`: Randomly initializes centroids and iteratively refines clusters.
+  - `predict(X)`: Assigns cluster labels to new samples.
+  - `plot(X)`: Visualizes the clusters and centroids.
+
+##### GaussianMixture
+
+- **Purpose:**  
+  Implements Gaussian Mixture Models using the Expectation-Maximization algorithm.
+- **Key Methods:**  
+  - `fit(X)`: Estimates the parameters (means, covariances, weights) of the mixture model.
+  - `predict(X)`: Assigns each sample to the most likely component.
+  - `score(X)`: Computes the log-likelihood of the data.
+
+##### PCA (Principal Component Analysis)
+
+- **Purpose:**  
+  Reduces data dimensionality by extracting principal components.
+- **Key Methods:**  
+  - `fit(X)`: Computes the covariance matrix, eigenvalues, and eigenvectors.
+  - `transform(X)`: Projects the data onto the new lower-dimensional space.
+  - `fit_transform(X)`: Combines fitting and transformation.
+  - `inverse_transform(X_transformed)`: Reconstructs the original data from the reduced representation.
+  - `explained_variance_ratio()`: Returns the variance explained by each component.
+
+##### SVD (Singular Value Decomposition)
+
+- **Purpose:**  
+  Decomposes matrices into singular vectors and singular values.
+- **Key Methods:**  
+  - `compute_svd()`: Computes U, S, and VT using NumPy’s SVD.
+  - `reconstruct_matrix()`: Rebuilds the original matrix from the decomposition.
+  - `get_singular_values()`: Retrieves the singular values.
+  - `get_left_singular_vectors()` and `get_right_singular_vectors()`: Access the left and right singular vectors.
+
+---
+
+## Practical Examples and Usage Guides
+
+This section provides several end-to-end examples to demonstrate the practical applications of DeeperAI.
+
+### Example: Comprehensive NLP Pipeline
+
+```python
+from DeeperAI.RootTools import NLP
+
+text = """
+Artificial Intelligence is not just a buzzword – it is a transformative force across industries.
+With the advances in deep learning, neural networks, and natural language processing, modern applications 
+are becoming more intuitive and efficient every day.
+"""
+
+nlp = NLP(text)
+tokens = nlp.tokenize()
+cleaned_text = nlp.clean_text()
+frequency = nlp.word_frequency()
+language = nlp.detect_language()
+sentiment = nlp.sentiment_analysis()
+entities = nlp.named_entity_recognition()
+lemmatized = nlp.lemmatize()
+
+print("Tokens:", tokens)
+print("Cleaned Text:", cleaned_text)
+print("Word Frequency:", frequency)
+print("Detected Language:", language)
+print("Sentiment Analysis:", sentiment)
+print("Named Entities:", entities)
+print("Lemmatized Words:", lemmatized)
+```
+
+### Example: Building and Evaluating a Machine Learning Model
+
+```python
+import numpy as np
+from sklearn.datasets import load_iris
+from DeeperAI.RootTools import MachineLearning
+from sklearn.ensemble import RandomForestClassifier
+
+iris = load_iris()
+X, y = iris.data, iris.target
+
+ml = MachineLearning(RandomForestClassifier())
+ml.preprocess_data(X, y)
+ml.train_model()
+ml.evaluate_model()
+
+sample = np.array([[5.1, 3.5, 1.4, 0.2]])
+print("Sample Prediction:", ml.predict(sample))
+```
+
+### Example: Using Autoencoder for Image Reconstruction
+
+```python
+from DeeperAI.Autoencoder import Autoencoder
+import numpy as np
+
+# Assuming x_train and x_val are prepared datasets of images
+autoencoder = Autoencoder(input_shape=(28, 28, 1), encoding_dim=64)
+autoencoder.train(x_train, x_val, epochs=30, batch_size=128)
+encoded_images = autoencoder.encode(x_val)
+reconstructed_images = autoencoder.reconstruct(x_val)
+```
+
+### Example: Training a Reinforcement Learning Agent (QLearning)
+
+```python
+from DeeperAI.ReinforcementLearning import ModelFree
+
+# 'env' should be your simulated environment instance
+agent = ModelFree.QLearningAgent(state_size=10, action_size=4)
+agent.train(episodes=1000, env=env)
+```
+
+### Example: Advanced Computer Vision – Face, Age, and Gender Detection
+
+```python
+from DeeperAI.DeeperAIModels import ComputerVision
+import cv2
+
+cv_model = ComputerVision()
+image, detected_info = cv_model.detect_from_image("group_photo.jpg")
+cv2.imshow("Detection Results", image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+```
+
+### Example: Running a Classifier from the Algorithms Module
+
+```python
+from DeeperAI.Algorithms import SupervisedLearning
+import numpy as np
+
+X = np.array([[1, 2], [2, 3], [3, 4], [4, 5]])
+y = np.array([0, 1, 0, 1])
+
+classifier = SupervisedLearning.Classifier()
+classifier.train(X, y)
+predictions = classifier.predict(X)
+evaluation = classifier.evaluate()
+
+print("Predictions:", predictions)
+print("Evaluation:", evaluation)
+```
+
+---
+
+## Advanced Documentation and Tips
+
+DeeperAI is designed to be versatile and scalable. Here are some advanced tips and insights for getting the most out of the library:
+
+- **Transformer Models and Fine-Tuning:**  
+  The library includes advanced transformer models such as XLNet, RoBERTa, T5, BERT, and GPT. These models are pre-trained and can be fine-tuned on your custom datasets. Fine-tuning allows you to adapt these models to domain-specific tasks like sentiment analysis, question-answering, or text summarization.
+
+- **Hardware Acceleration:**  
+  For deep learning models and transformer-based applications, using a GPU can drastically reduce training and inference time. DeeperAI automatically checks for CUDA availability; however, make sure your environment is set up correctly to utilize GPU resources.
+
+- **Hyperparameter Optimization:**  
+  MachineLearning and DeepLearningModel classes support hyperparameter tuning. Use the provided `hyperparameter_tuning` method to optimize your models via GridSearchCV or similar techniques.
+
+- **Integration with Other Libraries:**  
+  DeeperAI is designed to work seamlessly with popular Python libraries such as scikit-learn, TensorFlow, PyTorch, and OpenCV. You can integrate these tools into your workflow to build more robust and feature-rich applications.
+
+- **Data Collection and Preprocessing:**  
+  The Narrow_AI module offers powerful tools to automatically scrape and collect data from the internet. This is especially useful when building large datasets for training complex models. Ensure you handle the collected data responsibly and adhere to any legal considerations regarding web scraping.
+
+- **Real-Time Applications:**  
+  With tools available for webcam integration and real-time processing in both the Computer_Vision and ReinforcementLearning modules, you can create interactive applications such as surveillance systems, interactive robots, or real-time analytics dashboards.
+
+- **Customization and Extensibility:**  
+  The modular design of DeeperAI allows you to extend the functionality of existing classes. Whether you want to add new layers to a neural network, integrate a new data augmentation technique, or develop custom reinforcement learning policies, the library’s architecture supports easy customization.
+
+---
+
+## Contributors and How to Contribute
+
+DeeperAI was developed by **Mohammad Taha Gorji**. We welcome contributions from the community to help improve and expand the library. If you would like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch for your feature or bug fix.
+3. Write clear, concise, and well-documented code.
+4. Ensure your changes adhere to the coding standards and pass all tests.
+5. Submit a Pull Request for review.
+
+Feel free to open an issue if you have suggestions, encounter bugs, or need help getting started.
+
+---
+
+## License
+
+DeeperAI is distributed under the MIT License. You are free to use, modify, and distribute this software as long as you include the original license and copyright.
+
+---
+
+## Conclusion
+
+DeeperAI is an all-encompassing AI library that consolidates various tools and models into one unified framework. It enables users to:
+- Automatically scrape and process data from the web.
+- Process and analyze text with state-of-the-art NLP techniques.
+- Build, train, and evaluate machine learning and deep learning models.
+- Leverage advanced computer vision techniques for real-time image and video processing.
+- Implement and experiment with reinforcement learning algorithms.
+- Utilize classical algorithms for supervised and unsupervised learning tasks.
+
+By providing a rich set of functionalities in one package, DeeperAI simplifies the development cycle of AI projects. We hope this comprehensive documentation and tutorial helps you get started and inspires you to explore all the powerful features that this library has to offer.
+
+Thank you for choosing DeeperAI for your AI development needs. We are excited to see the innovative projects and applications you build with it. Happy coding and best of luck in your AI journey!
+```
