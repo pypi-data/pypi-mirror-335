@@ -1,0 +1,245 @@
+Metadata-Version: 2.1
+Name: wowool-portal-client
+Version: 0.1.0
+Summary: The Wowool Portal Client
+Home-page: https://www.wowool.com/
+Author: Wowool
+Author-email: info@wowool.com
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+
+# wowool-nlp-client
+
+## Introduction
+
+The wowool-nlp-client is a powerful and flexible Natural Language Processing (NLP) SDK designed to easy the integration of advanced NLP capabilities into your applications. This SDK provides a robust pipeline for processing text data and returns detailed annotations, including tokens and concepts, to help you extract meaningful insights from unstructured text.
+
+With wowool-nlp-client, you can easily use NLP domains that can handle a variety of tasks such as tokenization, named entity recognition, and concept extraction. The SDK is designed to be user-friendly and efficient, making it an ideal choice for developers and data scientists looking to enhance their applications with state-of-the-art NLP features.
+
+## Install
+
+At this stage we are installing from PyPi so you need to add the index to the command line.
+```bash
+pip install wowool-nlp-client
+```
+
+## Quick Start
+
+### CLI
+
+Before using the wowool-nlp-client, you need to set the following environment variables for authentication:
+
+- `WOWOOL_PORTAL_USERNAME`: Your portal username
+- `WOWOOL_PORTAL_PASSWORD`: Your portal password
+- `WOWOOL_PORTAL_API_KEY`: Your portal API key
+
+You can set these environment variables in your terminal session with the following commands:
+
+```bash
+export WOWOOL_PORTAL_USERNAME="your_username"
+export WOWOOL_PORTAL_PASSWORD="your_password"
+export WOWOOL_PORTAL_API_KEY="your_api_key"
+```
+
+Replace "your_username", "your_password" and "your_api_key" with your actual portal credentials. Once these environment variables are set, you can start using the wowool-nlp-client CLI `wow` to process your text data. 
+
+
+#### Extracting NER and Sentiments.
+
+To extract the name entities (NER) and sentiments from a text, you can use the wow command with the appropriate modules and input text. Here is an example:
+
+```bash
+wow -p english,entity,sentiment,sentiments.app -i "John Smith worked for IBM. He is a nice person."
+```
+
+This command processes the input text "John Smith worked for IBM. He is a nice person." and returns detailed annotations, including entities and sentiments. Note the in the `sentiment.text` that *he* has been resolved. 
+
+Example output:
+
+```
+app='wowool_analysis'
+S:(  0, 26)
+ C:(  0, 26): Sentence
+ C:(  0, 10): Person,@(canonical='John Smith' family='Smith' gender='male' given='John' )
+ T:(  0,  4): John,{+giv, +init-cap, +init-token},[John:Prop-Std]
+ T:(  5, 10): Smith,{+fam, +init-cap},[Smith:Prop-Std]
+ T:( 11, 17): worked,[work:V-Past]
+ T:( 18, 21): for,[for:Prep-Std]
+ C:( 22, 25): Company,@(canonical='IBM' country='USA' sector='it' )
+ T:( 22, 25): IBM,{+all-cap},[IBM:Prop-Std]
+ T:( 25, 26): .,[.:Punct-Sent]
+S:( 27, 47)
+ C:( 27, 47): Sentence
+ C:( 27, 46): PositiveSentiment
+ C:( 27, 29): SentimentObject
+ C:( 27, 29): Person,@(canonical='John Smith' family='Smith' gender='male' given='John' )
+ T:( 27, 29): He,{+3p, +init-cap, +init-token, +nom, +sg},[he:Pron-Pers]
+ T:( 30, 32): is,[be:V-Pres-Sg-be]
+ T:( 33, 34): a,[a:Det-Indef]
+ T:( 35, 39): nice,{+inf},[nice:Adj-Std]
+ T:( 40, 46): person,{+person},[person:Nn-Sg]
+ T:( 46, 47): .,[.:Punct-Sent]
+
+app='wowool_sentiments'
+{
+  "positive": 100.0,
+  "negative": 0.0,
+  "sentiments": [
+    {
+      "polarity": "positive",
+      "text": "John Smith be a nice person",
+      "begin_offset": 27,
+      "end_offset": 46,
+      "object": "John Smith"
+    }
+  ]
+}
+```
+In this output:
+
+S denotes a sentence.
+C denotes a concept, such as a Person or Company.
+T denotes a token, such as a word or punctuation mark.
+PositiveSentiment indicates a positive sentiment associated with the sentence.
+SentimentObject indicates the object of the sentiment.
+This detailed annotation helps you understand the structure and meaning of the text, making it easier to extract valuable insights
+
+
+### API
+
+This sample demonstrates how to use the `API` to process a text using a pipeline that includes English language processing and entity recognition. Here's a step-by-step explanation:
+
+### Extract NER entities
+```python
+from wowool.portal.client import Portal
+from wowool.portal.client import Pipeline
+
+with Portal() as portal:
+    pipeline = Pipeline("english,entity")
+    doc = pipeline("John Smith worked for IBM. He is a nice person.")
+    print(doc)
+
+    print("-" * 80)
+    for annotation in doc.analysis:
+        print(annotation)
+
+    print("-" * 80)
+    for sentence in doc.analysis:
+        for annotation in sentence:
+            if annotation.is_concept:
+                print(annotation.uri, annotation.text, annotation.begin_offset, annotation.end_offset)
+
+    print("-" * 80)
+    for annotation in doc.concepts(lambda c: c.uri == "Person"):
+        print({**annotation})
+```
+
+
+1. **Import the necessary modules**:
+    ```python
+    from wowool.portal.client import Portal
+    from wowool.portal.client import Pipeline
+    ```
+
+2. **Create a `Portal` context**:
+    ```python
+    with Portal() as portal:
+    ```
+    This opens a context for the `Portal` which manages the connection and authentication.
+
+3. **Initialize the `Pipeline`**:
+    ```python
+    pipeline = Pipeline("english,entity")
+    ```
+    This creates a pipeline that processes text for English language and entity recognition.
+
+4. **Process the text**:
+    ```python
+    doc = pipeline("John Smith worked for IBM. He is a nice person.")
+    ```
+    This processes the input text and returns a document object containing the analysis.
+
+5. **Print the entire document**:
+    ```python
+    print(doc)
+    ```
+
+6. **Print all annotations**:
+    ```python
+    print("-" * 80)
+    for annotation in doc.analysis:
+        print(annotation)
+    ```
+
+7. **Print detailed annotations for each sentence**:
+    ```python
+    print("-" * 80)
+    for sentence in doc.analysis:
+        for annotation in sentence:
+            if annotation.is_concept:
+                print(annotation.uri, annotation.text, annotation.begin_offset, annotation.end_offset)
+    ```
+
+8. **Filter and print specific concepts (e.g., `Person`)**:
+    ```python
+    print("-" * 80)
+    for annotation in doc.concepts(lambda c: c.uri == "Person"):
+        print({**annotation})
+    ```
+
+### Extract Sentiments
+
+
+```python
+from wowool.portal.client import Portal
+from wowool.portal.client import Pipeline
+import json
+
+with Portal() as portal:
+    pipeline = Pipeline("english,entity,sentiment,sentiments.app")
+    doc = pipeline("John Smith worked for IBM. He is a nice person.")
+    sentiments = doc.results("wowool_sentiments")
+    print(json.dumps(sentiments, indent=2))
+```
+
+Example output:
+
+```json
+{
+  "positive": 100.0,
+  "negative": 0.0,
+  "sentiments": [
+    {
+      "polarity": "positive",
+      "text": "John Smith be a nice person",
+      "begin_offset": 27,
+      "end_offset": 46,
+      "object": "John Smith"
+    }
+  ]
+}
+```
+
+## Pipeline
+
+To process the text you can put together a pipeline. Pipeline are an easy way to generate the output data you like by adding languages, domains and apps. In the above example, we have used 'english' as a language and 'entity' and 'sentiment' as domains. We can also add an app, like 'topic' that will perform topic identification:
+
+```
+wow -p english,topics.app \
+        -i "NFT scams, toxic mines and lost life savings: the cryptocurrency dream is fading fast"
+```
+
+The app 'themes' will take care of finding a category for the text:
+
+```
+wow -p english,semantic-theme,topics.app,themes.app \
+        -i "Supermassive black hole at centre of Milky Way seen for first time"
+```
+
+You can use snippet to test a rule, like the assassination rule below
+
+```
+wow -p "english,entity,snippet( rule: {'kill' (Prop)+}=Assassination; ).app" \
+        -i "John Doe killed John Smith"
+```
