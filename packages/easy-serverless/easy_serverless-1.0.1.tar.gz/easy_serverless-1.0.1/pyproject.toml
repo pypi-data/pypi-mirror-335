@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easy_serverless"
+dynamic = ["version"]
+description = "Tools for making serverless apps easier"
+readme = "README.md"
+authors = [
+  {name = "James Maguire", email = "jamesrmaguire@live.co.uk"},
+]
+license = {text = "MIT License"}
+keywords = ["AWS", "Lambda", "decorator"]
+requires-python = ">= 3.8"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Intended Audience :: Developers"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "easy_serverless.__version__"}
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[project.urls]
+Repository = "https://github.com/jrm346/Easy_Lambda"
+"Bug Tracker" = "https://github.com/jrm346/Easy_Lambda/issues"

@@ -1,0 +1,1 @@
+from .easy_lambda import easy_lambda
