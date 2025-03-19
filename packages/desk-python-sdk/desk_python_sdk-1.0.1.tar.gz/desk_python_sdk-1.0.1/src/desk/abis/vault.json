@@ -1,0 +1,444 @@
+[
+  { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
+  { "type": "receive", "stateMutability": "payable" },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "WETH",
+    "outputs": [{ "name": "", "internalType": "address", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_tokenAddress", "internalType": "address", "type": "address" },
+      { "name": "_subaccount", "internalType": "bytes32", "type": "bytes32" },
+      { "name": "_amount", "internalType": "uint256", "type": "uint256" }
+    ],
+    "name": "deposit",
+    "outputs": [
+      { "name": "_requestId", "internalType": "uint256", "type": "uint256" }
+    ],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "requestId", "internalType": "uint256", "type": "uint256" }
+    ],
+    "name": "depositRequests",
+    "outputs": [
+      { "name": "subaccount", "internalType": "bytes32", "type": "bytes32" },
+      { "name": "amount", "internalType": "uint256", "type": "uint256" },
+      { "name": "tokenAddress", "internalType": "address", "type": "address" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_requestId", "internalType": "uint256", "type": "uint256" },
+      {
+        "name": "_transferAmount",
+        "internalType": "uint256",
+        "type": "uint256"
+      }
+    ],
+    "name": "executeWithdrawal",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "token", "internalType": "address", "type": "address" }
+    ],
+    "name": "minDeposits",
+    "outputs": [
+      {
+        "name": "minDepositAmount",
+        "internalType": "uint256",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "owner",
+    "outputs": [{ "name": "", "internalType": "address", "type": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_tokenAddress", "internalType": "address", "type": "address" },
+      { "name": "_amount", "internalType": "uint256", "type": "uint256" }
+    ],
+    "name": "setMinDeposit",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_weth", "internalType": "address", "type": "address" }
+    ],
+    "name": "setWETH",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_user", "internalType": "address", "type": "address" },
+      { "name": "_isWhitelisted", "internalType": "bool", "type": "bool" }
+    ],
+    "name": "setWhitelist",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_tokenAddress", "internalType": "address", "type": "address" },
+      { "name": "_isWithdrawable", "internalType": "bool", "type": "bool" }
+    ],
+    "name": "setWithdrawableToken",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "totalDepositRequests",
+    "outputs": [{ "name": "", "internalType": "uint256", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [],
+    "name": "totalWithdrawalRequests",
+    "outputs": [{ "name": "", "internalType": "uint256", "type": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "newOwner", "internalType": "address", "type": "address" }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "actor", "internalType": "address", "type": "address" }
+    ],
+    "name": "whitelists",
+    "outputs": [
+      { "name": "isWhitelisted", "internalType": "bool", "type": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "_tokenAddress", "internalType": "address", "type": "address" },
+      { "name": "_subaccount", "internalType": "bytes32", "type": "bytes32" },
+      { "name": "_amount", "internalType": "uint256", "type": "uint256" }
+    ],
+    "name": "withdraw",
+    "outputs": [
+      { "name": "_requestId", "internalType": "uint256", "type": "uint256" }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "token", "internalType": "address", "type": "address" }
+    ],
+    "name": "withdrawableTokens",
+    "outputs": [{ "name": "isAllow", "internalType": "bool", "type": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "inputs": [
+      { "name": "requestId", "internalType": "uint256", "type": "uint256" }
+    ],
+    "name": "withdrawalRequests",
+    "outputs": [
+      { "name": "subaccount", "internalType": "bytes32", "type": "bytes32" },
+      { "name": "amount", "internalType": "uint256", "type": "uint256" },
+      { "name": "tokenAddress", "internalType": "address", "type": "address" },
+      { "name": "timestamp", "internalType": "uint48", "type": "uint48" },
+      { "name": "isExecuted", "internalType": "bool", "type": "bool" }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "version",
+        "internalType": "uint8",
+        "type": "uint8",
+        "indexed": false
+      }
+    ],
+    "name": "Initialized"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "requestId",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": true
+      },
+      {
+        "name": "subaccount",
+        "internalType": "bytes32",
+        "type": "bytes32",
+        "indexed": false
+      },
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": false
+      },
+      {
+        "name": "amount",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": false
+      }
+    ],
+    "name": "LogDeposit"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "isAccepted",
+        "internalType": "bool",
+        "type": "bool",
+        "indexed": false
+      }
+    ],
+    "name": "LogSetAcceptedToken"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "oldAssetService",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "newAssetService",
+        "internalType": "address",
+        "type": "address",
+        "indexed": false
+      }
+    ],
+    "name": "LogSetAssetService"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "amount",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": false
+      }
+    ],
+    "name": "LogSetMinDeposit"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "weth",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      }
+    ],
+    "name": "LogSetWETH"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "user",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "isWhitelisted",
+        "internalType": "bool",
+        "type": "bool",
+        "indexed": false
+      }
+    ],
+    "name": "LogSetWhitelist"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "isWithdrawable",
+        "internalType": "bool",
+        "type": "bool",
+        "indexed": false
+      }
+    ],
+    "name": "LogSetWithdrawableToken"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "requestId",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": true
+      },
+      {
+        "name": "subaccount",
+        "internalType": "bytes32",
+        "type": "bytes32",
+        "indexed": false
+      },
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": false
+      },
+      {
+        "name": "amount",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": false
+      },
+      {
+        "name": "timestamp",
+        "internalType": "uint48",
+        "type": "uint48",
+        "indexed": false
+      }
+    ],
+    "name": "LogWithdrawal"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "receiver",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "tokenAddress",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "amount",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": false
+      },
+      {
+        "name": "transferAmount",
+        "internalType": "uint256",
+        "type": "uint256",
+        "indexed": false
+      }
+    ],
+    "name": "LogWithdrawalProcessed"
+  },
+  {
+    "type": "event",
+    "anonymous": false,
+    "inputs": [
+      {
+        "name": "previousOwner",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      },
+      {
+        "name": "newOwner",
+        "internalType": "address",
+        "type": "address",
+        "indexed": true
+      }
+    ],
+    "name": "OwnershipTransferred"
+  },
+  { "type": "error", "inputs": [], "name": "Vault_AlreadyExecutedRequest" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidAddress" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidAmount" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidAuthentication" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidRequest" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidSubaccount" },
+  { "type": "error", "inputs": [], "name": "Vault_InvalidWithdrawalToken" },
+  { "type": "error", "inputs": [], "name": "Vault_LessThanMinimumDeposit" }
+]
