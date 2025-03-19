@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record model="ir.ui.view" id="res_partner_view_form">
+    <field name="name">res.partner form - Creditor Debtor</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="ssi_partner.res_partner_view_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//group[@name='company_information_1']" position="inside">
+            <field name="public_offering_ids" widget="many2many_tags" />
+        </xpath>
+    </field>
+</record>
+</odoo>
