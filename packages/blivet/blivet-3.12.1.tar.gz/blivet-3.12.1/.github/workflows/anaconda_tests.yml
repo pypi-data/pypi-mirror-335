@@ -1,0 +1,57 @@
+name: Run validation tests from Anaconda
+on:
+  pull_request:
+    branches:
+     - main
+
+permissions:
+  contents: read
+
+jobs:
+  unit-tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+    env:
+      TARGET_BRANCH: 'main'
+
+    steps:
+      - name: Clone Anaconda repository
+        uses: actions/checkout@v4
+        with:
+          repository: rhinstaller/anaconda
+          path: anaconda
+          ref: '${{ env.TARGET_BRANCH }}'
+
+      - name: Clone current PR
+        uses: actions/checkout@v4
+        with:
+          path: blivet
+          submodules: true
+
+      - name: Build blivet and run tests
+        run: |
+          # Run anaconda-ci container with blivet and anaconda attached.
+          # Steps in the container:
+          # - Download anaconda-ci:main container (Rawhide)
+          # - Remove already existing blivet RPM in the container.
+          # - Install dependencies for blivet.
+          # - Install blivet to the container.
+          # - Run Anaconda tests.
+          podman run -i --rm -v ./blivet:/blivet:z -v ./anaconda:/anaconda:z quay.io/rhinstaller/anaconda-ci:$TARGET_BRANCH sh -c " \
+              set -xe; \
+              rpm -e --nodeps python3-blivet blivet-data; \
+              dnf install -y python3-blockdev libblockdev-plugins-all python3-bytesize libbytesize python3-pyparted python3-libmount parted libselinux-python3; \
+              cd /blivet; \
+              python3 ./setup.py install; \
+              cd /anaconda; \
+              ./autogen.sh && ./configure; \
+              make ci"
+
+      - name: Upload test and coverage logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'logs'
+          path: anaconda/tests/*.log

@@ -1,0 +1,111 @@
+actions:
+  get-current-version:
+    - "python3 ./setup.py --version"
+  create-archive:
+    - "make local"
+    - 'bash -c "ls *.tar*"'
+  fix-spec-file:
+    # define the Source variables
+    - bash -c "sed -i python-blivet.spec -e \"s/http.*%{realname}-%{realversion}.tar.gz/blivet-${PACKIT_PROJECT_VERSION}.tar.gz/\""
+    - bash -c "sed -i python-blivet.spec -e \"s/http.*%{realname}-%{realversion}-tests.tar.gz/blivet-${PACKIT_PROJECT_VERSION}-tests.tar.gz/\""
+    # fill in Release as if packit would have done it
+    - bash -c "sed -i python-blivet.spec -e \"s/Release:.*/Release:\ ${PACKIT_RPMSPEC_RELEASE}%{?dist}/\""
+
+jobs:
+# Fedora builds for the 'main' branch
+- job: copr_build
+  targets:
+    - fedora-all
+  trigger: pull_request
+  branch: main
+
+# CentOS 10 Stream builds for the 'rhel10-branch'
+- job: copr_build
+  targets:
+    - centos-stream-10-x86_64
+  trigger: pull_request
+  branch: rhel10-branch
+
+# Daily builds for Fedora from the 'main' branch
+- job: copr_build
+  trigger: commit
+  owner: "@storage"
+  project: blivet-daily
+  branch: main
+  preserve_project: true
+  actions:
+    post-upstream-clone:
+      # bump release to 99 to always be ahead of Fedora builds
+      - 'bash -c "sed -i -r \"s/Release:(\s*)\S+/Release: 99%{?dist}/\" python-blivet.spec"'
+    get-current-version:
+      - "python3 ./setup.py --version"
+    create-archive:
+      - "make local"
+      - 'bash -c "ls *.tar*"'
+    fix-spec-file:
+      # define the Source variables
+      - bash -c "sed -i python-blivet.spec -e \"s/http.*%{realname}-%{realversion}.tar.gz/blivet-${PACKIT_PROJECT_VERSION}.tar.gz/\""
+      - bash -c "sed -i python-blivet.spec -e \"s/http.*%{realname}-%{realversion}-tests.tar.gz/blivet-${PACKIT_PROJECT_VERSION}-tests.tar.gz/\""
+      # fill in Release as if packit would have done it
+      - bash -c "sed -i python-blivet.spec -e \"s/Release:.*/Release:\ ${PACKIT_RPMSPEC_RELEASE}%{?dist}/\""
+
+# Fedora tests for the 'main' branch
+- job: tests
+  trigger: pull_request
+  targets:
+    - fedora-latest
+  branch: main
+
+# CentOS 10 Stream tests for the 'rhel10-branch'
+- job: tests
+  trigger: pull_request
+  targets:
+    - centos-stream-10-x86_64
+  branch: rhel10-branch
+
+# Downstream builds
+- job: propose_downstream
+  trigger: release
+  dist_git_branches:
+    - fedora-all
+
+- job: koji_build
+  trigger: commit
+  dist_git_branches:
+    - fedora-all
+
+- job: bodhi_update
+  trigger: commit
+  dist_git_branches:
+    - fedora-branched
+
+# Reverse dependency tests
+## run tests for blivet consumers, see plans/ with `revdeps == yes`
+- job: tests
+  identifier: revdeps
+  trigger: pull_request
+  branch: main
+  notifications:
+    failure_comment:
+      message: "Blivet-GUI tests failed for commit {commit_sha}. @vojtechtrefny please check."
+  targets:
+    - fedora-latest
+  tf_extra_params:
+    environments:
+      - artifacts:
+        - type: repository-file
+          id: https://copr.fedorainfracloud.org/coprs/g/storage/blivet-daily/repo/fedora-$releasever/group_storage-blivet-daily-fedora-$releasever.repo
+        tmt:
+          context:
+            revdeps: "yes"
+
+srpm_build_deps:
+ - git
+ - make
+ - systemd
+ - gettext
+ - python3-devel
+ - python3-setuptools
+
+downstream_package_name: python-blivet
+upstream_tag_template: blivet-{version}

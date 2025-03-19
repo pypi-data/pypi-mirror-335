@@ -1,0 +1,199 @@
+#!/usr/bin/python
+#
+# makebumpver - Increment version number and add in RPM spec file changelog
+#               block.  Ensures rhel*-branch commits reference RHEL bugs.
+#
+# Copyright (C) 2009-2013  Red Hat, Inc.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Lesser General Public License as published
+# by the Free Software Foundation; either version 2.1 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Lesser General Public License for more details.
+#
+# You should have received a copy of the GNU Lesser General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Author: David Cantrell <dcantrell@redhat.com>
+
+import argparse
+import datetime
+import os
+import re
+import subprocess
+import sys
+import textwrap
+
+
+class MakeBumpVer:
+    def __init__(self, **kwargs):
+        self.gituser = self._gitConfig('user.name')
+        self.gitemail = self._gitConfig('user.email')
+
+        self.name = kwargs.get('name')
+        self.version = kwargs.get('version')
+        self.release = kwargs.get('release')
+
+        self.spec = kwargs.get('spec')
+        self.version_files = kwargs.get('version_files')
+
+    def _gitConfig(self, field):
+        proc = subprocess.Popen(['git', 'config', field],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        out, _err = proc.communicate()
+        return out.decode("utf-8").strip('\n')
+
+    def _incrementVersion(self):
+        fields = self.version.split('.')
+        fields[-1] = str(int(fields[-1]) + 1)
+        new = ".".join(fields)
+        return new
+
+    def _getCommitDetail(self, commit, field):
+        proc = subprocess.Popen(['git', 'log', '-1',
+                                 "--pretty=format:%s" % field, commit],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        out, _err = proc.communicate()
+
+        ret = out.decode("utf-8").strip('\n').split('\n')
+
+        if len(ret) == 1 and ret[0].find('@') != -1:
+            ret = [ret[0].split('@')[0]]
+        elif len(ret) == 1:
+            ret = [ret[0]]
+        else:
+            ret = [r for r in ret if r != '']
+
+        return ret
+
+    def _rpmLog(self):
+        git_range = "%s-%s.." % (self.name, self.version)
+        proc = subprocess.Popen(['git', 'log', '--pretty=oneline', '--no-merges', git_range],
+                                stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE)
+        out, _err = proc.communicate()
+        lines = out.decode("utf-8").strip('\n').split('\n')
+
+        rpm_log = []
+
+        for line in lines:
+            if not line:
+                continue
+            fields = line.split(' ')
+            commit = fields[0]
+
+            summary = self._getCommitDetail(commit, "%s")[0]
+            author = self._getCommitDetail(commit, "%aE")[0]
+
+            rpm_log.append("%s (%s)" % (summary.strip(), author))
+
+        return rpm_log
+
+    def _replaceString(self, lines, search, replace):
+        """ find first occurrence of search and replace it with replace
+        """
+        for i, l in enumerate(lines):
+            if re.search(search, l):
+                break
+        else:
+            print("!!! Failed to replace '%s' with '%s'" % (search, replace))
+            sys.exit(1)
+
+        lines[i] = re.sub(search, replace, lines[i]) # pylint: disable=undefined-loop-variable
+
+    def _writeNewSpec(self, newVersion, rpmlog):
+        f = open(self.spec, 'r')
+        l = f.readlines()
+        f.close()
+
+        self._replaceString(l, "Version: %s\n" % (self.version),
+                               "Version: %s\n" % (newVersion))
+        self._replaceString(l, "Release: %s\n" % (self.release+r"%{\?prerelease}%{\?dist}"),
+                               "Release: %s\n" % (self.release+r"%{?prerelease}%{?dist}"))
+
+        i = l.index('%changelog\n')
+        top = l[:i]
+        bottom = l[i+1:]
+
+        f = open(self.spec, 'w')
+        f.writelines(top)
+
+        f.write("%changelog\n")
+        today = datetime.date.today()  # pylint: disable=no-member
+        stamp = today.strftime("%a %b %d %Y")
+        f.write("* %s %s <%s> - %s-%s\n" % (stamp, self.gituser, self.gitemail,
+                                            newVersion, self.release))
+
+        for msg in rpmlog:
+            msg = re.sub('(?<!%)%%(?!%)|(?<!%%)%(?!%%)', '%%', msg)
+            sublines = textwrap.wrap(msg, 77)
+            f.write("- %s\n" % sublines[0])
+
+            if len(sublines) > 1:
+                for subline in sublines[1:]:
+                    f.write("  %s\n" % subline)
+
+        f.write("\n")
+        f.writelines(bottom)
+        f.close()
+
+    def _writeNewVersionFile(self, filename, template, newVersion):
+        """ Replace a version string in a file, using template to match
+            string to replace and to create new string.
+        """
+        f = open(filename, 'r')
+        l = f.readlines()
+        f.close()
+
+        self._replaceString(l, template % self.version,
+                               template % newVersion)
+
+        f = open(filename, 'w')
+        f.writelines(l)
+        f.close()
+
+    def run(self):
+        newVersion = self._incrementVersion()
+        rpmlog = self._rpmLog()
+
+        self._writeNewSpec(newVersion, rpmlog)
+        for filename, template in self.version_files:
+            self._writeNewVersionFile(filename, template, newVersion)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="makebumpver")
+    parser.add_argument("-n", "--name", dest="name", action="store",
+                        help="Package name")
+    parser.add_argument("-v", "--version", dest="version", action="store",
+                        help="Current package version number.")
+    parser.add_argument("-r", "--release", dest="release", action="store",
+                        help="Package release number.")
+
+    args = parser.parse_args()
+
+    cwd = os.getcwd()
+    spec = os.path.realpath(cwd + '/python-blivet.spec')
+
+    if not os.path.isfile(spec):
+        sys.stderr.write("You must be at the top level of the blivet source tree.\n")
+        sys.exit(1)
+
+    # Files to replace version strings in
+    version_files = [(os.path.realpath(cwd+"/setup.py"), "version='%s'"),
+                     (os.path.realpath(cwd+"/blivet/__init__.py"), "__version__ = '%s'"),
+                     (os.path.realpath(cwd+"/doc/conf.py"), "version = '%s'")]
+
+    mbv = MakeBumpVer(name=args.name, version=args.version, release=args.release,
+                      spec=spec, version_files=version_files)
+    mbv.run()
+
+
+if __name__ == "__main__":
+    main()

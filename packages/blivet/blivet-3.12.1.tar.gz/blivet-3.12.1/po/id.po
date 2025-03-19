@@ -1,0 +1,461 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Andika Triwidada <andika@gmail.com>, 2012, 2020, 2021, 2023.
+# Arif Tri Waluyo <arifiauo@fedoraproject.org>, 2011-2012
+# clumens <clumens@redhat.com>, 2011
+# dcantrel <dcantrell@redhat.com>, 2011
+# Dimitris Glezos <glezos@indifex.com>, 2011
+# Muhammad Panji <sumodirjo@gmail.com>, 2012
+# Nana Suryana <nana@suryana.or.id>, 2011-2012
+# Teguh Dwicaksana <dheche@songolimo.net>, 2004
+# Teguh Dwicaksana <dheche@songolimo.net>, 2011
+# Arman Arisman <arman.wu@gmail.com>, 2021.
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-02-09 13:31+0100\n"
+"PO-Revision-Date: 2023-02-18 12:20+0000\n"
+"Last-Translator: Andika Triwidada <andika@gmail.com>\n"
+"Language-Team: Indonesian <https://translate.fedoraproject.org/projects/"
+"blivet/blivet-master/id/>\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 4.15.2\n"
+
+#: ../blivet/deviceaction.py:197
+#, python-format
+msgid "Executing %(action)s"
+msgstr "Mengeksekusi %(action)s"
+
+#: ../blivet/deviceaction.py:325
+msgid "create device"
+msgstr "membuat perangkat"
+
+#: ../blivet/deviceaction.py:384
+msgid "destroy device"
+msgstr "menghancurkan perangkat"
+
+#: ../blivet/deviceaction.py:495
+msgid "resize device"
+msgstr "mengubah ukuran perangkat"
+
+#: ../blivet/deviceaction.py:584
+msgid "create format"
+msgstr "membuat format"
+
+#: ../blivet/deviceaction.py:624
+#, python-format
+msgid "Creating %(type)s on %(device)s"
+msgstr "Membuat %(type)s pada %(device)s"
+
+#: ../blivet/deviceaction.py:662
+#, python-format
+msgid "Not enough entropy to create LUKS format. %d bits are needed."
+msgstr "Tidak cukup entropi untuk membuat format LUKS. %d bit diperlukan."
+
+#: ../blivet/deviceaction.py:692
+#, python-format
+msgid "Created %(type)s on %(device)s"
+msgstr "Dibuat %(type)s pada %(device)s"
+
+#: ../blivet/deviceaction.py:741
+msgid "destroy format"
+msgstr "menghancurkan format"
+
+#: ../blivet/deviceaction.py:854
+msgid "resize format"
+msgstr "mengubah ukuran format"
+
+#: ../blivet/deviceaction.py:893
+#, python-format
+msgid "Resizing filesystem on %(device)s"
+msgstr "Mengubah ukuran sistem berkas pada %(device)s"
+
+#: ../blivet/deviceaction.py:900
+#, python-format
+msgid "Resized filesystem on %(device)s"
+msgstr "Sistem berkas diubah ukuran pada %(device)s"
+
+#: ../blivet/deviceaction.py:947
+msgid "add container member"
+msgstr "menambahkan anggota kontainer"
+
+#: ../blivet/deviceaction.py:1012
+msgid "remove container member"
+msgstr "menghapus anggota kontainer"
+
+#: ../blivet/deviceaction.py:1082
+msgid "configure format"
+msgstr "mengkonfigurasi format"
+
+#: ../blivet/deviceaction.py:1153
+msgid "configure device"
+msgstr "mengkonfigurasi perangkat"
+
+#: ../blivet/errors.py:223
+msgid ""
+"This is usually caused by cloning the device image resulting in duplication "
+"of the UUID value which should be unique. In that case you can either "
+"disconnect one of the devices or reformat it."
+msgstr ""
+"Ini biasanya disebabkan oleh membuat klon image peranti yang menghasilkan "
+"duplikasi nilai UUID yang mestinya unik. Dalam kasus itu Anda dapat memutus "
+"satu dari peranti atau memformat ulang."
+
+#: ../blivet/errors.py:230
+msgid ""
+"For some reason we were unable to locate a disklabel on a disk that the "
+"kernel is reporting partitions on. It is unclear what the exact problem is. "
+"Please file a bug at http://bugzilla.redhat.com"
+msgstr ""
+"Untuk beberapa alasan kami tidak dapat menemukan suatu disklabel pada suatu "
+"disk yang oleh kernel dilaporkan partisi padanya. Tidak jelas apa masalah "
+"tepatnya. Harap laporkan bug pada http://bugzilla.redhat.com"
+
+#: ../blivet/errors.py:237
+msgid ""
+"Either restore the disklabel to a completely working state or remove it "
+"completely.\n"
+"Hint: parted can restore it or wipefs can remove it."
+msgstr ""
+"Pulihkan disklabel ke keadaan yang sepenuhnya berfungsi atau hapus "
+"menyeluruh.\n"
+"Petunjuk: parted untuk memulihkan atau wipefs untuk menghapus."
+
+#: ../blivet/errors.py:243
+msgid ""
+"Rename one of the volume groups so the names are distinct.\n"
+"Hint 1: vgrename accepts UUID in place of the old name.\n"
+"Hint 2: You can get the VG UUIDs by running 'pvs -o +vg_uuid'."
+msgstr ""
+"Ganti nama salah satu grup volume sehingga namanya berbeda.\n"
+"Petunjuk 1: vgrename menerima UUID sebagai pengganti nama lama.\n"
+"Petunjuk 2: Anda bisa mendapatkan UUID VG dengan menjalankan 'pvs -o "
+"+vg_uuid'."
+
+#: ../blivet/errors.py:251
+msgid ""
+"All parent devices must be selected when choosing exclusive or ignored disks "
+"for a multipath or firmware RAID device."
+msgstr ""
+"Semua peranti induk mesti dipilih ketika memilih disk eksklusif atau yang "
+"diabaikan bagi peranti RAID firmware atau multipath."
+
+#: ../blivet/fcoe.py:122
+msgid "FCoE not available"
+msgstr "FCoE tidak tersedia"
+
+#: ../blivet/iscsi.py:216
+msgid "Unable to change iSCSI initiator name once set"
+msgstr "Tidak dapat mengubah nama inisiator iSCSI satu set"
+
+#: ../blivet/iscsi.py:218
+msgid "Must provide an iSCSI initiator name"
+msgstr "Harus menyediakan sebuah nama inisiator iSCSI"
+
+#: ../blivet/iscsi.py:412
+msgid "iSCSI not available"
+msgstr "iSCSI tidak tersedia"
+
+#: ../blivet/iscsi.py:414
+msgid "No initiator name set"
+msgstr "Tidak ada nama inisiator mengatur"
+
+#: ../blivet/iscsi.py:532
+msgid "No iSCSI nodes discovered"
+msgstr "Tidak ada simpul iSCSI yang ditemukan"
+
+#: ../blivet/iscsi.py:552
+msgid "No new iSCSI nodes discovered"
+msgstr "Tidak ada node iSCSI baru yang ditemukan"
+
+#: ../blivet/iscsi.py:555
+msgid "Could not log in to any of the discovered nodes"
+msgstr "Tidak bisa log masuk ke salah satu simpul yang ditemukan"
+
+#: ../blivet/partitioning.py:455
+msgid "unable to allocate aligned partition"
+msgstr "tidak dapat mengalokasikan partisi rata batas (aligned)"
+
+#: ../blivet/partitioning.py:463
+msgid "requested size exceeds maximum allowed"
+msgstr "ukuran yang diminta melebihi ukuran maksimum yang diperbolehkan"
+
+#: ../blivet/partitioning.py:475
+#, python-format
+msgid "failed to add partition to disk: %s"
+msgstr "gagal menambahkan partisi ke disk: %s"
+
+#: ../blivet/partitioning.py:586
+#, python-format
+msgid "disk %s inaccessible"
+msgstr "disk %s tidak dapat diakses"
+
+#: ../blivet/partitioning.py:647
+#, python-format
+msgid ""
+"partition is too small for %(format)s formatting (allowable size is "
+"%(min_size)s to %(max_size)s)"
+msgstr ""
+"partisi terlalu kecil untuk pemformatan %(format)s (ukuran yang "
+"diperbolehkan adalah %(min_size)s sampai %(max_size)s)"
+
+#: ../blivet/partitioning.py:652
+#, python-format
+msgid ""
+"partition is too large for %(format)s formatting (allowable size is "
+"%(min_size)s to %(max_size)s)"
+msgstr ""
+"partisi terlalu besar untuk pemformatan %(format)s (ukuran yang "
+"diperbolehkan adalah %(min_size)s ke %(max_size)s)"
+
+#: ../blivet/partitioning.py:971
+msgid "Unable to allocate requested partition scheme."
+msgstr "Tidak bisa mengalokasikan skema partisi yang diminta."
+
+#: ../blivet/partitioning.py:1006
+msgid "not enough free space after creating extended partition"
+msgstr "tidak cukup ruang kosong setelah membuat partisi extended"
+
+#: ../blivet/partitioning.py:1013
+msgid "failed to allocate aligned partition"
+msgstr "gagal mengalokasikan partisi yang rata batas (aligned)"
+
+#: ../blivet/partitioning.py:1214
+msgid "cannot reclaim more than request has grown"
+msgstr "tidak dapat mengklaim kembali lebih dari membesarnya permintaan"
+
+#: ../blivet/partitioning.py:1428
+msgid "DiskChunk requests must be of type PartitionRequest"
+msgstr "Permintaan DiskChunk diharuskan dari tipe PartitionRequest"
+
+#: ../blivet/partitioning.py:1441
+msgid "partitions allocated outside disklabel limits"
+msgstr "partisi dialokasikan di luar batas disklabel"
+
+#: ../blivet/partitioning.py:1526
+msgid "VGChunk requests must be of type LVRequest"
+msgstr "Permintaan VGChunk harus bertipe LVRequest"
+
+#. by now we have allocated the PVs so if there isn't enough
+#. space in the VG we have a real problem
+#: ../blivet/partitioning.py:2018
+msgid "not enough space for LVM requests"
+msgstr "tidak cukup ruang untuk permintaan LVM"
+
+#: ../blivet/zfcp.py:106
+msgid "You have not specified a device number or the number is invalid"
+msgstr "Anda tidak memasukkan nomor divais atau nomor invalid"
+
+#: ../blivet/zfcp.py:131
+#, python-format
+msgid "zFCP device %s not found, not even in device ignore list."
+msgstr ""
+"zFCP perangkat %s tidak ditemukan, bahkan dalam perangkat daftar abaikan."
+
+#: ../blivet/zfcp.py:146
+#, python-format
+msgid "Could not set zFCP device %(devnum)s online (%(e)s)."
+msgstr "Tidak dapat mengatur zFCP perangkat %(devnum)s online (%(e)s)."
+
+#: ../blivet/zfcp.py:159
+#, python-format
+msgid "Could not set zFCP device %(devnum)s offline (%(e)s)."
+msgstr "Tidak dapat mengatur zFCP perangkat %(devnum)s offline (%(e)s)."
+
+#: ../blivet/zfcp.py:218
+msgid "You have not specified a worldwide port name or the name is invalid."
+msgstr "Anda tidak memasukkan worldwide port name atau nama invalid."
+
+#: ../blivet/zfcp.py:222
+msgid "You have not specified a FCP LUN or the number is invalid."
+msgstr "Anda belum menentukan FCP LUN atau nomernya tidak valid."
+
+#: ../blivet/zfcp.py:268
+#, python-format
+msgid "Could not add WWPN %(wwpn)s to zFCP device %(devnum)s (%(e)s)."
+msgstr ""
+"Tidak dapat menambah WWPN %(wwpn)s pada zFCP perangkat %(devnum)s (%(e)s)."
+
+#. newer zfcp sysfs interface with auto port scan
+#: ../blivet/zfcp.py:275
+#, python-format
+msgid "WWPN %(wwpn)s not found at zFCP device %(devnum)s."
+msgstr "WWPN %(wwpn)s tidak ketemu di zFCP device %(devnum)s."
+
+#: ../blivet/zfcp.py:291
+#, python-format
+msgid ""
+"Could not add LUN %(fcplun)s to WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
+msgstr ""
+"Tidak dapat menambag LUN %(fcplun)s ke WWPN %(wwpn)s pada zFCP perangkat "
+"%(devnum)s (%(e)s)."
+
+#: ../blivet/zfcp.py:297
+#, python-format
+msgid ""
+"LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s already configured."
+msgstr ""
+"LUN %(fcplun)s di WWPN %(wwpn)s pada zFCP device %(devnum)s telah "
+"dikonfigurasi."
+
+#: ../blivet/zfcp.py:310
+#, python-format
+msgid ""
+"Could not read failed attribute of LUN %(fcplun)s at WWPN %(wwpn)s on zFCP "
+"device %(devnum)s (%(e)s)."
+msgstr ""
+"Tidap dapat membaca atribut kegagalan dari LUN %(fcplun)s di WWPN %(wwpn)s "
+"pada zFCP perangkat %(devnum)s (%(e)s)."
+
+#: ../blivet/zfcp.py:319
+#, python-format
+msgid ""
+"Failed LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s removed "
+"again."
+msgstr ""
+"Kegagalan LUN %(fcplun)s di WWPN %(wwpn)s pada zFCP device %(devnum)s "
+"dihapus kembali."
+
+#: ../blivet/zfcp.py:339
+#, python-format
+msgid ""
+"Could not correctly delete SCSI device of zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
+msgstr ""
+"Tidak dapat menghapus perangkat SCSI dari zFCP %(devnum)s %(wwpn)s "
+"%(fcplun)s (%(e)s)."
+
+#: ../blivet/zfcp.py:349
+#, python-format
+msgid ""
+"Could not remove LUN %(fcplun)s at WWPN %(wwpn)s on zFCP device %(devnum)s "
+"(%(e)s)."
+msgstr ""
+"Tidak bisa menghapus LUN %(fcplun)s di WWPN %(wwpn)s pada perangkat zFCP "
+"%(devnum)s (%(e)s)."
+
+#: ../blivet/zfcp.py:368
+#, python-format
+msgid "Could not remove WWPN %(wwpn)s on zFCP device %(devnum)s (%(e)s)."
+msgstr ""
+"Tidak dapat menghapus WWPN %(wwpn)s pada divais zFCP %(devnum)s (%(e)s)."
+
+#: ../blivet/zfcp.py:418
+#, python-format
+msgid "zFCP device %s cannot use auto LUN scan."
+msgstr "Perangkat zFCP %s tidak bisa memakai pemindaian LUN otomatis."
+
+#: ../blivet/zfcp.py:432
+#, python-format
+msgid "Could not correctly delete SCSI device of zFCP %(zfcpdev)s (%(e)s)."
+msgstr ""
+"Tidak dapat menghapus secara benar perangkat SCSI dari zFCP %(zfcpdev)s "
+"(%(e)s)."
+
+#: ../blivet/devicelibs/lvm.py:68
+msgid "Generic"
+msgstr "Generik"
+
+#: ../blivet/devicelibs/lvm.py:69
+msgid "Performance"
+msgstr "Kinerja"
+
+#: ../blivet/devices/raid.py:58
+#, python-format
+msgid ""
+"RAID level %(raid_level)s requires that device have at least %(min_members)d "
+"member."
+msgid_plural ""
+"RAID level %(raid_level)s requires that device have at least %(min_members)d "
+"members."
+msgstr[0] ""
+"Tingkat RAID %(raid_level)s mengharuskan perangkat memiliki setidaknya "
+"%(min_members)d anggota."
+
+#: ../blivet/devices/raid.py:79
+#, python-format
+msgid ""
+"RAID level %(raid_level)s is an invalid value. Must be one of (%(levels)s)."
+msgstr ""
+"Tingkat RAID %(raid_level)s adalah nilai yang tidak valid. Harus salah satu "
+"dari (%(levels)s)."
+
+#: ../blivet/devices/raid.py:104
+#, python-format
+msgid "Cannot remove a member from existing %s array"
+msgstr "Tidak bisa menghapus anggota dari array %s yang sudah ada"
+
+#: ../blivet/formats/biosboot.py:35
+msgid "BIOS Boot"
+msgstr "Boot BIOS"
+
+#: ../blivet/formats/disklabel.py:50
+msgid "partition table"
+msgstr "tabel partisi"
+
+#. Translators: Name for an unsupported disklabel; e.g. "Unsupported partition table"
+#: ../blivet/formats/disklabel.py:326
+#, python-format
+msgid "Unsupported %(name)s"
+msgstr "%(name)s yang tidak didukung"
+
+#: ../blivet/formats/dmraid.py:36
+msgid "dm-raid member device"
+msgstr "perangkat anggota dm-raid"
+
+#: ../blivet/formats/fs.py:941
+msgid "EFI System Partition"
+msgstr "Partisi Sistem EFI"
+
+#: ../blivet/formats/fs.py:1189
+msgid "Apple Bootstrap"
+msgstr "Bootstrap Apple"
+
+#: ../blivet/formats/fs.py:1225
+msgid "Linux HFS+ ESP"
+msgstr "Linux HFS+ ESP"
+
+#: ../blivet/formats/__init__.py:148
+msgid "Unknown"
+msgstr "Tidak Dikenal"
+
+#: ../blivet/formats/luks.py:60
+msgid "LUKS"
+msgstr "LUKS"
+
+#: ../blivet/formats/luks.py:61
+msgid "Encrypted"
+msgstr "Enkripsi"
+
+#: ../blivet/formats/luks.py:405
+msgid "DM Integrity"
+msgstr "Integritas DM"
+
+#: ../blivet/formats/lvmpv.py:49
+msgid "physical volume (LVM)"
+msgstr "volume fisik (LVM)"
+
+#: ../blivet/formats/mdraid.py:42
+msgid "software RAID"
+msgstr "RAID perangkat lunak"
+
+#: ../blivet/formats/multipath.py:40
+msgid "multipath member device"
+msgstr "perangkat anggota multipath"
+
+#: ../blivet/formats/prepboot.py:37
+msgid "PPC PReP Boot"
+msgstr "Boot PPC PReP"
+
+#: ../blivet/formats/stratis.py:40
+msgid "Stratis block device"
+msgstr "Perangkat blok Stratis"
