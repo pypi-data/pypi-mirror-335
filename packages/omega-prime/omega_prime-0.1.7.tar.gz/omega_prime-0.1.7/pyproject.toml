@@ -1,0 +1,94 @@
+[build-system]
+requires = ["setuptools", "ruff"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["omega_prime", "omega_prime.asam_odr", "omega_prime.asam_odr.opendriveconverter", "omega_prime.asam_odr.opendriveconverter.elements", "omega_prime.asam_odr.opendriveparser", "omega_prime.asam_odr.opendriveparser.elements", "omega_prime.converters"]
+
+
+[project]
+name = "omega-prime"
+authors = [
+    {name = "ika - RWTH Aachen", email = "michael.schuldes@ika.rwth-aachen.de"},
+]
+description = "Omega-Prime: Data Model, Data Format and Python Library for Handling Ground Truth Traffic Data"
+readme = "README.md"
+license = {text = "MPL-2.0"}
+requires-python = ">=3.10"
+keywords = ["omega-format", "osi", "open-simulation-interface", "simulation", "automated-driving", "traffic"]
+classifiers = [
+    "License :: OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    'shapely',
+    'pandas',
+    'scipy',
+    'numpy',
+    'typer',
+    'pandera',
+    'lxml',
+    'matplotlib',
+    'StrEnum',
+    'networkx',
+    'xarray',
+    'pyproj',
+    'betterosi>=0.3.3',
+    'lxd-io>=0.4.4'
+    
+]
+version = "0.1.7"
+
+[project.urls]
+Homepage = "https://github.com/ika-rwth-aachen/omega-prime"
+Repository = "https://github.com/ika-rwth-aachen/omega-prime"
+
+[project.optional-dependencies]
+test = ['ruff', 'pdoc3', 'pytest', 'pytest-sugar', 'pytest-env','pytest-cov','pytest-progress','pytest-codeblocks', 'nbval','ipywidgets']
+
+[project.scripts]
+omega-prime = "omega_prime.cli:app"
+
+[tool.ruff]
+lint.ignore = ["E741", "E701", "E501", "I001"]
+target-version = "py311"
+line-length = 120
+lint.select = [
+    "F401",  # Unused imports
+    "F841",  # Unused local variables
+    "F821",  # Undefined names
+    "E501",  # Line length violations
+    "SIM101", # Simplify unnecessary if-else blocks
+    "SIM102", # Simplify return or yield statements
+    "SIM103", # Simplify list/set/dict comprehensions
+    "UP",
+    "I",
+]
+lint.isort.combine-as-imports = true
+
+[tool.licensecheck]
+# run `pip install licensecheck` and `licensecheck`
+using = "PEP631"
+ignore_licenses = ["mpl"]
+ignore_packages = [
+    "tzdata", "types-python-dateutil", "xarray", "multidict" # APACHE SOFTWARE LICENSE
+]   
+zero = true
+
+[tool.pytest.ini_options]
+addopts = "-ra --junitxml=report.xml --nbval --codeblocks"
+testpaths = [
+    "tests",
+    "tutorial.ipynb",
+    "tutorial_locator.ipynb",
+    "README.md"
+]
+log_cli = true
