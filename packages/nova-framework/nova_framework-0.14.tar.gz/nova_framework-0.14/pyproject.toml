@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "nova-framework"
+dynamic = ["version"]
+description = "A site building framework for people who like to keep it simple."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+keywords = []
+authors = [
+    { name = "iiPython", email = "ben@iipython.dev" },
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+    "rich>=13.9.4",
+    "click>=8.1.7",
+    "jinja2>=3.1.4",
+    "watchfiles>=0.22.0",
+    "websockets>=14.2",
+]
+
+[project.urls]
+Documentation = "https://github.com/iiPythonx/nova#readme"
+Issues = "https://github.com/iiPythonx/nova/issues"
+Source = "https://github.com/iiPythonx/nova"
+
+[project.scripts]
+nova = "nova.__main__:nova"
+
+[tool.hatch.build]
+packages = ["nova"]
+include = [
+    "nova/plugins/binaries",
+    "nova/assets"
+]
+skip-excluded-dirs = true
+
+[tool.hatch.version]
+path = "nova/__init__.py"
