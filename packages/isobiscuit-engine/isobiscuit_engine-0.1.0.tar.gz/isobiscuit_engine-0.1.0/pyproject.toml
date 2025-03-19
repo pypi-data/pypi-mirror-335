@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "isobiscuit-engine"
+version = "0.1.0"
+description = ""
+authors = ["trollmii <trollmii@outlook.de>"]
+readme = "README.md"
+packages = [
+    { include = "isobiscuit_engine", from = "."},
+]
+include = [
+    { path = "isobiscuit_engine/**/*.so", format = "wheel" },
+]
+# if not already excluded via .gitignore
+exclude = [
+    "**/*.c"
+]
+[tool.poetry.build]
+script = "scripts/build-extension.py"
+[build-system]
+requires = ["poetry-core", "cython", "setuptools"]
+build-backend = "poetry.core.masonry.api"
+
+
+
