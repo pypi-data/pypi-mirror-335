@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <template id="portal_my_details" inherit_id="portal.portal_my_details">
+        <xpath expr="//div[hasclass('col-lg-8')]/div/div[2]" position="before">
+            <div
+                t-attf-class="form-group #{error.get('input_image_1920') and 'o_has_error' or ''} col-image"
+            >
+                <input
+                    type="file"
+                    name="input_image_1920"
+                    accept="image/*"
+                    onchange="setShowImage()"
+                />
+                <input
+                    type="hidden"
+                    name="image_1920"
+                    t-att-src="avatar_source_default"
+                />
+                <br />
+                <br />
+                <t
+                    t-set="avatar_source_default"
+                    name="avatar_source_default"
+                    t-value="'/web/static/src/img/placeholder.png'"
+                />
+                <t t-if="partner.image_1920">
+                    <t
+                        t-set="avatar_source"
+                        t-value="image_data_uri(partner.image_1920)"
+                    />
+                </t>
+                <t t-else="">
+                    <t t-set="avatar_source" t-value="avatar_source_default" />
+                </t>
+                <img
+                    name="default_image_1920"
+                    t-att-src="avatar_source_default"
+                    hidden="1"
+                />
+                <img
+                    name="show_image_1920"
+                    t-att-src="avatar_source"
+                    alt="Photo"
+                    width="100px"
+                    height="100px"
+                />
+                <br />
+                <a
+                    class="btn btn-link btn-sm"
+                    href="#"
+                    onclick="removeImage()"
+                >Remove Image</a>
+            </div>
+            <script type="text/javascript">
+                const setShowImage = async (e) => {
+                    debugger;
+                    var input_image_1920 = document.getElementsByName("input_image_1920")[0].files[0];
+                    var reader = new FileReader();
+                    if (input_image_1920){
+                        await reader.readAsDataURL(input_image_1920);
+                        document.getElementsByName("show_image_1920")[0].src = URL.createObjectURL(input_image_1920);
+                        reader.onload = function () {
+                            document.getElementsByName("image_1920")[0].value = reader.result;
+                        };
+                    };
+                };
+                function removeImage(){
+                    debugger;
+                    var avatar_source_default = document.getElementsByName("default_image_1920")[0].src;
+                    document.getElementsByName("show_image_1920")[0].src = avatar_source_default;
+                    document.getElementsByName("image_1920")[0].value = avatar_source_default;
+                    document.getElementsByName("input_image_1920")[0].value = null;
+                };
+            </script>
+            <div t-attf-class="form-group col-xl-6" />
+        </xpath>
+        <xpath expr="//div[hasclass('col-lg-8')]/div/div[7]" position="after">
+            <div
+                t-attf-class="form-group #{error.get('mobile') and 'o_has_error' or ''} col-xl-6"
+            >
+                <label class="col-form-label" for="mobile">Mobile</label>
+                <input
+                    type="tel"
+                    name="mobile"
+                    t-attf-class="form-control #{error.get('mobile') and 'is-invalid' or ''}"
+                    t-att-value="mobile or partner.mobile"
+                />
+            </div>
+            <div
+                t-attf-class="form-group #{error.get('gender') and 'o_has_error' or ''} col-xl-6"
+            >
+                <label for="gender">Gender:</label>
+                <select
+                    class="form-control"
+                    name="gender"
+                    t-attf-class="form-control #{error.get('gender') and 'is-invalid' or ''}"
+                >
+                    <option value="" />
+                    <option
+                        value="male"
+                        t-att-selected="partner.gender == 'male'"
+                    >Male</option>
+                    <option
+                        value="female"
+                        t-att-selected="partner.gender == 'female'"
+                    >Female</option>
+                    <option
+                        value="other"
+                        t-att-selected="partner.gender == 'other'"
+                    >Other</option>
+                </select>
+            </div>
+            <div
+                t-attf-class="form-group #{error.get('birthdate_date') and 'o_has_error' or ''} col-xl-6"
+            >
+                <label class="col-form-label" for="birthdate_date">Date of Birth</label>
+                <input
+                    type="date"
+                    name="birthdate_date"
+                    t-attf-class="form-control #{error.get('birthdate_date') and 'is-invalid' or ''}"
+                    t-att-value="birthdate_date or partner.birthdate_date"
+                />
+            </div>
+            <div
+                t-attf-class="form-group #{error.get('birth_city') and 'o_has_error' or ''} col-xl-6"
+            >
+                <label class="col-form-label" for="birth_city">Place of Birth</label>
+                <input
+                    type="text"
+                    name="birth_city"
+                    t-attf-class="form-control #{error.get('birth_city') and 'is-invalid' or ''}"
+                    t-att-value="birth_city or partner.birth_city"
+                />
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_layout" inherit_id="portal.portal_layout">
+        <xpath expr="//div[hasclass('o_portal_my_security')]" position="after">
+            <div class="o_portal_my_bank_account mt-3">
+                <h4>Bank Accounts </h4>
+                <hr class="mt-1 mb-1" />
+                <a href="/my/bank_accounts"><i
+                        class="fa fa-pencil mx-1"
+                    />Edit Bank Account</a>
+            </div>
+        </xpath>
+    </template>
+    <template id="portal_my_bank_accounts">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_bank_accounts_body">
+                <t t-set="additional_title">Bank Accounts</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <div class="alert alert-danger" role="alert" t-if="get_error(errors)">
+                    <t t-esc="errors" />
+                </div>
+                <section>
+                    <h3>Bank Accounts</h3>
+                </section>
+                <t t-if="not bank_account_ids">
+                    <div class="alert alert-warning mt8" role="alert">
+                        There are no bank account.
+                    </div>
+                </t>
+                <div class="form-group">
+                    <a
+                        class="btn btn-secondary"
+                        href="/my/bank_account"
+                        title="Create"
+                    > Create</a>
+                </div>
+                <t t-if="bank_account_ids" t-call="portal.portal_table">
+                    <thead>
+                        <tr class="active">
+                            <th>Bank</th>
+                            <th># Account Number</th>
+                            <th />
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr t-foreach="bank_account_ids" t-as="bank_account_id">
+                            <td><span t-field="bank_account_id.bank_id" /></td>
+                            <td>
+                                <a
+                                    t-attf-href="/my/bank_account/#{bank_account_id.id}?{{ keep_query() }}"
+                                ><span t-field="bank_account_id.acc_number" /></a>
+                            </td>
+                            <td>
+                                <a
+                                    class="btn"
+                                    t-attf-href="/my/bank_account/remove/#{bank_account_id.id}?{{ keep_query() }}"
+                                    title="Delete"
+                                ><i class="fa fa-remove" /> Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="portal_my_bank_account">
+        <t t-call="portal.portal_layout">
+            <div class="o_portal_partner_bank_account_body">
+                <t t-set="additional_title">Bank Accounts</t>
+                <t t-set="no_breadcrumbs" t-value="1" />
+                <section>
+                    <h3>Bank Accounts</h3>
+                    <form
+                        action="/my/bank_account"
+                        method="post"
+                        class="oe_partner_bank_account_form"
+                    >
+                        <input
+                            type="hidden"
+                            name="csrf_token"
+                            t-att-value="request.csrf_token()"
+                        />
+                        <input
+                            type="hidden"
+                            name="id"
+                            t-att-value="current_bank_account_id.id"
+                        />
+                        <div class="form-group">
+                            <label for="name">Account Number:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="acc_number"
+                                required="required"
+                                t-att-value="current_bank_account_id.acc_number"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Bank:</label>
+                            <select class="form-control" name="bank">
+                                <option value="" />
+                                <t t-foreach="bank_ids" t-as="bank_id">
+                                    <option
+                                        t-att-value="bank_id.id"
+                                        t-esc="bank_id.name"
+                                        t-att-selected="bank_id.id == current_bank_account_id.bank_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Currency:</label>
+                            <select class="form-control" name="currency">
+                                <option value="" />
+                                <t t-foreach="currency_ids" t-as="currency_id">
+                                    <option
+                                        t-att-value="currency_id.id"
+                                        t-esc="currency_id.name"
+                                        t-att-selected="currency_id.id == current_bank_account_id.currency_id.id"
+                                    />
+                                </t>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Account Holder Name:</label>
+                            <input
+                                type="text"
+                                t-attf-class="form-control form-control-sm"
+                                name="acc_holder_name"
+                                t-att-value="current_bank_account_id.acc_holder_name"
+                            />
+                        </div>
+                        <div
+                            class="alert alert-danger"
+                            role="alert"
+                            t-if="error_message"
+                        >
+                            <t t-esc="error_message" />
+                        </div>
+                        <button type="submit" class="btn btn-secondary">Save</button>
+                        <a class="btn" href="/my/bank_accounts">Discard</a>
+                    </form>
+                </section>
+            </div>
+        </t>
+    </template>
+</odoo>
