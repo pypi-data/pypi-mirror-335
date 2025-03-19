@@ -1,0 +1,114 @@
+Unfazed Sentry
+====
+
+Installation
+----
+
+```bash
+
+pip install unfazed-sentry
+
+```
+
+
+Quickstart
+----
+
+
+### Add Sentry settings to your project
+
+
+
+```python
+
+# settings.py
+
+UNFAZED_SENTRY_SETTINGS = {
+    "DSN": "https://public@sentry.example.com/1",
+    "ENVIRONMENT": "test",
+    "SAMPLE_RATE": 1.0,
+    "CLIENT_CLASS": "unfazed_sentry.settings.UnfazedSentrySettings",
+    
+}
+
+
+```
+
+
+see other settings in [unfazed-sentry](https://github.com/unfazed-eco/unfazed-sentry/blob/main/unfazed_sentry/settings.py)
+
+
+### Add Sentry Lifespan and Middleware to your project settings
+
+
+```python
+
+UNFAZED_SETTINGS = {
+    "MIDDLEWARE": [
+        "unfazed_sentry.middleware.common.SentryMiddleware",
+    ],
+    "LIFESPAN": ["unfazed_sentry.lifespan.UnfazedSentryLifeSpan"],
+    # ... other settings
+}
+
+```
+
+
+after these settings, unfazed-sentry will automatically capture exceptions in every request and send them to Sentry.
+
+
+### Customize capture exceptions
+
+
+```python
+
+from unfazed_sentry import capture_exception
+
+def my_function():
+    try:
+        raise Exception("test")
+    except Exception as e:
+        capture_exception(e)
+        raise e
+
+```
+
+
+### Scope handlers
+
+
+unfazed-sentry provides a class to customize the tags of the exception.
+
+
+```python
+
+import typing as t
+
+from sentry_sdk import Scope
+
+
+class BaseHandler:
+    def __call__(self, scope: Scope, **kwargs: t.Any) -> None:
+        if "foo" in kwargs:
+            scope.set_tag("foo", kwargs["foo"])
+
+
+```
+
+
+then add this handler to the `SCOPE_HANDLERS` setting.
+
+
+```python
+
+
+UNFAZED_SENTRY_SETTINGS = {
+    "DSN": "https://public@sentry.example.com/1",
+    "ENVIRONMENT": "test",
+    "SAMPLE_RATE": 1.0,
+    "CLIENT_CLASS": "unfazed_sentry.settings.UnfazedSentrySettings",
+    "SCOPE_HANDLERS": ["your_project.handler.BaseHandler"],
+    
+}
+
+```

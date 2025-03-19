@@ -1,0 +1,8 @@
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:9827:9827"
+    command: tail -f /unfazed_sentry/README.md
+    volumes:
+      - .:/unfazed_sentry
