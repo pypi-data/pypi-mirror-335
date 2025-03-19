@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block main %}
+<section>
+  <header class="major">
+    <h2>Issues</h2>
+  </header>
+  <div class="features">
+    {% for issue in current.journal_issues %}
+    <article>
+      <span class="icon solid fa-book-open"></span>
+      <div class="content">
+        <h3>{{ issue.metadata.name }}</h3>
+        <ul class="actions">
+          <li><a href="{{ m.path(breadcrumbs + [issue]) }}" class="button">View Issue</a></li>
+        </ul>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  <hr class="major" />
+  <footer id="footer-permission">
+    <p><span class="txt_permission_clockss">CLOCKSS system has permission to ingest, preserve, and serve this Archival Unit</span>.</p>
+  </footer>
+</section>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% if current.license_type %}
+{{ m.license_link_tag(current.license_type) }}
+{% endif %}
+{{ m.meta('citation_publisher', current.metadata.publisher) }}
+{{ m.meta('citation_journal_title', current.metadata.container_title) }}
+{{ m.meta('citation_issn', current.metadata.ISSN) }}
+{{ m.meta('citation_volume', current.metadata.volume) }}
+{{ m.meta('citation_issue', current.metadata.issue) }}
+{{ m.meta('citation_firstpage', current.metadata.page_first) }}
+{{ m.meta('citation_lastpage', current.metadata.custom['page-last']) }}
+{{ m.meta('citation_title', current.metadata.title) }}
+{{ m.meta('citation_doi', current.metadata.DOI) }}
+{{ m.meta('citation_year', current.metadata.available_date.date_parts[0][0]) }}
+{{ m.meta('citation_online_date', m.isodate(current.metadata.available_date.date_parts[0])) }}
+{{ m.meta('citation_public_url', '{}{}'.format(base_url, m.path(breadcrumbs))) }}
+{{ m.meta('citation_pdf_url', '{}{}/{}'.format(base_url, m.path(breadcrumbs).removesuffix(current.file()).removesuffix('/'), m.article_file_href(current, 'file::article_pdf'))) }}
+{% if current.metadata.author %}
+{% for a in current.metadata.author %}
+{{ m.meta('citation_author', m.name(a)) }}
+{% if current.metadata.custom.author_email %}
+{{ m.meta('citation_author_email', current.metadata.custom.author_email[loop.index0]) }}
+{% endif %}
+{% if current.metadata.custom.author_affiliation %}
+{{ m.meta('citation_author_institution', current.metadata.custom.author_affiliation[loop.index0]) }}
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block banner_content %}
+<dl>
+  {% if current.metadata.author %}
+  {{ m.article_authors(current) }}
+  {% endif %}
+  {% if current.metadata.DOI %}
+  <dt>DOI</dt>
+  <dd><span class="txt_doi">{{ current.metadata.DOI }}</span></dd>
+  {% endif %}
+</dl>
+{% endblock %}
+
+{% block banner_other %}
+<section class="box">
+  <header>
+    <h2>Content</h2>
+  </header>
+  <div>
+    <ul class="actions fit">
+      {% if current.metadata.custom['file::article_pdf'] %}
+      <li>{{ m.article_file_article_pdf(current) }}</li>
+      {% endif %}
+    </ul>
+  </div>
+  {% if current.metadata.custom['file::metadata_jats'] %}
+  <header>
+    <h2>Metadata</h2>
+  </header>
+  <div>
+    <ul class="actions fit small">
+      {% if current.metadata.custom['file::metadata_jats'] %}
+      <li>{{ m.article_file_metadata_jats(current) }}</li>
+      {% endif %}
+    </ul>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block main %}
+<hr class="major" />
+{% if current.license_type %}
+<div>
+  {{ m.license_content(current.license_type) }}
+</div>
+{% endif %}
+{% endblock %}
+
+{% block sidebar %}
+<section>
+  <header class="major">
+    <h2>Article</h2>
+  </header>
+  <dl>
+    <dt>Title</dt>
+    <dd>{{ current.metadata.title }}</dd>
+    {% if current.metadata.author %}
+    <dt>{{ m.plural(current.metadata.author, 'Author', 'Authors') }}</dt>
+    <dd>{{ m.rnames(current.metadata.author) }}</dd>
+    {% endif %}
+    {% if current.metadata.DOI %}
+    <dt>DOI</dt>
+    <dd>{{ current.metadata.DOI }}</a></dd>
+    {% endif %}
+    <dt>Published online</dt>
+    <dd>{{ m.isodate(current.metadata.available_date.date_parts[0]) }}</dd>
+  </dl>
+</section>
+{% endblock %}

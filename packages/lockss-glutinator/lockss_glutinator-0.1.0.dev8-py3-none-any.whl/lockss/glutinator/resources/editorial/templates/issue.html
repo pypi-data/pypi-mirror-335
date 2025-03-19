@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+<section>
+  <header class="major">
+    <h2>Table of Contents</h2>
+  </header>
+  <div class="posts">
+    {% for article in current.journal_articles %}
+    <article>
+      <h3><span class="icon solid fa-file-alt" style="padding-right: 1em;"></span>{{ article.metadata.title }}</h3>
+      {% if article.metadata.author %}
+      <b>{{ m.plural(article.metadata.author, 'Author', 'Authors') }}:</b> {{ m.names(article.metadata.author) }}
+      {% endif %}
+      {% if article.metadata.DOI %}
+      <p><b>DOI:</b> {{ article.metadata.DOI }}</p>
+      {% endif %}
+      <ul class="actions">
+        <li><a href="{{ m.path(breadcrumbs + [article]) }}" class="button">View Article</a></li>
+      </ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

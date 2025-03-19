@@ -1,0 +1,97 @@
+{% macro doi_url(d) %}https://doi.org/{{ d }}{% endmacro %}
+
+{% macro name(p) %}{% if p.literal %}{{ p.literal }}{% else %}{{ p.given }} {{ p.family }}{% endif %}{% endmacro %}
+
+{% macro rname(p) %}{% if p.literal %}{{ p.literal }}{% else %}{{ p.family }}, {{ p.given }}{% endif %}{% endmacro %}
+
+{% macro names(pp) %}{{ name(pp[0]) }}{% for p in pp[1:] %}, {{ name(p) }}{% endfor %}{% endmacro %}
+
+{% macro rnames(pp) %}{{ rname(pp[0]) }}{% for p in pp[1:] %}; {{ rname(p) }}{% endfor %}{% endmacro %}
+
+{# See also Item path(...) #}
+{% macro path(s) %}{{ s[0].directory() }}{% for x in s[1:] %}/{{ x.directory() }}{% endfor %}/{{ s[-1].file() }}{% endmacro %}
+
+{% macro plural(x, s, p) %}{% if x|count == 1 %}{{ s }}{% else %}{{ p }}{% endif %}{% endmacro %}
+
+{% macro isodate(d) %}{{ '{:0>4s}-{:0>2s}-{:0>2s}'.format(d[0], d[1], d[2]) }}{% endmacro %}
+
+{% macro logo_href(i, dirprefix='') %}{% if dirprefix %}{{ dirprefix }}/{% endif %}{{ i.logo.removeprefix('file::').rpartition('/')[2] }}{% endmacro %}
+
+{# --------
+    Journal-related
+-------- #}
+
+{% macro journal_issns(j) %}
+{% if j.metadata.issn_l %}
+<p><b>Linking ISSN:</b> {{ j.metadata.issn_l }}</p>
+{% endif %}
+{% if j.metadata.issn %}
+<p><b>Print ISSN:</b> {{ j.metadata.issn }}</p>
+{% endif %}
+{% if j.metadata.eissn %}
+<p><b>Electronic ISSN:</b> {{ j.metadata.eissn }}</p>
+{% endif %}
+{% endmacro %}
+
+{# --------
+    Article-related
+-------- #}
+
+{% macro article_authors(art) %}
+{% if art.metadata.author %}
+<dt>{{ plural(art.metadata.author, 'Author', 'Authors') }}</dt>
+<dd>
+  <ul class="alt">
+    {% for a in art.metadata.author %}
+    <li>{% if art.metadata.custom.author_email and art.metadata.custom.author_email[loop.index0] %}<a href="mailto:{{ art.metadata.custom.author_email[loop.index0] }}">{% endif %}{{ name(a) }}{% if art.metadata.custom.author_email and art.metadata.custom.author_email[loop.index0] %}</a>{% endif %}{% if art.metadata.custom.author_affiliation and art.metadata.custom.author_affiliation[loop.index0] %}, <i>{{ art.metadata.custom.author_affiliation[loop.index0] }}</i>{% endif %}</li>
+    {% endfor %}
+  </ul>
+</dd>
+{% endif %}
+{% endmacro %}
+
+{% macro article_file_href(art, fk) %}{{ fk.removeprefix('file::') }}/{{ '.'.join([art.metadata.id, art.metadata.custom[fk].rpartition('/')[2].rpartition('.')[2]]) }}{% endmacro %}
+
+{% macro article_file_link(art, fk, lt, ic) %}<a href="{{ article_file_href(art, fk) }}" class="button primary icon solid {{ ic }} fit small">{{ lt }}</a>{% endmacro %}
+
+{% macro article_file_article_pdf(art) %}{{ article_file_link(art, 'file::article_pdf', 'PDF', 'fa-file-pdf') }}{% endmacro %}
+
+{% macro article_file_metadata_jats(art) %}{{ article_file_link(art, 'file::metadata_jats', 'JATS XML', 'fa-file-code') }}{% endmacro %}
+
+{% macro meta(t, v) %}
+{% if v %}<meta name="{{ t }}" content="{{ v }}" />{% endif %}
+{% endmacro %}
+
+{# --------
+    License-related
+-------- #}
+
+{% macro license_cc_icon_href(lt) -%}
+{%- if lt == 'cc_by_4_0' -%}
+/assets/images/licenses/by.png
+{%- elif lt == 'cc_by_nc_nd_4_0' -%}
+/assets/images/licenses/by-nc-nd.png
+{%- endif -%}
+{%- endmacro %}
+
+{% macro license_cc_href(lt) -%}
+{%- if lt == 'cc_by_4_0' -%}
+https://creativecommons.org/licenses/by/4.0/
+{%- elif lt == 'cc_by_nc_nd_4_0' -%}
+https://creativecommons.org/licenses/by-nc-nd/4.0/
+{%- endif -%}
+{%- endmacro %}
+
+{% macro license_content(lt) %}
+{% if lt == 'cc_by_4_0' %}
+<p><img src="{{ license_cc_icon_href(lt) }}" alt="Icon of Creative Commons Attribution 4.0 International license" style="padding-right: 0.5em;" />Licensed under a <a rel="license" href="{{ license_cc_href(lt) }}">Creative Commons Attribution 4.0 International</a> license.</p>
+{% elif lt == 'cc_by_nc_nd_4_0' %}
+<p><img src="{{ license_cc_icon_href(lt) }}" alt="Icon of Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International license" style="padding-right: 0.5em;" />Licensed under a <a rel="license" href="{{ license_cc_href(lt) }}">Creative Commons Attribution 4.0 International</a> license.</p>
+{% endif %}
+{% endmacro %}
+
+{% macro license_link_tag(lt) %}
+{% if lt.startswith('cc_') %}
+<link rel="license" href="{{ license_cc_href(lt) }}" />
+{% endif %}
+{% endmacro %}
