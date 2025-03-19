@@ -1,0 +1,165 @@
+.. _release-notes-1.66:
+
+rpkg 1.66 Release Notes
+=======================
+
+Released on *February 20, 2023*
+
+Python compatibility
+--------------------
+
+rpkg works with Python 2.7, 3.6, 3.9, 3.10 and 3.11
+
+What's new in rpkg 1.66
+-----------------------
+
+Checking a repo configuration before ``git push`` with a git hook script
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This check should prevent unwanted pushing of incorrect configuration (more at `[1]`_ `[2]`_). When a 'git push' command is executed, the git hook 'pre-push' script is activated. Checks include:
+
+1. Are <tarballs / source files / patches> added to the 'sources' file or tracked in git?
+
+2. Are files from 'sources' file uploaded into the lookaside cache?
+
+The hook script:
+::
+
+    <repository_directory>/.git/hooks/pre-push
+
+This hook script is created after a new repository is cloned (by ``<x-pkg> clone``). Previously created repositories don't contain this hook script. To disable these checks, remove the hook script.
+
+The new command for executing the check manually (without the argument, an active branch is used):
+::
+
+    <x-pkg> pre-push-check [reference_of_the_commit]
+
+| More information:
+| _`[1]`: https://pagure.io/fedpkg/issue/491
+| _`[2]`: https://pagure.io/releng/issue/9955
+
+Use srpm when scratch-building from dirty repo
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The most common use case for scratch builds is to test local changes before pushing them. Unfortunately, the defaults options in the ``scratch-build`` command did not support this case. Instead, an error was printed about uncommitted changes. To support the common case, ``scratch-build`` is changed to generate an srpm from local changes when they are detected. This way, the original behaviour is retained, and additionally, the common case can be supported.
+
+This has been discussed in the Fedora devel `mailing list`_. And more info at `#653`_.
+
+Original approach (it still works):
+::
+
+    <x-pkg> scratch-build --srpm
+
+New alternative approach:
+::
+
+    <x-pkg> scratch-build
+
+.. _`#653`: https://pagure.io/rpkg/pull-request/653
+.. _`mailing list`: https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/VK4VOLPAHA3HWJ3323PZ5MRDH6FP4KAQ/#G4ACAGFW33YDWA5UPCB6CET7DQ24M7RI
+
+Improved release name deduction
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Previously, when not inside a Git repository, or when inside a Git repository is not connected to a remote, rpkg-based tools have required manually specifying ``--release`` option. This is quite unwieldy, even though such use is quite common. For example, initial work on new packages is often done without source control, or only with local source control.
+
+Allow downstream tools to define a default release, to be used when there is no Git repository. In Fedora, for example, this can be defined as 'rawhide', which exactly matches the Fedora principle of making modifications in Rawhide first.
+
+Downstreams define the default branch name by overriding the 'default_branch_merge()' method. The default implementation raises an exception, which matches the earlier behaviour.
+
+Allow forcing download of all sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In addition to actual package sources, the lookaside cache can also be used to store other files, such as test data. Currently, the ``sources`` command only downloads files that are used in the specfile as Sources or Patches, making such use difficult. A new option ``--force`` is added, which allows downloading all sources without checking for usage.
+
+The new argument:
+::
+
+    <x-pkg> sources --force
+
+More lenient parser for Source/Patch lines in specfiles
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+RPM syntax allows whitespace before the colon, and a few Fedora packages use them. This results in an error like this one:
+::
+
+    $ fedpkg srpm
+    Not downloading unused cups-bjnp-2.0.3.tar.gz
+    error: Bad source: …/cups-bjnp/cups-bjnp-2.0.3.tar.gz: No such file or directory
+    Could not execute srpm: Failed to execute command.
+
+This commits changes the regular expression in `pyrpkg.spec.SpecFile` to accept the additional whitespace.
+
+``fedpkg local`` does not show rpmbuild output
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`subprocess.communicate()` method didn't allow a direct pipe output to the shell and therefore wasn't shown to the user. Switched to `check_call` method.
+Additionally, the correct exit code is returned when the first part of the command fails.
+
+Allow empty commits
+~~~~~~~~~~~~~~~~~~~
+To be able to add empty commit in ``<x-pkg> commit`` to satisfy autospec. The code doesn't check whether autospec is active
+
+| More info:
+| _`[3]`: https://pagure.io/rpkg/pull-request/644
+| _`[4]`: https://pagure.io/fedpkg/issue/494
+
+Support 'results_dir=subdir' when building from srpm
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Previously, the ``scratch-build`` command did not work when 'results_dir=subdir' configuration option was used. Fix by correctly finding the srpm from 'srcrpmdir' specified by the used layout.
+
+Add Jenkinsfile for CI
+~~~~~~~~~~~~~~~~~~~~~~
+Current nodes of `[5]`_ are running in legacy mode and will be removed. We need to update related jobs to use new infra. See `[6]`_ and `[7]`_ for more info.
+
+| _`[5]`: https://jenkins-fedora-infra.apps.ocp.ci.centos.org/job/pyrpkg
+| _`[6]`: https://pagure.io/centos-infra/issue/829
+| _`[7]`: https://sigs.centos.org/guide/ci/
+
+``mockbuild``: escape rpm command under mock
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Arguments of the 'rpm' part after `mock --shell` needs to be escaped (in the Python code).
+
+Example:
+::
+
+  mock -r xxx --chroot ... --shell rpm --define '_sourcedir xxx' ...
+
+Fixes for exploded SRPM layouts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`sources` filename incorrectly set when using 'SRPMLayout'. Old Centos hash format (in `sources` files) can be detected.
+
+Other small fixes
+~~~~~~~~~~~~~~~~~
+* Fix skipping NVR check with autorelease - Previously, this would always check if the NVR was built in Koji previously with `%autorelease`, which is known not to work reliably.
+* Fix URL in `CHANGELOG.rst` - The docs.pagure.io URL is no longer valid. Refer readers to the .org address.
+* Fix the help of the ``container-build``: Explain that when a user specifies ``--compose-ids``, OSBS will not generate any new composes.
+
+Change Logs
+-----------
+- container-build: document --compose-ids overrides any new composes (kdreyer)
+- Use srpm when scratch-building from dirty repo - `#652`_ (otto.liljalaakso)
+- Code cleanup in tests/test_cli.py (otto.liljalaakso)
+- Reduce indentation in assert_build helper (otto.liljalaakso)
+- Allow empty commits - `#494`_ (msuchy)
+- Allow forcing download of all sources - `#650`_ (otto.liljalaakso)
+- Add test case for not downloading unused sources (otto.liljalaakso)
+- Support 'results_dir=subdir' when building from srpm - `#648`_
+  (otto.liljalaakso)
+- Use local branch name as release when there is no remote (otto.liljalaakso)
+- Allow downstreams to define a default release (otto.liljalaakso)
+- Switch load_branch_merge to use multiple return (otto.liljalaakso)
+- Unittests for 'git push' hook script (onosek)
+- Checking a repo configuration before 'git push' with a git hook script - `#491`_
+  (onosek)
+- Fix skipping NVR check with autorelease (nils)
+- pyrpkg.spec.SpecFile: More lenient parser for Source/Patch lines (fweimer)
+- Fix URL in CHANGELOG.rst (tmz)
+- Add Jenkinsfile for CI - `#829`_ (onosek)
+- mockbuild: escape rpm command under mock - `rhbz#2130349`_ (onosek)
+- Fixes for exploded SRPM layouts - `#633`_ (tdawson)
+- `fedpkg local` does not show rpmbuild output - `rhbz#2124809`_ (onosek)
+
+.. _`#652`: https://pagure.io/rpkg/issue/652
+.. _`#494`: https://pagure.io/fedpkg/issue/494
+.. _`#650`: https://pagure.io/rpkg/issue/650
+.. _`#648`: https://pagure.io/rpkg/issue/648
+.. _`#491`: https://pagure.io/fedpkg/issue/491
+.. _`#829`: https://pagure.io/centos-infra/issue/829
+.. _`rhbz#2130349`: https://bugzilla.redhat.com/show_bug.cgi?id=2130349
+.. _`#633`: https://pagure.io/rpkg/issue/633
+.. _`rhbz#2124809`: https://bugzilla.redhat.com/show_bug.cgi?id=2124809

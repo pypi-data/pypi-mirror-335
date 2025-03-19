@@ -1,0 +1,185 @@
+.. _release-notes-1.64:
+
+rpkg 1.64 Release Notes
+=======================
+
+Released on *January 27, 2022*
+
+Python compatibility
+--------------------
+
+rpkg works with Python 2.7, 3.6, 3.9 and 3.10
+
+What's new in rpkg 1.64
+-----------------------
+
+Support building SRPMs in target mock
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+New arguments for building source RPMs are introduced:
+
+* ``x-pkg srpm --srpm-mock``: Creates source RPM with 'mock' instead of 'rpmbuild'
+* ``x-pkg mockbuild --srpm-mock``: Generate source rpm with 'mock' and then run 'mockbuild' using this source rpm.
+* ``x-pkg build --srpm-mock``: Use source rpm generated with mock for building.
+* ``x-pkg scratch-build --srpm-mock``: same as above - but for scratch build.
+
+It works for projects with single specfile.
+
+Add support for `mockbuild` in `lint` command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Previously, the ``lint`` command assumed that linted srpm and binary rpms were in locations specified by the repository layout. However, the ``mockbuild`` command uses its own directory structure.
+
+Support for mockbuild results linting is added here. As mockbuild is arguably even more important than local build, cases where both mockbuild and local build results are present, mockbuild results are selected.
+
+Fix srpm and binary rpm lookup in `lint` subcommand
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Subcommand ``lint`` was looking for srpm only in repository root, and for rpms only with globs of form %{ARCH}/\*.rpm.
+
+This works in many cases, but not when the config option 'results_dir' is set to 'subdir' or when (if ever) SRPMLayout is used. Fixed by using relevant layout parameters when looking for     files to lint.
+
+It is difficult to account for layout parameter 'rpmfilename' properly. In addition to a basename, that parameter can contain a path relative to 'rpmdir' and may contain rpm macros. Since macro evaluation is not possible in the 'rpkg lint' context, a simple heuristic is used instead, covering the known cases:
+
+1. only basename
+2. relative path '%{ARCH}'.
+
+`mockbuild`: allow enforcing local mock config in fedpkg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The default automatic decision based on the (non-)existing local Mock configuration causes misleading user failures for Fedora EPEL 8:
+
+a) The new `mock-core-configs`_ package dropped the 'epel-8-\*' configs.
+b) We fallback to downloading epel-8* configs from Kojihub, but this is useless because the Mock configuration in Koji uses some Koji-private RHEL repourls that can not be used to download packages on users' machines.
+c) That causes 403 repo download errors; hiding the default Mock's error message for absent epel-8 configuration.
+
+For Fedora packages, we can actually afford defaulting to Mock's configuration, _always_. For other packagers (e.g. RHEL) we probably can not because the related Mock config files aren't normally installed with mock-core-configs (so while the local config is still preferred, we usually have to fall-back to the downloaded config).
+
+So this commit provides a new protected method Commands.use_local_mock_config() that can be safely overridden in Fedpkg which will default to "local config". While the other pyrpkg clones may keep the _default_ detection mechanism (== do nothing), or override the method as well.
+
+While on it, two new options are added, ``--use-koji-mock-config`` and ``--use-local-mock-config`` that can be used to override the default specified by any pyrpkg fork.
+
+By default, with both patched pyrpkg and fedpkg, mock's help output is printed out:
+::
+
+    $ fedpkg mockbuild
+    ...
+    ERROR: Could not find required config file: /etc/mock/epel-8-x86_64.cfg
+    ERROR: There are those alternatives:
+    ...
+
+
+Support for custom completers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``python-argcomplete`` library supports custom completers, but their assigning to arguments should be done before rpkg initialization. This commit introduces mechanism how to pass specific completers for rhpkg/fedpkg to rpkg.
+
+Use `unittest.mock` on Python 3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Migrated from library ``python-mock`` to ``unittest.mock`` as per the `guide`_. It allows building package for ``epel9`` in future.
+
+`lint` can run with different `rpmlint` versions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``lint`` subcommand internally executes 'rpmlint' binary. With 'rpmlint' package version 2.x it changed some of its input arguments.
+
+Rpkg has to recognize the installed 'rpmlint' version and use the corresponding switch/argument. Specifically, '-f' switch for user config file has changed to '-r' in the newer version.
+
+Additionally, fixes some paths to source RPMs.
+
+Continue execution if specfile parsing fails
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The unused sources detection feature implemented by class SpecFile is simply an optimization to avoid downloading unused sources. The parsing is quite different from other steps performed by rpkg, which also meant it can fail in new ways.
+
+To avoid situations where an error in this optimization step prevents usage that would otherwise succeed, this commit changes handling of such errors from exiting to logging the situation and continuing with the assumption that all sources in the sources file may be needed.
+
+Consider Patch tags in specfile parser
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Patch files can be uploaded to the lookaside cache and referred to by Patch tags in the specfile. The specfile parser did not consider this case, leading to an error if a dist-git repo has such confirmation.
+
+Fixed by parsing the patch tags.
+
+Pass sourcedir to rpmspec when specfile is parsed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In many cases, specfile parsing in class SpecFile failed when the specfile contained local sources like 'Source2: local.txt'. This happened because rpm sourcedir configuration was not passed
+to utility rpmspec used for parsing, leading it to default to '~/rpmbuild/SOURCES', which is not correct for many layouts supported by rpkg.
+
+Fixed by passing sourcedir correctly.
+
+Improve how the .spec file is selected
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fix the problem that ``fedpkg local`` in a clone of package X could use a.spec instead of X.spec. Prefer the spec file that matches the directory name, and issue a warning if there is any doubt.
+
+`list-side-tags` - fix unavailable username
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On rpmfusion, result of ``list-side-tags`` doesn't bring username neither user id, so it results in KeyError. Use a default value instead.
+
+Include `fmf` config in the list of reserved files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do not remove ``fmf`` files during ``fedpkg import`` as these are configuration files used for enabling ``tmt`` tests. See the `Fedora CI`_ docs for details.
+
+Accept also `~/.config/mock/<chroot>.cfg` files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This has been originally reported by Maxwell G in Fedora `mailing list`_.
+
+During building from SRPM `\-\-path` parameter is taken into account
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fixes fail during ``x-pkg --path build --srpm --scratch`` command execution.
+
+The SRPM was correctly created but x-pkg was unable to locate it when uploading to Koji.
+
+Print SpecFile parsing debug info
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The recently added class SpecFile parses a specfile with tool rpmspec.
+
+It provides error messages when parsing failed. This change will show these messages to user. Without this rhpkg only fails with exception and simple message.
+
+Other small fixes
+~~~~~~~~~~~~~~~~~
+* improve ``x-pkg srpm --help`` description - Update the text to explain what the command does. Explain how to add new files to each SRPM.
+* Support for Python 3.10 and support for running tests there
+* Fixes import fail with sources already imported
+* Correct formatting in previous documentation pages
+* Fix unittests to be Python 2 compatible
+* Fix flake8 syntax 
+
+Change Logs
+-----------
+- Fix: x-pkg now takes into account --path parameter while building SRPM - `#580`_
+  (drumian)
+- 'lint' can run with different 'rpmlint' versions - `rhbz#1967821`_ (onosek)
+- Support building SRPMs in target mock - `#495`_ (onosek)
+- Use unittest.mock on Python 3 `rhbz#2029012`_ (miro)
+- Add support for mockbuild in lint command (oturpe)
+- Fix srpm and binary rpm lookup in lint subcommand - `#586`_ (oturpe)
+- mockbuild: allow enforcing local mock config in fedpkg - `#461`_ (praiskup)
+- list-side-tags - fix unavailable username - `#554`_ (sergio)
+- Accept also ~/.config/mock/<chroot>.cfg files (praiskup)
+- improve srpm --help description (kdreyer)
+- Improve how the .spec file is selected (mads)
+- Include `fmf` config in the list of reserved files - `#452`_ (psplicha)
+- Fix flake8 syntax (onosek)
+- Continue execution if specfile parsing fails - `#583`_ (oturpe)
+- Consider Patch tags in specfile parser - `rhbz#2010518`_ (oturpe)
+- Support for custom completers (onosek)
+- Fixes import fail with sources already imported - `#573`_ (drumian)
+- Also document Python 3.10 support in the README (miro)
+- Test and support Python 3.10 (miro)
+- Print SpecFile parsing debug info - `rhbz#2000556`_ (onosek)
+- Pass sourcedir to rpmspec when specfile is parsed - `#559`_ (oturpe)
+- Fix unittests to be Python 2 compatible (drumian)
+- Changing escaping of dash in docs - older releases (onosek)
+- Changing escaping of dash in docs. (drumian)
+
+.. _`#580`: https://pagure.io/rpkg/issue/580
+.. _`rhbz#1967821`: https://bugzilla.redhat.com/show_bug.cgi?id=1967821
+.. _`rhbz#2029012`: https://bugzilla.redhat.com/show_bug.cgi?id=2029012#c5
+.. _`#495`: https://pagure.io/rpkg/issue/495
+.. _`#586`: https://pagure.io/rpkg/issue/586
+.. _`#461`: https://pagure.io/fedpkg/pull-request/461
+.. _`#554`: https://pagure.io/rpkg/pull-request/554
+.. _`#452`: https://pagure.io/fedpkg/issue/452
+.. _`#583`: https://pagure.io/rpkg/issue/583
+.. _`rhbz#2010518`: https://bugzilla.redhat.com/show_bug.cgi?id=2010518
+.. _`#573`: https://pagure.io/rpkg/issue/573
+.. _`rhbz#2000556`: https://bugzilla.redhat.com/show_bug.cgi?id=2000556
+.. _`#559`: https://pagure.io/rpkg/issue/559
+
+.. _`mock-core-configs`: https://rpm-software-management.github.io/mock/Release-Notes-2.16
+.. _`Fedora CI`: https://docs.fedoraproject.org/en-US/ci/tmt/
+.. _`mailing list`: https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/BNQ2TFWODJW3JSOBAG26AZQBOS5HHZMD/
+.. _`guide`: https://fedoraproject.org/wiki/Changes/DeprecatePythonMock#How_to_migrate_to_unittest.mock

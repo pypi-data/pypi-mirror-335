@@ -1,0 +1,184 @@
+.. _release-notes-1.63:
+
+rpkg 1.63 Release Notes
+=======================
+
+Released on *August 2, 2021*
+
+Python compatibility
+--------------------
+
+rpkg works with Python 2.7, 3.6 and 3.9.
+
+What's new in rpkg 1.63
+-----------------------
+
+Preprocess spec files using rpmautospec features and use %autorelease when parsing spec files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If spec files use rpmautospec features, preprocess them into a temporary directory and point rpmbuild at the pre-processed spec file.
+
+If the necessary rpmautospec features aren't present, all this will be skipped.
+
+Also, calculate the release number and pass it to the macro when parsing the spec file which should make fedpkg/rpkg commands display/expect the right NVR when working on rpmautospec-enabled packages.
+
+Added command `remote`
+~~~~~~~~~~~~~~~~~~~~~~
+Users wanted the ability to add packages as remote easily between different OS targets.
+
+e.g. if one was updating a package for Fedora, they might want to add the same package, or another package, targetted for RHEL as a remote.
+
+This change adds this functionality, accomodating both centpkg and fedpkg package repositories.
+
+The intended functionality of this feature already exists in a limited form in rhpkg, but this change will override it.
+
+Example:
+::
+
+    fedpkg clone myrepo
+    cd myrepo
+    centpkg remote add  # adds named remote targeting the same repos' name in the CentOS namespace
+    fedpkg remote  # shows current remotes
+    fedpkg remote add --remote-name alternative-remote  # adds another Fedora remote with the custom name
+
+Added `verrel` command for containers
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Brings the ability to use x-pkg ``verrel`` to get relevant information about container images.
+It works only in 'container(s)' namespaces. Method parses values in Dockerfile. There are two rules for parsing values from Dockerfile correctly:
+
+1) <repo_name>_VERSION supercedes VERSION
+2) If there are no VERSION values or no RELEASE value, 'verrel' fails on Dockerfile.
+
+Add config option for writing dist-git build results to a subdirectory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Currently, when using the dist-git layout, build results are written directly to layout root, since all of builddir, srpmdir and rpmdir are set to root. This pattern is unnecessarily difficult to cover in gitignore rules and has led to situation in Fedora where, for many packages, running ``fedpkg local`` pollutes ``git status``.
+
+Instead of writing to repository root, it is much cleaner to write to a single subdirectory which is easy to add to ignore rules. To enable this without interfering with current usage, new config option 'results_dir' is added. Default value preserving current behaviour is 'root', whereas setting 'subdir' leads to selecting an alternative dist-git layout that uses subdirectory 'results' instead.
+
+This topic has been discussed in a Fedora mailing-list `thread`_.
+
+From the viewpoint of easy writing of ignore rules, it would make sense to set also sourcedir to the new 'results' directory. However, patches are stored in repository root everywhere and rpmbuild expects to find them in the sourcedir. Thus, sourcedir must be set to repository root like it is in the standard dist-git layout.
+
+Make sure all commits have a proper subject
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Until the first empty line, Git will always consider all of the commit message to be part of the subject line. When generating the clog from the RPM changelog, this means that all lines in the changelog end up as part of the subject.
+
+This patch reworks the clog() function to always have a distinct subject line, either by accepting the '-m' argument or by treating the first line of the changelog as special and inserting an extra newline for it.
+
+Better `new-sources` output when all sources already exist
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When ``new-sources`` command was repeatedly executed on the same file(s) (therefore these files were already uploaded in the dist-git repository), message with additional hints won't be displayed. Only shows information about unperformed upload.
+
+Do not download unused sources during command `sources`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Command ``sources`` used to download all files listed in the sources file. This is waste of resources, because it is a common packager workflow to first update the specfile then get the new source with 'spectool -g \*.spec' and then do ``fedpkg mockbuild``. In that situation, the sources file always lists stale files, downloading those never achieves anything useful. This commit improves the situation by avoiding download of files not actually used in the specfile.
+
+Jenkins unittests run in docker container
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Prepared dockerfiles for creating a testing environment in containers. Two containers are prepared. The first for normal Python 3 and the second one runs in CentOS 7.
+
+A tox configuration is customized for supported versions of Python.
+
+Skip NVR check if the %autorelease macro is used
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If a spec file sets the release field to the '%autorelease' macro, don't even attempt to check if the build exists already, as using the macro ensures that a new release number is used.
+
+Add `\-\-offline` cli argument for `new-sources`
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+It just updates 'sources' without uploading the files.
+
+Cli command ``new-sources`` calls command ``upload``, which already had an offline mode. Only thing needed for ``new-sources --offline`` support
+was to add the argument and pass it to upload command.
+
+Related devel mailing-list `discussion`_.
+
+Fix `container-build` ignoring values when the same argument is specified multiple times
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``container-build`` command allows both variants of argument parsing:
+::
+
+--arg1 A B
+--arg1=A --arg1=B  # without fix, only B was processed
+
+Add \-\-skip-nvr-check to the `scratch-build` command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When building in EPEL7 for the different target system, the build sometimes fails with unknown or missing macro/tag. This allows the packager to skip this rpm fail and continue with ``--skip-nvr-check`` argument. Previously, it was allowed for subcommands ``build`` and ``chain-build``. Now, argument parsing code could be moved to the common method.
+
+`list-side-tags`: show creator of the tag
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Show creator's user id and name in the list of side-tags.
+
+Add support for side tag suffix
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+With that it would be possible to use a set of preconfigured suffixes for the tags. This requires changes in the side-tag plugin in Koji.
+
+Drop Python 2.6 support
+~~~~~~~~~~~~~~~~~~~~~~~
+Removed Python 2.6 dependencies and mentions mostly from metadata and help files.
+
+Other small fixes
+~~~~~~~~~~~~~~~~~
+* Remove inaccessible code and deprecated arguments, including ``--dist`` and ``--module-name``.
+* Update description of the ``clean`` command
+* Better hint when running ``prep`` on detached branch
+* Improve help in ``clone`` command
+* Removing 'ca cert' argument from koji interface. It was removed on koji-1.24.0
+* Added <package name>.rpmlintrc to the list of files ignored by fedpkg import
+* Check whether 'sources' file is not a directory
+* ``container-build``: improve help text for ``--signing-intent argument``
+* Enable flatpak tests that require libmodulemd - only in Python 3.9 environment
+* Fix Python3 SafeConfigParser warnings
+* Improve automatic test suite
+
+Change Logs
+-----------
+- Do not download unused sources during command 'sources' - `#559`_ (oturpe)
+- Added 'x-pkg verrel' for containers - `#547`_ (jkunstle)
+- container-build: improve help text for --signing-intent argument (kdreyer)
+- Make sure all commits have a proper subject (sgallagh)
+- Fix unittest for previous commit (onosek)
+- better new-sources output when all sources already exist - `#533`_ (drumian)
+- Added 'remote' to rpkg from rhpkg - `#439`_ (jkunstle)
+- Add --offline cli argument for new-sources - `#559`_ (oturpe)
+- Tests: Fix setting branch name with old git (nils)
+- Add and augment tests for rpmautospec (nils)
+- Reflect %autorelease when parsing spec files (nils)
+- Preprocess spec files using rpmautospec features (nils)
+- Detect generic use of rpmautospec features (nils)
+- Fix remaining Python3 SafeConfigParser warnings (nils)
+- Tests: specify branch name on \`git init\` (nils)
+- Remove leftover deprecated arguments (abisoi)
+- Remove deprecated arguments --dist and --module-name (abisoi)
+- Skip NVR check if the %autorelease macro is used - `#109`_ (nils)
+- Don't access unset variable (nils)
+- Improve help in fedpkg clone command - `#367`_ (abisoi)
+- Fix rpkg container-build ignoring values when same argument is specified multiple times - `#537`_ (abisoi)
+- list-side-tags: show creator of the tag - `#358`_ (onosek)
+- Drop Python 2.6 support (onosek)
+- Enable flatpak tests that require libmodulemd (onosek)
+- Added <package name>.rpmlintrc to the list of files ignored by fedpkg import - `rhbz#1946688`_ (abisoi)
+- Jenkins unittests run in docker container (onosek)
+- Add support for side tag suffix (lsedlar)
+- Check whether sources file is not a directory - `#541`_ (onosek)
+- Add config option for writing dist-git build results to a subdirectory (oturpe)
+- ca cert was removed on koji-1.24.0 (sergio)
+- Improve automatic test suite (oturpe)
+- Better hint when running 'prep' on detached branch - `rhbz#1907964`_ (onosek)
+- Update description of the clean command - `rhbz#1909461`_ (onosek)
+- Add --skip-nvr-check to the scratch-build command - `rhbz#1671012`_ (onosek)
+
+.. _`#559`: https://pagure.io/rpkg/issue/559
+.. _`#547`: https://pagure.io/rpkg/issue/547
+.. _`#533`: https://pagure.io/rpkg/issue/533
+.. _`#439`: https://pagure.io/fedpkg/issue/439
+.. _`#109`: https://pagure.io/fedora-infra/rpmautospec/issue/109
+.. _`#367`: https://pagure.io/rpkg/issue/367
+.. _`#537`: https://pagure.io/rpkg/issue/537
+.. _`#358`: https://pagure.io/fedpkg/issue/358
+.. _`rhbz#1946688`: https://bugzilla.redhat.com/show_bug.cgi?id=1946688
+.. _`#541`: https://pagure.io/rpkg/issue/541
+.. _`rhbz#1907964`: https://bugzilla.redhat.com/show_bug.cgi?id=1907964
+.. _`rhbz#1909461`: https://bugzilla.redhat.com/show_bug.cgi?id=1909461
+.. _`rhbz#1671012`: https://bugzilla.redhat.com/show_bug.cgi?id=1671012
+
+.. _`discussion`: https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/ICMW35NI7I4SDWOW4UHGRSAKN2QZ33IS/
+.. _`thread`: https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/message/FNDBDD5TRXOIUYSC23QV2GN7ZKAHRM3C/

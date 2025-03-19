@@ -1,0 +1,153 @@
+.. _release-notes-1.65:
+
+rpkg 1.65 Release Notes
+=======================
+
+Released on *September 6, 2022*
+
+Python compatibility
+--------------------
+
+rpkg works with Python 2.7, 3.6, 3.9, 3.10 and 3.11
+
+What's new in rpkg 1.65
+-----------------------
+
+Set up bandit scanner for rpkg
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`bandit`_ is a tool for analyzing the code and searching for security issues and threats. Rpkg's code was scanned and high & middle level issues were fixed. A more strict policy was set - when a new issue of this level appears, unit tests will fail.
+The most complex was fixing the `shell=True` argument during running external scripts/commands. It lead to changes in the format of `_rpmdefines` definitions:
+'--define' items are split into tokens to be safely executed without direct 'shell=True' argument in '_run_command' method.
+
+This required further changes in dependent tools because they also contain its '_rpmdefines' structure:
+
+  * `rfpkg`_
+  * `centpkg`_
+  * `fedpkg`_
+  * rhpkg
+
+All of them should use fixed code to be able to work with rpkg-1.65.
+
+.. _`bandit`: https://bandit.readthedocs.io
+.. _`rfpkg`: https://github.com/rpmfusion-infra/rfpkg/pull/27
+.. _`centpkg`: https://git.centos.org/centos/centpkg/pull-request/57
+.. _`fedpkg`: https://pagure.io/fedpkg/pull-request/486
+
+
+Refuse import of packages processed by rpmautospec
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+People occasionally try to do 'fedpkg/rpm import' on an srpm which was built from a .spec file with %autorelease and %autochangelog fields. Rpmautospec works by replacing those macros with generated content. Importing and srpm after such processing is generally the wrong thing to do, because for %autorelease and %autochangelog to work, the spec file with (unexpanded) macros must be stored in dist-git. But even if somebody wanted to stop using rpmautospec, and wanted to import the processed spec file, the headers that were inserted by rpmautospec should be removed. Thus, just refuse such imports.
+
+Note that I also opened https://pagure.io/fedora-infra/rpmautospec/issue/269 to provide an "official" way to detect that the file was processed. But even the current imperfect check is better than nothing because it seems to be a fairly common mistake because 'fedpkg import' is a very common workflow, and %autorelease/%autochangelog are becoming the norm too.
+
+Test:
+::
+
+    $ PYTHONPATH=$HOME/python/rpkg fedpkg import --offline package-notes-0.5-3.fc38.src.rpm
+    Could not execute import_srpm: srpm was processed by rpmautospec
+
+Add ``--custom-user-metadata`` to ``build`` command
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Add support for `--custom-user-metadata` argument for `build` and `scratch-build` commands. This will pass a JSON string of custom metadata to Koji/Brew to be deserialized and stored under the build's extra.custom_user_metadata field. Example:
+::
+
+    fedpkg scratch-build --srpm --custom-user-metadata '{"name1":"value1","name2":"value2"}'
+
+Extract source RPMs with rpm2archive if possible
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The output format from rpm2archive is not bound with the 4GB file size limit, like the rpm2cpio is. Unfortunately, rpm2archive doesn't exist on EL7, and still doesn't support the -n option on EL8.
+Related: https://pagure.io/copr/copr/issue/2225
+
+Extra arguments - fix arguments with spaces
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Extra arguments are relevant for some commands (mockbuild, clone, srpm, local, prep, compile, install, ...). They are passed to underlying command (usually appended to the rest of arguments on commandline). Extra arguments should be placed at the end of the command and separated by '--'. Example:
+::
+
+    fedpkg --release rawhide prep -- --define 'python_wheel_dir XXX'
+
+Fixes passing arguments with spaces to underlying commands.
+
+Add `--background` option for ``container-build``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This argument allows to create build with lower priority.
+
+``contaner-build`` does not check for existence of kojisession.buildContainer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When 'container-build' subcommand is used, there was a check for existence of 'kojisession.buildContainer' RPC. This is not necessary because when there is some RPC missing, the 'koji.GenericError' is returned and a apropriate error message is printed. Deleting this check will improve performance and lowers load on the Koji hub.
+
+``container-build``: improve help text for `--compose-ids` argument
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Explain that this will cause OSBS to reuse existing ODCS composes. Clarify that that users should specify integers (eg. 1332233), rather than productmd's own "compose IDs" (eg. odcs-1332233-1-20220706.t.0).
+
+Fix: ``lint`` subcommand should not invoke rpmlint on debuginfo packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'lint' subcommand included debuginfo packages in list of packages to be checked by rpmlint. Those packages however, should not be included.
+
+Fix: ``lint -i/--info`` does not work
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+`lint` subcommand internally uses 'rpmlint'. 'rpmlint' version 2.X has changed some of its arguments, one of which is '-i'. Rpkg recognizes the installed version of 'rpmlint' and internally adjusts the input arguments accordingly so the functionality remains unchanged.
+
+Use absolute path for mock results in ``lint``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+And activate related unittest, that was disabled because of its name (prefix was missing).
+
+Better exit code for connection error
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When there is a connection failure while running _watch_build_tasks method then exit code '2' is returned and apropriate error message is logged.
+
+Refactoring loading rpmautospec feature
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This doesn't change the functionality. Moves the current code into one place. It adds another flag for autochangelog.
+
+Fix: `AlreadyUploadedError` when package has no sources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Importing a package with no sources resulted in throwing 'AlreadyUploadedError'. This commit introduces 'NoSourcesError' exception which is thrown in this situation istead.
+
+Improve change management process documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Provided a markdown syntax file `CONTRIBUTING.md` with necessary and useful information for contributors. Described the release process, the documentation (re)generation, code-review process, testing procedures, places & links and other hints.
+
+Other small fixes
+~~~~~~~~~~~~~~~~~
+* Follow redirects for lookaside - after migrating lookaside cache at the dist-git server to RHEL 7.
+* Refuse to "commit -c" when using %autochangelog
+* Clean --dry-run' deprecation warning - Property --dry-run of parameter clean is deprecated. This commit introduces a warning message informing about this fact.
+* Fix generation of optional parameters in man page - There was a change of string (from "optional arguments:" to "options:"), from which optional arguments are detected.
+* Remove pytest warnings and correct deprecated methods.
+* Repair flake8 complaints
+
+Change Logs
+-----------
+- Fix medium level bandit findings (onosek)
+- Extra arguments now use shell-escaping - revert `#587`_ (onosek)
+- Remove pytest warnings (onosek)
+- Refuse import of packages processed by rpmautospec (zbyszek)
+- follow redirects for lookaside (tkopecek)
+- Repair flake8 complaints (onosek)
+- Fix high level bandit findings (onosek)
+- container-build: improve help text for --compose-ids argument (kdreyer)
+- CONTRIBUTING.md fix links (onosek)
+- Improve change management process documentation (onosek)
+- Removing bandit issues from cli.py (drumian)
+- Extract source RPMs with rpm2archive if possible `#2225`_ (praiskup)
+- Set up bandit scanner for rpkg (onosek)
+- Refuse to "commit -c" when using %autochangelog - `#454`_ (drumian)
+- Refactoring loading rpmautospec feature (onosek)
+- add --background option for container-build which allows to create build with lower priority (rcerven)
+- 'clean --dry-run' deprecation warning (drumian)
+- Better exit code for connection error (drumian)
+- Fix generation of optional parameters in man page (mspacek)
+- Use absolute path for mock results in `lint` (onosek)
+- contaner-build does not check for existence of kojisession.buildContainer - `#532`_ (drumian)
+- Fix: 'lint' subcommand should not invoke rpmlint on debuginfo packages - `rhbz#2052451`_ (drumian)
+- Add `--custom-user-metadata` to build command (onosek)
+- Fix: 'lint -i/--info' does not work - rhbz#2016616 (drumian)
+- Fix: AlreadyUploadedError when package has no sources - `#604`_ (drumian)
+- Fix: Extra arguments now use shell-escaping - `#587`_ (drumian)
+
+.. _`#2225`: https://pagure.io/copr/copr/issue/2225
+.. _`#454`: https://pagure.io/fedpkg/issue/454
+.. _`#532`: https://pagure.io/rpkg/issue/532
+.. _`rhbz#2052451`: https://bugzilla.redhat.com/show_bug.cgi?id=2052451
+.. _`#604`: https://pagure.io/rpkg/issue/604
+.. _`#587`: https://pagure.io/rpkg/issue/587

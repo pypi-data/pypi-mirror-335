@@ -1,0 +1,71 @@
+def DUFFY_SESSION_ID
+
+pipeline {
+    agent {
+        label 'cico-workspace'
+    }
+
+    parameters {
+        string(name: 'REPO', defaultValue: 'https://pagure.io/rpkg.git', description: 'The repository where the pull-request comes from.\nFor example, to verify my pull-request, REPO would be https://pagure.io/forks/onosek/rpkg.git')
+        string(name: 'BRANCH', defaultValue: 'master', description: 'The branch that contains the code of the pull-request.\nFor example, I create a new pull-request from a branch named new-feature in my fork,and BRANCH would be <code>new-feature</code>.')
+        string(name: 'BRANCH_TO', defaultValue: 'master', description: 'A branch into which the pull request should be merged.')
+    }
+
+    stages {
+        stage('CI') {
+            steps {
+                script {
+                    echo "REPO: ${REPO}"
+                    echo "BRANCH: ${BRANCH}"
+                    echo "BRANCH_TO: ${BRANCH_TO}"
+                    if (params.REPO == "" || params.BRANCH == "") {
+                        error "Please supply both params (REPO and BRANCH)"
+                    }
+                    try {
+                        echo "Requesting duffy node ..."
+                        def session_str = sh returnStdout: true, script: "set +x; duffy client --url https://duffy.ci.centos.org/api/v1 --auth-name fedora-infra --auth-key $CICO_API_KEY request-session pool=virt-ec2-t2-centos-9s-x86_64,quantity=1"
+                        def session = readJSON text: session_str
+                        DUFFY_SESSION_ID= session.session.id
+                        def hostname = session.session.nodes[0].hostname
+                        echo "duffy session id: $DUFFY_SESSION_ID hostname: $hostname"
+                        def remote_dir = "/tmp/$JENKINS_AGENT_NAME"
+                        echo "remote_dir: $remote_dir"
+                        // this makes tests run in parallel if needed: "--parallel=auto --parallel-live"
+                        def TOX_POSARGS = ""
+                        writeFile file: 'job.sh', text: """
+set -xe
+dnf install -y git podman
+git config --global user.email "jenkins@localhost"
+git config --global user.name "jenkins"
+cd $remote_dir
+git clone https://pagure.io/rpkg.git -b master
+cd rpkg
+# remove remote only if exists
+remotes=\$(git remote)
+if echo "\$remotes" | grep -q "^proposed\$"; then
+  git remote rm proposed || true
+fi
+git remote add proposed "$params.REPO"
+git fetch proposed
+git checkout "origin/$params.BRANCH_TO"
+git merge --no-ff "proposed/$params.BRANCH" -m "Merge PR"
+
+podman run --rm -v .:/src:Z quay.io/exd-guild-source-tools/rpkg-test:latest tox -e py36,py39,py312,py313,flake8,bandit --workdir /tmp/tox ${TOX_POSARGS}
+# disabled py27 environment for now; keep just flake8 for Python 2
+podman run --rm -v .:/src:Z quay.io/exd-guild-source-tools/rpkg-test-py2:latest tox -e flake8python2 --workdir /tmp/tox ${TOX_POSARGS}
+                        """
+                        sh "cat job.sh"
+                        sh "ssh -o StrictHostKeyChecking=no root@$hostname mkdir $remote_dir"
+                        sh "scp job.sh root@$hostname:$remote_dir"
+                        sh "ssh root@$hostname sh $remote_dir/job.sh"
+                    } finally {
+                        if (DUFFY_SESSION_ID) {
+                            echo "Release duffy node ..."
+                            sh "set +x; duffy client --url https://duffy.ci.centos.org/api/v1 --auth-name fedora-infra --auth-key $CICO_API_KEY retire-session $DUFFY_SESSION_ID > /dev/null"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

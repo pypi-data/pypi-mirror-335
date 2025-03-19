@@ -1,0 +1,89 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "rpkg"
+dynamic = ["license"]
+version = "1.68"
+description = "A python library and runtime script for managing RPMpackage sources in a git repository"
+readme = "README.rst"
+authors = [
+    { name = "Dennis Gilmore", email = "ausil@fedoraproject.org" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python :: 2 :: Only",
+    "Programming Language :: Python :: 2.7",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = [
+    "argcomplete",
+    "cccolutils >= 1.4",
+    "GitPython",
+    "koji >= 1.15",
+    "pycurl",
+    "PyYAML",
+    "requests",
+    "rpm",
+    "six >= 1.9.0",
+]
+
+[project.urls]
+Homepage = "https://pagure.io/rpkg"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "*.pyc",
+    "__pycache__",
+    "/doc/build",
+    "/doc/source/commands",
+    "/doc/source/_static",
+]
+only-exclude = [
+    ".gitignore",
+    "/doc/source/cli.rst",
+    "/doc/source/man_pages.json",
+]
+include = [
+    # dirs
+    "/bin",
+    "/doc",
+    "/etc",
+    "/pyrpkg",
+    "/requirements",
+    "/tests",
+    # files
+    "CHANGELOG.rst",
+    "CONTRIBUTING.md",
+    "COPYING",
+    "COPYING-koji",
+    "git-changelog",
+    "Jenkinsfile",
+    "jenkins_test.dockerfile",
+    "jenkins_test_py2.dockerfile",
+    "LGPL",
+    "Makefile",
+    "MANIFEST.in",
+    "pyproject.toml",
+    "README.rst",
+    "setup.cfg",
+    "setup.py",
+    "tox.ini",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "pyrpkg",
+]

@@ -1,0 +1,97 @@
+.. _release-notes-1.68:
+
+rpkg 1.68 Release Notes
+=======================
+
+Released on *March 19, 2025*
+
+Python compatibility
+--------------------
+
+rpkg works with Python 2.7, 3.6, 3.9, 3.12 and 3.13
+
+What's new in rpkg 1.68
+-----------------------
+Not everything is actually new. The next description covers changes since last 1.67 release. Since then most of features/fixes were already released as patches.
+
+``build``: add draft builds support
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Generally, it means adding ``--draft`` argument to the koji build command. More info about draft build is at koji's `draft`_ documentation.
+::
+
+      fedpkg build --draft ...
+
+.. _`draft`: https://docs.pagure.org/koji/draft_builds/
+
+``clog`` will not duplicate changelog lines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``clog`` have to read the tag *CHANGELOGTEXT* (not macro) appropriately as an array: ``--qf '[%{CHANGELOGTEXT}\n]'``.
+
+Whole array is read, so the *<SEPARATOR>* is used to extract the first changelog.
+
+``prep``: added an argument to check dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+By default, ``prep`` command doesn't check dependencies. This might lead to confusing output. When ``prep`` fails, a hint message is displayed with information about the new argument ``--check-deps`` which makes ``prep`` potentially show missing dependencies.
+
+Restrict Git index version to what GitPython supports
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The Git index version used by a repository is set when the repository is cloned. If the user has a non-default Git config like ``feature.manyFiles=true``, index versions above the default of 2 may be used. On the other hand, GitPython, and consequently rpkg, do not support anything above 2. Create repositories that can be manipulated by rpkg by forcing index version 2 when cloning.
+
+Upstream issue: `#1960`_
+
+Original `report`_ at Fedora Package Maintainer Docs.
+
+.. _`report`: https://pagure.io/fedora-docs/package-maintainer-docs/pull-request/173
+
+Fix regular expression for parsing Source lines
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When pushing changes to the dist-git repo, the ``pre-push-check`` didn't identify hidden files (.file) among 'SourceX|PatchX' definitions. The regular expression was taken from another part of the code and improved.
+
+Fixing unittests for py36
+~~~~~~~~~~~~~~~~~~~~~~~~~
+There is an issue with the newest pycurl library in PyPI. Use the older one for this environment.
+
+'rpm-py-installer' is failing too, replace it with 'rpm'.
+
+``chain-build``: correct the info message
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The info message was missing the whole 'chain' which says what components will be built. Originally, it didn't contain the last group of components. It was confusing for users.
+
+Fixing encoding of the url when checking lookaside
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In RHEL-7 (Python 2.7) encoding of the url was unicode. Curl's method 'setopt' expects utf-8.
+
+
+Other small fixes
+~~~~~~~~~~~~~~~~~
+* ``set-pagure-token``: config file's permission are set to be more restrictive - readable only by the user
+* ``pre-push-check``: when the *spectool* command fails, rpkg should display its output
+* Python 3.13 environment; renewed testing image
+* Fix formatting for error when sources download fails in ``mockbuild``
+* Fix package in Pypi - the pyrpkg module couldn't be imported.
+* Flake8 code checker doesn't need installation of all dependencies - quicker.
+
+
+Change Logs
+-----------
+- Restrict Git index version to what GitPython supports - `#1960`_ (otto.liljalaakso)
+- `set-pagure-token`: config - more restrictive permissions (git)
+- `pre-push-check`: show spectool command output - `#732`_ (onosek)
+- `prep`: added an argument to check dependencies - `#585`_ (onosek)
+- Python 3.13 environment and renew testing image (onosek)
+- Fix formatting for error when mockbuild sources fails (otto.liljalaakso)
+- `clog` is duplicating changelog lines - `#581`_ (onosek)
+- Fixing unittests for py36 (onosek)
+- `chain-build`: correct the info message - `#567`_ (onosek)
+- Fix regular expression for parsing Source lines - `#721`_ (onosek)
+- Add draft builds support (onosek)
+- Fixing encoding of the url when checking lookaside (onosek)
+- Fix package in Pypi (onosek)
+
+.. _`#1960`: https://github.com/gitpython-developers/GitPython/issues/1960
+.. _`#732`: https://pagure.io/rpkg/issue/732
+.. _`#585`: https://pagure.io/fedpkg/issue/585
+.. _`#581`: https://pagure.io/fedpkg/issue/581
+.. _`#567`: https://pagure.io/fedpkg/issue/567
+.. _`#721`: https://pagure.io/rpkg/issue/721
+
