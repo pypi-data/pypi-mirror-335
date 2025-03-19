@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.21.2: https://docutils.sourceforge.io/" />
+<title>sqlitestore</title>
+<link rel="stylesheet" href="../style.css" type="text/css" />
+</head>
+<body>
+<div class="document" id="sqlitestore">
+<span id="ext-sqlitestore"></span>
+<h1 class="title">sqlitestore</h1>
+
+<div class="contents htmlonly topic" id="contents">
+<p class="topic-title"><a class="reference internal" href="#top">Contents</a></p>
+<ul class="simple">
+<li><a class="reference internal" href="#description" id="toc-entry-1">Description</a></li>
+</ul>
+</div>
+<p>store repository data in SQLite (EXPERIMENTAL)</p>
+<div class="section" id="description">
+<h1><a class="toc-backref" href="#contents">Description</a></h1>
+<p>The sqlitestore extension enables the storage of repository data in SQLite.</p>
+<p>This extension is HIGHLY EXPERIMENTAL. There are NO BACKWARDS COMPATIBILITY
+GUARANTEES. This means that repositories created with this extension may
+only be usable with the exact version of this extension/Mercurial that was
+used. The extension attempts to enforce this in order to prevent repository
+corruption.</p>
+<p>In addition, several features are not yet supported or have known bugs:</p>
+<ul class="simple">
+<li>Only some data is stored in SQLite. Changeset, manifest, and other repository
+data is not yet stored in SQLite.</li>
+<li>Transactions are not robust. If the process is aborted at the right time
+during transaction close/rollback, the repository could be in an inconsistent
+state. This problem will diminish once all repository data is tracked by
+SQLite.</li>
+<li>Bundle repositories do not work (the ability to use e.g.
+<cite>hg -R &lt;bundle-file&gt; log</cite> to automatically overlay a bundle on top of the
+existing repository).</li>
+<li>Various other features don't work.</li>
+</ul>
+<p>This extension should work for basic clone/pull, update, and commit workflows.
+Some history rewriting operations may fail due to lack of support for bundle
+repositories.</p>
+<p>To use, activate the extension and set the <tt class="docutils literal"><span class="pre">storage.new-repo-backend</span></tt> config
+option to <tt class="docutils literal">sqlite</tt> to enable new repositories to use SQLite for storage.</p>
+</div>
+</div>
+</body>
+</html>
