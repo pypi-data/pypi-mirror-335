@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2023 OpenSynergy Indonesia
+     Copyright 2023 PT. Simetri Sinergi Indonesia
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record id="partner_academic_view_search" model="ir.ui.view">
+        <field name="name">partner.academic.search</field>
+        <field name="model">partner.academic</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="partner_address_id" />
+                <field name="diploma" />
+                <field name="field_of_study_id" />
+                <group name="group_by">
+                    <filter
+                        name="grp_partner"
+                        string="Partner"
+                        context="{'group_by':'partner_id'}"
+                    />
+                    <filter
+                        name="grp_partner_address_id"
+                        string="Institution"
+                        context="{'group_by':'partner_address_id'}"
+                    />
+                    <filter
+                        name="grp_field_of_study_id"
+                        string="Field Of Study"
+                        context="{'group_by': 'field_of_study_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="partner_academic_view_tree" model="ir.ui.view">
+        <field name="name">partner.academic.tree</field>
+        <field name="model">partner.academic</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id" />
+                <field name="partner_address_id" string="Institution" />
+                <field name="diploma" />
+                <field name="field_of_study_id" />
+                <field name="gpa" />
+                <field name="date_start" />
+                <field name="date_end" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="partner_academic_view_form" model="ir.ui.view">
+        <field name="name">partner.academic.form</field>
+        <field name="model">partner.academic</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <form>
+                <header />
+                <sheet>
+                    <div name="div_smart_buttons" class="oe_right oe_button_box" />
+                    <group name="header" colspan="4" col="2">
+                        <group name="header_left" colspan="1" col="2">
+                            <field name="partner_id" />
+                            <field name="partner_address_id" string="Institution" />
+                            <field name="location" />
+                            <field name="active" widget="boolean_toggle" />
+                        </group>
+                        <group name="header_right" colspan="1" col="2">
+                            <field name="date_start" />
+                            <field name="expire" />
+                            <field
+                                name="date_end"
+                                attrs="{'invisible':[('expire', '=', False)], 'required': [('expire', '=', True)]}"
+                            />
+                            <separator string="Academic Information" colspan="1" />
+                            <field name="diploma" />
+                            <field name="field_of_study_id" />
+                            <field name="gpa" />
+                            <field name="activities" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="note" string="Note">
+                            <field name="note" colspan="4" nolabel="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_academic_action" model="ir.actions.act_window">
+        <field name="name">Academic Experiences</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">partner.academic</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="partner_academic_menu"
+        name="Academic Experiences"
+        parent="menu_config_partner_experience"
+        groups="partner_academic_configurator_group"
+        action="partner_academic_action"
+        sequence="1"
+    />
+</odoo>
