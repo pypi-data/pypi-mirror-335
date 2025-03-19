@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gwerks"
+authors = [{name = "Ron Glasmann", email = "ron@glasmann.net"}]
+dynamic = ["version"]
+dependencies = [
+    'boto3',
+    'tenacity',
+    'pyyaml',
+    'smart_open[s3]'
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "gwerks.__version__"}
+
+[project.scripts]
+gwerks = "gwerks.cli:gwerks"
