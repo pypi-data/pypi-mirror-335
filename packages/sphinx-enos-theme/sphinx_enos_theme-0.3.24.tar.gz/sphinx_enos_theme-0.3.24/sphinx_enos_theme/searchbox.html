@@ -1,0 +1,16 @@
+{%- if (language == 'en') or (language == 'en_us') or (language == 'en_US') or (language == 'EN_US') %}
+{%- set search_placeholder = 'Search this document' %}
+{%- else %}
+{%- set search_placeholder = '在文档内搜索' %}
+{%- endif%}
+{%- if builder != 'singlehtml' %}
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="{{ pathto('search') }}" method="get">
+    <input class="search-input" type="text" name="q" placeholder="{{search_placeholder}}" />
+    <span class="dplicon_search"></span>
+    <span class="dplicon_wrong"></span>
+    <input type="hidden" name="enos_docs_check" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+{%- endif %}

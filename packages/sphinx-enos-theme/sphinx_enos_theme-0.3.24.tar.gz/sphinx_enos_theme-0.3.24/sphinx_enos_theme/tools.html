@@ -1,0 +1,35 @@
+<div class="links">
+  {% if READTHEDOCS %} {%- set g_url = slug %}
+  <div class="link-item versions">
+      <div class="current">
+          {{ current_version }}<span class="dplicon_caret_down_s"></span>
+      </div>
+          <ul class="others">
+              {% for slug, url in versions %}
+              {% if slug != 'dev' %}
+              <li
+                      class="enos-version-trigger"
+                      data-next-url="{{ url }}"
+                      data-slug="{{ g_url }}"
+              >
+                  {{ slug }}
+              </li>
+              {%endif%}
+              {% endfor %}
+          </ul>
+  </div>
+  {%endif%}
+  <div class="link-item locales" >
+      <div class="current">
+          {{currentLan}} <span class="dplicon_caret_down_s"></span>
+      </div>
+      <ul class="others">
+          <li data-key="en">
+              English
+          </li>
+          <li data-key="zh_CN">
+              简体中文
+          </li>
+      </ul>
+  </div>
+  </div>
