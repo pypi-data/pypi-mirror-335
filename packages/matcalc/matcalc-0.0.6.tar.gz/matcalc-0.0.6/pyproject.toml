@@ -1,0 +1,127 @@
+[project]
+name = "matcalc"
+authors = [
+    { name = "Runze Liu", email = "rul048@ucsd.edu" },
+    { name = "Eliott Liu", email = "elliottliu17@gmail.com" },
+    { name = "Janosh Riebesell", email = "janosh@lbl.gov" },
+    { name = "Ji Qi", email = "j1qi@ucsd.edu" },
+    { name = "Shyue Ping Ong", email = "ongsp@ucsd.edu" },
+    { name = "Tsz Wai Ko", email = "t1ko@ucsd.edu" },
+]
+description = "Calculators for materials properties from the potential energy surface."
+readme = "README.md"
+requires-python = ">=3.9"
+keywords = [
+    "AI",
+    "deep learning",
+    "force field",
+    "graph",
+    "interatomic potential",
+    "machine learning",
+    "materials",
+    "property prediction",
+    "science",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Chemistry",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = ["ase>=3.23.0", "joblib", "phonopy", "pymatgen", "numpy<2.0.0"]
+version = "0.0.6"
+
+[project.optional-dependencies]
+models = ["chgnet>=0.3.8", "mace-torch>=0.3.6", "matgl>=1.0.0", "sevenn>=0.9.3", "maml>=2024.6.13", "dgl<=2.1.0", "torch<=2.2.1","nequip>=0.6.1"]
+ci = ["pytest-cov>=4", "pytest-split>=0.8", "pytest>=8", "coverage", "coveralls"]
+phonon = ["seekpath"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["matcalc", "matcalc.*"]
+
+[build-system]
+requires = ["oldest-supported-numpy", "setuptools>=58.0.3"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+extend-include = ["*.ipynb"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN101",
+    "ANN401",
+    "COM812",  # trailing comma missing
+    "D205",    # 1 blank line required between summary line and description
+    "D212",    # Multi-line docstring summary should start at the first line
+    "EM101",
+    "EM102",
+    "ISC001",
+    "PLR0913", # too many arguments
+    "PLW0603", # Using the global statement to update variables is discouraged
+    "PTH",     # prefer Path to os.path
+    "SIM105",  # Use contextlib.suppress(OSError) instead of try-except-pass
+    "TRY003",
+]
+exclude = ["docs/conf.py"]
+pydocstyle.convention = "google"
+isort.required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tasks.py" = ["ANN", "D", "T203"]
+"tests/*" = ["D", "INP001", "N802", "N803", "PLR2004", "S101"]
+
+[tool.pytest.ini_options]
+addopts = "--durations=30 --quiet -rXs --color=yes -p no:warnings"
+
+[tool.mypy]
+ignore_missing_imports = true
+explicit_package_bases = true
+no_implicit_optional = false
+exclude = ['examples', 'tests']
+
+[[tool.mypy.overrides]]
+module = ["requests.*", "tabulate.*"]
+ignore_missing_imports = true
+
+[tool.codespell]
+ignore-words-list = "mater,te,nd,Commun"
+check-filenames = true
+
+[tool.coverage.run]
+relative_files = true
+
+[tool.coverage.report]
+exclude_lines = [
+    "@deprecated",
+    "def __repr__",
+    "except PackageNotFoundError:",
+    "if 0:",
+    "if TYPE_CHECKING:",
+    "if __name__ == .__main__.:",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "input",
+    "pragma: no cover",
+    "raise AssertionError",
+    "raise NotImplementedError",
+]
+
+[tool.pyright]
+reportMissingImports = false
+reportPossiblyUnboundVariable = true
+reportUnboundVariable = true
