@@ -1,0 +1,100 @@
+- label: "模型类型选择"
+  options:
+    - "一见多模态大模型-Lite"
+  name: "networkArchitecture"
+  defaultIndex: 0
+  help: "在多模态大模型中，不同规模模型的参数数量不同，Lite版本参数更少，但推理速度更快"
+  type: "Select"
+
+- label: "训练轮数"
+  min: 1
+  max: 100
+  # defaultValue: 80
+  defaultValue: 10
+  step: 1
+  name: "epoch"
+  help: "训练轮数 (Epochs) 指每个样本被训练的次数；⽀持输⼊1～100的整数"
+  type: "inputNumber"
+
+- label: "数据读取进程数量"
+  min: 1
+  max: 8
+  defaultValue: 2
+  step: 1
+  name: "workerNum"
+  help: "多卡训练中，每一张卡数据读取时使用的并行进程数量，参数越大占用内存越多；⽀持输⼊1～8的整数"
+  type: "inputNumber"
+
+- label: "批次大小"
+  min: 1
+  max: 16
+  defaultValue: 1
+  step: 1
+  name: "batchSize"
+  help: "批次⼤⼩ (Batch Size) 是指⼀次训练(Iteration)所包含的样本数，BatchSize越⼤，显存占⽤越⼤；⽀持输⼊1～16的整数"
+  type: "inputNumber"
+
+- label: "基础学习率"
+  min: 0.00001
+  max: 0.5
+  defaultValue: 0.00001
+  step: 0.00001
+  name: "learning_rate"
+  formatter: "%f"
+  help: "基础学习率 (Learning Rate) 控制了模型参数更新步⻓，⾼学习率可能跳过最优解，低学习率收敛慢；⽀持输⼊0.00001～0.5的数字"
+  type: "inputNumber"
+
+- label: "梯度检查点"
+  options:
+    - "True"
+    - "False"
+  name: "gradient_checkpointing"
+  defaultIndex: 0
+  help: "梯度检查点 (Gradient Checkpointing) 旨在减少内存使⽤和提⾼⼤型模型的可训练性；开启可以节约显存, 但会略微降低训练速度"
+  type: "Select"
+
+- label: "最⼤序列⻓度"
+  min: 500
+  max: 8192
+  defaultValue: 2048
+  step: 1
+  name: "max_length"
+  help: "最⼤序列⻓度 (Max Length) 指单个训练数据样本的最⼤⻓度，超出配置⻓度将丢弃，⽀持输⼊500～8192的整数"
+  type: "inputNumber"
+
+- label: "输出截断策略"
+  options:
+    - "delete"
+    - "left"
+    - "right"
+  name: "truncation_strategy"
+  defaultIndex: 0
+  help: "输出截断策略 (Truncation Strategy) 指在处理数据时单样本的tokens超过m最⼤序列⻓度处理策略；支持删除、左侧裁剪和右侧裁剪"
+  type: "Select"
+
+- label: "冻结语⾔模型"
+  options:
+    - "True"
+    - "False"
+  name: "freeze_llm"
+  defaultIndex: 1
+  help: "冻结语⾔模型 (Freeze_LLM) 决定语⾔模型参数是否参与训练；默认不冻结"
+  type: "Select"
+
+- label: "冻结图像编码器"
+  options:
+    - "True"
+    - "False"
+  name: "freeze_vit"
+  defaultIndex: 0
+  help: "冻结图像编码器 (Freeze Vit) 决定图像编码器参数是否参与训练；默认冻结"
+  type: "Select"
+
+- label: "冻结特征对齐模块"
+  options:
+    - "True"
+    - "False"
+  name: "freeze_aligner"
+  defaultIndex: 0
+  help: "冻结特征对齐模块 (Freeze Aligner) 决定特征对齐模块参数是否参与训练；默认冻结"
+  type: "Select"
