@@ -1,0 +1,47 @@
+from pydantic import BaseModel, ConfigDict, Field
+from typing import Any, Dict, Optional, Type
+
+
+
+class MoveEmailResponse(BaseModel):
+    """
+    Attributes:
+        id (Optional[str]): A unique identifier for the specific email message. Example: 19468958b5e51c05.
+        label_ids (Optional[list[str]]):  Example: SENT.
+        thread_id (Optional[str]): A unique identifier for the email thread. Example: 19468958b5e51c05.
+    """
+
+    model_config = ConfigDict(extra="allow", populate_by_name=True)
+
+    id: Optional[str] = Field(alias="id", default=None)
+    label_ids: Optional[list[str]] = Field(alias="labelIds", default=None)
+    thread_id: Optional[str] = Field(alias="threadId", default=None)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return self.model_dump(exclude_none=True, by_alias=True)
+
+    @classmethod
+    def from_dict(cls: Type["MoveEmailResponse"], src_dict: Dict[str, Any]):
+        return cls.model_validate(src_dict)
+
+    @property
+    def additional_keys(self) -> list[str]:
+        base_fields = self.model_fields.keys()
+        return [k for k in self.__dict__ if k not in base_fields]
+
+    def __getitem__(self, key: str) -> Any:
+        if key in self.__dict__:
+            return self.__dict__[key]
+        raise KeyError(key)
+
+    def __setitem__(self, key: str, value: Any) -> None:
+        self.__dict__[key] = value
+
+    def __delitem__(self, key: str) -> None:
+        if key in self.__dict__:
+            del self.__dict__[key]
+        else:
+            raise KeyError(key)
+
+    def __contains__(self, key: str) -> bool:
+        return key in self.__dict__
