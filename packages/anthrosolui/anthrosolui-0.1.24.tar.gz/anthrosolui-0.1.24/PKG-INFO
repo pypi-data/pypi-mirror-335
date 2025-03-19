@@ -1,0 +1,74 @@
+Metadata-Version: 2.2
+Name: anthrosolui
+Version: 0.1.24
+Summary: UI component library built on FastHTML, MonsterUI Tailwind, and DaisyUI
+Home-page: https://github.com/breytenlybaert/AnthrosolUI
+Author: Breyten Lybaert
+Author-email: breyten@anthrosol.com
+License: Apache Software License 2.0
+Keywords: nbdev jupyter notebook python ui components
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: provides-extra
+Dynamic: requires-python
+Dynamic: summary
+
+# anthrosolui Getting Started
+
+## Installation
+
+To install this library, uses
+
+`pip install anthrosolui`
+
+## Getting Started
+
+### TLDR
+
+TBD
+
+## LLM context files
+
+TBD
+
+### Step by Step
+
+To get started, check out:
+
+1.  Start by importing the modules as follows:
+
+``` python
+from fasthtml.common import *
+from anthrosolui.all import *
+```
+
+2.  Instantiate the app with the anthrosolui headers
+
+``` python
+app = FastHTML(hdrs=AnthrosolTheme.epso.headers())
+
+# Alternatively, using the fast_app method
+app, rt = fast_app(hdrs=Theme.slate.headers())
+```
+
+> *The color option can be any of the theme options available out of the
+> box*
+
+From here, you can explore the API Reference & examples to see how to
+implement the components. You can also check out these demo videos to as
+a quick start guide:
