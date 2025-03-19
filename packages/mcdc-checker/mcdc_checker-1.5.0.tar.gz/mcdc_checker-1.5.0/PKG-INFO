@@ -1,0 +1,44 @@
+Metadata-Version: 2.3
+Name: mcdc-checker
+Version: 1.5.0
+Summary: A tool to check C/C++ source code for non tree-like binary decisions so that its MCDC test coverage can be assessed with GCov
+License: MPL-2.0
+Keywords: mcdc,coverage,gcov,testing
+Author: Thomas Wucher
+Author-email: thomas.wucher@gtd-gmbh.de
+Requires-Python: >=3.10,<4.0
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved
+Classifier: Programming Language :: C
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Testing :: Unit
+Classifier: Topic :: Utilities
+Requires-Dist: clang (>=19.1.7,<20.0.0)
+Project-URL: Documentation, https://gtd-gmbh.gitlab.io/mcdc-checker/mcdc-checker
+Project-URL: Repository, https://gitlab.com/gtd-gmbh/mcdc-checker/mcdc-checker
+Description-Content-Type: text/markdown
+
+# GTD MCDC Checker
+
+This repository contains a tool to check all conditions in your C/C++ source code if they are in
+the necessary form, so that Gcov can generate modified condition decision
+coverage. This tool requires LLVM/Clang 19 or newer to be installed.
+
+## Documentation
+
+For instructions on how to setup and use this Tool, please refer to the
+[Documentation](https://gtd-gmbh.gitlab.io/mcdc-checker/mcdc-checker).
+
+## License
+
+The MCDC Checker source code implemented by GTD GmbH is subject to the Mozilla Public License 2.0
+as indicated by the headers of the corresponding source code files. Third party libraries used
+herein are subject to their own licence terms, which is the BSD license for Clang itself and
+patches to its source code as well as the PBL and PBDD libraries.
+
