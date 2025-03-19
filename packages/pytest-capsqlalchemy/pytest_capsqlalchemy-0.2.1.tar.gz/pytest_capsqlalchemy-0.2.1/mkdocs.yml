@@ -1,0 +1,79 @@
+site_name: pytest-capsqlalchemy
+repo_url: https://github.com/softwareone-platform/pytest-capsqlalchemy
+site_url: https://softwareone-platform.github.io/pytest-capsqlalchemy
+site_description: Pytest plugin to allow capturing SQLAlchemy queries.
+site_author: Artur Balabanov
+edit_uri: edit/main/docs/
+repo_name: softwareone-platform/pytest-capsqlalchemy
+copyright: <a href="https://softwareone.com">SoftwareOne</a>
+
+nav:
+  - Home: index.md
+  - "API Reference": api-reference.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ["pytest_capsqlalchemy"]
+          options:
+            separate_signature: true
+            show_signature_annotations: true
+            signature_crossrefs: true
+            members_order: source
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+
+theme:
+  name: material
+  feature:
+    tabs: true
+  features:
+    - content.code.copy
+    - content.code.annotate
+  logo_dark_mode: assets/softwareone-logo-dark-mode.svg
+  logo_light_mode: assets/softwareone-logo-light-mode.svg
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+  custom_dir: docs/templates
+
+extra_css:
+  - stylesheets/extra.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/softwareone-platform/pytest-capsqlalchemy
+    - icon: fontawesome/brands/python
+      link: https://pypi.org/project/pytest-capsqlalchemy
+
+markdown_extensions:
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - admonition
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
