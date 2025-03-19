@@ -1,0 +1,56 @@
+$schema: "https://moonrepo.dev/schemas/project.json"
+type: library
+language: python
+tags: [pytest]
+
+project:
+  name: "sdk"
+  description: "The SDK that our customers can use to access our API."
+
+dependsOn:
+  - schemas
+
+tasks:
+  publish-pypi:
+    description: "Publish the SDK to PyPI."
+    deps:
+      - target: publish
+        env:
+          PUBLISH_INDEX: "pypi"
+    local: true
+
+  publish-test:
+    description: "Publish the SDK to TestPyPI."
+    deps:
+      - target: publish
+        env:
+          PUBLISH_INDEX: "testpypi"
+    local: true
+
+  publish:
+    description: "Publish the SDK to a selected index."
+    script: |
+      set -a
+
+      latest_version=$(uv run --no-sync python -c 'import truthsys; print(truthsys.__version__)')
+
+      echo "Publish version $latest_version to ${PUBLISH_INDEX}? (y/N)"
+      read -r response
+      if [[ "$response" != "y" && "$response" != "Y" ]]; then
+        echo "Publishing aborted."
+        exit 1
+      fi
+
+      source .env.${PUBLISH_INDEX}
+      uv publish --index ${PUBLISH_INDEX} --username __token__ "$workspaceRoot/dist/truthsys-${latest_version}-*.whl" "$workspaceRoot/dist/truthsys-${latest_version}.tar.gz"
+    inputs:
+      - $PUBLISH_INDEX
+    deps:
+      - root:install-deps
+      - check
+      - test
+      - build
+    local: true
+    options:
+      interactive: true
+      internal: true
