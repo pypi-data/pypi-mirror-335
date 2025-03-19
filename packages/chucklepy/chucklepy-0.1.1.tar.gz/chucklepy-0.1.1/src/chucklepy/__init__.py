@@ -1,0 +1,1 @@
+from .fun import generate_pun, comedic_insult, amuseify_text, random_fortune
