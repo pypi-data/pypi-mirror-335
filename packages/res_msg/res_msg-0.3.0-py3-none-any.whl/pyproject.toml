@@ -1,0 +1,38 @@
+[project]
+name = "res_msg"
+version = "0.3.0"
+description = "一个简单的Python包，用于演示Python虚拟环境和包管理工具。"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "requests-mock>=1.11.0",
+]
+
+[project.scripts]
+res-msg = "res_msg.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
+explicit = true
+
+# 构建配置
+[tool.hatch.build]
+include = [
+    "/src",
+    "pyproject.toml",
+    "README.md",
+]
