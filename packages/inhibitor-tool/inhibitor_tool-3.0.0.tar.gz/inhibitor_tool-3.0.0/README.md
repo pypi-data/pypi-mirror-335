@@ -1,0 +1,108 @@
+
+---
+
+# **`inhibitor_tool`**  
+
+## **📌 Introduction**  
+
+`inhibitor_tool` is a Python CLI tool that allows users to send inhibition requests via an API.  
+It supports authentication through environment variables loaded from `auth_token`.  
+
+---
+
+## **🛠 Installation**  
+You can install the package using `pip`:  
+
+```bash
+pip3 install inhibitor_tool
+```
+
+---
+
+## **🔧 Configuration**  
+
+### **1️⃣ Set Up Authentication**  
+Before using `inhibitor_tool`, you must configure authentication credentials in `~/.auth_token` and load them into the environment:  
+
+```bash
+echo 'export USERNAME="mmwei3"' >> ~/.auth_token
+echo 'export PASSWORD="mmwei3password"' >> ~/.auth_token
+echo 'export LOGIN_URL="https://auth.example.com/token"' >> ~/.auth_token
+echo 'export INHIBIT_URL="https://inhibitor.example.com/add"' >> ~/.auth_token
+
+source ~/.auth_token
+```
+
+> 💡 **Important:** The `source ~/.auth_token` command must be executed every time a new session is started.
+
+---
+
+## **🚀 Usage**  
+
+### **2️⃣ Inhibit an Item (Default TTL: 3 hours)**  
+```bash
+inhibitor-tool --content "MaliciousIP:192.168.1.1"
+```
+
+### **3️⃣ Specify a Custom TTL**  
+```bash
+inhibitor-tool --content "MaliciousIP:192.168.1.1" --ttl 6
+```
+- `--ttl 6` means the inhibition will last **6 hours** (default is **3 hours**).  
+
+### **4️⃣ Add a Custom Remark**  
+```bash
+inhibitor-tool --content "MaliciousIP:192.168.1.1" --ttl 6 --remark "Security alert"
+```
+- The remark helps track the reason for inhibition.  
+- If omitted, it defaults to `"tmp_inhibitor"`.
+
+---
+
+## **📜 Open-Source Information**  
+- **Author**: mmwei3  
+- **Email**: mmwei3@iflytek.com  
+- **Contact**: 178555350258  
+- **Date**: 2025-03-19  
+- **License**: MIT License  
+
+---
+
+## **📦 Packaging & Deployment**  
+
+### **5️⃣ Build the Package**  
+```bash
+python setup.py sdist bdist_wheel
+```
+
+### **6️⃣ Install from Local Package**  
+```bash
+pip install dist/inhibitor_tool-1.0.0-py3-none-any.whl
+```
+
+### **7️⃣ Uninstall the Package**  
+```bash
+pip uninstall inhibitor_tool
+```
+
+---
+
+## **📜 License (MIT)**  
+```text
+MIT License
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction...
+```
+
+---
+
+## **📌 Dependencies (`requirements.txt`)**  
+```text
+requests
+```
+
+---
+
+This `README.md` provides a **clear, structured, and fully configurable** CLI tool for API-based inhibition with authentication and `pip` installation. 🚀
