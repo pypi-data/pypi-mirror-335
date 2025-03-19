@@ -1,0 +1,25 @@
+[optimization]
+maxit = 150
+starting_date = 1999-08-31
+[files]
+pet = "pet_perpignan_1970_2006.prn"
+rainfall = "rainfall_perpignan_1970_2006.prn"
+tree = "perpignan.csv"
+groundwaterpumping = "pumping_perpignan_1970_2007.prn"
+groundwaterobs = "watertable_perpignan_1970_2006.prn"
+[watershed.all]
+river.weight = 0
+thornthwaite.capacity = {value=0, opti=false}
+progressive.capacity = {value=100, opti=true, sameas=0, lower=0.000, upper=900}
+correction.pet = {value=0, opti=true, sameas=0, lower=-20, upper=20}
+transfer.runsee = {value=9999.0, opti=false, sameas=0, lower=1e-3, upper=9999}
+transfer.halflife = {value=1, opti=true, sameas=0, lower=0.015, upper=20}
+groundwater.weight = 1
+groundwater.base_level = { opti = true }
+groundwater.storage.regression = true
+groundwater.storage.coefficient = {value=100, opti=true, lower=0.02, upper=50}
+groundwater.1.exchanges = {value=0, opti=true, sameas=0, lower=-40, upper=40}
+groundwater.1.halflife_baseflow = {value=6, opti=true, sameas=0, lower=1.5, upper=35}
+pumping.groundwater.coefficient = {value=1, opti=true}
+pumping.groundwater.halflife_rise = {value=0.5, opti=true, sameas=0, lower=0.05, upper=10}
+pumping.groundwater.halflife_fall = {value=2, opti=true, sameas=0, lower=0.05, upper=15}
