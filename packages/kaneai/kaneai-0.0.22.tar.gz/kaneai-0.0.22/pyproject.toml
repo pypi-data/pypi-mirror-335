@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kaneai"
+version = "0.0.22"
+description = "A package for UI automation and healing using Selenium"
+authors = [
+    {name = "Navin Chandra", email = "navinchandra@lambdatest.com"},
+]
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "selenium>=4.0.0",
+    "requests>=2.25.1",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/LambdatestIncPrivate/web-kaneai-code-runner"
+"Bug Tracker" = "https://github.com/LambdatestIncPrivate/web-kaneai-code-runner/issues"
