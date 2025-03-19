@@ -1,0 +1,240 @@
+# AWS-CO: AWS Role Assumption CLI Tool
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+A powerful CLI tool that simplifies working with multiple AWS accounts by automating role assumption and credential management. Perfect for DevOps engineers, cloud administrators, and anyone who regularly works across multiple AWS accounts.
+
+## Features
+
+- **Seamless Role Assumption**: Automatically assume IAM roles across accounts
+- **Command Passthrough**: Run any AWS CLI command with assumed credentials
+- **Profile Management**: Configure and use different AWS profiles
+- **Account History**: Track and quickly access recently used accounts
+- **Customizable Defaults**: Set your preferred profile and role name
+- **User-Friendly Interface**: Comprehensive help and error messages
+- **Configuration Persistence**: Settings stored in `~/.aws-co.json`
+- **Quick Setup**: Easy configuration with the setup command
+
+## Installation
+
+### Prerequisites
+
+- Python 3.6+
+- AWS CLI installed and configured
+- AWS credentials with permission to assume roles
+
+### Install from PyPI
+
+```bash
+# Install directly from PyPI
+pip install aws-co
+```
+
+### Install from Source
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/aws-co.git
+cd aws-co
+
+# Install the package
+pip install --user -e .
+```
+
+### Verify Installation
+
+```bash
+aws-co --help
+```
+
+## Quick Start
+
+The fastest way to get started is to use the setup command:
+
+```bash
+# Set up with both SaaS account and a target account (recommended)
+aws-co setup -s YOUR_SAAS_ACCOUNT_ID -t YOUR_TARGET_ACCOUNT_ID
+
+# Or set up with just the SaaS account
+aws-co setup -s YOUR_SAAS_ACCOUNT_ID
+```
+
+This will:
+1. Verify your AWS CLI installation
+2. Check your AWS profile configuration
+3. Test role assumption in the target account (if provided)
+4. Save your configuration for future use
+
+When you set up with both accounts, you can run commands without specifying the target account each time:
+
+```bash
+# With default target account set
+aws-co run s3 ls
+
+# With explicit target account
+aws-co run -a 123456789012 s3 ls
+```
+
+## Usage
+
+### Basic Usage
+
+```bash
+# Format
+aws-co [COMMAND] [OPTIONS]
+
+# Example: List S3 buckets in account 123456789012
+aws-co run -a 123456789012 s3 ls
+```
+
+### Available Commands
+
+```
+Commands:
+  run     Run AWS CLI commands with assumed role credentials
+  config  Configure default settings
+  recent  Show recently used accounts
+  setup   Quick setup for SaaS and target accounts
+```
+
+### Command Options
+
+```
+Options for run command:
+  -a, --account TEXT  Target AWS account ID (optional if default target is set)
+  -p, --profile TEXT  AWS profile to use (default: saas-co)
+  -r, --role TEXT     Role name to assume (default: ESW-CO-PowerUser-P2)
+  --debug             Enable debug logging
+  --help              Show this message and exit.
+```
+
+### Configuration
+
+Set default profile and role:
+
+```bash
+aws-co config --set-profile my-profile --set-role MyRoleName
+```
+
+View current configuration:
+
+```bash
+aws-co config
+```
+
+### Recent Accounts
+
+View recently used accounts:
+
+```bash
+aws-co recent
+```
+
+## Examples
+
+### Basic AWS Commands
+
+```bash
+# Get caller identity
+aws-co run -a 123456789012 sts get-caller-identity
+
+# List EC2 instances
+aws-co run -a 123456789012 ec2 describe-instances
+
+# List CloudFormation stacks
+aws-co run -a 123456789012 cloudformation list-stacks
+```
+
+### Cost Optimization
+
+```bash
+# Get EC2 reservation recommendations
+aws-co run -a 123456789012 ce get-reservation-purchase-recommendation \
+  --service "Amazon Elastic Compute Cloud - Compute" \
+  --term "ONE_YEAR" \
+  --payment-option "NO_UPFRONT"
+
+# Get RDS reservation recommendations
+aws-co run -a 123456789012 ce get-reservation-purchase-recommendation \
+  --service "Amazon Relational Database Service" \
+  --term "ONE_YEAR" \
+  --payment-option "NO_UPFRONT"
+```
+
+### Using Different Profiles and Roles
+
+```bash
+# Use a specific profile
+aws-co run -a 123456789012 -p production-profile s3 ls
+
+# Assume a specific role
+aws-co run -a 123456789012 -r AdminRole ec2 describe-instances
+```
+
+## Configuration File
+
+The configuration file is stored at `~/.aws-co.json` and has the following structure:
+
+```json
+{
+  "default_profile": "saas-co",
+  "default_role": "ESW-CO-PowerUser-P2",
+  "saas_account": "123456789012",
+  "default_target": "987654321098",
+  "recent_accounts": [
+    "987654321098",
+    "210987654321"
+  ]
+}
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Role assumption fails**: Ensure your AWS credentials have permission to assume the target role
+2. **Command not found**: Make sure `~/.local/bin` is in your PATH
+3. **Invalid credentials**: Check that your AWS profile is correctly configured
+
+### Debug Mode
+
+Add `--debug` to see detailed debugging information:
+
+```bash
+aws-co run -a 123456789012 --debug s3 ls
+```
+
+## For Friends and Team Members
+
+If you received this tool from a friend or team member:
+
+1. Install the package:
+   ```bash
+   pip install aws-co
+   ```
+
+2. Run the setup command with your SaaS account ID and optionally a target account ID:
+   ```bash
+   # Set up with both accounts (recommended for convenience)
+   aws-co setup -s YOUR_SAAS_ACCOUNT_ID -t YOUR_TARGET_ACCOUNT_ID
+   
+   # Or set up with just the SaaS account
+   aws-co setup -s YOUR_SAAS_ACCOUNT_ID
+   ```
+
+3. Start using the tool:
+   ```bash
+   # If you set a default target account:
+   aws-co run s3 ls
+   
+   # Otherwise, specify the target account each time:
+   aws-co run -a YOUR_TARGET_ACCOUNT_ID s3 ls
+   ```
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
