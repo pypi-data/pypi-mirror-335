@@ -1,0 +1,49 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"   
+
+[project]
+name = "privadjust"
+version = "1.0.11"
+authors = [
+  { name="Marta Jones González", email="martajon10@gmail.com" },
+]
+description = "Adaptation of differential privacy algorithms applied to learning analytics."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+    "matplotlib",
+    "numpy",
+    "pandas",
+    "progress",
+    "tabulate",
+    "sympy",
+    "scipy",
+    "tqdm",
+    "optuna",
+    "openpyxl",
+    "rich",
+    "colorama"
+]
+
+[project.urls]
+Homepage = "https://github.com/martaajonees/Local_Privacy"
+Issues = "https://github.com/martaajonees/Local_Privacy/issues"
+
+[project.scripts]
+individualadjust = "privadjust.cli:main"
+generaladjust = "privadjust.cli:main_general"
+
+
+
+
+[tool.setuptools]
+include-package-data = true
+
+
