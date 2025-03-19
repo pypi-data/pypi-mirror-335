@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_users_view_form_profile" model="ir.ui.view">
+        <field name="name">res.users.preferences.personal.form</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="hr.res_users_view_form_profile" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='personal_information']" position="replace">
+                <page name="personal_information" string="Private Information">
+                    <group>
+                        <group string="Contact Information">
+                            <field name="employee_ids" invisible="1" />
+                            <field
+                                name="address_home_id"
+                                context="{
+                                    'show_address': 1,
+                                    'default_employee_ids': employee_ids,
+                                    'default_type': 'private',
+                                    'form_view_ref': 'base.res_partner_view_form_private'}"
+                                options='{"always_reload": True, "highlight_first_line": True}'
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="private_email"
+                                string="Email"
+                                attrs="{'readonly': [('can_edit', '=', False)], 'invisible': [('address_home_id', '=', False)]}"
+                            />
+                            <field
+                                name="employee_phone"
+                                string="Phone"
+                                class="o_force_ltr"
+                                attrs="{'readonly': [('can_edit', '=', False)], 'invisible': [('address_home_id', '=', False)]}"
+                                options="{'enable_sms': false}"
+                            />
+                            <field
+                                name="employee_bank_account_id"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="km_home_work"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                        </group>
+                        <group string="Citizenship">
+                            <field
+                                name="nationality_id"
+                                string="Nationality (Country)"
+                                options='{"no_open": True, "no_create": True}'
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="gender"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="birthdate_date"
+                                string="Date of Birth"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="birth_city"
+                                string="Place of Birth"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="birth_country_id"
+                                string="Country of Birth"
+                                options='{"no_open": True, "no_create": True}'
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="birth_state_id"
+                                string="Birth State"
+                                options='{"no_open": True, "no_create": True}'
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="religion_id"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="ethnicity_id"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="blood_type"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="blood_type_rhesus"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                        </group>
+                        <group string="Marital Status">
+                            <field
+                                name="marital"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="spouse_complete_name"
+                                attrs="{'readonly': [('can_edit', '=', False)], 'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"
+                            />
+                            <field
+                                name="spouse_birthdate"
+                                attrs="{'readonly': [('can_edit', '=', False)], 'invisible': [('marital', 'not in', ['married', 'cohabitant'])]}"
+                            />
+                        </group>
+                        <group string="Dependant">
+                            <field
+                                name="children"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                        </group>
+                        <group string="Emergency">
+                            <field
+                                name="emergency_contact"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="emergency_phone"
+                                widget="phone"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                                options="{'enable_sms': false}"
+                            />
+                        </group>
+                        <group string="Work Permit" name="work_permit">
+                            <field
+                                name="visa_no"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="permit_no"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                            <field
+                                name="visa_expire"
+                                attrs="{'readonly': [('can_edit', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
