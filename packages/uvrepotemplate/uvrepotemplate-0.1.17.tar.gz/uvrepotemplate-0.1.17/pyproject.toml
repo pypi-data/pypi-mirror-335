@@ -1,0 +1,77 @@
+# spell-checker: words addopts, autogitsemver, kwargs, mccabe, pytest, uvrepotemplate
+
+[project]
+name = "uvrepotemplate"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "David Brownell", email = "github@davidbrownell.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+dynamic = ["version"]
+
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.10",
+]
+
+license = { text = "MIT" }
+
+[project.urls]
+Homepage = "https://github.com/davidbrownell/uvRepoTemplate"
+Documentation = "https://github.com/davidbrownell/uvRepoTemplate"
+Repository = "https://github.com/davidbrownell/uvRepoTemplate"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "ruff>=0.9.0",
+    "autogitsemver>=0.7.8",
+]
+
+[tool.hatch.version]
+path = "src/uvrepotemplate/__init__.py"
+
+[tool.pytest.ini_options]
+addopts = "--verbose -vv --capture=no --cov=uvrepotemplate --cov-fail-under=95.0"
+
+[tool.ruff]
+line-length = 110
+
+[tool.ruff.lint]
+exclude = ["tests/**"]
+
+select = ["ALL"]
+
+ignore = [
+    "ANN002", # Missing type annotation for `*args`
+    "ANN003", # Missing type annotation for `**kwargs`
+    "BLE001", # Do not catch blind exception: `Exception`
+    "COM812", # Trailing comma missing
+    "D202", # No blank lines allowed after function docstring
+    "E501", # Line too long
+    "N802", # Function name `xxx` should be lowercase
+    "S101", # Use of assert detected
+    "UP032", # Use f-string instead of `format` call
+]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 15
+
+[tool.ruff.lint.pylint]
+max-args = 10
+max-branches = 20
+max-returns = 20
