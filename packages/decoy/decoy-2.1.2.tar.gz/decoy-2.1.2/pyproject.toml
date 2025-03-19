@@ -1,0 +1,99 @@
+[tool.poetry]
+name = "decoy"
+version = "2.1.2"
+description = "Opinionated mocking library for Python"
+authors = ["Michael Cousins <michael@cousins.io>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/mcous/decoy"
+homepage = "https://michael.cousins.io/decoy/"
+documentation = "https://michael.cousins.io/decoy/"
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Testing :: Mocking",
+    "Typing :: Typed",
+]
+
+[tool.poetry.urls]
+"Changelog" = "https://github.com/mcous/decoy/releases"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+
+[tool.poetry.group.dev.dependencies]
+poethepoet = "0.19.0"
+
+[tool.poetry.group.test.dependencies]
+coverage = { version = "7.2.7", extras = ["toml"] }
+mypy = [
+    { version = "1.4.1", python = "<3.8" },
+    { version = "1.5.0", python = ">=3.8" },
+]
+pytest = "7.4.0"
+pytest-asyncio = "0.21.1"
+pytest-mypy-plugins = "2.0.0"
+pytest-xdist = "3.5.0"
+ruff = "0.1.3"
+
+[tool.poetry.group.docs.dependencies]
+mkdocs = { version = "1.5.3", python = ">=3.8" }
+mkdocs-material = { version = "9.4.8", python = ">=3.8" }
+mkdocstrings = { version = "0.23.0", extras = ["python"], python = ">=3.8" }
+
+[tool.poe.tasks]
+all = [
+    "check",
+    "lint",
+    "format-check",
+    "test-once",
+    "coverage",
+    "docs-build",
+    "build",
+]
+check = "mypy"
+lint = "ruff check ."
+format = "ruff format ."
+format-check = "ruff format --check ."
+test = "pytest -f"
+test-once = "coverage run --branch --source=decoy -m pytest --mypy-same-process"
+coverage = "coverage report"
+coverage-xml = "coverage xml"
+docs = "mkdocs serve"
+docs-build = "mkdocs build"
+build = "poetry build"
+check-ci = ["check", "lint", "format-check"]
+test-ci = ["test-once", "coverage-xml"]
+build-ci = ["docs-build", "build"]
+
+[tool.poetry.plugins."pytest11"]
+"decoy" = "decoy.pytest_plugin"
+
+[tool.pytest.ini_options]
+addopts = "--color=yes --mypy-ini-file=tests/typing/mypy.ini --mypy-only-local-stub"
+asyncio_mode = "auto"
+
+[tool.mypy]
+files = ["decoy", "tests"]
+plugins = ["decoy/mypy/plugin.py"]
+strict = true
+show_error_codes = true
+
+[tool.coverage.report]
+exclude_lines = ["@overload", "if TYPE_CHECKING:"]
+
+[tool.ruff]
+target-version = "py37"
+extend-exclude = [".cache"]
+select = ["ANN", "B", "D", "E", "F", "RUF", "W"]
+ignore = ["ANN101", "ANN102", "ANN401", "D107", "E501"]
+
+[tool.ruff.pydocstyle]
+convention = "google"
+
+[build-system]
+requires = ["poetry_core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
