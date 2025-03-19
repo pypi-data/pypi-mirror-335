@@ -1,0 +1,76 @@
+Metadata-Version: 2.1
+Name: wsa-toetsing-tool
+Version: 1.0.0
+Summary: Postprocessing tool voor WSA toetsing
+Home-page: https://hhdelfland.visualstudio.com/Waterhuishouding/_git/WSA_toetsing_tool
+Author: Emiel Verstegen
+Author-email: emiel.verstegen@rhdhv.com
+License: GPL-3.0
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# wsa-toetsing-tool
+This is the `wsa-toetsing-tool`, a Python package designed to facilitate testing and evaluation processes.
+
+## Installation
+You can install the package using pip, but it is dependent on the correct python and GDAL versions.
+
+### Using conda
+
+ Run the following command in your terminal (replace ```<<name>>``` with the name you would like for your environment):
+
+```
+conda create --name <<name>> python=3.10
+conda activate <<name>>
+conda install -c conda-forge gdal==3.6.2
+set GDAL_VERSION=3.6.2
+pip install wsa_toetsing_tool
+```
+
+## Usage
+
+This tool can be used command line. The following commands are available:
+- ```bergingstoets```
+- ```knelpuntanalyse```
+- ```compensatie_scenarios```
+- ```compensatie_toetshoogte```
+- ```samenvoegen_resultaten```
+
+Type ```<<command>> --help``` for more information regarding the usage.
+
+### Documentation
+Documentation can be found [here](docs/Documentatie%20WSA%20toetsing.docx)
+
+### Change history
+Full change history can be found [here](CHANGELOG.md)
+## Deployment
+
+Deployment over PyPi, using the following commands:
+
+```
+python setup.py sdist bdist_wheel
+twine upload dist/*
+```
+
+If Twine is not yet installed, you can install this using:
+```
+pip install twine
+```
+
+Some versions of twine give the following issue:
+```ERROR    InvalidDistribution: Invalid distribution metadata: unrecognized or malformed field 'license-file'```. A known working version of twine can be installed using:
+
+```
+pip install twine==6.0.1
+```
+
+
+
+## License
+This project is licensed under the GNU GPLv3 License - see the LICENSE file for details.
+
