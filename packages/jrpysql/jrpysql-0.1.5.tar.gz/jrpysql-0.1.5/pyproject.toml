@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "jrpysql"
+version = "0.1.5"
+description = "Jumping Rivers: Introduction to SQL with Python"
+authors = ["Jumping Rivers <info@jumpingrivers.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+psycopg2-binary = "^2.9.6"
+sqlalchemy = "^2.0.12"
+pandas = "^1.4"
+seaborn = "^0.12.2"
+jrpyintroduction = "^0.3.2"
+nycflights13 = "^0.0.3"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
