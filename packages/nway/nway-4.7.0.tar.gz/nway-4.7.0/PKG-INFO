@@ -1,0 +1,101 @@
+Metadata-Version: 2.2
+Name: nway
+Version: 4.7.0
+Summary: Probabilistic Cross-Identification of Astronomical Sources
+Author-email: Johannes Buchner <johannes.buchner.acad@gmx.com>
+License: 
+            This program is free software: you can redistribute it and/or modify
+            it under the terms of the GNU Affero General Public License as 
+            published by the Free Software Foundation, either version 3 of the 
+            License, or (at your option) any later version.
+        
+            This program is distributed in the hope that it will be useful,
+            but WITHOUT ANY WARRANTY; without even the implied warranty of
+            MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+            GNU Affero General Public License for more details.
+        
+            You should have received a copy of the GNU General Public License
+            along with this program.  If not, see <http://www.gnu.org/licenses/>.
+        
+        
+Project-URL: Repository, https://github.com/JohannesBuchner/nway/
+Project-URL: homepage, https://github.com/JohannesBuchner/nway/
+Project-URL: documentation, https://raw.githubusercontent.com/JohannesBuchner/nway/master/doc/nway-manual.pdf
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: COPYING
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: astropy
+Requires-Dist: tqdm
+Requires-Dist: healpy
+Requires-Dist: joblib
+Requires-Dist: matplotlib
+Requires-Dist: pandas
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+
+nway
+======================================
+
+nway is a source cross-matching tool for arbitrarily many astronomical catalogues. 
+
+Features
+----------
+
+* Bayesian match probabilities based on astronomical sky coordinates (RA, DEC)
+* Works with arbitrarily many catalogues
+* Can handle varying errors
+* Can incorporate additional prior information, such as the magnitude or color distributions of the sources to match
+* Works accurately and fast in small areas and all-sky catalogues
+
+Documentation
+---------------
+
+See the manual in the doc/ folder, https://github.com/JohannesBuchner/nway/raw/master/doc/nway-manual.pdf
+
+A full worked example with demo catalogues is included.
+
+Installation
+---------------
+
+The easiest way to install nway is with pip::
+
+	$ pip install nway
+
+Add --user if you do not have admin privileges. Alternatively, 
+download the source code and run "python setup.py install".
+
+nway uses the following python packages:
+
+* numpy, scipy, matplotlib
+* astropy
+* tqdm
+* joblib
+* healpy
+* pandas
+
+nway works with both Python 3 and Python 2 and various astropy versions.
+
+.. image:: https://codecov.io/gh/JohannesBuchner/nway/branch/master/graph/badge.svg
+	:target: https://codecov.io/gh/JohannesBuchner/nway
+.. image:: https://github.com/JohannesBuchner/nway/actions/workflows/tests.yml/badge.svg
+	:target: https://github.com/JohannesBuchner/nway/actions/workflows/tests.yml
+
+Reporting issues
+-----------------
+
+Please file an issue on Github if you have any problems.
+
+Citing nway correctly
+----------------------
+
+Please cite Salvato et al (2017). https://arxiv.org/abs/1705.10711 (`Get BibTex <http://adsabs.harvard.edu/cgi-bin/nph-bib_query?bibcode=2017arXiv170510711S&data_type=BIBTEX&db_key=PRE&nocookieset=1>`_)
+
+Licence
+---------------
+
+This program is free and open-source software, 
+licensed under AGPLv3 (see LICENSE and COPYING files).
+Written by Johannes Buchner (C) 2013-2020
