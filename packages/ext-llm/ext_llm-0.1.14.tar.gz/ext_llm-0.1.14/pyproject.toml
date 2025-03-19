@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ext_llm"  # Your package name
+version = "0.1.14"
+description = "A wrapper library to abstract common llm providers"
+readme = "README.md"
+license = {text = "GPL3"}
+authors = [
+  {name = "Giovanni Pio Grieco", email = "gio.grieco@stud.uniroma3.it"}
+]
+dependencies = [
+    # List your dependencies here
+    "pyyaml",
+    "boto3",
+    "botocore",
+    "groq"
+]
+
+[project.urls]
+Homepage = "https://github.com/giovanni-grieco/ext_llm"
