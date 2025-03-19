@@ -1,0 +1,134 @@
+[project]
+name = "microbootstrap"
+description = "Package for bootstrapping new micro-services"
+readme = "README.md"
+requires-python = ">=3.9,<4"
+keywords = [
+    "python",
+    "microservice",
+    "bootstrap",
+    "opentelemetry",
+    "logging",
+    "error-tracing",
+    "litestar",
+    "fastapi",
+]
+classifiers = [
+    "Typing :: Typed",
+    "Topic :: Software Development :: Build Tools",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft",
+    "Operating System :: POSIX :: Linux",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "eval-type-backport>=0.2",
+    "opentelemetry-api>=1.30.0",
+    "opentelemetry-exporter-otlp>=1.15.0",
+    "opentelemetry-exporter-prometheus-remote-write>=0.46b0",
+    "opentelemetry-instrumentation>=0.46b0",
+    "opentelemetry-instrumentation-system-metrics>=0.46b0",
+    "opentelemetry-sdk>=1.30.0",
+    "pydantic-settings>=2",
+    "rich>=13",
+    "sentry-sdk>=2.7",
+    "structlog>=24",
+]
+dynamic = ["version"]
+authors = [{ name = "community-of-python" }]
+
+[project.optional-dependencies]
+fastapi = [
+    "fastapi>=0.100",
+    "fastapi-offline-docs>=1",
+    "opentelemetry-instrumentation-asgi>=0.46b0",
+    "opentelemetry-instrumentation-fastapi>=0.46b0",
+    "prometheus-fastapi-instrumentator>=6.1",
+]
+litestar = [
+    "litestar>=2.9",
+    "litestar-offline-docs>=1",
+    "opentelemetry-instrumentation-asgi>=0.46b0",
+    "prometheus-client>=0.20",
+]
+granian = ["granian[reload]>=1"]
+faststream = ["faststream~=0.5", "health-checks>=1", "prometheus-client>=0.20"]
+
+[dependency-groups]
+dev = [
+    "anyio>=4.8.0",
+    "httpx>=0.28.1",
+    "mypy>=1.14.1",
+    "opentelemetry-instrumentation-redis>=0.48b0",
+    "pre-commit>=4.0.1",
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "pytest-mock>=3.14.0",
+    "pytest-xdist>=3.6.1",
+    "redis>=5.2.1",
+    "ruff>=0.9.1",
+    "trio>=0.28.0",
+    "typing-extensions>=4.12.2",
+]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.mypy]
+plugins = ["pydantic.mypy"]
+files = ["microbootstrap", "tests"]
+python_version = "3.9"
+strict = true
+pretty = true
+show_error_codes = true
+
+[tool.ruff]
+target-version = "py39"
+line-length = 120
+
+[tool.ruff.format]
+docstring-code-format = true
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "EM",
+    "FBT",
+    "TRY003",
+    "FIX002",
+    "TD003",
+    "D1",
+    "D106",
+    "D203",
+    "D213",
+    "G004",
+    "FA",
+    "COM812",
+    "ISC001",
+]
+
+[tool.ruff.lint.isort]
+no-lines-before = ["standard-library", "local-folder"]
+lines-after-imports = 2
+
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*.py" = ["S101", "S311"]
+
+[tool.coverage.report]
+exclude_also = ["if typing.TYPE_CHECKING:", 'class \w+\(typing.Protocol\):']
+omit = ["tests/*"]
+
+[tool.pytest.ini_options]
+addopts = '--cov=. -p no:warnings --cov-report term-missing'
