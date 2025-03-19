@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coverage-sbfl"
+version = "0.0.1"
+authors = [
+  {name="Dylan Callaghan", email="dcallaghan@acm.org"}
+]
+description="Collect coverage from python projects compatible with Spectrum-Based Fault Localization (SBFL)!"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  'argcomplete',
+  'coverage'
+]
+
+[project.urls]
+Homepage = "https://github.com/DCallaz/coverage-sbfl"
+Issues = "https://github.com/DCallaz/coverage-sbfl/issues"
+
+[project.scripts]
+coverage-sbfl = "sbfl.tcm_creator:main"

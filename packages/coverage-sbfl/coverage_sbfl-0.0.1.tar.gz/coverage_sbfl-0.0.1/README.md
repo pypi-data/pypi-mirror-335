@@ -1,0 +1,40 @@
+# Coverage-sbfl
+Coverage collection in SBFL format using [coverage.py](https://coverage.readthedocs.io/).
+
+This is a plugin for the [coverage.py](https://coverage.readthedocs.io/) tool.
+The plugin provides an alternative coverage report in
+[TCM](https://www.fernuni-hagen.de/ps/prjs/PD/) format compatible with Spectrum-Based
+Fault Localization (SBFL) techniques such as [FLITSR](https://github.com/DCallaz/flitsr).
+
+The plugin requires only the coverage.py coverage output (either the binary
+.coverage file or the json coverage report), as well as the output of the
+testing framework used (e.g. [pytest](https://pytest.org)), which is
+usually included in the output of coverage.py itself.
+
+## Installation
+
+To install the `coverage-sbfl` plugin, simply use:
+```
+pip install coverage-sbfl
+```
+
+## Usage
+
+The `coverage-sbfl` plugin is a report generation plugin for the coverage.py
+tool. So it replaces the normal call to any of coverage.py's report formatters.
+
+An example usage of the plugin using coverage.py is as follows:
+```
+coverage -m pytest > coverage_output.txt
+coverage-sbfl -e coverage_output.txt
+```
+which will create the `coverage.tcm` file compatible with SBFL tools.
+
+NOTE: We **strongly** suggest you use the settings provided in the
+`template_coveragerc.txt` file when using this plugin. In particular, this
+plugin relies on coverage.py's dynamic contexts in order to collect per-test
+case coverage, so the setting:
+```
+dynamic_context = test_function
+```
+is necessary in order to use this plugin.
