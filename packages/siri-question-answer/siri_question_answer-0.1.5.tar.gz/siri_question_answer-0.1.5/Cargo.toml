@@ -1,0 +1,16 @@
+[package]
+name = "siri_question_response"
+version = "0.1.1"
+edition = "2021"
+
+[workspace]
+members = ["python_siri_question_awnser"]
+
+[dependencies]
+chrono = "0.4.39"
+quick-xml = {version = "0.37.2", features = ["encoding", "serialize"] }
+reqwest = { version = "0.12.12", default-features = false, features=["rustls-tls"]}
+tokio = { version = "1.43.0", features = ["full"] }
+uuid = { version = "1.12.1", features=["v4"] }
+serde = { version = "1.0.130", features = ["derive"] }
+serde_json = "1.0.68"

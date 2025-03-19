@@ -1,0 +1,45 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <NotifyEstimatedTimetable xmlns="http://wsdl.siri.org.uk">
+         <ServiceDeliveryInfo xmlns="">
+            <ResponseTimestamp xmlns="http://www.siri.org.uk/siri">2025-01-16T11:04:04.985462Z</ResponseTimestamp>
+            <ProducerRef xmlns="http://www.siri.org.uk/siri">OKI</ProducerRef>
+         </ServiceDeliveryInfo>
+         <Notification xmlns="">
+            <siri:EstimatedTimetableDelivery xmlns:siri="http://www.siri.org.uk/siri" version="2.1">
+               <siri:ResponseTimestamp>2025-01-16T11:04:04.985462Z</siri:ResponseTimestamp>
+               <siri:RequestMessageRef/>
+               <EstimatedJourneyVersionFrame xmlns="http://www.siri.org.uk/siri">
+                  <RecordedAtTime>2025-01-16T11:04:04.985466Z</RecordedAtTime>
+                  <EstimatedVehicleJourney>
+                     <LineRef>LSO:Line:LIGNE-A:LOC</LineRef>
+                     <DatedVehicleJourneyRef>LSO:ServiceJourney:blabla:LOC</DatedVehicleJourneyRef>
+                     <FramedVehicleJourneyRef>
+                        <DataFrameRef>blabla</DataFrameRef>
+                        <DatedVehicleJourneyRef>LSO:ServiceJourney:blabla:LOC</DatedVehicleJourneyRef>
+                     </FramedVehicleJourneyRef>
+                     <DataSource>MOBIITI</DataSource>
+                     <VehicleRef>148</VehicleRef>
+                     <EstimatedCalls>
+                        <EstimatedCall>
+                           <StopPointRef>LES_SABLES_D_OLONNE:Quay:STP-QUAI-A</StopPointRef>
+                           <Order>1</Order>
+                           <AimedDepartureTime>2025-01-16T06:00:00Z</AimedDepartureTime>
+                           <ExpectedDepartureTime>2025-01-16T06:00:00Z</ExpectedDepartureTime>
+                        </EstimatedCall>
+                        <EstimatedCall>
+                           <StopPointRef>LES_SABLES_D_OLONNE:Quay:STP-QUAI-B</StopPointRef>
+                           <Order>2</Order>
+                           <AimedArrivalTime>2025-01-16T11:00:00Z</AimedArrivalTime>
+                           <ExpectedArrivalTime>2025-01-16T11:00:00Z</ExpectedArrivalTime>
+                        </EstimatedCall>
+                     </EstimatedCalls>
+                  </EstimatedVehicleJourney>
+               </EstimatedJourneyVersionFrame>
+            </siri:EstimatedTimetableDelivery>
+         </Notification>
+         <SiriExtension xmlns=""/>
+      </NotifyEstimatedTimetable>
+   </soapenv:Body>
+</soapenv:Envelope>
