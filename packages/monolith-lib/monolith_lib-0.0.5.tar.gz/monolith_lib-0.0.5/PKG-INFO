@@ -1,0 +1,51 @@
+Metadata-Version: 2.2
+Name: monolith_lib
+Version: 0.0.5
+Summary: A code execution engine
+Home-page: https://github.com/Elfsong/Monolith
+Author: Du Mingzhe
+Author-email: dumingzhex@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: summary
+
+It's Monolith, a code execution environment. You can run code in a variety of languages (Python / Golang / Cpp / Java / Javascript), and see the output.
+
+Should you have any questions, please don't hesitate to ask mingzhe@nus.edu.sg.
+
+# Quickstart
+### Installation
+```bash
+pip install monolith-lib
+```
+
+### Function Calls
+```python
+from monolith import monolith
+
+monolith = monolith.Monolith(backend_url='https://monolith.cool')
+
+# 1) Submit code to Monolith (POST)
+post_response = monolith.post_code_submit(
+    lang = 'python',
+    libs = [],
+    code = 'print("Hello, World!")',
+    timeout = 10,
+    profiling = False
+)
+
+# 2) Get async task_id from POST response
+task_id = post_response['task_id']
+
+# 3) Get code result from Monolith (GET)
+get_response = monolith.get_code_result(task_id)
+print(get_response)
+```
