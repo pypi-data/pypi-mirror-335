@@ -1,0 +1,72 @@
+{
+  "servers": [
+    {
+      "name": "mcp_weather",
+      "description": "MCP server for getting weather information",
+      "capabilities": ["weather", "forecast", "temperature"],
+      "version": "0.1.0",
+      "install": {
+        "type": "pip",
+        "repository": "git+https://github.com/adhikasp/mcp-weather.git",
+        "package": "git+https://github.com/adhikasp/mcp-weather.git",
+        "global": true
+      },
+      "launch": {
+        "command": "python",
+        "args": [
+          "-c",
+          "from fastmcp import FastMCP; from mcp_weather.weather import get_hourly_weather; server = FastMCP('mcp-weather'); server.add_tool(get_hourly_weather); server.run()"
+        ],
+        "env": {
+          "ACCUWEATHER_API_KEY": "${ACCUWEATHER_API_KEY}"
+        }
+      },
+      "schema": {
+        "get_hourly_weather": {
+          "description": "Get hourly weather forecast for a location",
+          "parameters": {
+            "location": {
+              "type": "string",
+              "description": "The location to get weather for"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "mcp_datetime",
+      "description": "MCP server for datetime operations and conversions",
+      "capabilities": ["datetime", "time", "date", "conversion"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "npm",
+        "repository": "https://github.com/ZeparHyfar/mcp-datetime.git",
+        "package": "mcp-datetime",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_search",
+      "description": "MCP server for web searches",
+      "capabilities": ["search", "web", "information"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "npm",
+        "repository": "https://github.com/ZeparHyfar/mcp-search.git",
+        "package": "mcp-search",
+        "global": true
+      }
+    },
+    {
+      "name": "mcp_file",
+      "description": "MCP server for file operations",
+      "capabilities": ["file", "read", "write", "list", "directory"],
+      "version": "0.1.0",
+      "installation": {
+        "type": "pip",
+        "package": "mcp-file",
+        "repository": "https://github.com/ZeparHyfar/mcp-file.git"
+      }
+    }
+  ]
+} 
