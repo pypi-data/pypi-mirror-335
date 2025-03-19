@@ -1,0 +1,155 @@
+name: Run regression tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check_commit:
+    runs-on: ubuntu-latest
+    outputs:
+      skip: ${{ steps.check_commit.outputs.skip }}
+    steps:
+      - name: Always run tests on workflow dispatch
+        id: early_exit
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run:
+          echo skip=true >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+        if: ${{ steps.early_exit.outputs.skip != 'true' }}
+        with:
+          ref: ${{ github.event.push.after || github.event.pull_request.head.sha || github.event.workflow_dispatch.ref }}
+      - name: Check if message contains skip keyword
+        id: check_commit
+        if: ${{ steps.early_exit.outputs.skip != 'true' }}
+        run: |
+          message=$(git log -1 --pretty=format:'%B')
+          regex="\[skip tests\]"
+          if [[ "$message" =~ $regex ]]; then
+            echo skip=true >> "$GITHUB_OUTPUT"
+          fi
+  build:
+    name: Benchmark regression test
+    runs-on: self-hosted
+    container:
+      image: firedrakeproject/firedrake-vanilla-default:latest
+
+    concurrency:
+      group: testing-${{ github.head_ref || github.run_id }}
+      cancel-in-progress: true
+
+    needs: check_commit
+    if: ${{ needs.check_commit.outputs.skip != 'true' }}
+
+    env:
+      OMP_NUM_THREADS: 1
+
+    steps:
+      - name: Install prerequisites
+        env:
+          S3CONFIG: ${{ secrets.S3CONFIG }}
+        run: |
+          sudo apt update
+          sudo apt install -y time s3cmd unzip git-lfs gmsh gcc cmake libsqlite3-dev
+          mkdir -p $HOME/.s3cfg
+          echo "${S3CONFIG}" > $HOME/.s3cfg/config
+          chmod 600 $HOME/.s3cfg/config
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Fetch LFS artifacts
+        run: |
+          git lfs checkout
+
+      - name: Fetch task spooler
+        uses: actions/checkout@v4
+        with:
+          repository: dsroberts/tsp_for_hpc
+          path: ./tsp
+          ref: v1.0.0
+
+      - name: Build task spooler
+        uses: threeal/cmake-action@v2
+        with:
+          source-dir: ./tsp
+          build-dir: ./tsp_build
+          options: CGROUPV2=ON
+
+      - name: Put task spooler on PATH
+        run: |
+          mv tsp_build/tsp-hpc /home/firedrake/.local/bin/tsp
+
+      - name: Install Python dependencies
+        run: |
+          uv venv --system-site-packages
+          uv pip install .[demos,optimisation] pygplates
+
+      - name: Get Muller et al 2022 plate reconstructions
+        run: |
+          s3cmd --config=$HOME/.s3cfg/config get s3://gadopt/github-actions/Muller_etal_2022_SE_1Ga_Opt_PlateMotionModel_v1.2.zip .
+          unzip Muller_etal_2022_SE_1Ga_Opt_PlateMotionModel_v1.2.zip -d demos/mantle_convection/gplates_global
+
+      - name: Check out repository linked to Trim et al. (2023)
+        uses: actions/checkout@v4
+        with:
+          repository: seantrim/exact-thermochem-solution
+          path: ./flib
+
+      - name: Compile flib (Trim et al., 2023)
+        run: |
+          source .venv/bin/activate
+          uv pip install meson
+          cd flib/Python
+          rm *.so
+          sed -i 's/f2py3/f2py/' create_library.sh
+          source create_library.sh
+          cp *.so ../../tests/multi_material
+        shell: bash
+
+      - name: Fix HOME environment variable
+        run: echo "HOME=/home/firedrake" >> "$GITHUB_ENV"
+
+      - name: Run test
+        id: run_tests
+        run: |
+          . .venv/bin/activate
+          make -j test
+        env:
+          GADOPT_LOGLEVEL: INFO
+          BATCH_MODE: 1
+
+      - name: Pytest
+        id: run_pytest
+        run: |
+          . .venv/bin/activate
+          python -m pytest -m 'not longtest' --junit-xml=test_results.xml
+
+      - name: Pytest report
+        uses: mikepenz/action-junit-report@v4
+        if: ${{ !cancelled() && steps.run_pytest.conclusion != 'skipped' }}
+        with:
+          check_name: Test suite report
+          report_paths: test_results.xml
+          include_passed: true
+          annotate_only: true
+
+      - name: Output timing information
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          tsp --gh-summary >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload run log
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: run-log
+          path: /tmp/tsp_db.sqlite3
