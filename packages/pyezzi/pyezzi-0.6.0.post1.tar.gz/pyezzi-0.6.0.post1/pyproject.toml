@@ -1,0 +1,35 @@
+[project]
+name = "pyezzi"
+version = "0.6.0.post1"
+dependencies = ["numpy>=2"]
+requires-python = ">=3.9"
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Intended Audience :: Developers',
+    'Intended Audience :: Education',
+    'Intended Audience :: Science/Research',
+]
+keywords=["medical image processing"]
+authors = [{name="Nicolas Cedilnik", email="nicoco@nicoco.fr"}]
+
+[build-system]
+requires = ["setuptools", "numpy>=2.0.2", "cython>=3,<4"]
+build-backend = "setuptools.build_meta"
+
+[dependency-groups]
+dev = [
+    "cython>=3.0.12",
+    "pytest>=8.3.5",
+    "ruff>=0.10.0",
+]
+test = [
+    "scikit-image>=0.24.0",
+    "scipy>=1.13.1",
+]
+
+# workaround, see https://github.com/astral-sh/uv/issues/9513
+[tool.setuptools]
+license-files = []
+
+[tool.ruff.lint]
+select = ["I"]
