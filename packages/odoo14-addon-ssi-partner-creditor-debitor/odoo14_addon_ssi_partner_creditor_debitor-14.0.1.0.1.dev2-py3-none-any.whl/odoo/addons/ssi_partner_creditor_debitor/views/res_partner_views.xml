@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<record model="ir.ui.view" id="res_partner_view_form">
+    <field name="name">res.partner form - Creditor Debtor</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form" />
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='sales_purchases']" position="after">
+            <page name="creditor_debtor" string="Creditor &amp; Debtor">
+                <group string="Creditor" name="creditor" colspan="4" col="2">
+                    <field name="primary_creditor_id" />
+                </group>
+                <field name="creditor_ids">
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field
+                                name="creditor_id"
+                                domain="[('category_id','=',%(res_partner_category_creditor)d)]"
+                            />
+                    </tree>
+                </field>
+                <group name="debtor" string="Debtors" colspan="4" col="2" />
+                <field name="debtor_ids">
+                    <tree editable="bottom">
+                        <field name="debtor_id" />
+                    </tree>
+                </field>
+            </page>
+        </xpath>
+    </field>
+</record>
+</odoo>
