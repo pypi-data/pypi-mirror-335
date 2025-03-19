@@ -1,0 +1,60 @@
+[project]
+name = "ChamberCourt"
+version = "0.9.26"
+description = "Simple 2D grid game framework based on PyGame"
+license = {text = "GPL v3 or later"}
+authors = [{name = "Reuben Thomas", email = "rrt@sc3d.org"}]
+readme = "README.md"
+urls = {Homepage = "https://github.com/rrthomas/chambercourt"}
+requires-python = ">= 3.12"
+dependencies = [
+    "i18nparse",
+    "platformdirs",
+    "pygame >= 2.0.0",
+    "pyscroll",
+    "pytmx",
+]
+classifiers = [
+    "Environment :: X11 Applications",
+    "Environment :: MacOS X",
+    "Environment :: Win32 (MS Windows)",
+    "Topic :: Games/Entertainment",
+    "Programming Language :: Python :: 3",
+]
+
+[project.scripts]
+chambercourt = "chambercourt:main"
+
+[build-system]
+requires = ["build", "setuptools >= 62.3.0"]
+
+[tool.setuptools]
+packages = ["chambercourt"]
+
+[tool.setuptools.package-data]
+chambercourt = ["**/*.png", "**/*.wav", "**/*.tmx", "**/*.tsx", "**/*.ttf", "**/*.mo", "py.typed"]
+
+[tool.pyright]
+ignore = ["chambercourt/ptext.py"]
+include = ["chambercourt"]
+
+[tool.ruff.lint]
+exclude = ["ptext.py"]
+select = ["D", "E", "F", "I", "UP"]
+ignore = ["D401", "E501"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[[tool.cxfreeze.executables]]
+script = "chambercourt/__main__.py"
+base = "gui"
+icon = "app-icon"
+shortcut_name = "ChamberCourt"
+shortcut_dir = "DesktopFolder"
+
+[tool.cxfreeze.build_exe]
+include_msvcr = true
