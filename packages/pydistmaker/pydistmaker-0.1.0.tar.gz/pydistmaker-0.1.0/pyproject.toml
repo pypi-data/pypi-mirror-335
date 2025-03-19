@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "pydistmaker"
+version = "0.1.0"
+description = ""
+authors = ["yang, qingfeng <319511269@qq.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.11,<3.14"
+nuitka = "^2.6.8"
+pyinstaller = "^6.12.0"
+click = "^8.1.8"
+pydantic = "^2.10.6"
+jsonschema = "^4.23.0"
+
+[tool.poetry.scripts]
+pydistmaker = "pydistmaker.cli:main"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
