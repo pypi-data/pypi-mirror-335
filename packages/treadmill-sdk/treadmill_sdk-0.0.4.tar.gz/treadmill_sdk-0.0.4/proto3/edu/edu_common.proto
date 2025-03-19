@@ -1,0 +1,168 @@
+syntax = "proto3";
+
+package tech.brainco.edu;
+
+// 设备类型
+enum SensorType {
+  SENSOR_NONE     = 0;
+  SENSOR_CTRL_BOX = 1; // 传感器控制盒
+  SENSOR_EMG      = 2; // EMG设备
+  SENSOR_EEG      = 3; // EEG设备
+  SENSOR_ECG      = 4; // ECG设备
+  SENSOR_PPG      = 5; // PPG设备
+  SENSOR_GLOVE    = 6; // 手套设备
+  SENSOR_ARM_8CH  = 7; // 8通道臂环设备
+}
+
+/*传感器所具备功能*/
+enum SensorFeatureMask {
+  FEATURE_NONE  = 0;
+  FEATURE_IMU   = 1;   // IMU传感器 包含（ACC+GYRO）
+  FEATURE_MAG   = 2;   // 只包含磁力计
+  FEATURE_PPG   = 3;   // PPG模块功能
+  FEATURE_ACC   = 4;   // 只包含ACC模块
+  FEATURE_FLEX  = 5;   // 手套及传感器主控盒涉及的6通道柔性传感器数据
+  FEATURE_AFE   = 6;   // AFE功能，EXG设备具备的功能项
+}
+
+// 设备端主动上报的事件
+enum DeviceEvent {
+  NONE         = 0;
+  LEAD_ON      = 1;   // 电极连通
+  LEAD_OFF     = 2;   // 电极脱落，针对有AFE的设备事件
+  BUTTON_PWOFF = 3;   // 按键控制关机
+  TIMEOUT_PWOFF = 4;  // 设备超时关机
+  LOW_POWER    = 5;   // 低电量
+  HARDWARE_ERR = 6;   // 硬件错误
+  PORT_CONNECTED     = 7; // 主控盒的端口有设备接入
+  PORT_DISCONNECTED  = 8; // 主控盒的端口有设备断开/拔出
+}
+
+enum ConfigReqType {
+  REQ_NONE     = 0;
+  GET_DEVICE_INFO  = 1;   // 请求设备信息， 设备端上报：DeviceInfo
+  SET_DEVICE_INFO  = 2;   // 设置设备信息
+  GET_PORT_STAT    = 3;   // 请求端口状态， <主控盒> 上报
+  GET_SENSOR_CONFIG = 4;  // 读取所有sensor config
+  START_DATA_STREAM = 6;  // 按默认配置一键订阅传感器数据
+  STOP_DATA_STREAM = 7;  // 停止全部订阅数据流
+
+}
+
+enum ConfigRespError {
+  CONFIG_ERR_SUCCESS   = 0;
+  CONFIG_ERR_HARDWARE  = 1;  // 硬件错误
+  CONFIG_ERR_PARAMETER = 2;  // 参数错误
+  CONFIG_ERR_UNKNOWN   = 3;  // 未知错误
+}
+
+/* APP配置设备信息内容 */
+message DeviceInfoConfig {
+  string model       = 1;
+  string sn          = 2;
+}
+
+message DeviceInfo {
+  SensorType sensor_type = 1;// 设备类型
+  string model       = 2;   // 设备model name
+  string sn          = 3;   // 设备SN信息
+  string hw_version  = 4;   // 固件版本号
+  string fw_version  = 5;   // 硬件版本
+  string build_time  = 6;   // 编译时间
+  string commit_hash = 7;   // commit hash
+  uint32 sensor_features = 8;  //传感器具备功能项
+}
+
+/* 通用传感器采样订阅 */
+enum SamplingRate { // CommonSampleRate
+  SAMPLING_RATE_NONE = 0;// 无采样
+  SAMPLING_RATE_OFF = 1; // 关闭采样
+  SAMPLING_RATE_25 = 2;  //  25 Hz 采样率
+  SAMPLING_RATE_50 = 3;  //  50 Hz 采样率
+  SAMPLING_RATE_100 = 4; // 100 Hz 采样率
+  SAMPLING_RATE_200 = 5; // 200 Hz 采样率
+};
+
+enum AfeSampleRate {
+  AFE_SR_INVALID  = 0;
+  AFE_SR_OFF   = 1;
+  AFE_SR_125   = 2;
+  AFE_SR_250   = 3;
+  AFE_SR_500   = 4;
+  AFE_SR_1000  = 5;
+  AFE_SR_2000  = 6;
+}
+
+enum ImuSampleRate {
+  IMU_SR_UNUSED = 0;
+  IMU_SR_OFF    = 1;  //IMU关闭采样
+  IMU_SR_25     = 2;  //IMU订阅采样率25HZ
+  IMU_SR_50     = 3;  //IMU订阅采样率50HZ
+  IMU_SR_100    = 4;  //IMU订阅采样率100HZ
+  IMU_SR_400    = 5;  //IMU订阅采样率400HZ
+}
+
+/* 磁力计采样订阅 */
+enum MagSampleRate {
+  MAG_SR_UNUSED = 0;
+  MAG_SR_OFF    = 1;
+  MAG_SR_10     = 2;
+  MAG_SR_20     = 3;
+  MAG_SR_50     = 4;
+  MAG_SR_100    = 5;
+}
+
+
+/* 主控盒外接端口编号，普通接口(A-E),多通道接口(F)
+   只针对主控盒设备指定控制外接端口号*/
+enum CtrlBoxPort {
+  PORT_NONE = 0; // 无端口
+  PORT_A = 1;    // 普通接口 A
+  PORT_B = 2;    // 普通接口 B
+  PORT_C = 3;    // 普通接口 C
+  PORT_D = 4;    // 普通接口 D
+  PORT_E = 5;    // 普通接口 E
+  PORT_F = 6;    // 多通道接口 F（可接入手套传感器）
+};
+
+// APP发起OTA
+// 固件进入OTA模式后，开始请求文件
+// APP和固件交互传输升级包
+// 固件接收完成后,自动重启
+// 重启后，会擦写Flash
+// 操作Flash完成后，新固件运行，上报OTA完成状态。
+message OtaConfig {
+  enum CMD {
+    NONE = 0;
+    OTA_START = 1; // 前台传输MCU升级文件
+    OTA_REBOOT = 2; // 重启升级MCU
+  }
+
+  CMD cmd = 1;
+  OTAData ota_data = 2;
+
+  // START 命令，带新固件信息
+  uint32 file_size = 3;
+  string file_md5 = 4;
+  string file_sha256 = 5;
+}
+
+message OtaConfigResp {
+  enum State {
+    NONE = 0;
+    DOWNLOADING = 1; // entry为true，返回状态为Downloading
+    DOWNLOAD_FINISHED = 2;  // 接收到最后一包数据，返回FINISHED
+    REBOOTING = 3;   // 如果收到reboot，返回该状态后，再重启
+    REBOOTED = 4;    // 重新运行会发送该状态
+	ABORT = 5;       // 设备端状态异常，终止本次OTA
+  }
+  State state = 1; // 如果没有错误，恢复空OtaConfigResp
+  uint32 offset = 2; // 镜像的offset
+}
+
+// APP发送OTA文件数据
+message OTAData {
+  uint32 offset = 1;
+  bytes data = 2;  
+  bool finished = 3;   //结束标志
+}

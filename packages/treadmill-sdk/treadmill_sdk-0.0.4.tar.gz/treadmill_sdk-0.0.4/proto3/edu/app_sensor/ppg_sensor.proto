@@ -1,0 +1,115 @@
+syntax = "proto3";
+
+package tech.brainco.edu;
+
+enum PpgChip {
+  PPG_MAX32664  = 0;
+  PPG_GH3011    = 1;
+}
+
+enum PpgUR {
+  PPG_INVALID  = 0;
+  PPG_OFF      = 1;
+  PPG_UR_1      = 2;
+  PPG_UR_5      = 3;
+  PPG_UR_25     = 4;
+  PPG_UR_50     = 5;
+  PPG_UR_100    = 6;
+}
+
+enum PpgMode {
+  PPG_MODE_INVALID  = 0;
+  PPG_MODE_RAW      = 1;
+  PPG_MODE_ALGO     = 2;
+  PPG_MODE_SPO2     = 3;
+  PPG_MODE_HR       = 4;
+  PPG_MODE_HRV      = 5;
+}
+
+enum PpgOpMode {
+  OP_MODE_CONT_HRM_CONT_SPO2  = 0;     //0: Continuous HRM and Continuous SpO2
+  OP_MODE_CONT_HRM_ONES_SPO2  = 1;     //1: Continuous HRM and One-Shot SpO2
+  OP_MODE_CONT_HRM            = 2;     //2: Continuous HRM
+  OP_MODE_SAMP_HRM            = 3;     //3: Sampled HRM
+  OP_MODE_SAMP_HRM_ONES_SPO2  = 4;     //4: Sampled HRM and One-Shot SpO2
+  OP_MODE_ACTIVITY_TRACKING   = 5;     //5: Activity tracking
+  OP_MODE_SPO2_CALIBRATION    = 6;     //6: SpO2 calibration
+}
+
+enum PpgActivity {
+  PPG_ACT_REST            = 0;         //0: Rest
+  PPG_ACT_OTHER           = 1;         //1: Other
+  PPG_ACT_WALK            = 2;         //2: Walk
+  PPG_ACT_RUN             = 3;         //3: Run
+  PPG_ACT_BIKE            = 4;         //4: Bike
+}
+
+enum PpgSpo2State {
+  SPO2_STATE_LED_ADJUSTMENT  = 0;          //0: LED adjustment
+  SPO2_STATE_COMPUTATION     = 1;          //1: Computation
+  SPO2_STATE_RET_SUCCESS     = 2;          //2: Success
+  SPO2_STATE_TIMEOUT         = 3;          //3: Timeout
+}
+
+enum PpgScdState {
+  SCD_STATE_UNDETECTED      = 0;          //0: Undetected
+  SCD_STATE_OFF_SKIN        = 1;          //1: Off skin
+  SCD_STATE_ON_SOME_SUBJECT = 2;          //2: On some subject
+  SCD_STATE_ON_SKIN         = 3;          //3: On skin
+}
+
+message PpgReport {
+  message RawData {
+    int32 green1 = 1;          //Green counter
+    int32 green2 = 2;          //Red counter
+    int32 ir = 3;             //IR counter
+    int32 red = 4;            //Green2 counter
+  }
+
+  message AlgoData {
+    PpgOpMode     op_mode       = 1;   //Current operation mode
+    uint32        hr            = 2;   //10x last calculated heart rate
+    uint32        hr_conf       = 3;   //Last calculated confidence level in %
+    uint32        rr            = 4;   //10x RR interbeat interval in ms, only shows a nonzero value when a new value is calculated.
+    uint32        rr_conf       = 5;   //Calculated confidence level of RR in %, only shows a nonzero value when a new value is calculated.
+    PpgActivity   activity      = 6;   //Activity class
+    uint32        r             = 7;   //1000x last calculated SpO2 R value
+    uint32        spo2_conf     = 8;   //Last calculated SpO2 confidence level in %
+    uint32        spo2          = 9;   //10x last calculated SpO2 %
+    uint32        spo2_progress = 10;  //Calculation progress in % in one-shot mode of algorithm. In continuous mode, it is reported as zero and only jumps to 100 when the SpO2 value is updated.
+    bool          spo2_lsq_flag = 11;  //Shows the low quality of the PPG signal: 0: Good quality, 1: Low quality
+    bool          spo2_mt_flag  = 12;  //Shows excessive motion: 0: No motion, 1: Excessive motion
+    bool          spo2_lp_flag  = 13;  //Shows the low perfusion index (PI) of the PPG signal: 0: Normal PI, 1: Low PI
+    bool          spo2_ur_flag  = 14;  //Shows the reliability of R: 0: Reliable, 1: Unreliable
+    PpgSpo2State  spo2_state    = 15;  //Reported status of the SpO2 algorithm:
+    PpgScdState   scd_state     = 16;  //Skin contact state
+  }
+
+  repeated RawData   raw   = 1;
+  repeated AlgoData  algo  = 2;
+}
+
+message PpgInfo {
+  enum DeviceError{
+    ERR_NONE     = 0;
+    ERR_HARD     = 1;
+    ERR_UNKNOWN  = 2;
+    ERR_PARAM    = 3;
+    ERR_TIMEOUT  = 4;
+  }
+  DeviceError devErr  = 1;
+  PpgChip     chip    = 2;
+  string      version = 3;
+}
+message PpgData {
+  uint32         seq_num       = 1;
+  PpgUR          report_rate   = 2;
+  PpgMode        mode          = 3;
+  PpgReport      report        = 4;
+  bool           seg_finished  = 5;
+}
+
+message PpgConfig {
+  PpgMode       ppg_mode    = 1;
+  PpgUR         ppg_ur      = 2;   // set ppg report upload rate
+}

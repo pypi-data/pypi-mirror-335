@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package tech.brainco.edu;
+
+message DeviceSetupInfo {
+  string model = 2;
+  string sn = 3;
+  bytes mac_address = 4;
+  UsbInfo usb_info = 5;
+}
+
+message UsbInfo {
+  /* size = 2 bytes */
+  uint32 usb_pid = 1; // 产品 ID (Product ID)
+  /* size = 2 bytes */
+  uint32 usb_vid = 2;  // 厂商 ID (Vendor ID)
+}

@@ -1,0 +1,74 @@
+syntax = "proto3";
+import "edu_common.proto";
+import "sensor_to_app.proto";
+import "app_to_sensor.proto";
+
+package tech.brainco.edu;
+
+// private protocol for control box device
+enum BoxSensorType {
+    SENS_NONE  = 0;
+    SENS_IMU   = 1;  // IMU sensor
+    SENS_ACC   = 2;  // ACC sensor
+    SENS_HALL  = 3;  // Hall sensor
+    SENS_FLEX  = 4;  // flexible sensor
+}
+
+message PortStat {
+  uint32 port_connected_bits = 1; // sensor port conncet status, bitN reprents the port N is connected sensor or not
+  repeated BoxSensorType box_sensor_list = 2; // bytes size = 6, each value reprents the sensor type connected to port, (0-5)~(PORTA-PORTF)
+}
+message HallConfig {
+  SamplingRate hall_sr  = 1;
+  CtrlBoxPort  port = 2;
+}
+message HallData {
+  ConfigRespError     error        = 1;
+  uint32              seq_num      = 2;
+  SamplingRate        sample_rate  = 3;
+  bytes               hall_value   = 4;  // data size  = 1byte , value = (0 or 1)
+  bytes               magnetic_intensity = 5;  // magnetic intensity, 16-bit precision, data number = len / 2
+  CtrlBoxPort         port         = 6;
+}
+
+message HallResp {
+  ConfigRespError   error     = 1;
+  HallConfig        hall_conf = 2;
+  CtrlBoxPort       port      = 3;
+}
+
+message AppToControlBox {
+  uint32          msg_id = 1;
+  ConfigReqType   msg_cmd = 2;
+  DeviceInfoConfig device_info_cfg = 3;
+  OtaConfig       ota_cfg = 5; // dfu config
+  // IMU & Mag Sensor 10 - 19
+  ImuConfig imu_config = 10;
+  MagConfig mag_config = 11;
+  // ExG Sensor 20 -29
+  AfeConfig afe_config = 20;
+  AccConfig acc_config = 21;
+
+  HallConfig hall_config= 23;
+  FlexConfig flex_config = 25;
+}
+
+message ControlBoxToApp {
+  uint32 msg_id = 1;
+  DeviceInfo  device_info  = 2;
+  DeviceEvent device_event = 3;
+  PortStat    port_stat    = 4;
+  OtaConfigResp ota_resp   = 5;    // dfu response 
+
+  // IMU & Mag Sensor
+  ImuData imu_data       = 10;
+  ImuConfResp imu_resp   = 11;
+
+  AccData acc_data     = 15;
+  AccConfResp acc_resp = 16;
+
+  FlexData      flex_data = 22;
+  FlexConfResp  flex_resp = 23;
+  HallData      hall_data = 24;
+  HallResp      hall_resp = 25;
+}

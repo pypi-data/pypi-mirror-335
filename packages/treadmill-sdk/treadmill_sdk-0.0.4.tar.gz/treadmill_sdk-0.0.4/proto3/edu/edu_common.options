@@ -1,0 +1,15 @@
+* mangle_names:M_STRIP_PACKAGE
+
+DeviceInfoConfig.model max_length:32
+DeviceInfoConfig.sn max_length:32
+
+DeviceInfo.model max_length:32
+DeviceInfo.sn max_length:32
+DeviceInfo.hw_version max_length:32
+DeviceInfo.fw_version max_length:32
+DeviceInfo.build_time max_length:32
+DeviceInfo.commit_hash max_length:64
+
+OtaConfig.file_md5 max_length:32
+OtaConfig.file_sha256 max_length:64
+OTAData.data max_size:1024

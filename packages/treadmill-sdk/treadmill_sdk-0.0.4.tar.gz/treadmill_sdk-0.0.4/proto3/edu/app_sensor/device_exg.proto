@@ -1,0 +1,69 @@
+
+syntax = "proto3";
+import "edu_common.proto";
+import "ppg_sensor.proto";
+import "sensor_to_app.proto";
+import "app_to_sensor.proto";
+
+package tech.brainco.edu;
+
+// protocol for EXG devices (include EMG,EEG,ECG,GLOVE,PPG)
+message BleConfig {
+  enum PAIR_CMD {
+    PAIR_CMD_UNKNOWN = 0;
+    PAIR_CMD_PAIR = 1;
+    PAIR_CMD_VERIFY = 2;
+  }
+  string device_name  = 1;
+  bytes mac_address   =2;
+
+  PAIR_CMD pair_cmd   = 3;
+  string pair_key     = 4;
+}
+
+message AppSensor {
+	uint32           msg_id     = 1;
+  ConfigReqType    msg_cmd    = 2;
+  DeviceInfoConfig device_info_cfg = 3;
+  BleConfig   ble_conf    = 4;
+  OtaConfig     ota_cfg     = 5;
+
+  // IMU & Mag Sensor 10 - 19
+  ImuConfig   imu_config  = 10;
+  MagConfig   mag_config  = 11;
+
+  // ExG Sensor 20 -29
+  AfeConfig   afe_config  = 20;
+  AccConfig   acc_config  = 21;
+  FlexConfig  flex_config  = 25;
+
+  // PPG Sensor 30 -39
+  PpgConfig   ppg_config  = 30;
+}
+
+message SensorApp {
+	uint32        msg_id      = 1;
+	DeviceInfo    device_info = 2;
+  DeviceEvent   device_event = 3;
+
+  OtaConfigResp ota_resp    = 5;
+  OTAData       ota_data    = 6;
+
+	// IMU & Mag Sensor
+	ImuData       imu_data    = 10;
+    // Imu configure response
+  ImuConfResp   imu_resp    = 11;
+	MagData       mag_data    = 12;
+  MagConfResp   mag_resp    = 13;
+  AccData       acc_data    = 15;
+  AccConfResp   acc_resp    = 16;
+  ImuData       imu_data2    = 17;
+	// ExG Sensor
+	AfeData       afe_data    = 20;
+  AfeConfResp   afe_resp    = 21;
+  FlexData      flex_data   = 22;
+  FlexConfResp  flex_resp   = 23;
+	// PPG Sensor
+  PpgData       ppg_data    = 30;
+  PpgInfo       ppg_info    = 31;
+}
