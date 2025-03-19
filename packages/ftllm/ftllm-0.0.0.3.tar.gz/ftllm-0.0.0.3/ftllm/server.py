@@ -1,0 +1,96 @@
+import argparse
+import fastapi
+import logging
+import sys
+import uvicorn
+from fastapi import Request
+from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+
+from .openai_server.protocal.openai_protocol import *
+from .openai_server.fastllm_completion import FastLLmCompletion
+from .openai_server.fastllm_embed import FastLLmEmbed
+from .openai_server.fastllm_reranker import FastLLmReranker
+from .openai_server.fastllm_model import FastLLmModel
+from .util import make_normal_parser
+from .util import make_normal_llm_model
+
+def parse_args():
+    parser = make_normal_parser("OpenAI-compatible API server")
+    parser.add_argument("--model_name", type = str, help = "部署的模型名称, 调用api时会进行名称核验", required=True)
+    parser.add_argument("--host", type = str, default="0.0.0.0", help = "API server host")
+    parser.add_argument("--port", type = int, default = 8080, help = "API server port")
+    parser.add_argument("--think", type=bool, default = False, help="if <think> lost")
+    return parser.parse_args()
+
+app = fastapi.FastAPI()
+# 设置允许的请求来源, 生产环境请做对应变更
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+fastllm_completion:FastLLmCompletion
+fastllm_embed:FastLLmEmbed
+fastllm_model:FastLLmModel
+
+@app.post("/v1/chat/completions")
+async def create_chat_completion(request: ChatCompletionRequest,
+                                 raw_request: Request):
+    generator = await fastllm_completion.create_chat_completion(
+        request, raw_request)
+    if isinstance(generator, ErrorResponse):
+        return JSONResponse(content = generator.model_dump(),
+                            status_code = generator.code)
+    if request.stream:
+        return StreamingResponse(content = generator[0],
+                                 background = generator[1], 
+                                 media_type = "text/event-stream")
+    else:
+        assert isinstance(generator, ChatCompletionResponse)
+        return JSONResponse(content = generator.model_dump())
+
+@app.post("/v1/embed")
+async def create_embed(request: EmbedRequest,
+                       raw_request: Request):
+    embedding = fastllm_embed.embedding_sentence(request, raw_request)
+    return JSONResponse(embedding)
+
+@app.post("/v1/rerank")
+async def create_rerank(request: RerankRequest,
+                       raw_request: Request):
+    print(request)
+    scores = fastllm_reranker.rerank(request, raw_request)    
+    return JSONResponse(scores)
+
+
+@app.get("/v1/models")
+async def list_models():
+    model_response = fastllm_model.response
+    return JSONResponse(content = model_response)
+
+def init_logging(log_level = logging.INFO, log_file:str = None):
+    logging_format = '%(asctime)s %(process)d %(filename)s[line:%(lineno)d] %(levelname)s: %(message)s'
+    root = logging.getLogger()
+    root.setLevel(log_level)
+    if log_file is not None:
+        logging.basicConfig(level=log_level, filemode='a', filename=log_file, format=logging_format)
+    stdout_handler = logging.StreamHandler(sys.stdout)
+    stdout_handler.setFormatter(logging.Formatter(logging_format))
+    root.addHandler(stdout_handler)
+
+    
+if __name__ == "__main__":
+    init_logging()
+    args = parse_args()
+    logging.info(args)
+    model = make_normal_llm_model(args)
+    model.set_verbose(True)
+    fastllm_completion = FastLLmCompletion(model_name = args.model_name, model = model, think =  args.think)
+    fastllm_embed = FastLLmEmbed(model_name = args.model_name, model = model)
+    fastllm_reranker = FastLLmReranker(model_name = args.model_name, model = model)
+    fastllm_model = FastLLmModel(model_name = args.model_name)
+    uvicorn.run(app, host = args.host, port = args.port)
