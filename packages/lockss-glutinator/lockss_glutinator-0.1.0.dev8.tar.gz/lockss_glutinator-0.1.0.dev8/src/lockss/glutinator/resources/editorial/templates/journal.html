@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+{% if current.metadata.alternate_names %}
+<p><b>Alternate names:</b> {{ current.metadata.alternate_names | join(', ') }}</p>
+{% endif %}
+{{ m.journal_issns(current) }}
+{% endblock %}
+
+{% block banner_other %}
+{% if current.logo %}
+<span class="image object">
+  <img src="{{ m.logo_href(current) }}" alt="Logo of {{ current.metadata.name }}" />
+</span>
+{% endif %}
+{% endblock %}
+
+{% block main %}
+<section>
+  <header class="major">
+    <h2>Volumes</h2>
+  </header>
+  <div class="features">
+    {% for volume in current.journal_volumes %}
+    <article>
+      <span class="icon solid fa-atlas"></span>
+      <div class="content">
+        <h3>{{ volume.metadata.name }}</h3>
+        <ul class="actions">
+          <li><a href="{{ m.path(breadcrumbs + [volume]) }}" class="button">View Volume</a></li>
+        </ul>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block banner_content %}
+{% if current.metadata.alternate_names %}
+<p><b>Alternate names:</b> {{ current.metadata.alternate_names | join(', ') }}</p>
+{% endif %}
+{% endblock %}
+
+{% block banner_other %}
+{% if current.logo %}
+<span class="image object">
+  <img src="{{ m.logo_href(current) }}" alt="Logo of {{ current.metadata.name }}" />
+</span>
+{% endif %}
+{% endblock %}
+
+{% block main %}
+<section>
+  <header class="major">
+    <h2>Journals</h2>
+  </header>
+  <div class="posts">
+    {% for journal in current.journals %}
+    <article>
+      <img src="{{ m.logo_href(journal, journal.directory()) }}" alt="Logo of {{ journal.metadata.name }}" />
+      <h3>{{ journal.metadata.name }}</h3>
+      {{ m.journal_issns(journal) }}
+      <ul class="actions">
+        <li><a href="{{ m.path(breadcrumbs + [journal]) }}" class="button">View Journal</a></li>
+      </ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

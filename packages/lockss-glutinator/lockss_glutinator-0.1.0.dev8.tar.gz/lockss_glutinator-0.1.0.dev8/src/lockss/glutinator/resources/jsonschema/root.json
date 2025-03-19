@@ -1,0 +1,2081 @@
+{
+  "$defs": {
+    "DateVariable1": {
+      "additionalProperties": false,
+      "properties": {
+        "date-parts": {
+          "anyOf": [
+            {
+              "items": {
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "type": "array"
+              },
+              "maxItems": 2,
+              "minItems": 1,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date-Parts"
+        },
+        "season": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Season"
+        },
+        "circa": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Circa"
+        },
+        "literal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Literal"
+        },
+        "raw": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Raw"
+        }
+      },
+      "title": "DateVariable1",
+      "type": "object"
+    },
+    "Journal": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/JournalMetadata"
+        },
+        "journal_volumes": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/JournalVolume"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Journal Volumes"
+        },
+        "logo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Logo"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "Journal",
+      "type": "object"
+    },
+    "JournalArticle": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/ModelItem"
+        },
+        "license_type": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/LicenseType"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "JournalArticle",
+      "type": "object"
+    },
+    "JournalIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/JournalIssueMetadata"
+        },
+        "journal_articles": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/JournalArticle"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Journal Articles"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "JournalIssue",
+      "type": "object"
+    },
+    "JournalIssueMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "journal_issue",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "short_name": {
+          "title": "Short Name",
+          "type": "string"
+        },
+        "publication_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publication Date"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "short_name"
+      ],
+      "title": "JournalIssueMetadata",
+      "type": "object"
+    },
+    "JournalMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "journal",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "alternate_names": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternate Names"
+        },
+        "variant_names": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Variant Names"
+        },
+        "issn": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9]{4}-[0-9]{3}[0-9X]$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issn"
+        },
+        "eissn": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9]{4}-[0-9]{3}[0-9X]$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Eissn"
+        },
+        "issn_l": {
+          "anyOf": [
+            {
+              "pattern": "^[0-9]{4}-[0-9]{3}[0-9X]$",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issn L"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name"
+      ],
+      "title": "JournalMetadata",
+      "type": "object"
+    },
+    "JournalVolume": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/JournalVolumeMetadata"
+        },
+        "journal_issues": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/JournalIssue"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Journal Issues"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "JournalVolume",
+      "type": "object"
+    },
+    "JournalVolumeMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "journal_volume",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "short_name": {
+          "title": "Short Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name",
+        "short_name"
+      ],
+      "title": "JournalVolumeMetadata",
+      "type": "object"
+    },
+    "LicenseType": {
+      "enum": [
+        "cc_by_4_0",
+        "cc_by_nc_nd_4_0"
+      ],
+      "title": "LicenseType",
+      "type": "string"
+    },
+    "ModelItem": {
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/Type"
+        },
+        "id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ],
+          "title": "Id"
+        },
+        "citation-key": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Citation-Key"
+        },
+        "categories": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Categories"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Language"
+        },
+        "journalAbbreviation": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Journalabbreviation"
+        },
+        "shortTitle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Shorttitle"
+        },
+        "author": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Author"
+        },
+        "chair": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chair"
+        },
+        "collection-editor": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Collection-Editor"
+        },
+        "compiler": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Compiler"
+        },
+        "composer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Composer"
+        },
+        "container-author": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Container-Author"
+        },
+        "contributor": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Contributor"
+        },
+        "curator": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Curator"
+        },
+        "director": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Director"
+        },
+        "editor": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Editor"
+        },
+        "editorial-director": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Editorial-Director"
+        },
+        "executive-producer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Executive-Producer"
+        },
+        "guest": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Guest"
+        },
+        "host": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Host"
+        },
+        "interviewer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Interviewer"
+        },
+        "illustrator": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Illustrator"
+        },
+        "narrator": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Narrator"
+        },
+        "organizer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Organizer"
+        },
+        "original-author": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original-Author"
+        },
+        "performer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Performer"
+        },
+        "producer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Producer"
+        },
+        "recipient": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Recipient"
+        },
+        "reviewed-author": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewed-Author"
+        },
+        "script-writer": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Script-Writer"
+        },
+        "series-creator": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Series-Creator"
+        },
+        "translator": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/NameVariable1"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Translator"
+        },
+        "accessed": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "available-date": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "event-date": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "issued": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "original-date": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "submitted": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/DateVariable1"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "The CSL input model supports two different date representations: an EDTF string (preferred), and a more structured alternative.",
+          "title": "Date content model."
+        },
+        "abstract": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Abstract"
+        },
+        "annote": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Annote"
+        },
+        "archive": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Archive"
+        },
+        "archive_collection": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Archive Collection"
+        },
+        "archive_location": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Archive Location"
+        },
+        "archive-place": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Archive-Place"
+        },
+        "authority": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Authority"
+        },
+        "call-number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Call-Number"
+        },
+        "chapter-number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Chapter-Number"
+        },
+        "citation-number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Citation-Number"
+        },
+        "citation-label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Citation-Label"
+        },
+        "collection-number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Collection-Number"
+        },
+        "collection-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Collection-Title"
+        },
+        "container-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Container-Title"
+        },
+        "container-title-short": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Container-Title-Short"
+        },
+        "dimensions": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dimensions"
+        },
+        "division": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Division"
+        },
+        "DOI": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Doi"
+        },
+        "edition": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Edition"
+        },
+        "event": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "[Deprecated - use 'event-title' instead. Will be removed in 1.1]",
+          "title": "Event"
+        },
+        "event-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Event-Title"
+        },
+        "event-place": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Event-Place"
+        },
+        "first-reference-note-number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "First-Reference-Note-Number"
+        },
+        "genre": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Genre"
+        },
+        "ISBN": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Isbn"
+        },
+        "ISSN": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issn"
+        },
+        "issue": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Issue"
+        },
+        "jurisdiction": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Jurisdiction"
+        },
+        "keyword": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Keyword"
+        },
+        "locator": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Locator"
+        },
+        "medium": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Medium"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        },
+        "number": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Number"
+        },
+        "number-of-pages": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Number-Of-Pages"
+        },
+        "number-of-volumes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Number-Of-Volumes"
+        },
+        "original-publisher": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original-Publisher"
+        },
+        "original-publisher-place": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original-Publisher-Place"
+        },
+        "original-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Original-Title"
+        },
+        "page": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page"
+        },
+        "page-first": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Page-First"
+        },
+        "part": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Part"
+        },
+        "part-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Part-Title"
+        },
+        "PMCID": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pmcid"
+        },
+        "PMID": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Pmid"
+        },
+        "printing": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Printing"
+        },
+        "publisher": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publisher"
+        },
+        "publisher-place": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Publisher-Place"
+        },
+        "references": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "References"
+        },
+        "reviewed-genre": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewed-Genre"
+        },
+        "reviewed-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reviewed-Title"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scale"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Section"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status"
+        },
+        "supplement": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Supplement"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "title-short": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title-Short"
+        },
+        "URL": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Url"
+        },
+        "version": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Version"
+        },
+        "volume": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume"
+        },
+        "volume-title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume-Title"
+        },
+        "volume-title-short": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Volume-Title-Short"
+        },
+        "year-suffix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Year-Suffix"
+        },
+        "custom": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Used to store additional information that does not have a designated CSL JSON field. The custom field is preferred over the note field for storing custom data, particularly for storing key-value pairs, as the note field is used for user annotations in annotated bibliography styles.",
+          "examples": [
+            {
+              "other-ids": [
+                "alternative-id"
+              ],
+              "short_id": "xyz"
+            },
+            {
+              "metadata-double-checked": true
+            }
+          ],
+          "title": "Custom key-value pairs."
+        }
+      },
+      "required": [
+        "type",
+        "id"
+      ],
+      "title": "ModelItem",
+      "type": "object"
+    },
+    "NameVariable1": {
+      "additionalProperties": false,
+      "properties": {
+        "family": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Family"
+        },
+        "given": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Given"
+        },
+        "dropping-particle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Dropping-Particle"
+        },
+        "non-dropping-particle": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Non-Dropping-Particle"
+        },
+        "suffix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Suffix"
+        },
+        "comma-suffix": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Comma-Suffix"
+        },
+        "static-ordering": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Static-Ordering"
+        },
+        "literal": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Literal"
+        },
+        "parse-names": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Parse-Names"
+        }
+      },
+      "title": "NameVariable1",
+      "type": "object"
+    },
+    "Publisher": {
+      "additionalProperties": false,
+      "properties": {
+        "metadata": {
+          "$ref": "#/$defs/PublisherMetadata"
+        },
+        "journals": {
+          "anyOf": [
+            {
+              "items": {
+                "$ref": "#/$defs/Journal"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": [],
+          "title": "Journals"
+        },
+        "logo": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Logo"
+        }
+      },
+      "required": [
+        "metadata"
+      ],
+      "title": "Publisher",
+      "type": "object"
+    },
+    "PublisherMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "const": "publisher",
+          "title": "Kind",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "alternate_names": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Alternate Names"
+        },
+        "variant_names": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Variant Names"
+        }
+      },
+      "required": [
+        "kind",
+        "id",
+        "name"
+      ],
+      "title": "PublisherMetadata",
+      "type": "object"
+    },
+    "Type": {
+      "enum": [
+        "article",
+        "article-journal",
+        "article-magazine",
+        "article-newspaper",
+        "bill",
+        "book",
+        "broadcast",
+        "chapter",
+        "classic",
+        "collection",
+        "dataset",
+        "document",
+        "entry",
+        "entry-dictionary",
+        "entry-encyclopedia",
+        "event",
+        "figure",
+        "graphic",
+        "hearing",
+        "interview",
+        "legal_case",
+        "legislation",
+        "manuscript",
+        "map",
+        "motion_picture",
+        "musical_score",
+        "pamphlet",
+        "paper-conference",
+        "patent",
+        "performance",
+        "periodical",
+        "personal_communication",
+        "post",
+        "post-weblog",
+        "regulation",
+        "report",
+        "review",
+        "review-book",
+        "software",
+        "song",
+        "speech",
+        "standard",
+        "thesis",
+        "treaty",
+        "webpage"
+      ],
+      "title": "Type",
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "metadata": {
+      "const": null,
+      "title": "Metadata",
+      "type": "null"
+    },
+    "publishers": {
+      "anyOf": [
+        {
+          "items": {
+            "$ref": "#/$defs/Publisher"
+          },
+          "type": "array"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": [],
+      "title": "Publishers"
+    }
+  },
+  "required": [
+    "metadata"
+  ],
+  "title": "Root",
+  "type": "object"
+}

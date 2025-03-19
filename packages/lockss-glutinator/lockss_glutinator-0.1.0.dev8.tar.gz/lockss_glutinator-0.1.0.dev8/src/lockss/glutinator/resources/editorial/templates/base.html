@@ -1,0 +1,101 @@
+{% import "macros.html" as m with context %}
+<!DOCTYPE HTML>
+<!--
+  Editorial by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>{% if breadcrumbs|count == 1 %}Home{% else %}{{ current.metadata.name or current.metadata.title }}{% endif %}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body class="is-preload">
+
+    <!-- Wrapper -->
+      <div id="wrapper">
+
+        <!-- Main -->
+          <div id="main">
+            <div class="inner">
+
+              <!-- Header -->
+                <header id="header">
+                  <span id="breadcrumbs"><a href="/index.html" class="icon solid fa-home"><span class="label">Home</span></a>{% for item in breadcrumbs[1:] %} <span class="icon solid fa-angle-right"></span> <a href="{{ m.path(breadcrumbs[:1+loop.index]) }}">{{ item.metadata.short_name or item.metadata.name or item.metadata.title_short or item.metadata.title }}</a>{% endfor %}</span>
+                </header>
+
+              <!-- Banner -->
+                <section id="banner">
+                  <div class="content">
+                    <header>
+                      {% block banner_header %}
+                      <h1>{% if breadcrumbs|count == 1 %}Home{% else %}{{ current.metadata.name or current.metadata.title }}{% endif %}</h1>
+                      {% if current.subtitle %}
+                      <p><strong>{{ current.subtitle }}</strong></p>
+                      {% endif %}
+                      {% endblock %}
+                    </header>
+                    {% block banner_content %}
+                    {% endblock %}
+                  </div>
+                  {% block banner_other %}
+                  {% endblock %}
+                </section>
+
+                {% block main %}
+                {% endblock %}
+
+            </div>
+          </div>
+
+        <!-- Sidebar -->
+          <div id="sidebar">
+            <div class="inner">
+
+              <!-- Menu -->
+                <nav id="menu">
+                  <header class="major">
+                    <h2>Menu</h2>
+                  </header>
+                  <ul>
+                    <li><a href="/index.html" class="icon solid fa-home"> Home</a></li>
+                    {% for lst in menu %}
+                    {% set lst_index = loop.index %}
+                    <li>
+                      <span class="opener{% if loop.last and not menu_collapsed %} active{% endif %}">{{ lst[0].metadata.kind.replace('_', ' ').title() }}s</span>
+                      <ul>
+                        {% for item in lst %}
+                        <li><a href="{{ m.path(breadcrumbs[:lst_index] + [item]) }}"{% if item in breadcrumbs %} class="icon solid fa-chevron-circle-right"{% endif %}>{{ item.metadata.short_name or item.metadata.name }}</a></li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </nav>
+
+                {% block sidebar %}
+                {% endblock %}
+
+              <!-- Footer -->
+                <footer id="footer">
+                  <p class="copyright">Made with Glutinator by <a href="https://www.lockss.org/">LOCKSS Program</a> and Editorial by <a href="https://html5up.net">HTML5 UP</a>.</p>
+                </footer>
+
+            </div>
+          </div>
+
+      </div>
+
+    <!-- Scripts -->
+      <script src="/assets/js/jquery.min.js"></script>
+      <script src="/assets/js/browser.min.js"></script>
+      <script src="/assets/js/breakpoints.min.js"></script>
+      <script src="/assets/js/util.js"></script>
+      <script src="/assets/js/main.js"></script>
+
+  </body>
+</html>

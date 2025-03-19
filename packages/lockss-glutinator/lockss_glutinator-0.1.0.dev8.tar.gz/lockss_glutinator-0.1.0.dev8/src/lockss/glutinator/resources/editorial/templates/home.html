@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main %}
+<section>
+  <header class="major">
+    <h2>Publishers</h2>
+  </header>
+  <div class="posts">
+    {% for publisher in current.publishers %}
+    <article>
+      <img src="{{ m.logo_href(publisher, publisher.directory()) }}" alt="Logo of {{ publisher.metadata.name }}" />
+      <h3>{{ publisher.metadata.name }}</h3>
+      <ul class="actions">
+        <li><a href="{{ m.path(breadcrumbs + [publisher]) }}" class="button">View Publisher</a></li>
+      </ul>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
