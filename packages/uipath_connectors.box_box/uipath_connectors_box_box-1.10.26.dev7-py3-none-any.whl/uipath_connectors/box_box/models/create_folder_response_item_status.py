@@ -1,0 +1,10 @@
+from enum import Enum
+
+
+class CreateFolderResponseItemStatus(str, Enum):
+    ACTIVE = "active"
+    DELETED = "deleted"
+    TRASHED = "trashed"
+
+    def __str__(self) -> str:
+        return str(self.value)
