@@ -1,0 +1,23 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "weblair"
+version = "0.0.14"
+description = "agents based on pyautogui"
+authors = [ "Kammari Santhosh",]
+readme = "README.md"
+license = "MIT License"
+repository = "https://github.com/santhosh/"
+keywords = [ "",]
+include = []
+[[tool.poetry.packages]]
+include = "weblair"
+
+[tool.poetry.scripts]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest-playwright = "^0.6.2"
+pyautogui = "^0.9.54"

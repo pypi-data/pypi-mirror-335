@@ -1,0 +1,192 @@
+Metadata-Version: 2.3
+Name: weblair
+Version: 0.0.14
+Summary: agents based on pyautogui
+License: MIT
+Author: Kammari Santhosh
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: pyautogui (>=0.9.54,<0.10.0)
+Requires-Dist: pytest-playwright (>=0.6.2,<0.7.0)
+Project-URL: Repository, https://github.com/santhosh/
+Description-Content-Type: text/markdown
+
+WebLair Async:
+
+Browser Control Functions
+
+start_chromium(url=None, headless=False, **kwargs)
+
+Starts a Chromium browser instance
+Returns a Page object
+Optional URL to navigate to
+Configurable headless mode and additional options
+
+
+start_firefox(url=None, headless=False, **kwargs)
+
+Starts a Firefox browser instance
+Similar to start_chromium but for Firefox
+
+
+go_to(url, page=None)
+
+Navigates to a specified URL
+Automatically adds 'http://' if protocol not specified
+
+
+kill_browser(page=None)
+
+Closes the browser and cleans up resources
+Resets browser manager state
+
+
+
+Interaction Functions
+
+write(text, page=None, into=None)
+
+Types text into fields
+Can target specific field by label or placeholder
+Works with focused element if no target specified
+
+
+click(element, page=None)
+
+Clicks on elements identified by text, Point, or element reference
+Works with buttons, links, and any clickable elements
+
+
+press(key, page=None)
+
+Simulates keyboard key press
+Works with Keys class constants (ENTER, TAB, etc.)
+
+
+hover(element, page=None)
+
+Moves mouse over specified element
+Accepts text, element handle, or locator
+
+
+scroll_to(element, page=None)
+
+Scrolls element into view
+Works with text or element references
+
+
+
+Element Classes
+
+Button(text=None, page=None)
+
+Methods:
+
+exists(): Checks if button exists
+is_enabled(): Checks if button is enabled
+
+
+
+
+TextField(label=None, page=None)
+
+Methods:
+
+exists(): Checks if field exists
+value(): Gets current text value
+type(text): Types text into field
+
+
+
+
+Link(text=None, page=None)
+
+Methods:
+
+exists(): Checks if link exists
+href(): Gets link URL
+
+
+
+
+Alert(page=None)
+
+Methods:
+
+accept(): Accepts dialog
+dismiss(): Dismisses dialog
+text(): Gets alert message
+
+
+
+
+
+Helper Classes
+
+Point(x, y)
+
+Represents screen coordinates
+Supports addition/subtraction for offset calculations
+
+
+Keys
+
+Constants for keyboard keys
+Examples: ENTER, TAB, ESCAPE, etc.
+
+
+Config
+
+Configuration settings
+Properties:
+
+implicit_wait_secs
+browser_type
+default_timeout
+screenshot_dir
+viewport_size
+
+
+
+
+
+Utility Functions
+
+find_all(element_type, page=None)
+
+Finds all elements of specified type (Button, TextField, Link)
+Returns list of elements
+
+
+wait_until(condition_fn, timeout=None, page=None)
+
+Waits for condition to be true
+Supports both sync and async conditions
+Configurable timeout
+
+
+attach_file(file_path, to=None, page=None)
+
+Handles file uploads
+Can target specific file input
+
+
+get_text(element, page=None)
+
+Gets text content of element
+Works with various element types
+
+
+take_screenshot(path, full_page=False, page=None)
+
+Captures screenshot
+Optional full page capture
+
+
+
+
