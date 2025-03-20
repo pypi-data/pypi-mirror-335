@@ -1,0 +1,272 @@
+
+{% extends "djmicrosip_cotizacion_puertas/base.html" %}
+{% block title %}Cotizacion{% endblock %}
+
+<!-- CSS Code -->
+{% block style_css %}
+<style type="text/css"> 
+.delete-row {
+    font-size: 2rem;
+    text-align: center;
+    position: relative;
+    float: right;
+}
+.add-row{
+    font-size: 4rem;
+    padding-left: 20px;
+    float: right;
+    font-weight: bold;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 1px 3px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 0px;
+}
+.lbl{
+	display: none;
+}
+.fila{
+	 margin: 5px;
+	 padding: 5px;
+	 border-bottom:  1px solid #ccc;
+}
+.hardware ul{
+    list-style: none;
+    padding: 0;
+}
+textarea{
+   width:auto;
+   height: auto;
+}
+@media screen and (max-width: 770px) {
+  a{
+    font-size: 20px;
+  }
+  body{
+    font-size: 20px;
+  }
+  input{
+    font-size: 20px;
+  }
+  .btn{
+    font-size: 20px;
+  }
+  .steps {
+    width: 100%;
+    margin-right: -15px;
+    margin-left: -15px;
+    display: table;
+  }
+  .lbl{
+  	display: block;
+  }
+  .fila{
+  	border:  1px solid #ccc;
+  }
+  .header{
+  	display: none;
+  }
+  .form-control{
+  	padding: 3px 6px;
+    font-size: 20px;
+  }
+  .col-md-8{
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+  .mobile{
+    display: none;
+  }
+  .inf_cliente{
+    display: none;
+  }
+  #detalles_extra{
+    display: none;
+  }
+  .si_llamada{
+    display: none;
+  }
+}
+</style>
+{% endblock %}
+{% block modulestyle_css %}
+
+{% endblock %}
+<!-- JavaScript Code -->
+{% block js_code %}
+<script src='{{STATIC_URL}}js/jquery.formset.js'></script>
+<script src='{{STATIC_URL}}djmicrosip_cotizacion_puertas/js/cotizacion.js?v=1.0.3'></script>
+<script type="text/javascript">
+
+	$(function() {
+		$('.formset_row-{{ formset.prefix }}').formset({
+			addText: 'Agregar',
+			deleteText: 'Borrar',
+			addCssClass:'btn btn-success',
+			prefix: '{{ formset.prefix }}',
+
+		});
+	});
+</script>
+{% endblock %} 
+{% block selected_module %} Microsip {% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<form method="post" class="form" action=""  enctype='multipart/form-data'>
+  {% csrf_token %}    
+<div class="col-lg-12 hidden">
+	{{form}}
+</div>
+<div id="listas_detalle"  class="row">
+
+     <div class="row fila header">
+     	<div class="mobile">	
+     	<div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+     		<label class="">Cantidad</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+     		<label>Ancho</label>
+     	</div>
+		</div>
+		<div class="mobile">
+
+     	<div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+     		<label>Altura</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label>Tipo</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1">  
+     		<label>Color</label>
+     	</div>
+     	<div class="col-lg-3 col-md-3 col-xs-12 col-sm-12">
+     		<label>Descripcion</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1">
+     		<label>GA</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label>Precio Unit</label>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1">
+     		<label>Total</label>
+     	</div>
+     	</div>
+
+     </div>
+	{{ formset.management_form }}
+	{% for form in formset.forms %}
+     <div class="row formset_row-{{ formset.prefix }} fila">
+     	
+           {{ form.errors }}
+     	<div class="steps">	
+        <div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+        	<label class="lbl">Cantidad</label>
+                        {{ form.cantidad }}
+        </div>
+     	<div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+     		<label class="lbl">Ancho</label>
+     		     		{{ form.ancho }}
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-4 col-sm-1"> 
+     		<label class="lbl">Altura</label>
+     		     		{{ form.altura }}
+     	</div>
+
+
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label class="lbl">Tipo</label>
+     		     		{{ form.tipo }}
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label class="lbl">Color</label>
+     		     		{{ form.color }}
+     	</div>
+		<div class="col-lg-3 col-md-3 col-xs-12 col-sm-12"> 
+			<label class="lbl">Descripcion</label>		
+			
+			{{ form.descripcion }}
+			</div>
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label class="lbl">GA</label>
+     		     		{{ form.ga }}
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label class="lbl">Precio unitario</label>
+     		     		{{ form.precio_unitario }}
+     	</div>
+     	<div class="col-lg-1 col-md-1 col-xs-3 col-sm-1"> 
+     		<label class="lbl">Total</label>
+     		     		{{ form.precio_total }}
+     	</div>
+
+     	</div>		
+
+     	<div>{% if form.instance.pk %}{{ form.DELETE }}{% endif %}</div>
+     </div>
+     <br>
+     {% endfor %}
+</div>
+<div id="" class="row " >
+  <div class="col-md-2 ">
+
+  </div>  
+    <div class="col-md-6">
+        
+    </div>
+  <div class="col-md-2">
+
+    
+  </div> 
+  <div class="col-md-2">
+       <strong>TOTAL 
+          <input type="text" id="totalgeneral" readonly style="    text-align: right;">  
+        </strong>
+  </div>
+
+
+</div>
+<br>
+<br>
+
+<div id="" class="row " >
+	<div class="col-md-2 ">
+
+	</div>	
+    <div class="col-md-6">
+        
+    </div>
+	<div class="col-md-2">
+    {%if folio == 'L0'%}
+		<input  type="submit" class="btn btn-primary" value="Guardar"  id="guardar" />
+    {% endif%}
+		
+	</div> 
+	<div class="col-md-2">
+		{%if id != '0'%}
+      {%if folio == 'L0'%}
+        <a tabindex="-1" href="/djmicrosip_cotizacion_puertas/cotizar/{{id}}/"><i class=""></i>&nbsp;Cotizar</a>
+      {% endif%}
+		{%endif%}
+	</div>
+
+
+</div>
+
+
+</form>
+
+</div>
+</div>
+
+{% endblock %}

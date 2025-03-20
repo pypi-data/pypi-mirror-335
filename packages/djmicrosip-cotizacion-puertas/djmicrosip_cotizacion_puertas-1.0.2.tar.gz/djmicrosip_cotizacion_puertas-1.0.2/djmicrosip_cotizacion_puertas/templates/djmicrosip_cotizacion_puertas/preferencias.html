@@ -1,0 +1,330 @@
+{% extends 'djmicrosip_cotizacion_puertas/base.html' %}
+{% block title %}
+Cotizacion
+{% endblock %}
+<!-- CSS Code -->
+{% block style_css %}{% endblock %}
+{% block modulestyle_css %}
+{% endblock %}
+<!-- JavaScript Code -->
+{% block js_code %}
+{% include 'autocomplete_light/static.html' %}
+<script src='{{STATIC_URL}}js/jquery.formset.js'></script>
+<script>
+
+
+      $(".tipo").on("click", function() {
+        
+        var id_tipo=this.id;
+        $("#id_nom_abreviado").val($("."+id_tipo+".nom_abreviado").attr('id'));
+        $("#id_nombre").val($("."+id_tipo+".nombre").attr('id'));
+        $("#id_valor").val($("."+id_tipo+".valor").attr('id'));
+        $("#tipo_id").val(id_tipo);
+
+    });
+
+      $(".btn-tipo").on("click", function() {
+        debugger
+    $.ajax({
+        url:'/djmicrosip_cotizacion_puertas/tipo/',
+        type : 'get',
+        data : {
+          'nom_abreviado':$("#id_nom_abreviado").val(),
+          'nombre':$("#id_nombre").val(),
+          'valor': $("#id_valor").val(),
+          'id_tipo':$("#tipo_id").val(),
+        },
+        success: function(data){
+          alert(data.mensaje)
+      },
+    });
+
+    });
+
+
+      $(".material").on("click", function() {
+        debugger
+        var id_mat=this.id;
+        var nombre=$("."+id_mat+".nombremat").attr('id')
+        var elem=$("div.mat").find("#id_nombre");
+
+        $(elem).val($("."+id_mat+".nombremat").attr('id'));
+        $("#id_precio").val($("."+id_mat+".precio").attr('id'));
+        $("#id_peso").val($("."+id_mat+".peso").attr('id'));
+        $("#id_unidades").val($("."+id_mat+".unidades").attr('id'));
+        $("#id_unidad_medida").val($("."+id_mat+".unidad_medida").attr('id'));
+        $("#material_id").val(id_mat);
+
+    });
+
+      $(".btn-material").on("click", function() {
+        debugger
+        var nombre=$("."+$("#material_id").val()+".nombremat").attr('id')
+        var elem=$("div.mat").find("#id_nombre");
+    $.ajax({
+        url:'/djmicrosip_cotizacion_puertas/material/',
+        type : 'get',
+        data : {
+          'nombre':$(elem).val(),
+          'precio':$("#id_precio").val(),
+          'peso': $("#id_peso").val(),
+          'unidades': $("#id_unidades").val(),
+          'unidad_medida': $("#id_unidad_medida").val(),
+          'id_material':$("#material_id").val(),
+        },
+        success: function(data){
+          alert(data.mensaje)
+
+      },
+    });
+
+    });
+
+
+      $(".marart").on("click", function() {
+        debugger
+          var id_matart=this.id;
+          var material=$("."+id_matart+".material").attr('id')
+          var material=$("."+id_matart+".tipo_nombre").attr('id')
+          $("#id_material").val($("."+id_matart+".material").attr('id')).change();
+          $("#id_tipo_nombre").val($("."+id_matart+".tipo_nombre").attr('id')).change();
+          $("#id_cantidad").val($("."+id_matart+".cantidad").attr('id'));
+          $("#matart_id").val(id_matart);
+    });
+</script>
+{% endblock %}
+{% block selected_module %} Microsip {% endblock %}
+{% block breadcrumb %}
+{{ block.super }}
+<li><a>PREFERENCIAS</a></li>
+{% endblock %}
+{% block content %}
+<div class="row">
+	<br>
+<div class="col-lg-12">	
+{% if mensaje == '' %}
+
+
+
+<div class="page-header">
+  <h1>Preferencias <small></small>  </h1>
+</div>
+<div class="row">
+
+<ul class="nav nav-tabs" role="tablist">
+    <li class="active"><a href="#home" role="tab" data-toggle="tab">Generales</a></li>
+    <li><a href="#tipo" role="tab" data-toggle="tab">Tipo</a></li>
+    <li><a href="#mat" role="tab" data-toggle="tab">Material</a></li>
+    <li><a href="#matart" role="tab" data-toggle="tab">Material por pieza</a></li>
+	</ul>
+</div>
+<!-- Tab panes -->
+<div class="tab-content">
+	<div class="tab-pane active" id="home" >
+<form method="post" class="form-horizontal" action="" enctype='multipart/form-data'>{% csrf_token %}
+
+        {{ form_pref.errors }}
+      <br>
+    <div class="row">
+      <div class="col-md-3"><strong>Fraccion Ganancia Local</strong> {{form_pref.fraccion_ganancia_local}}</div>
+      <div class="col-md-3"><strong>Fraccion Ganancia Extranjera</strong> {{form_pref.fraccion_ganancia_ext}}</div>
+      <div class="col-md-3"><strong>Articulo</strong> {{form_pref.ve_articulo}}</div>
+    </div>
+      <br>
+    <div class="row">
+      <div class="col-md-3"><strong>Cliente</strong> {{form_pref.ve_cliente}}</div>
+      <div class="col-md-3"><strong>Almacen</strong> {{form_pref.ve_almacen}}</div>
+      <div class="col-md-3"><strong>Condicion de Pago</strong> {{form_pref.ve_condicion_pago}}</div>
+      <div class="col-md-3"><strong>Vendedor</strong> {{form_pref.ve_vendedor}}</div>
+    </div>
+      
+<button type="submit" class="btn"><i class="glyphicon glyphicon-floppy-disk"></i> Guardar</button>       
+</form>       
+   </div> 
+    <div class="tab-pane" id="tipo" >
+    <div class="row">
+
+    <table class="table tableCell table-hover table-bordered" id="id_tipo_data">
+      <thead>
+        <tr>
+          <th>
+            <div class="col-xs-2" style="width:15%">Nombre abreviado</div>
+            <div class="col-xs-1" style="width:15%">Nombre</div>
+            <div class="col-xs-3" style="width:15%">Valor</div>
+            <div class="col-xs-1" style="width:5%"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+
+          {% for tipo in querysetTipo%}
+        <tr id="row" class="form-container">
+          <td >
+            <div class="col-xs-2 {{tipo.id}} nom_abreviado" id="{{tipo.nom_abreviado}}" style="width:15%">{{tipo.nom_abreviado}}</div>
+            <div class="col-xs-2 {{tipo.id}} nombre" id="{{tipo.nombre}}" style="width:15%">{{tipo.nombre}}</div>
+            <div class="col-xs-1 {{tipo.id}} valor" id="{{tipo.valor}}" style="width:15%">{{tipo.valor}}</div>
+            <div class="col-xs-1  " style="width:5%">
+                  <a id="{{tipo.id}}" href="#" class="btn btn-default tipo" data-toggle="modal" data-target=".bs-tipo-modal-sm">
+                    Editar
+                  </a>              
+            </div>
+          </td>
+        </tr>
+          {%endfor%}
+
+      </tbody>
+    </table>
+          <a id="0" href="#" class="btn btn-default tipo" data-toggle="modal" data-target=".bs-tipo-modal-sm">
+            Nuevo
+          </a>    
+      
+			
+
+    </div>
+  </div>
+  <br>
+  <div class="tab-pane" id="mat" >
+    <div class="row form-container">
+
+
+    <table class="table tableCell table-hover table-bordered" id="id_material_data">
+      <thead>
+        <tr>
+          <th>
+            <div class="col-xs-1" style="width:15%">Nombre</div>
+            <div class="col-xs-2" style="width:10%">Precio</div>
+            <div class="col-xs-1" style="width:10%">Peso</div>
+            <div class="col-xs-3" style="width:15%">Unidades</div>
+            <div class="col-xs-2" style="width:10%">Unidad Medida</div>
+            <div class="col-xs-1" style="width:5%"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+     {% for material in querysetMaterial%}
+        <tr id="row" class="form-container">
+          <td>
+            <div class="col-xs-2 {{material.id}} nombremat" id="{{material.nombre}}" style="width:15%">{{material.nombre}}</div>
+            <div class="col-xs-2 {{material.id}} precio" id="{{material.precio}}" style="width:10%">{{material.precio}}</div>
+            <div class="col-xs-2 {{material.id}} peso" id="{{material.peso}}" style="width:10%">{{material.peso}}</div>
+            <div class="col-xs-1 {{material.id}} unidades" id="{{material.unidades}}" style="width:15%">{{material.unidades}}</div>
+            <div class="col-xs-2 {{material.id}} unidad_medida" id="{{material.unidad_medida}}" style="width:10%">{{material.unidad_medida}}</div>
+            <div class="col-xs-1" style="width:5%">
+                  <a id="{{material.id}}" href="#" class="btn btn-default material" data-toggle="modal" data-target=".bs-material-modal-sm">
+                    Editar
+                  </a>   
+            </div>
+          </td>
+        </tr>
+
+      {%endfor%}
+      </tbody>
+    </table>
+                  <a id="0" href="#" class="btn btn-default material" data-toggle="modal" data-target=".bs-material-modal-sm">
+                    Nuevo
+                  </a>       
+			
+
+    </div>
+  </div>
+  <br>
+  <div class="tab-pane" id="matart" >
+    <div class="row form-container">
+
+
+    <table class="table tableCell table-hover table-bordered" id="id_materialart_data">
+      <thead>
+        <tr>
+          <th>
+            <div class="col-xs-1" style="width:15%">Material</div>
+            <div class="col-xs-2" style="width:10%">Tipo</div>
+            <div class="col-xs-1" style="width:10%">Cantidad</div>
+            <div class="col-xs-1" style="width:5%"></div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for matart in querysetMatArticulo%}          
+        <tr id="row" class="form-container">
+          <td class="td{{matart.id}}">
+            <div class="col-xs-2 {{matart.id}} material" id="{{matart.material.id}}" style="width:15%">{{matart.material}}</div>
+            <div class="col-xs-2 {{matart.id}} tipo_nombre" id="{{matart.tipo.id}}" style="width:10%">{{matart.tipo.nombre}}</div>
+            <div class="col-xs-2 {{matart.id}} cantidad" id="{{matart.cantidad}}" style="width:10%">{{matart.cantidad}}</div>
+            <div class="col-xs-1  " style="width:5%">
+                  <a id="{{matart.id}}" href="#" class="btn btn-default marart" data-toggle="modal" data-target=".bs-matarticulo-modal-sm">
+                    Editar
+                  </a>   
+             </div>
+          </td>
+        </tr>
+        {%endfor%}
+
+      </tbody>
+    </table>
+    
+
+    </div>
+  </div>
+
+</div>
+</div>
+<br><br>
+
+
+<!-- MODAL TIPO -->
+    <div class="modal fade bs-tipo-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">Tipo</h4>
+              <input type="text" class="hidden" id="tipo_id">
+              {{TipoForm}}
+            </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+              <button type="button" class="btn-tipo">Guardar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+<!-- MODAL MATERIAL -->
+    <div class="modal fade bs-material-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header mat">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">Material</h4>
+              <input type="text" class="hidden" id="material_id">
+              {{MaterialForm}}
+            </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-material">Guardar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+<!-- MODAL ARTICULO MATERIAL --> 
+    <div class="modal fade bs-matarticulo-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">Material Articulo</h4>
+              <input type="text" class="" id="matart_id">
+              {{MaterialArtForm}}
+            </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn-materialarticulo">Guardar</button>
+            </div>
+        </div>
+      </div>
+    </div>
+{%else%}
+<p>{{mensaje}}</p>
+{%endif%}
+</div>
+</div>
+{% endblock %}

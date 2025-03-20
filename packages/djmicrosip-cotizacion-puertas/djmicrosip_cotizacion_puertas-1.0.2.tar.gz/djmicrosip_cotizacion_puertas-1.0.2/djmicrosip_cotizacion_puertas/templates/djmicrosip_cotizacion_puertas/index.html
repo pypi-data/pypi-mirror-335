@@ -1,0 +1,48 @@
+{% extends 'djmicrosip_cotizacion_puertas/base.html' %}
+{% block title %}
+{% endblock %}
+{% block style_css %}
+
+{% endblock %}
+{% block modulestyle_css %}
+{% endblock %}
+{% block js_code %}
+
+{% endblock %}
+{% block selected_module %} Microsip {% endblock %}
+{% block content %}
+<div class="row">
+<h1 align="center">Lista Cotizaciones</h1>
+<br><br><br>
+  <div class="col-lg-12">
+    <div class="col-lg-12">
+      <div class="col-lg-4"><span>Numero</span></div>
+      
+      <div class="col-lg-4">Folio</div>
+      <div class="col-lg-4">Estatus</div>
+
+    </div>
+
+
+      {%for cot in cotizaciones%}
+    <div class="col-lg-12">
+      	{% if cot.folio_microsip != '0'%}
+      	<div class="col-lg-4">
+          <a  href="/djmicrosip_cotizacion_puertas/cotizacion/{{cot.id}}/{{cot.folio_microsip}}/"># {{cot.id}}</a> &emsp;
+        <a  href="/djmicrosip_cotizacion_puertas/imprimir/{{cot.id}}/{{cot.folio_microsip}}/"><i class="glyphicon glyphicon-print"> </i></a>
+        </div>
+        <div class="col-lg-4">{{cot.folio_microsip}}</div>
+          {%else%}
+          <div class="col-lg-4"><a tabindex="-1" href="/djmicrosip_cotizacion_puertas/cotizacion/{{cot.id}}/L0/"># {{cot.id}}</a></div>
+        <div class="col-lg-4"></div>
+          {%endif%}
+        
+        <div class="col-lg-4">{{cot.estatus}}</div>
+
+
+    </div>
+      {%endfor%}
+  </div>
+    
+</div>
+{% endblock %}

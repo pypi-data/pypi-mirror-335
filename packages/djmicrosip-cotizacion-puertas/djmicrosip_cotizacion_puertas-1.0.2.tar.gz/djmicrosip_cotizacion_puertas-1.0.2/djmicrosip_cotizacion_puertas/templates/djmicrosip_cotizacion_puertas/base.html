@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load humanize %}
+{% block title %}BASE{% endblock %}
+
+<!-- CSS Code -->
+{% block style_css %}{% endblock %}
+{% block modulestyle_css %}
+{% endblock %}
+<!-- JavaScript Code -->
+{% block js_code %}
+
+{% endblock %} 
+{% block selected_module %} Microsip {% endblock %}
+{% block breadcrumb %}
+{{ block.super }}
+<li><a href="/djmicrosip_cotizacion_puertas/">Cotizacion</a></li>
+{% endblock %}
+{% block tools-module %}
+
+<li class="dropdown">
+	{% if user.is_superuser %}
+    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> Opciones <b class="caret"></b></a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+ 		<li ><a tabindex="-1" href="/djmicrosip_cotizacion_puertas/preferencias/"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Preferencias</a></li>
+    </ul>
+ 	{% endif %}   
+      <li ><a tabindex="-1" href="/djmicrosip_cotizacion_puertas/cotizacion/0/L0/"><i class="glyphicon glyphicon-wrench"></i>&nbsp;Cotizacion Puertas</a></li>
+    </ul>	  
+</li>
+<!-- <li class="dropdown hidden">
+    <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> REPORTES <b class="caret"></b></a>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+      <li ><a tabindex="-1" href="/pedidos/preferencias/"><i class="glyphicon glyphicon-wrench"></i>&nbsp;</a></li>  
+    </ul>
+</li>   -->
+{% endblock %}
+
+{% block content %}
+
+{% endblock %}
