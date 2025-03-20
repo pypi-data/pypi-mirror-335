@@ -1,0 +1,23 @@
+# Операторы:
+#   *  Один аргумент в no
+#   ~  Несколько аргументов (минимум один) в no
+#
+# Параметры:
+#   %global         Команда действует на любом уровне ниже
+#   %logic=...      Кастомная функция обработки правила
+#   %diff_logic=... Кастомная функция построения диффа.
+#                   данная функция работает для подблоков (в отличие от %logic)
+#   %comment=...    Добавить коммент после строки который будет видно с опцией patch --add-comments
+#                   Сделано в основном для того чтобы генерировать специальные команды для наливки
+# -----
+# Physical
+sflow *
+
+interface */(ce|xe)[0-9\/]+$/     %logic=common.permanent %diff_logic=cisco.iface.diff
+    ipv6 address *
+    mtu *                         %logic=b4com.iface.mtu
+    sflow *                       %logic=b4com.iface.sflow
+    lldp-agent
+        ~ %global                 %logic=b4com.iface.lldp
+        !dcbx *
+        !exit
