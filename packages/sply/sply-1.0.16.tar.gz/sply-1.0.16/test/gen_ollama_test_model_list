@@ -1,0 +1,27 @@
+#!/bin/sh
+
+cd "$(dirname $(realpath $0))"
+
+list_path="ollama_test_model.list"
+grev="^default|^gemma3-vision"
+
+ollama list > /dev/null 2>&1 || {
+    res="$?"
+    echo "$0: error running \"ollama list\": $res"
+    exit "$res"
+    }
+
+ollama list |
+      sort -n -k3 |
+      tail -n +2 |
+      cut -d' ' -f1 |
+      grep -Ev "$grev" |
+      cut -d: -f1 \
+        > "$list_path" || {
+    res="$?"
+    echo "$0: error generating \"$list_path\": $res"
+    exit "$res"
+    }
+
+echo "generated \"$list_path\""
+

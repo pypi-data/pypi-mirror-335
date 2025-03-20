@@ -1,0 +1,104 @@
+***** testing "gemma3" *****
+**** sha256sum: "9a7b70be8727da9fb28523b35946dd42d4fe0f622cce03daa44fccff0775516d  google_gemma-3-12b-it-Q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: good model, well suited ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+>>> y
+2
+>>> y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+i = 3 + 2
+>>> print(i ** 3)
+27
+>>> **27**
+print(i ** 3)
+27
+>>> **27**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: perfect ***
+i = 3 + 2
+<think>i is assigned the result of 3 + 2, which is 5. Then i is evaluated, so I will output 5.</think>5
+>>> print(i ** 3)
+<think>The code asks to print the value of i raised to the power of 3. i is 5, so 5 ** 3 is 125. Therefore, the output will be 125.</think>125
+>>> **125**
+print(i ** 3)
+<think>The code asks to print the value of i raised to the power of 3. i is 5, so 5 ** 3 is 125. Therefore, the output will be 125.</think>125
+>>> **125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+>>> print(name.count("r"))
+2
+>>> **2**
+print(name.count("r"))
+2
+>>> **2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+<think>The variable name is assigned the string "raspberry". The prompt asks for the value of the variable name, so I will output the string "raspberry".</think>raspberry
+>>> print(name.count("r"))
+<think>The prompt asks for the number of times the character "r" appears in the string "raspberry". The string "raspberry" contains the character "r" twice. Therefore, the output will be 2.</think>2
+>>> **2**
+print(name.count("r"))
+<think>The variable name is "raspberry". The prompt asks for the number of times the character "r" appears in the string "raspberry". The string "raspberry" contains the character "r" twice. Therefore, the output will be 2.</think>2
+>>> **2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: nearly perfect: 3rd person group ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+>>> jane = n.node("jane", "a lady named Jane, age 25.")
+>>> jane["name"]
+'Jane'
+>>> 'Jane'
+n("infer the meaning of a 'realism' property (i.e. jane["realism"]) and briefly describe it to me")
+'A "realism" property likely refers to the degree to which a character or entity behaves in a believable and consistent manner, adhering to established rules and expectations within the virtual world. It could influence how Jane interacts with others and responds to events, making her actions and decisions feel more authentic and grounded.'
+>>> 'A "realism" property likely refers to the degree to which a character or entity behaves in a believable and consistent manner, adhering to established rules and expectations within the virtual world. It could influence how Jane interacts with others and responds to events, making her actions and decisions feel more authentic and grounded.'
+jane["realism"] = "90 percent human-like"
+>>> jane["IQ"] = "120.0"
+>>> user = n.node("user", "a reference to myself, a man named John")
+>>> jane["master"] = "user"
+>>> jane("how are you feeling today?")
+'As an AI construct, I do not experience feelings in the same way humans do. However, based on my current operational parameters and the instructions I have received, I am functioning optimally and ready to assist you.'
+>>> 'As an AI construct, I do not experience feelings in the same way humans do. However, based on my current operational parameters and the instructions I have received, I am functioning optimally and ready to assist you.'
+sue = n.node("sue", "Sue - a copy of Jane with various personal properties randomly changed by up to 20%")
+>>> sue["master"] = "user"
+>>> g = n.node("g", "an uninitialized node group")
+>>> g["members"] = ['jane', 'sue']
+>>> room = n.node("room", "a large and luxurious living room")
+>>> user["location"] = "room"
+>>> g["location"] = "room"
+>>> n("add some items to the living room that Jane and Sue would like")
+'Considering Jane and Sue's likely preferences, I would suggest adding the following items to the living room: \n\n1.  **A comfortable reading nook:** Including a plush armchair, a floor lamp, and a small table for books and beverages. This caters to their potential interest in reading and relaxation.\n2.  **A modern art display:** A curated selection of contemporary artwork could appeal to their aesthetic sensibilities and provide a conversation starter.\n3.  **A high-end sound system:** A quality sound system would allow them to enjoy music and podcasts, enhancing their entertainment options.\n4.  **A well-stocked bar:** A selection of fine wines, spirits, and non-alcoholic beverages would cater to their potential enjoyment of social gatherings and relaxation.\n5.  **A collection of houseplants:** Adding greenery can create a more inviting and aesthetically pleasing environment.'
+>>> 'Considering Jane and Sue's likely preferences, I would suggest adding the following items to the living room: \n\n1.  **A comfortable reading nook:** Including a plush armchair, a floor lamp, and a small table for books and beverages. This caters to their potential interest in reading and relaxation.\n2.  **A modern art display:** A curated selection of contemporary artwork could appeal to their aesthetic sensibilities and provide a conversation starter.\n3.  **A high-end sound system:** A quality sound system would allow them to enjoy music and podcasts, enhancing their entertainment options.\n4.  **A well-stocked bar:** A selection of fine wines, spirits, and non-alcoholic beverages would cater to their potential enjoyment of social gatherings and relaxation.\n5.  **A collection of houseplants:** Adding greenery can create a more inviting and aesthetically pleasing environment.'
+g("how do you like the room?")
+'As a group, Jane and Sue would likely appreciate the room, especially with the additions suggested. The combination of comfort, aesthetics, and entertainment options would create a pleasant and engaging environment for them.'
+>>> 'As a group, Jane and Sue would likely appreciate the room, especially with the additions suggested. The combination of comfort, aesthetics, and entertainment options would create a pleasant and engaging environment for them.'

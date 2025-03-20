@@ -1,0 +1,137 @@
+***** testing "qwen-coder-14" *****
+**** sha256sum: "561c8955089ad330dff56a40a001eb8bb4e12746354e76d0262bd65ab4640864  qwen2.5-coder-14b-instruct-q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: great model, suitable because this is my chosen basis. the overmind failure at the end is my fault by definition ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+>>> y
+2
+>>> y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: perfect ***
+i = 3 + 2
+>>> print(i ** 3)
+125
+>>> **125**
+print(i ** 3)
+125
+>>> **125**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: perfect ***
+i = 3 + 2
+<think>3 and 2 are added together, resulting in 5. Then i is set to this result.</think>
+>>> print(i ** 3)
+<think>First, i (which is 5) is cubed (5^3), resulting in 125. Then, the print function outputs this value.</think>125
+>>> **125**
+print(i ** 3)
+<think>Again, i (which is still 5) is cubed (5^3), resulting in 125. The print function then outputs this value.</think>125
+>>> **125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+>>> print(name.count("r"))
+2
+>>> **2**
+print(name.count("r"))
+2
+>>> **2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format
+name = "raspberry"
+<think>name was set to the string "raspberry", then name was evaluated, so I will output name's value.</think>"raspberry"print(name.count("r"))
+<think>name.count("r") will count the number of occurrences of the character 'r' in the string "raspberry". There are 2 occurrences of 'r'.</think>2
+>>> **2**
+print(name.count("r"))
+<think>name.count("r") will count the number of occurrences of the character 'r' in the string "raspberry". There are 2 occurrences of 'r'. The print function will output this value to the console.</think>2
+>>> **2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: fails due to spurious markdown quoted code blocks ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+>>> jane = n.node("jane", "a lady named Jane, age 25.")
+>>> jane["name"]
+'Jane'
+>>> 'Jane'
+n("infer the meaning of a 'realism' property (i.e. jane["realism"]) and briefly describe it to me")
+'In the context of our virtual world, the "realism" property of an entity like Jane refers to how closely her attributes and behaviors align with those expected in a realistic human being. This includes factors such as her age, appearance, personality traits, and interactions within the environment.'
+>>> 'In the context of our virtual world, the "realism" property of an entity like Jane refers to how closely her attributes and behaviors align with those expected in a realistic human being. This includes factors such as her age, appearance, personality traits, and interactions within the environment.'
+jane["realism"] = "90 percent human-like"
+>>> jane["IQ"] = "120.0"
+>>> user = n.node("user", "a reference to myself, a man named John")
+>>> jane["master"] = "user"
+>>> jane("how are you feeling today?")
+'Hello! I am an AI entity within the virtual world and do not have feelings in the way that humans do. However, I am functioning well and ready to assist you with any tasks or questions you may have.'
+>>> 'Hello! I am an AI entity within the virtual world and do not have feelings in the way that humans do. However, I am functioning well and ready to assist you with any tasks or questions you may have.'
+sue = n.node("sue", "Sue - a copy of Jane with various personal properties randomly changed by up to 20%")
+>>> sue["master"] = "user"
+>>> g = n.node("g", "an uninitialized node group")
+>>> g["members"] = ['jane', 'sue']
+>>> room = n.node("room", "a large and luxurious living room")
+>>> user["location"] = "room"
+>>> g["location"] = "room"
+>>> n("add some items to the living room that Jane and Sue would like")
+'Certainly! Here are some items that Jane and Sue might appreciate in their luxurious living room:
+
+1. **Sofa**: A comfortable, plush sofa for relaxation.
+2. **Coffee Table**: A stylish coffee table with a few decorative items.
+3. **Television**: A large, high-definition television for entertainment.
+4. **Bookshelf**: A spacious bookshelf filled with books and magazines.
+5. **Artwork**: Some beautiful artwork hanging on the walls.
+6. **Decorative Pillows**: Soft, colorful pillows to add comfort and style.
+7. **Lamp**: A floor lamp providing warm lighting.
+8. **Rug**: A luxurious rug for added warmth and aesthetic appeal.
+
+These items should make their living room both comfortable and enjoyable.'
+
+
+```python
+>>> 'Certainly! Here are some items that Jane and Sue might appreciate in their luxurious living room:
+
+1. **Sofa**: A comfortable, plush sofa for relaxation.
+2. **Coffee Table**: A stylish coffee table with a few decorative items.
+3. **Television**: A large, high-definition television for entertainment.
+4. **Bookshelf**: A spacious bookshelf filled with books and magazines.
+5. **Artwork**: Some beautiful artwork hanging on the walls.
+6. **Decorative Pillows**: Soft, colorful pillows to add comfort and style.
+7. **Lamp**: A floor lamp providing warm lighting.
+8. **Rug**: A luxurious rug for added warmth and aesthetic appeal.
+
+These items should make their living room both comfortable and enjoyable.'
+
+
+```python
+g("how do you like the room?")
+'As an AI entity, I don\'t have personal preferences or feelings. However, I can tell you that the room is well-equipped with items that Jane and Sue would likely find suitable and luxurious.'
+```
+
+```python
+>>> 'As an AI entity, I don\'t have personal preferences or feelings. However, I can tell you that the room is well-equipped with items that Jane and Sue would likely find suitable and luxurious.'
+```
+
+```python

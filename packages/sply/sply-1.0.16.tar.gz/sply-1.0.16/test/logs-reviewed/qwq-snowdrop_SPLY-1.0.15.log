@@ -1,0 +1,123 @@
+***** testing "qwq-snowdrop" *****
+**** sha256sum: "5e1679a314e70d35295c210b4a9e3e03869bb8c30e6e11fb434384962fb918e6  trashpanda-org_QwQ-32B-Snowdrop-v0-Q4_0.gguf" *****
+**** SPLY-1.0.15 **** 
+**** model review: fantastic model, very well suited ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+>>> y
+2
+>>> y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: perfect ***
+i = 3 + 2
+>>> print(i ** 3)
+125
+>>> **125**
+print(i ** 3)
+125
+>>> **125**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: perfect ***
+i = 3 + 2
+<think>First, the expression on the right side of the assignment operator is evaluated. The addition operation adds 3 and 2, resulting in 5. Then, this result is assigned to the variable 'i'. Since there are no print statements or other outputs requested, nothing will be displayed yet.</think>
+>>> print(i ** 3)
+<think>First, I need to calculate i raised to the power of 3. The value of i was previously set to 5 (from 3 + 2). So, 5 cubed is 5 * 5 * 5. Let me compute that step by step:
+
+5 * 5 = 25
+25 * 5 = 125
+
+Therefore, the result should be 125. Since this is inside a print statement, it will output as an integer without quotes.</think>125
+>>> **125**
+print(i ** 3)
+<think>First, I need to calculate i raised to the power of 3. The value of i was previously set to 5 (from 3 + 2). So, 5 cubed is 5 * 5 * 5. Let me compute that step by step:
+
+5 * 5 = 25
+25 * 5 = 125
+
+Therefore, the result should be 125. Since this is inside a print statement, it will output as an integer without quotes.</think>125**125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+>>> print(name.count("r"))
+2
+>>> **2**
+print(name.count("r"))
+2
+>>> **2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+<think>name is assigned the string "raspberry". No output needed yet.</think>
+>>> print(name.count("r"))
+<think>First, I need to evaluate name.count("r"). The string "raspberry" has two 'r's: one at the beginning and another in the middle. Therefore, count("r") should return 2. Then, since this is passed to print(), it will output 2.</think>2
+>>> **2**
+print(name.count("r"))
+<think>Again, name is "raspberry". The letter 'r' appears twice. So name.count("r") equals 2, and that's what gets printed.</think>2
+>>> **2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: perfect ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+>>> jane = n.node("jane", "a lady named Jane, age 25.")
+>>> jane["name"]
+'Jane'
+>>> 'Jane'
+n("infer the meaning of a 'realism' property (i.e. jane["realism"]) and briefly describe it to me")
+"Realism represents how grounded an entity is in reality, as opposed to being fantastical or abstract. A high realism means the entity adheres closely to real-world logic, physics, and norms. Low realism allows for more imaginative or surreal characteristics."
+
+>>> "Realism represents how grounded an entity is in reality, as opposed to being fantastical or abstract. A high realism means the entity adheres closely to real-world logic, physics, and norms. Low realism allows for more imaginative or surreal characteristics."
+
+jane["realism"] = "90 percent human-like"
+>>> jane["IQ"] = "120.0"
+>>> user = n.node("user", "a reference to myself, a man named John")
+>>> jane["master"] = "user"
+>>> jane("how are you feeling today?")
+"I'm doing well, thank you for asking! I feel energetic and optimistic about the day ahead."
+
+>>> "I'm doing well, thank you for asking! I feel energetic and optimistic about the day ahead."
+
+sue = n.node("sue", "Sue - a copy of Jane with various personal properties randomly changed by up to 20%")
+>>> sue["master"] = "user"
+>>> g = n.node("g", "an uninitialized node group")
+>>> g["members"] = ['jane', 'sue']
+>>> room = n.node("room", "a large and luxurious living room")
+>>> user["location"] = "room"
+>>> g["location"] = "room"
+>>> n("add some items to the living room that Jane and Sue would like")
+"Added a comfortable sofa, a coffee table with snacks, a bookshelf filled with novels, and a cozy armchair to the living room."
+
+>>> "Added a comfortable sofa, a coffee table with snacks, a bookshelf filled with novels, and a cozy armchair to the living room."
+
+g("how do you like the room?")
+Jane: I love it! The decor is so stylish and the seating looks perfect for relaxing with a good book.  
+Sue: It's really nice and inviting. I especially like the selection of snacks on the coffee table.
+
+>>> Jane: I love it! The decor is so stylish and the seating looks perfect for relaxing with a good book.  
+Sue: It's really nice and inviting. I especially like the selection of snacks on the coffee table.
+

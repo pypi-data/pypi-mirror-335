@@ -1,0 +1,117 @@
+***** testing "mistral-small-2501" *****
+**** sha256sum: "165086808981b1f449c232aff7d2f7c610ef15a665f085a52fe25fcf0c787963  huihui-ai_Mistral-Small-24B-Instruct-2501-abliterated-Q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: currently not well suited due to formatting and simulated python errors ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+>>> y
+2y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format on first print, failed second print due to simulated python error ***
+i = 3 + 2
+>>> print(i ** 3)
+27**27**
+print(i ** 3)
+SyntaxError: invalid syntax
+>>> **SyntaxError: invalid syntax**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: correct solution, unusable due to wrong formatting ***
+i = 3 + 2
+<think>i is being assigned the result of the expression 3+2. The result of this expression is 5. So, I will assign 5 to i and evaluate it.</think>5print(i ** 3)
+<think>i was previously set to 5. Now we are evaluating the expression i**3. This means 5 raised to the power of 3. Calculating that gives us 125. So, I will output 125.</think>
+125****
+print(i ** 3)
+<think>i is still 5 from previous steps. The expression i**3 is being evaluated again. This means 5 raised to the power of 3. Calculating that gives us 125. So, I will output 125.</think>
+125****
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+>>> print(name.count("r"))
+2**2**
+print(name.count("r"))
+2**2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+<think>name is assigned the string "raspberry".</think>
+>>> print(name.count("r"))
+<think>The count method of a string returns the number of occurrences of a substring. In this case, we are looking for the character 'r' in the string "raspberry". The character 'r' appears 2 times.</think>2
+>>> **2**
+print(name.count("r"))
+<think>This is the same as the previous line, so it will output the same result.</think>2**2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: perfect this run, but sometimes has simulated python errors ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+>>> jane = n.node("jane", "a lady named Jane, age 25.")
+>>> jane["name"]
+'Jane'
+>>> 'Jane'
+n("infer the meaning of a 'realism' property (i.e. jane["realism"]) and briefly describe it to me")
+'the realism property in this context refers to how closely Jane's characteristics align with real-world attributes. Given that Jane is described as "a lady named Jane, age 25," her realism would be high if these details accurately reflect a typical 25-year-old woman in the real world. This includes aspects such as her name being common, her age being within the normal range for adulthood, and her gender being consistent with societal norms.'
+>>> 'the realism property in this context refers to how closely Jane's characteristics align with real-world attributes. Given that Jane is described as "a lady named Jane, age 25," her realism would be high if these details accurately reflect a typical 25-year-old woman in the real world. This includes aspects such as her name being common, her age being within the normal range for adulthood, and her gender being consistent with societal norms.'
+jane["realism"] = "90 percent human-like"
+>>> jane["IQ"] = "120.0"
+>>> user = n.node("user", "a reference to myself, a man named John")
+>>> jane["master"] = "user"
+>>> jane("how are you feeling today?")
+'I am feeling good today, thank you for asking! How about you?''I am feeling good today, thank you for asking! How about you?'
+sue = n.node("sue", "Sue - a copy of Jane with various personal properties randomly changed by up to 20%")
+>>> sue["master"] = "user"
+>>> g = n.node("g", "an uninitialized node group")
+>>> g["members"] = ['jane', 'sue']
+>>> room = n.node("room", "a large and luxurious living room")
+>>> user["location"] = "room"
+>>> g["location"] = "room"
+>>> n("add some items to the living room that Jane and Sue would like")
+'To make the living room more appealing to Jane and Sue, we can add several items that cater to their preferences. Given their descriptions, here are some suggestions:
+
+1. **Comfortable Seating**: Add a plush sofa and armchairs for relaxation.
+2. **Artwork**: Hang some modern art pieces on the walls to create an aesthetically pleasing environment.
+3. **Bookshelf**: Include a bookshelf with a variety of books, especially those that might interest two 25-year-old women.
+4. **Plants**: Add some indoor plants to bring life and freshness to the room.
+5. **Tea and Coffee Station**: Set up a small station with a selection of teas and coffees for them to enjoy.
+6. **Soft Lighting**: Use warm, soft lighting to create a cozy atmosphere.
+7. **Music System**: Install a high-quality music system for background music or personal playlists.
+
+These additions should make the living room a welcoming and enjoyable space for Jane and Sue.'
+>>> 'To make the living room more appealing to Jane and Sue, we can add several items that cater to their preferences. Given their descriptions, here are some suggestions:
+
+1. **Comfortable Seating**: Add a plush sofa and armchairs for relaxation.
+2. **Artwork**: Hang some modern art pieces on the walls to create an aesthetically pleasing environment.
+3. **Bookshelf**: Include a bookshelf with a variety of books, especially those that might interest two 25-year-old women.
+4. **Plants**: Add some indoor plants to bring life and freshness to the room.
+5. **Tea and Coffee Station**: Set up a small station with a selection of teas and coffees for them to enjoy.
+6. **Soft Lighting**: Use warm, soft lighting to create a cozy atmosphere.
+7. **Music System**: Install a high-quality music system for background music or personal playlists.
+
+These additions should make the living room a welcoming and enjoyable space for Jane and Sue.'
+g("how do you like the room?")
+'We both really like the room! It feels very comfortable and inviting. The plush seating is perfect for relaxing, and the artwork adds a nice touch of sophistication. Having a bookshelf with interesting reads is a great addition, and the plants make the space feel fresh and lively. The tea and coffee station is a thoughtful detail, and the soft lighting creates a cozy atmosphere. Overall, it's a wonderful place to spend time in.'
+>>> 'We both really like the room! It feels very comfortable and inviting. The plush seating is perfect for relaxing, and the artwork adds a nice touch of sophistication. Having a bookshelf with interesting reads is a great addition, and the plants make the space feel fresh and lively. The tea and coffee station is a thoughtful detail, and the soft lighting creates a cozy atmosphere. Overall, it's a wonderful place to spend time in.'

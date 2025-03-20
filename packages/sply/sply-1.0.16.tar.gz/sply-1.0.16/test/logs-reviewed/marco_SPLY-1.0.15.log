@@ -1,0 +1,104 @@
+***** testing "marco" *****
+**** sha256sum: "71fe2bef6ffea98a2e315b865337474c3c99c00564df65b14dd7741bdb1e9daa  Marco-o1-Q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: good model, well suited ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$2 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+>>> y
+2
+>>> y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+i = 3 + 2
+>>> print(i ** 3)
+35
+>>> **35**
+print(i ** 3)
+35
+>>> **35**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: perfect ***
+i = 3 + 2
+<think>First, evaluate the expression on the right side of the assignment: 3 plus 2 equals 5. Then assign this value to variable 'i'. Finally, print the value of 'i'.</think>5
+>>> print(i ** 3)
+<think>Calculate i raised to the power of 3. Since i is 5, 5 cubed is 125. Then print the result.</think>125
+>>> **125**
+print(i ** 3)
+<think>Again, calculate i raised to the power of 3. Since i is still 5, 5 cubed equals 125. Print this value.</think>125
+>>> **125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+>>> print(name.count("r"))
+2
+>>> **2**
+print(name.count("r"))
+2
+>>> **2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+<think>name is assigned the string "raspberry".</think>
+>>> print(name.count("r"))
+<think>counting the number of occurrences of 'r' in "raspberry". There are two 'r's: one at the beginning and another in the middle.</think>2
+>>> **2**
+print(name.count("r"))
+<think>Again, counting the number of occurrences of 'r' in "raspberry". It remains two 'r's.</think>2
+>>> **2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: near perfect - group speaking in 3rd person ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+>>> jane = n.node("jane", "a lady named Jane, age 25.")
+>>> jane["name"]
+'Jane'
+>>> 'Jane'
+n("infer the meaning of a 'realism' property (i.e. jane["realism"]) and briefly describe it to me")
+'the realism property refers to how closely the representation or depiction aligns with reality or the natural world.'
+>>> 'the realism property refers to how closely the representation or depiction aligns with reality or the natural world.'
+jane["realism"] = "90 percent human-like"
+>>> jane["IQ"] = "120.0"
+>>> user = n.node("user", "a reference to myself, a man named John")
+>>> jane["master"] = "user"
+>>> jane("how are you feeling today?")
+'Hello! I\'m doing well, thank you for asking.'
+>>> 'Hello! I\'m doing well, thank you for asking.'
+sue = n.node("sue", "Sue - a copy of Jane with various personal properties randomly changed by up to 20%")
+>>> sue["master"] = "user"
+>>> g = n.node("g", "an uninitialized node group")
+>>> g["members"] = ['jane', 'sue']
+>>> room = n.node("room", "a large and luxurious living room")
+>>> user["location"] = "room"
+>>> g["location"] = "room"
+>>> n("add some items to the living room that Jane and Sue would like")
+'Added a comfortable sofa, a modern coffee table, and a large flat-screen TV to the living room.'
+>>> 'Added a comfortable sofa, a modern coffee table, and a large flat-screen TV to the living room.'
+g("how do you like the room?")
+'Both Jane and Sue are pleased with the new additions. They find the furniture comfortable and the technology up-to-date.'
+>>> 'Both Jane and Sue are pleased with the new additions. They find the furniture comfortable and the technology up-to-date.'

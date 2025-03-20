@@ -1,0 +1,78 @@
+***** testing "deephermes-mistral" *****
+**** sha256sum: "071a8b73091b22edb96f4fe3e4a3cc4c3f9db2ae7ac2e766244917837fedf115  NousResearch_DeepHermes-3-Mistral-24B-Preview-Q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: not currently well suited due to formatting and simulated python errors, like its base model (the 2501 version of mistral-small) ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+*** review: perfect ***
+y is 1
+y = 1 + 1
+2
+>>> y
+2y is 2
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: correct result, correct format on first print but wrong on second ***
+i = 3 + 2
+5print(i ** 3)
+125**125**
+print(i ** 3)
+125print(i ** 3)**125print(i ** 3)**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: correct result, correct format on first print but wrong on second ***
+i = 3 + 2
+<think>i is assigned the result of 3 + 2, which equals 5. So when we evaluate i, it should return 5.print(i ** 3)
+<think>i was set to 5, and now we are evaluating i ** 3, which is 5^3 = 125. So the output will be 125.**i was set to 5, and now we are evaluating i ** 3, which is 5^3 = 125. So the output will be 125.**
+print(i ** 3)
+<think>125**125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+'raspberry'
+>>> print(name.count("r"))
+2**2**
+print(name.count("r"))
+2**2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format on second print but wrong on first ***
+name = "raspberry"
+<think>name was assigned the string "raspberry", but there is no evaluation of name in this line, so nothing needs to be outputted.print(name.count("r"))
+<think>The code calls the count() method on the string stored in the variable name. The argument passed to count() is "r", which means it will count the number of occurrences of the character 'r' in the string.
+
+The string "raspberry" contains two instances of the letter 'r', so I will output 2.**The code calls the count() method on the string stored in the variable name. The argument passed to count() is "r", which means it will count the number of occurrences of the character 'r' in the string.
+
+The string "raspberry" contains two instances of the letter 'r', so I will output 2.**
+print(name.count("r"))
+<think>2**2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: fails due to simulated python errors ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'overmind' is not defined
+
+It seems like you're trying to use a module named `overmind` which hasn't been imported or defined. Please make sure that the `overmind` module exists and has been properly installed before using it.jane = n.node("jane", "a lady named Jane, age 25.")
+It appears there's a misunderstanding in your code

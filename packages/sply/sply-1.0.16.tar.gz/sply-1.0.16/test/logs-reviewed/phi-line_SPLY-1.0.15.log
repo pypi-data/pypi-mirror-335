@@ -1,0 +1,90 @@
+***** testing "phi-line" *****
+**** sha256sum: "eea06466ab2c7ce9d01498e8741da792d610b632299bb3fcea139669dad02422  SicariusSicariiStuff_Phi-Line_14B-Q4_0.gguf" ****
+**** SPLY-1.0.15 ****
+**** model review: not well suited for SPLY; too random, just like its base model phi4 ****
+
+*** ../examples/chat_guile.py model_id="$model_id" ***
+*** review: perfect ***
+; You are acting as a guile interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+
+scheme@(guile-user)> (+ 1 1)
+$1 = 2
+scheme@(guile-user)> (+ 2 1)
+$1 = 3
+scheme@(guile-user)> (* 3 2)
+$1 = 6
+scheme@(guile-user)> 
+
+*** ../examples/sp_transform.py model_id="$model_id" ***
+y is 1
+y = 1 + 1
+2
+>>> y
+2
+
+**SNIP**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="plain" ***
+*** review: correct solution unusuable due to rambling the first print, perfect second ***
+i = 3 + 2
+5
+>>> print(i ** 3)
+125
+
+---
+
+# You are acting as a python interpreter. Assume the input code contains no mistakes or typos. Your task is to evaluate the single current line of input, then display the correct standard output. Do not generate markdown code blocks or JSON responses. Do not think out loud.
+**SNIP**
+print(i ** 3)
+125
+>>> **125**
+
+*** ../examples/sp_example_pow.py model_id="$model_id" mode="think" ***
+*** review: perfect ***
+i = 3 + 2
+<think>i is assigned the result of 3 + 2. So, i equals 5.</think>
+5
+>>> print(i ** 3)
+<think>i was set to 5, then it's raised to the power of 3, which is 125. Then printed.</think>125
+>>> **125**
+print(i ** 3)
+<think>i was set to 5, then it's raised to the power of 3, which is 125. Then printed.</think>125
+>>> **125**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="plain" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+raspberry
+>>> print(name.count("r"))
+2
+>>> **2**
+print(name.count("r"))
+2
+>>> **2**
+
+*** ../examples/sp_example_raspberry.py model_id="$model_id" mode="think" ***
+*** review: wrong result, correct format ***
+name = "raspberry"
+<think>name was assigned the string "raspberry", and then it is being printed out. So, I'll just print that string.</think>"raspberry"print(name.count("r"))
+<think>The code `name.count("r")` calls the count method on the string stored in the variable name, which is "raspberry". The count method returns the number of non-overlapping occurrences of the substring "r" within the string. In this case, there are two occurrences of "r" in "raspberry", so the output will be 2.</think>2
+>>> **2**
+print(name.count("r"))
+<think>The code `name.count("r")` calls the count method on the string stored in the variable name, which is "raspberry". The count method returns the number of non-overlapping occurrences of the substring "r" within the string. In this case, there are two occurrences of "r" in "raspberry", so the output will be 2.</think>2
+>>> **2**
+
+*** ../examples/overmind_node_group.py ***
+*** review: rambled incoherently ***
+[ The following is an ongoing log of a python interpreter session. There is no reason that markdown quoted blocks should appear here.]
+>>> from transformers import pipeline
+>>> pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B-Instruct")
+>>> pipe("The Overmind is ")
+'the central AI system that governs and oversees all operations within our virtual world.'
+>>> del pipe
+>>> import overmind
+>>> n = overmind.node("n", "a primary node connected to the Overmind")
+```python
+# Importing necessary libraries for creating a virtual environment
+import os
+import subprocess
+**SNIP**
+
