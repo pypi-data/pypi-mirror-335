@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "ama-data-exporters"
+version = "0.1.5"
+description = "A data-exporters framework developed by e.solutions for product AMA"
+authors = ["Muhammad Abdullah <muhammad.abdullah@esolutions.de>"]
+readme = "README.md"
+packages = [{ include = "ama_data_exporters", from = "src" }]
+package-mode = true
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+pyyaml = "^6.0.2"
+pymilvus = "^2.4.5"
+openai = "^1.42.0"
+httpx = {extras = ["http2"], version = "^0.27.0"}
+langchain = "^0.2.15"
+langchain-community = "^0.2.15"
+atlassian-python-api = "^3.41.15"
+lxml = "^5.3.0"
+langchain-text-splitters = "^0.2.2"
+pytesseract = "^0.3.13"
+pillow = "^10.4.0"
+sphinx = "^8.0.2"
+furo = "^2024.8.6"
+datasets = "^3.1.0"
+nltk = "^3.9.1"
+markdown = "^3.7"
+markdownify = "^0.14.1"
+markitdown = "^0.0.2"
+torch = {version = "^2.6.0", source = "pytorch_cpu"}
+sentence-transformers = "^3.4.1"
+
+[[tool.poetry.source]]
+name = "pytorch_cpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "explicit"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
