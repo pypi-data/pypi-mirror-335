@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: GTDGmbH
+# Copyright 2024 by GTD GmbH.
+
+# This is the configuration file for OCCTRE.
+# In ./occtre/configuration/templates you can find several pre-made
+# configurations, which you may use as replacement or inspiration.
+# The configuration file are written in TOML and parsed into the
+# internal configuration class.
+
+# The configuration supports the following substitutions in the `opt` lists for
+# convenience:
+# 1. `{task_port}` : Port of the socket is running on, e.g. for GDB.
+# 2. `{test_binary}`: path to the executable which is specified on OCCTRE call with flag `-b`
+
+# Both options have to be added by command line and the configuration is updated before the
+# configuration is applied to the interfaces.
+
+# The brackets are for better visibility in the configuration files and the
+# substitutions placeholder shall enable an easier maintainability. The intention
+# is that you can add options to your calls even if the values only exist
+# during execution.
+
+# Section parser
+[parser]
+architecture = "sparc_v8"
+disassembler = "sparc_v8"
+
+[recorder]
+# name = "InstructionCoverage"
+# start-label = "ExecuteTestRun"
+# stop-label  = "TearDownTestRun"
+# jumps = false
+
+# Section Target. Specify target process call.
+[target]
+name = "Qemu"
+cmd = ["qemu-sparc"]
+opt = ["-g", "{task_port}", "{test_binary}"]
+
+# Section GDB. Specify GDB process call.
+[host]
+name = "GDB sparc_v8"
+cmd = ["/opt/rtems-6-sparc-gr740-smp-4/bin/sparc-rtems6-gdb"]
+opt = []
+
+# Section a2line. Specify addr2line process call.
+[a2line]
+name = "addr2line sparc_v8"
+cmd = ["/opt/rtems-6-sparc-gr740-smp-4/bin/sparc-rtems6-addr2line"]
+opt = ["--target=elf32-sparc", "-e", "{test_binary}"]
