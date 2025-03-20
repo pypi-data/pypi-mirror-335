@@ -1,0 +1,30 @@
+[project]
+name = "medvqa"
+version = "0.14.5"
+description = "Competition Submission CLI for ImageCLEFmed-MedVQA-GI-2025 (https://github.com/simula/ImageCLEFmed-MEDVQA-GI-2025)"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "huggingface_hub",
+    "huggingface_hub[hf_transfer]",
+    "gradio_client==1.3.0"
+]
+authors = [
+  { name="Sushant Gautam", email="sushant@simula.no" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = { text = "MIT" }
+
+[project.scripts]
+medvqa = "medvqa.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["*", "competitions/**/"]
+
+[project.urls]
+Homepage = "https://github.com/SushantGautam/MedVQA"
+Issues = "https://github.com/SushantGautam/MedVQA/issues"
