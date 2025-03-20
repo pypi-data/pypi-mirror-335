@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.94.1 -->
+<interface>
+  <!-- interface-description The LEDs page for YAFI -->
+  <!-- interface-authors Steve-Tech -->
+  <requires lib="gtk" version="4.0"/>
+  <requires lib="libadwaita" version="1.6"/>
+  <template class="LedsPage" parent="GtkBox">
+    <property name="orientation">vertical</property>
+    <child>
+      <object class="GtkListBox">
+        <property name="margin-end">10</property>
+        <property name="margin-start">10</property>
+        <child>
+          <object class="AdwActionRow">
+            <property name="selectable">False</property>
+            <property name="title">LED Control</property>
+          </object>
+        </child>
+        <child>
+          <object class="AdwActionRow" id="led_pwr">
+            <property name="title">Power Button</property>
+            <child>
+              <object class="GtkBox">
+                <child>
+                  <object class="GtkScale" id="led_pwr_scale">
+                    <property name="adjustment">
+                      <object class="GtkAdjustment">
+                        <property name="page-increment">1.0</property>
+                        <property name="step-increment">1.0</property>
+                        <property name="upper">2.0</property>
+                        <property name="value">2.0</property>
+                      </object>
+                    </property>
+                    <property name="hexpand">True</property>
+                    <property name="round-digits">0</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwActionRow" id="led_kbd">
+            <property name="title">Keyboard Backlight</property>
+            <child>
+              <object class="GtkBox">
+                <child>
+                  <object class="GtkScale" id="led_kbd_scale">
+                    <property name="adjustment">
+                      <object class="GtkAdjustment">
+                        <property name="page-increment">10.0</property>
+                        <property name="step-increment">1.0</property>
+                        <property name="upper">100.0</property>
+                        <property name="value">100.0</property>
+                      </object>
+                    </property>
+                    <property name="hexpand">True</property>
+                    <property name="round-digits">0</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="AdwExpanderRow" id="led_advanced">
+            <property name="selectable">False</property>
+            <property name="subtitle">These options break normal functionality</property>
+            <property name="title">Advanced Options</property>
+            <child>
+              <object class="AdwPreferencesGroup">
+                <property name="description">When using these options, the power LED may not turn off with the computer.</property>
+                <property name="margin-bottom">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-start">5</property>
+                <property name="margin-top">5</property>
+                <property name="title">Power Button LED</property>
+                <child>
+                  <object class="AdwComboRow" id="led_pwr_colour">
+                    <property name="model">
+                      <object class="GtkStringList">
+                        <items>
+                          <item>Auto</item>
+                          <item>Off</item>
+                        </items>
+                      </object>
+                    </property>
+                    <property name="title">Colour</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="AdwPreferencesGroup">
+                <property name="description">When using these options, the charging indicator will no longer indicate charging.</property>
+                <property name="margin-bottom">5</property>
+                <property name="margin-end">5</property>
+                <property name="margin-start">5</property>
+                <property name="margin-top">5</property>
+                <property name="title">Charging Indicators</property>
+                <child>
+                  <object class="AdwComboRow" id="led_chg_colour">
+                    <property name="model">
+                      <object class="GtkStringList">
+                        <items>
+                          <item>Auto</item>
+                          <item>Off</item>
+                        </items>
+                      </object>
+                    </property>
+                    <property name="title">Colour</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <style>
+          <class name="boxed-list"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>
