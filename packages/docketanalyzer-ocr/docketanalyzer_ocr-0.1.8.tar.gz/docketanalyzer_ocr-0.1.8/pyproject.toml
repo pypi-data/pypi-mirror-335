@@ -1,0 +1,114 @@
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "docketanalyzer-ocr"
+version = "0.1.8"
+authors = [
+    { name = "Nathan Dahlberg" },
+]
+description = "Docket Analyzer OCR Utility"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "dill",
+    "doclayout_yolo",
+    "docketanalyzer-core>=0.1.10",
+    "fastapi",
+    "huggingface-hub",
+    "pymupdf",
+    "runpod",
+    "surya-ocr",
+    "uv",
+    "uvicorn",
+]
+
+[project.optional-dependencies]
+dev = [
+    "docketanalyzer-core[dev]>=0.1.10",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "docketanalyzer_ocr",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "*",
+    "!docketanalyzer_ocr/**",
+    "!pyproject.toml",
+    "!README.md",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+    "N",
+    "SIM",
+    "PD",
+    "NPY",
+    "PTH",
+    "RUF",
+    "D",
+]
+ignore = [
+    "D100",
+    "D104",
+    "N801",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "docketanalyzer",
+    "docketanalyzer_core",
+    "docketanalyzer_pacer",
+    "docketanalyzer_ocr",
+    "docketanalyzer_chat",
+]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "I001",
+    "I002",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-ra -q --cov=docketanalyzer_ocr -m 'not cost'"
+testpaths = [
+    "tests",
+]
+pythonpath = "."
+markers = [
+    "cost: tests that incur real costs when run",
+    "local: requires credentials only available locally",
+]
+filterwarnings = [
+    "ignore:builtin type SwigPyPacked has no __module__ attribute:DeprecationWarning",
+    "ignore:builtin type SwigPyObject has no __module__ attribute:DeprecationWarning",
+    "ignore:builtin type swigvarlink has no __module__ attribute:DeprecationWarning",
+    "ignore:distutils Version classes are deprecated:DeprecationWarning",
+    "ignore:Support for class-based `config` is deprecated:DeprecationWarning",
+    "ignore:open_text is deprecated:DeprecationWarning",
+    "ignore:The `dict` method is deprecated; use `model_dump` instead::",
+    "ignore:Use 'content=<...>' to upload raw bytes/text content:DeprecationWarning",
+]
