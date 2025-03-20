@@ -1,0 +1,31 @@
+# Persian Calendar
+
+A simple Python package to get the current Jalali (Persian) date.
+
+## Installation
+pip install py_fa_calendar
+
+### usage
+import py_fa_calendar
+def demo(self):
+        print("== خروجی فارسی ==")
+        print("تاریخ امروز (جلالی):", self.format_date(self.today_jalali()))
+        print("تاریخ امروز (قمری تقریبی):", convert_number(self.get_hijri_date(), self.use_persian_numbers))
+        print("زمان تا نوروز:", convert_number(str(self.next_nowruz()).split('.')[0], self.use_persian_numbers))
+        print("زمان تا چهارشنبه‌سوری:", convert_number(self.next_chaharshanbe_suri(), self.use_persian_numbers))
+        print("زمان تا پایان مدارس:", convert_number(self.next_school_end(), self.use_persian_numbers))
+        print("زمان تا سیزده بدر:", convert_number(self.next_sizdah_bedar(), self.use_persian_numbers))
+        print("زمان فعلی:", self.current_time())
+        print("\n== English Output ==")
+        eng = PersianCalendar(use_persian_numbers=False, nowruz_time=self.nowruz_time)
+        print("Today's Jalali Date:", eng.format_date(eng.today_jalali()))
+        print("Today's Hijri Date (approx.):", eng.get_hijri_date())
+        print("Time until Nowruz:", str(eng.next_nowruz()).split('.')[0])
+        print("Time until Chaharshanbe Suri:", eng.next_chaharshanbe_suri())
+        print("Time until School End:", eng.next_school_end())
+        print("Time until Sizdah Bedar:", eng.next_sizdah_bedar())
+        print("Current Time:", eng.current_time())
+
+if __name__ == "__main__":
+    pc = PersianCalendar(use_persian_numbers=True, nowruz_time=datetime.time(12,30,31))
+    pc.demo()
