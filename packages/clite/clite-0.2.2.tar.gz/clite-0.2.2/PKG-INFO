@@ -1,0 +1,115 @@
+Metadata-Version: 2.4
+Name: clite
+Version: 0.2.2
+Summary: Small package for creating command line interfaces
+Project-URL: Homepage, https://axemanofic.github.io/clite
+Project-URL: Documentation, https://axemanofic.github.io/clite
+Project-URL: Repository, https://github.com/axemanofic/clite.git
+Project-URL: Issues, https://github.com/axemanofic/clite/issues
+Project-URL: Changelog, https://github.com/axemanofic/clite/blob/master/CHANGELOG.md
+Author-email: Roman Sotnikov <axemanofic@gmail.com>
+Maintainer-email: Roman Sotnikov <axemanofic@gmail.com>
+License: The MIT License (MIT)
+        
+        Copyright (c) 2025 Roman Sotnikov
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in
+        all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        THE SOFTWARE.
+License-File: LICENSE
+Keywords: cli,click,python,python3,shell,terminal,typehints,typer,typing
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Typing :: Typed
+Requires-Python: >=3.9
+Requires-Dist: typing-extensions>=4.12.2
+Description-Content-Type: text/markdown
+
+<div align="center">
+    <h1> Clite </h1> 
+    <p>Small package for creating command line interfaces</p>
+    <p>The name is inspired by the <a href="https://www.sqlite.org/">SQLite</a></p>
+    <img alt="PyPI - Version" src="https://img.shields.io/pypi/v/clite?pypiBaseUrl=https%3A%2F%2Fpypi.org&style=for-the-badge&color=dc8a78">
+    <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/clite?style=for-the-badge&color=dd7878">
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/clite?style=for-the-badge&color=ea76cb">
+</div>
+
+---
+
+**Documentation**: <a href="https://axemanofic.github.io/clite" target="_blank">https://axemanofic.github.io/clite</a>
+
+**Source Code**: <a href="https://github.com/axemanofic/clite" target="_blank">https://github.com/axemanofic/clite</a>
+
+---
+
+## Installation
+
+```sh
+pip install clite
+```
+
+## Usage
+
+### Example
+
+```python
+from clite import Clite
+
+app = Clite(
+    name="myapp",
+    description="A small package for creating command line interfaces",
+)
+
+@app.command()
+def hello(name: str = "world"):
+    print(f"Hello, {name}!")
+
+if __name__ == "__main__":
+    app()
+```
+
+### Run it
+
+```sh
+python main.py hello Alice
+```
+
+Output:
+
+```
+Hello, Alice!
+```
+
+## License
+
+This project is licensed under the terms of the MIT license.

@@ -1,0 +1,94 @@
+site_name: Clite
+repo_url: https://github.com/axemanofic/clite
+repo_name: axemanofic/clite
+site_description: Small package for creating command line interfaces
+site_author: Roman Sotnikov
+copyright: Copyright &copy; 2025 Roman Sotnikov
+theme:
+  name: material
+  custom_dir: ./docs/overrides
+  logo: assets/logo.svg
+  favicon: assets/logo.ico
+  icon:
+    repo: fontawesome/brands/github
+  features:
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/link
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: catppuccin-latte
+      toggle:
+        icon: material/toggle-switch
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: catppuccin-mocha
+      toggle:
+        icon: material/toggle-switch-off
+        name: Switch to system preference
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+plugins:
+  - search
+  - tags
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          inventories:
+            - https://docs.python.org/3/objects.inv
+          load_external_modules: true
+          options:
+            extensions:
+              - griffe_typingdoc
+            # General 
+            allow_inspection: false
+            show_bases: true
+            show_source: false
+            # Headings
+            show_root_heading: true
+            parameter_headings: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            # Members
+            members_order: source
+            filters:
+              - '!^_'
+            show_labels: false
+            # Docstring
+            docstring_style: sphinx
+            show_if_no_docstring: true
+            merge_init_into_class: true
+            # Signatures
+            annotations_path: full
+            modernize_annotations: true
+            show_signature: true
+            show_signature_annotations: true
+            separate_signature: true
+extra:
+  social:
+    - icon: material/github
+      link: https://github.com/axemanofic/clite
+      name: Github
+    - icon: material/language-python
+      link: https://pypi.org/project/clite/
+      name: PyPi
+    - icon: material/twitter
+      link: https://x.com/axemanofic
+    - icon: material/linkedin
+      link: https://www.linkedin.com/in/axemanofic/
+extra_css:
+  - stylesheets/extra.css
