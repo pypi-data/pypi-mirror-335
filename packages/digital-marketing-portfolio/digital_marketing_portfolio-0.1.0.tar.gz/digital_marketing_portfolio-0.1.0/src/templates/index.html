@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titus Kores - Digital Marketing & SEO Expert</title>
+    <meta name="description" content="Titus Kores is a Digital Marketing & SEO Expert specializing in content strategy, technical SEO, and digital growth. View portfolio and insights.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://thadigitalguru.github.io/">
+    <meta property="og:title" content="Titus Kores - Digital Marketing & SEO Expert">
+    <meta property="og:description" content="Digital Marketing & SEO Expert specializing in content strategy, technical SEO, and digital growth.">
+    <meta property="og:image" content="https://thadigitalguru.github.io/static/images/profile.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://thadigitalguru.github.io/">
+    <meta property="twitter:title" content="Titus Kores - Digital Marketing & SEO Expert">
+    <meta property="twitter:description" content="Digital Marketing & SEO Expert specializing in content strategy, technical SEO, and digital growth.">
+    <meta property="twitter:image" content="https://thadigitalguru.github.io/static/images/profile.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">TK</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1>Titus Kores</h1>
+                <h2>Digital Marketing & SEO Expert</h2>
+                <p>Transforming digital presence through strategic marketing and technical SEO expertise</p>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="btn primary">View Portfolio</a>
+                    <a href="#contact" class="btn secondary">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>I'm a passionate Digital Marketing & SEO Expert with a proven track record of helping businesses achieve their digital goals. My expertise spans across:</p>
+                        <ul class="expertise-list">
+                            <li>Technical SEO Optimization</li>
+                            <li>Content Strategy & Creation</li>
+                            <li>Digital Marketing Campaigns</li>
+                            <li>Analytics & Performance Tracking</li>
+                            <li>Social Media Management</li>
+                        </ul>
+                        <div class="social-links">
+                            <a href="https://x.com/thadigitalguru" target="_blank" rel="noopener noreferrer">Twitter</a>
+                            <a href="https://www.linkedin.com/in/titus-kores-610201200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </div>
+                    </div>
+                    <div class="about-image">
+                        <img src="{{ url_for('static', filename='images/profile.jpg') }}" alt="Titus Kores - Digital Marketing Expert">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="portfolio" class="portfolio">
+            <div class="container">
+                <h2>Portfolio</h2>
+                <div class="portfolio-grid">
+                    <!-- Portfolio items will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <section id="blog" class="blog">
+            <div class="container">
+                <h2>Latest Insights</h2>
+                <div id="blog-posts" class="blog-grid">
+                    <!-- Blog posts will be dynamically loaded -->
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2>Get in Touch</h2>
+                <div class="contact-content">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>Titus Kores</h3>
+                    <p>Digital Marketing & SEO Expert</p>
+                </div>
+                <div class="footer-links">
+                    <a href="https://x.com/thadigitalguru" target="_blank" rel="noopener noreferrer">Twitter</a>
+                    <a href="https://www.linkedin.com/in/titus-kores-610201200/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="mailto:ntimama2@gmail.com">Email</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Titus Kores. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 

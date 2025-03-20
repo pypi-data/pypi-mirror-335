@@ -1,0 +1,133 @@
+Metadata-Version: 2.4
+Name: digital-marketing-portfolio
+Version: 0.1.0
+Summary: A modern portfolio website for digital marketing and SEO experts
+Home-page: https://github.com/thadigitalguru/static-website
+Author: Titus Kores
+Author-email: ntimama2@gmail.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Flask==3.0.2
+Requires-Dist: python-dotenv==1.0.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Digital Marketing & SEO Expert Portfolio
+
+A modern, responsive portfolio website showcasing digital marketing and SEO expertise. Built with Flask and modern web technologies.
+
+## Features
+
+- Responsive design that works on all devices
+- Dynamic blog section (coming soon with social media integration)
+- Contact form
+- Modern UI with smooth animations
+- SEO optimized
+
+## Installation
+
+### Option 1: Install from PyPI (Recommended)
+
+```bash
+pip install digital-marketing-portfolio
+```
+
+### Option 2: Install from Source
+
+1. Clone the repository:
+```bash
+git clone https://github.com/thadigitalguru/static-website.git
+cd static-website
+```
+
+2. Create and activate a virtual environment (recommended):
+```bash
+# Windows
+python -m venv venv
+.\venv\Scripts\activate
+
+# Linux/Mac
+python3 -m venv venv
+source venv/bin/activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+## Running the Site
+
+### Option 1: Using the Installed Package
+
+After installation, you can run the site using:
+
+```bash
+digital-portfolio
+```
+
+### Option 2: Running from Source
+
+1. Start the Flask development server:
+```bash
+python src/app.py
+```
+
+2. Access the site:
+- Local: http://localhost:5000
+- Network: http://YOUR_IP_ADDRESS:5000
+
+## Project Structure
+
+```
+static-website/
+â”œâ”€â”€ src/
+â”‚   â”œâ”€â”€ __init__.py         # Package initialization
+â”‚   â”œâ”€â”€ app.py              # Flask application
+â”‚   â”œâ”€â”€ templates/          # HTML templates
+â”‚   â””â”€â”€ static/             # Static files (CSS, JS, images)
+â”œâ”€â”€ setup.py                # Package setup file
+â”œâ”€â”€ MANIFEST.in            # Package manifest
+â”œâ”€â”€ requirements.txt        # Python dependencies
+â””â”€â”€ README.md              # This file
+```
+
+## Development
+
+- The site uses Flask for the backend
+- Frontend is built with vanilla JavaScript and modern CSS
+- Blog posts are currently static (social media integration coming soon)
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contact
+
+Titus Kores - [@thadigitalguru](https://x.com/thadigitalguru) - [LinkedIn](https://www.linkedin.com/in/titus-kores-610201200/) 
