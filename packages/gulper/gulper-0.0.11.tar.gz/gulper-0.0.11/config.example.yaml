@@ -1,0 +1,115 @@
+# MIT License
+#
+# Copyright (c) 2025 Clivern
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# Storage temp dir
+temp_dir: /tmp
+
+# SQlite state file
+state_file: /etc/gulper.db
+
+# Logging configs
+logging:
+  level: error
+  # console or file
+  handler: console
+  # path to log file if handler is a file
+  path: ~
+
+# Stored events configs
+event:
+  retention: 1 month
+
+storage:
+  local_01:
+    type: local
+    path: /opt/backups/
+
+  aws_s3_01:
+    type: s3
+    access_key_id: your_access_key_id
+    secret_access_key: your_secret_access_key
+    bucket_name: your_bucket_name
+    region: your_region
+    path: /
+
+  do_s3_01:
+    type: s3
+    access_key_id: your_access_key_id
+    secret_access_key: your_secret_access_key
+    endpoint_url: https://nyc3.digitaloceanspaces.com
+    bucket_name: your_bucket_name
+    region: nyc3
+    path: /team_name/db_backups
+
+schedule:
+    hourly:
+      expression: "0 * * * *"
+
+database:
+  db01:
+    type: mysql
+    host: localhost
+    username: root
+    password: your_password
+    port: 3306
+    database:
+      - db01
+      - db02
+    storage:
+      - local_01
+    schedule: hourly
+    options:
+      quote-names: True
+      quick: True
+      add-drop-table: True
+      add-locks: True
+      allow-keywords: True
+      disable-keys: True
+      extended-insert: True
+      single-transaction: True
+      create-options: True
+      comments: True
+      skip-ssl: True
+      no-tablespaces: True
+      net_buffer_length: 16384
+    retention: 3 months
+
+  db02:
+    type: postgresql
+    host: localhost
+    username: root
+    password: your_password
+    database:
+      - db01
+      - db02
+    storage:
+      - aws_s3_01
+    schedule: hourly
+    retention: 7 days
+
+  db03:
+    type: sqlite
+    path: /opt/app/opswork.db
+    storage:
+      - local_02
+    schedule: hourly
+    retention: 1 year
