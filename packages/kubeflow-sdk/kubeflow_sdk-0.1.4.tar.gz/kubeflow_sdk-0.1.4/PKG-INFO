@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: kubeflow-sdk
+Version: 0.1.4
+Summary: Add your description here
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: optimizer
+Requires-Dist: optimizer>=0.18.0rc0; extra == "optimizer"
+Requires-Dist: trainer>=0.1.1; extra == "optimizer"
+Provides-Extra: trainer
+Requires-Dist: trainer>=0.1.1; extra == "trainer"
+Provides-Extra: all
+Requires-Dist: trainer>=0.1.1; extra == "all"
+Requires-Dist: optimizer>=0.18.0rc0; extra == "all"
+Dynamic: license-file

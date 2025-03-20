@@ -1,0 +1,44 @@
+[project]
+name = "kubeflow-sdk"
+version = "0.1.4"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.optional-dependencies]
+optimizer = [
+    "optimizer>=0.18.0rc0",
+    "trainer>=0.1.1",
+]
+trainer = [
+    "trainer>=0.1.1",
+]
+all = [
+    "trainer>=0.1.1",
+    "optimizer>=0.18.0rc0",
+]
+
+#[dependency-groups]
+#optimizer = [
+#    "optimizer",
+#]
+#trainer = [
+#    "trainer",
+#]
+#all = [
+#    "trainer",
+#    "optimizer",
+#]
+
+[tool.uv.workspace]
+members = ["kubeflow/trainer", "kubeflow/optimizer"]
+
+[tool.uv.sources]
+optimizer = { workspace = true }
+trainer = { workspace = true }
+
+
+[tool.uv]
+package = true
+#default-groups = ["all"]
