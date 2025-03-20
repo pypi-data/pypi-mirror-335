@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ZephyrTask"
+version = "0.1.3"
+description = "A simple task management package"
+readme = "README.md"
+authors = [
+    {name = "Xingjian", email = "xz3954@nyu.edu"},
+    {name = "Lan", email = "ly2238@nyu.edu"},
+    {name = "Yuquan", email = "yh4663@nyu.edu"},
+    {name = "Yilei", email = "yw6929@nyu.edu"}
+]
+license = {file = "LICENSE"}
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pyjokes>=0.6.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-super-package"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-super-package/issues"
+
+[tool.setuptools]
+packages = ["ZephyrTask"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"] 
