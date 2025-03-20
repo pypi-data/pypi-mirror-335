@@ -1,0 +1,82 @@
+Metadata-Version: 2.4
+Name: explainable
+Version: 1.0.0
+Summary: Visualise complex data structures in real time
+Project-URL: Homepage, https://github.com/numan-ai/explainable
+Project-URL: Documentation, https://example.com
+Project-URL: Repository, https://github.com/numan-ai/explainable.git
+Project-URL: Issues, https://github.com/numan-ai/explainable/issues
+Project-URL: Changelog, https://github.com/numan-ai/explainable/blob/master/CHANGELOG.md
+Author-email: Numan Team <kostya@numan.ai>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+
+# Explainable
+
+[![PyPI version](https://img.shields.io/pypi/v/explainable.svg)](https://pypi.org/project/explainable/)
+
+Explainable is a project for real time visualisation of complex data structures with minimal effort.  
+This project was created by [Numan Team](https://numan.ai/).  
+Visualisation runs on our [website](https://explainable.numan.ai/), so you only need install the library and initialise it in your code.
+
+![plot](./demo.png)
+
+## Installation
+
+```sh
+pip install -U explainable
+```
+
+## Usage
+
+1. Install using `pip`
+2. Import the library in your code
+3. Add `explainable.init()` in your code to start the server
+4. Select data to observe with `data = explainable.observe("my_view", data)`
+5. Go to https://explainable.numan.ai/
+
+```python
+import time
+
+import explainable
+
+# start the server
+explainable.init()
+
+# create your data
+lst = [0, 1, 2]
+
+# start observing
+lst = explainable.observe("view1", lst)
+
+# change your data
+while True:
+  lst[0] += 1
+  lst[1] -= 1
+
+  time.sleep(1)
+```
+
+![plot](./demo2.png)
+
+Currently supported data structures:
+- dataclass
+- list
+- dict
+- enums
+
+## Requirements
+
+Python 3.7 or higher.
