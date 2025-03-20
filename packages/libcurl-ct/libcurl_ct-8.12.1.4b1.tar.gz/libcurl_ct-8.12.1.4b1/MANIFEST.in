@@ -1,0 +1,26 @@
+# Copyright (c) 2021 Adam Karpierz
+# SPDX-License-Identifier: MIT
+
+include README.rst
+include CHANGES.rst
+include LICENSE
+include COPYING
+include pyproject.toml
+include .readthedocs.yml
+
+graft docs
+
+graft examples
+prune examples/examples.c
+global-exclude examples/**/*.nok
+
+graft src
+prune src/libcurl/libcurl.h
+
+graft tests
+prune tests/tests.c
+global-exclude tests/**/*.nok
+
+global-exclude \#* \#*/**
+global-exclude .build .build/** .build.* .build.*/**
+global-exclude *.py[cod] __pycache__
