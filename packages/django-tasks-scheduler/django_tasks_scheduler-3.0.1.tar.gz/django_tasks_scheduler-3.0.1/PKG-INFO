@@ -1,0 +1,58 @@
+Metadata-Version: 2.3
+Name: django-tasks-scheduler
+Version: 3.0.1
+Summary: An async job scheduler for django using redis/valkey brokers
+License: MIT
+Keywords: redis,valkey,django,background-jobs,job-queue,task-queue,redis-queue,scheduled-jobs
+Author: Daniel Moran
+Author-email: daniel@moransoftware.ca
+Maintainer: Daniel Moran
+Maintainer-email: daniel@moransoftware.ca
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 5.0
+Classifier: Framework :: Django :: 5.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: valkey
+Provides-Extra: yaml
+Requires-Dist: click (>=8.1,<9.0)
+Requires-Dist: croniter (>=2.0)
+Requires-Dist: django (>=5)
+Requires-Dist: pyyaml (>=6.0,<7.0) ; extra == "yaml"
+Requires-Dist: rq (>=1.16,<2.0)
+Requires-Dist: valkey (>=6.0.2,<7.0.0) ; extra == "valkey"
+Project-URL: Bug Tracker, https://github.com/django-commons/django-tasks-scheduler/issues
+Project-URL: Documentation, https://django-tasks-scheduler.readthedocs.io/en/latest/
+Project-URL: Funding, https://github.com/sponsors/cunla
+Project-URL: Homepage, https://github.com/django-commons/django-tasks-scheduler
+Description-Content-Type: text/markdown
+
+Django Tasks Scheduler
+===================
+[![Django CI](https://github.com/django-commons/django-tasks-scheduler/actions/workflows/test.yml/badge.svg)](https://github.com/django-commons/django-tasks-scheduler/actions/workflows/test.yml)
+![badge](https://img.shields.io/endpoint?url=https://gist.githubusercontent.com/cunla/b756396efb895f0e34558c980f1ca0c7/raw/django-tasks-scheduler-4.json)
+[![badge](https://img.shields.io/pypi/dm/django-tasks-scheduler)](https://pypi.org/project/django-tasks-scheduler/)
+
+Documentation can be found in https://django-tasks-scheduler.readthedocs.io/en/latest/
+
+# Sponsor
+
+django-tasks-scheduler is developed for free.
+
+You can support this project by becoming a sponsor using [this link](https://github.com/sponsors/cunla).
+
+
+# Contributing 
+
+Interested in contributing, providing suggestions, or submitting bugs? See guidelines [at this link](.github/CONTRIBUTING.md).
+
