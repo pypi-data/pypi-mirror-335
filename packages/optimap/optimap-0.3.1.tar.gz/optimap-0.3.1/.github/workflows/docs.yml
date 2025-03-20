@@ -1,0 +1,92 @@
+name: docs
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+    build_docs:
+        name: Build docs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Avoid git conflicts when tag and branch pushed at same time
+              if: github.ref_type == 'tag'
+              run: sleep 60
+
+            - name: Set up Python
+              uses: actions/setup-python@v5
+              with:
+                  python-version: 3.13
+
+            - name: Install uv
+              uses: astral-sh/setup-uv@v5
+              with:
+                enable-cache: false
+
+            - name: Install ffmpeg
+              uses: FedericoCarboni/setup-ffmpeg@v3
+                  
+            - name: Install ipywidgets
+              run: uv pip install --system ipywidgets
+
+            - name: Checkout code
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Install optimap
+              run: uv pip install --system .[docs]
+
+            - name: Cache excample file downloads
+              uses: actions/cache@v4
+              with:
+                path: docs/tutorials/optimap_example_data
+                key: optimap-example-files
+
+            - name: Cache jupyter notebook cache
+              uses: actions/cache@v4
+              with:
+                path: .jupyter_cache
+                key: docs-jupyter-cache
+
+            - name: Build docs
+              run: |
+                mkdir -p .jupyter_cache  # otherwise jcache will ask for confirmation
+                jcache notebook -p .jupyter_cache list
+                python -m sphinx -b dirhtml --doctree-dir docs/doctrees docs docs/_build
+              env:
+                TQDM_DISABLE: "true"
+                TQDM_MININTERVAL: 60
+
+            - name: Sanitize ref name for docs version
+              run: echo "DOCS_VERSION=${GITHUB_REF_NAME//[^A-Za-z0-9._-]/_}" >> $GITHUB_ENV
+
+            - name: Move to versioned directory
+              run: mv docs/_build .github/pages/$DOCS_VERSION
+
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: .github/pages
+
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        needs: build_docs
+        steps:
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v4
