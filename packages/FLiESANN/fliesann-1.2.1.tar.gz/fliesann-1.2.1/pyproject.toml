@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=60", "setuptools-scm>=8.0", "wheel"]
+
+[project]
+name = "FLiESANN"
+version = "1.2.1"
+description = "Forest Light Environmental Simulator (FLiES) Radiative Transfer Model Artificial Neural Network (ANN) Implementation in Python"
+readme = "README.md"
+authors = [
+    { name = "Gregory H. Halverson", email = "gregory.h.halverson@jpl.nasa.gov" },
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "geos5fp",
+    "keras==2.15",
+    "koppengeiger",
+    "netCDF4",
+    "numpy<2",
+    "pandas",
+    "rasters",
+    "sentinel-tiles",
+    "solar-apparent-time",
+    "sun-angles",
+    "tensorflow==2.15.1"
+]
+
+requires-python = ">=3.10"
+
+[project.optional-dependencies]
+dev = [
+    "build",
+    "MCD12C1-2019-v006",
+    "pytest>=6.0",
+    "pytest-cov",
+    "jupyter",
+    "pytest",
+    "twine"
+]
+
+[tool.setuptools.package-data]
+FLiESANN = ["*.txt", "*.h5"]
+
+[project.urls]
+"Homepage" = "https://github.com/JPL-Evapotranspiration-Algorithms/FLiESANN"
