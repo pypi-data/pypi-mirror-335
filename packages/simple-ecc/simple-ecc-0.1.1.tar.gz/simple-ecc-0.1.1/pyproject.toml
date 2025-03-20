@@ -1,0 +1,31 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-ecc"
+version = "0.1.1"
+description = "A simple elliptic curve cryptography library"
+authors = [
+    { name = "Mohammad Luqman", email = "luqman.geeky@gmail.com" },
+    { name = "Salman Ali", email = "salmanali.amu@gmail.com" } ,
+    { name = "Faisal Anwer", email = "faisalanwer.cs@amu.ac.in" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/mohdluqman/simple-ecc"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["simple_ecc"]
