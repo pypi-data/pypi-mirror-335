@@ -1,0 +1,38 @@
+[build-system]
+requires = ["build", "setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "brainrot-generator"
+version = "0.1.0"
+description = "A fun package for generating random brainrot content and text transformations"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "Vladimir Kartamyshev", email = "vnk3247@nyu.edu"},
+    {name = "Tony Liu", email = "tl3608@nyu.edu"},
+    {name = "Giulia Carvalho", email = "gbc9191@nyu.edu"},
+    {name = "Clarissa Choi", email = "csc9610@nyu.edu"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pytest>=7.0.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-5bigbooms"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["brainrot"]
