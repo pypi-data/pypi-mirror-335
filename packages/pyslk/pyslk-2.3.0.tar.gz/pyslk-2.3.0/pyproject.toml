@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=61.0", "flake8>=5.0.4", "twine>=6.1.0", "wheel", "setuptools-git-versioning>=2.0", "uv", "grayskull"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["pyslk", "pyslk.base", "pyslk.core", "pyslk.jobs", "pyslk.raw", "pyslk.transfer"]
+
+[tool.black]
+line-length = 88
+target-version = ["py39", "py310", "py311", "py312"]
+
+[project]
+name = "pyslk"
+dynamic = ["version"]
+authors = [
+    { name="Heydebreck, Daniel (DKRZ)", email="support@dkrz.de" },
+    { name="Bilir, Dogus Kaan (DKRZ)" },
+    { name="Buntemeyer, Lars (GERICS)" },
+    { name="Bergemann, Martin (DKRZ)" },
+    { name="Ehbrecht, Carsten (DKRZ)" }
+]
+dependencies = [
+    'pandas >= 1.4.0',
+    'psutil',
+    'python-dateutil >= 2.8.2',
+    'tenacity >= 8.0.1',
+]
+maintainers = [
+    { name="Heydebreck, Daniel (DKRZ)", email="support@dkrz.de" }
+]
+description = "Python library for interaction with the DKRZ tape archive based on non-public CLIs slk and slk_helpers"
+readme = "README.md"
+license = { file = "LICENCE" }
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+]
+
+[project.optional-dependencies]
+tests = ["pytest>=7.0.0", "black[jupyter]", "flake8", "isort", "pre-commit"]
+doc = ["sphinx>=4.2.0", "sphinx-book-theme", "numpydoc", "mock", "myst_parser"]
+package = ["conda-build", "build", "setuptools>=61.0", "pip>=22.0.0"]
+
+[project.urls]
+Homepage = "https://gitlab.dkrz.de/hsm-tools/pyslk"
+Documentation = "https://hsm-tools.gitlab-pages.dkrz.de/pyslk/index.html"
+Repository = "https://gitlab.dkrz.de/hsm-tools/pyslk.git"
+Issues = "https://gitlab.dkrz.de/hsm-tools/pyslk/-/issues"
+Changelog = "https://hsm-tools.gitlab-pages.dkrz.de/pyslk/CHANGES.html"
+
+[tool.pytest.ini_options]
+markers = [
+    "new: marks tests as new tests (deselect with '-m \"not new\"')",
+    "serial",
+]
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[[tool.uv.index]]
+name = "pypitest"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+authenticate = "always"
