@@ -1,0 +1,112 @@
+Metadata-Version: 2.1
+Name: nightly-scripts
+Version: 0.1.2
+Summary: Ночные скрипты
+Author-email: BARS Group <bars@bars.group>
+License: Copyright © 2022 ЗАО “БАРС Груп”
+        
+        Данная лицензия разрешает лицам, получившим копию данного программного обеспечения и сопутствующей документации (в дальнейшем
+        именуемыми «Программное Обеспечение»), безвозмездно использовать Программное Обеспечение без ограничений, включая неограниченное
+        право на использование, копирование, изменение, добавление, публикацию, распространение, сублицензирование и/или продажу копий
+        Программного Обеспечения, также как и лицам, которым предоставляется данное Программное Обеспечение, при соблюдении следующих
+        условий:
+        
+        Указанное выше уведомление об авторском праве и данные условия должны быть включены во все копии или значимые части данного
+        Программного Обеспечения.
+        
+        ДАННОЕ ПРОГРАММНОЕ ОБЕСПЕЧЕНИЕ ПРЕДОСТАВЛЯЕТСЯ «КАК ЕСТЬ», БЕЗ КАКИХ-ЛИБО ГАРАНТИЙ, ЯВНО ВЫРАЖЕННЫХ ИЛИ ПОДРАЗУМЕВАЕМЫХ, ВКЛЮЧАЯ,
+        НО НЕ ОГРАНИЧИВАЯСЬ ГАРАНТИЯМИ ТОВАРНОЙ ПРИГОДНОСТИ, СООТВЕТСТВИЯ ПО ЕГО КОНКРЕТНОМУ НАЗНАЧЕНИЮ И ОТСУТСТВИЯ НАРУШЕНИЙ ПРАВ.
+        НИ В КАКОМ СЛУЧАЕ АВТОРЫ ИЛИ ПРАВООБЛАДАТЕЛИ НЕ НЕСУТ ОТВЕТСТВЕННОСТИ ПО ИСКАМ О ВОЗМЕЩЕНИИ УЩЕРБА, УБЫТКОВ ИЛИ ДРУГИХ ТРЕБОВАНИЙ
+        ПО ДЕЙСТВУЮЩИМ КОНТРАКТАМ, ДЕЛИКТАМ ИЛИ ИНОМУ, ВОЗНИКШИМ ИЗ, ИМЕЮЩИМ ПРИЧИНОЙ ИЛИ СВЯЗАННЫМ С ПРОГРАММНЫМ ОБЕСПЕЧЕНИЕМ ИЛИ
+        ИСПОЛЬЗОВАНИЕМ ПРОГРАММНОГО ОБЕСПЕЧЕНИЯ ИЛИ ИНЫМИ ДЕЙСТВИЯМИ С ПРОГРАММНЫМ ОБЕСПЕЧЕНИЕМ.
+        
+        Copyright © 2022 BARS Group
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files
+        (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify,
+        merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+        OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+        LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR
+        IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Project-URL: Homepage, https://stash.bars-open.ru/projects/M3/repos/nightly-scripts/browse
+Project-URL: Repository, https://stash.bars-open.ru/scm/m3/nightly-scripts.git
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Intended Audience :: Developers
+Classifier: Environment :: Console
+Classifier: Framework :: Django :: 2.2
+Classifier: Framework :: Django :: 3.0
+Classifier: Framework :: Django :: 3.1
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Framework :: Django :: 4.2
+Classifier: Framework :: Django :: 5.0
+Classifier: Framework :: Django :: 5.1
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django <5.2,>=2.2
+Provides-Extra: dev
+Requires-Dist: isort <6,>=5.10.1 ; extra == 'dev'
+Requires-Dist: flake8 <7,>=4.0.1 ; extra == 'dev'
+Requires-Dist: pytest <8,>=3.2.5 ; extra == 'dev'
+Requires-Dist: pytest-cov <5 ; extra == 'dev'
+Requires-Dist: python-semantic-release <9 ; extra == 'dev'
+
+# Проект "Ночные скрипты"
+
+По мере развития любого проекта необходимо заботиться о состоянии развернутого приложения в проде. Должны выполняться 
+такие задачи, как:
+
+- Очистка устаревших файлов;
+- Зачистка служебных записей по истечении времени хранения;
+- Иные служебные задачи.
+
+Данный пакет предоставляет довольно простую функцию - запуск Django-команд помеченных атрибутом `nightly_script = True`.
+В основе лежит команда `execute_nightly_scripts`, которая осуществляет запуск ночных скриптов. Данная команда должна 
+запускаться по cron-у или другим аналогичным средством.
+
+## Требования к окружению
+
+Для работы требуется Python >=3.9. Так же в зависимостях есть пакеты:
+
+- Django>=3.2.
+
+Версии всех пакетов уточнены в файлах с зависимостями.
+
+## Параметры конфигурационного файла
+
+В разных проектах существуют различные способы добавления настроек, где-то через плагины, где-то напрямую в settings.py.
+Будет рассмотрен подход указания настроек в settings.py и указания параметров в конфигурационном файле.
+
+Для возможности конфигурирования необходимо проделать ряд действий:
+
+- Добавить пакет `nightly_scripts` в INSTALLED_APPS в settings.py:
+    ```
+    INSTALLED_APPS = (
+        <some_app>,
+        ...,
+        'nightly_scripts',
+    )
+    ```
+
+## Сборка и распространение
+
+Сборка пакета производится при помощи [Job-а в Jenkins M3.build_dist](http://jenkins.py.bars.group/view/PY/job/M3.packages/job/M3.build_dist/).
+
+Пакет выкладывается в глобальный [PYPI](https://pypi.org/project/edu-rdm-integration/) и во внутренний [Nexus](http://nexus.py.bars.group/#browse/browse:pypi-edu-private:edu-rdm-integration) 
+
+## Документация
+
+С документацией можно ознакомиться по ссылке http://docs.py.bars.group/nigtly-scripts/
