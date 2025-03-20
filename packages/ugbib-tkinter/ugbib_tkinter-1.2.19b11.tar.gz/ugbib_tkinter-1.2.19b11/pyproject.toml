@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ugbib_tkinter"
+version = "1.2.19b11"
+description = "Formulare für PostgreSQL Daten"
+readme = "README.md"
+licence = {file = "LICENSE"}
+requires-python = ">=3.10"
+dependencies = [
+    "ugbib_werkzeug",
+    "Pillow",
+    "PyYAML",
+]
+autors = [
+    {name = "Ulrich Goebel", email = "ulrich@fam-goebel.de"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Development Status :: 4 - Beta",
+]
