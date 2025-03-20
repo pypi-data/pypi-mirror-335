@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "destigmatizer"
+version = "0.0.12"
+dependencies = [
+    "nltk",
+    "lexicalrichness",
+]
+requires-python = ">=3.8"
+authors = [
+  { name="Layla Bouzoubaa", email="author@example.com" },
+  { name="Muqi Guo", email="author@example.com" },
+  { name="Joseph Trybala", email="author@example.com" },
+]
+maintainers = [
+  {name = "Layla Bouzoubaa", email="author@example.com"}
+]
+description =  "An llm-powered platform-agnostic language utility for destigmatizing drug language"
+readme = "README.md"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+license = {text = "BSD-3-Clause"}
+
+
+
+
+[project.urls]
+Homepage = "https://github.com/labouz/reframe"
+Issues = "https://github.com/labouz/reframe/issues"
