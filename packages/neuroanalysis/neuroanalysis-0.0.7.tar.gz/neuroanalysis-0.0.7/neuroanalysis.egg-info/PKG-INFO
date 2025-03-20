@@ -1,0 +1,70 @@
+Metadata-Version: 2.1
+Name: neuroanalysis
+Version: 0.0.7
+Summary: Functions and modular user interface tools for analysis of patch clamp experiment data.
+Author-email: Luke Campagnola <lukec@alleninstitute.org>
+License: Copyright (c) 2016- Allen Institute for Brain Science
+        
+        The MIT License
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        
+        
+Project-URL: homepage, https://github.com/AllenInstitute/neuroanalysis
+Project-URL: issues, https://github.com/AllenInstitute/neuroanalysis/issues
+Keywords: neuroscience,analysis,neurodata,without,borders,nwb
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Other Environment
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: h5py
+Requires-Dist: neuron
+Provides-Extra: acq4
+Requires-Dist: acq4; extra == "acq4"
+Provides-Extra: jit
+Requires-Dist: numba; extra == "jit"
+Provides-Extra: mies
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Provides-Extra: ui
+Requires-Dist: pyqtgraph; extra == "ui"
+
+Neuroanalysis
+=============
+
+Modular and interactive tools for analysis of neurophysiology data, with emphasis on 
+patch-clamp electrophysiology.
+
+* Functions for running common analysis algorithms
+    * Synaptic/calcium event detection and characterization
+    * Synaptic release modeling
+    * VC and CC spike detection and characterization
+    * VC and CC test pulse analysis
+    * Basic signal processing (filtering, baseline removal, etc.)
+* Data abstraction layer to allow adapting new data formats (see neuroanalysis/data.py)
+* Re-usable user interface elements for implementing common analysis tasks
+
+
+Status
+------
+
+This project is early in development and does not yet have a stable API.
+Issues and pull requests are accepted (see CONTRIBUTING.md), but may not be 
+reviewed or accepted on any fixed schedule.
+
+
+
+
+
