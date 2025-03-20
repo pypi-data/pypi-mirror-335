@@ -1,0 +1,22 @@
+[project]
+name = "natural-history-museum-mcp"
+version = "0.1.9"
+description = "MCP server for the British Natural History Museum data API"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "mcp>=1.4.1",
+    "nhm-pyportal>=0.1",
+    "requests>=2.32.3",
+]
+
+
+[project.scripts]
+natural-history-museum-mcp = "natural_history_museum_mcp.server:main"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
