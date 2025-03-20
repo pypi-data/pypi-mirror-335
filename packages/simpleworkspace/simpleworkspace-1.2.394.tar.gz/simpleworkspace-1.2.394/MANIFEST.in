@@ -1,0 +1,10 @@
+# include complete assets folder
+graft src/simpleworkspace/assets
+
+# excludes test & docs folders
+prune tests
+prune docs
+
+# exclude __pycache__, normally is excluded by default, but if any has been included above, then we need to exclude it
+prune **/__pycache__
+
