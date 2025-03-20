@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pramaana"
+version = "1.5.0"
+description = "A minimalist command-line reference manager"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+authors = [
+    { name = "Abhimanyu Pallavi Sudhir", email = "abhimanyupallavisudhir@gmail.com" }
+]
+dependencies = [
+    "requests>=2.28.0",
+    "bibtexparser>=1.4.0",
+    "pathspec>=0.9.0",
+]
+
+[project.scripts]
+pramaana = "pramaana.cli:main"
+pramaana-install-completions = "pramaana.install_completions:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pramaana"]
+
+[tool.hatch.build.force-include]
+"src/pramaana/data" = "pramaana/data"
+
+[project.data-files]
+"bash-completion/completions" = ["completions/pramaana-completion.bash"]
+"zsh/site-functions" = ["completions/_pramaana"]  # Note: zsh completion files typically start with _
