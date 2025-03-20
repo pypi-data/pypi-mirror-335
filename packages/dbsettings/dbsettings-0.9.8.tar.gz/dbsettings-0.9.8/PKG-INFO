@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: dbsettings
+Version: 0.9.8
+Summary: A Django app to store key-value pairs in the database
+Author-email: Kumi <dbsettings@kumi.email>
+Project-URL: Homepage, https://git.private.coffee/kumi/django-dbsettings
+Project-URL: Bug Tracker, https://git.private.coffee/kumi/django-dbsettings/issues
+Project-URL: Source Code, https://git.private.coffee/kumi/django-dbsettings
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.0
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: django
+Dynamic: license-file
+
+# django-dbsettings
+
+dbsettings is a simple reusable Django app allowing you to store key-value
+pairs in your database, so you can store configuation in your database easily.
+
+## Quick start
+
+1. Add "dbsettings" to your INSTALLED_APPS setting like this:
+
+   ```python
+   INSTALLED_APPS = [
+        ...,
+        'dbsettings',
+    ]
+    ```
+
+2. Run ``python manage.py makemigrations dbsettings`` and 
+   ``python manage.py migrate dbsettings`` to create the models.
+
+3. Start the development server and visit http://127.0.0.1:8000/admin/
+   to add configuration values or use dbsettings.functions.setValue(key, value)
+   in your code.
+
+4. To retrieve a configuration value from the database, use
+   dbsettings.functions.getValue(key) in your code.
+
+## Upgrade notes
+
+When upgrading to 0.9 from a previous version, your database tables will need
+to be updated. To do this, just execute step 2 from the "Quick start" section
+again.
+
+When upgrading to 0.9.5 or later from a previous version, you should first
+uninstall the old version. To do that, run:
+
+```
+pip uninstall django-dbsettings
+pip install dbsettings
+```
