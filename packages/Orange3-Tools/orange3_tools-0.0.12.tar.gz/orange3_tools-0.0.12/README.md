@@ -1,0 +1,1 @@
+Widgets for Orange Data Mining that provides a simple scatter plot using Matplotlib scatter function
