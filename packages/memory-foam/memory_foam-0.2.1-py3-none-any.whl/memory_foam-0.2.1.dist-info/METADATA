@@ -1,0 +1,91 @@
+Metadata-Version: 2.4
+Name: memory-foam
+Version: 0.2.1
+Summary: Performant iterators for loading files from S3, GCS and Azure into memory for easy processing.
+Author-email: Matt Seddon <mattseddon@hotmail.com>
+License: Apache-2.0
+Project-URL: Documentation, https://github.com/mattseddon/memory-foam
+Project-URL: Issues, https://github.com/mattseddon/memory-foam/issues
+Project-URL: Source, https://github.com/mattseddon/memory-foam
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Development Status :: 2 - Pre-Alpha
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fsspec>=2024.2.0
+Requires-Dist: adlfs>=2024.2.0
+Requires-Dist: gcsfs>=2024.2.0
+Requires-Dist: s3fs>=2024.2.0
+Requires-Dist: python-dateutil>=2
+Provides-Extra: tests
+Requires-Dist: pytest<9,>=8; extra == "tests"
+Requires-Dist: pytest-sugar>=0.9.6; extra == "tests"
+Requires-Dist: pytest-cov>=4.1.0; extra == "tests"
+Requires-Dist: pytest-mock>=3.12.0; extra == "tests"
+Requires-Dist: pytest-servers[all]>=0.5.9; extra == "tests"
+Requires-Dist: hypothesis; extra == "tests"
+Provides-Extra: dev
+Requires-Dist: memory_foam[tests]; extra == "dev"
+Requires-Dist: mypy==1.15.0; extra == "dev"
+Requires-Dist: types-python-dateutil; extra == "dev"
+Provides-Extra: examples
+Requires-Dist: dlt[duckdb]; extra == "examples"
+Requires-Dist: huggingface_hub[hf_transfer]; extra == "examples"
+Requires-Dist: matplotlib; extra == "examples"
+Requires-Dist: open_clip_torch; extra == "examples"
+Requires-Dist: pillow; extra == "examples"
+Requires-Dist: tqdm; extra == "examples"
+Requires-Dist: ultralytics; extra == "examples"
+Dynamic: license-file
+
+# memory-foam
+
+
+[![pypi](https://img.shields.io/pypi/v/memory-foam.svg)](https://pypi.org/project/memory-foam/)
+[![tests](https://github.com/mattseddon/memory-foam/actions/workflows/tests.yml/badge.svg)](https://github.com/mattseddon/memory-foam/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/mattseddon/memory-foam/graph/badge.svg?token=7TT8YRWTV9)](https://codecov.io/gh/mattseddon/memory-foam)
+
+`memory-foam` is a Python package that provides performant iterators for loading files from S3, GCS and Azure into memory for easy processing.
+
+## Features
+
+- **Unified Interface**: Seamlessly interact with files stored in S3, GCS and Azure.
+- **Asynchronous Support**: Efficiently load files using asynchronous iterators.
+
+## Installation
+
+You can install `memory-foam` using pip:
+
+```bash
+pip install memory-foam
+```
+
+## Example usage
+
+```python
+from memory_foam import iter_files
+
+...
+
+for pointer, contents in iter_files(uri, glob, client_config):
+    results = process(contents)
+    data = pointer.to_dict_with(results)
+    save(data)
+```
+
+## Credentials
+
+This package uses the `fsspec` implementations for S3, GCS and Azure. Entries from the `client_config` dictionary are passed to the respective `fsspec` clients.
+
+However, you can use the same authentication setup as the individual `fsspec` packages.
+
+The documentation for each of the clients is linked below:
+
+- S3:  https://s3fs.readthedocs.io/en/latest/#credentials
+- GCS: https://gcsfs.readthedocs.io/en/latest/#credentials
+- Azure: https://github.com/fsspec/adlfs?tab=readme-ov-file#setting-credentials
