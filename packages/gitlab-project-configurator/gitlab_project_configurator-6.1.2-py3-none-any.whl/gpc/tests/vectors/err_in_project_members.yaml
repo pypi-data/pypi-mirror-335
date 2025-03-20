@@ -1,0 +1,16 @@
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    rule_name: myteam_master_rule
+    custom_rules:
+      project_members:
+        members:
+        - role: developers
+          name: jocelyn.falempe
+        - role: developers
+          names: me.not.an.array
+        - role: developers
+          name: sebastien.t.michel
+        - role: developers
+          names:
+          - sebastien.t.michel

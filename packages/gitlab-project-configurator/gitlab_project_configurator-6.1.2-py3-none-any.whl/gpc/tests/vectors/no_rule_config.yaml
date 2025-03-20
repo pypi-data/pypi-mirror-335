@@ -1,0 +1,22 @@
+variable_profiles:
+  variable_profile_name:
+    - name: profile_variable
+      value: profile_value
+
+groups_configuration:
+  - paths:
+      - path/to/some/group
+    custom_rules:
+      variables:
+        - name: GROUP_VARIABLE
+          value: group_value
+        - import: variable_profile_name
+
+projects_configuration:
+  - paths:
+      - path/to/some/project
+    custom_rules:
+      variables:
+        - name: PROJECT_VARIABLE
+          value: project_value
+        - import: variable_profile_name

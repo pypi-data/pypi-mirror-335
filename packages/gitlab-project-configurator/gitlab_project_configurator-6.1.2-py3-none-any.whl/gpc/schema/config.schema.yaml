@@ -1,0 +1,2081 @@
+$schema: 'http://json-schema.org/draft-07/schema#'
+$id: 'https://grouperenault.gitlab.io/gitlab-project-configurator/jsonschema/config-schema-v1.json'
+type: object
+additionalProperties: false
+title: GPC Configuration file Schema
+description: |
+    This is the general schema for configuration file used for GPC, Gitlab Project Configurator.
+
+    Your configuration file can be written in YAML or JSON or TOML, but needs to validate against this schema.
+
+    The configuration is divided into several parts:
+    - **Project Policy definition** (`project_rule` node): set of rules that will be applied to one or several projects. Each policy has a name.
+    - **Project Configuration** (`projects_configuration` node): select which rule should be applied on which project, with exception rules if applicable.
+
+    The configuration file follow a bit the CSS principles: in case of conflict between rules, the lowest (latest) rule will have precedence. Everything is organized into list of rule, with selectors, so you have to handle precedence and exclusion manually (there is no magic "resolver"). If you apply 2 policies on a project, each one will be applied one after the other, following the order of the configuration file.
+
+    An `include` keyword allow to split this file into several one.
+
+    ## Usage
+
+    ```bash
+    gpc --config myconfig.yml
+    ```
+
+    ## Configuration File Example
+
+    Here is an example of a single-file configuration, that defines one rule `myteam_master_rule` that is to be applied to all projects of group `path/to/a/group`, except a few projects.
+
+    ```yaml
+    variable_profiles:
+        SOME_VARIABLE_GROUP:
+            -   name: SOME_VARIABLE
+                value: 'http://some.url/some/path'
+                protected: false
+
+    projects_rules:
+        -   rule_name: myteam_master_rule
+            default_branch: master
+            protected_branches:
+                -   pattern: master
+                    allowed_to_merge: maintainers
+                    allowed_to_push: no one
+                -   pattern: toto*
+                    allowed_to_merge: developers
+                    allowed_to_push: no one
+            protected_tags:
+                -   pattern: master
+                    allowed_to_create: developers
+                -   pattern: tag2
+                    allowed_to_create:
+                      role: maintainers
+                      users:
+                        - user1
+                        - user2
+            artifacts:
+                keep_latest_artifact: true
+            permissions:
+                visibility: private
+                request_access_enabled: true
+                wiki_access_level: disabled
+                issues_access_level: disabled
+                snippets_access_level: disabled
+                lfs_enabled: false
+            mergerequests:
+                only_allow_merge_if_all_discussions_are_resolved: true
+                only_allow_merge_if_pipeline_succeeds: true
+                resolve_outdated_diff_discussions: true
+                printing_merge_request_link_enabled: true
+                remove_source_branch_after_merge: true
+                merge_method: ff
+            labels:
+                -   name: my-beautiful-label
+                    color: '#FF0000'
+            variables:
+                -   import: SOME_VARIABLE_GROUP
+                -   name: OTHER_VARIABLE
+                    value: other value
+            integrations:
+                jira:
+                    url: 'https://jira.server'
+                    jira_issue_transition_id: 101
+                    username: your bot
+                    password_from_envvar: JIRA_PASSWORD
+                pipelines_email:
+                    recipients:
+                        - user1.name@server.com
+                        - user2.name@server.com
+                    notify_only_broken_pipelines: false
+                    notify_only_default_branch: true
+                    pipeline_events: true
+
+            nestor:
+                enabled: true
+                test_services: true
+
+
+    projects_configuration:
+        -   paths:
+                - path/to/a/group
+            recursive: true
+            excludes:
+                -   path/to/project/to/exclude
+                -   ^path/to/exclude/with/a/regex.*$
+            rule_name: myteam_master_rule
+            custom_rules:
+                labels:
+                    -   name: my-beautiful-label
+                        color: '#00FF00'
+                variables: null
+    ```
+
+
+####################################################################################################
+## Reusable definitions
+####################################################################################################
+definitions:
+    variable:
+        type: object
+        title: Project's or Group's Environment Variable
+        description: |
+
+            Define an Environment Variable, protected or unprotected.
+
+            It is advised to define secret environment variable using `value_from_envvar`.
+        additionalProperties: false
+        anyOf:
+            - required: [name, value]
+            - required: [name, value_from_envvar]
+        properties:
+            name:
+                type: string
+                description: The name of the variable to set in your project or group.
+                examples:
+                    - MY_ENVIRONMENT_VARIABLE_NAME
+                pattern: '^([A-Za-z_][A-Za-z0-9_]*)$'
+            value:
+                description: The value to set to the variable
+                oneOf:
+                    - type: string
+                      pattern: '^(.*)$'
+                    - type: integer
+                    - type: boolean
+            value_from_envvar:
+                description: |
+
+                    Read the value from an environment variable from the pipeline executing GPc on your configuration file.
+
+                    Use for token and sensitive information. Most of the time, you want to set this variable `protected: true`.
+
+                    #### Example:
+                    ```yaml
+                    -   name: SOME_VARIABLE
+                        value_from_envvar: CURRENT_PIPELINE_ENVVAR_TO_COPY
+                        protected: true
+                    ```
+                type: string
+                pattern: '^([A-Za-z_][A-Za-z0-9_]*)$'
+            protected:
+                type: boolean
+                description: Is the variable need to be set as "Protected"?
+                default: false
+            masked:
+                type: boolean
+                description: Is the variable need to be set as "masked"?
+                default: false
+            variable_type:
+                type: string
+                description: The type of variable to create, env_var or file
+                default: env_var
+                enum:
+                    - env_var
+                    - file
+
+    role_enum:
+        title: 'Role'
+        description: 'Role defining user permission level'
+        type: string
+        enum:
+            - owners
+            - maintainers
+            - developers
+            - reporters
+            - guests
+            - "none"
+            - "no one"
+
+    roles_users:
+        type: object
+        additionalProperties: false
+        properties:
+            role:
+                $ref: '#/definitions/role_enum'
+            members:
+                title: 'Members'
+                description: 'Gitlab username or group'
+                default: null
+                oneOf:
+                    - type: array
+                      default: []
+                      items:
+                          type: string
+                    - type: "null"
+            profiles:
+                title: 'Profiles'
+                description: List of profiles used as members
+                default: null
+                oneOf:
+                    - type: array
+                      default: []
+                      items:
+                        type: string
+                    - type: "null"
+
+    project_rule:
+        type: object
+        title: Project Rules
+        description: |
+            Rules that will be applied on each project.
+        additionalProperties: false
+        properties:
+            rule_name: # just a placeholder, not actually used (see allOf)
+                type: string
+                title: Name of the rule
+            inherits_from:
+                title: Inherits from another profile
+                default: null
+                examples:
+                    - my_other_rule_name
+                anyOf:
+                    -   type: string
+                        pattern: '^(.+)$'
+                    -   type: array
+                        default: [ ]
+                        items:
+                            type: string
+                            pattern: '^(.+)$'
+                    -   type: "null"
+            default_branch:
+                title: Default branch name
+                default: null
+                examples:
+                    - master
+                anyOf:
+                    - type: string
+                      pattern: '^(.+)$'
+                    - type: "null"
+            force_create_default_branch:
+                title: Force default branch creation
+                default: null
+                oneOf:
+                    -   type: boolean
+                    -   type: "null"
+                examples:
+                    - true
+            ignore_inexistant_branch:
+                title: Bypass inexistant default branch creation
+                default: null
+                oneOf:
+                    -   type: boolean
+                    -   type: "null"
+                examples:
+                    - true
+            auto_cancel_pending_pipelines:
+                title: Auto cancel pending pipelines
+                default: null
+                examples:
+                    - enabled
+                anyOf:
+                    - type: string
+                      enum:
+                        - "enabled"
+                        - "disabled"
+                    - type: "null"
+            build_coverage_regex:
+                title: Default branch name
+                default: null
+                anyOf:
+                    - type: string
+                      pattern: '^(.+)$'
+                    - type: "null"
+            ci_git_shallow_clone:
+                title: Description of project
+                default: null
+                anyOf:
+                    - type: integer
+                    - type: "null"
+            description:
+                title: Description of project
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            topics:
+                title: Topics of project
+                default: null
+                anyOf:
+                    - type: array
+                      items:
+                        type: string
+                    - type: "null"
+            keep_existing_topics:
+                title: Keep the existing topics
+                type: boolean
+                default: false
+            ci_config_path:
+                title: The path to CI configuration file
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            squash_commit_template:
+                title: Template for squash commit messages
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            merge_commit_template:
+                title: Template for merge commit messages
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            merge_suggestion_message:
+                title: The commit message used when applying merge request suggestions.
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            issues_template:
+                title: Template description for issues
+                default: null
+                anyOf:
+                    - type: string
+                    - type: "null"
+            keep_existing_schedulers:
+                title: Keep the existing schedulers
+                type: boolean
+                default: false
+            deploy_keys:
+                title: 'Deploy Keys'
+                description: 'Define enabled deploy keys for the project'
+                default: null
+                oneOf:
+                    - type: array
+                      items:
+                        - type: object
+                          title: "The deploy key schema"
+                          additionalProperties: false
+                          properties:
+                            id:
+                                type: integer
+                                title: "The deploy key ID"
+                            can_push:
+                                type: boolean
+                                title: "Whether the deploy key is allowed to push"
+                    - type: "null"
+            schedulers:
+                title: 'Schedulers'
+                description: 'Define the schedulers for the project.'
+                default: null
+                oneOf:
+                    - type: array
+                      items:
+                        oneOf:
+                            - type: object
+                              title: The Items Schema
+                              additionalProperties: false
+                              properties:
+                                name:
+                                    type: string
+                                    title: The Name of scheduler
+                                    default: ''
+                                    pattern: '^(.*)$'
+                                cron:
+                                    type: string
+                                    title: Cron
+                                    pattern: '^(.*)$'
+                                branch:
+                                    type: string
+                                    title: Branch name
+                                    pattern: '^(.*)$'
+                                enabled:
+                                    default: null
+                                    examples:
+                                        - true
+                                    oneOf:
+                                        - type: boolean
+                                        - type: "null"
+                                tz:
+                                    type: string
+                                    title: The time zone
+                                    default: 'Etc/UTC'
+                                    pattern: '^(.*)$'
+                                variables:
+                                    title: The variables of scheduler
+                                    default: null
+                                    oneOf:
+                                        - type: array
+                                          items:
+                                            additionalProperties: true
+                                            oneOf:
+                                                - $ref: '#/definitions/variable'
+                                                - type: object
+                                                  additionalProperties: false
+                                                  properties:
+                                                    import:
+                                                        type: string
+                                                        title: Name of the variable profile to import
+                                                        pattern: '^(.+)$'
+                                                        examples:
+                                                            - import: COMMON_VARIABLE_PROFILE_NAME
+                                        - type: "null"
+                    - type: "null"
+            keep_existing_members:
+                title: Keep the existing members
+                type: boolean
+                default: false
+            keep_existing_groups:
+                title: Keep the existing groups
+                type: boolean
+                default: false
+            skip_permission_error:
+                title: Skip permission error if higher rights
+                type: boolean
+                default: false
+            project_members:
+                title: 'Project members'
+                description: 'Define the users and groups which are members of the project.'
+                default: null
+                oneOf:
+                    - type: object
+                      title: The Items Schema
+                      additionalProperties: false
+                      properties:
+                          profiles:
+                              title: 'Profiles'
+                              description: List of profiles used as members
+                              default: null
+                              oneOf:
+                                  - type: array
+                                    default: []
+                                    items:
+                                        type: string
+                                  - type: "null"
+                          members:
+                              type: array
+                              description: 'null value not supported. An empty list [] removes all members'
+                              title: List of role and members name
+                              default: []
+                              items:
+                                  additionalProperties: false
+                                  anyOf:
+                                      - required: [role, name]
+                                      - required: [role, names]
+                                  properties:
+                                      role:
+                                          default: null
+                                          oneOf:
+                                              - $ref: '#/definitions/role_enum'
+                                              - type: 'null'
+                                      name:
+                                          type: string
+                                          description: 'null value not supported. An empty list [] removes all members'
+                                      names:
+                                          type: array
+                                          description: 'null value not supported. An empty list [] removes all members'
+                                          default: []
+                                          items:
+                                              type: string
+
+                    - type: "null"
+
+            approval_rules:
+                title: 'Approval rules'
+                type: array
+                items:
+                    oneOf:
+                        - type: object
+                          title: Approval rule schema
+                          oneOf:
+                            - required : [minimum,name]
+                          properties:
+                            name:
+                                type: string
+                            profiles:
+                                title: 'Profiles'
+                                description: List of profiles used as members
+                                default: null
+                                oneOf:
+                                    - type: array
+                                      default: []
+                                      items:
+                                        type: string
+                                    - type: "null"
+                            members:
+                                type: array
+                                description: 'null value not supported. An empty list [] removes all members'
+                                title: List of members name
+                                default: []
+                                items:
+                                    type: string
+                            minimum:
+                                type: integer
+                                minimum: 0
+                                title: Minimum approval required
+                                examples:
+                                    - 2
+                            protected_branches:
+                                default: null
+                                oneOf:
+                                    - type: array
+                                      items:
+                                            oneOf:
+                                                - type: integer
+                                                - type: string
+
+                                    - type: string
+                                    - type: integer
+                        -   type: "null"
+
+
+
+            approval_settings:
+                title: 'Approval settings'
+                type: object
+                properties:
+                    can_override_approvals_per_merge_request:
+                        title: Can override approvers and approvals required per merge request
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    remove_all_approvals_when_new_commits_are_pushed:
+                        title: Remove all approvals in a merge request when new commits are pushed to its source branch
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                    enable_self_approval:
+                        title: Enable self approval of merge requests
+                        default: false
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                    enable_committers_approvers:
+                        title: Enable approval of committers
+                        default: true
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                    selective_code_owner_removals:
+                        title: Reset approvals from Code Owners if their files changed (remove_all_approvals_when_new_commits_are_pushed must be disabled)
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+            approvers:
+                title: 'Approvers'
+                description: 'Define the policy for merge request approvals.'
+                default: null
+                oneOf:
+                    - type: object
+                      title: The Items Schema
+                      additionalProperties: false
+                      oneOf:
+                          - required: [minimum]
+                      properties:
+                          profiles:
+                              title: 'Profiles'
+                              description: List of profiles used as members
+                              default: null
+                              oneOf:
+                                  - type: array
+                                    default: []
+                                    items:
+                                        type: string
+                                  - type: "null"
+                          members:
+                              type: array
+                              description: 'null value not supported. An empty list [] removes all members'
+                              title: List of members name
+                              default: []
+                              items:
+                                  type: string
+                          minimum:
+                              type: integer
+                              minimum: 0
+                              title: Minimum approval required
+                              examples:
+                                  - 2
+                          options:
+                              type: object
+                              additionalProperties: false
+                              title: Options of approval
+                              properties:
+                                  can_override_approvals_per_merge_request:
+                                      title: Can override approvers and approvals required per merge request
+                                      default: null
+                                      oneOf:
+                                          - type: boolean
+                                          - type: "null"
+                                      examples:
+                                          - true
+                                  remove_all_approvals_when_new_commits_are_pushed:
+                                      title: Remove all approvals in a merge request when new commits are pushed to its source branch
+                                      default: null
+                                      examples:
+                                          - true
+                                      oneOf:
+                                          - type: boolean
+                                          - type: "null"
+                                  enable_self_approval:
+                                      title: Enable self approval of merge requests
+                                      default: false
+                                      examples:
+                                          - true
+                                      oneOf:
+                                          - type: boolean
+                                          - type: "null"
+                                  enable_committers_approvers:
+                                      title: Enable approval of committers
+                                      default: true
+                                      examples:
+                                          - true
+                                      oneOf:
+                                          - type: boolean
+                                          - type: "null"
+                                  selective_code_owner_removals:
+                                      title: Reset approvals from Code Owners if their files changed (remove_all_approvals_when_new_commits_are_pushed must be disabled)
+                                      default: null
+                                      examples:
+                                          - true
+                                      oneOf:
+                                          - type: boolean
+                                          - type: "null"
+
+
+                    -   type: "null"
+            keep_existing_protected_branches:
+                title: Keep the existing protected branches
+                type: boolean
+                default: false
+            apply_group_best_effort:
+                title: Add direct members of inherited groups of the project to protected branch if the group is added to the branch (gitlab limitation)
+                type: boolean
+                default: false
+            protected_branches:
+                title: 'Protected branch rules'
+                description: 'To remove all items, use ``[]``.'
+                default: null
+                oneOf:
+                    -   type: array
+                        default: null
+                        items:
+                            type: object
+                            additionalProperties: false
+                            title: The Items Schema
+                            required:
+                                - pattern
+                                - allowed_to_merge
+                                - allowed_to_push
+                            properties:
+                                pattern:
+                                    type: string
+                                    title: Pattern match to select the branch(es)
+                                    description: |
+                                      Do not forget to double the escape character (backslash), since
+                                      it acts like the escape sequence for the YAML parser.
+                                    examples:
+                                        - master
+                                        - "^[1-2][0-9]\\..*$"
+                                allow_force_push:
+                                    title: Allow all users with push access to force push
+                                    default: null
+                                    oneOf:
+                                        -   type: boolean
+                                        -   type: "null"
+                                    examples:
+                                        - true
+                                code_owner_approval_required:
+                                    title: Prevent pushes to this branch if it matches an item in the CODEOWNERS file
+                                    default: null
+                                    oneOf:
+                                        -   type: boolean
+                                        -   type: "null"
+                                    examples:
+                                        - true
+                                allowed_to_merge:
+                                    title: Roles allowed to merge
+                                    oneOf:
+                                        - type: string
+                                          title: Role allowed to merge
+                                          enum:
+                                              - maintainers
+                                              - developers
+                                              - "none"
+                                              - "no one"
+                                          examples:
+                                              - maintainers
+                                          pattern: '^(.+)$'
+                                        - $ref: '#/definitions/roles_users'
+                                allowed_to_push:
+                                    title: Role allowed to push
+                                    oneOf:
+                                        - type: string
+                                          title: Role allowed to push
+                                          enum:
+                                              - maintainers
+                                              - developers
+                                              - "none"
+                                              - "no one"
+                                          examples:
+                                              - maintainers
+                                          pattern: '^(.+)$'
+                                        - $ref: '#/definitions/roles_users'
+                                allowed_to_unprotect:
+                                    title: Role allowed to unprotect protected branch
+                                    default: maintainers
+                                    oneOf:
+                                        - type: string
+                                          title: Role allowed to unprotect
+                                          enum:
+                                              - maintainers
+                                              - developers
+                                              - admins
+                                          examples:
+                                              - maintainers
+                                          pattern: '^(.+)$'
+                                        - type: "null"
+                    -   type: "null"
+            keep_existing_protected_tags:
+                title: Keep the existing protected tags
+                type: boolean
+                default: false
+            protected_tags:
+                default: null
+                oneOf:
+                    -   type: array
+                        title: Protected tag rules
+                        items:
+                            type: object
+                            additionalProperties: false
+                            title: One protected tag rule
+                            required:
+                                - pattern
+                                - allowed_to_create
+                            properties:
+                                pattern:
+                                    type: string
+                                    title: Tag selection pattern
+                                    examples:
+                                        - master
+                                    pattern: '^(.+)$'
+                                allowed_to_create:
+                                    oneOf:
+                                        - type: string
+                                          title: Role allowed to create
+                                          examples:
+                                              - maintainers
+                                          pattern: '^(.+)$'
+                                        - type: object
+                                          title: Role and users allowed to create
+                                          additionalProperties: false
+                                          required:
+                                            - role
+                                          properties:
+                                              role:
+                                                type: string
+                                                title: Role allowed to create
+                                                examples:
+                                                    - maintainers
+                                                pattern: '^(.+)$'
+                                              users:
+                                                default: null
+                                                oneOf:
+                                                    - type: array
+                                                      title: Users allowed to create protected tag
+                                                      items:
+                                                        type: string
+                                                    - type: "null"
+                    -   type: "null"
+            artifacts:
+                title: Artifacts
+                default: null
+                oneOf:
+                    -   type: object
+                        additionalProperties: false
+                        properties:
+                            keep_latest_artifact:
+                                title: Disable or enable the ability to keep the latest artifact for this project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+
+            permissions:
+                title: Project permissions
+                default: null
+                oneOf:
+                    -   type: object
+                        additionalProperties: false
+                        properties:
+                            visibility:
+                                title: Project visibility
+                                default: null
+                                examples:
+                                    - private
+                                oneOf:
+                                    -   type: string
+                                        enum:
+                                            -   internal
+                                            -   private
+                                            -   public
+                                    -   type: "null"
+                            request_access_enabled:
+                                title: Authorize users to request access to projects
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+
+                            wiki_enabled:
+                                title: Enable Wiki in project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            issues_enabled:
+                                title: Enable Issues in project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            snippets_enabled:
+                                title: Enable Snippets in project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            lfs_enabled:
+                                title: Enable Git LFS in project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            container_registry_enabled:
+                                title: Enable Container Registry.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            releases_access_level:
+                                title: Configure Releases in project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            infrastructure_access_level:
+                                title: Configure Infrastructure for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            feature_flags_access_level:
+                                title: Configure Feature Flags for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            environments_access_level:
+                                title: Configure Environments for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            monitor_access_level:
+                                title: Configure Monitoring for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            pages_access_level:
+                                title: Configure Pages for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            analytics_access_level:
+                                title: Configure Analytics Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            forking_access_level:
+                                title: Configure Forking Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            security_and_compliance_access_level:
+                                title: Configure Security and Compliance Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            issues_access_level:
+                                title: Configure Issues Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            repository_access_level:
+                                title: Configure Repository Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            merge_requests_access_level:
+                                title: Configure Merge Requests Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            wiki_access_level:
+                                title: Configure Wiki Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            builds_access_level:
+                                title: Configure Builds Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            snippets_access_level:
+                                title: Configure Snippets Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            container_registry_access_level:
+                                title: Configure Container Registry Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            model_experiments_access_level:
+                                title: Configure Model Experiments Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            model_registry_access_level:
+                                title: Configure Model Registry Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            requirements_access_level:
+                                title: Configure Requirements Access Level for project.
+                                default: null
+                                examples:
+                                    - enabled
+                                oneOf:
+                                    - type: string
+                                      enum:
+                                        - enabled
+                                        - disabled
+                                        - private
+                                    - type: "null"
+                            jobs_enabled:
+                                title: Enable CI/CD in project.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            merge_requests_enabled:
+                                title: Enable merge requests in project.
+                                defaut: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                            packages_enabled:
+                                title: Enable Package Registry.
+                                default: null
+                                examples:
+                                    - true
+                                oneOf:
+                                    - type: boolean
+                                    - type: "null"
+                    -   type: "null"
+            mergerequests:
+                type: object
+                additionalProperties: false
+                title: The Mergerequests Schema
+                properties:
+                    only_allow_merge_if_all_discussions_are_resolved:
+                        title: Only allow merge if all discussions are resolved
+                        default: null
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                        examples:
+                            - true
+                    only_allow_merge_if_pipeline_succeeds:
+                        title: Only allow merge if pipeline succeeds
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                    allow_merge_on_skipped_pipeline:
+                        title: Skipped pipelines are considered successful
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                    resolve_outdated_diff_discussions:
+                        title: Automatically resolve merge request diffs discussions on lines changed with a push
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                    printing_merge_request_link_enabled:
+                        title: Show link to create/view merge request when pushing from the command line
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                    remove_source_branch_after_merge:
+                        title: Remove branch after merge (Existing merge requests and protected branches are not affected)
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            -   type: boolean
+                            -   type: "null"
+                    merge_method:
+                        title: Merge method
+                        examples:
+                            - ff
+                            - merge
+                        default: null
+                        oneOf:
+                            -   type: string
+                                enum:
+                                    -   ff
+                                    -   merge
+                                    -   rebase_merge
+                            -   type: "null"
+                    squash_option:
+                        title: Squash Option on mergerequests
+                        examples:
+                            - do not allow
+                            - allow
+                            - encourage
+                            - require
+                        default: null
+                        oneOf:
+                            -   type: string
+                                enum:
+                                    -   do not allow
+                                    -   allow
+                                    -   encourage
+                                    -   require
+                            -   type: "null"
+                    merge_pipelines_enabled:
+                        title: Enable merged results pipelines
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    merge_trains_enabled:
+                        title: Enable merge trains
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    default_template:
+                        title: Default description template for merge requests.
+                        default: null
+                        anyOf:
+                            - type: string
+                            - type: "null"
+
+            push_rules:
+                type: object
+                additionalProperties: false
+                title: The push rules Schema
+                properties:
+                    remove:
+                        title: You want remove the configuration of push rull. (Like set all properties to null)
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    dont_allow_users_to_remove_tags:
+                        title: Do not allow users to remove git tags with git push
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    reject_unsigned_commits:
+                        title: Unsigned commits cannot be pushed to this repository
+                        default: null
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                        examples:
+                            - true
+                    member_check:
+                        title: Check whether author is a GitLab user
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                    prevent_secrets:
+                        title: Prevent committing secrets to Git
+                        default: null
+                        examples:
+                            - true
+                        oneOf:
+                            - type: boolean
+                            - type: "null"
+                    commit_message:
+                        title: All commit messages must match this regular expression to be pushed.
+                        default: null
+                        oneOf:
+                            - type: string
+                            - type: "null"
+                    commit_message_negative:
+                        title: No commit message is allowed to match this regular expression to be pushed.
+                        default: null
+                        oneOf:
+                            - type: string
+                            - type: "null"
+                    branch_name_regex:
+                        title: All branch names must match this regular expression to be pushed.
+                        default: null
+                        oneOf:
+                            - type: string
+                            - type: "null"
+                    author_mail_regex:
+                        title: All commit author's email must match this regular expression to be pushed.
+                        default: null
+                        oneOf:
+                            - type: string
+                            - type: "null"
+                    prohibited_file_name_regex:
+                        title: All commited filenames must not match this regular expression to be pushed.
+                        default: null
+                        oneOf:
+                            - type: string
+                            - type: "null"
+                    max_file_size:
+                        title: Pushes that contain added or updated files that exceed this file size (in MB) are rejected.
+                        default: null
+                        oneOf:
+                            - type: integer
+                            - type: "null"
+            labels:
+                title: Add predefined colorful labels
+                default: null
+                oneOf:
+                    - type: array
+                      items:
+                          title: The Items Schema
+                          anyOf:
+                              - type: object
+                                additionalProperties: false
+                                title: The Label Schema
+                                required:
+                                    - name
+                                    - color
+                                properties:
+                                    name:
+                                        type: string
+                                        title: The Name Schema
+                                        default: ''
+                                        examples:
+                                            - delivery-SWEET200-RAEB
+                                        pattern: '^(.*)$'
+                                    color:
+                                        type: string
+                                        title: The Color Schema
+                                        default: ''
+                                        examples:
+                                            - '#FF0000'
+                                        pattern: '^(.*)$'
+                              - type: object
+                                additionalProperties: false
+                                title: The Profile Schema
+                                required:
+                                    - profile
+                                properties:
+                                    profile:
+                                        type: string
+                                        title: The Profile Schema
+                                        default: ''
+                                        examples:
+                                            - label_profile_ucd
+                                        pattern: '^(.*)$'
+                    - type: "null"
+            runners:
+                title: Enable or disable runners
+                default: null
+                oneOf:
+                    -   type: array
+                        items:
+                            type: object
+                            additionalProperties: false
+                            title: The runners
+                            required:
+                                - enabled
+                            properties:
+                                runner_id:
+                                    type: integer
+                                    title: The runner identifier
+                                    default: 0
+                                    examples:
+                                        - 12345
+                                runner_id_from_envvar:
+                                  type: string
+                                  title: Runner ID from environnement variable
+                                  default: ''
+                                  examples:
+                                    - RUNNER_ID
+                                  pattern: '^(.*)$'
+                                enabled:
+                                    type: boolean
+                                    default: true
+                                    title: enabled or disabled the runner
+                                    examples:
+                                        - true
+                    -   type: "null"
+            keep_existing_variables:
+                title: Keep the existing variables
+                type: boolean
+                default: false
+            variables:
+                title: Set variable
+                description: |
+                    List of variable to set. Use 'null' to skip. Use 'import: VARIABLE_COMMON'
+
+                    Use only ``import ` to import from a ``variable_profiles``.
+
+                    Set to empty list (``[]``) to remove all variables.
+                    Set to ``null`` (the default value) to keep existing ones.
+                default: null
+                oneOf:
+                    -   type: array
+                        items:
+                            additionalProperties: true
+                            oneOf:
+                                -   $ref: '#/definitions/variable'
+                                -   type: object
+                                    additionalProperties: false
+                                    properties:
+                                        import:
+                                            type: string
+                                            title: Name of the variable profile to import
+                                            examples:
+                                                - import: COMMON_VARIABLE_PROFILE_NAME
+                                            pattern: '^(.+)$'
+                    -   type: "null"
+            keep_existing_badges:
+                title: Keep the existing bagdes
+                type: boolean
+                default: true
+            badges:
+                title: Badges to add
+                description: |
+                    List of badges to add to your project
+
+                    Available variables:
+
+                      - ``%{gpc_gitlab_url}``: gitlab url (extracted from ``--gitlab-url`` parameter
+                        or ``GPC_GITLAB_URL`` environ variable)
+                      - ``%{project_path}``: path to the current project
+                      -  ``%{default_branch}``: name of the default branch
+
+                    Set to empty list (``[]``) to remove all badges.
+
+                    Set to ``null`` (the default value) to keep existing ones.
+                examples:
+                  - |
+                      Pipeline Status badge:
+
+                      ```
+                      - link_url: "%{gpc_gitlab_url}/%{project_path}/commits/%{default_branch}"
+                        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/pipeline.svg"
+                      ```
+                  - |
+                      Coverage badge:
+
+                      ```
+                      - link_url: "https://my.artifactory.server/artifactory/publish/nestor/%{project_path}/coverage/%{default_branch}/"
+                        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/coverage.svg"
+                      ```
+                default: null
+                oneOf:
+                    -   type: array
+                        items:
+                            type: object
+                            additionalProperties: false
+                            required: [ image_url, link_url]
+                            properties:
+                                name:
+                                    oneOf:
+                                        - type: string
+                                          description: Name of badge
+                                        - type: "null"
+                                image_url:
+                                    type: string
+                                    title: URL to the image
+                                    format: url
+                                    examples:
+                                        - "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/pipeline.svg"
+                                        - "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/coverage.svg"
+                                link_url:
+                                    type: string
+                                    title: Link URL
+                                    format: url
+                                    examples:
+                                        - "https://my.artifactory.server/artifactory/publish/nestor/%{project_path}/coverage/%{default_branch}/"
+                                        - "%{gpc_gitlab_url}/%{project_path}/commits/%{default_branch}"
+                    -   type: "null"
+            integrations:
+                type: object
+                additionalProperties: false
+                description: Configure Gitlab plugins
+                properties:
+                    jira:
+                        type: object
+                        additionalProperties: false
+                        description: Configure JIRA
+                        required: ["url"]
+                        anyOf:
+                            - required:
+                                - username
+                                - password_from_envvar
+                              not:
+                                  required: ["token_from_envvar"]
+                            - required:
+                                - username_from_envvar
+                                - password_from_envvar
+                              not:
+                                  required: ["token_from_envvar"]
+                            - required:
+                                  - token_from_envvar
+                              not:
+                                  required: [ "password_from_envvar" ]
+                        properties:
+                            url:
+                                type: string
+                                format: url
+                                title: The Url Schema
+                                default: ''
+                                examples:
+                                    - 'https://jira.server'
+                                pattern: '^(.*)$'
+                            disabled:
+                                type: boolean
+                                title: Remove jira services
+                                default: false
+                            jira_issue_transition_id:
+                                oneOf:
+                                    - type: integer
+                                      title: The Jira_issue_transition_id Schema
+                                      default: 0
+                                      examples:
+                                        - 101
+                                    - type: string
+                                      title: The Jira_issue_transition_id Schema
+                                      pattern: '^$|^[ ]*[0-9]+[ ]*([,;][ ]*[0-9]+[ ]*)*$'
+                                      examples:
+                                          - 101
+                                    - type: 'null'
+                            username:
+                                type: string
+                                title: The Username Schema
+                                default: ''
+                                examples:
+                                    - bot nestor
+                                pattern: '^(.*)$'
+                            username_from_envvar:
+                                type: string
+                                title: The Username_from_envvar Schema
+                                default: ''
+                                examples:
+                                    - JIRA_USERNAME
+                                pattern: '^(.*)$'
+                            password_from_envvar:
+                                type: string
+                                title: The Password_from_envvar Schema
+                                default: ''
+                                examples:
+                                    - JIRA_PASSWORD
+                                pattern: '^(.*)$'
+                            token_from_envvar:
+                                type: string
+                                title: The Token_from_envvar Schema
+                                default: ''
+                                examples:
+                                    - JIRA_TOKEN
+                                pattern: '^(.*)$'
+                            trigger_on_commit:
+                                type: boolean
+                                title: Jira comment created when an issue is referenced in a commit.
+                                default: false
+                            trigger_on_mr:
+                                type: boolean
+                                title: Jira comments will be created when an issue gets referenced in a merge request.
+                                default: true
+                            comment_on_event_enabled:
+                                type: boolean
+                                title: Comment posted on each event
+                                description: Enable comments inside Jira issues on each GitLab event (commit / merge request).
+                                default: false
+                    pipelines_email:
+                        type: object
+                        additionalProperties: false
+                        description: Get emails for Gitlab CI pipelines
+                        required:
+                            - recipients
+                        properties:
+                            recipients:
+                                type: array
+                                title: List of recipient email addresses
+                                default: []
+                            notify_only_broken_pipelines:
+                                type: boolean
+                                title: Notify on broken pipelines
+                                default: false
+                            notify_only_default_branch:
+                                type: boolean
+                                title: Send notifications only for the default branch
+                                default: false
+                            pipeline_events:
+                                type: boolean
+                                title: Enable notifications for pipeline events
+                                default: false
+                            disabled:
+                                type: boolean
+                                title: Remove pipelines email services
+                                default: false
+            nestor:
+                type: object
+                additionalProperties: false
+                title: The Nestor Schema
+                properties:
+                    enabled:
+                        type: boolean
+                        title: Enable Nestor Services on the project
+                        default: false
+                    test_services:
+                        type: boolean
+                        title: Enable Test Services on the project
+                        default: false
+            token_access:
+                type: object
+                additionnalProperties: false
+                description: Control how the CI_JOB_TOKEN CI/CD variable is used for API access between projects
+                properties:
+                    allow_access_with_ci_job_token:
+                        type: boolean
+                        title: Allow access to this project with a CI_JOB_TOKEN
+                        default: false
+                    allowed_projects:
+                        type: array
+                        title: Allow CI job tokens from the following projects
+                        default: []
+
+    group_rule:
+        type: object
+        additionalProperties: false
+        title: Group rules
+        description: |
+            Rules that will be applied on each group.
+        properties:
+            rule_name:
+                type: string
+                title: The Rule_name Schema
+                default: ''
+                examples:
+                    - default_group_rule
+                pattern: '^(.*)$'
+            inherits_from:
+                title: Inherits from another profile
+                default: null
+                examples:
+                    - my_other_rule_name
+                anyOf:
+                    -   type: string
+                        pattern: '^(.+)$'
+                    -   type: array
+                        default: [ ]
+                        items:
+                            type: string
+                            pattern: '^(.+)$'
+                    -   type: "null"
+            permissions:
+              title: Project permissions
+              default: null
+              oneOf:
+                - type: object
+                  additionalProperties: false
+                  properties:
+                    visibility:
+                      title: Project visibility
+                      default: null
+                      examples:
+                        - private
+                      oneOf:
+                        - type: string
+                          enum:
+                            - internal
+                            - private
+                            - public
+                        - type: "null"
+            group_members:
+                title: 'Group members'
+                description: 'Define the users and groups which are members of the group.'
+                default: null
+                oneOf:
+                    - type: object
+                      title: The Items Schema
+                      additionalProperties: false
+                      properties:
+                          profiles:
+                              title: 'Profiles'
+                              description: List of profiles used as members
+                              default: null
+                              oneOf:
+                                  - type: array
+                                    default: []
+                                    items:
+                                        type: string
+                                  - type: "null"
+                          members:
+                              type: array
+                              description: 'null value not supported. An empty list [] removes all members'
+                              title: List of role and members name
+                              default: []
+                              items:
+                                  additionalProperties: false
+                                  anyOf:
+                                      - required: [role, name]
+                                      - required: [role, names]
+                                  properties:
+                                      role:
+                                          default: null
+                                          oneOf:
+                                              - $ref: '#/definitions/role_enum'
+                                              - type: 'null'
+                                      name:
+                                          type: string
+                                          description: 'null value not supported. An empty list [] removes all members'
+                                      names:
+                                          type: array
+                                          description: 'null value not supported. An empty list [] removes all members'
+                                          default: []
+                                          items:
+                                              type: string
+
+                    - type: "null"
+            keep_existing_variables:
+                title: Keep the existing variables
+                type: boolean
+                default: false
+            variables:
+                title: Set variable
+                description: |
+                    List of variable to set. Use 'null' to skip. Use 'import: VARIABLE_COMMON'
+
+                    Use only ``import ` to import from a ``variable_profiles``.
+
+                    Set to empty list (``[]``) to remove all variables.
+                    Set to ``null`` (the default value) to keep existing ones.
+                default: null
+                oneOf:
+                    -   type: array
+                        items:
+                            additionalProperties: true
+                            oneOf:
+                                -   $ref: '#/definitions/variable'
+                                -   type: object
+                                    additionalProperties: false
+                                    properties:
+                                        import:
+                                            type: string
+                                            title: Name of the variable profile to import
+                                            examples:
+                                                - import: COMMON_VARIABLE_PROFILE_NAME
+                                            pattern: '^(.+)$'
+                    -   type: "null"
+
+####################################################################################################
+## Root node
+####################################################################################################
+properties:
+    include:
+        description: |
+
+            (Optional) Allow policies to be imported from another file.
+
+            #### Example:
+
+            ```yaml
+            include: local/path.yaml
+            ```
+        oneOf:
+            - type: string
+              title: file name
+              default: ''
+              pattern: '^(.*)$'
+            - type: array
+              items:
+                  type: string
+                  title: file name
+                  pattern: '^(.*)$'
+
+    variable_profiles:
+        type: object
+        description: |
+
+            Define named presets of one or several variables.
+
+            Allow to define several variable at once
+
+            #### Example:
+
+            ```yaml
+            variable_profiles:
+                SOME_VARIABLE_GROUP:
+                    -   name: SOME_VARIABLE
+                        value: 'http://some.url/path'
+                        protected: false
+                    -   name: SOME_OTHER_VARIABLE
+                        value: 'some other value'
+                        protected: false
+            ```
+
+        additionalProperties:
+            type: array
+            default: []
+            title: Definition of one variable profile
+            items:
+                $ref: '#/definitions/variable'
+
+    member_profiles:
+        type: array
+        default: []
+        description: |
+
+            List of named groups of members.
+            Can be used for approvers, or protected branches
+
+            #### Example:
+
+            ```yaml
+            member_profiles:
+              - name: mytest_master_approvers
+                members:
+                  - email@server
+                  - email1@server
+            ```
+        items:
+            additionalProperties: false
+            properties:
+                role:
+                    default: null
+                    oneOf:
+                        - $ref: '#/definitions/role_enum'
+                        - type: 'null'
+                name:
+                    type: string
+                    title: The name of group members
+                members:
+                    type: array
+                    description: 'null value not supported. An empty list [] removes all members'
+                    default: []
+                    items:
+                        type: string
+
+    projects_rules:
+        type: array
+        default: []
+        description: |
+
+            List of named project policies.
+
+            #### Example:
+
+            ```yaml
+            projects_rules:
+                -   rule_name: name_of_the_rule_to_define
+                    ...
+                -   rule_name: other_rule_name
+                    ...
+            ```
+
+        items:
+            additionalProperties: true
+            allOf:
+                -   $ref: '#/definitions/project_rule'
+            properties:
+                rule_name:
+                    description: Name of the policy.
+                    default: null
+                    oneOff:
+                      - type: string
+                        pattern: '^(.*)$'
+                      - type: null
+                    examples:
+                        - default_project_policy
+
+    projects_configuration:
+        title: Project Configuration
+        type: array
+        default: []
+        description: |
+
+            Apply policies to projects
+
+            #### Example:
+
+            ```yaml
+            projects_configuration:
+                -   paths:
+                        - path/to/project
+                        - ...
+                    rule_name: name_of_the_rule_to_apply
+                    ...
+                -   paths:
+                        - path/to/another/project
+                        - ...
+                    rule_name: other_name_of_rule
+                    ...
+            ```
+        items:
+            type: object
+            additionalProperties: false
+            title: Project Configuration
+            anyOf:
+                - required:
+                    - rule_name
+                - required:
+                    - custom_rules
+            properties:
+                paths:
+                    type: array
+                    title: List of path to look for project
+                    description: |
+                        Path can be path to project, or path to group, or /
+                        If you use / you apply this configuration to all project for which your user
+                        has access
+
+                        Please note regular expression are **not** supported.
+                    default: 'null'
+                    examples:
+                        - fake/path/to/project_or_group
+                        - 'path/with/wildcard/*'
+                    items:
+                        type: string
+                        pattern: '^(.*)$'
+                recursive:
+                    type: boolean
+                    title: Apply the schema recursively.
+                    default: false
+                not_seen_yet_only:
+                    type: boolean
+                    title: Don't apply the rule if the project has been configured yet
+                    default: false
+                excludes:
+                    description: |
+
+                        List of projects to exclude.
+
+                        Can be a list of project path or group, or a list of regular expression.
+
+                        Each Regular expression needs to start with `^` and end with `$`.
+
+                        Do not forget to escape the `/` character in your regex: `\\/`
+
+                    default: null
+                    examples:
+                        - fake/path/to/project/to/exclude
+                        - '^path/to/exclude/.*$'
+                    oneOf:
+                      - type: array
+                        items:
+                            type: string
+                            description: |
+                              Path or regular expression.
+
+                              Regular expression needs to start with `^` and end with `$`.
+                              Do not forget to escape the `/` character in your regex: `^a\\/b\\/c$`
+                            pattern: '^(.+)$'
+                      - type: "null"
+                rule_name:
+                    title: Project rule policy to apply.
+                    examples:
+                        - default_project_policy
+                    default: []
+                    oneOf:
+                        - type: array
+                          items:
+                            type: string
+                            pattern: '^(.+)$'
+                        - type: string
+                          pattern: '^(.+)$'
+                custom_rules:
+                    title: Override rules
+                    default: null
+                    anyOf:
+                        -   type: "object"
+                            properties: {}
+                            additionalProperties: false
+                            description: "No override rule"
+                        -   $ref: '#/definitions/project_rule'
+                        -   type: "null"
+                            description: "No override rule"
+
+    groups_rules:
+        type: array
+        title: Group rule
+        default: []
+        items:
+            allOf:
+                -   $ref: '#/definitions/group_rule'
+            properties:
+                rule_name:
+                    title: Group rule name to define.
+                    examples:
+                        - default_group_rule
+                    oneOf:
+                        - type: array
+                          default: [ ]
+                          items:
+                              type: string
+                              pattern: '^(.+)$'
+                        - type: string
+                          pattern: '^(.+)$'
+
+    groups_configuration:
+        type: array
+        title: The Groups Schema
+        default: []
+        items:
+            type: object
+            additionalProperties: false
+            title: The Items Schema
+            anyOf:
+                - required:
+                    - paths
+                    - rule_name
+                - required:
+                    - paths
+                    - custom_rules
+            properties:
+                paths:
+                    type: array
+                    title: The Path Schema
+                    default: null
+                rule_name:
+                    type: string
+                    title: Group rule name to apply
+                    default: ''
+                    examples:
+                        - default_group_policy
+                    pattern: '^(.+)$'
+                custom_rules:
+                    title: Override group policy
+                    $ref: '#/definitions/group_rule'
+
+    label_profiles:
+        type: array
+        default: []
+        description: |
+
+            List of named groups of labels.
+            Can be used for label definition in project rules
+
+            #### Example:
+
+            ```yaml
+            label_profiles:
+              - name: my_awesome_labels
+                labels:
+                  - name: build
+                    color: #0033CC
+                  - name: deliver
+                    color: #11FF33
+            ```
+        items:
+            additionalProperties: false
+            properties:
+                name:
+                    type: string
+                    title: The name of the group of labels
+                labels:
+                    type: array
+                    description: 'null value not supported.'
+                    default: []
+                    items:
+                        type: object
+                        additionalProperties: false
+                        title: The Label Schema
+                        required:
+                        - name
+                        - color
+                        properties:
+                            name:
+                                type: string
+                                title: The Name Schema
+                                default: ''
+                                examples:
+                                - delivery-SWEET200-RAEB
+                                pattern: '^(.*)$'
+                            color:
+                                type: string
+                                title: The Color Schema
+                                default: ''
+                                examples:
+                                    - '#FF0000'
+                                pattern: '^(.*)$'

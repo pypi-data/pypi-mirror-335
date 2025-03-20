@@ -1,0 +1,27 @@
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+    protected_branches:
+      - pattern: master
+        allowed_to_merge: kurt cobain  # <==== invalid entry
+        allowed_to_push:
+          role: no one
+      - pattern: toto*
+        allowed_to_merge:
+          role: developers
+        allowed_to_push:
+          role: no one
+
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    recursive: true
+    excludes:
+      - swlabs/nestor/repo_test/gpc_tests/gpc_subgrp_1/pjt3_to_exclude
+      - ^swlabs\/nestor\/repo_test\/gpc_tests\/bdd.*$
+    rule_name: myteam_master_rule
+    custom_rules:
+      labels:
+        - name: my-beautiful-label
+          color: '#00FF00'
+      variables: null

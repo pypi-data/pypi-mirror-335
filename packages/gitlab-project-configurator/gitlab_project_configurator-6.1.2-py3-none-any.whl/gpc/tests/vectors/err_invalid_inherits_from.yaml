@@ -1,0 +1,16 @@
+
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+  - rule_name: derived_rule
+    inherits_from:
+      - invalid_rule_name  # <= Rule name does not exist
+      - myteam_master_rule
+    default_branch: master
+
+
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    recursive: true
+    rule_name: derived_rule

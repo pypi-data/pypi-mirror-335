@@ -1,0 +1,88 @@
+{% extends "layout-email.html.j2" %}
+
+{% block content %}
+
+{% set p_style = "font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;" %}
+
+<p style="{{ p_style }}">This is a GPC notification. Please find bellow the information and links to the pipeline.</p>
+
+{% if errors %}
+<h4 style="color:red;">Following errors occured:</h4>
+<ul>
+{% for error_event in errors %}
+  {% set pg_name = error_event.group_name or error_event.project_name %}
+  {% if error_event.exception %}
+  <li>{{pg_name}}: {{error_event.exception}}</li>
+  {% endif %}
+  {% if error_event.errors %}
+  <li>{{pg_name}}:</li>
+  <ul>
+  {% for err in error_event.errors %}
+  <li>{{err.exception}}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+{% endfor %}
+</ul>
+{% endif %}
+
+<h4>Projects with changes:</h4>
+<ul>
+{% for project_path in event %}
+<li>{{project_path}}</li>
+{% endfor %}
+</ul>
+
+<h4>Summary of changes:</h4>
+{% if pipeline_url %}
+ You can find more informations about the changes on this <a style="font-style:italic;text-decoration: underline;" href="{{ pipeline_url }}">
+              pipeline</a>.
+{% endif %}
+
+{% for project_path, changes in event.items() %}
+    <table border="1" cellpadding="0" cellspacing="0" class="table-info" style="width:100%;">
+    <caption style="caption-side: top;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:18px;"> Changes for project {{ project_path }}</caption>
+      <thead>
+          <tr>
+              <th style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;color:#8c8c8c;font-weight:300;padding:14px 5;margin:0;">Property</th>
+              <th style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;color:#8c8c8c;font-weight:100;padding:14px 5;margin:0;">Before</th>
+              <th style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;color:#8c8c8c;font-weight:300;padding:14px 5;margin:0;">After</th>
+          </tr>
+      </thead>
+     <tbody>
+     {% for change in changes %}
+          <tr style="border-top:1px solid #ededed;">
+            <td style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4;color:#8c8c8c;font-weight:300;padding:14px 5;margin:0;">{{ change.name }}</td>
+            <td style="padding: 5px">
+            {% for before_value in change.before %}
+                - {{ before_value }}
+              </br>
+            {% endfor %}
+            </td>
+            <td style="padding: 5px">
+            {% for after_value in change.after %}
+                + {{ after_value }}
+              </br>
+            {% endfor %}
+            </td>
+          </tr>
+     {% endfor %}
+    </tbody>
+    </table>
+{% endfor %}
+{% if not all_changes %}
+<p style="font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:30px;">...</p>
+{% endif %}
+
+
+<p style="margin-top: 1em;">
+    <small style="color:#8899a6;text-decoration:none;"></small>
+</p>
+
+{% endblock %}
+
+{% block footer %}
+
+You are receiving this email because your email is defined as recipient for GPC change Notification.
+
+{% endblock %}

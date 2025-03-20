@@ -1,0 +1,92 @@
+variable_profiles:
+  SOME_VARIABLE_GROUP:
+    - name: SOME_VARIABLE
+      value: 'http://some.url/some/path'
+      protected: false
+
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+    protected_branches:
+      - pattern: master
+        allowed_to_merge:
+          role: maintainers
+        allowed_to_push:
+            role: no one
+      - pattern: toto*
+        allowed_to_merge:
+            role: developers
+            members:
+                - gitlab-nestor-integ
+        allowed_to_push:
+            role: no one
+    protected_tags:
+      - pattern: master
+        allowed_to_create: developers
+      - pattern: tag2
+        allowed_to_create: maintainers
+    permissions:
+      visibility: private
+    mergerequests:
+      only_allow_merge_if_all_discussions_are_resolved: true
+      only_allow_merge_if_pipeline_succeeds: true
+      merge_method: ff
+    labels:
+      - name: my-beautiful-label
+        color: '#FF0000'
+    variables:
+      - import: SOME_VARIABLE_GROUP
+      - name: OTHER_VARIABLE
+        value: other value
+    badges:
+      # Pipeline Status badge
+      - name: pipeline
+        link_url: "%{gpc_gitlab_url}/%{project_path}/commits/%{default_branch}"
+        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/pipeline.svg"
+      # Coverage badge:
+      - name: coverage
+        link_url: "http://my.artifactory.server/artifactory/publish/nestor/%{project_path}/coverage/%{default_branch}/"
+        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/coverage.svg"
+    integrations:
+      jira:
+          url: 'https://jira.server'
+          jira_issue_transition_id: 101
+          username: bot nestor
+          password_from_envvar: DUMMY_JIRA_PASSWORD
+          trigger_on_commit: false
+    nestor:
+      enabled: true
+      test_services: true
+
+
+# groups_rules:
+#   - rule_name: myteam_group_rule
+#     visibility: internal
+#     variables:
+#       - name: VARIABLENAME_FOR_GROUP
+#         value: 'any-value'
+
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    recursive: true
+    excludes:
+      - path/to/a/group/and/project/to_exclude
+      - ^.*exclude$
+    rule_name: myteam_master_rule
+    custom_rules:
+      labels:
+        - name: my-beautiful-label
+          color: '#00FF00'
+      variables: null
+      project_members:
+        members:
+        - role: developers
+          name: jocelyn.falempe
+        - role: developers
+          name: sebastien.fusilier
+        - role: developers
+          name: sebastien.t.michel
+        - role: developers
+          names:
+          - sebastien.t.michel

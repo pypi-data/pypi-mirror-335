@@ -1,0 +1,26 @@
+variable_profiles:
+  GROUP_VAR2:
+    - name: VAR2_1
+      value: 'val21'
+      protected: false
+
+member_profiles:
+  - name: approvers_2
+    role: developers
+    members:
+      - gitlab-nestor-integ-useless
+
+projects_rules:
+  - rule_name: my_rule_2
+    default_branch: master
+    permissions:
+      visibility: internal
+    variables:
+      - import: GROUP_VAR2
+      - name: LOCAL_VARIABLE
+        value: other value
+
+projects_configuration:
+  - paths:
+      - fake/path/to/project_2
+    rule_name: my_rule_2

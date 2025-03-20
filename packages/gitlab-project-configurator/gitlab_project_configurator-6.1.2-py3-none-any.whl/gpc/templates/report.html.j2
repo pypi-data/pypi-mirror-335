@@ -1,0 +1,159 @@
+{% extends "layout.html.j2" %}
+{% block title %}GPC report{% endblock %}
+{% block style %}
+<style>
+    pre {
+        overflow-x: auto;
+    }
+    .json-key { color: brown; }
+    .json-value { color: navy; }
+    .json-string { color: olive; }
+</style>
+{% endblock %}
+{% block script %}
+<script type="text/javascript">
+  if (!library)
+  var library = {};
+
+  library.json = {
+    replacer: function(match, pIndent, pKey, pVal, pEnd) {
+      var key = '<span class=json-key>';
+      var val = '<span class=json-value>';
+      var str = '<span class=json-string>';
+      var r = pIndent || '';
+      if (pKey)
+         r = r + key + pKey.replace(/[": ]/g, '') + '</span>: ';
+      if (pVal)
+         r = r + (pVal[0] == '"' ? str : val) + pVal + '</span>';
+      return r + (pEnd || '');
+      },
+   prettyPrint: function(obj) {
+      var jsonLine = /^( *)("[\w]+": )?("[^"]*"|[\w.+-]*)?([,[{])?$/mg;
+      return JSON.stringify(obj, null, 3)
+         .replace(/&/g, '&amp;').replace(/\\"/g, '&quot;')
+         .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+         .replace(jsonLine, library.json.replacer);
+      }
+   };
+
+  $(document).ready(function() {
+    var groupContent = {{ groups | tojson | safe }};
+    var projectContent = {{ projects | tojson | safe }};
+    $("code").each(function(index, element){
+        var data = JSON.parse($(element).text());
+        $(element).html(library.json.prettyPrint(data));
+    });
+
+    $('.ui.accordion').accordion();
+    $('#groupSearch.ui.search')
+    .search({
+        type: 'category',
+        source: groupContent,
+        onSelect: function(result, response) {
+            $("#groupsData > div.row.title").each(function(index, element){
+                if(element.id !== result.id) $("#"+element.id).hide();
+                if(element.id === result.id) $("#"+element.id).show();
+            });
+
+        },
+        onResultsClose: function() {
+            if($('#groupSearch.ui.search').search('get value') === "") {
+                $("#groupsData > div.row.title").each(function(index, element){
+                    $("#"+element.id).show();
+                });
+            }
+        }
+    });
+    $('#projectSearch.ui.search')
+    .search({
+        type: 'category',
+        source: projectContent,
+        onSelect: function(result, response) {
+            $("#projectsData > div.row.title").each(function(index, element){
+                if(element.id !== result.id) $("#"+element.id).hide();
+                if(element.id === result.id) $("#"+element.id).show();
+            });
+
+        },
+        onResultsClose: function() {
+            if($('#projectSearch.ui.search').search('get value') === "") {
+                $("#projectsData > div.row.title").each(function(index, element){
+                    $("#"+element.id).show();
+                });
+            }
+        }
+    });
+    $("#mHome").click(function() {
+        $("#home").show();
+        $("#groups").hide();
+        $("#projects").hide();
+    });
+    $("#mGroups").click(function() {
+        $("#home").hide();
+        $("#projects").hide();
+        $("#groups").css({
+            'display': 'flex',
+            'flex-direction': 'column',
+            'height': '100%'
+        });
+    });
+    $("#mProjects").click(function() {
+        $("#home").hide();
+        $("#groups").hide();
+        $("#projects").css({
+            'display': 'flex',
+            'flex-direction': 'column',
+            'height': '100%'
+        });
+    });
+  });
+</script>
+{% endblock %}
+{% block content %}
+<div class="ui segment container" id="home">
+    <h1 class="ui header">
+        GPC report
+    </h1>
+    <p>This report page is automatically generated after GPC execution.</p>
+    <p>More information about GPC is available here.</p>
+</div>
+<div class="ui segment container" id="groups" style="display: none;">
+    <div class="ui celled grid">
+        <div class="black row">
+            <div class="six wide column">Group Name</div>
+            <div class="ui search six wide column" id="groupSearch">
+                <div class="ui icon input" style="width: 100%">
+                    <input class="prompt" type="text" placeholder="Search groups...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+            <div class="two wide column">Status</div>
+            <div class="two wide column">Updated</div>
+        </div>
+    </div>
+    <div style="flex-grow: 1; overflow: hidden auto; margin: 0px;">
+    {% include "groups.html.j2" %}
+    </div>
+</div>
+<div class="ui segment container" id="projects" style="display: none;">
+    <div class="ui celled grid">
+        <div class="black row">
+            <div class="four wide column">Project Name</div>
+            <div class="ui search five wide column" id="projectSearch">
+                <div class="ui icon input" style="width: 100%">
+                    <input class="prompt" type="text" placeholder="Search projects...">
+                    <i class="search icon"></i>
+                </div>
+                <div class="results"></div>
+            </div>
+            <div class="three wide column">Rule Name</div>
+            <div class="two wide column">Status</div>
+            <div class="two wide column">Updated</div>
+        </div>
+    </div>
+    <div style="flex-grow: 1; overflow: hidden auto; margin: 0px;">
+    {% include "projects.html.j2" %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+include:
+  # Shall be relative to the current file !
+  - lvl2/lvl2_policies.yaml
+
+variable_profiles:
+  GROUP_VAR1:
+    - name: VAR1_1
+      value: 'val1_1'
+
+member_profiles:
+  - name: approvers_1
+    role: maintainers
+    members:
+        - toto
+
+projects_rules:
+  - rule_name: my_rule_1
+    default_branch: dev/test
+    permissions:
+      visibility: private
+    variables:
+      - import: GROUP_VAR1
+
+
+projects_configuration:
+  - paths:
+      - fake/path/to/project_1
+    rule_name: my_rule_1

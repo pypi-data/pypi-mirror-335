@@ -1,0 +1,25 @@
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+    integrations:
+      jira:
+        url: 'https://jira.server'
+        jira_issue_transition_id: null
+        username: dummy bot
+        disabled: true
+        password_from_envvar: DUMMY_JIRA_PASSWORD
+        token_from_envvar: DUMMY_JIRA_PASSWORD
+        trigger_on_commit: false
+        comment_on_event_enabled: false
+
+projects_configuration:
+
+ - paths:
+     - guillaume.micouin-jorda/empty_project
+   rule_name: myteam_master_rule
+   custom_rules:
+     default_branch: develop
+     labels:
+       - name: my-beautiful-label
+         color: '#00FF00'
+     variables: null
