@@ -1,0 +1,67 @@
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      # git state
+      - id: check-merge-conflict
+      - id: check-added-large-files
+      # sensitive information
+      - id: detect-private-key
+      # common file problems
+      - id: check-case-conflict
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-vcs-permalinks
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      # language specific checks
+      - id: check-ast
+      - id: check-toml
+      - id: check-yaml
+      # python specifics
+      - id: check-builtin-literals
+      - id: check-docstring-first
+      - id: debug-statements
+
+  - repo: https://github.com/RobertCraigie/pyright-python
+    rev: v1.1.396
+    hooks:
+      - id: pyright
+        args: [--verbose]
+        additional_dependencies:
+          - pytest>=8.3.4
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff
+        args:
+          - --fix
+          - --statistics
+      - id: ruff-format
+
+  - repo: https://github.com/astral-sh/uv-pre-commit
+    rev: 0.6.6
+    hooks:
+      - id: uv-lock
+
+  - repo: https://github.com/tox-dev/pyproject-fmt
+    rev: "v2.5.1"
+    hooks:
+      - id: pyproject-fmt
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.4.1
+    hooks:
+      - id: commitizen
+        additional_dependencies: [cz-conventional-gitmoji]
+        stages:
+          - commit-msg
+      - id: commitizen-branch
+        additional_dependencies: [cz-conventional-gitmoji]
+        stages:
+          - pre-push

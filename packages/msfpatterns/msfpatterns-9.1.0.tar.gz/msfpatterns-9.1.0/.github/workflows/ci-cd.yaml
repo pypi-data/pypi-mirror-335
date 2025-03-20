@@ -1,0 +1,193 @@
+name: 🚀 Continuous Integration & Deployment
+
+on:
+  pull_request:
+    branches: ["*"]
+  push:
+    branches: ["master"]
+    tags: ["v*"]
+
+jobs:
+  lint:
+    name: 🚨 Lint
+    if: "!(github.event_name == 'push' && github.ref == 'refs/heads/master' && startsWith(github.event.head_commit.message, '🔖 bump:'))"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - uses: pre-commit/action@v3.0.1
+
+  test:
+    name: 🧪 Test
+    if: "!(github.event_name == 'push' && github.ref == 'refs/heads/master' && startsWith(github.event.head_commit.message, '🔖 bump:'))"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv run pytest --cov --cov-branch --cov-report=xml --junitxml=junit.xml -o junit_family=legacy
+      - uses: mikepenz/action-junit-report@v5
+        if: success() || failure()
+        with:
+          check_name: ✅ Test Report
+          report_paths: junit.xml
+      - uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: codecov/test-results-action@v1
+        if: ${{ !cancelled() }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  bump-version:
+    name: 🔖 Bump Version
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_PAT }}
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      # create COMMIT_EDITMSG file so the following action does not create it under root ownership
+      - run: touch .git/COMMIT_EDITMSG
+      - uses: commitizen-tools/commitizen-action@master
+        id: commitizen
+        with:
+          extra_requirements: cz-conventional-gitmoji
+          github_token: ${{ secrets.GH_PAT }}
+          push: false
+      - if: env.PREVIOUS_REVISION != steps.commitizen.outputs.version
+        name: update uv.lock and move commitizen tag
+        run: |
+          # update `uv` lockfile and amend the commit created by commitizen
+          uv lock
+          git commit --amend --no-edit uv.lock
+          # move the commitizen tag to the amended commit and push it (triggering a new run)
+          git for-each-ref refs/tags/v${{ steps.commitizen.outputs.version }} --format="%(contents)" | git tag -f -a v${{ steps.commitizen.outputs.version }} -F -
+          git push --follow-tags
+
+  build:
+    name: 📦️ Build
+    runs-on: ubuntu-latest
+    needs: [lint, test]
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v'))
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv build
+      - run: echo "VERSION=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        if: github.event_name == 'pull_request'
+      - run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+      - uses: actions/upload-artifact@v4
+        with:
+          name: "msfpatterns-${{ env.VERSION }}"
+          path: dist
+
+  pr-changelog:
+    name: 📝 PR Changelog
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv venv
+      - run: uv sync --group=ci
+      - name: Generate Changelog Preview
+        run: |
+          uv run cz changelog --dry-run --start-rev $(git describe --tags --abbrev=0) > pr_changelog.md
+          echo "CHANGELOG_PREVIEW<<EOF" >> $GITHUB_ENV
+          cat pr_changelog.md >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+      - uses: thollander/actions-comment-pull-request@v3
+        with:
+          message: |
+            ## 📉 Changelog Preview
+
+            ```markdown
+            ${{ env.CHANGELOG_PREVIEW }}
+            ```
+
+            ⚠️ **Ensure your commits follow [Gitmoji Conventional Commits](https://github.com/ljnsn/cz-conventional-gitmoji) to be included in the release!**
+          comment-tag: changelog-preview
+
+  publish:
+    name: 🚀 Publish
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    needs: build
+    environment: publish
+    permissions:
+      contents: read
+    steps:
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      - uses: actions/download-artifact@v4
+        with:
+          name: "msfpatterns-${{ env.VERSION }}"
+          path: dist
+      - name: Publish to PyPI
+        run: uv publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}
+
+  release:
+    name: 🚀 Release
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    needs: publish
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+      - run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+      - uses: actions/download-artifact@v4
+        with:
+          name: "msfpatterns-${{ env.VERSION }}"
+          path: dist
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv venv
+      - run: uv sync --group=ci
+      - name: Generate Release Notes
+        run: uv run cz changelog --dry-run --start-rev $(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=2 | tail -n1)) > release_changelog.md
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          body_path: release_changelog.md
+          draft: false
+          prerelease: false

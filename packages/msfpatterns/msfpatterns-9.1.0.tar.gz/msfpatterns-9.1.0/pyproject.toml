@@ -1,0 +1,68 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = [ "hatchling" ]
+
+[project]
+name = "msfpatterns"
+version = "9.1.0"
+description = "Generate/find patterns for use in stack smashing alla pattern_{create,offset}.rb from Metasploit"
+readme = "README.md"
+license = "BSD-3-Clause"
+authors = [ { name = "Will Boyce", email = "me@willboyce.com" } ]
+requires-python = ">=3.10"
+classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [  ]
+
+urls.Changelog = "https://github.com/wrboyce/msfpatterns/blob/master/CHANGELOG.md"
+urls.Homepage = "https://github.com/wrboyce/msfpatterns"
+urls.Issues = "https://github.com/wrboyce/msfpatterns/issues"
+urls.Repository = "https://github.com/wrboyce/msfpatterns.git"
+
+scripts.msfpatterns = "msfpatterns.cli:main"
+
+[dependency-groups]
+dev = [
+  "pre-commit>=4.1",
+  "pyright>=1.1.396",
+  "pytest>=8.3.4",
+  "pytest-codecov>=0.6.1",
+  "pytest-sugar>=1",
+]
+
+ci = [ "commitizen>=4.4.1", "cz-conventional-gitmoji>=0.6.1" ]
+
+[tool.ruff]
+line-length = 120
+
+format.docstring-code-format = true
+lint.select = [ "ALL" ]
+lint.ignore = [ "D" ]
+lint.extend-per-file-ignores."msfpatterns/cli.py" = [ "T201" ]
+lint.extend-per-file-ignores."tests/*" = [ "INP001", "S101" ]
+lint.fixable = [ "ALL" ]
+
+[tool.pyright]
+typeCheckingMode = "strict"
+reportMissingTypeStubs = true
+reportUnknownVariableType = true
+reportUnknownMemberType = true
+reportUnknownParameterType = true
+reportUnknownArgumentType = true
+reportUnnecessaryTypeIgnoreComment = true
+
+[tool.uv]
+compile-bytecode = true
+
+[tool.commitizen]
+name = "cz_gitmoji"
+tag_format = "v$version"
+version_scheme = "pep440"
+version_provider = "pep621"
+update_changelog_on_bump = true
+bump_message = "🔖 bump: version $current_version → $new_version"
