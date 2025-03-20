@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "condor"
+description = "A package for disciplined systems modeling on a deadline"
+readme = "README.rst"
+dynamic = ["version"]
+authors = [
+    { name="Benjamin W. L. Margolis", email="benjamin.margolis@nasa.gov" },
+    { name="Kenneth R. Lyons", email="kenneth.r.lyons@nasa.gov" },
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "casadi",
+    "ndsplines>=0.2.0post0",
+]
+
+[project.optional-dependencies]
+test = ["pytest"]
+docs = ["sphinx", "sphinx-gallery", "matplotlib", "furo"]
+
+[project.urls]
+Documentation = "https://nasa.github.io/condor"
+
+[tool.setuptools_scm]
+write_to = "src/condor/_version.py"
+
+[tool.ruff.lint]
+ignore = [
+    "F821", # Undefined name ..."
+]
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--pdbcls=IPython.terminal.debugger:TerminalPdb"
