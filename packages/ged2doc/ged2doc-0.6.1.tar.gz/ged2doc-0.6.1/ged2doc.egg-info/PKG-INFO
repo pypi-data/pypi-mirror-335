@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: ged2doc
+Version: 0.6.1
+Summary: Tools for converting GEDCOM data into document formats.
+Author-email: Andy Salnikov <ged4py@py-dev.com>
+Maintainer-email: Andy Salnikov <ged4py@py-dev.com>
+License: MIT license
+Project-URL: bugs, https://github.com/andy-z/ged2doc/issues
+Project-URL: homepage, https://ged2doc.readthedocs.io/
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Sociology :: Genealogy
+Requires-Python: >=3.11.0
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: ged4py
+Requires-Dist: pillow
+Requires-Dist: odfpy
+Provides-Extra: dev
+Requires-Dist: coverage; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: license-file
+
+================
+GEDCOM Utilities
+================
+
+
+.. image:: https://img.shields.io/pypi/v/ged2doc.svg
+        :target: https://pypi.python.org/pypi/ged2doc
+
+.. image:: https://img.shields.io/travis/andy-z/ged2doc.svg
+        :target: https://travis-ci.org/andy-z/ged2doc
+
+.. image:: https://readthedocs.org/projects/ged2doc/badge/?version=latest
+        :target: https://ged2doc.readthedocs.io/en/latest/?badge=latest
+        :alt: Documentation Status
+
+.. image:: https://pyup.io/repos/github/andy-z/ged2doc/shield.svg
+     :target: https://pyup.io/repos/github/andy-z/ged2doc/
+     :alt: Updates
+
+
+Tools for converting GEDCOM data into document formats.
+
+
+* Free software: MIT license
+* Documentation: https://ged2doc.readthedocs.io.
+
+
+Features
+--------
+
+* Conversion of GEDCOM files into nicely formatted HTML or ODT (OpenDocument Text) format
+* Output includes most textual information, images/photos, an segments of genealogical tree
+* Support for English and Russian output translations, more translations can be added easily
+* Can be used as standalone command-line application or as a Python API
+
+Credits
+-------
+
+This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+
+.. _Cookiecutter: https://github.com/audreyr/cookiecutter
+.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+
