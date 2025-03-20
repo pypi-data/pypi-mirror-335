@@ -1,0 +1,476 @@
+Metadata-Version: 2.4
+Name: jaxgcrl
+Version: 0.2.1
+Summary: Blazingly fast goal-conditioned environments based on MJX and BRAX.
+License: Apache License
+        Version 2.0, January 2004
+        http://www.apache.org/licenses/
+        
+        TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        
+        1. Definitions.
+        
+        "License" shall mean the terms and conditions for use, reproduction,
+        and distribution as defined by Sections 1 through 9 of this document.
+        
+        "Licensor" shall mean the copyright owner or entity authorized by
+        the copyright owner that is granting the License.
+        
+        "Legal Entity" shall mean the union of the acting entity and all
+        other entities that control, are controlled by, or are under common
+        control with that entity. For the purposes of this definition,
+        "control" means (i) the power, direct or indirect, to cause the
+        direction or management of such entity, whether by contract or
+        otherwise, or (ii) ownership of fifty percent (50%) or more of the
+        outstanding shares, or (iii) beneficial ownership of such entity.
+        
+        "You" (or "Your") shall mean an individual or Legal Entity
+        exercising permissions granted by this License.
+        
+        "Source" form shall mean the preferred form for making modifications,
+        including but not limited to software source code, documentation
+        source, and configuration files.
+        
+        "Object" form shall mean any form resulting from mechanical
+        transformation or translation of a Source form, including but
+        not limited to compiled object code, generated documentation,
+        and conversions to other media types.
+        
+        "Work" shall mean the work of authorship, whether in Source or
+        Object form, made available under the License, as indicated by a
+        copyright notice that is included in or attached to the work
+        (an example is provided in the Appendix below).
+        
+        "Derivative Works" shall mean any work, whether in Source or Object
+        form, that is based on (or derived from) the Work and for which the
+        editorial revisions, annotations, elaborations, or other modifications
+        represent, as a whole, an original work of authorship. For the purposes
+        of this License, Derivative Works shall not include works that remain
+        separable from, or merely link (or bind by name) to the interfaces of,
+        the Work and Derivative Works thereof.
+        
+        "Contribution" shall mean any work of authorship, including
+        the original version of the Work and any modifications or additions
+        to that Work or Derivative Works thereof, that is intentionally
+        submitted to Licensor for inclusion in the Work by the copyright owner
+        or by an individual or Legal Entity authorized to submit on behalf of
+        the copyright owner. For the purposes of this definition, "submitted"
+        means any form of electronic, verbal, or written communication sent
+        to the Licensor or its representatives, including but not limited to
+        communication on electronic mailing lists, source code control systems,
+        and issue tracking systems that are managed by, or on behalf of, the
+        Licensor for the purpose of discussing and improving the Work, but
+        excluding communication that is conspicuously marked or otherwise
+        designated in writing by the copyright owner as "Not a Contribution."
+        
+        "Contributor" shall mean Licensor and any individual or Legal Entity
+        on behalf of whom a Contribution has been received by Licensor and
+        subsequently incorporated within the Work.
+        
+        2. Grant of Copyright License. Subject to the terms and conditions of
+        this License, each Contributor hereby grants to You a perpetual,
+        worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+        copyright license to reproduce, prepare Derivative Works of,
+        publicly display, publicly perform, sublicense, and distribute the
+        Work and such Derivative Works in Source or Object form.
+        
+        3. Grant of Patent License. Subject to the terms and conditions of
+        this License, each Contributor hereby grants to You a perpetual,
+        worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+        (except as stated in this section) patent license to make, have made,
+        use, offer to sell, sell, import, and otherwise transfer the Work,
+        where such license applies only to those patent claims licensable
+        by such Contributor that are necessarily infringed by their
+        Contribution(s) alone or by combination of their Contribution(s)
+        with the Work to which such Contribution(s) was submitted. If You
+        institute patent litigation against any entity (including a
+        cross-claim or counterclaim in a lawsuit) alleging that the Work
+        or a Contribution incorporated within the Work constitutes direct
+        or contributory patent infringement, then any patent licenses
+        granted to You under this License for that Work shall terminate
+        as of the date such litigation is filed.
+        
+        4. Redistribution. You may reproduce and distribute copies of the
+        Work or Derivative Works thereof in any medium, with or without
+        modifications, and in Source or Object form, provided that You
+        meet the following conditions:
+        
+        (a) You must give any other recipients of the Work or
+        Derivative Works a copy of this License; and
+        
+        (b) You must cause any modified files to carry prominent notices
+        stating that You changed the files; and
+        
+        (c) You must retain, in the Source form of any Derivative Works
+        that You distribute, all copyright, patent, trademark, and
+        attribution notices from the Source form of the Work,
+        excluding those notices that do not pertain to any part of
+        the Derivative Works; and
+        
+        (d) If the Work includes a "NOTICE" text file as part of its
+        distribution, then any Derivative Works that You distribute must
+        include a readable copy of the attribution notices contained
+        within such NOTICE file, excluding those notices that do not
+        pertain to any part of the Derivative Works, in at least one
+        of the following places: within a NOTICE text file distributed
+        as part of the Derivative Works; within the Source form or
+        documentation, if provided along with the Derivative Works; or,
+        within a display generated by the Derivative Works, if and
+        wherever such third-party notices normally appear. The contents
+        of the NOTICE file are for informational purposes only and
+        do not modify the License. You may add Your own attribution
+        notices within Derivative Works that You distribute, alongside
+        or as an addendum to the NOTICE text from the Work, provided
+        that such additional attribution notices cannot be construed
+        as modifying the License.
+        
+        You may add Your own copyright statement to Your modifications and
+        may provide additional or different license terms and conditions
+        for use, reproduction, or distribution of Your modifications, or
+        for any such Derivative Works as a whole, provided Your use,
+        reproduction, and distribution of the Work otherwise complies with
+        the conditions stated in this License.
+        
+        5. Submission of Contributions. Unless You explicitly state otherwise,
+        any Contribution intentionally submitted for inclusion in the Work
+        by You to the Licensor shall be under the terms and conditions of
+        this License, without any additional terms or conditions.
+        Notwithstanding the above, nothing herein shall supersede or modify
+        the terms of any separate license agreement you may have executed
+        with Licensor regarding such Contributions.
+        
+        6. Trademarks. This License does not grant permission to use the trade
+        names, trademarks, service marks, or product names of the Licensor,
+        except as required for reasonable and customary use in describing the
+        origin of the Work and reproducing the content of the NOTICE file.
+        
+        7. Disclaimer of Warranty. Unless required by applicable law or
+        agreed to in writing, Licensor provides the Work (and each
+        Contributor provides its Contributions) on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+        implied, including, without limitation, any warranties or conditions
+        of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+        PARTICULAR PURPOSE. You are solely responsible for determining the
+        appropriateness of using or redistributing the Work and assume any
+        risks associated with Your exercise of permissions under this License.
+        
+        8. Limitation of Liability. In no event and under no legal theory,
+        whether in tort (including negligence), contract, or otherwise,
+        unless required by applicable law (such as deliberate and grossly
+        negligent acts) or agreed to in writing, shall any Contributor be
+        liable to You for damages, including any direct, indirect, special,
+        incidental, or consequential damages of any character arising as a
+        result of this License or out of the use or inability to use the
+        Work (including but not limited to damages for loss of goodwill,
+        work stoppage, computer failure or malfunction, or any and all
+        other commercial damages or losses), even if such Contributor
+        has been advised of the possibility of such damages.
+        
+        9. Accepting Warranty or Additional Liability. While redistributing
+        the Work or Derivative Works thereof, You may choose to offer,
+        and charge a fee for, acceptance of support, warranty, indemnity,
+        or other liability obligations and/or rights consistent with this
+        License. However, in accepting such obligations, You may act only
+        on Your own behalf and on Your sole responsibility, not on behalf
+        of any other Contributor, and only if You agree to indemnify,
+        defend, and hold each Contributor harmless for any liability
+        incurred by, or claims asserted against, such Contributor by reason
+        of your accepting any such warranty or additional liability.
+        
+        END OF TERMS AND CONDITIONS
+        
+        APPENDIX: How to apply the Apache License to your work.
+        
+        To apply the Apache License to your work, attach the following
+        boilerplate notice, with the fields enclosed by brackets "[]"
+        replaced with your own identifying information. (Don't include
+        the brackets!)  The text should be enclosed in the appropriate
+        comment syntax for the file format. We also recommend that a
+        file or class name and description of purpose be included on the
+        same "printed page" as the copyright notice for easier
+        identification within third-party archives.
+        
+        Copyright 2023 FLAIR
+        
+        Licensed under the Apache License, Version 2.0 (the "License");
+        you may not use this file except in compliance with the License.
+        You may obtain a copy of the License at
+        
+        http://www.apache.org/licenses/LICENSE-2.0
+        
+        Unless required by applicable law or agreed to in writing, software
+        distributed under the License is distributed on an "AS IS" BASIS,
+        WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+        See the License for the specific language governing permissions and
+        limitations under the License.
+Requires-Python: <3.11,>=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jax==0.4.25
+Requires-Dist: flax>=0.8.3
+Requires-Dist: brax>=0.12.1
+Requires-Dist: mujoco==3.2.7
+Requires-Dist: mujoco-mjx==3.2.7
+Requires-Dist: scipy>=1.12.0
+Requires-Dist: matplotlib==3.8.4
+Requires-Dist: tyro>=0.9.16
+Requires-Dist: wandb
+Requires-Dist: wandb_osh
+Dynamic: license-file
+
+<h1 align="center"> JaxGCRL</h1>
+
+
+<p align="center">
+    <a href= "https://arxiv.org/abs/2408.11052">
+        <img src="https://img.shields.io/badge/arXiv-2311.10090-b31b1b.svg" /></a>
+    <a href= "https://github.com/MichalBortkiewicz/JaxGCRL/blob/master/LICENSE">
+        <img src="https://img.shields.io/badge/license-Apache2.0-blue.svg" /></a>
+    <a href= "https://michalbortkiewicz.github.io/JaxGCRL/">
+        <img src="https://img.shields.io/badge/docs-green" /></a>
+    <a href= "https://michalbortkiewicz.github.io/JaxGCRL/">
+        <img src="https://img.shields.io/badge/website-purple" /></a>
+</p>
+
+
+<p align="center"><img src="imgs/grid_transparent.png" width=85%></p>
+
+<center>
+
+[**Installation**](#Installation) | [**Quick Start**](#start) | [**Environments**](#envs) | [**Baselines**](#baselines) | [**Citation**](#cite)
+
+</center>
+
+<br/>
+
+## Accelerating Goal-Conditioned RL Algorithms and Research
+
+We provide blazingly fast goal-conditioned environments based on [MJX](https://mujoco.readthedocs.io/en/stable/mjx.html) and [BRAX](https://github.com/google/brax) for 
+quick experimentation with goal-conditioned self-supervised reinforcement learning.
+
+- **Blazingly Fast Training** - Train 10 million environment steps in 10 
+  minutes on a single GPU, up to $22\times$ faster than prior implementations.
+- **Comprehensive Benchmarking** - Includes 10+ diverse environments and multiple pre-implemented baselines for out-of-the-box evaluation.
+- **Modular Implementation** - Designed for clarity and scalability, 
+  allowing for easy modification of algorithms.
+
+
+## Installation 📂
+The environment can be set up from the `environment.yml` file.
+```bash
+conda env create -f environment.yml
+```
+
+<h3 name="start" id="start">Quick Start 🚀 </h3>
+
+To verify the installation, run a test experiment using the `./scripts/train.sh` file:
+
+```bash
+chmod +x ./scripts/train.sh; ./scripts/train.sh
+```
+> [!NOTE]  
+> If you haven't yet configured [`wandb`](https://wandb.ai/site), you may be prompted to log in.
+
+Specific configs can be specified as in `scripts/train.sh`. The descriptions of the available flags are in `utils.py:create_parser()`. Common flags you may want to change include:
+- **env=...**: replace "ant" with any environment name. See `utils.py:create_env()` for names.
+- Removing **--log_wandb**: omits logging, if you don't want to use a wandb account.
+- **--total_env_steps**: shorter or longer runs.
+- **--num_envs**: based on how many environments your GPU memory allows.
+- **--contrastive_loss_fn, --energy_fn, --h_dim, --n_hidden, etc.**: algorithmic and architectural changes.
+
+### Environment Interaction
+
+Environments can be controlled with the `reset` and `step` functions. These methods return a state object, which is a dataclass containing the following fields:
+
+`state.pipeline_state`: current, internal state of the environment\
+`state.obs`: current observation\
+`state.done`: flag indicating if the agent reached the goal\
+`state.metrics`: agent performance metrics\
+`state.info`: additional info
+
+The following code demonstrates how to interact with the environment:
+
+```python
+import jax
+from utils.env import create_env
+
+key = jax.random.PRNGKey(0)
+
+# Initialize the environment
+env = create_env('ant')
+
+# Use JIT compilation to make environment's reset and step functions execute faster
+jit_env_reset = jax.jit(env.reset)
+jit_env_step = jax.jit(env.step)
+
+NUM_STEPS = 1000
+
+# Reset the environment and obtain the initial state
+state = jit_env_reset(key)
+
+# Simulate the environment for a fixed number of steps
+for _ in range(NUM_STEPS):
+    # Generate a random action
+    key, key_act = jax.random.split(key, 2)
+    random_action = jax.random.uniform(key_act, shape=(8,), minval=-1, maxval=1)
+    
+    # Perform an environment step with the generated action
+    state = jit_env_step(state, random_action)
+```
+
+### Wandb support 📈
+We strongly recommend using Wandb for tracking and visualizing results ([Wandb support](##wandb-support)). Enable Wandb logging with the `--log_wandb` flag. The following flags are also available to organize experiments:
+- `--project_name`
+- `--group_name`
+- `--exp_name`
+
+The `--log_wandb` flag logs metrics to Wandb. By default, metrics are logged to a CSV.
+
+1. Run example [`sweep`](https://docs.wandb.ai/guides/sweeps):
+```bash
+wandb sweep --project example_sweep ./scripts/sweep.yml
+```
+2. Then run `wandb agent` with :
+```
+wandb agent <previous_command_output>
+```
+
+We also render videos of the learned policies as `wandb` artifacts. 
+
+<p align="center">
+  <img src="imgs/wandb.png" width=55% />
+  <img src="imgs/push.gif" width=40%  /> 
+</p>
+
+<h2 name="envs" id="envs">Environments 🌎</h2>
+
+We currently support a variety of continuous control environments:
+- Locomotion: Half-Cheetah, Ant, Humanoid
+- Locomotion + task: AntMaze, AntBall (AntSoccer), AntPush, HumanoidMaze
+- Simple arm: Reacher, Pusher, Pusher 2-object
+- Manipulation: Reach, Grasp, Push (easy/hard), Binpick (easy/hard)
+
+
+| Environment     | Env name                                                                 | Code                                              |
+| :-------------- | :----------------------------------------------------------------------: | :-----------------------------------------------: |
+| Reacher         | `reacher`                                                                | [link](./jaxgcrl/envs/reacher.py)                         |
+| Half Cheetah    | `cheetah`                                                                | [link](./jaxgcrl/envs/half_cheetah.py)                    |
+| Pusher          | `pusher_easy` <br> `pusher_hard`                                         | [link](./jaxgcrl/envs/pusher.py)                          |
+| Ant             | `ant`                                                                    | [link](./jaxgcrl/envs/ant.py)                             |
+| Ant Maze        | `ant_u_maze` <br> `ant_big_maze` <br> `ant_hardest_maze`                 | [link](./jaxgcrl/envs/ant_maze.py)                        |
+| Ant Soccer      | `ant_ball`                                                               | [link](./jaxgcrl/envs/ant_ball.py)                        |
+| Ant Push        | `ant_push`                                                               | [link](./jaxgcrl/envs/ant_push.py)                        |
+| Humanoid        | `humanoid`                                                               | [link](./jaxgcrl/envs/humanoid.py)                        |
+| Humanoid Maze   | `humanoid_u_maze` <br> `humanoid_big_maze` <br>`humanoid_hardest_maze`   | [link](./jaxgcrl/envs/humanoid_maze.py)                   |
+| Arm Reach       | `arm_reach`                                                              | [link](./jaxgcrl/envs/manipulation/arm_reach.py)          |
+| Arm Grasp       | `arm_grasp`                                                              | [link](./jaxgcrl/envs/manipulation/arm_grasp.py)          |
+| Arm Push        | `arm_push_easy` <br> `arm_push_hard`                                     | [link](./jaxgcrl/envs/manipulation/arm_push_easy.py)      |
+| Arm Binpick     | `arm_binpick_easy` <br> `arm_binpick_hard`                               | [link](./jaxgcrl/envs/manipulation/arm_binpick_easy.py)   |
+
+To add new environments: add an XML to `envs/assets`, add a python environment file in `envs`, and register the environment name in `utils.py`.
+
+<h2 name="baselines" id="baselines">Baselines 🤖</h2>
+
+We currently support following algorithms:
+
+| Algorithm                                       | How to run                               | Code                                       |
+| ----------------------------------------------- | ---------------------------------------- | ------------------------------------------ |
+| [CRL](https://arxiv.org/abs/2206.07568)         | `python run.py crl ...`                 | [link](./jaxgcrl/agents/crl/)                      |
+| [PPO](https://arxiv.org/abs/1707.06347)         | `python run.py ppo ...`                 | [link](./jaxgcrl/agents/ppo/)                      |
+| [SAC](https://arxiv.org/abs/1801.01290)         | `python run.py sac ...`                 | [link](./jaxgcrl/agents/sac/)                      |
+| [SAC + HER](https://arxiv.org/abs/1707.01495)   | `python run.py sac ... --use_her`       | [link](./jaxgcrl/agents/sac/)                      |
+| [TD3](https://arxiv.org/pdf/1802.09477)         | `python run.py td3 ...`                 | [link](./jaxgcrl/agents/td3/)                      |
+| [TD3 + HER](https://arxiv.org/abs/1707.01495)   | `python run.py td3 ... --use_her`       | [link](./jaxgcrl/agents/td3/)                      |
+
+
+## Code Structure 📝
+
+The core structure of the codebase is as follows:
+
+<pre><code>
+<b>run.py:</b> Takes the name of an agent and runs with the specified configs.
+<b>agents/</b>
+├── <b>agents/</b>
+│   ├── <b>crl/</b> 
+│   │   ├── <b>crl.py</b> CRL algorithm 
+│   │   ├── <b>losses.py</b> contrastive losses and energy functions
+│   │   └── <b>networks.py</b> CRL network architectures
+│   ├── <b>ppo/</b> 
+│   │   └── <b>ppo.py</b> PPO algorithm 
+│   ├── <b>sac/</b> 
+│   │   ├── <b>sac.py</b> SAC algorithm
+│   │   └── <b>networks.py</b> SAC network architectures
+│   └── <b>td3/</b> 
+│       ├── <b>td3.py</b> TD3 algorithm
+│       ├── <b>losses.py</b> TD3 loss functions
+│       └── <b>networks.py</b> TD3 network architectures
+├── <b>utils/</b>
+│   ├── <b>config.py</b> Base run configs
+│   ├── <b>env.py</b> Logic for rendering and environment initialization
+│   ├── <b>replay_buffer.py:</b> Contains replay buffer, including logic for state, action, and goal sampling for training.
+│   └── <b>evaluator.py:</b> Runs evaluation and collects metrics.
+├── <b>envs/</b>
+│   ├── <b>ant.py, humanoid.py, ...:</b> Most environments are here.
+│   ├── <b>assets:</b> Contains XMLs for environments.
+│   └── <b>manipulation:</b> Contains all manipulation environments.
+└── <b>scripts/train.sh:</b> Modify to choose environment and hyperparameters.
+</code></pre>
+
+The architecture can be adjusted in `networks.py`.
+
+
+## Contributing 🏗️
+Help us build JaxGCRL into the best possible tool for the GCRL community.
+Reach out and start contributing or just add an Issue/PR!
+
+- [x] Add Franka robot arm environments. [Done by SimpleGeometry]
+- [x] Get around 70% success rate on Ant Big Maze task. [Done by RajGhugare19]
+- [ ] Add more complex versions of Ant Sokoban.
+- [ ] Integrate environments: 
+    - [ ] Overcooked 
+    - [ ] Hanabi
+    - [ ] Rubik's cube
+    - [ ] Sokoban
+
+To run tests (make sure you have access to a GPU):
+```bash
+python -m pytest 
+```
+
+<h2 name="cite" id="cite">Citing JaxGCRL 📜 </h2>
+If you use JaxGCRL in your work, please cite us as follows:
+
+```bibtex
+@inproceedings{bortkiewicz2025accelerating,
+    author    = {Bortkiewicz, Micha\l{} and Pa\l{}ucki, W\l{}adek and Myers, Vivek and
+                 Dziarmaga, Tadeusz and Arczewski, Tomasz and Kuci\'{n}ski, \L{}ukasz and
+                 Eysenbach, Benjamin},
+    booktitle = {{International Conference} on {Learning Representations}},
+    title     = {{Accelerating Goal-Conditioned RL Algorithms} and {Research}},
+    url       = {https://arxiv.org/pdf/2408.11052},
+    year      = {2025},
+}
+```
+
+## Questions ❓
+If you have any questions, comments, or suggestions, please reach out to Michał Bortkiewicz ([michalbortkiewicz8@gmail.com](michalbortkiewicz8@gmail.com)).
+
+
+## See Also 🙌
+There are a number of other libraries which inspired this work, we encourage you to take a look!
+
+JAX-native algorithms:
+- [Mava](https://github.com/instadeepai/Mava): JAX implementations of IPPO and MAPPO, two popular MARL algorithms.
+- [PureJaxRL](https://github.com/luchris429/purejaxrl): JAX implementation of PPO, and demonstration of end-to-end JAX-based RL training.
+- [Minimax](https://github.com/facebookresearch/minimax/): JAX implementations of autocurricula baselines for RL.
+- [JaxIRL](https://github.com/FLAIROx/jaxirl?tab=readme-ov-file): JAX implementation of algorithms for inverse reinforcement learning.
+
+JAX-native environments:
+- [Gymnax](https://github.com/RobertTLange/gymnax): Implementations of classic RL tasks including classic control, bsuite and MinAtar.
+- [Jumanji](https://github.com/instadeepai/jumanji): A diverse set of environments ranging from simple games to NP-hard combinatorial problems.
+- [Pgx](https://github.com/sotetsuk/pgx): JAX implementations of classic board games, such as Chess, Go and Shogi.
+- [Brax](https://github.com/google/brax): A fully differentiable physics engine written in JAX, features continuous control tasks.
+- [XLand-MiniGrid](https://github.com/corl-team/xland-minigrid): Meta-RL gridworld environments inspired by XLand and MiniGrid.
+- [Craftax](https://github.com/MichaelTMatthews/Craftax): (Crafter + NetHack) in JAX.
+- [JaxMARL](https://github.com/FLAIROx/JaxMARL): Multi-agent RL in Jax.
+
