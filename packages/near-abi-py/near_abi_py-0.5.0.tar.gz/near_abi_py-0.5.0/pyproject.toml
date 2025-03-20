@@ -1,0 +1,46 @@
+[project]
+name = "near-abi-py"
+version = "0.5.0"
+description = "ABI Builder for NEAR Python Smart Contracts"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.8",
+    "jsonschema>=4.23.0",
+    "pathspec>=0.12.1",
+    "pydantic>=2.10.6",
+    "rich>=13.9.4",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "near-sdk-py>=0.6.0",
+    "pytest>=8.3.5",
+    "python-semantic-release>=9.21.0",
+    "ruff>=0.9.9",
+    "types-jsonschema>=4.23.0.20241208",
+]
+
+[project.scripts]
+near-abi-py = "near_abi_py.cli:main"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+commit_message = "chore(release): {version} [skip ci]"
+build_command = "uv build"
+
+[tool.ruff]
+exclude = ["tests/fixtures/invalid_syntax.py"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.mypy]
+exclude = ["tests/fixtures/invalid_syntax.py"]
