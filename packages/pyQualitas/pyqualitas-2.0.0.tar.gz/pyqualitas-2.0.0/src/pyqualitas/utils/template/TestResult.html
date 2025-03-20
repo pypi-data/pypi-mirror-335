@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+        <style>
+            .body {
+                margin: 0 100;
+                background: whitesmoke;
+            }
+            .results {
+                height: 100px;
+                width: 33%;
+                float: left;
+            }
+            th, td {
+  				border: 1px solid black;
+  				padding: 8px;
+  				text-align: middle;
+  				vertical-align: middle;
+			}
+			thead th {
+				width: 25%
+			}
+			table {
+				border: 1px solid black;
+				text-align: left;
+				vertical-align: middle;
+			}
+			thead {
+				background-color: lightblue
+			}
+			tbody tr:nth-child(even) {
+				background-color: #eee
+			}
+			.test-result {
+				padding: 8px;
+			}
+        </style>
+    </head>
+    <body>
+      <div id="header" style="background:lightblue; height:200px">
+    	<h1 style="color:black; font-size:200%; text-align:center; position:relative; top:40%">PyQualitas Test Report</h1>
+      </div>
+	  <div id="empty-space1" style="height:50px;"></div>
+	  <div id="container-1">
+	  	<div class="results">
+			<p style="text-align:left; font-size:200%; padding: 8px;"><b>Total Tests Executed</b></p>
+			<p style="color: lightblue; text-align:left; font-size:200%; padding: 8px;"><b>{{total_test_count}}</b></p>
+		</div>
+		<div class="results">
+			<p style="text-align:left; font-size:200%; padding: 8px;"><b>Total Tests Passed</b></p>
+			<p style="color: lightgreen; text-align:left; font-size:200%; padding: 8px;"><b>{{total_pass_count}}</b></p>
+		</div>
+		<div class="results">
+			<p style="text-align:left; font-size:200%; padding: 8px;"><b>Total Tests Failed</b></p>
+			<p style="color: lightcoral; text-align:left; font-size:200%; padding: 8px;"><b>{{total_fail_count}}</b></p>
+		</div>
+	  </div>
+	  <div id="empty-space2" style="height:100px; padding: 8px;"></div>
+      <div id="container-2">
+		  <div class="test-result">
+			  <h2><b>Test Results:</b></h2>
+			  {{results_table}}
+		  </div>
+	  </div>
+	<div id="empty-space3" style="height:50px;"></div>
+	<div id="footer" style="background:lightblue; height:100px">
+		<p style="position:relative; top:2%; padding:8px;">
+			Report Generated on: {{report_time}}
+		</p>
+	    <p style="position:relative; top:4%; padding:8px;">
+	        <a href="https://github.com/IamVenkatesh/pyQualitas/wiki">Powered by Python<br>For more details: PyQualitas Documentation</a>
+	    </p>
+	</div>
+    </body>
+ </html>
