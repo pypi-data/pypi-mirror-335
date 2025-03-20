@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: sartorial
+Version: 0.9.0
+Summary: Pydantic model base classes and custom type handling, JSON schema generation, etc. covering a variety of common scenarios without much config
+Project-URL: Homepage, https://github.com/goodcleanfun/sartorial
+Project-URL: Repository, https://github.com/goodcleanfun/sartorial
+Author: Al Barrentine
+License-Expression: MIT
+License-File: LICENSE
+Keywords: json-schema,model,pydantic,sartorial,schema
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.9
+Requires-Dist: communal
+Requires-Dist: pydantic>2
+Description-Content-Type: text/markdown
+
+# sartorial
+Tailoring custom types to fit Pydantic models, including JSON schema generation and on-the-fly model generation with custom types using JSON Schema's "format" key, allowing lossless serialization/deserialiation of arbitrary models. Contains simple JSON encoding/decoding for most types and the ability to specify them for new types with an interface mixin.
