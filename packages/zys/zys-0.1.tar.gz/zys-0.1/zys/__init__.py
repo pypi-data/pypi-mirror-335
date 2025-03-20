@@ -1,0 +1,1 @@
+from .Devil import on_exit
