@@ -1,0 +1,43 @@
+[project]
+name="dbis-relational-model"
+version='1.0.3'
+description="RWTH Aachen Computer Science i5/dbis assets for Lecture Datenbanken und Informationssysteme"
+
+authors = [
+	{ name = "DBIS i5 RWTH Aachen", email = "dbis-vl@dbis.rwth-aachen.de" }
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.13",
+]
+
+dependencies = [
+	"levenshtein~=0.23",
+    "IPython"
+]
+
+[project.optional-dependencies]
+test = [
+    "black==23.12.1"
+]
+build = [
+    "twine==6.*",
+    "build==1.*"
+]
+
+[project.urls]
+"Homepage" = "https://git.rwth-aachen.de/i5/teaching/dbis/dbis-relational-model"
+
+[options]
+include_package_data = true
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[tool.black]
+required-version = 23
