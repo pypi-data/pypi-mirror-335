@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "pybrams"
+version = "0.0.15"
+description = "BRAMS"
+authors = [
+  "Antoine Calegaro <antoine.calegaro@aeronomie.be>",
+  "Joachim Balis <joachim.balis@aeronomie.be>",
+]
+license = "MIT"
+readme = "README.md"
+homepage = "https://brams.aeronomie.be"
+repository = "https://gitlab.aeronomie.be/ae/brams/pybrams"
+keywords = ["brams", "meteor"]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+]
+packages = [{ include = "pybrams", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.14"
+numpy = "*"
+autograd = "*"
+KDEpy = "*"
+matplotlib = "*"
+pykml = "*"
+requests = "*"
+scipy = "*"
+scikit-image = "*"
+
+[tool.poetry.group.dev.dependencies]
+docutils = "^0.21.2"
+twine = "^5.1.1"
+black = "^25.1.0"
+
+[tool.pyright]
+"pythonVersion" = "3.13"
+"include" = ["src"]
+"reportMissingImports" = true
+"useLibraryCodeForTypes" = true
+"typeCheckingMode" = "strict"
