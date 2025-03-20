@@ -1,0 +1,63 @@
+Metadata-Version: 2.2
+Name: phoneshift
+Version: 0.5.1
+Summary: Please see https://phoneshift.ing
+Home-page: https://phoneshift.ing
+Author: Phoneshift
+Author-email: dev@phoneshift.ing
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 1 - Planning
+Classifier: Environment :: Console
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-python
+Dynamic: summary
+
+# Phoneshift
+
+General information about the transformation technology can be found here:
+See https://phoneshift.ing
+
+Follow below specific information related to this Python module.
+
+## Speed vs quality
+
+The geneal `transform(.)` function is optimized to provide the best audio quality for most tasks.
+The specific functions (ex. `transform_timescaling(.)`) are shortcuts to `transform(.)` with preset arguments in order to optimise for a specific while maximizing speed as well.
+
+If you know you're doing timescaling only, just use `transform_timescaling(.)`, it will be the fastest, without compromising audio quality.
+If you want to mix multiple effects, use the geneal `transform(.)` function.
+
+## Networking
+
+Phoneshift is a "connected module".
+First, you have to provide an API token in the environement variables.
+Then, when loading the module with `import phoneshift`, the API token will be checked through the network and thus validate your usage license.
+This verification happens when the module is loading, in the background, thus minimizing any delay before audio processing.
+
+## Exit On Interrupt (EOI)
+
+Many C/C++ written python modules won't react to a ctrl-c interruption (or equivalent).
+The C/C++ part will first finish its execution and the python part will then handle any ctrl-c.
+
+Calling `phoneshift.eoi()` allows any ctrl-c to kill the C/C++ part immediately.
+
+You can deactivate this uncommon behavior with `phoneshift.uneoi()`
+
+By default, this uncommon behavior is disabled.
+
+## Tests
+You can run tests to verify the package:
+$ python -c 'import phoneshift.tests; phoneshift.tests.run()'
+
+This runs very simple regression tests and smoke tests.
+
+This does _not_ run the regressions tests for audio processing, as they are too heavy to be packaged and shiped with the python module. These audio regression tests are runnning during the phoneshift's CI, which ensures no audio difference from one version to the next (as long as the version's revision number doesn't change).
