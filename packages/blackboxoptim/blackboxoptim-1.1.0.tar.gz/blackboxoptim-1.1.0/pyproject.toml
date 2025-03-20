@@ -1,0 +1,98 @@
+[project]
+name = "blackboxoptim"
+version = "1.1.0"
+description = "Solve black-box optimization problems using surrogate-based algorithms"
+authors = [
+    { name = "Weslley da Silva Pereira", email = "weslley.dasilvapereira@nrel.gov" },
+]
+readme = "README.md"
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = [
+    "optimization",
+    "surrogate",
+    "black-box",
+    "RBF",
+    "GP",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "numpy",
+    "scipy",
+    "pymoo",
+    "scikit-learn",
+]
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/NREL/blackboxoptim"
+Docs = "https://nrel.github.io/blackboxoptim"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.dev-dependencies]
+test = [
+    "pytest",
+    "rpy2==3.5.1",
+]
+lint = [
+    "ruff",
+]
+doc = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "sphinx-autodoc-typehints",
+]
+example = [
+    "jupyter",
+    "matplotlib",
+    "snakeviz",
+    "pandas",
+    "pyarrow",
+]
+
+[tool.pdm.build]
+includes = [
+    "blackboxoptim/*.py",
+]
+source-includes = [
+    "tests/test_*.py",
+    "**/__init__.py",
+    "tests/vlse_benchmark/**.r",
+    "tests/gosac_benchmark.py",
+]
+source-excludes = [
+    "tests/**",
+]
+
+[tool.ruff]
+line-length = 79
+
+[tool.ruff.lint]
+select = [
+    "E4",
+    "E7",
+    "E9",
+    "F",
+    "W",
+]
+ignore = []
+
+[tool.ruff.lint.pycodestyle]
+max-doc-length = 80
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = 60
