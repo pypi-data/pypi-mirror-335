@@ -1,0 +1,94 @@
+Metadata-Version: 2.3
+Name: neetbox
+Version: 0.4.14
+Summary: Logging/Debugging/Tracing/Managing/Facilitating long running python projects, especially a replacement of tensorboard for deep learning projects
+License: MIT
+Keywords: computer vision,tools,logging
+Author: VisualDust
+Author-email: gavin@gong.host
+Maintainer: PaperCube
+Maintainer-email: imzhy@hotmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: Utilities
+Provides-Extra: torch
+Provides-Extra: transformer
+Requires-Dist: click (>=8.1.7,<9.0.0)
+Requires-Dist: fastapi (>=0.115.0,<0.116.0)
+Requires-Dist: gputil (>=1.4.0,<2.0.0)
+Requires-Dist: httpx (>=0.27.0,<0.28.0)
+Requires-Dist: psutil (>=6.0.0,<7.0.0)
+Requires-Dist: pyfiglet (>=1.0.2,<2.0.0)
+Requires-Dist: pyjwt (>=2.8.0,<3.0.0)
+Requires-Dist: python-multipart (>=0.0.12,<0.0.13)
+Requires-Dist: rich (>=13)
+Requires-Dist: setproctitle (>=1.0)
+Requires-Dist: toml (>0.10)
+Requires-Dist: uvicorn (>=0.32.0,<0.33.0)
+Requires-Dist: vdtoys (>=0.1.2,<0.2.0)
+Requires-Dist: websocket-client (>=1.6.4,<2.0.0)
+Requires-Dist: websockets (>=12.0,<13.0)
+Project-URL: Homepage, https://neetbox.550w.host
+Project-URL: Repository, https://github.com/visualDust/neetbox
+Description-Content-Type: text/markdown
+
+# NEETBOX
+
+![](./docs/static/img/readme.png)
+
+A tool box for Logging/Debugging/Tracing/Managing/Facilitating long running python projects, especially a replacement of tensorboard for deep learning projects.
+
+[![wakatime](https://wakatime.com/badge/user/b93a26b6-8ea1-44ef-99ed-bcb6e2c732f1/project/8f99904d-dbb1-49e4-814d-8d18bf1e6d1c.svg)](https://wakatime.com/badge/user/b93a26b6-8ea1-44ef-99ed-bcb6e2c732f1/project/8f99904d-dbb1-49e4-814d-8d18bf1e6d1c) [![pytest](https://github.com/visualDust/neetbox/actions/workflows/poetry-pytest.yml/badge.svg)](https://github.com/visualDust/neetbox/actions/workflows/poetry-pytest.yml) ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/visualdust/neetbox/build-and-publish-pypi.yml) ![PyPI - Version](https://img.shields.io/pypi/v/neetbox)
+![PyPI - Downloads](https://img.shields.io/pypi/dw/neetbox) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black) [![codecov](https://codecov.io/gh/visualDust/neetbox/graph/badge.svg?token=WYWLQ4YKZJ)](https://codecov.io/gh/visualDust/neetbox)
+
+supported platforms:
+
+![linux](https://img.shields.io/badge/linux-x86%20or%20arm-blue?logo=linux) ![windows](https://img.shields.io/badge/windows-x86%20or%20arm-blue?logo=windows) ![mac os](https://img.shields.io/badge/mac-intel%20or%20apple%20silicon-blue?logo=apple)
+
+## Screenshots
+
+
+![image](https://github.com/visualDust/neetbox/assets/33346934/593df42b-13d4-4239-92ab-a7ca452c904a)
+![image](https://github.com/visualDust/neetbox/assets/33346934/47df39c9-cda2-4dba-a9a2-7ef866c5c8ab)
+![image](https://github.com/visualDust/neetbox/assets/33346934/acdbfd22-dd3b-4b7c-a446-2022125ba5c9)
+
+## How to use
+
+See the project website: [neetbox.550w.host](https://neetbox.550w.host)
+
+
+## Dev plans
+
+NEETBOX is under heavy development.
+
+- [x] monit multi project on one dashboard
+- [x] local/remote logging
+- [x] command line cli tools
+- [x] system monitoring
+- [x] post images/tensor as images to frontend
+- [x] plotting(scatters, line chart...)
+- [x] run python code by clicking on frontend buttons
+- [x] history automatically saved by backend
+- [x] distinguish different runs
+- [ ] compare data from different runs
+
+## Contributors
+
+<a href = "https://github.com/visualDust/neetbox/graphs/contributors">
+  <img src = "https://contrib.rocks/image?repo=VisualDust/neetbox"/>
+</a>
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=visualDust/neetbox&type=Date)](https://star-history.com/#visualDust/neetbox&Date)
+
