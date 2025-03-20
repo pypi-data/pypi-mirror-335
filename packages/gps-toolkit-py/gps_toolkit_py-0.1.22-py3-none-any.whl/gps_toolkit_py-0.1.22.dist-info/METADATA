@@ -1,0 +1,464 @@
+Metadata-Version: 2.4
+Name: gps-toolkit-py
+Version: 0.1.22
+Summary: A Python package for working with GPS coordinates
+Home-page: https://github.com/username/gps-toolkit-py
+Author: GPS Tools Team
+Author-email: example@example.com
+License: MIT
+Project-URL: Homepage, https://github.com/username/gps-toolkit-py
+Project-URL: Bug Tracker, https://github.com/username/gps-toolkit-py/issues
+Project-URL: Documentation, https://github.com/username/gps-toolkit-py/documentation
+Keywords: gps,geospatial,coordinates,utm,mgrs
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: GIS
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: pyproj
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Provides-Extra: viz
+Requires-Dist: matplotlib; extra == "viz"
+Requires-Dist: folium; extra == "viz"
+Provides-Extra: gis
+Requires-Dist: shapely; extra == "gis"
+Requires-Dist: geopandas; extra == "gis"
+Dynamic: author-email
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# GPS Tools for Python
+
+[![Python versions](https://img.shields.io/badge/python-3.7%2B-blue)](https://www.python.org/)
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
+A comprehensive Python library for working with geographic coordinates, providing tools for coordinate conversion, distance calculation, and spatial analysis. Designed for precision and reliability in GIS applications, navigation systems, and geospatial data processing.
+
+## Features
+
+### Coordinate Systems
+- **Latitude/Longitude** - Standard decimal degree coordinates
+- **UTM (Universal Transverse Mercator)** - Grid-based system with zone divisions
+- **MGRS (Military Grid Reference System)** - Military standard coordinate notation
+
+### Core Capabilities
+- **Coordinate Classes**
+  - `Coordinate` - Core class for lat/lon points with elevation support
+  - `UTMCoordinate` - UTM representation with zone, easting, and northing
+  - `MGRSCoordinate` - Complete MGRS coordinate representation
+  - `CoordinateList` - Collection for managing groups of coordinates
+
+- **Distance Calculations**
+  - Haversine formula (great-circle distance)
+  - Vincenty formula (ellipsoidal distance)
+  - Path distance for coordinate sequences
+  - Bearing and heading calculations
+  - Midpoint determination
+
+- **Coordinate Conversions**
+  - Bidirectional transformations between lat/lon, UTM, and MGRS
+  - Decimal degree to DMS (degrees, minutes, seconds) conversions
+  - String parsing for multiple coordinate formats
+  - Unified conversion interface
+
+- **Spatial Operations**
+  - Destination point calculation
+  - Path distance computation
+  - Geographic centroid determination
+  - Bounding box generation
+  - Longitude normalization
+
+## Installation
+
+```bash
+pip install gps-tools
+```
+
+## Quick Start
+
+### Basic Coordinate Usage
+
+```python
+from gps_tools import Coordinate
+
+# Create coordinates
+nyc = Coordinate(40.7128, -74.0060, name="New York")
+sf = Coordinate(37.7749, -122.4194, name="San Francisco")
+
+# Access properties
+print(f"NYC is at {nyc.latitude}°N, {abs(nyc.longitude)}°W")
+# Output: NYC is at 40.7128°N, 74.006°W
+
+# String representation
+print(nyc)
+# Output: New York: 40.7128°N, 74.0060°W
+```
+
+### Distance Calculations
+
+```python
+from gps_tools import Coordinate
+from gps_tools.distance import haversine_distance, vincenty_distance, bearing
+
+# Create coordinates
+nyc = Coordinate(40.7128, -74.0060, name="New York")
+london = Coordinate(51.5074, -0.1278, name="London")
+
+# Calculate distances
+haversine_dist = haversine_distance(nyc, london)
+vincenty_dist = vincenty_distance(nyc, london)
+bearing_val = bearing(nyc, london)
+
+print(f"Haversine distance: {haversine_dist/1000:.1f} km")
+print(f"Vincenty distance: {vincenty_dist/1000:.1f} km")
+print(f"Bearing from NYC to London: {bearing_val:.1f}°")
+```
+
+### Coordinate Conversions
+
+```python
+from gps_tools.converters import latlon_to_utm, utm_to_latlon, latlon_to_mgrs, mgrs_to_latlon
+
+# Convert from lat/lon to UTM
+lat, lon = 40.7128, -74.0060  # NYC
+zone_number, zone_letter, easting, northing = latlon_to_utm(lat, lon)
+print(f"UTM: {zone_number}{zone_letter} {easting:.1f}E {northing:.1f}N")
+# Output: UTM: 18T 583959.4E 4507351.0N
+
+# Convert from UTM back to lat/lon
+lat2, lon2 = utm_to_latlon(zone_number, zone_letter, easting, northing)
+print(f"Back to lat/lon: {lat2:.6f}, {lon2:.6f}")
+# Output: Back to lat/lon: 40.712800, -74.006000
+
+# Convert to MGRS
+mgrs = latlon_to_mgrs(lat, lon)
+print(f"MGRS: {mgrs}")
+# Output: MGRS: 18TFR8395907350
+
+# Convert from MGRS back to lat/lon
+lat3, lon3 = mgrs_to_latlon(mgrs)
+print(f"From MGRS: {lat3:.6f}, {lon3:.6f}")
+# Output: From MGRS: 40.712800, -74.006000
+```
+
+### Advanced Operations
+
+```python
+from gps_tools import Coordinate, CoordinateList
+from gps_tools.calculations import calculate_path_distance, calculate_centroid, calculate_bbox
+
+# Create a path of coordinates
+path = CoordinateList([
+    Coordinate(40.7128, -74.0060, name="New York"),
+    Coordinate(39.9526, -75.1652, name="Philadelphia"),
+    Coordinate(38.9072, -77.0369, name="Washington DC")
+])
+
+# Calculate total path distance
+total_distance = calculate_path_distance(path.coordinates)
+print(f"Total path distance: {total_distance/1000:.1f} km")
+# Output: Total path distance: 328.3 km
+
+# Find the centroid
+centroid = calculate_centroid(path.coordinates)
+print(f"Centroid: {centroid}")
+# Output: Centroid: 39.8575°N, 75.4027°W
+
+# Calculate bounding box
+sw, ne = calculate_bbox(path.coordinates)
+print(f"SW corner: {sw}")
+print(f"NE corner: {ne}")
+```
+
+## API Reference
+
+### Core Classes
+
+#### `Coordinate`
+```python
+coord = Coordinate(latitude, longitude, elevation=None, name=None)
+```
+Primary class for representing geographic points.
+
+#### `UTMCoordinate`
+```python
+utm = UTMCoordinate(zone_number, zone_letter, easting, northing, elevation=None, name=None)
+```
+UTM coordinate representation.
+
+#### `MGRSCoordinate`
+```python
+mgrs = MGRSCoordinate(zone_number, zone_letter, grid_square, easting, northing, 
+                      precision=5, elevation=None, name=None)
+```
+Military Grid Reference System coordinate.
+
+#### `CoordinateList`
+```python
+coords = CoordinateList(coordinates_list)
+```
+Collection for managing groups of coordinates with search and filtering capabilities.
+
+### Distance Functions
+
+#### `haversine_distance(point1, point2, radius=6371000.0)`
+Calculates great-circle distance between two coordinates using the Haversine formula.
+
+#### `vincenty_distance(point1, point2, iterations=100, tolerance=1e-12)`
+Calculates ellipsoidal distance using Vincenty's formula (more accurate).
+
+#### `bearing(point1, point2)`
+Calculates the initial bearing from point1 to point2 (0-360°).
+
+#### `destination_point(start, bearing, distance, radius=6371000.0)`
+Calculates destination coordinate given starting point, bearing, and distance.
+
+#### `path_distance(points, method="haversine")`
+Calculates total distance along a path of coordinates.
+
+#### `midpoint(point1, point2)`
+Calculates the midpoint between two coordinates.
+
+### Conversion Functions
+
+#### `latlon_to_utm(latitude, longitude)`
+Converts lat/lon to UTM, returning (zone_number, zone_letter, easting, northing).
+
+#### `utm_to_latlon(zone_number, zone_letter, easting, northing)`
+Converts UTM to lat/lon, returning (latitude, longitude).
+
+#### `decimal_to_dms(decimal, is_latitude=True)`
+Converts decimal degrees to DMS format (e.g., 40.7128° → 40°42'46.08"N).
+
+#### `dms_to_decimal(dms_str)`
+Converts DMS string to decimal degrees (e.g., 40°42'46.08"N → 40.7128).
+
+#### `latlon_to_mgrs(latitude, longitude, precision=5)`
+Converts lat/lon to MGRS string.
+
+#### `mgrs_to_latlon(mgrs_str)`
+Converts MGRS string to lat/lon, returning (latitude, longitude).
+
+#### `mgrs_to_utm(mgrs_str)`
+Converts MGRS string to UTM, returning (zone_number, zone_letter, easting, northing).
+
+#### `convert_to_latlon(coordinate_input)`
+Unified conversion interface that accepts various coordinate formats and returns lat/lon.
+
+### Calculation Functions
+
+#### `calculate_distance(coord1, coord2)`
+High-level distance calculator using Haversine formula.
+
+#### `calculate_destination(start, bearing, distance)`
+Calculates destination coordinate given starting point, bearing, and distance.
+
+#### `calculate_path_distance(coordinates)`
+Calculates total distance along multiple points.
+
+#### `calculate_centroid(coordinates)`
+Finds geographic center of multiple coordinates.
+
+#### `calculate_bbox(coordinates)`
+Calculates a bounding box, returning (southwest_corner, northeast_corner).
+
+#### `normalize_longitude(longitude)`
+Normalizes longitude to -180 to 180 range.
+
+## Function Examples
+
+### Core Coordinate Classes
+
+```python
+from gps_tools import Coordinate, UTMCoordinate, MGRSCoordinate, CoordinateList
+
+# Basic coordinate
+nyc = Coordinate(40.7128, -74.0060, name="New York", elevation=10)
+print(nyc)  # New York: 40.7128°N, 74.0060°W
+
+# UTM coordinate
+utm_coord = UTMCoordinate(18, 'T', 583959.4, 4507351.0, name="NYC in UTM")
+print(utm_coord)  # NYC in UTM: 18T 583959.40E 4507351.00N
+
+# MGRS coordinate
+mgrs_coord = MGRSCoordinate(18, 'T', 'FR', 83959, 7351, name="NYC in MGRS")
+print(mgrs_coord)  # NYC in MGRS: 18TFR8395907351
+
+# Coordinate collection
+cities = CoordinateList([
+    Coordinate(40.7128, -74.0060, name="New York"),
+    Coordinate(51.5074, -0.1278, name="London"),
+    Coordinate(35.6762, 139.6503, name="Tokyo")
+])
+print(len(cities))  # 3
+print(cities.get_by_name("London"))  # London: 51.5074°N, 0.1278°W
+```
+
+### Distance Functions
+
+```python
+from gps_tools import Coordinate
+from gps_tools.distance import (
+    haversine_distance, vincenty_distance, bearing,
+    destination_point, path_distance, midpoint
+)
+
+# Create test coordinates
+nyc = Coordinate(40.7128, -74.0060, name="New York")
+london = Coordinate(51.5074, -0.1278, name="London")
+tokyo = Coordinate(35.6762, 139.6503, name="Tokyo")
+
+# Calculate haversine distance
+distance_km = haversine_distance(nyc, london) / 1000
+print(f"NYC to London: {distance_km:.1f} km")  # ~5570 km
+
+# Calculate vincenty distance (more accurate)
+distance_km = vincenty_distance(nyc, london) / 1000
+print(f"NYC to London (Vincenty): {distance_km:.1f} km")  # ~5570 km
+
+# Calculate bearing from NYC to London
+initial_bearing = bearing(nyc, london)
+print(f"Initial bearing from NYC to London: {initial_bearing:.1f}°")  # ~51.4°
+
+# Find destination 100km east of NYC
+dest = destination_point(nyc, 90.0, 100000)
+print(f"100km east of NYC: {dest}")  # ~40.71°N, 72.63°W
+
+# Calculate path distance
+route = [nyc, london, tokyo]
+total_distance = path_distance(route)
+print(f"Total route distance: {total_distance/1000:.1f} km")  # ~15200 km
+
+# Find midpoint between NYC and London
+mid = midpoint(nyc, london)
+print(f"Midpoint: {mid}")  # ~48.7°N, 42.5°W
+```
+
+### Conversion Functions
+
+```python
+from gps_tools.converters import (
+    latlon_to_utm, utm_to_latlon, decimal_to_dms, dms_to_decimal,
+    latlon_to_mgrs, mgrs_to_latlon, mgrs_to_utm
+)
+from gps_tools.unified_converter import convert_to_latlon
+
+# Convert lat/lon to UTM
+zone_number, zone_letter, easting, northing = latlon_to_utm(40.7128, -74.0060)
+print(f"UTM: {zone_number}{zone_letter} {easting:.1f}E {northing:.1f}N")
+# Output: UTM: 18T 583959.4E 4507351.0N
+
+# Convert UTM to lat/lon
+lat, lon = utm_to_latlon(18, 'T', 583959.4, 4507351.0)
+print(f"Lat/Lon: {lat:.6f}°, {lon:.6f}°")  # 40.712800°, -74.006000°
+
+# Convert decimal degrees to DMS
+nyc_lat_dms = decimal_to_dms(40.7128, is_latitude=True)
+nyc_lon_dms = decimal_to_dms(-74.0060, is_latitude=False)
+print(f"NYC: {nyc_lat_dms}, {nyc_lon_dms}")  # 40°42'46.08"N, 74°0'21.6"W
+
+# Convert DMS to decimal degrees
+lat_decimal = dms_to_decimal("40°42'46.08\"N")
+lon_decimal = dms_to_decimal("74°0'21.6\"W")
+print(f"Decimal: {lat_decimal:.6f}°, {lon_decimal:.6f}°")  # 40.712800°, -74.006000°
+
+# Convert lat/lon to MGRS
+mgrs = latlon_to_mgrs(40.7128, -74.0060)
+print(f"MGRS: {mgrs}")  # 18TFR8395907350
+
+# Convert MGRS to lat/lon
+lat, lon = mgrs_to_latlon("18TFR8395907350")
+print(f"Lat/Lon: {lat:.6f}°, {lon:.6f}°")  # 40.712800°, -74.006000°
+
+# Convert MGRS to UTM
+zone_number, zone_letter, easting, northing = mgrs_to_utm("18TFR8395907350")
+print(f"UTM: {zone_number}{zone_letter} {easting:.1f}E {northing:.1f}N")
+# Output: UTM: 18T 583959.0E 4507350.0N
+
+# Unified converter - accepts various coordinate formats
+lat, lon, elev = convert_to_latlon("18TFR8395907350")
+print(f"Lat/Lon: {lat:.6f}°, {lon:.6f}°")  # 40.712800°, -74.006000°
+```
+
+### Calculation Functions
+
+```python
+from gps_tools import Coordinate
+from gps_tools.calculations import (
+    calculate_distance, calculate_destination, calculate_path_distance,
+    calculate_centroid, calculate_bbox, normalize_longitude
+)
+
+# Create test coordinates
+nyc = Coordinate(40.7128, -74.0060, name="New York")
+dc = Coordinate(38.9072, -77.0369, name="Washington DC") 
+sf = Coordinate(37.7749, -122.4194, name="San Francisco")
+
+# Calculate distance between points
+distance = calculate_distance(nyc, dc)
+print(f"NYC to DC: {distance/1000:.1f} km")  # ~328 km
+
+# Calculate destination from bearing and distance
+bearing = 45.0  # Northeast
+distance = 100000  # 100 km
+destination = calculate_destination(nyc, bearing, distance)
+print(f"100km NE of NYC: {destination}")  # ~41.4°N, 72.7°W
+
+# Calculate total path distance
+cities = [nyc, dc, sf]
+path_distance = calculate_path_distance(cities)
+print(f"Total path distance: {path_distance/1000:.1f} km")  # ~4620 km
+
+# Calculate centroid (geographic center)
+centroid = calculate_centroid(cities)
+print(f"Centroid: {centroid}")  # ~39.1°N, 91.2°W
+
+# Calculate bounding box
+sw, ne = calculate_bbox(cities)
+print(f"Bounding box SW: {sw}")  # ~37.8°N, 122.4°W
+print(f"Bounding box NE: {ne}")  # ~40.7°N, 74.0°W
+
+# Normalize longitude to -180 to 180 range
+normalized = normalize_longitude(185.5)
+print(f"Normalized longitude: {normalized}°")  # -174.5°
+```
+
+## Requirements
+
+- Python 3.7+
+- numpy
+- math
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add some amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Made with ❤️ by the GPS Tools Team 
