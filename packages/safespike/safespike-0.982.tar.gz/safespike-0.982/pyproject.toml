@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "safespike"
+version = "0.982"
+description = "A module for detecting ACL risk"
+authors = [{ name = "Sean Ashley" }]
+dependencies = [
+    "numpy",
+    "scipy",
+    "numpy-quaternion",
+    "pandas"
+]
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+[tool.setuptools]
+packages = ["safespike"]
