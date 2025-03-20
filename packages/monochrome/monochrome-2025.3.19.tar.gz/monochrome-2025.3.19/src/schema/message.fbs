@@ -1,0 +1,116 @@
+namespace fbs;
+
+enum BitRange : int { AUTODETECT = 0, MINMAX, UINT8, UINT10, UINT12, UINT16, FLOAT, DIFF, PHASE, PHASE_DIFF, INT8 }
+enum ColorMap : int { DEFAULT = 0, GRAY, HSV, BLACKBODY, VIRIDIS, PRGN, PRGN_POS, PRGN_NEG, RDBU, TAB10, TURBO, CMOCEAN_PHASE }
+enum OpacityFunction : int { NONE = 0, LINEAR, LINEAR_R, CENTERED, FIXED_100, FIXED_75, FIXED_50, FIXED_25, FIXED_0 }
+enum ArrayDataType : int { FLOAT = 0, UINT8, UINT16 }
+
+table DictEntry {
+  key: string;
+  val: string;
+}
+
+struct Color {
+  values:[float:4];
+}
+
+table Array3Meta {
+  type:ArrayDataType;
+  nx:int;
+  ny:int;
+  nt:int;
+  bitrange:BitRange;
+  cmap:ColorMap;
+  vmin:float;
+  vmax:float;
+  opacity:OpacityFunction;
+  name:string;
+  parent_name:string;
+  duration:float; // in seconds
+  fps:float; // original framerate
+  date:string; // creation date
+  comment:string;
+  metadata:[DictEntry];
+  nc:int;
+}
+
+table Array3MetaFlow {
+  nx:int;
+  ny:int;
+  nt:int;
+  name:string;
+  parent_name:string;
+  color:Color;
+}
+
+// flatbuffers currently restricted to 2GB, so unfortunately we may need to chunk the data
+table Array3DataChunkf {
+  startidx: uint64;
+  data:[float];
+}
+
+table Array3DataChunku8 {
+  startidx: uint64;
+  data:[uint8];
+}
+
+table Array3DataChunku16 {
+  startidx: uint64;
+  data:[uint16];
+}
+
+table Filepaths {
+  file:[string];
+}
+
+
+enum VideoExportFormat : int { FFMPEG = 0, PNG }
+table VideoExport {
+  recording:string;
+  filepath:string;
+  description:string;
+  format:VideoExportFormat;
+  fps:float;
+  t_start:int;
+  t_end:int;
+  close_after_completion:bool;
+}
+
+table CloseVideo {
+  name:string;
+}
+
+table Quit {
+}
+
+//table VideoID {
+//  id:string;
+//  error:string;
+//}
+//
+//table RecordingTracePos {
+//  name:string;
+//  posx:[uint];
+//  posy:[uint];
+//}
+//
+//table ResponseTracePos {
+//  recordings:[RecordingTracePos];
+//}
+
+table PointsVideo {
+  name:string;
+  parent_name:string;
+  points_data:[float];
+  time_idxs:[uint];
+  color:Color;
+  point_size:float;
+}
+
+union Data { Filepaths, Array3Meta, Array3MetaFlow, Array3DataChunkf, Array3DataChunku8, Array3DataChunku16, VideoExport, PointsVideo, CloseVideo, Quit }
+
+table Root {
+    data:Data;
+}
+
+root_type Root;

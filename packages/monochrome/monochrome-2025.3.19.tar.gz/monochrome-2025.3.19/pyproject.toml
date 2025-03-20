@@ -1,0 +1,147 @@
+[build-system]
+requires = [
+    "scikit-build-core>=0.11.0",
+    "setuptools_scm>=6.2",
+]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "monochrome"
+dynamic = ["version"]
+description="Viewer for monochromatic video data"
+readme = "README.md"
+requires-python = ">=3.6"
+authors = [
+    {name = "Jan Lebert", email = "mail@janlebert.com" }
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: POSIX",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3",
+    "Topic :: Desktop Environment",
+    "Topic :: Multimedia :: Video :: Display",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "numpy",
+    "flatbuffers>=23.5.26"
+]
+
+[project.urls]
+Documentation = "https://monochrome.readthedocs.io"
+Repository = "https://github.com/sitic/monochrome"
+
+[project.optional-dependencies]
+test = [
+    "pytest"
+]
+"docs" = [
+    "sphinx==8.1.3",  # enum-tools bug
+    "sphinxcontrib-napoleon",
+    "sphinxcontrib-bibtex",
+    "sphinxcontrib-video",
+    "sphinx-autobuild",
+    "sphinx-copybutton",
+    "sphinx-codeautolink",
+    "furo",
+    "myst_nb>=1.0.0",
+    "jupytext",
+    "jupyter-cache",
+    "sphinx-remove-toctrees",
+    "sphinx-design",
+    "enum-tools[sphinx]",
+    "opticalmapping[all]"
+]
+
+[project.gui-scripts]
+monochrome = "monochrome.ipc:console_entrypoint"
+
+[tool.scikit-build]
+metadata.version.provider = "scikit_build_core.metadata.setuptools_scm"
+sdist.include = ["src/python/monochrome/_version.py"]
+cmake.version = ">=3.12"
+build.verbose = true
+cmake.args = [
+        "-DSTATIC_GCC:BOOL=ON",
+        "-DDISABLE_MACOS_BUNDLE:BOOL=ON",
+]
+wheel.packages = [ "src/python/monochrome" ]
+wheel.py-api = "py3"
+wheel.install-dir = "monochrome/data"
+
+[tool.scikit-build.cmake.define]
+STATIC_GCC = "ON"
+DISABLE_MACOS_BUNDLE = "ON"
+
+[tool.setuptools_scm]
+write_to = "src/python/monochrome/_version.py"
+fallback_version = "0.1"
+
+[tool.pytest.ini_options]
+testpaths = "src/python/tests"
+
+[tool.cibuildwheel]
+build-frontend = "build"
+archs = ["auto64"]  # 64-bit only
+skip = "pp* *musllinux*"  # disable PyPy, musl-based wheels
+test-requires = ["pytest"]
+test-command = "pytest {project}/src/python/tests"
+
+# TODO: temporary, remove after upgrade of cibuildwheel
+manylinux-x86_64-image = "quay.io/pypa/manylinux_2_28_x86_64"
+manylinux-aarch64-image = "quay.io/pypa/manylinux_2_28_aarch64"
+
+[tool.cibuildwheel.linux]
+before-all = "yum install -y wayland-devel libxkbcommon-devel libXcursor-devel libXi-devel libXinerama-devel libXrandr-devel mesa-libGL-devel libdwarf-devel binutils-devel dbus-devel curl zip unzip tar"
+before-build = "git clone --depth 1 https://github.com/microsoft/vcpkg.git /tmp/vcpkg && /tmp/vcpkg/bootstrap-vcpkg.sh"
+repair-wheel-command = "auditwheel repair --exclude 'libdbus-1.so*' --exclude 'libGLX.so*' --exclude 'libOpenGL.so*' --lib-sdir . -w {dest_dir} {wheel}"
+
+[tool.cibuildwheel.linux.environment]
+SKBUILD_CMAKE_ARGS="-DVCPKG_TARGET_TRIPLET='x64-linux-release';-DSTATIC_GCC:BOOL=ON"
+VCPKG_ROOT="/tmp/vcpkg"
+CMAKE_TOOLCHAIN_FILE="/tmp/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+[tool.cibuildwheel.macos]
+before-build = "git clone --depth 1 https://github.com/microsoft/vcpkg.git /tmp/vcpkg && /tmp/vcpkg/bootstrap-vcpkg.sh"
+
+[tool.cibuildwheel.macos.environment]
+CMAKE_IGNORE_PATH="/opt/homebrew/lib"
+VCPKG_OSX_DEPLOYMENT_TARGET="10.9"
+VCPKG_ROOT="/tmp/vcpkg"
+CMAKE_TOOLCHAIN_FILE="/tmp/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+[tool.cibuildwheel.windows]
+
+[tool.cibuildwheel.windows.environment]
+SKBUILD_CMAKE_ARGS="-DVCPKG_TARGET_TRIPLET='x64-windows-static-md-release'"
+CMAKE_TOOLCHAIN_FILE="C:/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+[tool.ruff]
+line-length = 120
+extend-exclude = [
+    "src/python/monochrome/fbs",
+    "tests"
+]
+
+[tool.ruff.lint]
+exclude = [
+  "docs",
+]
+select = ['E', 'F', 'W', 'A', 'PLC', 'PLE', 'PLW', 'I', 'D', 'Q']
+ignore = [
+    "D103",  # missing docstring in public package
+    "D100",  # missing docstring in public module
+    "E501",  # line too long
+    "PLW2901",  # loop variable overwritten
+    "PLW0603",  # global statement
+    "D401",
+    "D205",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "numpy"
