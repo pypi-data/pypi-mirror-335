@@ -1,0 +1,105 @@
+{% extends "excerpts/base.body.html" %}
+
+{% block our_ref %}
+{{_("Our reference")}}:
+<span class="VariableText">
+{{obj.user.initials}}/{{obj.enrolment.id}}/{{obj.enrolment.pupil.id}}/{{this.id}}
+</span>
+{% endblock %}
+
+{% block title %}
+<h1>
+{% if obj.degree.value == '10' %}
+{{_("Abwesenheiten beim Deutschkurs")}}
+{% elif obj.degree.value == '20' %}
+{{_("Unentschuldigte Abwesenheit beim Deutschkurs – zweite Abmahnung")}}
+{% elif obj.degree.value == '30' %}
+{{_("Dritte Abmahnung – Ausschluss vom Sprachkurs")}}
+{% else %}
+{{obj.degree}}
+{% endif %}
+</h1>
+{% endblock %}
+
+{% block body %}
+
+<p>Sehr geehrte{{obj.enrolment.pupil.mf("r","","(r)")}}
+{{obj.enrolment.pupil.get_full_name(nominative=True)}},
+</p>
+
+<p>leider mussten wir
+{% if obj.degree.value != '10' %}
+wiederholt
+{% endif  %}
+feststellen, dass Sie
+an folgenden Daten
+unentschuldigt
+beim <b>{{obj.enrolment.course.line}}</b>
+{% if obj.enrolment.course.room %}
+in <b>{{obj.enrolment.course.room}}</b>
+{% endif  %}
+gefehlt haben:
+
+{% set sep = joiner(", ") %}
+{% for pres in rt.models.courses.PresencesByEnrolment.request(obj.enrolment) %}
+{% if pres.state.value == '50' %}
+{{ sep() }}
+{{ fds(pres.event.start_date) }}
+{% endif  %}
+{% endfor %}.
+
+
+{% if obj.degree.value == '10' %}
+Zwei dieser Abwesenheiten konnten nicht durch
+ein offizielles Dokument entschuldigt werden.
+{% else  %}
+Sie haben bisher keinen Grund für Ihre Abwesenheiten angegeben. 
+{% endif  %}
+</p>
+
+
+{% if obj.degree.value == '10' %}
+
+<p>Sie haben, wie alle Teilnehmer, eine Abwesenheitsregelung
+unterschrieben. Dadurch verpflichten Sie sich bei Krankheit oder
+Abwesenheit den Lehrer darüber zu informieren und ein schriftliches
+Attest oder eine Bescheinigung einzureichen.</p>
+<p>Um eine Bescheinigung zum Abschluss des Integrationsparcours zu
+bekommen, ist es außerdem wichtig, bei 80% des Kurses anwesend zu
+sein.</p>
+<p>Ihre Abwesenheit im Kurs beeinflusst die ganze Lerngruppe, da Sie
+Unterrichtsstoff verpasst haben und diesen aufarbeiten müssen.</p>
+<p><b>Ich möchte Sie bitten, sich bei mir zu melden, damit wir einen
+Termin vereinbaren können.</b></p>
+<p>Wir würden uns freuen, wenn Sie weiterhin regelmäßig am Kurs
+teilnehmen.</p>
+
+{% elif obj.degree.value == '20' %}
+
+<p>Ich möchte Sie bitten, mit mir Kontakt aufzunehmen,
+damit wir einen Termin vereinbaren können. </p>
+
+<p>In diesem Gespräch möchte ich Ihnen zum einen noch einmal den
+Integrationsparcours erklären und Ihnen auch die Gelegenheit geben,
+uns Ihr Fehlen zu erklären und gemeinsam nach einer Lösung zu
+suchen.</p>
+
+<p>Zu diesem Termin können wir auch einen Übersetzer hinzu bitten.</p>
+
+{% elif obj.degree.value == '30' %}
+
+<p>Sie haben sich nicht entschuldigt und auch keinen annehmbaren Grund
+für Ihre Abwesenheit angegeben.</p>
+<p><b>Mit dieser dritten Abmahnung sind Sie ab sofort von dem
+Sprachkurs ausgeschlossen.</b></p>
+<p>Wir bedauern das sehr.</p>
+
+{% endif %}
+
+{% if obj.text_body %}
+<p>{{ obj.text_body }}</p>
+{% endif %}
+
+Mit freundlichen Grüßen
+
+{% endblock %}

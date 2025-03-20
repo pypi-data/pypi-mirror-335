@@ -1,0 +1,73 @@
+{% set unused = activate_language('de') %}
+{# `this` is the Excerpt, `obj` is the `owner`, i.e. the client #}
+{% extends "excerpts/base.weasy.html" %}
+{%- block pagesize %}portrait{%- endblock %}
+
+{% block main %}
+
+<h3>Angaben zur Person und Kontakte</h3>
+Name: <b>{{obj.last_name}}</b>
+<br>Vorname: <b>{{obj.first_name}}</b>
+<br>Adresse: <b>{{', '.join(
+  obj.get_primary_address().address_location_lines())}}</b>
+<br>Geburtsdatum: <b>{{fdm(obj.birth_date)}}</b>
+
+<h3>Ansprechpartner</h3>
+Sozialarbeiterin bei Info-Integration: <b>{{obj.user}}</b>
+<br>Eingeschrieben beim Arbeitsamt: <b>{{bool2text(obj.has_contact_work_office)}}</b>
+<br>{{rt.models.clients.KnownContactTypes.work_consultant}}:
+{% for x in rt.models.clients.KnownContactTypes.work_consultant.get_contacts(obj) %}
+{% if loop.first %}{{x.company}}{% else %}, {% endif %}
+<b>{{x.contact_person or "..."}}</b>
+{% set role = x.get_contact() %}
+{% if role %}
+({{role.type}})
+{% endif %}
+{% else %} /
+{% endfor %}
+
+<br>Betreut vom ÖSHZ: <b>{{bool2text(obj.has_contact_pcsw)}}</b>
+<br>{{rt.models.clients.KnownContactTypes.social_center}}:
+{% for x in rt.models.clients.KnownContactTypes.social_center.get_contacts(obj) %}
+{% if loop.first %}{{x.company}}{% else %}, {% endif %}
+<b>{{x.contact_person or "..."}}</b>
+{% set role = x.get_contact() %}
+{% if role %}
+({{role.type}})
+{% endif %}
+{% else %} /
+{% endfor %}
+
+<h3>Sprachenkenntnisse und Schulbildung</h3>
+
+Muttersprache: <b>{{obj.mother_tongues}}</b>
+<br>Erreichtes Niveau in Deutsch: <b>{{obj.cef_level_de}}</b>
+<br>Erreichtes Niveau in Französisch: <b>{{obj.cef_level_fr}}</b>
+
+<br>Kenntnisse in anderen Sprachen:
+{% set qs = rt.models.cv.LanguageKnowledge.objects.filter(person=obj).exclude(language__iso2="de").exclude(language__iso2="fr") %}
+{% set qs = qs.exclude(native=True) %}
+{% for lng in qs %}
+{{str(lng.language)}}
+{% if not loop.last %} / {% endif %}
+{% endfor %}
+
+
+<h3>Kompetenzen und Ausbildungen</h3>
+{{ar.show(rt.models.cv.StudiesByPerson, obj, display_mode="summary")}}
+
+<h3>Berufliche Situation</h3>
+Berufliche Situation: <b>{{obj.professional_state or _("Not specified")}}</b>
+<br>Arbeitserlaubnis benötigt: <b>{{bool2text(obj.needs_work_permit)}}</b>
+{{ar.show(rt.models.cv.ExperiencesByPerson, obj,
+  column_names="company country duration_text remarks", display_mode="summary")}}
+
+
+{% for response in rt.models.polls.ResponsesByPartner.request(obj) %}
+{% if response.poll.ref and response.poll.ref.startswith("") %}
+<h3>{{response.poll.title}}</h3>
+{{ar.show(rt.models.polls.AnswersByResponsePrint, response)}}
+{% endif %}
+{% endfor %}
+
+{% endblock %}
