@@ -1,0 +1,41 @@
+Metadata-Version: 2.1
+Name: inorbit-edge-executor
+Version: 1.0.0
+Summary: InOrbit Edge Missions Executor
+Author: Mariano Cereda, Hernan Badenes
+Author-email: Mariano Cereda <mariano.cereda@inorbit.ai>, Hernan Badenes <herchu@inorbit.ai>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: docs
+License-File: LICENSE
+
+# InOrbit Edge Executor
+
+This package allows to execute InOrbit missions in connector robots.
+
+### Set up development environment
+
+1. Create and activate the python virtual environment
+
+```
+python3 -m virtualenv venv
+source venv/bin/activate
+```
+
+2. Install the dependencies
+
+```
+pip install .[dev]
+```
+
+### Run tests
+
+Open a command line and run the following command:
+
+```
+tox
+```
