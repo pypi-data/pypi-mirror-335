@@ -1,0 +1,20 @@
+[package]
+publish = false
+name = "minify_html_onepass_fallback"
+description = "Even faster version of minify-html"
+license = "MIT"
+homepage = "https://github.com/wilsonzlin/minify-html"
+readme = "README.md"
+repository = "https://github.com/wilsonzlin/minify-html.git"
+version = "0.16.1"
+authors = ["Wilson Lin <code@wilsonl.in>"]
+edition = "2018"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+minify-html-onepass-fallback = { path = "../minify-html-onepass-fallback" }
+[dependencies.pyo3]
+version = "0.22.5"
+features = ["extension-module", "generate-import-lib"]
