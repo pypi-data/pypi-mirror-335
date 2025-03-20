@@ -1,0 +1,86 @@
+Metadata-Version: 2.2
+Name: easybuild-easyconfigs-archive
+Version: 5.0.0
+Summary: Collection of old easyconfig files from easybuild-easyconfigs. Easyconfig files in this archive are no longer supported.
+Home-page: https://easybuild.io
+Author: EasyBuild community
+Author-email: easybuild@lists.ugent.be
+License: GPLv2
+Keywords: software build building installation installing compilation HPC scientific
+Platform: Linux
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: GNU General Public License v2 (GPLv2)
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Build Tools
+Requires: easybuild_framework(>=5.0)
+Requires: easybuild_easyblocks(>=5.0)
+Requires: easybuild_easyconfigs(>=5.0)
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: platform
+Dynamic: requires
+Dynamic: summary
+
+.. image:: https://github.com/easybuilders/easybuild/raw/develop/logo/png/easybuild_logo_2022_horizontal_dark_bg_transparent.png
+   :align: center
+   :height: 400px
+
+`EasyBuild <https://easybuild.io>`_ is a software build
+and installation framework that allows you to manage (scientific) software
+on High Performance Computing (HPC) systems in an efficient way.
+
+The **easybuild-easyconfigs-archive** package provides a collection of old
+*easyconfig files* for EasyBuild that have been archived from the main
+**easybuild-easyconfigs** repository.
+
+Easyconfig files are used to specify which software to build, which
+version of the software (and its dependencies), which build parameters
+to use (e.g., which compiler toolchain to use), etc.
+
+The easyconfig files in this collection are provided as-is without any
+warranties. In the past they were well-tested on a variety of systems, but this
+might not longer be the case on modern systems.
+
+The EasyBuild documentation is available at http://docs.easybuild.io/.
+
+The easybuild-easyconfigs-archive package is hosted on GitHub. Given the
+archival nature of this repository, no issue tracker for bug reports or feature
+requests is provided. See https://github.com/easybuilders/easybuild-easyconfigs-archive.
+
+Related Python packages:
+
+* **easybuild-framework**
+
+  * the EasyBuild framework, which includes the ``easybuild.framework`` and ``easybuild.tools`` Python
+    packages that provide general support for building and installing software
+  * GitHub repository: https://github.com/easybuilders/easybuild-framework
+  * PyPi: https://pypi.python.org/pypi/easybuild-framework
+
+* **easybuild-easyblocks**
+
+  * a collection of easyblocks that implement support for building and installing (groups of) software packages
+  * GitHub repository: https://github.com/easybuilders/easybuild-easyblocks
+  * package on PyPi: https://pypi.python.org/pypi/easybuild-easyblocks
+
+* **easybuild-easyconfigs**
+
+  * a collection of example easyconfig files that specify which software to build,
+    and using which build options; these easyconfigs will be well tested
+    with the latest compatible versions of the easybuild-framework and easybuild-easyblocks packages
+  * GitHub repository: https://github.com/easybuilders/easybuild-easyconfigs
+  * PyPi: https://pypi.python.org/pypi/easybuild-easyconfigs
