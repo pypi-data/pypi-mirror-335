@@ -1,0 +1,37 @@
+Metadata-Version: 2.3
+Name: freesms
+Version: 0.3.0
+Summary: Send SMSes with Free Mobile
+License: MIT
+Keywords: free,free-mobile,sms
+Author: Baptiste Fontaine
+Author-email: b@ptistefontaine.fr
+Requires-Python: >=3.8
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Requires-Dist: requests (>=2.32.3,<3.0.0)
+Description-Content-Type: text/markdown
+
+# freesms
+
+[![Pypi package](https://img.shields.io/pypi/v/freesms.png)](https://pypi.python.org/pypi/freesms)
+
+**`freesms`** is a Python interface for Free Mobile SMS API. If you subscribed to their service, it allows you to
+programmatically send SMSes to yourself.
+
+## Install
+
+    [sudo] pip install freesms
+
+Starting from v0.3.0 the library only supports Python 3.8+.
+
+## Usage
+
+```python
+from freesms import FreeClient
+
+f = FreeClient(user="...", password="...")
+resp = f.send_sms("hello this is my SMS")
+print(resp.status_code)  # 200
+```
