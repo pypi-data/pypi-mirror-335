@@ -1,0 +1,38 @@
+{% extends "base.html"  %}
+{% block title %}Index{% endblock %}
+{% block content %}
+    <div class="bg-gray-500 p-5 text-white m-5" enctype="multipart/form-data">
+        <form id="login-form" action="/login" method="post" class="h-full w-full m-2">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="border-1 ml-1 rounded-full p-2" required minlength="3"><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="border-1 ml-1 rounded-full p-2" required minlength="5"><br><br>
+            <input type="submit" value="Login" class="border-1 rounded-full p-2">
+        </form>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            form = document.getElementById("login-form");
+            form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            formData = new FormData(form);
+            fetch("/login", {
+                method: "POST",
+                body: JSON.stringify({
+                    username: formData.get("username"),
+                    password: formData.get("password")
+                }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then(response => {
+                    if (response.ok) {
+                        window.location.href = "/";
+                    } else {
+                        alert("Login failed");
+                    }
+                })  
+            });
+        });
+    </script>
+{% endblock %}
