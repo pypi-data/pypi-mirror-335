@@ -1,0 +1,78 @@
+Metadata-Version: 2.1
+Name: peakrdl_bsv
+Version: 0.0.1
+Summary: Export BSV description from the systemrdl-compiler register model
+Author-Email: Vijayvithal Jahagirdar <jahagirdar.vs@gmail.com>
+License: MIT
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)
+Project-URL: Homepage, https://dyumnin.com/peakrdl_bsv
+Project-URL: Repository, https://github.com/jahagirdar/peakrdl-bsv.git
+Project-URL: Issues, https://github.com/jahagirdar/peakrdl-bsv/issues
+Project-URL: Documentation, https://jahagirdar.github.io/peakrdl-bsv
+Requires-Python: >=3.10
+Requires-Dist: systemrdl-compiler>=1.27.3
+Requires-Dist: jinja2>=3.1.4
+Requires-Dist: peakrdl>=1.1.0
+Description-Content-Type: text/markdown
+
+# peakrdl-bsv Generating BSV Configuration registers from SystemRDL code.
+
+Peakrdl plugin for generated bluespec rtl from system RDL file.
+
+This plugin takes an input `file.rdl` and generates three bluespec files
+
+1. `file_signal.bsv` This contains the module definition of each individual signal in the rdl file.
+2. `file_reg.bsv` This groups the signals into their containing register module.
+3. `file_csr.bsv` This creates a module with the registers, address decoding and S/W read write methods.
+
+# Installation and usage
+
+Installing the application
+
+```
+pip3 install peakrdl-bsv
+```
+
+Generating BSV files from test.rdl
+
+```
+	peakrdl bsv test.rdl -o .
+```
+
+This can then be used in your design as follows
+
+```
+import file_csr::*;
+...
+ConfigCSR_file csr <- mkConfigCSR_file;
+
+rule xyz;
+csr.reg.signal.write(...)
+endrule
+```
+
+The hardware side methods defined on a signal module are
+
+* `method Bool pulse()` returns true when a 1 is written to the signal. self clearing.
+* `method Bool swacc()` returns true when a s/w read or write operation is performed.
+* `method Bool swmod()` returns true when a write or a read with sideeffect operation is performed.
+* `method Bool anded()` Returns an AND reduced value of the signal.
+* `method Bool ored();` Returns an OR reduced value of the signal.
+* `method Bool xored()` Returns an XOR reduced value of the signal.
+* `method Action clear()` Set's the signal to 0.
+* `method Action _write(Bit#(n) data)` writes `data` to the register.
+* `method Bit#(n) _rea` Returns the value of the register.
+
+# Example
+
+To see an example
+
+```
+cd tests
+make
+```
+
+This will generate the required files from the test.rdl file
