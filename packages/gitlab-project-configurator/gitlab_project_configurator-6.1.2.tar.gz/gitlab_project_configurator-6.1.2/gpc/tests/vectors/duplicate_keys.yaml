@@ -1,0 +1,38 @@
+include: common_policies.yml
+
+projects_configuration:
+  - paths:
+      - swlabs/nestor/Validation/Super_Project_01
+    rule_name: default_policy
+    custom_rules:
+      default_branch: toto_en_short
+
+projects_configuration:
+  - paths:
+      - swlabs/nestor/Validation/Super_Project_02
+    rule_name: default_policy
+    custom_rules:
+      default_branch: master
+
+  - paths:
+      - swlabs/nestor/Validation
+    recursive: true
+    rule_name: default_policy
+    not_seen_yet_only: true
+    custom_rules:
+      default_branch: master
+
+# projects_configuration:
+#   - paths:
+#       - swlabs/nestor/Validation/Super_Project_02123
+#     rule_name: default_policy
+#     custom_rules:
+#       default_branch: master
+
+#   - paths:
+#       - swlabs/nestor/Validation123
+#     recursive: true
+#     rule_name: default_policy
+#     not_seen_yet_only: true
+#     custom_rules:
+#       default_branch: master

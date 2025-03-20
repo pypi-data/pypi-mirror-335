@@ -1,0 +1,20 @@
+variable_profiles:
+  SOME_VARIABLE_GROUP:
+    - name: SOME_VARIABLE
+      value: 'http://some.url/some/path'
+      potected: false  # <== missing r in 'p*r*otected'
+
+
+projects_rules:
+  - rule_name: myteam_master_rule
+    variables:
+      - name: OTHER_VARIABLE
+        value: other value
+      - import: SOME_VARIABLE_GROUP
+
+
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    recursive: true
+    rule_name: myteam_master_rule

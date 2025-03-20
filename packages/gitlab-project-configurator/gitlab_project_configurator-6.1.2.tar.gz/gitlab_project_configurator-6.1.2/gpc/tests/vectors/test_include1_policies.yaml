@@ -1,0 +1,28 @@
+variable_profiles:
+  GROUP_VAR1:
+    - name: VAR1_1
+      value: 'val1_1'
+
+member_profiles:
+  - name: approvers_1
+    role: maintainers
+    members:
+        - toto
+
+projects_rules:
+  - rule_name: my_rule_1
+    default_branch: dev/test
+    protected_branches:
+      - pattern: 'my_rule_1_master'
+        allowed_to_merge: maintainers
+        allowed_to_push: no one
+    permissions:
+      visibility: private
+    variables:
+      - import: GROUP_VAR1
+
+
+projects_configuration:
+ - paths:
+     - fake/path/to/project_1
+   rule_name: my_rule_1

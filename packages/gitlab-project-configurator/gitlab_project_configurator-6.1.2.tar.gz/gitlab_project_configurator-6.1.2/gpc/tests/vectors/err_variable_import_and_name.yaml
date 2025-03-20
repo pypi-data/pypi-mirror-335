@@ -1,0 +1,19 @@
+variable_profiles:
+  SOME_VARIABLE_GROUP:
+    - name: SOME_VARIABLE
+      value: 'http://some.url/some/path'
+      protected: false
+
+projects_rules:
+  - rule_name: myteam_master_rule
+    variables:
+      - import: SOME_VARIABLE_GROUP
+        name: OTHER_VARIABLE  # <==== 'import' or 'name', not both
+        value: other value
+
+
+projects_configuration:
+  - paths:
+      - path/to/a/group
+    recursive: true
+    rule_name: myteam_master_rule

@@ -1,0 +1,22 @@
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+    protected_branches:  
+      - pattern: master
+        allowed_to_merge: maintainers
+        allowed_to_push: no one
+      - pattern: toto*
+        allowed_to_merge: developers
+        allowed_to_push: no one
+    protected_tags:
+      - pattern: master
+        allowed_to_create: developers
+      - pattern: tag2
+        allowed_to_create: maintainers
+    permissions:
+      visibility: private
+    mergerequests:
+      only_allow_merge_if_all_discussions_are_resolved: true
+      only_allow_merge_if_pipeline_succeeds: true
+      merge_method: ff
+      squash_option: do allow ## <= missing "not" in do not allow

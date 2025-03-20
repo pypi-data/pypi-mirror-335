@@ -1,0 +1,57 @@
+{% import "build_diff.html.j2" as build_diff%}
+<div class="ui celled grid accordion" id="projectsData">
+  {% for project in report.get("projects_report", []) %}
+    <div class="row title" id="{{ project.project_name | replace('/', '') }}">
+        <div class="nine wide column">
+            <div title="{{project.project_name}}">
+                <i class="dropdown icon"></i>
+                {{project.project_name | truncate_from_start(100)}}
+            </div>
+        </div>
+        <div class="three wide column">
+            <div class="ui small header {{'black'}}">
+                {{project.rule.rule_name | replace("['", "") | replace("']", "")}}
+            </div>
+        </div>
+        <div class="two wide column">
+            <div class="ui small header {{'olive' if project.status == 'success' else 'red'}}">
+                {{project.status}}
+            </div>
+        </div>
+        <div class="two wide column">
+            <div class="ui small header {{'teal' if project.updated else 'yellow'}}">
+                {{project.updated}}
+            </div>
+        </div>
+    </div>
+    <div class="row content">
+        <div class="ui celled grid">
+            <div class="grey row">
+                <div class="four wide column">Property Name</div>
+                <div class="five wide column">Before</div>
+                <div class="five wide column">After</div>
+                <div class="two wide column">Action</div>
+            </div>
+            {% for c in project.get("changes", []) %}
+            {% if c.get("differences", {}).get("action") %}
+            <div class="row">
+                <div class="four wide column">{{c.property_name}}</div>
+                <pre class="five wide column"><code>{{c.differences.before | tojson(indent=2) | safe}}</code></pre>
+                <pre class="five wide column"><code>{{c.differences.after | tojson(indent=2) | safe}}</code></pre>
+                <div class="two wide column">{{c.differences.action}}</div>
+            </div>
+            {% else %}
+            {% for p, d in c.get("differences", {}).items() %}
+            <div class="row">
+                <div class="four wide column">{{c.property_name}}-<strong>{{p}}</strong></div>
+                <pre class="five wide column"><code>{{d.before | tojson(indent=2) | safe}}</code></pre>
+                <pre class="five wide column"><code>{{d.after | tojson(indent=2) | safe}}</code></pre>
+                <div class="two wide column">{{d.status}}</div>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+  {% endfor %}
+</div>

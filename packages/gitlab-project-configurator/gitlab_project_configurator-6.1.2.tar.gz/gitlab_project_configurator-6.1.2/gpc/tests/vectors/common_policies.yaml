@@ -1,0 +1,217 @@
+variable_profiles:
+  COMMON_VARIABLES:
+    - name: ARTIFACTORY_URL
+      value: 'http://some.url/some/path'
+      protected: false
+    - name: ARTIFACTORY_APIKEY
+      value_from_envvar: ARTIFACTORY_APIKEY
+      protected: true
+
+member_profiles:
+  - name: mytest_master_approvers
+    role: developers
+    members:
+      - gitlab-nestor-integ-useless
+
+projects_rules:
+  - rule_name: myteam_master_rule
+    default_branch: master
+    auto_cancel_pending_pipelines: "enabled"
+    description: test project for GPC
+    ci_git_shallow_clone: 0
+    schedulers:
+        - name: schedule_toto
+          branch: master
+          cron: "0 4 1 * *"
+          enabled: true
+          tz: UTC # by default
+          variables:
+              - name: OTHER_VARIABLE
+                value: other value1
+    project_members:
+      profiles:
+        - mytest_master_approvers
+#      members:
+#        - role: developers
+#          name: gitlab-nestor-integ-useless
+
+    # approval_rules:
+    #   - name: rule1
+    #     profiles:
+    #       - mytest_master_approvers
+    #     members:
+    #       - gitlab-nestor-integ
+    #     minimum: 2
+    #     protected_branches:
+    #       - master
+      # - name: rule2
+      #   profiles:
+      #     - mytest_master_approvers
+      #   members:
+      #     - gitlab-nestor-integ
+      #   minimum: 8
+      #   protected_branches:
+      #     - toto
+      # - name: rule3
+      #   profiles:
+      #     - mytest_master_approvers
+      #   members:
+      #     - gitlab-nestor-integ
+      #   minimum: 5
+      #   protected_branches:
+      #     - tete
+      #     - toto
+      # - name: rule4
+      #   profiles:
+      #     - mytest_master_approvers
+      #   members:
+      #     - gitlab-nestor-integ
+      #   minimum: 8
+      # - name: rule5
+      #   profiles:
+      #     - mytest_master_approvers
+      #   members:
+      #     - gitlab-nestor-integ
+      #   minimum: 9
+      #   protected_branches:
+      #     - master
+      #     - toto
+      # - name: rule6
+      #   profiles:
+      #     - mytest_master_approvers
+      #   members:
+      #     - gitlab-nestor-integ
+      #   minimum: 9
+      #   protected_branches:
+      #     - tata
+
+    # approval_settings:
+    #   can_override_approvals_per_merge_request: false
+    #   remove_all_approvals_when_new_commits_are_pushed: true
+    #   enable_self_approval: false
+    #   enable_committers_approvers: false
+
+    approvers:
+      profiles:
+        - mytest_master_approvers
+      members:
+        - gitlab-nestor-integ
+      minimum: 1
+      options:
+        can_override_approvals_per_merge_request: true
+        remove_all_approvals_when_new_commits_are_pushed: false
+        enable_self_approval: true
+        enable_committers_approvers: true
+    protected_branches:
+      - pattern:  master
+        allowed_to_merge:
+            role: maintainers
+        allowed_to_push:
+            role: none
+      - pattern: toto
+        allowed_to_merge:
+            role: maintainers
+            profiles:
+                -  mytest_master_approvers
+        allowed_to_push:
+            role: no one
+        allowed_to_unprotect: developers
+    protected_tags:
+      - pattern: master
+        allowed_to_create: developers
+      - pattern: tag2
+        allowed_to_create: maintainers
+    permissions:
+      visibility: private
+      request_access_enabled: false
+      wiki_access_level: disabled
+      issues_access_level: disabled
+      snippets_access_level: disabled
+      lfs_enabled: false
+      builds_access_level: disabled
+    mergerequests:
+      only_allow_merge_if_all_discussions_are_resolved: true
+      only_allow_merge_if_pipeline_succeeds: true
+      resolve_outdated_diff_discussions: false
+      printing_merge_request_link_enabled: true
+      remove_source_branch_after_merge: true
+      merge_method: ff
+      squash_option: do not allow
+      merge_pipelines_enabled: false # premium only
+      merge_trains_enabled: false # premium only
+   # runners:
+   #   - runner_id: 1253
+   #     enabled: true
+    labels:
+      - name: my-beautiful-label
+        color: '#FF0000'
+    variables:
+      - import: COMMON_VARIABLES
+      - name: OTHER_VARIABLE
+        value: 2
+      - name: BOOL_VAR
+        value: true
+    keep_existing_badges: true
+    badges:
+      - name: pipeline
+        link_url: "%{gpc_gitlab_url}/%{project_path}/commits/%{default_branch}"
+        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/pipeline.svg"
+      # Coverage badge:
+      - name: coverage
+        link_url: "http://my.artifactory.server/artifactory/publish/nestor/%{project_path}/coverage/%{default_branch}/"
+        image_url: "%{gpc_gitlab_url}/%{project_path}/badges/%{default_branch}/coverage.svg"
+    push_rules:
+        remove: true
+        dont_allow_users_to_remove_tags: true
+        member_check: true
+        prevent_secrets: true
+        commit_message: '^(.+)$'
+        commit_message_negative: 'truc'
+        branch_name_regex: '^(.+)$'
+        author_mail_regex: '^(.+)$'
+        prohibited_file_name_regex: '^(.+)$'
+        max_file_size: 500
+    integrations:
+      jira:
+        url: 'https://jira.server'
+        jira_issue_transition_id: null
+        username: dummy bot
+#        disabled: true
+        password_from_envvar: DUMMY_JIRA_PASSWORD
+        trigger_on_commit: false
+#        trigger_on_mr: true
+        comment_on_event_enabled: false
+      pipelines_email:
+        disabled: true
+        recipients:
+          - poule@laferme.fr
+          - renault@laforet.fr
+        notify_only_broken_pipelines: false
+        notify_only_default_branch: true
+        pipeline_events: true
+    nestor:
+      enabled: true
+      test_services: true
+
+  - rule_name: derived_rule
+    inherits_from: myteam_master_rule
+    permissions:
+      visibility: internal
+    mergerequests:
+        merge_method: merge
+        squash_option: encourage
+
+  - rule_name: derived_lvl2
+    inherits_from: derived_rule
+    mergerequests:
+        only_allow_merge_if_all_discussions_are_resolved: false
+        merge_method: rebase_merge
+        squash_option: require
+
+
+# groups_rules:
+#   - rule_name: myteam_group_rule
+# #    visibility: internal
+# #    variables:
+# #      - name: VARIABLENAME_FOR_GROUP
+# #        value: 'any-value'

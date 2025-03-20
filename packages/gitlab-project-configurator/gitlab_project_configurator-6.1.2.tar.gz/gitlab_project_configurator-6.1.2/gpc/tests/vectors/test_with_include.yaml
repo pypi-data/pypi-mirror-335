@@ -1,0 +1,25 @@
+include: common_policies.yaml
+
+projects_configuration:
+  - paths:
+      - fake/path/to/a_project_with_specific_rule
+    rule_name: derived_rule
+
+  - paths:
+      - fake/path/to/project
+      - other/path/other_project
+    recursive: true
+    not_seen_yet_only: true
+    excludes:
+      - other/path/with/project/to/exclude
+    rule_name: myteam_master_rule
+    custom_rules:
+      labels:
+        - name: my-beautiful-label
+          color: '#00FF00'
+
+# groups_configuration:
+#   - paths: fake/path/to/group
+#     rule_name: myteam_group_rule
+#     custom_rules:
+#       visibility: private
