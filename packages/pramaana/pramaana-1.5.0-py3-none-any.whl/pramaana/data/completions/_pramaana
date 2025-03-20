@@ -1,0 +1,90 @@
+#compdef pramaana
+
+_pramaana() {
+    local -a commands
+    commands=(
+        'new:Create new reference'
+        'edit:Edit existing reference'
+        'find:Find references'
+        'grep:Search for references'
+        'import:Import from Zotero'
+        'export:Run exports'
+        'ls:List references'
+        'mv:Move reference'
+        'cp:Copy reference'
+        'ln:Hardink reference (but usually just use cp -al)'
+        'rm:Remove reference'
+        'trash:Move to trash'
+        'show:Show contents'
+        'open:Open with default application'
+        'abs:Output absolute path'
+    )
+
+    local data_dir
+    data_dir=$(python3 -c '
+import json
+import os
+with open(os.path.expanduser("~/.pramaana/config.json")) as f:
+    print(os.path.expanduser(json.load(f)["pramaana_path"]))
+')
+
+    # Just get template names without descriptions
+    local -a templates
+    templates=( ${(f)"$(python3 -c '
+import os
+from pathlib import Path
+template_dir = Path(os.path.expanduser("~/.pramaana/templates"))
+if template_dir.exists():
+    for f in template_dir.glob("*.bib"):
+        print(f.stem)
+')"} )
+
+    case $words[2] in
+        new|edit)
+            _arguments \
+                '1: :->command' \
+                '*:path:_path_files -W $data_dir' \
+                '--template=:template:($templates)' \
+                '--template:template:($templates)' \
+                '--from:URL or file:_files' \
+                '--attach:attachment:_files'
+            ;;
+        ls|rm|trash|show|open|find|grep|mv|cp|ln|abs)
+            _path_files -W $data_dir
+            ;;
+        import)
+            case $words[(($CURRENT - 1))] in
+                --via)
+                    _values 'via' 'ln' 'cp' 'mv'
+                    ;;
+                *)
+                    _files -g "*.bib"
+                    ;;
+            esac
+            ;;
+        export)
+            local -a exports
+            exports=( ${(f)"$(python3 -c '
+import json
+import os
+with open(os.path.expanduser("~/.pramaana/config.json")) as f:
+    config = json.load(f)
+    for name in config["exports"].keys():
+        print(name)
+')"} )
+            _values 'exports' $exports
+            ;;
+        *)
+            _arguments -C \
+                '1: :->command' \
+                '*: :->args'
+            case $state in
+                command)
+                    _describe -t commands 'pramaana commands' commands
+                    ;;
+            esac
+            ;;
+    esac
+}
+
+_pramaana "$@"
