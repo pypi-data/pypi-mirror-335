@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "libtado"
+version = "4.0.0"
+description = "A library (and a command line client) to control your Tado Smart Thermostat."
+authors = ["Germain Lefebvre <germain.lefebvre4@gmail.com>"]
+license = "GNU GPL v3.0"
+readme = "README.md"
+repository = "https://github.com/germainlefebvre4/libtado"
+homepage = "https://libtado.readthedocs.io/"
+documentation = "https://libtado.readthedocs.io/"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8.1,<4.0"
+click = "*"
+requests = "*"
+python-dateutil = "*"
+
+[tool.poetry.group.test.dependencies]
+poetry-plugin-dotenv = ">=2.2.3,<2.5"
+pytest = "*"
+pytest-dotenv = "*"
+python-dateutil = "*"
+#jsonschema = "*"
+#genson = "*"
+
+[tool.poetry.group.docs.dependencies]
+poetry-plugin-dotenv = ">=2.2.3,<2.5"
+mkdocs = "*"
+mkdocs-material = "*"
+mkdocstrings = {extras = ["python"], version = "*"}
+mkdocs-click = "*"
+
+[tool.poetry.group.lint.dependencies]
+poetry-plugin-dotenv = ">=2.2.3,<2.5"
+ruff = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tado = "libtado.__main__:main"
