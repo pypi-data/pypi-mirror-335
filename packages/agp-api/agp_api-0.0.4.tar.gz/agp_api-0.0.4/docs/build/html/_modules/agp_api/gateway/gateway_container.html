@@ -1,0 +1,504 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>agp_api.gateway.gateway_container &mdash; agp_api 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css?v=a0a71c94" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            agp_api
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../modules.html">Modules</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">agp_api</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">agp_api.gateway.gateway_container</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for agp_api.gateway.gateway_container</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Module gateway_holder: Contains the GatewayHolder class for managing the Gateway instance and FastAPI app.&quot;&quot;&quot;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">http</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTTPStatus</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">agp_bindings</span><span class="w"> </span><span class="kn">import</span> <span class="n">Gateway</span><span class="p">,</span> <span class="n">GatewayConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..agent.agent_container</span><span class="w"> </span><span class="kn">import</span> <span class="n">AgentContainer</span>
+
+<span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GatewayContainer">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">GatewayContainer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A container class for managing the Gateway instance and FastAPI app.</span>
+
+<span class="sd">    This class serves as a central point for handling the Gateway instance and the FastAPI application.</span>
+<span class="sd">    It facilitates the reception of packets from the Agent Gateway Protocol (AGP) and reinjects them</span>
+<span class="sd">    into the FastAPI application for further processing.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        gateway (Gateway): An instance of the Gateway that this container encapsulates.</span>
+<span class="sd">        fastapi_app (Optional[FastAPI]): An instance of the FastAPI application used to process</span>
+<span class="sd">            incoming packets from the AGP.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="GatewayContainer.__init__">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">gateway</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Gateway</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fastapi_app</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FastAPI</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the GatewayContainer with a Gateway instance and optionally a FastAPI app.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            gateway (Optional[Gateway]): The Gateway instance to manage. If not provided, a new instance will be created.</span>
+<span class="sd">            fastapi_app (Optional[FastAPI]): The FastAPI application instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="n">gateway</span> <span class="k">if</span> <span class="n">gateway</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Gateway</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fastapi_app</span> <span class="o">=</span> <span class="n">fastapi_app</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.get_fastapi_app">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.get_fastapi_app">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_fastapi_app</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">FastAPI</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the stored FastAPI application instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fastapi_app</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.set_fastapi_app">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.set_fastapi_app">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_fastapi_app</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">:</span> <span class="n">FastAPI</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the FastAPI application instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fastapi_app</span> <span class="o">=</span> <span class="n">app</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.create_gateway">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.create_gateway">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_gateway</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Gateway</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a new Gateway instance with the provided configuration.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Gateway: The newly created Gateway instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="n">Gateway</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.set_config">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.set_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_config</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;http://127.0.0.1:46357&quot;</span><span class="p">,</span> <span class="n">insecure</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the configuration for the Gateway instance.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            endpoint (str, optional): The endpoint for the Gateway in the format &quot;http://&lt;hostname_or_ip&gt;:&lt;port&gt;&quot;.</span>
+<span class="sd">                                    Defaults to &quot;http://127.0.0.1:46357&quot;.</span>
+<span class="sd">            insecure (bool, optional): Whether to use an insecure connection. Defaults to False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">GatewayConfig</span><span class="p">(</span><span class="n">endpoint</span><span class="o">=</span><span class="n">endpoint</span><span class="p">,</span> <span class="n">insecure</span><span class="o">=</span><span class="n">insecure</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.get_gateway">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.get_gateway">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_gateway</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Gateway</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the stored Gateway instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.set_gateway">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.set_gateway">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_gateway</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">gateway</span><span class="p">:</span> <span class="n">Gateway</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the Gateway instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span> <span class="o">=</span> <span class="n">gateway</span></div>
+
+
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent_container</span><span class="p">:</span> <span class="n">AgentContainer</span><span class="p">,</span> <span class="n">remote_agent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Connects to the remote gateway, subscribes to messages, and processes them.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            agent_container (AgentContainer): An instance of AgentContainer containing agent details.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            int: The connection ID.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># An agent app is identified by a name in the format</span>
+        <span class="c1"># /organization/namespace/agent_class/agent_id. The agent_class indicates the</span>
+        <span class="c1"># type of agent, and there can be multiple instances of the same type running</span>
+        <span class="c1"># (e.g., horizontal scaling of the same app in Kubernetes). The agent_id</span>
+        <span class="c1"># identifies a specific instance of the agent and it is returned by the</span>
+        <span class="c1"># create_agent function if not provided.</span>
+
+        <span class="n">organization</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_organization</span><span class="p">()</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_namespace</span><span class="p">()</span>
+        <span class="n">local_agent</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_local_agent</span><span class="p">()</span>
+
+        <span class="c1"># Connect to the gateway server</span>
+        <span class="n">local_agent_id</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">create_agent</span><span class="p">(</span>
+            <span class="n">organization</span><span class="p">,</span>
+            <span class="n">namespace</span><span class="p">,</span>
+            <span class="n">local_agent</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Connect to the service and subscribe for messages</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">conn_id</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error connecting to gateway: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">subscribe</span><span class="p">(</span>
+                <span class="n">organization</span><span class="p">,</span>
+                <span class="n">namespace</span><span class="p">,</span>
+                <span class="n">local_agent</span><span class="p">,</span>
+                <span class="n">local_agent_id</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">remote_agent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">set_route</span><span class="p">(</span><span class="n">organization</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">remote_agent</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="s2">&quot;Error subscribing to gateway: unable to subscribe.&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+
+        <span class="k">return</span> <span class="n">conn_id</span>
+
+<div class="viewcode-block" id="GatewayContainer.connect_with_retry">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.connect_with_retry">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect_with_retry</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">agent_container</span><span class="p">:</span> <span class="n">AgentContainer</span><span class="p">,</span>
+        <span class="n">max_duration</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span>
+        <span class="n">initial_delay</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">remote_agent</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Attempts to connect to a gateway at the specified address and port using exponential backoff.</span>
+<span class="sd">        This asynchronous function repeatedly tries to establish a connection by calling the</span>
+<span class="sd">        connect_to_gateway function. If a connection attempt fails, it logs a warning and waits for a period</span>
+<span class="sd">        that doubles after each failure (capped at 30 seconds) until a successful connection is made or until</span>
+<span class="sd">        the accumulated time exceeds max_duration.</span>
+<span class="sd">        Parameters:</span>
+<span class="sd">            address (str): The hostname or IP address of the gateway.</span>
+<span class="sd">            port (int): The port number to connect to.</span>
+<span class="sd">            max_duration (int, optional): Maximum duration (in seconds) to attempt the connection. Default is 300.</span>
+<span class="sd">            initial_delay (int, optional): Initial delay (in seconds) before the first retry. Default is 1.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: Returns a tuple containing the source and a message received upon successful connection.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TimeoutError: If the connection is not successfully established within max_duration seconds.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="n">delay</span> <span class="o">=</span> <span class="n">initial_delay</span>
+
+        <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span> <span class="o">&lt;</span> <span class="n">max_duration</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect</span><span class="p">(</span><span class="n">agent_container</span><span class="p">,</span> <span class="n">remote_agent</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="s2">&quot;Connection attempt failed: </span><span class="si">%s</span><span class="s2">. Retrying in </span><span class="si">%s</span><span class="s2"> seconds...&quot;</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">delay</span>
+                <span class="p">)</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">delay</span><span class="p">)</span>
+                <span class="n">delay</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+                    <span class="n">delay</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">30</span>
+                <span class="p">)</span>  <span class="c1"># Exponential backoff, max delay capped at 30 sec</span>
+
+        <span class="k">raise</span> <span class="ne">TimeoutError</span><span class="p">(</span><span class="s2">&quot;Failed to connect within the allowed time frame&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.process_message">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.process_message">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">payload</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parse and process the incoming payload message.</span>
+
+<span class="sd">        This function decodes the incoming payload, validates essential fields, extracts required information,</span>
+<span class="sd">        and forwards the request to a FastAPI app. It then returns the server&#39;s response or handles errors appropriately.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            payload (dict): A dictionary containing the message details. Expected keys include:</span>
+
+<span class="sd">            - `&quot;agent_id&quot;` (str): Identifier for the agent; must be non-empty.</span>
+
+<span class="sd">            - `&quot;route&quot;` (str): The API route to which the message should be sent.</span>
+
+<span class="sd">            - `&quot;input&quot;` (dict): A dictionary with a key `&quot;messages&quot;`, which is a non-empty list where each element</span>
+<span class="sd">            is a dictionary. The last message in this list should contain the human input under the `&quot;content&quot;` key.</span>
+
+<span class="sd">            - `&quot;metadata&quot;` (Optional[dict]): A dictionary that may contain an `&quot;id&quot;` for tracking purposes.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A JSON string representing the reply. This is either the successful response from the FastAPI server</span>
+<span class="sd">            when a status code `200` is returned, or a JSON-encoded error message if validation fails.</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            Exception: If the FastAPI server returns a status code other than `200`, an exception with the status code</span>
+<span class="sd">            and error details is raised.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Decoded payload: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="p">)</span>
+
+        <span class="c1"># Extract assistant_id from the payload</span>
+        <span class="n">agent_id</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;agent_id&quot;</span><span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Agent id: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">)</span>
+
+        <span class="c1"># Validate that the assistant_id is not empty.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;agent_id&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_error</span><span class="p">(</span>
+                <span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span> 
+                <span class="n">error</span><span class="o">=</span><span class="s2">&quot;agent_id is required and cannot be empty.&quot;</span><span class="p">,</span> 
+                <span class="n">code</span><span class="o">=</span><span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNPROCESSABLE_ENTITY</span><span class="p">)</span>
+
+        <span class="c1"># Extract the route from the message payload.</span>
+        <span class="c1"># This step is done to emulate the behavior of the REST API.</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="n">payload</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;route&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">route</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_error</span><span class="p">(</span><span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">)</span>
+
+        <span class="n">fastapi_app</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_fastapi_app</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">fastapi_app</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;FastAPI app is not available&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_error</span><span class="p">(</span>
+                <span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span>
+                <span class="n">error</span><span class="o">=</span><span class="s2">&quot;FastAPI app is not available&quot;</span><span class="p">,</span>
+                <span class="n">code</span><span class="o">=</span><span class="n">HTTPStatus</span><span class="o">.</span><span class="n">INTERNAL_SERVER_ERROR</span>
+            <span class="p">)</span>
+        <span class="c1"># We send all messages to graph</span>
+
+        <span class="n">client</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">fastapi_app</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">route</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">payload</span><span class="p">)</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">OK</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected status code: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;Unexpected status code&quot;</span><span class="p">})</span>
+        <span class="k">except</span> <span class="n">HTTPException</span> <span class="k">as</span> <span class="n">http_exc</span><span class="p">:</span>
+            <span class="n">error_detail</span> <span class="o">=</span> <span class="n">http_exc</span><span class="o">.</span><span class="n">detail</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_error</span><span class="p">(</span>
+                <span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error_detail</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">http_exc</span><span class="o">.</span><span class="n">status_code</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;HTTP error occurred: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">error_detail</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">exc</span><span class="p">:</span>
+            <span class="n">error_detail</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">exc</span><span class="p">)</span>
+            <span class="n">error_msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_error</span><span class="p">(</span>
+                <span class="n">agent_id</span><span class="o">=</span><span class="n">agent_id</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">error_detail</span><span class="p">,</span> <span class="n">code</span><span class="o">=</span><span class="n">HTTPStatus</span><span class="o">.</span><span class="n">INTERNAL_SERVER_ERROR</span>
+            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unexpected error occurred: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">error_detail</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.start_server">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.start_server">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">start_server</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent_container</span><span class="p">:</span> <span class="n">AgentContainer</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Asynchronously starts the data plane, which listens for incoming messages from the gateway,</span>
+<span class="sd">        processes each message, and sends a reply back to the source agent.</span>
+<span class="sd">        The function retrieves necessary agent configuration parameters such as organization,</span>
+<span class="sd">        namespace, and local agent information. It then enters an infinite loop, waiting for messages,</span>
+<span class="sd">        processing each message with process_message, logging the interaction, and replying to the source.</span>
+<span class="sd">        If the asynchronous task is cancelled, it logs a shutdown message and raises a RuntimeError.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            tuple: A tuple (last_src, last_msg) containing the last received source and the last processed message.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            RuntimeError: If the task is cancelled, triggering a shutdown of the data plane.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">last_src</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">last_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+        <span class="n">organization</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_organization</span><span class="p">()</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_namespace</span><span class="p">()</span>
+        <span class="n">local_agent</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_local_agent</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;AGP Server started for agent: </span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">organization</span><span class="p">,</span>
+                <span class="n">namespace</span><span class="p">,</span>
+                <span class="n">local_agent</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">src</span><span class="p">,</span> <span class="n">recv</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">receive</span><span class="p">()</span>
+                <span class="n">payload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">recv</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf8&quot;</span><span class="p">))</span>
+
+                <span class="c1"># Store the last received source and message</span>
+                <span class="n">last_src</span> <span class="o">=</span> <span class="n">src</span>
+                <span class="n">last_msg</span> <span class="o">=</span> <span class="n">payload</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Received message </span><span class="si">%s</span><span class="s2">, from src agent </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">payload</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
+
+                <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_message</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+
+                <span class="c1"># Publish reply message to src agent</span>
+                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">publish_to</span><span class="p">(</span><span class="n">msg</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">src</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">CancelledError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Shutdown server&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Shutdown server. Last source: </span><span class="si">{</span><span class="n">last_src</span><span class="si">}</span><span class="s2">, Last message: </span><span class="si">{</span><span class="n">last_msg</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="s2">&quot;Shutting down agent </span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">/</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">organization</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">local_agent</span>
+            <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.publish_messsage">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.publish_messsage">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">publish_messsage</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">message</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+        <span class="n">agent_container</span><span class="p">:</span> <span class="n">AgentContainer</span><span class="p">,</span>
+        <span class="n">remote_agent</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sends a message (JSON string) to the remote endpoint</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            msg (str): A JSON string representing the request payload.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">organization</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_organization</span><span class="p">()</span>
+        <span class="n">namespace</span> <span class="o">=</span> <span class="n">agent_container</span><span class="o">.</span><span class="n">get_namespace</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">json_message</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">gateway</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span>
+                <span class="n">json_message</span><span class="o">.</span><span class="n">encode</span><span class="p">(),</span> <span class="n">organization</span><span class="p">,</span> <span class="n">namespace</span><span class="p">,</span> <span class="n">remote_agent</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error sending message: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span></div>
+
+
+<div class="viewcode-block" id="GatewayContainer.create_error">
+<a class="viewcode-back" href="../../../agp_api.gateway.html#agp_api.gateway.gateway_container.GatewayContainer.create_error">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_error</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">error</span><span class="p">,</span> <span class="n">code</span><span class="p">,</span> <span class="n">agent_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a reply message with an error code.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            error (str): The error message that will be included in the reply.</span>
+<span class="sd">            code (int): The numerical code representing the error.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: A JSON-formatted string encapsulating the error message and error code.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">error</span><span class="p">,</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">code</span><span class="p">,</span>
+            <span class="s2">&quot;agent_id&quot;</span><span class="p">:</span> <span class="n">agent_id</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">msg</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright .</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
