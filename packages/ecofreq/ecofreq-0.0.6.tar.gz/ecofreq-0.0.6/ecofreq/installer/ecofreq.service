@@ -1,0 +1,12 @@
+[Unit]
+Description=Adjust CPU frequency according to CO2-intensity of the energy mix
+
+[Service]
+Type=simple
+ExecStart=<ECOFREQ_CMD>
+User=
+Group=<ECOFREQ_GROUP>
+
+[Install]
+WantedBy=multi-user.target
+
