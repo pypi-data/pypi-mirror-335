@@ -1,0 +1,215 @@
+<table align="center" style="margin: 0px auto;">
+  <tr>
+    <td>
+      <img src="https://raw.githubusercontent.com/phac-nml/nanogo/main/extra/nanogo_logo.svg" alt="NanoGo Logo" width="400" height="auto"/>
+    </td>
+    <td>
+      <h1>NanoGO Basecaller</h1>
+<p align="center" style="margin: 0px auto;">
+  <img src="https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=gitlab&logoColor=white&logoWidth=40&color=green" alt="Pipeline Status">
+  <img src="https://img.shields.io/badge/coverage-59.1%25-brightgreen?style=for-the-badge&logo=codecov&logoColor=white&logoWidth=40&color=green" alt="Coverage">
+  <img src="https://img.shields.io/badge/python-_3.8+-blue?style=for-the-badge&logo=python&logoColor=white&logoWidth=40&color=blue" alt="Python Versions">
+  <img src="https://img.shields.io/pypi/dm/nanogo-basecaller?style=for-the-badge&logo=pypi&logoColor=white&logoWidth=30&color=orange" alt="PyPI Downloads">
+  <img src="https://img.shields.io/badge/license-GNU%20GPL%20v3-blue?style=for-the-badge&logo=gnu&logoColor=white&logoWidth=40&color=blue" alt="License">
+</p>
+    </td>
+  </tr>
+</table>
+
+<table align="center" style="margin: 0px auto;">
+    <!-- Header row with column headers -->
+    <tr>
+        <th>Local Environment Operations</th>
+    </tr>
+    <!-- First row with images -->
+    <tr>
+        <td>
+            <a href="https://github.com/phac-nml/nanogo/blob/main/extra/cmd_xxQZGCLvlP.gif">
+                <img src="https://raw.githubusercontent.com/phac-nml/nanogo/main/extra/cmd_xxQZGCLvlP.gif" alt="NanoGO tool in Action" height="auto" width="350"/>
+            </a>
+        </td>
+    </tr>
+    <!-- Second row header and image -->
+    <tr>
+        <th colspan="2">Real-Time Performance Monitoring</th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <a href="https://anaconda.org/gosahan/nanogo/Code_eWv9WVcoX8.gif">
+                <img src="https://raw.githubusercontent.com/phac-nml/nanogo/main/extra/Code_eWv9WVcoX8.gif" alt="NanoGO Progress Bar" height="auto" width="auto"/>
+            </a>
+        </td>
+    </tr>
+</table>
+
+## Overview
+
+**NanoGO Basecaller** is a specialized component of the NanoGO bioinformatics pipeline, focused on Oxford Nanopore Technologies sequencing data basecalling. The tool leverages Dorado for high-performance basecalling with both standard and duplex sequencing modes, handling the conversion from raw signal data (FAST5/POD5) to nucleotide sequences.
+
+Key features:
+- Dorado-based basecalling with standard and duplex options
+- FAST5 to POD5 conversion
+- Automatic model selection and downloading
+- Built-in demultiplexing support
+- Parallel processing for optimal performance
+- Interactive configuration options
+- Support for GPU acceleration
+
+## Quick Installation Guide
+
+Use the following command to install NanoGO Basecaller:
+
+```bash
+conda create -n nanogo-basecaller "python=3.10" -y && conda activate nanogo-basecaller && pip install nanogo-basecaller
+```
+
+### Alternative Installation
+
+If the quick installation does not work, follow these steps:
+
+1. Create a conda environment:
+```bash
+conda create -n nanogo-basecaller "python=3.10"
+```
+
+2. Activate the environment:
+```bash
+conda activate nanogo-basecaller
+```
+
+3. Install the package:
+```bash
+pip install nanogo-basecaller
+```
+
+## Usage Requirements
+
+### Input Directory Structure
+```
+Input Directory
+├─ Raw_Sample_A
+│  ├─ Raw_Sample_A_01.pod5 (POD5 or FAST5)
+│  ├─ Raw_Sample_A_02.pod5 (POD5 or FAST5)
+├─ Raw_Sample_B
+│  ├─ Raw_Sample_B_01.fast5 (POD5 or FAST5)
+│  ├─ Raw_Sample_B_02.fast5 (POD5 or FAST5)
+│  ├─ Raw_Sample_B_03.fast5 (POD5 or FAST5)
+└─ Raw_Sample_N
+   └─ Raw_Sample_N_01.pod5 (POD5 or FAST5)
+```
+
+- The NanoGO Basecaller considers each directory (e.g., `Raw_Sample_A`, `Raw_Sample_B`) as separate sequencing runs.
+- Files within each folder can be in either FAST5 or POD5 format.
+  - FAST5 files are automatically converted to POD5 format during processing.
+
+### System Requirements
+- **GPU Compatibility**: Compatible with Dorado (NVIDIA CUDA-enabled GPUs recommended)
+- **Operating System**: Linux or Windows Subsystem for Linux (WSL)
+- **Memory**: Minimum of 16 GB RAM
+- **Processor**: At least 4 cores
+- **Dependencies**: Dorado (v0.6.0+) and Pod5 (v0.3.0+) tools
+
+## Usage Instructions
+
+### Test the Installation
+```bash
+nanogo --help
+```
+Expected output:
+```
+usage: nanogo [options] <subcommand>
+
+options:
+  -h, --help            show this help message and exit
+  -v, --version         Display the version number of NanoGO.
+
+Available Tools:
+  Valid subcommands
+
+  {basecaller}
+                        Description
+    basecaller          Run nanogo basecaller using dorado basecaller
+```
+
+### Interactive Mode
+```bash
+nanogo basecaller
+```
+This launches the interactive mode where you'll be prompted for input/output paths and configuration options.
+
+### Command Line Mode
+```bash
+nanogo basecaller -i <raw_ont-data_folder> -o <output_directory_name> [options]
+```
+
+### Options
+
+#### Input/Output
+- `-i <raw_ont-data_folder>`: Path to folder containing ONT raw data (FAST5/POD5)
+- `-o <output_directory_name>`: Output directory name (Default: "dorado_output")
+
+#### Basecalling Options
+- `-b`, `--basecaller`: Enable to specify and use a particular basecalling software (enabled by default)
+- `-d`, `--duplex`: Enable duplex sequencing mode for processing both DNA strands
+
+## Output Structure
+
+NanoGO Basecaller generates the following output:
+
+### temp_data Directory
+Contains intermediate files during processing:
+- **basecalling model/**: Downloaded machine learning models
+- **sublist_# folders/**: Processing chunks with:
+  - Non-demultiplexed BAM files
+  - Symbolic links to input POD5/FAST5 files
+  - **demux/**: Demultiplexed data organized by barcode
+- **sample sheet**: Configuration for demultiplexing
+
+### final_output Directory
+Contains final processed files:
+- **barcode## folders/**: Demultiplexed data by barcode
+- **unclassified/**: Sequences with unidentified barcodes
+
+## File Naming Convention
+
+Output files follow this naming convention:
+```
+{flow_cell_id}_{run_id}_{dorado_models_hex}_{dorado_kits_hex}_[file_count].fastq
+```
+
+Components:
+1. **Flow Cell ID**: Identifier from the sequencing data
+2. **Run ID**: First 8 characters of the unique run identifier
+3. **Dorado Models Hash**: First 8 characters of SHA-256 hash of the models
+4. **Dorado Kits Hash**: First 8 characters of SHA-256 hash of the kits
+5. **File Count**: Sequential counter for multiple files
+
+This naming ensures uniqueness, facilitates sorting, and maintains security while remaining concise.
+
+## Support
+
+For questions, issues, or assistance, please contact [Gurasis Osahan](mailto:gurasis.osahan@phac-aspc.gc.ca) at the National Microbiology Laboratory.
+
+## License
+
+NanoGO Basecaller is licensed under the Apache License, Version 2.0. For details, see [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+## Legal
+
+**Copyright**: Government of Canada 
+
+**Written by**: National Microbiology Laboratory, Public Health Agency of Canada
+
+Unless required by applicable law or agreed to in writing, software distributed
+under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for the
+specific language governing permissions and limitations under the License.
+
+## Contact
+
+[**Gurasis Osahan**](mailto:gurasis.osahan@phac-aspc.gc.ca) at National Microbiology Laboratory, Public Health Agency of Canada
+
+
+---
+
+*Ensuring public health through advanced genomics. Developed with unwavering commitment and expertise by National Microbiology Laboratory, Public Health Agency of Canada.*
