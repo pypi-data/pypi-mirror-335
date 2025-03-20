@@ -1,0 +1,82 @@
+Metadata-Version: 2.4
+Name: django-lti-authentication
+Version: 0.1.1
+Summary: Add-on to django-lti to support dynamic registration.
+Author-email: Harvard University Academic Technology <academictechnology@harvard.edu>
+Project-URL: Homepage, https://github.com/Harvard-University-iCommons/django-lti-authentication
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Classifier: Framework :: Django :: 5.0
+Classifier: Framework :: Django :: 5.1
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: django<5.0,>=4.2
+Requires-Dist: django-lti>=0.5.0
+Dynamic: license-file
+
+# django-lti-authentication
+
+Add-on to `django-lti` that integrates with Django's user authentication system.
+
+Installation
+------------
+
+Install the package using pip:
+
+```
+pip install django-lti-authentication
+```
+
+
+Setup
+-----
+
+Start by adding `lti_authentication.backends.LtiLaunchAuthenticationBackend` to your project's `AUTHENTICATION_BACKENDS`.
+
+```
+AUTHENTICATION_BACKENDS = [
+    ...
+    'lti_authentication.backends.LtiLaunchAuthenticationBackend',
+]
+```
+
+Then, add `lti_authentication.middleware.LtiLaunchAuthenticationMiddleware` to the `MIDDLEWARE` setting.
+It's important to list the `LtiLaunchAuthenticationMiddleware` *after* `LtiLaunchMiddleware` and
+`AuthenticationMiddleware`.
+
+```
+MIDDLEWARE = [
+    'lti_tool.middleware.LtiLaunchMiddleware',
+    ...
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'lti_authentication.middleware.LtiLaunchAuthenticationMiddleware',
+]
+```
+
+Configuring the Django username
+-------------------------------
+
+By default, the username is set to the `sub` value from the LTI launch.  You can use the `person_sourcedid`
+value from the `lis` claim instead by adding this to your Django settings:
+
+```
+LTI_AUTHENTICATION = {
+    'use_person_sourcedid': True,
+}
+```
+If you want to use a different field, you can subclass `LtiLaunchAuthenticationBackend` and override the
+`get_username` method.
