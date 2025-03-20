@@ -1,0 +1,79 @@
+{
+  "name": "pret",
+  "main": "client/index.tsx",
+  "version": "0.1.0",
+  "scripts": {
+    "build": "jlpm clean && jlpm build:standalone && jlpm build:jupyter",
+    "build:dev": "jlpm clean && jlpm build:standalone && jlpm build:jupyter:dev",
+    "build:standalone": "webpack --config webpack/webpack.config.js",
+    "build:jupyter": "jupyter labextension build .",
+    "build:jupyter:dev": "jupyter labextension build --development True .",
+    "clean": "rm -rf pret/js-extension pret/js-base"
+  },
+  "peerDependencies": {
+    "@jupyterlab/application": "",
+    "@jupyterlab/apputils": "",
+    "@jupyterlab/docregistry": "",
+    "@jupyterlab/logconsole": "",
+    "@jupyterlab/mainmenu": "",
+    "@jupyterlab/notebook": "",
+    "@jupyterlab/outputarea": "",
+    "@jupyterlab/rendermime": "",
+    "@jupyterlab/services": "",
+    "@jupyterlab/settingregistry": "",
+    "@lumino/algorithm": "",
+    "@lumino/coreutils": "",
+    "@lumino/disposable": "",
+    "@lumino/properties": "",
+    "@lumino/signaling": "",
+    "@lumino/widgets": "",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/joy": "5.0.0-beta.0",
+    "@mui/material": "^5.13.1",
+    "allotment": "^1.19.0",
+    "css-loader": "^6.7.3",
+    "pyodide": "^0.23.2",
+    "regenerator-runtime": "^0.13.11",
+    "style-loader": "^3.3.2",
+    "use-sync-external-store": "^1.2.0"
+  },
+  "devDependencies": {
+    "@jupyterlab/builder": "^3.6.3",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.1",
+    "prettier": "^2.8.8",
+    "react": ">=17.0.2",
+    "react-dom": ">=17.0.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "4.5",
+    "webpack": "^5.83.1"
+  },
+  "jupyterlab": {
+    "extension": "client/jupyter/plugin",
+    "schemaDir": "client/jupyter/schema",
+    "outputDir": "pret/js-extension",
+    "webpackConfig": "./webpack/webpack.jupyter.js",
+    "_build": {
+      "load": "static/remoteEntry.2bd3f197dbd929356524.js",
+      "extension": "./extension"
+    }
+  },
+  "prettier": {},
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

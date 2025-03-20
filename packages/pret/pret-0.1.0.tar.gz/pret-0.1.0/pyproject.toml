@@ -1,0 +1,107 @@
+[project]
+name = "pret"
+description = "Python framework to build reactive web apps with seamless server-client interaction"
+authors = [
+    { name = "Perceval Wajsburt", email = "perceval.wajsburt@gmail.com" }
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+urls.homepage = "https://github.com/perceval/pret/"
+urls.repository = "https://github.com/perceval/pret/"
+dynamic = ["version"]
+requires-python = ">3.7.6,<4.0,!=3.8.1"
+dependencies = [
+    "ipykernel",
+    "dill",
+    "quart",
+    "typer",
+    "pygetsource",
+]
+
+# ----- CLI configuration -----
+[project.scripts]
+pret = "pret.cli:app"
+
+# ----- Development configuration -----
+[project.optional-dependencies]
+dev = [
+    "hatchling",
+    "hatch-jupyter-builder",
+    "pret-joy",
+]
+docs = [
+    "mike~=1.1.2",
+    "mkdocs-charts-plugin==0.0.8",
+    "mkdocs-img2fig-plugin==0.9.3",
+    "mkdocs-material~=9.2.0",
+    "mkdocs-section-index==0.3.4",
+    "mkdocs~=1.5.2",
+    "mkdocstrings>=0.20,<0.28.0",
+    "mkdocstrings-python~=1.1",
+    "mkdocs-minify-plugin",
+    "mkdocs-redirects>=1.2.1;python_version>='3.8'",
+    "pybtex~=0.24.0",
+    "pathspec>=0.11.1",  # required by vendored mkdocs-autorefs PR
+    "astunparse",
+    "griffe<0.39",
+    "beautifulsoup4",
+    "jedi",
+    "html5lib",
+]
+
+[project.entry-points."mkdocs.plugins"]
+"bibtex" = "docs.scripts.bibtex:BibTexPlugin"
+"autorefs" = "docs.scripts.autorefs.plugin:AutorefsPlugin"
+"clickable_snippets" = "docs.scripts.clickable_snippets:ClickableSnippetsPlugin"
+"pret_snippet_renderer" = "docs.scripts.pret_snippet_renderer:PretSnippetRendererPlugin"
+
+# ----- Linting & Testing -----
+[tool.ruff]
+fix = true
+exclude = [
+    ".git",
+    "__pycache__",
+    "__init__.py",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".venv",
+    "build",
+    "pret/ui/react.py"
+]
+line-length = 88
+lint.select = [
+    "E",
+    "F",
+    "W",
+    "I001"
+]
+lint.fixable = ["E", "F", "W", "I"]
+
+[tool.ruff.lint.extend-per-file-ignores]
+# Also ignore `E402` in all `__init__.py` files.
+"__init__.py" = ["E402", "F401"]
+
+
+# ----- Build configuration -----
+[tool.hatch.version]
+path = "pret/__init__.py"
+
+[build-system]
+requires = ["hatchling", "jupyterlab<4.0.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder"]
+build-function = "hatch_jupyter_builder.npm_builder"
+install-pre-commit-hook = true
+optional-editable-build = true
+build-kwargs = { "build_cmd" = "build", "npm" = ["jlpm"] }
+editable-build-kwargs = { "build_cmd" = "build:dev", "npm" = ["jlpm"] }
+
+[tool.hatch.build]
+artifacts = [
+    "pret"
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"pret/js-extension" = "share/jupyter/labextensions/pret"
