@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: jobmon_core
+Version: 3.4.8
+Summary: Shared functionality for Jobmon Namespace Packages
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp
+Requires-Dist: pyyaml
+Requires-Dist: psutil
+Requires-Dist: requests
+Requires-Dist: tenacity>=8.1
+Requires-Dist: docstring-parser
+Requires-Dist: grpcio<=1.64.1
+Requires-Dist: docutils
+Requires-Dist: sphinx
+Requires-Dist: python-dotenv
+Provides-Extra: otlp
+Requires-Dist: opentelemetry-api; extra == "otlp"
+Requires-Dist: opentelemetry-sdk; extra == "otlp"
+Requires-Dist: opentelemetry-instrumentation; extra == "otlp"
+Requires-Dist: opentelemetry-instrumentation-fastapi; extra == "otlp"
+Requires-Dist: opentelemetry-instrumentation-requests; extra == "otlp"
+Requires-Dist: opentelemetry-exporter-otlp; extra == "otlp"
+Dynamic: license-file
+
+# JobMon Core
+
+## Introduction
+
+JobMon is a Python package developed by IHME's Scientific Computing team,
+designed to simplify and standardize the process of job monitoring and
+workflow management in computational projects.
+It facilitates the tracking of job statuses, manages dependencies,
+and streamlines the execution of complex workflows across various computing environments.
+
+This package contains the code that it is shared between the client and the server, and
+is deployed to the customer's worked node. 
+
+See also the main documentation at [readthedocs](https://jobmon.readthedocs.io/en/latest/#).
