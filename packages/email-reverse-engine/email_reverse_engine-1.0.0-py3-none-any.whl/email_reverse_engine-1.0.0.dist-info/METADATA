@@ -1,0 +1,170 @@
+Metadata-Version: 2.4
+Name: email_reverse_engine
+Version: 1.0.0
+Summary: Tool voor het achterhalen van emailadressen en het analyseren van online aanwezigheid
+Author: Email Reverse Engine Team
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Internet
+Classifier: Topic :: Security
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.1
+Requires-Dist: dnspython>=2.1.0
+Requires-Dist: python-dotenv>=0.19.0
+Requires-Dist: email-validator>=1.1.3
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: colorama>=0.4.4
+Requires-Dist: tqdm>=4.62.3
+Provides-Extra: gui
+Requires-Dist: PyQt5>=5.15.4; extra == "gui"
+Requires-Dist: PyQt5-sip>=12.9.0; extra == "gui"
+Requires-Dist: PyQtChart>=5.15.4; extra == "gui"
+Provides-Extra: db
+Requires-Dist: SQLAlchemy>=1.4.23; extra == "db"
+Requires-Dist: pymongo>=4.0.1; extra == "db"
+Provides-Extra: full
+Requires-Dist: PyQt5>=5.15.4; extra == "full"
+Requires-Dist: PyQt5-sip>=12.9.0; extra == "full"
+Requires-Dist: PyQtChart>=5.15.4; extra == "full"
+Requires-Dist: SQLAlchemy>=1.4.23; extra == "full"
+Requires-Dist: pymongo>=4.0.1; extra == "full"
+Requires-Dist: beautifulsoup4>=4.9.3; extra == "full"
+Requires-Dist: lxml>=4.6.3; extra == "full"
+Requires-Dist: httpx>=0.23.0; extra == "full"
+Requires-Dist: aiohttp>=3.8.1; extra == "full"
+Requires-Dist: pandas>=1.3.3; extra == "full"
+Requires-Dist: numpy>=1.21.2; extra == "full"
+Requires-Dist: python-dateutil>=2.8.2; extra == "full"
+Requires-Dist: openpyxl>=3.0.9; extra == "full"
+Requires-Dist: jinja2>=3.0.1; extra == "full"
+Requires-Dist: Markdown>=3.3.4; extra == "full"
+Requires-Dist: pdfkit>=1.0.0; extra == "full"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.2.5; extra == "dev"
+Requires-Dist: pytest-cov>=2.12.1; extra == "dev"
+Requires-Dist: pytest-qt>=4.0.2; extra == "dev"
+Requires-Dist: black>=21.8b0; extra == "dev"
+Requires-Dist: flake8>=3.9.2; extra == "dev"
+Requires-Dist: mypy>=0.910; extra == "dev"
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Email Reverse Engine
+
+Een geavanceerde applicatie voor het zoeken, analyseren en valideren van email-adressen op sociale platforms.
+
+## Architectuur en Structuur
+
+Dit project volgt een 3-lagen architectuur volgens SOLID-principes:
+
+### 1. Data Layer
+
+Verantwoordelijk voor databeheer en persistentie:
+
+- `data_layer/models/`: Datamodellen zoals EmailProfile en EmailValidationResult
+- `data_layer/repositories/`: Repository-interfaces en implementaties voor dataopslag
+- `data_layer/sources/`: Databronnen voor externe informatie
+
+### 2. Service Layer
+
+Implementeert de business logica:
+
+- `service_layer/controllers/`: Controllers voor orchestratie van businessoperaties
+- `service_layer/email_service.py`: Servicelaag voor emailvalidatie en -verwerking
+- `service_layer/search_service.py`: Servicelaag voor zoekoperaties
+- `service_layer/analyzers/`: Analytische componenten voor dataverwerking
+- `service_layer/scrapers/`: Web scraping functionaliteit
+
+### 3. Presentation Layer
+
+Implementeert de gebruikersinterface:
+
+- `web_layer/gui/`: PyQt5-gebaseerde GUI componenten
+- `web_layer/api/`: REST API voor externe toegang
+- `web_layer/cli/`: Command-line interface
+
+### 4. Core
+
+Algemene functionaliteit:
+
+- `core/config_manager.py`: Configuratiebeheer
+- `core/email_validation_service.py`: Factory voor emailvalidatieservices
+
+## SOLID Principes
+
+1. **Single Responsibility Principle**: Elke klasse heeft één verantwoordelijkheid
+2. **Open/Closed Principle**: Open voor uitbreiding, gesloten voor wijziging
+3. **Liskov Substitution Principle**: Subtypes zijn verwisselbaar met hun basis
+4. **Interface Segregation Principle**: Specifieke interfaces in plaats van algemene
+5. **Dependency Inversion Principle**: Afhankelijk van abstracties, niet implementaties
+
+## Gebruik
+
+### Installatie
+
+```bash
+# Clone de repository
+git clone https://github.com/yourusername/email_reverse_engine.git
+cd email_reverse_engine
+
+# Installeer dependencies
+pip install -r requirements.txt
+```
+
+### Opstarten
+
+```bash
+# Start de applicatie (GUI)
+python start_app.py
+
+# Start in command-line modus
+python start_app.py --no-gui
+
+# Start met aangepaste configuratie
+python start_app.py --config my_config.yaml
+```
+
+## Features
+
+- Email validatie met diverse checks (syntax, MX records, wegwerp-emails)
+- Zoeken naar email profielen op sociale platforms
+- Caching van zoekresultaten voor snelle herhaalde queries
+- Visualisatie van zoekresultaten
+- Exportmogelijkheden voor rapportage
+
+## Ontwikkeling
+
+### Tests uitvoeren
+
+```bash
+# Alle tests uitvoeren
+python -m unittest discover src/tests
+
+# Specifieke test uitvoeren
+python -m src.tests.test_service_layer_email_controller
+```
+
+### Code-structuur behouden
+
+Nieuwe code moet de bestaande architectuur volgen:
+- Datamodellen in data_layer
+- Business logica in service_layer
+- UI componenten in web_layer
+
+Interface-first ontwikkeling toepassen voor betere testbaarheid.
+
+## Licentie
+
+Dit project is beschikbaar onder [licentie informatie invoegen]. 
