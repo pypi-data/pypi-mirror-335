@@ -1,0 +1,91 @@
+Metadata-Version: 2.4
+Name: bioio-ome-zarr
+Version: 1.1.1
+Summary: A BioIO reader plugin for reading Zarr files in the OME format.
+Author-email: bioio-devs <brian.whitney@alleninstitute.org>
+License: MIT License
+Project-URL: Homepage, https://github.com/BrianWhitneyAI/bioio-ome-zarr
+Project-URL: Bug Tracker, https://github.com/BrianWhitneyAI/bioio-ome-zarr/issues
+Project-URL: User Support, https://github.com/BrianWhitneyAI/bioio-ome-zarr/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: bioio-base>=1.0.0
+Requires-Dist: fsspec>=2022.8.0
+Requires-Dist: ome-zarr>=0.9.0
+Requires-Dist: xarray>=0.16.1
+Requires-Dist: zarr>=2.18.2
+Provides-Extra: lint
+Requires-Dist: pre-commit>=2.20.0; extra == "lint"
+Provides-Extra: test
+Requires-Dist: coverage>=5.1; extra == "test"
+Requires-Dist: pytest>=5.4.3; extra == "test"
+Requires-Dist: pytest-cov>=2.9.0; extra == "test"
+Requires-Dist: pytest-raises>=0.11; extra == "test"
+Requires-Dist: quilt3; extra == "test"
+Dynamic: license-file
+
+# bioio-ome-zarr
+
+[![Build Status](https://github.com/bioio-devs/bioio-ome-zarr/actions/workflows/ci.yml/badge.svg)](https://github.com/bioio-devs/bioio-ome-zarr/actions)
+[![PyPI version](https://badge.fury.io/py/bioio-ome-zarr.svg)](https://badge.fury.io/py/bioio-ome-zarr)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9,3.10,3.11-blue.svg)](https://www.python.org/downloads/release/python-390/)
+
+A BioIO reader plugin for reading OME ZARR images using `ome-zarr`
+
+---
+
+
+## Documentation
+
+[See the full documentation on our GitHub pages site](https://bioio-devs.github.io/bioio/OVERVIEW.html) - the generic use and installation instructions there will work for this package.
+
+Information about the base reader this package relies on can be found in the `bioio-base` repository [here](https://github.com/bioio-devs/bioio-base)
+
+## Installation
+
+**Stable Release:** `pip install bioio-ome-zarr`<br>
+**Development Head:** `pip install git+https://github.com/bioio-devs/bioio-ome-zarr.git`
+
+## Example Usage (see full documentation for more examples)
+
+Install bioio-ome-zarr alongside bioio:
+
+`pip install bioio bioio-ome-zarr`
+
+
+This example shows a simple use case for just accessing the pixel data of the image
+by explicitly passing this `Reader` into the `BioImage`. Passing the `Reader` into
+the `BioImage` instance is optional as `bioio` will automatically detect installed
+plug-ins and auto-select the most recently installed plug-in that supports the file
+passed in.
+```python
+from bioio import BioImage
+import bioio_ome_zarr
+
+img = BioImage("my_file.zarr", reader=bioio_ome_zarr.Reader)
+img.data
+```
+
+### Reading from AWS S3
+To read from private S3 buckets, [credentials](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html) must be configured. Public buckets can be accessed without credentials.
+```python
+from bioio import BioImage
+path = "https://allencell.s3.amazonaws.com/aics/nuc-morph-dataset/hipsc_fov_nuclei_timelapse_dataset/hipsc_fov_nuclei_timelapse_data_used_for_analysis/baseline_colonies_fov_timelapse_dataset/20200323_09_small/raw.ome.zarr"
+image = BioImage(path)
+print(image.get_image_dask_data())
+```
+
+## Issues
+[_Click here to view all open issues in bioio-devs organization at once_](https://github.com/search?q=user%3Abioio-devs+is%3Aissue+is%3Aopen&type=issues&ref=advsearch) or check this repository's issue tab.
+
+
+## Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing the code.
