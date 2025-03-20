@@ -1,0 +1,49 @@
+# This file is generated from pyproject.toml using .github/update-environment.py
+name: pipefunc
+
+channels:
+- conda-forge
+
+dependencies:
+  - python
+  - pip
+  # from pyproject.toml
+  - cloudpickle
+  - networkx
+  - numpy
+  # optional-dependencies: adaptive
+  - adaptive
+  - adaptive-scheduler>=2.14.0
+  # optional-dependencies: autodoc
+  - griffe
+  - rich
+  # optional-dependencies: cli
+  - pydantic
+  - rich-argparse
+  # optional-dependencies: pandas
+  - pandas
+  # optional-dependencies: plotting
+  - bokeh<3.7
+  - python-graphviz
+  - holoviews
+  - matplotlib
+  # optional-dependencies: profiling
+  - psutil
+  # optional-dependencies: pydantic
+  # optional-dependencies: rich
+  # optional-dependencies: widgets
+  - graphviz-anywidget>=0.3.0
+  - ipywidgets
+  # optional-dependencies: xarray
+  - xarray
+  # optional-dependencies: zarr
+  - zarr>=2,<3
+  # optional-dependencies: test
+  - coverage
+  - pytest-asyncio
+  - pytest-codspeed
+  - pytest-cov
+  - pytest-timeout
+  - pytest-xdist
+  - pytest
+  - versioningit
