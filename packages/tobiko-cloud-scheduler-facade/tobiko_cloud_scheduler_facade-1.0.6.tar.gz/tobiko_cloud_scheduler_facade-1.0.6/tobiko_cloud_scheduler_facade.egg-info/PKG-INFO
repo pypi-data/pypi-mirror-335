@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: tobiko-cloud-scheduler-facade
+Version: 1.0.6
+Author: TobikoData Inc.
+Author-email: engineering@tobikodata.com
+Requires-Python: <3.13,>=3.9
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: sqlglot[rs]
+Requires-Dist: tobiko-cloud-api-client==202512.28.0
+Requires-Dist: tobiko-cloud-helpers==202512.28.0
+Requires-Dist: tobiko-cloud-pydantic==202512.28.0
+Provides-Extra: airflow
+Requires-Dist: apache-airflow; extra == "airflow"
+Provides-Extra: dagster
+Requires-Dist: dagster; extra == "dagster"
+Requires-Dist: dagster-graphql; extra == "dagster"
