@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: rxnDB
+Version: 0.1.0a8
+Summary: A Python Shiny app for reaction database management
+Author-email: Buchanan Kerswell <buck.kerswell@gmail.com>
+License: MIT
+Project-URL: Repository, https://github.com/buchanankerswell/kerswell_et_al_rxnDB
+Classifier: Natural Language :: English
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: shiny
+Requires-Dist: shinywidgets
+Requires-Dist: anywidget
+Requires-Dist: pandas
+Requires-Dist: plotly
+Requires-Dist: faicons
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pip; extra == "dev"
+Provides-Extra: docs
+Requires-Dist: sphinx<7.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Requires-Dist: sphinx-autoapi; extra == "docs"
+Requires-Dist: sphinxcontrib-httpdomain; extra == "docs"
+Dynamic: license-file
+
+# rxnDB: a mineral reaction database
+See the [documentation](https://kerswell-et-al-rxndb.readthedocs.io/en/latest/) for installation and usage.
