@@ -1,0 +1,63 @@
+/*****************************************************************************
+*
+* ALPS Project: Algorithms and Libraries for Physics Simulations
+*
+* ALPS Libraries
+*
+* Copyright (C) 1994-2010 by Matthias Troyer <troyer@itp.phys.ethz.ch>,
+*                            Synge Todo <wistaria@comp-phys.org>
+*
+* Permission is hereby granted, free of charge, to any person obtaining
+* a copy of this software and associated documentation files (the “Software”),
+* to deal in the Software without restriction, including without limitation
+* the rights to use, copy, modify, merge, publish, distribute, sublicense,
+* and/or sell copies of the Software, and to permit persons to whom the
+* Software is furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included
+* in all copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS
+* OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+* FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+* DEALINGS IN THE SOFTWARE.
+*
+*****************************************************************************/
+
+#ifndef ALPS_VERSION_H
+#define ALPS_VERSION_H
+
+// ALPS version
+#cmakedefine ALPS_VERSION "@ALPS_VERSION@"
+
+#cmakedefine ALPS_VERSION_MAJOR @ALPS_VERSION_MAJOR@
+#cmakedefine ALPS_VERSION_MINOR @ALPS_VERSION_MINOR@
+#cmakedefine ALPS_VERSION_PATCH @ALPS_VERSION_PATCH@
+#cmakedefine ALPS_SVN_REVISION @ALPS_WC_REVISION@
+
+// ALPS version (full string)
+#cmakedefine ALPS_VERSION_STRING "@ALPS_VERSION_STRING@"
+
+// latest publish year of ALPS
+#cmakedefine ALPS_YEAR "@ALPS_YEAR@"
+
+// install path of ALPS
+#cmakedefine ALPS_PREFIX "@ALPS_PREFIX@"
+
+// source directory of ALPS
+#cmakedefine ALPS_SRCDIR "@ALPS_SRCDIR@"
+
+// XSLT PATH
+#cmakedefine ALPS_XML_DIR "@ALPS_XML_DIR@"
+#cmakedefine ALPS_XML_ALTERNATE_DIR "@ALPS_XML_ALTERNATE_DIR@"
+
+// hostname where configure script was executed
+#cmakedefine ALPS_CONFIG_HOST "@ALPS_CONFIG_HOST@"
+
+// username who executed configure script
+#cmakedefine ALPS_CONFIG_USER "@ALPS_CONFIG_USER@"
+
+#endif // ALPS_VERSION_H

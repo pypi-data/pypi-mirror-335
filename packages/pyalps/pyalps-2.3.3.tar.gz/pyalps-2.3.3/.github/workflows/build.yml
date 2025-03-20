@@ -1,0 +1,89 @@
+name: ALPS CI/CD
+
+on: [push, pull_request]
+
+jobs:
+  linux-build:
+    name: Build ALPS on ${{ matrix.plat.os }}
+    runs-on: ${{ matrix.plat.os }}
+    strategy:
+      matrix:
+        # macos-13 is an intel runner, macos-14 is apple silicon
+        plat: 
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-10 g++-10", c_compiler: gcc, cxx_compiler: g++, c_version: 10, py_version: "3.9", boost_version: 76}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-11 g++-11", c_compiler: gcc, cxx_compiler: g++, c_version: 11, py_version: "3.10", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-12 g++-12", c_compiler: gcc, cxx_compiler: g++, c_version: 12, py_version: "3.10", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-11 g++-11", c_compiler: gcc, cxx_compiler: g++, c_version: 11, py_version: "3.11", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-12 g++-12", c_compiler: gcc, cxx_compiler: g++, c_version: 12, py_version: "3.11", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-11 g++-11", c_compiler: gcc, cxx_compiler: g++, c_version: 11, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-22.04, target: "", comp_pack: "gcc-12 g++-12", c_compiler: gcc, cxx_compiler: g++, c_version: 12, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "gcc-13 g++-13", c_compiler: gcc, cxx_compiler: g++, c_version: 13, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "gcc-14 g++-14", c_compiler: gcc, cxx_compiler: g++, c_version: 14, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "gcc-13 g++-13", c_compiler: gcc, cxx_compiler: g++, c_version: 13, py_version: "3.12", boost_version: 87}
+        - { os: ubuntu-24.04, target: "", comp_pack: "gcc-14 g++-14", c_compiler: gcc, cxx_compiler: g++, c_version: 14, py_version: "3.12", boost_version: 87}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-13", c_compiler: clang, cxx_compiler: clang++, c_version: 13, py_version: "3.10", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-14", c_compiler: clang, cxx_compiler: clang++, c_version: 14, py_version: "3.10", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-15", c_compiler: clang, cxx_compiler: clang++, c_version: 15, py_version: "3.10", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-13", c_compiler: clang, cxx_compiler: clang++, c_version: 13, py_version: "3.11", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-14", c_compiler: clang, cxx_compiler: clang++, c_version: 14, py_version: "3.11", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-15", c_compiler: clang, cxx_compiler: clang++, c_version: 15, py_version: "3.11", boost_version: 81}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-13", c_compiler: clang, cxx_compiler: clang++, c_version: 13, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-14", c_compiler: clang, cxx_compiler: clang++, c_version: 14, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-22.04, target: "", comp_pack: "clang-15", c_compiler: clang, cxx_compiler: clang++, c_version: 15, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "clang-16", c_compiler: clang, cxx_compiler: clang++, c_version: 16, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "clang-17", c_compiler: clang, cxx_compiler: clang++, c_version: 17, py_version: "3.12", boost_version: 86}
+        - { os: ubuntu-24.04, target: "", comp_pack: "clang-18", c_compiler: clang, cxx_compiler: clang++, c_version: 18, py_version: "3.12", boost_version: 86}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: ${{ matrix.plat.py_version }}
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          python -m pip install --upgrade pip
+          pip install numpy==1.26.4 scipy==1.13.0
+          sudo apt install ${{ matrix.plat.comp_pack }}
+          sudo apt install liblapack-dev libblas-dev libopenmpi-dev libhdf5-serial-dev
+          wget https://archives.boost.io/release/1.${{ matrix.plat.boost_version }}.0/source/boost_1_${{ matrix.plat.boost_version }}_0.tar.gz
+          tar -xzf boost_1_${{ matrix.plat.boost_version }}_0.tar.gz
+      - name: Build ALPS
+        env:
+          CC:  ${{ matrix.plat.c_compiler }}-${{ matrix.plat.c_version }}
+          CXX: ${{ matrix.plat.cxx_compiler }}-${{ matrix.plat.c_version }}
+        run: |
+          cmake -S $GITHUB_WORKSPACE -B build -DBoost_ROOT_DIR=`pwd`/boost_1_${{ matrix.plat.boost_version }}_0 -DCMAKE_CXX_FLAGS="-std=c++14 -fpermissive -DBOOST_NO_AUTO_PTR -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF -DBOOST_TIMER_ENABLE_DEPRECATED"
+          cmake --build build -j 2
+          cmake --build build -j 2 -t test
+
+  macos-build:
+    name: Build ALPS on ${{ matrix.plat.os }}
+    runs-on: ${{ matrix.plat.os }}
+    strategy:
+      matrix:
+        # macos-13 is an intel runner, macos-14 is apple silicon
+        plat: 
+        - { os: macos-14, target: "", comp_pack: "gcc-14 g++-14", c_compiler: gcc, cxx_compiler: g++, c_version: 14, py_version: "3.12", boost_version: 86}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          brew install gcc python@${{ matrix.plat.py_version }}
+          python${{ matrix.plat.py_version }} -m pip install --upgrade pip --break-system-packages
+          pip${{ matrix.plat.py_version }} install numpy==1.26.4 scipy==1.13.0 --break-system-packages
+          brew install openmpi hdf5
+          wget https://archives.boost.io/release/1.${{ matrix.plat.boost_version }}.0/source/boost_1_${{ matrix.plat.boost_version }}_0.tar.gz
+          tar -xzf boost_1_${{ matrix.plat.boost_version }}_0.tar.gz
+          ln -s /opt/homebrew/bin/python${{ matrix.plat.py_version }} /opt/homebrew/bin/python
+      - name: Build ALPS
+        env:
+          CC:  ${{ matrix.plat.c_compiler }}-${{ matrix.plat.c_version }}
+          CXX: ${{ matrix.plat.cxx_compiler }}-${{ matrix.plat.c_version }}
+        run: |
+          cmake -S $GITHUB_WORKSPACE -B build -DBoost_ROOT_DIR=`pwd`/boost_1_${{ matrix.plat.boost_version }}_0 -DCMAKE_CXX_FLAGS="-std=c++14 -fpermissive -DBOOST_NO_AUTO_PTR -DBOOST_FILESYSTEM_NO_CXX20_ATOMIC_REF -DBOOST_TIMER_ENABLE_DEPRECATED" -DPython_ROOT_DIR=`/opt/homebrew/bin/python${{ matrix.plat.py_version }} -c "import sys, os; print(os.path.dirname(os.path.dirname(str(sys.executable))));"`
+          cmake --build build -j 2
+          cmake --build build -j 2 -t test
+
