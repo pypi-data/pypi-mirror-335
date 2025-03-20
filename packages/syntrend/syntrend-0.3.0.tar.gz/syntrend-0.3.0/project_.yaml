@@ -1,0 +1,26 @@
+--- !syntrend/ref::obj1
+obj1:
+  type: integer
+---
+type: object
+properties:
+  prop1:
+    type: string
+--- !syntrend/root
+objects:
+  bases:
+    - ref: obj1
+  obj2: &obj_2
+    bases:
+      - path: project.yaml
+        index: 1
+    properties:
+      prop1:
+        chars: abc
+      prop2:
+        type: uuid
+  obj3:
+    <<: *obj_2
+    properties:
+      prop3:
+        type: uuid

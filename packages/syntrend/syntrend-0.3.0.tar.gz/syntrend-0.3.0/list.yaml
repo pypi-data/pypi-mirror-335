@@ -1,0 +1,30 @@
+--- !syntrend/root
+obj1:
+  bases:
+    - path: obj.yaml
+obj2:
+  bases:
+    - ref: obj1
+    - ref: listOfWords
+  properties:
+    attr2:
+      min_offset: 600
+      max_offset: 700
+
+--- !syntrend/ref::obj1
+type: object
+properties:
+  attr1:
+    type: string
+  attr2:
+    type: integer
+  attr3:
+    type: name
+
+--- !syntrend/ref::listOfWords
+properties:
+  attr1:
+    chars:
+      - "list "
+      - "of "
+      - "words "
