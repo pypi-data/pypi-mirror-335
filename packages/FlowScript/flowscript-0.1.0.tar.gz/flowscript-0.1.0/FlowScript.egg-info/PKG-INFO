@@ -1,0 +1,39 @@
+Metadata-Version: 2.2
+Name: FlowScript
+Version: 0.1.0
+Summary: A test automation package for workflow scheduling and execution.
+Home-page: https://github.com/sridhar-mani/test-automation
+Author: M.Sridhar
+Author-email: mailtosridhar01@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-python
+Dynamic: summary
+
+# FlowScript
+
+FlowScript is a Python package that automates workflow scheduling and execution based on a JSON configuration and an SQLite database. It includes modules for parsing workflow configurations, scheduling tasks, executing tasks, and managing workflow execution.
+
+## Features
+
+- **Workflow Parsing:** Parse and validate workflow configurations from a JSON file.
+- **Task Scheduling:** Manage and schedule tasks using an SQLite database.
+- **Task Execution:** Execute tasks concurrently using threading.
+- **Logging:** Integrated logging for tracking workflow progress and errors.
+- **Modular Design:** Components such as parser, scheduler, task executor, and workflow engine are separated into distinct modules for easy maintenance and extension.
+
+## Installation
+
+After publishing on PyPI, you can install the package using:
+
+```bash
+pip install test_automation
