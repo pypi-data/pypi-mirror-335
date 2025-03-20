@@ -1,0 +1,1 @@
+from idspy_dictionaries._version import _IDSPY_VERSION as __version__
