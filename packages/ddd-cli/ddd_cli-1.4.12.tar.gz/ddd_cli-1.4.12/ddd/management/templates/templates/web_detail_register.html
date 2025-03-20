@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+Django form based
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">View Form in Django</h1>
+
+    <form action="{% url '[[ entity_name.lower() ]]_list' %}" method="GET">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <a href="{% url '[[ entity_name.lower() ]]_list' %}" class="btn btn-primary btn-link">Go List</a>
+
+    </form>
+{% endblock %} 
