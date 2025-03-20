@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pypal_nyu"
+description = "A package that generates random address, names, phonenumbers and profile to fulfill website registration requirements."
+version = "0.1.4"
+authors = [
+  { name="Xiangyu Lin", email="xl4358@nyu.edu" },
+  { name="Yubei Ni", email="yn2178@nyu.edu" },
+  { name="Zifan Zhao", email="zz4330@nyu.edu" },
+  { name="Siyue Gu", email="sg7510@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "email", "name", "phone numbers", "profile", "random", "generator"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-pypal"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-pypal.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-pypal/issues"
+
+[project.scripts]
+pypal = "pypal.__main__:main"
