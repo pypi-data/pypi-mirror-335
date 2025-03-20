@@ -1,0 +1,21 @@
+[package]
+name = "sshbind-wrapper-python"
+version = "0.0.2"
+edition = "2021"
+license = "MIT"
+authors = ["Maximilian Philipp <maxkon2000@gmail.com>"]
+readme = "README.md"
+homepage = "https://github.com/Xyhlon/SSHBindpy"
+repository = "https://github.com/Xyhlon/SSHBindpy"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name = "sshbind_wrapper_python"
+crate-type = ["cdylib"]
+
+[dependencies]
+log = "0.4.26"
+env_logger = "0.11.6"
+pyo3 = "0.23.3"
+sshbind = "0.0.1"
+openssl = { version = "0.10", features = ["vendored"] }
