@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: sweecrypt
+Version: 1.1.2
+Summary: An easy and fun encryption module.
+Author: SweeZero
+Author-email: meow@swee.codes
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Education
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: license-file
+Dynamic: summary
+
+# SweeCrypt
+A basic and fun cipher module for everyone. it converts regular text into symbols on a keyboard, kind of like a cipher. This is only for fun, using this module for cybersecurity is NOT ADVISED
+
+Install:  
+```
+pip3 install sweecrypt
+```
+
+Import:  
+```python
+>>> import sweecrypt
+```
+
+Encrypt:  
+```python
+>>> sweecrypt.encrypt("hello, world!")
+!?~~(:,}(>~/a
+```
+
+Decrypt:  
+```python
+>>> sweecrypt.decrypt("!?~~(:,}(>~/a")
+hello, world!
+```
+
+With newer versions of sweecrypt (>= 1.1.0), you can shift the encryption database:
+
+```python
+>>> sweecrypt.encrypt("hello, world", 3)
+'\\!((>ba_>](#'
+>>> sweecrypt.decrypt("\\!((>ba_>](#", 3)
+'hello, world'
+```
+
+So it will output a nonsense string if shifted incorrectly.
+
+```python
+>>> sweecrypt.decrypt("\\!((>ba_>](#")
+'khoor?!zruog'
+```
