@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>{{ title }} | {{ profile.NAME }}</title>
+        <link href="{% static 'crimsonslate_portfolio/css/output.css' %}" rel="stylesheet">
+        <script src="{% static 'crimsonslate_portfolio/js/htmx.min.js' %}" defer></script>
+    </head>
+    <body class="mx-auto mb-20 max-w-screen-xl bg-gray-300 text-gray-900 dark:bg-gray-700 dark:text-stone-100">
+        <main>
+        {% block content %}
+        {% endblock content %}
+        </main>
+        <script>
+            document.body.addEventListener('htmx:configRequest', (event) => {
+                event.detail.headers["X-CSRFToken"] = '{{ csrf_token }}';
+            })
+        </script>
+    </body>
+</html>

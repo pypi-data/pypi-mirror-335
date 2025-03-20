@@ -1,0 +1,4 @@
+<form class="{{ class }}" action="{% url 'create tag' %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+</form>
