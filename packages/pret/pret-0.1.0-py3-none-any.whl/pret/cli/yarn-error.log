@@ -1,0 +1,37 @@
+Arguments: 
+  /Users/perceval/.nvm/versions/node/v14.21.3/bin/node /usr/local/bin/yarn config get npmScopes --json
+
+PATH: 
+  /Users/perceval/.nvm/versions/node/v14.21.3/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/opt/gnu-sed/libexec/gnubin:/usr/local/Cellar/apache-spark/3.2.1/libexec//bin/:/usr/local/opt/scala@2.11/bin:/Users/perceval/.jenv/shims:/Users/perceval/.jenv/bin:/opt/homebrew/anaconda3/condabin:/usr/local/opt/sbt@0.13/bin:/Users/perceval/local/bin:/usr/local/opt/opencv@3/bin:/Users/perceval/.anaconda3/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/perceval/.cargo/bin:/Users/perceval/.local/bin:/Users/perceval/.local/bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  14.21.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  SyntaxError: /Users/perceval/Development/pret/pret/cli/package.json: Unexpected token $ in JSON at position 72
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:321:13
+
+npm manifest: 
+  {
+    "name": "$name$",
+    "version": "$version$",
+    "dependencies": {
+      $END$
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
