@@ -1,0 +1,57 @@
+FROM --platform=linux/amd64 python:3.12.6-slim
+
+ARG CHIMERA_WORKERS_NODE_NAME
+ARG CHIMERA_WORKERS_FOLDER
+ARG CHIMERA_DATA_FOLDER
+
+ARG TRAIN_FEATURES_FILENAME
+ARG TRAIN_LABELS_FILENAME
+
+ARG CHIMERA_WORKERS_HOST
+ARG CHIMERA_WORKERS_PORT
+ARG CHIMERA_WORKERS_NODES_NAMES
+ARG CHIMERA_WORKERS_CPU_SHARES
+ARG CHIMERA_WORKERS_MAPPED_PORTS
+
+ENV CHIMERA_WORKERS_NODE_NAME=${CHIMERA_WORKERS_NODE_NAME}
+ENV CHIMERA_WORKERS_FOLDER=${CHIMERA_WORKERS_FOLDER}
+
+ENV CHIMERA_WORKERS_HOST=${CHIMERA_WORKERS_HOST}
+ENV CHIMERA_WORKERS_PORT=${CHIMERA_WORKERS_PORT}
+ENV CHIMERA_WORKERS_NODES_NAMES=${CHIMERA_WORKERS_NODES_NAMES}
+ENV CHIMERA_WORKERS_CPU_SHARES=${CHIMERA_WORKERS_CPU_SHARES}
+ENV CHIMERA_WORKERS_MAPPED_PORTS=${CHIMERA_WORKERS_MAPPED_PORTS}
+
+ENV WORKDIR=/app
+ENV PYTHONPATH=${WORKDIR}/src
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR ${WORKDIR}
+
+# System update
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends netcat-openbsd curl git wget bash ssh git openssh-client && \
+    rm -rf /var/lib/apt/lists/* /var/tmp/*
+
+# Install Poetry
+RUN curl -sSL https://install.python-poetry.org | POETRY_HOME=/opt/poetry POETRY_VERSION=1.8.5 python && \
+    cd /usr/local/bin && \
+    ln -s /opt/poetry/bin/poetry && \
+    poetry config virtualenvs.create true && \
+    poetry config virtualenvs.path --unset && \
+    poetry config virtualenvs.in-project true
+
+# Create data folder
+RUN mkdir -p ${CHIMERA_DATA_FOLDER}
+
+# Move training data from data/${NODE} to data folder in container
+COPY ./${CHIMERA_DATA_FOLDER}/${CHIMERA_WORKERS_NODE_NAME}/${TRAIN_FEATURES_FILENAME} ./${CHIMERA_DATA_FOLDER}/${CHIMERA_WORKERS_NODE_NAME}/${TRAIN_LABELS_FILENAME} ./${CHIMERA_DATA_FOLDER}/
+
+# Copy poetry.lock* in case it doesn't exist in the repo
+COPY ./pyproject.toml ./poetry.lock* ./
+
+RUN poetry lock --no-update && poetry install --no-root --only main
+
+COPY . ./
+
+CMD ["/bin/bash", "-c", "poetry run python ${CHIMERA_WORKERS_FOLDER}/${CHIMERA_WORKERS_NODE_NAME}.py"]
