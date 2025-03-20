@@ -1,0 +1,29 @@
+Metadata-Version: 2.3
+Name: mitm-tooling
+Version: 0.4.7
+Summary: 
+Author: Leah Tacke genannt Unterberg
+Author-email: leah.tgu@pads.rwth-aachen.de
+Requires-Python: >=3.11,<3.14
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: analysis
+Provides-Extra: pm
+Requires-Dist: genson (>=1.3.0,<2.0.0)
+Requires-Dist: matplotlib
+Requires-Dist: numpy (>=2)
+Requires-Dist: pandas[compression,computation,excel,hdf5,mysql,output-formatting,performance,plot,postgresql,sql-other] (>=2.0)
+Requires-Dist: plotly
+Requires-Dist: pydantic (>=2.9.2,<3.0.0)
+Requires-Dist: pyyaml (==6.0.2)
+Requires-Dist: seaborn
+Requires-Dist: sqlalchemy-utils (>=0.38.0)
+Requires-Dist: sqlalchemy[postgresql,postgresql-psycopg] (>=2)
+Description-Content-Type: text/markdown
+
+# mitm-tooling
+
+This python package contains basic functionality to work with "Models-in-the-Middle" (MitM) data sets.
+It bundles a generic mechanism to load and export relational data as a configurable MitM.
