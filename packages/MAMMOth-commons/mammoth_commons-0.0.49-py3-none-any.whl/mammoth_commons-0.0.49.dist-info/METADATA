@@ -1,0 +1,65 @@
+Metadata-Version: 2.2
+Name: MAMMOth-commons
+Version: 0.0.49
+Summary: Component interfaces of the MAMMOth fairness toolkit.
+Home-page: https://github.com/mammoth-eu/mammoth-commons
+Author: Emmanouil (Manios) Krasanakis
+Author-email: maniospas@hotmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: markdown2
+Requires-Dist: dill
+Provides-Extra: deployment
+Requires-Dist: numpy; extra == "deployment"
+Requires-Dist: markdown2; extra == "deployment"
+Requires-Dist: dill; extra == "deployment"
+Provides-Extra: test
+Requires-Dist: numpy; extra == "test"
+Requires-Dist: pandas; extra == "test"
+Requires-Dist: fairbench; extra == "test"
+Requires-Dist: PyYAML; extra == "test"
+Requires-Dist: kfp; extra == "test"
+Requires-Dist: onnxruntime; extra == "test"
+Requires-Dist: onnx; extra == "test"
+Requires-Dist: markdown2; extra == "test"
+Requires-Dist: dill; extra == "test"
+Requires-Dist: timm; extra == "test"
+Requires-Dist: torch; extra == "test"
+Requires-Dist: torchvision; extra == "test"
+Requires-Dist: cvbiasmitigation; extra == "test"
+Requires-Dist: facextool; extra == "test"
+Requires-Dist: pygrank; extra == "test"
+Requires-Dist: flask; extra == "test"
+Requires-Dist: Flask-Bootstrap; extra == "test"
+Requires-Dist: Flask-WTF; extra == "test"
+Requires-Dist: Flask-Session; extra == "test"
+Requires-Dist: multisoc; extra == "test"
+Requires-Dist: seaborn; extra == "test"
+Requires-Dist: coverage; extra == "test"
+Requires-Dist: ucimlrepo; extra == "test"
+Requires-Dist: plotly; extra == "test"
+Requires-Dist: docker; extra == "test"
+Requires-Dist: PySide6; extra == "test"
+Requires-Dist: aif360; extra == "test"
+Requires-Dist: aif360[OptimalTransport]; extra == "test"
+Requires-Dist: shap; extra == "test"
+Requires-Dist: aif360[FACTS]; extra == "test"
+Requires-Dist: aif360[AdversarialDebiasing]; extra == "test"
+Requires-Dist: aif360[Reductions]; extra == "test"
+Requires-Dist: aif360[inFairness]; extra == "test"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: summary
+
+Quickly develop modules for the MAI-BIAS toolkit.
+For more information visit the [homepage](https://github.com/mammoth-eu/mammoth-commons).
