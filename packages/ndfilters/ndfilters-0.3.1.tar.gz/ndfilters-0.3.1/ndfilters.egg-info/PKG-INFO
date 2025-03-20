@@ -1,0 +1,71 @@
+Metadata-Version: 2.4
+Name: ndfilters
+Version: 0.3.1
+Summary: Similar to the filters in `scipy.ndimage` but accelerated using Numba
+Author-email: "Roy T. Smart" <roytsmart@gmail.com>
+Project-URL: Homepage, https://github.com/sun-data/ndfilters
+Project-URL: Documentation, https://ndfilters.readthedocs.io/en/latest
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: numba
+Requires-Dist: astropy
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: scipy; extra == "test"
+Requires-Dist: astropy; extra == "test"
+Provides-Extra: doc
+Requires-Dist: pytest; extra == "doc"
+Requires-Dist: scipy; extra == "doc"
+Requires-Dist: pooch; extra == "doc"
+Requires-Dist: matplotlib; extra == "doc"
+Requires-Dist: graphviz; extra == "doc"
+Requires-Dist: sphinx-autodoc-typehints; extra == "doc"
+Requires-Dist: pydata-sphinx-theme; extra == "doc"
+Requires-Dist: ipykernel; extra == "doc"
+Requires-Dist: jupyter-sphinx; extra == "doc"
+Requires-Dist: sphinx-favicon; extra == "doc"
+
+# ndfilters
+
+[![tests](https://github.com/sun-data/ndfilters/actions/workflows/tests.yml/badge.svg)](https://github.com/sun-data/ndfilters/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/sun-data/ndfilters/graph/badge.svg?token=BFTOVSyFtf)](https://codecov.io/gh/sun-data/ndfilters)
+[![Black](https://github.com/sun-data/ndfilters/actions/workflows/black.yml/badge.svg)](https://github.com/sun-data/ndfilters/actions/workflows/black.yml)
+[![Ruff](https://github.com/sun-data/ndfilters/actions/workflows/ruff.yml/badge.svg)](https://github.com/sun-data/ndfilters/actions/workflows/ruff.yml)
+[![Documentation Status](https://readthedocs.org/projects/ndfilters/badge/?version=latest)](https://ndfilters.readthedocs.io/en/latest/?badge=latest)
+[![PyPI version](https://badge.fury.io/py/ndfilters.svg)](https://badge.fury.io/py/ndfilters)
+
+Similar to the filters in `scipy.ndimage` but accelerated and parallelized using 
+[Numba](https://numba.readthedocs.io/en/stable/).
+
+## Installation
+
+`ndfilters` is published on PyPI and can be installed using `pip`.
+
+```bash
+pip install ndfilters
+```
+
+## Gallery
+
+### Mean filter
+
+The [mean filter](https://ndfilters.readthedocs.io/en/latest/_autosummary/ndfilters.mean_filter.html#ndfilters.mean_filter)
+calculates a multidimensional rolling mean for the given kernel shape.
+
+![mean filter](https://ndfilters.readthedocs.io/en/latest/_images/ndfilters.mean_filter_0_0.png)
+
+### Trimmed mean filter
+
+The  [trimmed mean filter](https://ndfilters.readthedocs.io/en/latest/_autosummary/ndfilters.trimmed_mean_filter.html#ndfilters.trimmed_mean_filter)
+is like the mean filter except it ignores a given portion of the dataset before calculating the mean at each pixel.
+
+![trimmed mean filter](https://ndfilters.readthedocs.io/en/latest/_images/ndfilters.trimmed_mean_filter_0_0.png)
+
+### Variance filter
+
+The [variance filter](https://ndfilters.readthedocs.io/en/latest/_autosummary/ndfilters.variance_filter.html#ndfilters.variance_filter)
+calculates the rolling variance for the given kernel shape.
+
+![variance filter](https://ndfilters.readthedocs.io/en/latest/_images/ndfilters.variance_filter_0_0.png)
