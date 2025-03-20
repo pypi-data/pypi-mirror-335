@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: pywellen
+Version: 0.14.4
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)
+Summary: Fast VCD, GHW and FST wavedump reading.
+Author: James Connolly <dogman3117@gmail.com>
+Author-email: James Connolly <dogman3117@gmail.com>, Kevin Laeufer <laeufer@cornell.edu>
+License: BSD-3-Clause
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Homepage, https://github.com/ekiwi/wellen
+Project-URL: Issues, https://github.com/ekiwi/wellen/issues
+
+# Wellen Wavform Library
+
+[![Crates.io Version](https://img.shields.io/crates/v/wellen)](https://crates.io/crates/wellen)
+[![docs.rs](https://img.shields.io/docsrs/wellen)](https://docs.rs/wellen)
+[![GitHub License](https://img.shields.io/github/license/ekiwi/wellen)](LICENSE)
+[![DOI](https://zenodo.org/badge/707242016.svg)](https://zenodo.org/doi/10.5281/zenodo.12774824)
+
+`wellen` provides a common interface to read both FST and VCD waveform files.
+The library is optimized for use-cases where only a subset of signals need to
+be accessed, like in a waveform viewer.
+VCD parsing uses multiple-threads.
+
+## Overview
+
+![Overview of wellen components](./wellen_overview.svg)
+
