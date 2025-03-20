@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: jobmon_client
+Version: 3.4.3.dev3
+Summary: A dependency management utility with retires and resource management for HPC computation.
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jobmon_core
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pyyaml
+Requires-Dist: tabulate
+Provides-Extra: server
+Requires-Dist: jobmon_server; extra == "server"
+Provides-Extra: ihme
+Requires-Dist: jobmon_installer_ihme; extra == "ihme"
+Dynamic: license-file
+
+# JobMon Client
+
+## Introduction
+
+JobMon is a Python package developed by IHME's Scientific Computing team,
+designed to simplify and standardize the process of job monitoring and
+workflow management in computational projects.
+It facilitates the tracking of job statuses, manages dependencies,
+and streamlines the execution of complex workflows across various computing environments.
+
+This package is imported into the customer's codebase and used to interact with the JobMon server. 
+
+See also the main documentation at [readthedocs](https://jobmon.readthedocs.io/en/latest/#).
