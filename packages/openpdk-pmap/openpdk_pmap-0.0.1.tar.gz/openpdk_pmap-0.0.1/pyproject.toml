@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "openpdk-pmap"
+version = "0.0.1"
+description = "pmap replacement for OpenPDK LVS scripts"
+authors = ["Martin Köhler <info@martinjankoehler.com>"]
+homepage = "https://martinjankoehler.github.io/openpdk-pmap/"
+repository = "https://github.com/martinjankoehler/openpdk-pmap.git"
+license = "GPL-3.0-or-later"
+readme = "README.md"
+keywords = ["electronic", "pex", "parasitic", "extraction", "vlsi", "eda", "ic", "spice",
+            "klayout", "analog", "fsic", "gds", "FasterCap", "magic"]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: C++",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)"
+]
+
+packages = [
+    { include = "openpdk_pmap" }
+]
+include = [
+    "openpdk_pmap"
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/martinjankoehler/openpdk-pmap/issues"
+
+[tool.poetry.scripts]
+pmap = 'openpdk_pmap.__main__:main'
+
+[tool.poetry.dependencies]
+python = "^3.12"
+psutil = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools>=42"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry_bumpversion.file."openpdk_pmap/version.py"]
+
