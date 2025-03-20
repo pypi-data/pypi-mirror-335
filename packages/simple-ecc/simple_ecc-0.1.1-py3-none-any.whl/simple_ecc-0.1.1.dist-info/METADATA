@@ -1,0 +1,126 @@
+Metadata-Version: 2.1
+Name: simple-ecc
+Version: 0.1.1
+Summary: A simple elliptic curve cryptography library
+Home-page: https://github.com/mohdluqman/simple-ecc
+Author: Mohammad Luqman, Salman Ali, Faisal Anwer
+Author-email: Mohammad Luqman <luqman.geeky@gmail.com>, Salman Ali <salmanali.amu@gmail.com>, Faisal Anwer <faisalanwer.cs@amu.ac.in>
+License: MIT
+Project-URL: Homepage, https://github.com/mohdluqman/simple-ecc
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# simple-ecc
+
+## Overview
+
+This project implements an Elliptic Curve Cryptography (ECC) library in Python. It provides functionalities to create elliptic curves, perform point addition and scalar multiplication on the curve, generate private and public keys, and calculate the entropy of keys.
+
+## Installation
+
+To use this library, simply clone the repository and import the `simple_ecc` module in your Python project.
+
+```python
+pip install simple-ecc
+```
+
+### OR
+
+```bash
+git clone https://github.com/mohdluqman/simple-ecc.git
+```
+
+## Usage
+### Creating an Elliptic Curve
+To create an elliptic curve, initialize the EllipticCurve class with the required parameters.
+
+```python
+from simple_ecc import EllipticCurve
+
+a = 56698187605326110043627228396178346077120614539475214109386828188763884139993
+b = 17577232497321838841075697789794520262950426058923084567046852300633325438902 
+p = 76884956397045344220809746629001649093037950200943055203735601445031516197751
+Gx = 63243729749562333355292243550312970334778175571054726587095381623627144114786
+Gy = 38218615093753523893122277964030810387585405539772602581557831887485717997975
+n = 0xA9FB57DBA1EEA9BC3E660A909D838D718AFCED59
+
+curve = EllipticCurve(a, b, p, Gx, Gy, n)
+curve.print_curve()
+```
+
+### Generating Keys
+You can generate a private key and derive the corresponding public key using the following methods:
+
+```python
+private_key = curve.generate_private_key()
+public_key = curve.public_key_from_private(private_key)
+
+print(f"Private Key: {private_key}")
+print(f"Public Key: {public_key}")
+```
+
+### Calculating Entropy
+You can calculate the entropy of a private key using the following method:
+
+```python
+from simple_ecc import KeyEntropyCalculator
+
+entropy_calculator = KeyEntropyCalculator(curve)
+entropy = entropy_calculator.calculate_entropy(private_key)
+
+print(f"Entropy: {entropy}")
+```
+
+### Generating Highest Entropy Key
+You can generate the highest entropy private key and derive the corresponding public key as a point on elliptic curve using the following method:
+
+```python
+best_private_key, best_entropy = entropy_calculator.generate_high_entropy_key(num_trials=100)
+public_key = curve.public_key_from_private(best_private_key)
+
+print(f"Best Private Key: {best_private_key}")
+print(f"Highest Entropy: {best_entropy}")
+print(f"Public Key: {public_key}")
+print(f"Is Public Key Valid: {curve.is_point_on_curve(public_key)}")
+```
+
+### Creating Elliptic Curve and Keys with Highest Entropy
+You can create an elliptic curve and generate keys with highest entropy using the following method:
+
+```python
+def create_elliptic_curve_and_keys(num_trials=1000):
+    a = 56698187605326110043627228396178346077120614539475214109386828188763884139993
+    b = 17577232497321838841075697789794520262950426058923084567046852300633325438902 
+    p = 76884956397045344220809746629001649093037950200943055203735601445031516197751
+    Gx = 63243729749562333355292243550312970334778175571054726587095381623627144114786
+    Gy = 38218615093753523893122277964030810387585405539772602581557831887485717997975
+    n = 0xA9FB57DBA1EEA9BC3E660A909D838D718AFCED59
+    curve = EllipticCurve(a, b, p, Gx, Gy, n)
+    curve.print_curve()
+    entropy_calculator = KeyEntropyCalculator(curve)
+    best_private_key, best_entropy = entropy_calculator.generate_high_entropy_key(num_trials)
+    public_key = curve.public_key_from_private(best_private_key)
+
+    print(f"Best Private Key: {best_private_key}")
+    print(f"Highest Entropy: {best_entropy}")
+    print(f"Public Key: {public_key}")
+    print(f"Is Public Key Valid: {curve.is_point_on_curve(public_key)}")
+    return {
+        'curve': curve,
+        'best_private_key': best_private_key,
+        'public_key': public_key,
+        'best_entropy': best_entropy,
+        'is_public_key_valid': curve.is_point_on_curve(public_key)
+    }
+
+result = create_elliptic_curve_and_keys(num_trials=1000)
+```
+
+### License
+This project is licensed under the MIT License. See the LICENSE file for details. 
+
+
