@@ -1,0 +1,17 @@
+<div class="image-upload-wrapper">
+    <div class="url-value">{{widget.value|default:"未设置URL"}}</div>
+    <div class="preview-area">
+        <img src="{{ widget.value|default:"" }}" class="preview-image">
+    </div>
+    
+    <div class="controls">
+        <input type="file" class="image-file-input" accept="image/*" hidden>
+        <button type="button" class="upload-local-btn">选择本地图片</button>
+        <button type="button" class="upload-oss-btn">上传到云存储</button>
+    </div>
+
+    <input type="url" class="url-input" name="{{ widget.name }}"
+           {% include "django/forms/widgets/attrs.html" %}>
+    
+    <input type="hidden" class="upload-url" value="{{ widget.upload_url }}">
+</div>
