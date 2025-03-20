@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyfixed"
+dynamic = ["version", "readme"]
+authors = [{ name = "Shachar Kraus" }]
+description = "Arbitrary-precision fixed-point library for Python"
+keywords = ["fixed", "fixed point", "fixed-point"]
+requires-python = ">=3.8"
+license = "MIT"
+dependencies = [
+    "matplotlib",
+    "mpmath",
+    "numpy",
+    "py",
+    "pytest",
+    "pytest-xdist",
+    "typing_extensions",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Framework :: Pytest",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Mathematics",
+    "Topic :: Software Development :: Libraries",
+]
+
+[project.urls]
+Homepage = "https://gitlab.com/ShacharKraus/pyfixed"
+Issues = "https://gitlab.com/ShacharKraus/pyfixed/-/issues"
+
+[tool.setuptools.dynamic]
+version = { attr = "pyfixed.__version__" }
+readme = { file = "README.md" }
+
+[project.scripts]
+fixed_cmp = "pyfixed:cmp_cli"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
