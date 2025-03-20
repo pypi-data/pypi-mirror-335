@@ -1,0 +1,928 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grogupy.io.io &mdash; grogupy</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom_styles.css" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../../index.html" class="icon icon-home">
+            grogupy documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visualizations/index.html">Visualizations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API/modules.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment/index.html">Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development/index.html">Contributing to grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog/index.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">grogupy documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">grogupy.io.io</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for grogupy.io.io</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) [2024-2025] []</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Visualization functions</span>
+<span class="sd">=======================</span>
+
+<span class="sd">.. currentmodule:: grogupy.io.io</span>
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   :toctree: _generated/</span>
+
+<span class="sd">   load_DefaultTimer</span>
+<span class="sd">   load_Contour</span>
+<span class="sd">   load_Kspace</span>
+<span class="sd">   load_MagneticEntity</span>
+<span class="sd">   load_Pair</span>
+<span class="sd">   load_Hamiltonian</span>
+<span class="sd">   load_Builder</span>
+<span class="sd">   load</span>
+<span class="sd">   save</span>
+<span class="sd">   save_magnopy</span>
+<span class="sd">   read_magnopy</span>
+<span class="sd">   read_grogupy_fdf</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sisl</span>
+
+<span class="kn">from</span> <span class="nn">..batch.timing</span> <span class="kn">import</span> <span class="n">DefaultTimer</span>
+<span class="kn">from</span> <span class="nn">..physics.builder</span> <span class="kn">import</span> <span class="n">Builder</span>
+<span class="kn">from</span> <span class="nn">..physics.contour</span> <span class="kn">import</span> <span class="n">Contour</span>
+<span class="kn">from</span> <span class="nn">..physics.hamiltonian</span> <span class="kn">import</span> <span class="n">Hamiltonian</span>
+<span class="kn">from</span> <span class="nn">..physics.kspace</span> <span class="kn">import</span> <span class="n">Kspace</span>
+<span class="kn">from</span> <span class="nn">..physics.magnetic_entity</span> <span class="kn">import</span> <span class="n">MagneticEntity</span>
+<span class="kn">from</span> <span class="nn">..physics.pair</span> <span class="kn">import</span> <span class="n">Pair</span>
+<span class="kn">from</span> <span class="nn">.utilities</span> <span class="kn">import</span> <span class="n">strip_dict_structure</span>
+
+
+<div class="viewcode-block" id="load_DefaultTimer">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_DefaultTimer.html#grogupy.io.io.load_DefaultTimer">[docs]</a>
+<span class="k">def</span> <span class="nf">load_DefaultTimer</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">DefaultTimer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    DefaultTimer</span>
+<span class="sd">        The DefaultTimer instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">DefaultTimer</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_Contour">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_Contour.html#grogupy.io.io.load_Contour">[docs]</a>
+<span class="k">def</span> <span class="nf">load_Contour</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Contour</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Contour</span>
+<span class="sd">        The Contour instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">Contour</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_Kspace">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_Kspace.html#grogupy.io.io.load_Kspace">[docs]</a>
+<span class="k">def</span> <span class="nf">load_Kspace</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Kspace</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Kspace</span>
+<span class="sd">        The Kspace instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">Kspace</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_MagneticEntity">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_MagneticEntity.html#grogupy.io.io.load_MagneticEntity">[docs]</a>
+<span class="k">def</span> <span class="nf">load_MagneticEntity</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">MagneticEntity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    MagneticEntity</span>
+<span class="sd">        The MagneticEntity instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">MagneticEntity</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_Pair">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_Pair.html#grogupy.io.io.load_Pair">[docs]</a>
+<span class="k">def</span> <span class="nf">load_Pair</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Pair</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Pair</span>
+<span class="sd">        The Pair instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">Pair</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_Hamiltonian">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_Hamiltonian.html#grogupy.io.io.load_Hamiltonian">[docs]</a>
+<span class="k">def</span> <span class="nf">load_Hamiltonian</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Hamiltonian</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Hamiltonian</span>
+<span class="sd">        The Hamiltonian instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">Hamiltonian</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load_Builder">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load_Builder.html#grogupy.io.io.load_Builder">[docs]</a>
+<span class="k">def</span> <span class="nf">load_Builder</span><span class="p">(</span><span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Builder</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Builder</span>
+<span class="sd">        The Builder instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># load pickled file</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">infile</span> <span class="o">+</span> <span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+                <span class="n">infile</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+
+    <span class="c1"># build instance</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">Builder</span><span class="p">)</span>
+    <span class="n">out</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<div class="viewcode-block" id="load">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.load.html#grogupy.io.io.load">[docs]</a>
+<span class="k">def</span> <span class="nf">load</span><span class="p">(</span>
+    <span class="n">infile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">DefaultTimer</span><span class="p">,</span> <span class="n">Contour</span><span class="p">,</span> <span class="n">Kspace</span><span class="p">,</span> <span class="n">MagneticEntity</span><span class="p">,</span> <span class="n">Pair</span><span class="p">,</span> <span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">Builder</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Recreates the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    infile : Union[str, dict]</span>
+<span class="sd">        Either the path to the file or the appropriate</span>
+<span class="sd">        dictionary for the setup</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    Union[DefaultTimer, Contour, Kspace, MagneticEntity, Pair, Hamiltonian, Builder]</span>
+<span class="sd">        The instance that was loaded</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># try all the possible loading methods</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">load_Builder</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">load_Hamiltonian</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">load_Pair</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">load_MagneticEntity</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="n">load_Kspace</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">try</span><span class="p">:</span>
+                            <span class="k">return</span> <span class="n">load_Contour</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+                        <span class="k">except</span><span class="p">:</span>
+                            <span class="k">try</span><span class="p">:</span>
+                                <span class="k">return</span> <span class="n">load_DefaultTimer</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+                            <span class="k">except</span><span class="p">:</span>
+                                <span class="c1"># also if you know a better way to do it, pls tell me...</span>
+                                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;What the hell is this???&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.save.html#grogupy.io.io.save">[docs]</a>
+<span class="k">def</span> <span class="nf">save</span><span class="p">(</span>
+    <span class="nb">object</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+        <span class="n">DefaultTimer</span><span class="p">,</span> <span class="n">Contour</span><span class="p">,</span> <span class="n">Kspace</span><span class="p">,</span> <span class="n">MagneticEntity</span><span class="p">,</span> <span class="n">Pair</span><span class="p">,</span> <span class="n">Hamiltonian</span><span class="p">,</span> <span class="n">Builder</span>
+    <span class="p">],</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">save_memory</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Saves the instance from a pickled state.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    object : Union[DefaultTimer, Contour, Kspace, MagneticEntity, Pair, Hamiltonian, Builder]</span>
+<span class="sd">        Object from the grogupy library</span>
+<span class="sd">    path: str</span>
+<span class="sd">        The path to the output file</span>
+<span class="sd">    save_memory: bool, optional</span>
+<span class="sd">        Wether to delete the Gij, Gji, Gij_temp, Gji_temp</span>
+<span class="sd">        from the pairs and the Vu1, Vu2, Gii, Gii_temp from</span>
+<span class="sd">        the magnetic entities, by default True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># check if the object is ours</span>
+    <span class="k">if</span> <span class="nb">object</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;grogupy&quot;</span><span class="p">:</span>
+        <span class="c1"># add pkl so we know it is pickled</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pkl&quot;</span><span class="p">):</span>
+            <span class="n">path</span> <span class="o">+=</span> <span class="s2">&quot;.pkl&quot;</span>
+
+        <span class="c1"># the dictionary to be saved</span>
+        <span class="n">out_dict</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
+
+        <span class="c1"># remove large objects to save memory</span>
+        <span class="k">if</span> <span class="n">save_memory</span><span class="p">:</span>
+            <span class="n">out_dict</span> <span class="o">=</span> <span class="n">strip_dict_structure</span><span class="p">(</span><span class="n">out_dict</span><span class="p">)</span>
+
+        <span class="c1"># write to file</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">out_dict</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The object is from package </span><span class="si">{</span><span class="nb">object</span><span class="o">.</span><span class="vm">__module__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> instead of grogupy!&quot;</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_magnopy">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.save_magnopy.html#grogupy.io.io.save_magnopy">[docs]</a>
+<span class="k">def</span> <span class="nf">save_magnopy</span><span class="p">(</span>
+    <span class="n">builder</span><span class="p">:</span> <span class="n">Builder</span><span class="p">,</span>
+    <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">precision</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">comments</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a magnopy input file based on a path.</span>
+
+<span class="sd">    It does not create the folder structure if the path is invalid.</span>
+<span class="sd">    It saves to the outfile.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    builder: Builder</span>
+<span class="sd">        The system that we want to save</span>
+<span class="sd">    path: str</span>
+<span class="sd">        Output path</span>
+<span class="sd">    precision: Union[None, int], optional</span>
+<span class="sd">        The precision of the magnetic parameters in the output, if None</span>
+<span class="sd">        everything is written, by default None</span>
+<span class="sd">    comments: bool</span>
+<span class="sd">        Wether to add comments in the beginning of file, by default True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.magnopy.txt&quot;</span><span class="p">):</span>
+        <span class="n">path</span> <span class="o">+=</span> <span class="s2">&quot;.magnopy.txt&quot;</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">builder</span><span class="o">.</span><span class="n">to_magnopy</span><span class="p">(</span><span class="n">precision</span><span class="o">=</span><span class="n">precision</span><span class="p">,</span> <span class="n">comments</span><span class="o">=</span><span class="n">comments</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="read_grogupy_fdf">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.read_grogupy_fdf.html#grogupy.io.io.read_grogupy_fdf">[docs]</a>
+<span class="k">def</span> <span class="nf">read_grogupy_fdf</span><span class="p">(</span><span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">dict</span><span class="p">,</span> <span class="nb">list</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;It reads the simulation parameters, magnetic entities and pairs from the fdf</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        path: str</span>
+<span class="sd">            The path to the .fdf file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        fdf_arguments: dict</span>
+<span class="sd">            The read input arguments from the fdf file</span>
+<span class="sd">        magnetic_entities: list</span>
+<span class="sd">            It contains the dictionaries associated with the magnetic entities</span>
+<span class="sd">        pairs: list</span>
+<span class="sd">            It contains the dictionaries associated with the pair information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># read fdf file</span>
+    <span class="n">fdf</span> <span class="o">=</span> <span class="n">sisl</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fdfSileSiesta</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="n">fdf_arguments</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+    <span class="n">InputFile</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;InputFile&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">InputFile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;infile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">InputFile</span>
+
+    <span class="n">OutputFile</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;OutputFile&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">OutputFile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;outfile&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OutputFile</span>
+
+    <span class="n">ScfXcfOrientation</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ScfXcfOrientation&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ScfXcfOrientation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;scf_xcf_orientation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="n">ScfXcfOrientation</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">3</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span>
+        <span class="p">)</span>
+
+    <span class="n">XCF_Rotation</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;XCF_Rotation&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">XCF_Rotation</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rotations</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># iterate over rows</span>
+        <span class="k">for</span> <span class="n">rot</span> <span class="ow">in</span> <span class="n">XCF_Rotation</span><span class="p">:</span>
+            <span class="c1"># convert row to dictionary</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">rot</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">9</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+            <span class="n">vw</span> <span class="o">=</span> <span class="n">dat</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+            <span class="n">rotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">o</span><span class="o">=</span><span class="n">o</span><span class="p">,</span> <span class="n">vw</span><span class="o">=</span><span class="n">vw</span><span class="p">))</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;ref_xcf_orientations&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rotations</span>
+
+    <span class="n">Kset</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;INTEGRAL.Kset&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Kset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;kset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Kset</span><span class="p">)</span>
+
+    <span class="n">Kdirs</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;INTEGRAL.Kdirs&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Kdirs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;kdirs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Kdirs</span>
+
+    <span class="c1"># This is permitted because it means automatic Ebot definition</span>
+    <span class="n">ebot</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;INTEGRAL.Ebot&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;ebot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">ebot</span><span class="p">)</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;ebot&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">Eset</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;INTEGRAL.Eset&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Eset</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;eset&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">Eset</span><span class="p">)</span>
+
+    <span class="n">Esetp</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;INTEGRAL.Esetp&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Esetp</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;esetp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Esetp</span><span class="p">)</span>
+
+    <span class="n">ParallelSolver</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;GREEN.ParallelSolver&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">ParallelSolver</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;parallel_solver_for_Gk&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">ParallelSolver</span><span class="p">)</span>
+
+    <span class="n">PadawanMode</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PadawanMode&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">PadawanMode</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">fdf_arguments</span><span class="p">[</span><span class="s2">&quot;padawan_mode&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">PadawanMode</span><span class="p">)</span>
+
+    <span class="n">Pairs</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Pairs&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Pairs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># iterate over rows</span>
+        <span class="k">for</span> <span class="n">fdf_pair</span> <span class="ow">in</span> <span class="n">Pairs</span><span class="p">:</span>
+            <span class="c1"># convert data</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">fdf_pair</span><span class="o">.</span><span class="n">split</span><span class="p">()[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="c1"># create pair dictionary</span>
+            <span class="n">my_pair</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ai</span><span class="o">=</span><span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">aj</span><span class="o">=</span><span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Ruc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">:]))</span>
+            <span class="n">pairs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">my_pair</span><span class="p">)</span>
+
+    <span class="n">MagneticEntities</span> <span class="o">=</span> <span class="n">fdf</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;MagneticEntities&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">MagneticEntities</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">magnetic_entities</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># iterate over magnetic entities</span>
+        <span class="k">for</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="n">MagneticEntities</span><span class="p">:</span>
+            <span class="c1"># drop comments from data</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="n">mag_ent</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+            <span class="n">dat</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">string</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="k">break</span>
+                <span class="n">dat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+            <span class="c1"># cluster input</span>
+            <span class="k">if</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;Cluster&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">}:</span>
+                <span class="n">magnetic_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]))</span>
+                <span class="k">continue</span>
+            <span class="c1"># atom input, same as cluster, but raises</span>
+            <span class="c1"># error when multiple atoms are given</span>
+            <span class="k">if</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;Atom&quot;</span><span class="p">,</span> <span class="s2">&quot;atom&quot;</span><span class="p">}:</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">dat</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Atom input must be a single integer&quot;</span><span class="p">)</span>
+                <span class="n">magnetic_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">])))</span>
+                <span class="k">continue</span>
+            <span class="c1"># atom and shell information</span>
+            <span class="k">elif</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;AtomShell&quot;</span><span class="p">,</span> <span class="s2">&quot;Atomshell&quot;</span><span class="p">,</span> <span class="s2">&quot;atomShell&quot;</span><span class="p">,</span> <span class="s2">&quot;atomshell&quot;</span><span class="p">}:</span>
+                <span class="n">magnetic_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="c1"># atom and orbital information</span>
+            <span class="k">elif</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;AtomOrbital&quot;</span><span class="p">,</span> <span class="s2">&quot;Atomorbital&quot;</span><span class="p">,</span> <span class="s2">&quot;tomOrbital&quot;</span><span class="p">,</span> <span class="s2">&quot;atomorbital&quot;</span><span class="p">}:</span>
+                <span class="n">magnetic_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                    <span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">orb</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">[</span><span class="mi">2</span><span class="p">:]])</span>
+                <span class="p">)</span>
+                <span class="k">continue</span>
+            <span class="c1"># orbital information</span>
+            <span class="k">elif</span> <span class="n">dat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;Orbitals&quot;</span><span class="p">,</span> <span class="s2">&quot;orbitals&quot;</span><span class="p">}:</span>
+                <span class="n">magnetic_entities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">orb</span><span class="o">=</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">_</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">dat</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]))</span>
+                <span class="k">continue</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unrecognizable magnetic entity in .fdf!&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">fdf_arguments</span><span class="p">,</span> <span class="n">magnetic_entities</span><span class="p">,</span> <span class="n">pairs</span></div>
+
+
+
+<div class="viewcode-block" id="read_magnopy">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.io.read_magnopy.html#grogupy.io.io.read_magnopy">[docs]</a>
+<span class="k">def</span> <span class="nf">read_magnopy</span><span class="p">(</span><span class="n">file</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function reads the magnopy input file and return a dictionary</span>
+
+<span class="sd">    The dictionary contains sub-dictionaries with the section names and</span>
+<span class="sd">    all of those sections contains a unit. Furthermore, because the main</span>
+<span class="sd">    use of this function is to parse for magnetic entities and pair</span>
+<span class="sd">    information it does that in the appropriate sections under the</span>
+<span class="sd">    ``magnetic_entity`` and ``pairs`` keywords.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    file: str</span>
+<span class="sd">        Path to the ``magnopy`` input file</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        The dictionary containing all the information from the ``magnopy`` file</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    Exception</span>
+<span class="sd">        If the unit for cell is not recognized</span>
+<span class="sd">    Exception</span>
+<span class="sd">        If the unit for atom is not recognized</span>
+<span class="sd">    Exception</span>
+<span class="sd">        If the unit for exchange is not recognized</span>
+<span class="sd">    Exception</span>
+<span class="sd">        If the unit for on-site is not recognized</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="c1"># select which sections and lines to parse</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+
+    <span class="n">out</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">pair</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">full_matrix</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+        <span class="c1"># remove comments from line</span>
+        <span class="n">comment</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="n">comment</span><span class="p">]</span>
+        <span class="c1"># check for empty line</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># if we are in the matrix of a pair we have to read the next couple of lines</span>
+        <span class="k">if</span> <span class="n">full_matrix</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">full_matrix</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">full_matrix</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">full_matrix</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;J&quot;</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="c1"># the row is read, continue</span>
+            <span class="n">full_matrix</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># if section is not set, look for sections</span>
+        <span class="k">elif</span> <span class="n">section</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;cell&quot;</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;cell&quot;</span>
+                <span class="c1"># unit is given</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># only the first letter is checked and it is case-insensitive</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">}:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown unit for cell&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+
+                <span class="c1"># create cell part in the dictionary</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;cell&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;cell&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit</span>
+
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;atoms&quot;</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;atoms&quot;</span>
+                <span class="c1"># unit is given</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># only the first letter is checked and it is case-insensitive</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">}:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown unit for atoms&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;a&quot;</span>
+
+                <span class="c1"># create cell part in the dictionary</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][</span><span class="s2">&quot;magnetic_entities&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;notation&quot;</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;notation&quot;</span>
+                <span class="n">unit</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;exchange&quot;</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;exchange&quot;</span>
+                <span class="c1"># unit is given</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># only the first letter is checked and it is case-insensitive</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">}:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown unit for exchange&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
+
+                <span class="c1"># create cell part in the dictionary</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;exchange&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;exchange&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;exchange&quot;</span><span class="p">][</span><span class="s2">&quot;pairs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;on-site&quot;</span><span class="p">:</span>
+                <span class="n">section</span> <span class="o">=</span> <span class="s2">&quot;on-site&quot;</span>
+                <span class="c1"># unit is given</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># only the first letter is checked and it is case-insensitive</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">unit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;j&quot;</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">}:</span>
+                        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown unit for on-site&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">unit</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
+
+                <span class="c1"># create cell part in the dictionary</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;on-site&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;on-site&quot;</span><span class="p">][</span><span class="s2">&quot;unit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unit</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;on-site&quot;</span><span class="p">][</span><span class="s2">&quot;magnetic_entities&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># we parsed the line</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># if section separator found set section for None</span>
+        <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;==========&quot;</span><span class="p">:</span>
+            <span class="n">section</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">atom</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">pair</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># these are not needed for pair information</span>
+        <span class="k">if</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;cell&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;notation&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;on-site&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;----------&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">atom</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="s2">&quot;on-site&quot;</span><span class="p">][</span><span class="s2">&quot;magnetic_entities&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+                    <span class="n">atom</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">atom</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">])</span>
+
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="n">atom</span><span class="p">[</span><span class="s2">&quot;K&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
+
+        <span class="c1"># these are needed for pair information</span>
+        <span class="c1"># magnetic entities</span>
+        <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;atoms&quot;</span><span class="p">:</span>
+            <span class="c1"># the name line</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span>
+                <span class="n">x_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">([</span><span class="n">word</span> <span class="o">==</span> <span class="s2">&quot;x&quot;</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
+                <span class="n">y_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">([</span><span class="n">word</span> <span class="o">==</span> <span class="s2">&quot;y&quot;</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
+                <span class="n">z_pos</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">([</span><span class="n">word</span> <span class="o">==</span> <span class="s2">&quot;z&quot;</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()])</span>
+            <span class="c1"># magnetic entity line</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())[</span><span class="n">x_pos</span><span class="p">])</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())[</span><span class="n">y_pos</span><span class="p">])</span>
+                <span class="n">z</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">())[</span><span class="n">z_pos</span><span class="p">])</span>
+
+                <span class="n">atom</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">tag</span><span class="o">=</span><span class="n">tag</span><span class="p">,</span> <span class="n">xyz</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">]))</span>
+                <span class="n">out</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][</span><span class="s2">&quot;magnetic_entities&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">section</span> <span class="o">==</span> <span class="s2">&quot;exchange&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;----------&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">pair</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">out</span><span class="p">[</span><span class="s2">&quot;exchange&quot;</span><span class="p">][</span><span class="s2">&quot;pairs&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+                    <span class="n">pair</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># isotropic keyword</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;i&quot;</span><span class="p">:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;iso&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+
+            <span class="c1"># Dzyaloshinskii-Morilla keyword</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;d&quot;</span><span class="p">:</span>
+                <span class="n">dx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">dy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">dz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;DM&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">dz</span><span class="p">])</span>
+
+            <span class="c1"># symmetric-anisotropy keyword</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;s&quot;</span><span class="p">:</span>
+                <span class="n">sxx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">syy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">sxy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="n">sxz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">4</span><span class="p">])</span>
+                <span class="n">syz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">5</span><span class="p">])</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;S&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sxx</span><span class="p">,</span> <span class="n">syy</span><span class="p">,</span> <span class="n">sxy</span><span class="p">,</span> <span class="n">sxz</span><span class="p">,</span> <span class="n">syz</span><span class="p">])</span>
+
+            <span class="c1"># full matrix</span>
+            <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;m&quot;</span><span class="p">:</span>
+                <span class="c1"># this will avoid the whole loop and force to read the next 3 rows</span>
+                <span class="n">full_matrix</span> <span class="o">=</span> <span class="mi">3</span>
+
+            <span class="c1"># tags and unit cell shift</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">pair</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">j</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">4</span><span class="p">])</span>
+
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;Ruc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">continue</span>
+
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">out</span><span class="p">[</span><span class="s2">&quot;exchange&quot;</span><span class="p">][</span><span class="s2">&quot;pairs&quot;</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">out</span><span class="p">[</span><span class="s2">&quot;atoms&quot;</span><span class="p">][</span><span class="s2">&quot;magnetic_entities&quot;</span><span class="p">]):</span>
+            <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag1&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;xyz1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag2&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;xyz2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, grogupy.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

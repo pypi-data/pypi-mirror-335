@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "grogupy"
+version = "0.0.3"
+authors = [
+  { name="Laszlo Oroszlany", email="laszlo.oroszlany@ttk.elte.hu" },
+  { name="Daniel Tibor Pozsar", email="danielpozsar@student.elte.hu" },
+]
+description = "Python package calculating relativistic magnetic interactions for the generalised Heisenberg model."
+readme = "README.md"
+kewords = [
+    "physics",
+    "dft",
+    "density-function-theory",
+    "solid-state-physics",
+    "heisenberg-model",
+    "magnetism",
+    "siesta",
+    "wannier90",
+    "solid-state",
+    "magnetic-materials"
+]
+requires-python = ">=3.9"
+dependencies = [
+  "numpy==1.24.4",
+  "scipy",
+  "sisl==0.14.3",
+  "netcdf4==1.7.2",
+  "openmpi",
+  "mpi4py",
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Physics",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+license = "MIT"
+license-files = ["LICENSE"]
+
+[project.optional-dependencies]
+tqdm = ["tqdm"]
+viz = ["plotly", "nbconvert"]
+gpu = ["cupy-cuda12x"]
+
+[project.scripts]
+grogupy_run = "grogupy.cli:main"
+
+[project.urls]
+Homepage = "https://danielpozsar.web.elte.hu/grogu/"
+Documentation = "https://danielpozsar.web.elte.hu/grogu/"
+Repository = "https://github.com/danielpozsar/grogu"
+Issues = "https://github.com/danielpozsar/grogu/issues"
+
+[tool.pytest.ini_options]
+testpaths = [
+  "./src/grogupy/",
+  "./tests/",
+]
+addopts = [
+    "--import-mode=importlib",
+    "--cov",
+    "--doctest-modules",
+]

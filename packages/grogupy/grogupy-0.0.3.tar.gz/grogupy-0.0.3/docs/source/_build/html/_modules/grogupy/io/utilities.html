@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grogupy.io.utilities &mdash; grogupy</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom_styles.css" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../../index.html" class="icon icon-home">
+            grogupy documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visualizations/index.html">Visualizations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API/modules.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment/index.html">Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development/index.html">Contributing to grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog/index.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">grogupy documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">grogupy.io.utilities</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for grogupy.io.utilities</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) [2024-2025] []</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utility functions</span>
+<span class="sd">=================</span>
+<span class="sd">.. currentmodule:: grogupy.io.utilities</span>
+
+
+<span class="sd">.. autosummary::</span>
+<span class="sd">   :toctree: _generated/</span>
+
+<span class="sd">    process_input_args</span>
+<span class="sd">    decipher</span>
+<span class="sd">    decipher_all_by_pos</span>
+<span class="sd">    decipher_all_by_tag</span>
+<span class="sd">    strip_dict_structure</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">sisl</span>
+
+
+<div class="viewcode-block" id="process_input_args">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.utilities.process_input_args.html#grogupy.io.utilities.process_input_args">[docs]</a>
+<span class="k">def</span> <span class="nf">process_input_args</span><span class="p">(</span>
+    <span class="n">DEFAULT_ARGUMENTS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">fdf_arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">command_line_arguments</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;It returns the final simulation parameters based on the inputs</span>
+
+<span class="sd">    The merging is done in the order of priority:</span>
+<span class="sd">    1. command line arguments</span>
+<span class="sd">    2. fdf arguments</span>
+<span class="sd">    3. default arguments</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">        default_arguments: dict</span>
+<span class="sd">            Default arguments from grogupy</span>
+<span class="sd">        fdf_arguments: dict</span>
+<span class="sd">            Arguments read from the fdf input file</span>
+<span class="sd">        command_line_arguments: dict</span>
+<span class="sd">            Arguments from the command line</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The final simulation parameters</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># copy input so it does not get changed</span>
+    <span class="n">default_arguments</span> <span class="o">=</span> <span class="n">DEFAULT_ARGUMENTS</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="c1"># iterate over fdf_arguments and update default arguments</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">fdf_arguments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">default_arguments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="c1"># iterate over command_line_arguments and update default arguments</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">command_line_arguments</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">default_arguments</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">return</span> <span class="n">default_arguments</span></div>
+
+
+
+<div class="viewcode-block" id="decipher">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.utilities.decipher.html#grogupy.io.utilities.decipher">[docs]</a>
+<span class="k">def</span> <span class="nf">decipher</span><span class="p">(</span>
+    <span class="n">tag</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gets the ``atom``, ``l`` and ``orb`` from the tag of the magnetic entity.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tag : str</span>
+<span class="sd">        The tag of the magnetic entity that we want to decipher</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    atom : list[int]</span>
+<span class="sd">        The atoms from the tag</span>
+<span class="sd">    l : Union[None, list[int]]</span>
+<span class="sd">        The shells from the tag</span>
+<span class="sd">    orb : Union[None, list[int]]]</span>
+<span class="sd">        The orbitals from the tag</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    Exception</span>
+<span class="sd">        The tag was not created by the conventional format</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># split the magnetic entity if it consists of multiple atoms</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    <span class="c1"># some default values</span>
+    <span class="n">atom_index</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">orb</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># iterate over atoms</span>
+    <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">tags</span><span class="p">:</span>
+        <span class="c1"># this is the atom tag</span>
+        <span class="n">atom_index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\d+&quot;</span><span class="p">,</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">])[</span><span class="mi">0</span><span class="p">]))</span>
+        <span class="c1"># this is o for orbital and l for shell</span>
+        <span class="n">mode</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># the exact numbers that define the mode</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">tag</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">2</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+
+        <span class="c1"># shell mode</span>
+        <span class="k">if</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;l&quot;</span><span class="p">:</span>
+            <span class="c1"># if the all keyword is used</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">info</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">info</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="kc">None</span><span class="p">])</span>
+            <span class="c1"># else dump each number to the shell</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">info</span><span class="p">])</span>
+        <span class="c1"># orbital mode</span>
+        <span class="k">elif</span> <span class="n">mode</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;o&quot;</span><span class="p">:</span>
+            <span class="n">orb</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">info</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unable to decipher tag: </span><span class="si">{</span><span class="n">tag</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># if something is not used just return None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">orb</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">orb</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">orb</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Mixed magnetic entity generation is not yet possible!&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">atom_index</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">orb</span></div>
+
+
+
+<div class="viewcode-block" id="decipher_all_by_pos">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.utilities.decipher_all_by_pos.html#grogupy.io.utilities.decipher_all_by_pos">[docs]</a>
+<span class="k">def</span> <span class="nf">decipher_all_by_pos</span><span class="p">(</span>
+    <span class="n">dh</span><span class="p">:</span> <span class="n">sisl</span><span class="o">.</span><span class="n">physics</span><span class="o">.</span><span class="n">Hamiltonian</span><span class="p">,</span>
+    <span class="n">magnetic_entities</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+    <span class="n">pairs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span>
+    <span class="n">atol</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-4</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This function deciphers the magnetic entities and pairs based on coordinates</span>
+
+<span class="sd">    It links the pair information to the magnetic entities based on the</span>
+<span class="sd">    ordering of the list of magnetic entities and tags. Then it links the</span>
+<span class="sd">    magnetic entities to the ``sisl`` Hamiltonian indices based on the</span>
+<span class="sd">    position of atoms.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dh: sisl.physics.Hamiltonian</span>
+<span class="sd">        The ``sisl`` Hamiltonian to get the positions of atoms</span>
+<span class="sd">    magnetic_entities: list[dict]</span>
+<span class="sd">        The list of tags and positions of magnetic entities</span>
+<span class="sd">    pairs: list[dict]</span>
+<span class="sd">        The list tags and positions of pairs</span>
+<span class="sd">    atol: float, optional</span>
+<span class="sd">        The absolute tolerance between the position from the pair and magnetic entity</span>
+<span class="sd">        information and the Hamiltonian, by default 1e-4</span>
+<span class="sd">    mode: {&quot;normal&quot;, &quot;full&quot;}, optional</span>
+<span class="sd">        Whether to return all the information or just the one needed by</span>
+<span class="sd">        ``grogupy``, by default &quot;normal&quot;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    magnetic_entities: list[dict]</span>
+<span class="sd">        The &#39;normalized&#39; magnetic entity information</span>
+<span class="sd">    pairs: list[dict]</span>
+<span class="sd">        The &#39;normalized&#39; pair information</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># iterate over magnetic entities</span>
+    <span class="k">for</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="n">magnetic_entities</span><span class="p">:</span>
+        <span class="c1"># get the atom index, by comparing the pair coordinates to the atom</span>
+        <span class="c1"># coordinates from the sisl Hamiltonian</span>
+        <span class="n">atom</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;xyz&quot;</span><span class="p">],</span> <span class="n">dh</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span>
+        <span class="p">)[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="c1"># this must be an integer (really, this is important, because we check the type later)</span>
+        <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">atom</span><span class="p">)</span>
+
+    <span class="c1"># iterate over pairs</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+        <span class="c1"># get the atom index, by comparing the pair coordinates to the atom</span>
+        <span class="c1"># coordinates from the sisl Hamiltonian</span>
+        <span class="c1"># this must be an integer (really, this is important, because we check the type later)</span>
+        <span class="n">atom1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;xyz1&quot;</span><span class="p">],</span> <span class="n">dh</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)[</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+        <span class="c1"># this must be an integer (really, this is important, because we check the type later)</span>
+        <span class="n">atom2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">argwhere</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;xyz2&quot;</span><span class="p">],</span> <span class="n">dh</span><span class="o">.</span><span class="n">xyz</span><span class="p">,</span> <span class="n">atol</span><span class="o">=</span><span class="n">atol</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)[</span>
+                <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+            <span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># we have to convert these to indices from the magnetic entity list</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">magnetic_entities</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">atom1</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;ai&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="n">atom2</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;aj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+        <span class="n">magnetic_entities</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="n">magnetic_entities</span>
+        <span class="p">]</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">ai</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;ai&quot;</span><span class="p">],</span> <span class="n">aj</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;aj&quot;</span><span class="p">],</span> <span class="n">Ruc</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;Ruc&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">magnetic_entities</span><span class="p">,</span> <span class="n">pairs</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">magnetic_entities</span><span class="p">,</span> <span class="n">pairs</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown keyword.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="decipher_all_by_tag">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.utilities.decipher_all_by_tag.html#grogupy.io.utilities.decipher_all_by_tag">[docs]</a>
+<span class="k">def</span> <span class="nf">decipher_all_by_tag</span><span class="p">(</span>
+    <span class="n">magnetic_entities</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">pairs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;normal&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates the magnetic entities and pairs from the tag.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    magnetic_entities : list[dict]</span>
+<span class="sd">        List of magnetic entities</span>
+<span class="sd">    pairs : list[dict]</span>
+<span class="sd">        List of pairs</span>
+<span class="sd">    mode : {&quot;normal&quot;, &quot;full&quot;}, optional</span>
+<span class="sd">        Wether to concatenate to the dictionaries or just return the normal input</span>
+<span class="sd">        for the ``Builder`` class, by default &quot;normal&quot;</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    magnetic_entities : list[dict]</span>
+<span class="sd">        list of magnetic entities in the new format or with the appended information</span>
+<span class="sd">    pairs : list[dict]</span>
+<span class="sd">        list of pairs in the new format or with the appended information</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    Exception</span>
+<span class="sd">        Unknown tag</span>
+<span class="sd">    Exception</span>
+<span class="sd">        Unknown mode</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># this helper function converts tag to a magnetic entity dictionary</span>
+
+    <span class="c1"># iterate over magnetic entities and convert their tags to</span>
+    <span class="c1"># atom, l and orb</span>
+    <span class="k">for</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="n">magnetic_entities</span><span class="p">:</span>
+        <span class="n">atom</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">orb</span> <span class="o">=</span> <span class="n">decipher</span><span class="p">(</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">])</span>
+        <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">atom</span>
+        <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;l&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">l</span>
+        <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;orb&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orb</span>
+
+    <span class="c1"># iterate over pairs and convert their tags to list indices from the</span>
+    <span class="c1"># magnetic_entities list</span>
+    <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">:</span>
+        <span class="n">tag1</span> <span class="o">=</span> <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag1&quot;</span><span class="p">]</span>
+        <span class="n">tag2</span> <span class="o">=</span> <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;tag2&quot;</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">magnetic_entities</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">tag1</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;ai&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="k">if</span> <span class="n">tag2</span> <span class="o">==</span> <span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;tag&quot;</span><span class="p">]:</span>
+                <span class="n">pair</span><span class="p">[</span><span class="s2">&quot;aj&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;normal&quot;</span><span class="p">:</span>
+        <span class="n">magnetic_entities</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="nb">dict</span><span class="p">(</span><span class="n">atom</span><span class="o">=</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">],</span> <span class="n">l</span><span class="o">=</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;l&quot;</span><span class="p">],</span> <span class="n">orb</span><span class="o">=</span><span class="n">mag_ent</span><span class="p">[</span><span class="s2">&quot;orb&quot;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">mag_ent</span> <span class="ow">in</span> <span class="n">magnetic_entities</span>
+        <span class="p">]</span>
+        <span class="n">pairs</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">ai</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;ai&quot;</span><span class="p">],</span> <span class="n">aj</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;aj&quot;</span><span class="p">],</span> <span class="n">Ruc</span><span class="o">=</span><span class="n">pair</span><span class="p">[</span><span class="s2">&quot;Ruc&quot;</span><span class="p">])</span> <span class="k">for</span> <span class="n">pair</span> <span class="ow">in</span> <span class="n">pairs</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">magnetic_entities</span><span class="p">,</span> <span class="n">pairs</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;full&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">magnetic_entities</span><span class="p">,</span> <span class="n">pairs</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Unknown keyword.&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="strip_dict_structure">
+<a class="viewcode-back" href="../../../API/io/_generated/grogupy.io.utilities.strip_dict_structure.html#grogupy.io.utilities.strip_dict_structure">[docs]</a>
+<span class="k">def</span> <span class="nf">strip_dict_structure</span><span class="p">(</span>
+    <span class="n">dictionary</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
+    <span class="n">pops</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="s2">&quot;Gii&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_Gii_tmp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gij&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_Gij_tmp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Gji&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;_Gji_tmp&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Vu1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Vu2&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets the values in the pops keys from the whole dictionary structure to None.</span>
+
+<span class="sd">    Usually it is used to remove the parts from the magnetic entities and</span>
+<span class="sd">    the pairs that are taking up a lot of space. See the default keys in</span>
+<span class="sd">    the pops parameter.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    dictionary : dict</span>
+<span class="sd">        The dictionary structure that we want to strip down</span>
+<span class="sd">    pops : list[str], optional</span>
+<span class="sd">        These are the keys that should be set to None in the structure,</span>
+<span class="sd">        by defualt [&quot;Gii&quot;, &quot;_Gii_tmp&quot;, &quot;Gij&quot;, &quot;_Gij_tmp&quot;, &quot;Gji&quot;, &quot;_Gji_tmp&quot;, &quot;Vu1&quot;, &quot;Vu2&quot;]</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    dict</span>
+<span class="sd">        The stripped down dictionary</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># create the output dict</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+    <span class="c1"># iterate over the key value pairs</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># if the value at the key is not needed, then set it to None</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">pops</span><span class="p">:</span>
+            <span class="n">out_value</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># if the key contains a dictionary go a level deeper and do the same</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">out_value</span> <span class="o">=</span> <span class="n">strip_dict_structure</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">pops</span><span class="p">)</span>
+        <span class="c1"># if the key contains a list, then iterate over it, check if there is any dictionary</span>
+        <span class="c1"># and if there is, then go a level deeper</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">list_out_val</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">value</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="n">list_out_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">strip_dict_structure</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="n">pops</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">list_out_val</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="n">out_value</span> <span class="o">=</span> <span class="n">list_out_val</span>
+        <span class="c1"># if the key is determined needed then use the key value pair in the out structure</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out_value</span> <span class="o">=</span> <span class="n">value</span>
+
+        <span class="n">out</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_value</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, grogupy.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>

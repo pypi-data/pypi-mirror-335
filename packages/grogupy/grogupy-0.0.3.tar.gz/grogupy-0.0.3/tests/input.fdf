@@ -1,0 +1,47 @@
+InputFile       /Users/danielpozsar/Downloads/nojij/Fe3GeTe2/monolayer/soc/lat3_791/Fe3GeTe2.fdf # comment test
+OutputFile      ./Fe3GeTe2_fdf_test # comment test
+
+
+ScfXcfOrientation 0 0 1 # comment test
+ # comment test
+%block XCF_Rotation # comment test
+    1   0   0   0   1   0   0   0   1 # comment test
+    0   1   0   1   0   0   0   0   1 # comment test
+    0   0   1   1   0   0   0   1   0 # comment test
+%endblock XCFRotation # comment test
+
+%block MagneticEntities  # comment test
+AtomShell 3 2
+AtomShell 4 2
+AtomShell 5 2
+%endblock MagneticEntities
+
+# Cluster 4 5                   # this is a list of atoms
+# Atom 3                        # this MUST BE one atom else error
+# AtomShell 3 2                 # this is one atom and its shell sub-index
+# AtomShell 4 1 2               # this is one atom and its shell sub-index
+# AtomShell 5 2                 # this is one atom and its shell sub-index
+# AtomOrbital 3 7 2 4           # this is one atom and its orbital sub-index
+# Orbitals 2 1 4 9              # this is a slice of orbital index
+
+
+%block Pairs            #  MagneticEntities index ai and aj, supercell offset
+    0   1   0   0   0
+    0   2   0   0   0
+    1   2   0   0   0
+    0   2   -1   -1   0 # comment test
+    1   2   -1   -1   0
+    0   2   -1   0   0
+    1   2   -1   0   0
+    1   2   -2   0   0
+    1   2   -3   0   0 # comment test
+%endblock Pairs
+
+INTEGRAL.Kset       10
+INTEGRAL.Kdirs      xy
+INTEGRAL.Ebot       None # comment test
+INTEGRAL.Eset       600 # comment test
+INTEGRAL.Esetp      1000 # comment test
+
+GREEN.ParallelSolver False # comment test
+PadawanMode True # comment test

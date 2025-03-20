@@ -1,0 +1,384 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>grogupy.physics.contour &mdash; grogupy</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/custom_styles.css" />
+      <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+
+
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=8d563738"></script>
+      <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+</head>
+
+<body class="wy-body-for-nav">
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+
+
+          <a href="../../../index.html" class="icon icon-home">
+            grogupy documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart/index.html">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../citing.html">Citing grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guide</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../tutorials/index.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../visualizations/index.html">Visualizations</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../API/modules.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../environment/index.html">Environment Variables</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../development/index.html">Contributing to grogupy</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Extras</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog/index.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">grogupy documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">grogupy.physics.contour</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+
+  <h1>Source code for grogupy.physics.contour</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) [2024-2025] []</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+<span class="sd">&quot;&quot;&quot;contour</span>
+
+<span class="sd">_extended_summary_</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">numpy.typing</span> <span class="kn">import</span> <span class="n">NDArray</span>
+
+<span class="kn">from</span> <span class="nn">..batch.timing</span> <span class="kn">import</span> <span class="n">DefaultTimer</span>
+<span class="kn">from</span> <span class="nn">..config</span> <span class="kn">import</span> <span class="n">CONFIG</span>
+<span class="kn">from</span> <span class="nn">..core.core</span> <span class="kn">import</span> <span class="n">make_contour</span>
+<span class="kn">from</span> <span class="nn">.magnetism</span> <span class="kn">import</span> <span class="n">automatic_emin</span>
+
+<span class="k">if</span> <span class="n">CONFIG</span><span class="o">.</span><span class="n">viz_loaded</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">..viz.viz</span> <span class="kn">import</span> <span class="n">plot_contour</span>
+
+
+<div class="viewcode-block" id="Contour">
+<a class="viewcode-back" href="../../../API/physics/_generated/grogupy.physics.contour.html#grogupy.physics.contour.Contour">[docs]</a>
+<span class="k">class</span> <span class="nc">Contour</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class contains and creates the data of the energy contour for the integration.</span>
+
+<span class="sd">    If the ``emin`` argument is not given the ``eigfile`` argument</span>
+<span class="sd">    must be given to automatically set the energy minimum of the system.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    eset : int</span>
+<span class="sd">        Number of energy samples on the contour</span>
+<span class="sd">    esetp : float</span>
+<span class="sd">        A parameters that changes the shape of the sampling</span>
+<span class="sd">    emin : Union[float, None]</span>
+<span class="sd">        The lower bound of the integral. When it is `None` it is automatically set</span>
+<span class="sd">    emax : Union[float, None], optional</span>
+<span class="sd">        The upper bound of the integral, by default 0</span>
+<span class="sd">    emin_shift : float</span>
+<span class="sd">        It is added to the emin value, by default -5</span>
+<span class="sd">    emax_shift : float</span>
+<span class="sd">        It is added to the emax value, by default 0</span>
+<span class="sd">    eigfile : Union[str, None]</span>
+<span class="sd">        Either the path to the siesta .EIG or the .fdf file</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    Creating a Contour instance from the minimal amount of information.</span>
+
+<span class="sd">    &gt;&gt;&gt; contour = Contour(eset=600, esetp=1000, emin=-20)</span>
+<span class="sd">    &gt;&gt;&gt; print(contour)</span>
+<span class="sd">    &lt;grogupy.Contour emin=-25, emax=0, eset=600, esetp=1000&gt;</span>
+
+<span class="sd">    Or create it with the automatic emin finder.</span>
+
+<span class="sd">    &gt;&gt;&gt; contour = Contour(eset=600, esetp=1000, emin=None, eigfile=&quot;/Users/danielpozsar/Downloads/nojij/Fe3GeTe2/monolayer/soc/lat3_791/Fe3GeTe2.fdf&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; print(contour)</span>
+<span class="sd">    &lt;grogupy.Contour emin=-17.80687896, emax=0, eset=600, esetp=1000&gt;</span>
+
+<span class="sd">    Methods</span>
+<span class="sd">    -------</span>
+<span class="sd">    to_dict() :</span>
+<span class="sd">        Returns the instance data as a dictionary.</span>
+<span class="sd">    copy() :</span>
+<span class="sd">        Return a copy of this Contour</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    samples: NDArray</span>
+<span class="sd">        The samples along the contour</span>
+<span class="sd">    weights: NDArray</span>
+<span class="sd">        The weights of the corresponding samples</span>
+<span class="sd">    times: grogupy.batch.timing.DefaultTimer</span>
+<span class="sd">        It contains and measures runtime</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">eset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">esetp</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">emin</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">emax</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">emin_shift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">emax_shift</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">eigfile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;This functions sets up the energy integral.</span>
+
+<span class="sd">        If the ``emin`` argument is not given the ``eigfile`` argument</span>
+<span class="sd">        must be given to automatically set the energy minimum of the system.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        eset : int</span>
+<span class="sd">            Number of energy samples on the contour</span>
+<span class="sd">        esetp : float</span>
+<span class="sd">            A parameters that changes the shape of the sampling</span>
+<span class="sd">        emin : Union[float, None]</span>
+<span class="sd">            The lower bound of the integral. When it is `None` it is automatically set</span>
+<span class="sd">        emax : Union[float, None], optional</span>
+<span class="sd">            The upper bound of the integral, by default 0</span>
+<span class="sd">        emin_shift : float</span>
+<span class="sd">            It is added to the emin value, by default -5</span>
+<span class="sd">        emax_shift : float</span>
+<span class="sd">            It is added to the emax value, by default 0</span>
+<span class="sd">        eigfile : Union[str, None]</span>
+<span class="sd">            Either the path to the siesta .EIG or the .fdf file</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="p">:</span> <span class="n">DefaultTimer</span> <span class="o">=</span> <span class="n">DefaultTimer</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__automatic_emin</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eigfile</span> <span class="o">=</span> <span class="n">eigfile</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">emin</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span> <span class="o">=</span> <span class="n">automatic_emin</span><span class="p">(</span><span class="n">eigfile</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__automatic_emin</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emax</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">emax</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span> <span class="o">+=</span> <span class="n">emin_shift</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emax</span> <span class="o">+=</span> <span class="n">emax_shift</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">eset</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_esetp</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">esetp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NDArray</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_make_contour</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">times</span><span class="o">.</span><span class="n">measure</span><span class="p">(</span><span class="s2">&quot;setup&quot;</span><span class="p">,</span> <span class="n">restart</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">__getstate__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="nf">__setstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">state</span><span class="p">):</span>
+        <span class="n">times</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">DefaultTimer</span><span class="p">)</span>
+        <span class="n">times</span><span class="o">.</span><span class="n">__setstate__</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">])</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;times&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">times</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">state</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;String representation of the instance.&quot;&quot;&quot;</span>
+
+        <span class="n">out</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;&lt;grogupy.Contour emin=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">emin</span><span class="si">}</span><span class="s2">, emax=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">emax</span><span class="si">}</span><span class="s2">, eset=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">eset</span><span class="si">}</span><span class="s2">, esetp=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">esetp</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+
+        <span class="k">return</span> <span class="n">out</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">automatic_emin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__automatic_emin</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">emin</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Bottom of the contour integral.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">emax</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Top of the contour integral.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_emax</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">eset</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Number of samples along the contour.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_eset</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">esetp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Assymmetry parameter of the contour generation.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_esetp</span>
+
+    <span class="nd">@emin</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">emin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emin</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__make_contour</span><span class="p">()</span>
+
+    <span class="nd">@emax</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">emax</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_emax</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__make_contour</span><span class="p">()</span>
+
+    <span class="nd">@eset</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">eset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_eset</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__make_contour</span><span class="p">()</span>
+
+    <span class="nd">@esetp</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">esetp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_esetp</span> <span class="o">=</span> <span class="n">value</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__make_contour</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_make_contour</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;It calculates the samples and weights.</span>
+
+<span class="sd">        It calculates the samples and weights based on the instance attributes</span>
+<span class="sd">        and dumps them to the instance attributes `samples` and `weights`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">ze</span><span class="p">,</span> <span class="n">we</span> <span class="o">=</span> <span class="n">make_contour</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">emin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">emax</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">eset</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">esetp</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">samples</span><span class="p">:</span> <span class="n">NDArray</span> <span class="o">=</span> <span class="n">ze</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weights</span><span class="p">:</span> <span class="n">NDArray</span> <span class="o">=</span> <span class="n">we</span>
+
+<div class="viewcode-block" id="Contour.copy">
+<a class="viewcode-back" href="../../../API/physics/_generated/grogupy.physics.contour.html#grogupy.physics.contour.Contour.copy">[docs]</a>
+    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns the deepcopy of the instance.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Contour</span>
+<span class="sd">            The copied instance.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Contour.plot">
+<a class="viewcode-back" href="../../../API/physics/_generated/grogupy.physics.contour.html#grogupy.physics.contour.Contour.plot">[docs]</a>
+    <span class="k">def</span> <span class="nf">plot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates a plot from the contour sample points.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        plotly.graph_objs.go.Figure</span>
+<span class="sd">            The created figure</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">CONFIG</span><span class="o">.</span><span class="n">viz_loaded</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">plot_contour</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Missing visualization libraries.&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="k">pass</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, grogupy.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+</body>
+</html>
