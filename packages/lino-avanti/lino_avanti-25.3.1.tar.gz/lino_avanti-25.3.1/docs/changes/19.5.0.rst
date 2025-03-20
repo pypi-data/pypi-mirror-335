@@ -1,0 +1,56 @@
+.. _avanti.changes.19.5.0:
+
+===================
+19.5.0 (2019-05-19)
+===================
+
+Angefragte Änderungen in dieser Version:
+
+- Sozialarbeiter soll Kalendereinträge des Sekretärs bearbeiten können
+  (:ticket:`2990`)
+
+- NB Upgrade auf Python 3 ist auf einen späteren Termin verschoben, weil es
+  noch ein Problem gab, das ich mit Valentin klären muss (apt update funktioniert
+  nicht auf gandhi.net)
+
+Weitere Änderungen (nicht angefragt):
+
+- Sektretäre und Sozialarbeiter können jetzt die Termine ihrer Kollegen
+  bearbeiten.  Nebenwirkung: diese Benutzer haben jetzt auch Zugriff auf diverse
+  Tabellen in Konfigurierung --> Kalender.
+
+- "Tagesplaner" ersetzt durch "Kalenderansicht". Die "Kalenderansicht" soll
+  irgendwann den "Kalender" ersetzen.
+  NB : Lehrer haben die neue Kalenderansicht auch. Zu prüfen, ob sie das dürfen.
+
+
+- The merge button is no longer available on many models
+  (:ticket:`2191`).
+
+- Im Workflow eines Termins (Stunde) stimmten die Bezeichnungen des
+  Zustands nicht mit den Symbolen überein.
+
+    ============= ============== ============ ============== ================================
+     Action name   Verbose name   Help text    Target state   Required states
+    ------------- -------------- ------------ -------------- --------------------------------
+     reset_event   Reset          Suggested    Suggested      suggested took_place cancelled
+     wf2           ☐              Draft        Draft          suggested cancelled took_place
+     wf3           Took place     Took place   Took place     suggested draft cancelled
+     wf4           ☒              Cancelled    Cancelled      suggested draft took_place
+    ============= ============== ============ ============== ================================
+  
+- cal.Priority has been removed. Event.priority is a default value for all entries.
+
+
+
+Nachrelease am 2019-05-24
+==========================
+
+- Statusbericht (Liste der aktiven Kurse) wurde nicht angezeigt im Dashboard
+- Lehrer dürfen die Namen anderer Klienten nicht sehen
+- Fehlermeldung "ChangedAPI" wenn man auf ☉ eines Kurses klickte
+  (:attr:`update_missing_rates
+  <lino_avanti.lib.courses.Course.update_missing_rates>`)
+
+- Feldbezeichnung "Klient" einer Einschreibung bzw. Anwesenheit ersetzt durch
+  "Teilnehmer".

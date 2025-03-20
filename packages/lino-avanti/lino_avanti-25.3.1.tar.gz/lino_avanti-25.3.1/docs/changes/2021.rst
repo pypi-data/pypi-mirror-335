@@ -1,0 +1,21 @@
+.. _avanti.changes.2021:
+
+====
+2021
+====
+
+.. Note: Changes are grouped by date. Every new day gives a new
+   heading. If a release deserves separate release notes, we create a separate
+   document and this file will have a link to it.
+
+.. contents::
+  :local:
+
+2021-02-11
+==========
+
+:ticket:`3950`: The :meth:`__str__` method of
+:class:`lino_avanti.lib.avant.Client` now also shows the primary coach
+(:attr:`Client.user <lino_avanti.lib.avant.Client.user>`) between the
+parentheses. EnrolmentsByCourse no longer shows the :attr:`request_date
+<lino_xl.lib.courses.Enrolment.request_date>` column.
