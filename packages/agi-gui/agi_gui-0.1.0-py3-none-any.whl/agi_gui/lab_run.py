@@ -1,0 +1,63 @@
+import argparse
+import sys
+from pathlib import Path
+import streamlit.web.cli as stcli
+
+def check_environment():
+
+    # Check if current directory is acceptable:
+    cwd = Path.cwd()
+    # For example, accept if the cwd contains 'pyproject.toml'
+    if not (cwd / "pyproject.toml").exists() and "agilab/src/fwk/gui" not in str(cwd):
+        print("Error: Please run this command from a directory that contains your agilab project (e.g. the project root or agilab/src/fwk/gui).")
+        sys.exit(1)
+
+    # Check if the package is installed (optional):
+    try:
+        import agi_gui  # or any module from your package
+    except ImportError:
+        print("Error: The agilab package is not installed in this environment.")
+        sys.exit(1)
+
+def main():
+
+    check_environment()
+
+    parser = argparse.ArgumentParser(
+        description="Run AGILAB application with custom options."
+    )
+    parser.add_argument(
+        "--cluster-credentials", type=str, help="Cluster account user:password", default=None
+    )
+    parser.add_argument(
+        "--openai-api-key", type=str, help="OpenAI API key", default=None
+    )
+    # Parse known arguments; extra arguments are captured in `unknown`
+    args, unknown = parser.parse_known_args()
+
+    # Determine the target script (adjust path if necessary)
+    target_script = str(Path(__file__).parent / "AGILAB.py")
+
+    # Build the base argument list for Streamlit.
+    new_argv = ["streamlit", "run", target_script]
+
+    # Collect custom arguments.
+    custom_args = []
+    if args.cluster_credentials is not None:
+        custom_args.extend(["--cluster-credentials", args.cluster_credentials])
+    if args.openai_api_key is not None:
+        custom_args.extend(["--openai-api-key", args.openai_api_key])
+    if unknown:
+        custom_args.extend(unknown)
+
+    # Only add the double dash and custom arguments if there are any.
+    if custom_args:
+        new_argv.append("--")
+        new_argv.extend(custom_args)
+
+    sys.argv = new_argv
+    sys.exit(stcli.main())
+
+
+if __name__ == "__main__":
+    main()
