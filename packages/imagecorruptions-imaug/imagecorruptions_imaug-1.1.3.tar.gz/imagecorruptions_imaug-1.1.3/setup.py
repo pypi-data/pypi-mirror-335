@@ -1,0 +1,36 @@
+import setuptools
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+# Can be used to load install_require
+# with open('requirements.txt', 'r') as freq:
+#     required = freq.read().splitlines()
+
+
+setuptools.setup(
+    name="imagecorruptions-imaug",
+    version="1.1.3",
+    author="imaug",
+    author_email="ej_foss@mailbox.org",
+    description="This package provides a set of image corruptions.",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/imaug/imagecorruptions",
+    packages=setuptools.find_packages(),
+    install_requires=[
+          'numpy >= 1.16',
+          'Pillow >= 5.4.1',
+          'scikit-image >= 0.15',
+          'opencv-python >= 3.4.5',
+          'scipy >= 1.2.1',
+          'numba >= 0.53.0',
+          'setuptools ; python_version >= "3.12"',
+    ],
+    include_package_data=True,
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+    ],
+)
