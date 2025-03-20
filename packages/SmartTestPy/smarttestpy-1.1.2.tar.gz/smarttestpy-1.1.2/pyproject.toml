@@ -1,0 +1,36 @@
+[build-system]
+# Versões mais recentes do setuptools e wheel para suportar PEP 621
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SmartTestPy"
+version = "1.1.2"
+description = "Pacote para testes automatizados em Python, com integração ao pytest e cobertura de código."
+readme = "README.md"
+license = { file = "LICENSE" } # Ou "MIT" direto, se preferir.
+authors = [
+  { name = "Seu Nome", email = "seu.email@example.com" }
+]
+requires-python = ">=3.7"
+dependencies = [
+  "pytest",
+  "pytest-cov",
+  "Faker",
+  "freezegun",
+  "requests"
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+# Links úteis, como repositório e issue tracker.
+[project.urls]
+"Source" = "https://github.com/robertolima-dev/SmartTestPy"
+"Tracker" = "https://github.com/robertolima-dev/SmartTestPy/issues"
+
+[project.scripts]
+smarttestpy = "SmartTestPy.core.test_runner:run_tests"
