@@ -1,0 +1,64 @@
+[project]
+name = "kubeflow-sdk"
+version = "0.1.5"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+#dependencies = []
+
+[project.optional-dependencies]
+optimizer = [
+    "optimizer>=0.18.0rc0",
+    "trainer>=0.1.1",
+    "certifi>=14.5.14",
+    "grpcio>=1.64.1",
+    "kubernetes>=27.2.0",
+    "protobuf>=4.21.12,<5",
+    "setuptools>=21.0.0",
+    "six>=1.10",
+    "urllib3>=1.15.1",
+
+]
+trainer = [
+    "trainer>=0.1.1",
+    "kubernetes>=27.2.0",
+    "pydantic>=2.10.0",
+]
+all = [
+    "trainer>=0.1.1",
+    "optimizer>=0.18.0rc0",
+]
+
+#[dependency-groups]
+#optimizer = [
+#    "optimizer",
+#]
+#trainer = [
+#    "trainer",
+#]
+#all = [
+#    "trainer",
+#    "optimizer",
+#]
+
+[tool.uv.workspace]
+members = ["kubeflow/trainer", "kubeflow/optimizer"]
+
+[tool.uv.sources]
+optimizer = { workspace = true }
+trainer = { workspace = true }
+
+
+[tool.uv]
+package = true
+#default-groups = ["all"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["kubeflow"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
