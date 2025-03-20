@@ -1,0 +1,23 @@
+[build-system]
+build-backend = "cmeel"
+requires = ["cmeel[build]"]
+
+[project]
+description = "cmeel distribution for console-bridge, A ROS-independent package for logging that seamlessly pipes into rosconsole/rosout for ROS-dependent packages."
+license = "Zlib"
+name = "cmeel-console-bridge"
+requires-python = ">= 3.8"
+version = "1.0.2.3"
+
+[project.urls]
+homepage = "https://github.com/cmake-wheel/cmeel-console-bridge"
+upstream = "https://github.com/ros/console_bridge"
+
+[tool.cmeel]
+has-sitelib = false
+run-tests = false
+source = "console_bridge"
+upstream-version = "1.0.2"
+
+[tool.tomlsort]
+all = true
