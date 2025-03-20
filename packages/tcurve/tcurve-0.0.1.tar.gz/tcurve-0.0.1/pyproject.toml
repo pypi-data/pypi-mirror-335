@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tcurve"
+version = "0.0.1"
+description = "A deep learning framework based on PyTorch and prevalent image processing libraries. It aims to offer a set of useful tools and functions."
+                # + " v0.0.1: initial publication as an individual package.",
+                # sudo python _cleanup.py && sudo python setup.py sdist bdist_wheel && twine upload dist/*
+authors = [{name = "Seria", email = "zzqsummerai@yeah.net"}]
+dependencies = ['numpy',
+                'pandas',
+                'matplotlib',
+                'seaborn']
