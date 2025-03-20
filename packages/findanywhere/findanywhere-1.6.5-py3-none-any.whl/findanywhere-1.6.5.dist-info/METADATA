@@ -1,0 +1,136 @@
+Metadata-Version: 2.3
+Name: findanywhere
+Version: 1.6.5
+Summary: Tool for searching data in possible malformed input data as preprocessing step for further analysis.
+License: BSD License (BSD)
+Keywords: search,fuzzy_search,preprocessing
+Author: voidpointercast
+Author-email: voidpointercast@justmail.de
+Requires-Python: >=3.10,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: Microsoft :: Windows :: Windows 11
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering :: Information Analysis
+Requires-Dist: beautifulsoup4 (>=4.12.3,<5.0.0)
+Requires-Dist: dacite (>=1.8.1,<2.0.0)
+Requires-Dist: jellyfish (>=1.0.3,<2.0.0)
+Requires-Dist: pyyaml (>=6.0.1,<7.0.0)
+Requires-Dist: requests (>=2.32.3,<3.0.0)
+Requires-Dist: sqlalchemy (>=2.0.31,<3.0.0)
+Requires-Dist: toolz (>=1.0.0,<2.0.0)
+Project-URL: Documentation, https://findanywhere.readthedocs.io/en/latest
+Project-URL: Homepage, https://gitlab.com/patrick.daniel.gress/findanywhere
+Project-URL: Repository, https://gitlab.com/patrick.daniel.gress/findanywhere
+Description-Content-Type: text/markdown
+
+**FindAnywhere** is a tool designed for data analysts and developers facing the challenge of extracting meaningful 
+information from poorly structured or malformed CSV files. 
+This tool simplifies the process of filtering and analyzing data by allowing users to prefilter large datasets without 
+needing to correct their format first, focusing efforts on smaller, more relevant subsets.
+
+
+## Example
+
+Suppose we have a malformed CSV file where some parts of the address blend into the email column. Furthermore,
+the csv file has some escaping issues, generating extra columns. 
+
+````csv
+username,address,email,notes
+alice.ashcroft,5th Avenue Ashville,alice.ashcroft@here.local,
+bob.bones,Alice Ashcroft Memorial Lane,Ashville Cyan County, California,bob.bones@here.local
+charlie.st.claire,charlie.st.claire@here.local,1st street Cleveland,
+````
+
+We want to search the csv file for email addresses and some town information, but can't rely on the data
+being present where it should be. The information we seek is provided as json file:
+
+````json
+[
+  {"id": "alice", "email": "alice.ashcroft@here.local", "town":  "Ashville"},
+  {"id": "charlie", "email":  "charlie.st.claire@here.local"}
+]
+````
+
+After running *findanywhere* on the datasets we get the following results in the json lines format. The result file holds
+data sets that might be relevant to analyze further, without having to fix the original csv file, especially when
+problems might be hard to find in larger data sets.
+
+````json lines
+{"of": "alice", "best_matches": {"email": {"position": {"line": 0, "column": "email"}, "value": "alice.ashcroft@here.local", "similarity": 1.0}, "id": {"position": {"line": 0, "column": "username"}, "value": "alice.ashcroft", "similarity": 0.8714285714285714}, "town": {"position": {"line": 0, "column": "address"}, "value": "5th Avenue Ashville", "similarity": 1.0}}, "score": 0.9571428571428572}
+{"of": "charlie", "best_matches": {"email": {"position": {"line": 2, "column": "address"}, "value": "charlie.st.claire@here.local", "similarity": 1.0}, "id": {"position": {"line": 2, "column": "username"}, "value": "charlie.st.claire", "similarity": 0.8823529411764706}}, "score": 0.9411764705882353}
+````
+
+Alternatively, a direct search can be issued by using the command
+
+````shell
+findanywhere_search search_data.json input.csv  \
+--source tabular --threshold constant
+--threshold-constant 0.8 --similarity jaro_winkler
+````
+
+
+## Usage
+
+Start by creating a schema to define the parameters for searching through your data:
+
+
+````shell
+findanywhere_schema tabular string_based_evaluation \
+--threshold constant \
+--out schema.yml
+````
+
+Edit the **schema.yml** file as needed, using the documentation to guide the configuration of options and methods.
+````yaml
+deduction:
+  config: {}
+  name: average
+evaluation:
+  config:
+    aggregate: max
+    similarity: token_best_fit_similarity
+    similarity_parameter: {}
+  name: string_based_evaluation
+source:
+  config:
+    encoding: utf-8
+    errors: surrogateescape
+  name: tabular
+threshold:
+  config:
+    constant: 0.9
+  name: constant
+````
+
+Run the tool against your datasets using the defined schema:
+
+````shell
+findanywhere schema.yml search_data.json garbage.csv --out result.json_line
+````
+
+Results will be stored in result.json_line. For additional commands and options, use the --help flag.
+
+## Installation
+
+Install **WhereIsIt** easily using pip:
+
+````shell
+pip install findanywhere
+````
+
+
+## Key Features
+
+- **Robust Malformed File Handling:** Efficiently processes CSV files with irregular column structures or misplaced data entries.
+- **Fuzzy Matching Capabilities:** Utilizes advanced algorithms to match data points based on similarity, accommodating various types of data discrepancies.
+- **Parallel Processing Support:** Leverages multiple processes to enhance performance on large datasets.
+
