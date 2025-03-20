@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: agentifyme
+Version: 0.2.10
+Summary: Framework for building agentic workflows
+Author-email: AgentifyMe Team <dev@agentifyme.ai>
+License-File: LICENSE
+Keywords: agentic workflows,llm applications,workflow orchestration
+Requires-Python: >=3.11
+Requires-Dist: docstring-parser>=0.16
+Requires-Dist: httpx>=0.27
+Requires-Dist: jinja2>=3.1.4
+Requires-Dist: joblib~=1.4
+Requires-Dist: loguru>=0.7.2
+Requires-Dist: openai>=1.60
+Requires-Dist: orjson>=3.10.11
+Requires-Dist: pydantic>=2.9
+Requires-Dist: python-slugify>=8.0.4
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: sentry-sdk>=2.18.0
+Requires-Dist: tenacity>=8.5
+Requires-Dist: websockets~=14.0
+Requires-Dist: wrapt>=1.16
+Provides-Extra: groq
+Requires-Dist: groq>=0.15.0; extra == 'groq'
+Provides-Extra: grpc
+Requires-Dist: grpcio~=1.66; extra == 'grpc'
+Provides-Extra: pinecone
+Requires-Dist: pinecone-client>=5.0; extra == 'pinecone'
+Provides-Extra: qdrant
+Requires-Dist: qdrant-client>=1.12.1; extra == 'qdrant'
+Provides-Extra: together
+Requires-Dist: together>=1.2.4; extra == 'together'
+Provides-Extra: worker
+Requires-Dist: googleapis-common-protos~=1.66; extra == 'worker'
+Requires-Dist: grpcio-tools~=1.66; extra == 'worker'
+Requires-Dist: grpcio~=1.66; extra == 'worker'
+Requires-Dist: openinference-instrumentation-openai>=0.1.18; extra == 'worker'
+Requires-Dist: opentelemetry-api>=1.28.1; extra == 'worker'
+Requires-Dist: opentelemetry-exporter-otlp-proto-grpc>=1.28.1; extra == 'worker'
+Requires-Dist: opentelemetry-instrumentation>=0.50b0; extra == 'worker'
+Requires-Dist: opentelemetry-processor-baggage>=0.50b0; extra == 'worker'
+Requires-Dist: opentelemetry-sdk>=1.28.1; extra == 'worker'
+Requires-Dist: protobuf~=5.29; extra == 'worker'
+Requires-Dist: psutil>=6.1.1; extra == 'worker'
+Requires-Dist: python-dotenv>=1.0.1; extra == 'worker'
+Requires-Dist: sentry-sdk>=2.20.0; extra == 'worker'
+Description-Content-Type: text/markdown
+
+# AgentifyMe
+Framework for agentic workflows
+
+
+
