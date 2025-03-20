@@ -1,0 +1,44 @@
+charge: 0.0
+conformers:
+- head-tail-length: 26.938
+  pdb: PSM-00.pdb
+- head-tail-length: 26.392
+  pdb: PSM-01.pdb
+- head-tail-length: 26.818
+  pdb: PSM-02.pdb
+- head-tail-length: 26.651
+  pdb: PSM-03.pdb
+- head-tail-length: 26.136
+  pdb: PSM-04.pdb
+- head-tail-length: 24.931
+  pdb: PSM-05.pdb
+- head-tail-length: 23.467
+  pdb: PSM-06.pdb
+- head-tail-length: 23.868
+  pdb: PSM-07.pdb
+- head-tail-length: 24.141
+  pdb: PSM-08.pdb
+- head-tail-length: 23.026
+  pdb: PSM-09.pdb
+parameters:
+- par_all36m_prot.prm
+- par_all36_carb.prm
+- par_all36_lipid.prm
+- par_all36_carb.prm
+- par_all36_na.prm
+- par_all36_cgenff.prm
+- toppar_water_ions.str
+- stream/carb/toppar_all36_carb_glycopeptide.str
+- stream/prot/toppar_all36_prot_modify_res.str
+- /home/cfa/Git/pestifer/pestifer/Resources/charmmff/toppar/stream/lipid/toppar_all36_lipid_sphingo.str
+- stream/carb/toppar_all36_carb_imlab.str
+- stream/lipid/toppar_all36_lipid_lps.str
+reference-atoms:
+  heads:
+  - name: N
+    serial: 1
+  tails:
+  - name: C18S
+    serial: 76
+  - name: C16F
+    serial: 124
