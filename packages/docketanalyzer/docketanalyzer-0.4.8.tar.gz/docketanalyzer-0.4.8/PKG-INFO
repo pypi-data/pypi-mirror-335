@@ -1,0 +1,41 @@
+Metadata-Version: 2.4
+Name: docketanalyzer
+Version: 0.4.8
+Summary: Docket Analyzer
+Author: Nathan Dahlberg
+License-File: LICENSE
+Requires-Python: >=3.10
+Requires-Dist: docketanalyzer-core>=0.1.10
+Provides-Extra: all
+Requires-Dist: docketanalyzer-chat>=0.1.1; extra == 'all'
+Requires-Dist: docketanalyzer-ocr>=0.1.8; extra == 'all'
+Requires-Dist: docketanalyzer-pacer>=0.1.1; extra == 'all'
+Provides-Extra: chat
+Requires-Dist: docketanalyzer-chat>=0.1.1; extra == 'chat'
+Provides-Extra: dev
+Requires-Dist: docketanalyzer-core[dev]>=0.1.10; extra == 'dev'
+Requires-Dist: mkdocs-material>=9.0.0; extra == 'dev'
+Requires-Dist: mkdocs-pygments>=0.0.2; extra == 'dev'
+Requires-Dist: mkdocs>=1.5.0; extra == 'dev'
+Requires-Dist: mkdocstrings[python]>=0.24.0; extra == 'dev'
+Provides-Extra: ocr
+Requires-Dist: docketanalyzer-ocr>=0.1.8; extra == 'ocr'
+Provides-Extra: pacer
+Requires-Dist: docketanalyzer-pacer>=0.1.1; extra == 'pacer'
+Description-Content-Type: text/markdown
+
+# Docket Analyzer
+
+## Install
+
+Install Docket Analyzer with pip:
+
+```bash
+pip install 'docketanalyzer[all]'
+```
+
+Run the configuration command to setup your environment:
+
+```bash
+da configure
+```

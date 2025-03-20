@@ -1,0 +1,126 @@
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "docketanalyzer"
+version = "0.4.8"
+authors = [
+    { name = "Nathan Dahlberg" },
+]
+description = "Docket Analyzer"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "docketanalyzer-core>=0.1.10",
+]
+
+[project.optional-dependencies]
+dev = [
+    "docketanalyzer-core[dev]>=0.1.10",
+    "mkdocs>=1.5.0",
+    "mkdocs-material>=9.0.0",
+    "mkdocstrings[python]>=0.24.0",
+    "mkdocs-pygments>=0.0.2",
+]
+all = [
+    "docketanalyzer-chat>=0.1.1",
+    "docketanalyzer-pacer>=0.1.1",
+    "docketanalyzer-ocr>=0.1.8",
+]
+chat = [
+    "docketanalyzer-chat>=0.1.1",
+]
+pacer = [
+    "docketanalyzer-pacer>=0.1.1",
+]
+ocr = [
+    "docketanalyzer-ocr>=0.1.8",
+]
+
+[project.scripts]
+da = "docketanalyzer:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "docketanalyzer",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "*",
+    "!docketanalyzer/**",
+    "!pyproject.toml",
+    "!README.md",
+]
+
+[tool.ruff.lint]
+select = [
+    "E",
+    "F",
+    "I",
+    "B",
+    "UP",
+    "N",
+    "SIM",
+    "PD",
+    "NPY",
+    "PTH",
+    "RUF",
+    "D",
+]
+ignore = [
+    "D100",
+    "D104",
+    "N801",
+]
+
+[tool.ruff.lint.isort]
+known-first-party = [
+    "docketanalyzer",
+    "docketanalyzer_core",
+    "docketanalyzer_pacer",
+    "docketanalyzer_ocr",
+    "docketanalyzer_chat",
+]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = [
+    "I001",
+    "I002",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "INFO"
+addopts = "-ra -q --cov=docketanalyzer -m 'not cost'"
+testpaths = [
+    "tests",
+]
+pythonpath = "."
+markers = [
+    "cost: tests that incur real costs when run",
+    "local: requires credentials only available locally",
+]
+filterwarnings = [
+    "ignore:builtin type SwigPyPacked has no __module__ attribute:DeprecationWarning",
+    "ignore:builtin type SwigPyObject has no __module__ attribute:DeprecationWarning",
+    "ignore:builtin type swigvarlink has no __module__ attribute:DeprecationWarning",
+    "ignore:distutils Version classes are deprecated:DeprecationWarning",
+    "ignore:Support for class-based `config` is deprecated:DeprecationWarning",
+    "ignore:open_text is deprecated:DeprecationWarning",
+    "ignore:The `dict` method is deprecated; use `model_dump` instead::",
+    "ignore:Use 'content=<...>' to upload raw bytes/text content:DeprecationWarning",
+]
