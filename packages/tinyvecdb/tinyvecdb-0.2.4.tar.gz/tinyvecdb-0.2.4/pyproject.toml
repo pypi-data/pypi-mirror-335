@@ -1,0 +1,62 @@
+[project]
+name = "tinyvecdb"
+keywords = ["vector", "database", "similarity", "search", "vector database", "tinyvec", "vector search", "similarity search"]
+version = "0.2.4"
+description = "TinyVecDB is a high performance, lightweight, embedded vector database for similarity search."
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+license = {text = "MIT"}
+authors = [
+    {name = "tylerpuig"}
+]
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+     "numpy>=1.20.0",
+]
+
+[build-system]
+requires = ["setuptools>=75.8.0", "wheel>=0.45.1"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["tinyvec", "tinyvec.core"]
+package-data = {"tinyvec.core" = ["*.dll", "*.so", "*.dylib"]}
+
+[tool.setuptools.exclude-package-data]
+"*" = ["tests", "*.tests", "*.tests.*"]
+
+
+[tool.poetry.group.dev.dependencies]
+build = "^1.2.2.post1"
+setuptools = "^75.8.2"
+wheel = "^0.45.1"
+pytest = "^8.3.5"
+pytest-asyncio = "^0.25.3"
+twine = "^6.1.0"
+
+[tool.poetry]
+packages = [ { include = "tinyvec", from = "src" }]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "setuptools>=75.8.0",
+    "wheel>=0.45.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/tylerpuig/tinyvec"
