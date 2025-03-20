@@ -1,0 +1,971 @@
+# __version__= "040001.5.1"
+# __version_imas_dd__= "4.0.0-71-gf671395"
+# __imas_dd_git_commit__= "f671395e0d3a530a942c6d332553acfa94de8d94"
+# __imas_dd_git_branch__= "develop"
+#
+from ..dataclasses_idsschema import idspy_dataclass, IdsBaseClass, StructArray
+from dataclasses import field
+import numpy as np
+from typing import Optional
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicSpaceDimensionObjectBoundary(IdsBaseClass):
+    """
+
+    :ivar index : Index of this (n-1)-dimensional boundary object
+    :ivar neighbours : List of indices of the n-dimensional objects adjacent to the given n-dimensional object. An object can possibly have multiple neighbours on a boundary
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_space_dimension_object_boundary"
+        is_root_ids = False
+
+    index: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    neighbours: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=int),
+        metadata={
+            "imas_type": "INT_1D",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicGridSubsetElementObject(IdsBaseClass):
+    """
+
+    :ivar space : Index of the space from which that object is taken
+    :ivar dimension : Dimension of the object - using the convention  1=nodes, 2=edges, 3=faces, 4=cells/volumes
+    :ivar index : Object index
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_grid_subset_element_object"
+        is_root_ids = False
+
+    space: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    dimension: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    index: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicSpaceDimensionObject(IdsBaseClass):
+    """
+
+    :ivar boundary : Set of  (n-1)-dimensional objects defining the boundary of this n-dimensional object
+    :ivar geometry : Geometry data associated with the object, its detailed content is defined by ../../geometry_content. Its dimension depends on the type of object, geometry and coordinate considered.
+    :ivar nodes : List of nodes forming this object (indices to objects_per_dimension(1)%object(:) in Fortran notation)
+    :ivar measure : Measure of the space object, i.e. physical size (length for 1d, area for 2d, volume for 3d objects,...)
+    :ivar geometry_2d : 2D geometry data associated with the object. Its dimension depends on the type of object, geometry and coordinate considered. Typically, the first dimension represents the object coordinates, while the second dimension would represent the values of the various degrees of freedom of the finite element attached to the object.
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_space_dimension_object"
+        is_root_ids = False
+
+    boundary: Optional[GenericGridDynamicSpaceDimensionObjectBoundary] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicSpaceDimensionObjectBoundary
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_space_dimension_object_boundary",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicSpaceDimensionObjectBoundary,
+        },
+    )
+    geometry: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=float),
+        metadata={
+            "imas_type": "flt_1d_type",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+    nodes: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=int),
+        metadata={
+            "imas_type": "INT_1D",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+    measure: Optional[float] = field(
+        default=9e40, metadata={"imas_type": "flt_type", "field_type": float}
+    )
+    geometry_2d: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 2, dtype=float),
+        metadata={
+            "imas_type": "flt_2d_type",
+            "ndims": 2,
+            "coordinates": {"coordinate1": "1...N", "coordinate2": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicGridSubsetMetric(IdsBaseClass):
+    """
+
+    :ivar jacobian : Metric Jacobian
+    :ivar tensor_covariant : Covariant metric tensor, given on each element of the subgrid (first dimension)
+    :ivar tensor_contravariant : Contravariant metric tensor, given on each element of the subgrid (first dimension)
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_grid_subset_metric"
+        is_root_ids = False
+
+    jacobian: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=float),
+        metadata={
+            "imas_type": "FLT_1D",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "../../element"},
+            "field_type": np.ndarray,
+        },
+    )
+    tensor_covariant: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 3, dtype=float),
+        metadata={
+            "imas_type": "FLT_3D",
+            "ndims": 3,
+            "coordinates": {
+                "coordinate1": "../../element",
+                "coordinate2": "1...N",
+                "coordinate3": "1...N",
+            },
+            "field_type": np.ndarray,
+        },
+    )
+    tensor_contravariant: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 5, dtype=float),
+        metadata={
+            "imas_type": "FLT_3D",
+            "ndims": 5,
+            "coordinates": {
+                "coordinate1": "../../element",
+                "coordinate2": "1...N",
+                "coordinate2_same_as": "../tensor_covariant",
+                "coordinate3": "1...N",
+                "coordinate3_same_as": "../tensor_covariant",
+            },
+            "field_type": np.ndarray,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicGridSubsetElement(IdsBaseClass):
+    """
+
+    :ivar object : Set of objects defining the element
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_grid_subset_element"
+        is_root_ids = False
+
+    object: Optional[GenericGridDynamicGridSubsetElementObject] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicGridSubsetElementObject
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_grid_subset_element_object",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicGridSubsetElementObject,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicSpaceDimension(IdsBaseClass):
+    """
+
+    :ivar object : Set of objects for a given dimension
+    :ivar geometry_content : Content of the ../object/geometry node for this dimension
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_space_dimension"
+        is_root_ids = False
+
+    object: Optional[GenericGridDynamicSpaceDimensionObject] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicSpaceDimensionObject
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_space_dimension_object",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicSpaceDimensionObject,
+        },
+    )
+    geometry_content: Optional[IdentifierDynamicAos3] = field(
+        default=None,
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class IdentifierDynamicAos3(IdsBaseClass):
+    """
+
+    :ivar name : Short string identifier
+    :ivar index : Integer identifier (enumeration index within a list). Private identifier values must be indicated by a negative index.
+    :ivar description : Verbose description
+    """
+
+    class Meta:
+        name = "identifier_dynamic_aos3"
+        is_root_ids = False
+
+    name: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    index: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    description: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicGridSubset(IdsBaseClass):
+    """
+
+    :ivar identifier : Grid subset identifier
+    :ivar dimension : Space dimension of the grid subset elements, using the convention 1=nodes, 2=edges, 3=faces, 4=cells/volumes
+    :ivar element : Set of elements defining the grid subset. An element is defined by a combination of objects from potentially all spaces
+    :ivar base : Set of bases for the grid subset. For each base, the structure describes the projection of the base vectors on the canonical frame of the grid.
+    :ivar metric : Metric of the canonical frame onto Cartesian coordinates
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_grid_subset"
+        is_root_ids = False
+
+    identifier: Optional[IdentifierDynamicAos3] = field(
+        default=None,
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+    dimension: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    element: Optional[GenericGridDynamicGridSubsetElement] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicGridSubsetElement
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_grid_subset_element",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicGridSubsetElement,
+        },
+    )
+    base: Optional[GenericGridDynamicGridSubsetMetric] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicGridSubsetMetric
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_grid_subset_metric",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicGridSubsetMetric,
+        },
+    )
+    metric: Optional[GenericGridDynamicGridSubsetMetric] = field(
+        default=None,
+        metadata={
+            "imas_type": "generic_grid_dynamic_grid_subset_metric",
+            "field_type": GenericGridDynamicGridSubsetMetric,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridDynamicSpace(IdsBaseClass):
+    """
+
+    :ivar identifier : Space identifier
+    :ivar geometry_type : Type of space geometry (0: standard, 1:Fourier, &gt;1: Fourier with periodicity)
+    :ivar coordinates_type : Type of coordinates describing the physical space, for every coordinate of the space. The size of this node therefore defines the dimension of the space.
+    :ivar objects_per_dimension : Definition of the space objects for every dimension (from one to the dimension of the highest-dimensional objects). The index correspond to 1=nodes, 2=edges, 3=faces, 4=cells/volumes, .... For every index, a collection of objects of that dimension is described.
+    """
+
+    class Meta:
+        name = "generic_grid_dynamic_space"
+        is_root_ids = False
+
+    identifier: Optional[IdentifierDynamicAos3] = field(
+        default=None,
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+    geometry_type: Optional[IdentifierDynamicAos3] = field(
+        default=None,
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+    coordinates_type: Optional[IdentifierDynamicAos3] = field(
+        default_factory=lambda: StructArray(type_input=IdentifierDynamicAos3),
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+    objects_per_dimension: Optional[GenericGridDynamicSpaceDimension] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicSpaceDimension
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_space_dimension",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicSpaceDimension,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridAos3Root(IdsBaseClass):
+    """
+
+    :ivar identifier : Grid identifier
+    :ivar path : Path of the grid, including the IDS name, in case of implicit reference to a grid_ggd node described in another IDS. To be filled only if the grid is not described explicitly in this grid_ggd structure. Example syntax: IDS::wall/0/description_ggd(1)/grid_ggd, means that the grid is located in the wall IDS, occurrence 0, with relative path description_ggd(1)/grid_ggd, using Fortran index convention (here : first index of the array)
+    :ivar space : Set of grid spaces
+    :ivar grid_subset : Grid subsets
+    :ivar time : Time
+    """
+
+    class Meta:
+        name = "generic_grid_aos3_root"
+        is_root_ids = False
+
+    identifier: Optional[IdentifierDynamicAos3] = field(
+        default=None,
+        metadata={
+            "imas_type": "identifier_dynamic_aos3",
+            "field_type": IdentifierDynamicAos3,
+        },
+    )
+    path: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    space: Optional[GenericGridDynamicSpace] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridDynamicSpace),
+        metadata={
+            "imas_type": "generic_grid_dynamic_space",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicSpace,
+        },
+    )
+    grid_subset: Optional[GenericGridDynamicGridSubset] = field(
+        default_factory=lambda: StructArray(
+            type_input=GenericGridDynamicGridSubset
+        ),
+        metadata={
+            "imas_type": "generic_grid_dynamic_grid_subset",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridDynamicGridSubset,
+        },
+    )
+    time: Optional[float] = field(
+        default=9e40, metadata={"imas_type": "flt_type", "field_type": float}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class GenericGridScalar(IdsBaseClass):
+    """
+
+    :ivar grid_index : Index of the grid used to represent this quantity
+    :ivar grid_subset_index : Index of the grid subset the data is provided on. Corresponds to the index used in the grid subset definition: grid_subset(:)/identifier/index
+    :ivar values : One scalar value is provided per element in the grid subset.
+    :ivar coefficients : Interpolation coefficients, to be used for a high precision evaluation of the physical quantity with finite elements, provided per element in the grid subset (first dimension).
+    """
+
+    class Meta:
+        name = "generic_grid_scalar"
+        is_root_ids = False
+
+    grid_index: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    grid_subset_index: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    values: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=float),
+        metadata={
+            "imas_type": "FLT_1D",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+    coefficients: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 2, dtype=float),
+        metadata={
+            "imas_type": "FLT_2D",
+            "ndims": 2,
+            "coordinates": {"coordinate1": "../values", "coordinate2": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class IdsProvenanceNodeReference(IdsBaseClass):
+    """
+
+    :ivar name : Reference name
+    :ivar timestamp : Date and time (UTC) at which the reference was created, expressed in a human readable form (ISO 8601) : the format of the string shall be : YYYY-MM-DDTHH:MM:SSZ. Example : 2020-07-24T14:19:00Z
+    """
+
+    class Meta:
+        name = "ids_provenance_node_reference"
+        is_root_ids = False
+
+    name: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    timestamp: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class IdsProvenanceNode(IdsBaseClass):
+    """
+
+    :ivar path : Path of the node within the IDS, following the syntax given in the link below. If empty, means the provenance information applies to the whole IDS.
+    :ivar reference : List of references used to populate or calculate this node, identified as explained below. In case the node is the result of of a calculation / data processing, the reference is an input to the process described in the &#34;code&#34; structure at the root of the IDS. The reference can be an IDS (identified by a URI or a persitent identifier, see syntax in the link below) or non-IDS data imported directly from an non-IMAS database (identified by the command used to import the reference, or the persistent identifier of the data reference). Often data are obtained by a chain of processes, however only the last process input are recorded here. The full chain of provenance has then to be reconstructed recursively from the provenance information contained in the data references.
+    """
+
+    class Meta:
+        name = "ids_provenance_node"
+        is_root_ids = False
+
+    path: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    reference: Optional[IdsProvenanceNodeReference] = field(
+        default_factory=lambda: StructArray(
+            type_input=IdsProvenanceNodeReference
+        ),
+        metadata={
+            "imas_type": "ids_provenance_node_reference",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": IdsProvenanceNodeReference,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class IdsProvenance(IdsBaseClass):
+    """
+
+    :ivar node : Set of IDS nodes for which the provenance is given. The provenance information applies to the whole structure below the IDS node. For documenting provenance information for the whole IDS, set the size of this array of structure to 1 and leave the child &#34;path&#34; node empty
+    """
+
+    class Meta:
+        name = "ids_provenance"
+        is_root_ids = False
+
+    node: Optional[IdsProvenanceNode] = field(
+        default_factory=lambda: StructArray(type_input=IdsProvenanceNode),
+        metadata={
+            "imas_type": "ids_provenance_node",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": IdsProvenanceNode,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class Library(IdsBaseClass):
+    """
+
+    :ivar name : Name of software
+    :ivar description : Short description of the software (type, purpose)
+    :ivar commit : Unique commit reference of software
+    :ivar version : Unique version (tag) of software
+    :ivar repository : URL of software repository
+    :ivar parameters : List of the code specific parameters in XML format
+    """
+
+    class Meta:
+        name = "library"
+        is_root_ids = False
+
+    name: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    description: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    commit: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    version: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    repository: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    parameters: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class IdsProperties(IdsBaseClass):
+    """
+
+    :ivar comment : Any comment describing the content of this IDS
+    :ivar name : User-defined name for this IDS occurrence
+    :ivar homogeneous_time : This node must be filled (with 0, 1, or 2) for the IDS to be valid. If 1, the time of this IDS is homogeneous, i.e. the time values for this IDS are stored in the time node just below the root of this IDS. If 0, the time values are stored in the various time fields at lower levels in the tree. In the case only constant or static nodes are filled within the IDS, homogeneous_time must be set to 2
+    :ivar provider : Name of the person in charge of producing this data
+    :ivar creation_date : Date at which this data has been produced
+    :ivar provenance : Provenance information about this IDS
+    """
+
+    class Meta:
+        name = "ids_properties"
+        is_root_ids = False
+
+    comment: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    name: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    homogeneous_time: Optional[int] = field(
+        default=999999999, metadata={"imas_type": "INT_0D", "field_type": int}
+    )
+    provider: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    creation_date: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    provenance: Optional[IdsProvenance] = field(
+        default=None,
+        metadata={"imas_type": "ids_provenance", "field_type": IdsProvenance},
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class Code(IdsBaseClass):
+    """
+
+    :ivar name : Name of software generating IDS
+    :ivar description : Short description of the software (type, purpose)
+    :ivar commit : Unique commit reference of software
+    :ivar version : Unique version (tag) of software
+    :ivar repository : URL of software repository
+    :ivar parameters : List of the code specific parameters in XML format
+    :ivar output_flag : Output flag : 0 means the run is successful, other values mean some difficulty has been encountered, the exact meaning is then code specific. Negative values mean the result shall not be used.
+    :ivar library : List of external libraries used by the code that has produced this IDS
+    """
+
+    class Meta:
+        name = "code"
+        is_root_ids = False
+
+    name: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    description: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    commit: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    version: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    repository: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    parameters: Optional[str] = field(
+        default="", metadata={"imas_type": "STR_0D", "field_type": str}
+    )
+    output_flag: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=int),
+        metadata={
+            "imas_type": "INT_1D",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "/time"},
+            "field_type": np.ndarray,
+        },
+    )
+    library: Optional[Library] = field(
+        default_factory=lambda: StructArray(type_input=Library),
+        metadata={
+            "imas_type": "library",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": Library,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class MhdGgdElectrons(IdsBaseClass):
+    """
+
+    :ivar temperature : Temperature, given on various grid subsets
+    """
+
+    class Meta:
+        name = "mhd_ggd_electrons"
+        is_root_ids = False
+
+    temperature: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class MhdGgd(IdsBaseClass):
+    """
+
+    :ivar electrons : Quantities related to the electrons
+    :ivar t_i_average : Ion temperature (averaged on ion species), given on various grid subsets
+    :ivar n_i_total : Total ion density (sum over ion species and thermal+non-thermal), given on various grid subsets
+    :ivar zeff : Effective charge, given on various grid subsets
+    :ivar b_field_r : R component of the magnetic field, given on various grid subsets
+    :ivar b_field_phi : Toroidal component of the magnetic field, given on various grid subsets
+    :ivar b_field_z : Z component of the magnetic field, given on various grid subsets
+    :ivar a_field_r : R component of the magnetic vector potential, given on various grid subsets
+    :ivar a_field_phi : Toroidal component of the magnetic vector potential, given on various grid subsets
+    :ivar a_field_z : Z component of the magnetic vector potential, given on various grid subsets
+    :ivar psi : Poloidal flux, given on various grid subsets
+    :ivar velocity_r : R component of the plasma velocity, given on various grid subsets
+    :ivar velocity_phi : Toroidal component of the plasma velocity, given on various grid subsets
+    :ivar velocity_z : Z component of the plasma velocity, given on various grid subsets
+    :ivar velocity_parallel : Parallel (to magnetic field) component of the plasma velocity, given on various grid subsets
+    :ivar velocity_parallel_over_b_field : Parallel (to magnetic field) component of the plasma velocity divided by the modulus of the local magnetic field, given on various grid subsets
+    :ivar phi_potential : Electric potential, given on various grid subsets
+    :ivar vorticity : Vorticity, given on various grid subsets
+    :ivar vorticity_over_r : Vorticity divided by the local major radius, given on various grid subsets
+    :ivar j_r : R component of the current density, given on various grid subsets
+    :ivar j_phi : Toroidal component of the current density, given on various grid subsets
+    :ivar r_j_phi : Toroidal component of the current density multiplied by the local major radius, given on various grid subsets
+    :ivar j_z : Z component of the current density, given on various grid subsets
+    :ivar mass_density : Mass density, given on various grid subsets
+    :ivar time : Time
+    """
+
+    class Meta:
+        name = "mhd_ggd"
+        is_root_ids = False
+
+    electrons: Optional[MhdGgdElectrons] = field(
+        default=None,
+        metadata={
+            "imas_type": "mhd_ggd_electrons",
+            "field_type": MhdGgdElectrons,
+        },
+    )
+    t_i_average: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    n_i_total: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    zeff: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    b_field_r: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    b_field_phi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    b_field_z: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    a_field_r: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    a_field_phi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    a_field_z: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    psi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    velocity_r: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    velocity_phi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    velocity_z: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    velocity_parallel: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    velocity_parallel_over_b_field: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    phi_potential: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    vorticity: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    vorticity_over_r: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    j_r: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    j_phi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    r_j_phi: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    j_z: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    mass_density: Optional[GenericGridScalar] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridScalar),
+        metadata={
+            "imas_type": "generic_grid_scalar",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": GenericGridScalar,
+        },
+    )
+    time: Optional[float] = field(
+        default=9e40, metadata={"imas_type": "flt_type", "field_type": float}
+    )
+
+
+@idspy_dataclass(repr=False, slots=True)
+class Mhd(IdsBaseClass):
+    """
+
+    :ivar ids_properties :
+    :ivar grid_ggd : Grid (using the Generic Grid Description), for various time slices. The timebase of this array of structure must be a subset of the ggd timebase
+    :ivar ggd : Edge plasma quantities represented using the general grid description, for various time slices.
+    :ivar code :
+    :ivar time : Generic time
+    """
+
+    class Meta:
+        name = "mhd"
+        is_root_ids = True
+
+    ids_properties: Optional[IdsProperties] = field(
+        default=None,
+        metadata={"imas_type": "ids_properties", "field_type": IdsProperties},
+    )
+    grid_ggd: Optional[GenericGridAos3Root] = field(
+        default_factory=lambda: StructArray(type_input=GenericGridAos3Root),
+        metadata={
+            "imas_type": "generic_grid_aos3_root",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "time"},
+            "field_type": GenericGridAos3Root,
+        },
+    )
+    ggd: Optional[MhdGgd] = field(
+        default_factory=lambda: StructArray(type_input=MhdGgd),
+        metadata={
+            "imas_type": "mhd_ggd",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "time"},
+            "field_type": MhdGgd,
+        },
+    )
+    code: Optional[Code] = field(
+        default=None, metadata={"imas_type": "code", "field_type": Code}
+    )
+    time: Optional[np.ndarray] = field(
+        default_factory=lambda: np.zeros(shape=(0,) * 1, dtype=float),
+        metadata={
+            "imas_type": "flt_1d_type",
+            "ndims": 1,
+            "coordinates": {"coordinate1": "1...N"},
+            "field_type": np.ndarray,
+        },
+    )
