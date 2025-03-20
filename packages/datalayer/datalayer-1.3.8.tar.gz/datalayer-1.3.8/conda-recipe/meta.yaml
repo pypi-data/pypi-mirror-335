@@ -1,0 +1,31 @@
+# Copyright (c) 2023-2024 Datalayer, Inc.
+# Distributed under the terms of the Modified BSD License.
+
+package:
+  name: datalayer
+  version: "{{ DATALAYER_VERSION }}"
+
+source:
+  path: ../
+
+channels:
+  - datalayer
+
+build:
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  build:
+    - python
+    - hatchling
+  run:
+    - python
+
+test:
+  imports:
+    - datalayer
+    - datalayer_core
+    - datalayer_ui
+    - jupyter_kernels
+    - jupyter_iam
