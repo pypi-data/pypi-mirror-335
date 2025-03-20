@@ -1,0 +1,21 @@
+[project]
+name = "stresstify"
+version = "0.1.0"
+authors = [
+  { name="Pinkysha", email="pinny228q@gmail.com" },
+]
+description = "stresstify is a Python package designed for retrieving system information and performing stress tests on CPU, RAM, and disk. It provides detailed CPU information, including name, core count, frequency, and usage, as well as memory and disk usage statistics. The package includes stress tests such as CPU-intensive calculations across multiple cores, continuous RAM allocation until failure, and disk write speed measurement. The author is not responsible for any hardware damage caused by excessive load."
+readme = "README.md"
+license = { file = "LICENSE.txt" }
+
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+    "psutil>=5.9.0",
+    "numpy>=1.24.0",
+    "py-cpuinfo>=9.0.0"
+]
