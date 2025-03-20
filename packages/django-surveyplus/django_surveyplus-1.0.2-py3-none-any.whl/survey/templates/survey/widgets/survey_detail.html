@@ -1,0 +1,29 @@
+{% load i18n %}
+
+<div class="survey-detail">
+  <div class="mb-3">
+    {% include "survey/widgets/survey_header.html" %}
+  </div>
+
+  {% if not user_choice %}
+    <form class="{{ row_class }}" method="post" action="{% url 'survey:vote' %}">
+      {% csrf_token %}
+      <input type="hidden" name="success_url" value="{% firstof success_url request.path %}">
+  {% else %}
+    <div class="{{ row_class }}">
+  {% endif %}
+
+    {% for obj in survey.options.all %}
+      {% include "survey/widgets/survey_option.html" with option=obj %}
+    {% endfor %}
+
+  {% if not user_choice %}
+    </form>
+  {% else %}
+    </div>
+  {% endif %}
+
+  <div class="mb-3">
+    {% include "survey/widgets/survey_chart.html" %}
+  </div>
+</div>
