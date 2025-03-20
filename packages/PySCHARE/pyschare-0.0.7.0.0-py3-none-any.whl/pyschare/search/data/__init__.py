@@ -1,0 +1,1 @@
+from .access_data import get_data
