@@ -1,0 +1,15 @@
+pip>=24.3.1
+sinapsis>=0.1.1
+
+[all]
+sinapsis-elevenlabs
+sinapsis-speech[gradio-app]
+sinapsis-speech[elevenlabs-app]
+
+[elevenlabs-app]
+sinapsis-elevenlabs
+sinapsis-speech[gradio-app]
+
+[gradio-app]
+gradio>=5.14.0
+sinapsis-data-readers>=0.1.0
