@@ -1,0 +1,66 @@
+doc:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/**/*.md
+    - .readthedocs.yaml
+    - docs/**/*
+    - licenses/*
+    - CITATION
+    - '*.md'
+  - all-globs-to-any-file:
+    - '*.rst'
+    - '!CHANGES.rst'
+
+testing:
+- changed-files:
+  - any-glob-to-any-file:
+    - .github/**/*.yml
+    - conftest.py
+    - stginga/tests/*
+
+BackgroundSub:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/plugins/BackgroundSub.py
+
+BadPixCorr:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/plugins/BadPixCorr.py
+
+DQInspect:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/data/*
+    - stginga/plugins/DQInspect.py
+
+IPython Notebook:
+- changed-files:
+  - any-glob-to-any-file:
+    - experimental/notebooks/*
+
+MosaicAuto:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/plugins/MosaicAuto.py
+
+MultiImage:
+- changed-files:
+  - any-glob-to-any-file:
+    - experimental/plugins/MIPick.py
+    - experimental/plugins/MultiImage.py
+
+Smoothing:
+- changed-files:
+  - any-glob-to-any-file:
+    - experimental/plugins/Smoothing.py
+
+SNRCalc:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/plugins/SNRCalc.py
+
+utils:
+- changed-files:
+  - any-glob-to-any-file:
+    - stginga/utils.py

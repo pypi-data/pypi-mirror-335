@@ -1,0 +1,125 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    # Weekly Wednesday 6 AM build
+    # * is a special character in YAML so you have to quote this string
+    - cron: '0 6 * * 3'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  initial_check:
+    name: Mandatory checks before CI
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check base branch
+      uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea  # v7.0.1
+      if: github.event_name == 'pull_request'
+      with:
+        script: |
+          const allowed_basebranch = 'master';
+          const pr = context.payload.pull_request;
+          if (pr.base.ref !== allowed_basebranch) {
+            core.setFailed(`PR opened against ${pr.base.ref}, not ${allowed_basebranch}`);
+          } else {
+            core.info(`PR opened correctly against ${allowed_basebranch}`);
+          }
+
+  # The rest only run if above are done
+
+  pep:
+    runs-on: ubuntu-latest
+    needs: initial_check
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
+      with:
+        python-version: '3.x'
+    - name: Lint with flake8
+      run: |
+        python -m pip install --upgrade pip flake8
+        flake8 stginga --count
+    # Make sure that packaging will work
+    - name: pep517 build
+      run: |
+        python -m pip install --upgrade setuptools build "twine>=3.3"
+        python -m build --sdist .
+        twine check --strict dist/*
+
+  tests:
+    runs-on: ${{ matrix.os }}
+    needs: initial_check
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
+      with:
+        python-version: '3.11'
+    - name: Install and build
+      run: |
+        python -m pip install --upgrade pip setuptools wheel
+        python -m pip install -e .[test]
+    - name: Test
+      run: pytest
+
+  dev_deps_tests:
+    runs-on: ubuntu-latest
+    needs: initial_check
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
+      with:
+        python-version: '3.x'
+    - name: Install and build
+      run: |
+        python -m pip install -U pip setuptools wheel
+        python -m pip install -U -i https://pypi.anaconda.org/scientific-python-nightly-wheels/simple numpy --pre
+        python -m pip install -U astropy-iers-data PyYAML packaging
+        python -m pip install -U -i https://pypi.anaconda.org/liberfa/simple pyerfa --pre
+        python -m pip install -U -i https://pypi.anaconda.org/astropy/simple astropy --pre
+        python -m pip install git+https://github.com/ejeschke/ginga.git@main#egg=ginga
+        python -m pip install -e .[test]
+    - name: Test with dev deps
+      run: pytest
+
+  link_check:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'schedule' }}
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4.2.2
+    - name: Set up Python
+      uses: actions/setup-python@42375524e23c412d93fb67b49958b491fce71c38  # v5.4.0
+      with:
+        python-version: '3.x'
+    - name: Install and build
+      run: |
+        python -m pip install --upgrade pip setuptools wheel sphinx-astropy matplotlib
+        python -m pip install -e .
+    - name: Docs link check
+      run: |
+        cd docs
+        make linkcheck
+      shell: bash
