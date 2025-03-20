@@ -1,0 +1,73 @@
+Metadata-Version: 2.3
+Name: ldk-lnprototest
+Version: 1.0.0
+Summary: Ldk-Sample Runner for Lnprototest
+Author: Prakhar Saxena
+Author-email: prakharrsaxena@gmail.com
+Requires-Python: >=3.8,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: crc32c (>=2.2.post0,<3.0)
+Requires-Dist: pyln-bolt1 (>=1.0.222,<2.0.0)
+Requires-Dist: pyln-bolt2 (>=1.0.222,<2.0.0)
+Requires-Dist: pyln-bolt4 (>=1.0.222,<2.0.0)
+Requires-Dist: pyln-bolt7 (>=1.0.246,<2.0.0)
+Requires-Dist: pyln-client (>=0.12.0,<0.13.0)
+Requires-Dist: pyln-proto (>=23.5.2,<24.0.0)
+Requires-Dist: pyln-testing (>=0.12.0,<0.13.0)
+Requires-Dist: pytest (>=7.0.1,<8.0.0)
+Requires-Dist: python-bitcoinlib (>=0.11.2,<0.12.0)
+Description-Content-Type: text/markdown
+
+## Lnprototest Runner for LDK-Sample
+
+This is a runner script for LDK-Sample. It can be used to run **Lnprototest** tests against a **LDK-Sample** node.
+
+### Usage
+
+To run against Lnprototest BOLT tests:
+
+1. **Clone Lnprototest:**
+
+   ```bash
+   git clone https://github.com/rustyrussell/lnprototest.git
+   ```
+
+2. **Clone LDK-Sample:**
+
+   ```bash
+   git clone https://github.com/Psycho-Pirate/ldk-sample.git
+   ```
+
+3. **Build LDK-Sample:**
+
+   ```bash
+   cd ldk-sample
+   cargo build
+   ```
+
+4. **Set environment variables:**
+
+   ```bash
+   export LDK_SRC=[path to ldk-sample repo]
+   export PYTHONPATH=$PYTHONPATH:[path to lnprototest repo]
+   ```
+
+5. **Install the runner:**
+
+   ```bash
+   pip install ldk-lnprototest
+   ```
+
+6. **Run the tests:**
+
+   ```bash
+   pytest [path to lnprototest repo]/tests --log-cli-level=DEBUG
+   ```
+
+
