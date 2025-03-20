@@ -1,0 +1,54 @@
+[project]
+name = "drs-id-mongo-publisher"
+version = "0.1.0-b7"
+description = "A utility for populating Mongo with DRS Object records"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "flake8>=7.1.2",
+    "oracledb>=3.0.0",
+    "pymongo>=4.11.2",
+    "pytest>=8.3.5",
+    "python-dotenv>=1.0.1",
+]
+
+[tool.uv.workspace]
+members = ["drs_id_mongo_publisher"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  ".", "src"
+]
+
+[tool.coverage.run]
+source = [
+    "drs_id_mongo_publisher",
+]
+omit = [
+    "*/tests/*",   # Omit all files within any 'tests' directories
+]
+
+[tool.project-paths]
+dir_unit_out = "tests/out/"
+dir_unit_resources = "tests/resources/"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "coverage>=7.6.12",
+    "pytest-cov>=6.0.0",
+    "pytest>=8.3.4",
+    "ruff>=0.9.4",
+    "pytest-mock>=3.14.0",
+]
+
+[tool.uv]
+publish-url = "https://test.pypi.org/legacy/"
+
+#publish-url = "https://artifactory.huit.harvard.edu/artifactory/api/pypi/lts-python"
+# This prevents `uv publish` from overwriting existing versions with non-identical files
+# See: https://docs.astral.sh/uv/reference/settings/#check-url
+#check-url = "https://artifactory.huit.harvard.edu/artifactory/api/pypi/lts-python/simple"
