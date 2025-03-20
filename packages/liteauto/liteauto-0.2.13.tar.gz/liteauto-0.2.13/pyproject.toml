@@ -1,0 +1,41 @@
+[build-system]
+requires = [ "poetry-core",]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "liteauto"
+version = "0.2.13"
+description = "free google results"
+authors = [ "Kammari Santhosh",]
+readme = "README.md"
+license = "MIT License"
+repository = "https://github.com/santhosh/"
+keywords = [ "",]
+include = [ "ai_search_st_app.py", "search_ai_app_run.py", "researchai.py", "run_researchai.py", "liteauto_ui.py", "stapp.py",]
+[[tool.poetry.packages]]
+include = "liteauto"
+
+[tool.poetry.scripts]
+googleai-ui = "search_ai_app_run:run_app"
+researchai-ui = "run_researchai:run_app"
+liteauto-ui = "liteauto_ui:run_app"
+deep-research-email = "liteauto.deep_research.deep_research_email:deep_research_email"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyautogui = "^0.9.54"
+certifi = "^2024.12.14"
+googlesearch-python = "^1.3.0"
+liteutils = "^0.0.30"
+litegen = "^0.0.96"
+duckduckgo-search = "^7.3.2"
+wikipedia = "^1.4.0"
+pypdf2 = "3.0.1"
+trafilatura = "2.0.0"
+youtube-transcript-api = "0.6.3"
+pandas = "2.2.3"
+langchain_openai = "0.3.4"
+wordllama = "0.3.9"
+md2pdf = "^1.0.1"
+git-python = "1.0.3"
+nltk = "^3.9.1"
