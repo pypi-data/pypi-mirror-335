@@ -1,0 +1,17 @@
+class Constants:
+    EPILOG = "Made with [red]:heart:[/red] by [blue]@ivansaul[/blue]"
+    INPUT_HELP_TEXT = "The input can be a file or a directory. If a directory is provided, all videos in the directory will be processed."
+    OUTPUT_HELP_TEXT = "The output file to save the compressed video."
+    DEBUG_HELP_TEXT = "Enable debugging."
+    DELETE_ORIGINAL_HELP_TEXT = "Delete the original video after compression."
+    OVERWRITE_HELP_TEXT = "Overwrite existing output file."
+    QUALITY_HELP_TEXT = "Video quality level from range [0, 100]. Default is 75. Lower values mean (lower quality, higher compression). Higher values mean (higher quality, lower compression)."
+    UTILS_PANEL_TEXT = "Customization and Utils"
+    VIDEO_CODEC_HELP_TEXT = "Video codec to use for compression. H265 codec offers better compression quality and results in smaller file sizes, but it takes longer to encode compared to H264."
+    ERROR_MESSAGE = "An error occurred while compressing the video 💥."
+    UNKNOWN_ERROR_MESSAGE = "An unknown error occurred 💥."
+    FFMPEG_NOT_INSTALLED = "[bold red]ffmpeg is not installed! 💥[/bold red]"
+    SUPPORTED_VIDEO_FORMATS = (".mp4", ".mov", ".avi", ".mkv", ".webm")
+    COMPRESSED_SUFFIX = "_compressed"
+    FFMPEG_FILE_ALREADY_EXISTS_ERROR_PATTERN = r".*File.*already exists.*"
+    INVALID_INPUT_PATH_ERROR_MESSAGE = "ERROR: INPUT path does not exists. Please provide a valid file or directory path."
