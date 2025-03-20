@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ratpack"
+description = "A humorous Python package that simulates rat infestations in your code! It provides tools to create, count, visualize, and exterminate virtual rat infestations represented as files on your filesystem."
+version = "0.1.1"
+authors = [
+  { name="Patrick Cao", email="pc3135@nyu.edu" },
+  { name="Helen Ho", email="hth2016@nyu.edu" },
+  { name="Noah Perelmuter", email="np2446@nyu.edu" },
+  { name="Apollo Wyndham", email="acw8241@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "rat", "infestation", "decorator", "filesystem"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Education",
+    "Topic :: Utilities"
+]
+dependencies = [
+    "pillow>=9.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "build>=0.9.0",
+    "twine>=4.0.0"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-team-1"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-team-1.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-team-1/issues"
+"Documentation" = "https://github.com/software-students-spring2025/3-python-package-team-1/blob/main/README.md"
+
+[project.scripts]
+ratpack = "ratpack.__main__:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_functions = "test_*"
