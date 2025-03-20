@@ -1,0 +1,68 @@
+Metadata-Version: 2.1
+Name: GitxClone
+Version: 1.0.0
+Summary: GitClone easy!.
+Author: Mohammad Taha Gorji
+Author-email: MohammadTahaGorjiProfile@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Requires-Dist: tqdm
+
+```markdown
+# GitClone
+
+**Version: 1.0.0**  
+**Author: Mohammad Taha Gorji**  
+
+[PyPi](https://pypi.org/project/GitClones)
+
+---
+
+> **Important Notice:**  
+> GitClone easy!
+
+---
+
+
+
+
+## Installation
+
+To install the **GitClone** library, use the following command:
+
+```bash
+pip install GithubClone
+```
+
+
+## Usage Examples
+
+```python
+from GithubClone import *
+
+dest_dir = "downloads"
+repo_url = "https://github.com/username/name.git"
+
+downloaded_file = gitclone(repo_url, output_filename="repository.zip", dest_dir=dest_dir)
+extract_archive(downloaded_file, extract_to="extracted_repo")
+```
+
+
+## License
+
+This library is distributed under the **MIT License**.  
+For more information, please refer to the `LICENSE` file.
+
+---
+
+## Author
+
+**Mohammad Taha Gorji**  
+- [PyPi](https://pypi.org/project/GitClone)
+
+---
