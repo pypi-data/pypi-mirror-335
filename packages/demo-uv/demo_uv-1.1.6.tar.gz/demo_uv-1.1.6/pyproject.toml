@@ -1,0 +1,42 @@
+[project]
+name = "demo-uv"
+version = "1.1.6"
+description = "uv demo"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.2.3",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+demo-uv = "src.demo_uv.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+packages = ["src/demo_uv"]  # 明确指定包路径
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/demo_uv"]  # 确保wheel包含正确路径
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "pyproject.toml",
+    "README.md",
+]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
+explicit = true
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
