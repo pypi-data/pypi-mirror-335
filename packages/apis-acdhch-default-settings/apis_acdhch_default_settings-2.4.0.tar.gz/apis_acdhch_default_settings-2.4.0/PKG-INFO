@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: apis-acdhch-default-settings
+Version: 2.4.0
+Summary: Default settings for APIS instances at the ACDH-CH
+Author-email: Birger Schacht <birger.schacht@oeaw.ac.at>
+License-Expression: MIT
+License-File: LICENSE
+Requires-Python: >=3.11
+Requires-Dist: dj-database-url<3.0,>=2.0.0
+Requires-Dist: django-allow-cidr<0.8,>=0.6
+Requires-Dist: django-auth-ldap<5.0,>=4.6.0
+Requires-Dist: django-csp<4.0,>=3.7
+Requires-Dist: django-removals<=2.0,>=1.0.5
+Requires-Dist: opentelemetry-distro
+Requires-Dist: opentelemetry-exporter-otlp
+Requires-Dist: opentelemetry-instrumentation-asgi
+Requires-Dist: opentelemetry-instrumentation-django
+Requires-Dist: opentelemetry-instrumentation-logging
+Requires-Dist: opentelemetry-instrumentation-psycopg2
+Requires-Dist: opentelemetry-instrumentation-wsgi
+Requires-Dist: sentry-sdk<2.0,>=1.26.0
+Requires-Dist: whitenoise<7.0,>=5.2
+Description-Content-Type: text/markdown
+
+# apis_acdhch_default_settings
+
+Default settings for [APIS](https://github.com/acdh-oeaw/apis-core-rdf/) instances hosted at the ACDH-CH at the OEAW.
