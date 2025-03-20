@@ -1,0 +1,60 @@
+[project]
+name = "pyenv-load"
+version = "0.1.1"
+description = "Loads from text or JSON file into environment"
+authors = [
+    {name = "Adam Gogacz",email = "adam.byk.360@gmail.com"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+repository = "https://github.com/adamgogacz/pyenv-load"
+homepage = "https://github.com/adamgogacz/pyenv-load"
+documentation = "https://github.com/adamgogacz/pyenv-load"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities"
+]
+keywords = ["environment", "variables", "env", "dotenv", "json", "configuration"]
+requires-python = ">=3.9"
+dependencies = [
+]
+
+[tool.poetry]
+packages = [{include = "pyenv_load", from = "src"}]
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+black = "^25.1.0"
+isort = "^6.0.1"
+mypy = "^1.15.0"
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
