@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: kubeflow-sdk
+Version: 0.1.5
+Summary: Add your description here
+License-File: LICENSE
+Requires-Python: >=3.10
+Provides-Extra: all
+Requires-Dist: optimizer>=0.18.0rc0; extra == 'all'
+Requires-Dist: trainer>=0.1.1; extra == 'all'
+Provides-Extra: optimizer
+Requires-Dist: certifi>=14.5.14; extra == 'optimizer'
+Requires-Dist: grpcio>=1.64.1; extra == 'optimizer'
+Requires-Dist: kubernetes>=27.2.0; extra == 'optimizer'
+Requires-Dist: optimizer>=0.18.0rc0; extra == 'optimizer'
+Requires-Dist: protobuf<5,>=4.21.12; extra == 'optimizer'
+Requires-Dist: setuptools>=21.0.0; extra == 'optimizer'
+Requires-Dist: six>=1.10; extra == 'optimizer'
+Requires-Dist: trainer>=0.1.1; extra == 'optimizer'
+Requires-Dist: urllib3>=1.15.1; extra == 'optimizer'
+Provides-Extra: trainer
+Requires-Dist: kubernetes>=27.2.0; extra == 'trainer'
+Requires-Dist: pydantic>=2.10.0; extra == 'trainer'
+Requires-Dist: trainer>=0.1.1; extra == 'trainer'
