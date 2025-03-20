@@ -1,0 +1,42 @@
+[tool.poetry]
+name = "wme"
+version = "0.1.2"
+description = "python library for accessing the Wikimedia Enterprise API"
+authors = ["Daniel Erenrich <derenrich@wikimedia.org>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://gitlab.wikimedia.org/repos/future-audiences/wme"
+keywords = ["wikimedia", "api", "python"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.7.1"
+httpx = "^0.27.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+pytest = "^8.2.1"
+pytest-asyncio = "^0.23.7"
+ruff = "^0.4.5"
+ipython = "^8.24.0"
+mypy = "^1.10.0"
+python-dotenv = "^1.0.1"
+pre-commit = "^3.7.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+wme-login = "wme.login_cli:run"
+
+[tool.poetry.scripts]
+wme-login = "wme.login_cli:run"
