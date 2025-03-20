@@ -1,0 +1,50 @@
+# Secateur
+A framework for migrating relational databases to document-oriented databases
+
+## Introduction
+Secateur is a tool for migrating data from relational databases to document-oriented ones.
+It provides the ability to transfer data to the target storage, preserving the hierarchical structure of the data and modifying it to a new model representation.
+The key functions are:
+1. Automatic configuration of migration scenarios with flexible configuration;
+2. Support for manual configuration, configuring transformations using SQL queries, JinjaSQL (DBT-like) support;
+3. Data migration by nesting levels of the data schema (parallel processing, patch migration, mass dump to JSON files);
+4. Pruning of target storage documents, combining them depending on the types of relationships (one-to-one, one-to-many, many-to-one, many-to-many).
+
+### Supported DBMS
+#### Relational
+`PostgreSQL` `...`
+
+#### Documentary
+`MongoDB`
+
+### Toolkits used:
+`sqlalchemy` `pymongo` `jinja2`
+
+## Documentation
+Latest documentation is at:
+
+## Installation / Requirements
+`pip install secateur`
+
+## Usage example
+```
+from secateur import Secateur
+
+secateur = Secateur(
+    "postgresql://user:password@localhost:5495/database",
+    "mongodb://localhost:27017", database="db_name"
+)
+
+secateur.auto_config(schemes=['public'])
+secateur.save_config()
+
+secateur.backup(auto=True)
+secateur.migrate(batch_size=500)
+
+secateur.prune()
+
+secateur.close()
+```
+
+## License
+Secateur is distributed under the [MIT license](https://www.opensource.org/licenses/mit-license.php)
