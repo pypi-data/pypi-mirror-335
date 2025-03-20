@@ -1,0 +1,111 @@
+Metadata-Version: 2.4
+Name: regression-testing-framework
+Version: 0.1.5
+Summary: Run parallel test configurations with log discovery and summary.
+Author-email: Nicholas Ballard <nicholaesricballard@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Nicholas Ballard
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Requires-Python: >=3.9
+Requires-Dist: click>=8.1.0
+Requires-Dist: flask>=3.1.0
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: sqlite-utils>=3.38
+Description-Content-Type: text/markdown
+
+# Regression Testing Framework
+
+A framework for running parallel test configurations with log discovery and summary reports.
+
+## Features
+
+- Run multiple test configurations in parallel
+- Automatic log collection and failure detection
+- Summary reports for test runs
+- Built with pure Python - no external services required
+
+## Installation
+
+```bash
+pip install regression-testing-framework
+```
+
+Or install from source:
+
+```bash
+git clone https://github.com/username/regression_testing_framework.git
+cd regression_testing_framework
+pip install -e .
+```
+
+## Prerequisites
+
+- Python 3.9+
+
+## Quick Start
+
+1. **Create Test Configuration**
+
+   Create a YAML file (`config.yaml`) to define your tests:
+
+   ```yaml
+   base_command: /bin/bash
+   successful_run:
+     params:
+       - { c: "echo 'This command will succeed'" }
+   failing_run:
+     params:
+       - { c: "exit 1" }
+   another_successful_run:
+     params:
+       - { c: "echo 'Another successful command'" }
+   ```
+
+2. **Run Tests**
+
+   Execute your tests:
+
+   ```bash
+   reggie run -i config.yaml -o test_report.txt
+   ```
+
+   For a dry run (to see what commands will be executed without running them):
+
+   ```bash
+   reggie run -i config.yaml --dry-run
+   ```
+
+   Control the number of parallel test executions:
+
+   ```bash
+   reggie run -i config.yaml -p 8  # Run 8 tests in parallel
+   ```
+
+## How It Works
+
+1. The framework parses your YAML configuration file
+2. Each test is executed in parallel using Python's ThreadPoolExecutor
+3. Results are collected and a summary report is generated
+
+## License
+
+This project is licensed under the terms of the LICENSE file included in the repository.
