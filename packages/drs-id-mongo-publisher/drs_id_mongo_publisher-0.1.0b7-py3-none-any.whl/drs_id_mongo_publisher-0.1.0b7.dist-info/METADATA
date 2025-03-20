@@ -1,0 +1,41 @@
+Metadata-Version: 2.4
+Name: drs-id-mongo-publisher
+Version: 0.1.0b7
+Summary: A utility for populating Mongo with DRS Object records
+Requires-Python: >=3.12
+Requires-Dist: flake8>=7.1.2
+Requires-Dist: oracledb>=3.0.0
+Requires-Dist: pymongo>=4.11.2
+Requires-Dist: pytest>=8.3.5
+Requires-Dist: python-dotenv>=1.0.1
+Description-Content-Type: text/markdown
+
+# DRS ID Mongo Publisher
+
+<a href="https://github.huit.harvard.edu/LTS/drs-id-mongo-publisher/actions/workflows/pytest.yml"><img src="https://github.huit.harvard.edu/LTS/drs-id-mongo-publisher/raw/badges/test-coverage/coverage.svg"></a>
+
+This module read DRS Object information from the DRS DB and populates a Mongo collection with those object details.
+The designed purpose of the module is in support of the broader DRS2 OCFL Validation process.
+
+## Usage
+
+```bash
+usage: main.py [-h] -e ENVIRONMENT [-f IDS_FILE] [--dryrun] [--limit LIMIT] [--after AFTER] [--batch_size BATCH_SIZE]
+
+Collect DRS Object details from the DRS DB and store them in a Mongo DB.
+
+options:
+  -h, --help            show this help message and exit
+  -e ENVIRONMENT, --environment ENVIRONMENT
+                        Must be one of: dev, qa, prod
+  -f IDS_FILE, --ids_file IDS_FILE
+                        A list of DRS object ids to process. If not provided, all objects will be processed.
+  --dryrun              Run the script in dry run mode without making any changes.
+  --limit LIMIT         Limit the number of objects to process. If not provided, all objects will be processed.
+  --after AFTER         Process objects after a specific Object ID. If not provided, all objects will be processed.
+  --batch_size BATCH_SIZE
+                        Number of records to process in a batch. If not provided, the default is 1000.
+```
+
+## Notes
+Applications that import this component must have a '.env' file in the form of 'env-example'
