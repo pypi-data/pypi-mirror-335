@@ -1,0 +1,146 @@
+Metadata-Version: 2.1
+Name: ss7
+Version: 1.0.1
+Summary: SS7 Exploitation Library.
+Author: Mohammad Taha Gorji
+Author-email: MohammadTahaGorjiProfile@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+```markdown
+# SS7 Exploitation Library
+
+The SS7 Exploitation Library provides a collection of non-interactive functions to execute various SS7 attacks.
+
+**Creator:** Mohammad Taha Gorji
+
+## Features
+
+- **Non-interactive functions for executing SS7 attacks:**
+  - **Location Tracking:**
+    - `run_sri()` – Executes the SendRoutingInfo attack.
+    - `run_psi()` – Executes the ProvideSubscriberInfo attack.
+    - `run_srism()` – Executes the SendRoutingInfoForSM attack.
+    - `run_ati()` – Executes the AnyTimeInterrogation attack.
+    - `run_srigprs()` – Executes the SendRoutingInfoForGPRS attack.
+  - **Interception:**
+    - `run_ul()` – Executes the UpdateLocation attack.
+  - **Fraud:**
+    - `run_simsi()` – Executes the SendIMSI attack.
+    - `run_mtsms()` – Executes the MTForwardSMS attack.
+    - `run_cl()` – Executes the CancelLocation attack.
+  - **Denial of Service (DoS):**
+    - `run_purge()` – Executes the PurgeMS attack.
+- **Exploits Downloader:**
+  - `download_exploits()` – Downloads and extracts the SigPloit-ss7 exploits from GitHub if the `ss7` directory is not present.
+- **Command-Line Interface (CLI):**
+  - When executed as a standalone script, the library provides a simple CLI interface for testing and usage.
+
+## Installation
+
+Users can install the library using pip:
+
+```bash
+pip install ss7
+```
+
+## Requirements
+
+- Python 3.x
+- Java (required to execute the JAR files)
+- Internet connection (for downloading exploits when necessary)
+
+## Usage
+
+### Importing the Library
+
+Below is an example of how to import and use the library in your Python project:
+
+```python
+import ss7
+
+# Download exploits if the 'ss7' directory does not exist
+ss7.download_exploits()
+
+# Execute a specific attack, for example, SendRoutingInfo:
+try:
+    ret = ss7.run_sri()
+    print("SendRoutingInfo executed with exit code:", ret)
+except Exception as e:
+    print("Error during execution:", e)
+```
+
+
+## API Reference
+
+### download_exploits()
+- **Description:** Checks if the `ss7` directory exists. If not, downloads the SigPloit-ss7 repository from GitHub, extracts it, moves the `ss7` folder to the current directory, and removes temporary files.
+- **Usage:** `download_exploits()`
+- **Returns:** None
+
+### run_sri()
+- **Description:** Executes the `SendRoutingInfo.jar` file located in `ss7/attacks/tracking/sri`.
+- **Usage:** `run_sri()`
+- **Returns:** Exit code from the executed command.
+
+### run_psi()
+- **Description:** Executes the `ProvideSubscriberInfo.jar` file located in `ss7/attacks/tracking/psi`.
+- **Usage:** `run_psi()`
+- **Returns:** Exit code from the executed command.
+
+### run_srism()
+- **Description:** Executes the `SendRoutingInfoForSM.jar` file located in `ss7/attacks/tracking/srism`.
+- **Usage:** `run_srism()`
+- **Returns:** Exit code from the executed command.
+
+### run_ati()
+- **Description:** Executes the `AnyTimeInterrogation.jar` file located in `ss7/attacks/tracking/ati`.
+- **Usage:** `run_ati()`
+- **Returns:** Exit code from the executed command.
+
+### run_srigprs()
+- **Description:** Executes the `SendRoutingInfoForGPRS.jar` file located in `ss7/attacks/tracking/srigprs`.
+- **Usage:** `run_srigprs()`
+- **Returns:** Exit code from the executed command.
+
+### run_ul()
+- **Description:** Executes the `UpdateLocation.jar` file located in `ss7/attacks/interception/ul`.
+- **Usage:** `run_ul()`
+- **Returns:** Exit code from the executed command.
+
+### run_simsi()
+- **Description:** Executes the `SendIMSI.jar` file located in `ss7/attacks/fraud/simsi`.
+- **Usage:** `run_simsi()`
+- **Returns:** Exit code from the executed command.
+
+### run_mtsms()
+- **Description:** Executes the `MTForwardSMS.jar` file located in `ss7/attacks/fraud/mtsms`.
+- **Usage:** `run_mtsms()`
+- **Returns:** Exit code from the executed command.
+
+### run_cl()
+- **Description:** Executes the `CancelLocation.jar` file located in `ss7/attacks/fraud/cl`.
+- **Usage:** `run_cl()`
+- **Returns:** Exit code from the executed command.
+
+### run_purge()
+- **Description:** Executes the `PurgeMS.jar` file located in `ss7/attacks/dos/prgms`.
+- **Usage:** `run_purge()`
+- **Returns:** Exit code from the executed command.
+
+## License
+
+This project is licensed under the MIT License.
+
+## Contributing
+
+Contributions are welcome. Please submit pull requests or open issues for any improvements or bug fixes.
+
+## Contact
+
+For any questions or support, please contact the repository maintainer.
+```
