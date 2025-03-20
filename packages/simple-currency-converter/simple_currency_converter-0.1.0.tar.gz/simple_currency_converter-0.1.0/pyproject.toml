@@ -1,0 +1,13 @@
+[project]
+name = "simple_currency_converter"
+version = "0.1.0"
+description = "Simple currency converter"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "requests",
+    "types-requests",
+]
+
+[project.scripts]
+currency-convert = "simple_currency_converter.__main__:main"
