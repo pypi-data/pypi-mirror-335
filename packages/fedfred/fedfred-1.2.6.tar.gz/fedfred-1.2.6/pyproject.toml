@@ -1,0 +1,71 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "fedfred"
+version = "1.2.6"
+description = "A feature-rich python package for interacting with the Federal Reserve Bank of St. Louis Economic Database: FRED"
+authors = [
+    "Nikhil Sunder <nsunder724@gmail.com>"
+]
+readme = "README.md"
+license = "AGPL-3.0-or-later"
+repository = "https://github.com/nikhilxsunder/fedfred"
+documentation = "https://nikhilxsunder.github.io/fedfred/"
+packages = [{include = "fedfred", from = "src"}]
+include = ["src/fedfred/py.typed", "src/fedfred/**/*.pyi"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Topic :: Office/Business :: Financial :: Investment"
+]
+keywords = ["fred", "federal reserve", "api", "economics", "finance"]
+
+[tool.poetry.dependencies]
+python = ">=3.9, <4.0"
+httpx = "*"
+cacheout = "*"
+tenacity = "*"
+pandas = "*"
+pandas-stubs = "*"
+polars = "*"
+geopandas = "*"
+types-geopandas = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = ">=7.0.0,<=8.3.5"
+pytest-cov = ">=3.0.0,<=6.0.0"
+pylint = ">=2.15.0,<=3.3.5"
+mypy = ">=1.0.0,<=1.15.0"
+bandit = ">=1.7.0, <=1.8.3"
+pip-audit = ">=2.4.0,<=2.8.0"
+pre-commit = "^4.1.0"
+hypothesis = "^6.129.0"
+sphinx = ">=6.2.0,<=8.2.3"
+furo = ">=2021.11.23,<=2024.08.06"
+sphinx-autodoc-typehints = ">=1.12.0,<=3.1.0"
+myst-parser = ">=0.15,<4.0.1"
+linkify-it-py = "^2.0.3"
+sphinxcontrib-googleanalytics = "^0.4"
+tox = ">=3.24.0,<=4.24.2"
+pytest-asyncio = "^0.15.1"
+pytest-mock = "^3.6.1"
+
+[tool.mypy]
+files = "fedfred"
+ignore_missing_imports = true
+
+[tool.pylint]
+max-line-length = 120
+disable = ["C0114", "C0115", "C0116", "C0302", "C0301", "E0401", "R0902", "R0913", "R0917", "R0914", "R0912", "R0904", "R1705", "C0103", "R1710"]
+ignore-patterns = [".*\\.pyi$"]
+
+[tool.bandit]
+exclude_dirs = ["tests", "docs"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
