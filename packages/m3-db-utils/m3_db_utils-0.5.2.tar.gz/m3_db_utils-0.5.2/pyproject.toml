@@ -1,0 +1,71 @@
+[build-system]
+requires = [
+    'packaging>=21.3',
+    'pip>=21.3',
+    'setuptools>=59.6',
+    'setuptools-git-versioning>=2.0,<3'
+]
+
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'm3-db-utils'
+description = 'Utils for working with database.'
+license = {text = 'Apache-2.0'}
+authors = [
+  {name = 'Alexander Danilenko', email = 'a.danilenko@bars.group'},
+]
+readme = 'README.md'
+requires-python = '>=3.9'
+dependencies = [
+    'Django>=1.11.29',
+    'Pygments>=2.5.2',
+    'sqlparse>=0.4.2',
+    'm3-django-compat>=1.10.2,<2',
+]
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Intended Audience :: Developers',
+    'Environment :: Web Environment',
+]
+dynamic = ['version']
+
+[project.urls]
+Homepage = 'https://stash.bars-open.ru/projects/M3/repos/m3-db-utils/browse'
+Repository = 'https://stash.bars-open.ru/scm/m3/m3-db-utils.git'
+
+[project.optional-dependencies]
+dev = [
+    'isort==5.12.0',
+    'ruff==0.6.9',
+    'sphinx>=7,<7.5',
+    'sphinx-autodoc-typehints>=2,<2.5',
+    'myst-parser>=3,<3.2',
+    'sphinx_design>=0.6,<0.7',
+]
+
+[tool.setuptools.packages.find]
+where = ['src']
+
+[tool.setuptools.exclude-package-data]
+m3_db_utils = ['tests', 'tests.*']
+
+[tool.setuptools-git-versioning]
+enabled = true
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+
+target-version = 'py312'
+
+[tool.ruff.format]
+quote-style = 'single'
+indent-style = 'space'
+docstring-code-format = true
