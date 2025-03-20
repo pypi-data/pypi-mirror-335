@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Orange3 Textable Prototypes documentation, Gutenberg widget" name="description" />
+<meta content="Orange3, Textable, Prototypes, documentation, Gutenberg, widget" name="keywords" />
+
+    <title>Gutenberg &#8212; Orange3 Textable Prototypes 0.30 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <script src="../_static/documentation_options.js?v=658b33c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="CHILDES" href="CHILDES.html" />
+    <link rel="prev" title="Documentation Swiss Law widget" href="Swiss_Law.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="CHILDES.html" title="CHILDES"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Swiss_Law.html" title="Documentation Swiss Law widget"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Gutenberg</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="gutenberg">
+<span id="id1"></span><h1>Gutenberg<a class="headerlink" href="#gutenberg" title="Link to this heading">¶</a></h1>
+<img alt="../_images/gutenberg.png" src="../_images/gutenberg.png" />
+<p>Retrieve texts from gutenberg.org</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<p>Florian Rieder, Paul Zignani</p>
+</section>
+<section id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p>Input: None</p>
+<p>Outputs:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Text</span> <span class="pre">data</span></code></p>
+<blockquote>
+<div><p>A segmentation with the selected texts.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>The widget is designed to import one or more texts from <a class="reference external" href="http://www.gutenberg.org/">http://www.gutenberg.org/</a> in Orange Canvas.
+The output is a segmentation containing a segment for each imported text, annotated by title, author and language.</p>
+<section id="interface">
+<h3>Interface<a class="headerlink" href="#interface" title="Link to this heading">¶</a></h3>
+<figure class="align-center" id="id2">
+<span id="gutenberg-fig1"></span><a class="reference internal image-reference" href="../_images/gutenberg_interface.PNG"><img alt="Interface of the Gutenberg widget" src="../_images/gutenberg_interface.PNG" style="width: 381.0px; height: 593.25px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1: <strong>Gutenberg</strong> widget interface.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Gutenberg</strong> widget lets the user generate the cache of the
+<a class="reference external" href="http://www.gutenberg.org/">Gutenberg</a> database, and search it.</p>
+<p>The <strong>Generate Cache</strong> button allows the user to generate the gutenberg cache.
+This has to be done only at first launch or if the database has been updated. It can
+last about 5 to 10 minutes.</p>
+<p>The <strong>results</strong> section allows the user to add or remove texts from
+the search results.</p>
+<p>The <strong>corpus</strong> section is the users “basket”. He can add or remove texts from
+his corpus in the <strong>results</strong> section.</p>
+<p>The <strong>Send</strong> button triggers the emission of a segmentation to the output
+connection(s). When selected, the <strong>Send automatically</strong> checkbox
+disables the button and the widget attempts to automatically emit a
+segmentation at every modification of its interface.</p>
+</section>
+<section id="caveat-about-searches">
+<h3>Caveat about searches<a class="headerlink" href="#caveat-about-searches" title="Link to this heading">¶</a></h3>
+<p>A search can be executed using one or more parameters. The only case it won’t work
+is if the <em>language</em> is set to <cite>any</cite> and the other parameters are empty. However it
+is possible to make a search only by language.</p>
+<p>The aurhors are written as <cite>name, first name</cite> in the database. However writing <cite>first name name</cite>
+should also work for most of the authors.</p>
+<p>In general using only one keyword in the inputs should give the most results.</p>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<section id="information">
+<h3>Information<a class="headerlink" href="#information" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>&lt;n&gt; segments sent to output (&lt;m&gt; characters).</em></dt><dd><p>This confirms that the widget has operated properly.</p>
+</dd>
+<dt><em>The cache is being generated. This can take up to 10mn.</em></dt><dd><p>This confirms that the cache is being generated. A message will appear
+in the log once the cache is fully generated.</p>
+</dd>
+<dt><em>The cache already exists.</em></dt><dd><p>Informs the user that he has already downloaded the cache.</p>
+</dd>
+</dl>
+</section>
+<section id="warnings">
+<h3>Warnings<a class="headerlink" href="#warnings" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Cache must be generated before fisrt launch, it can take up to 10mn</em></dt><dd><p>Appears only if the cache dosen’t exist. It hould appear only the first
+time you create a gutenberg widget.</p>
+</dd>
+<dt><em>Settings were changed, please click ‘Send’ when ready.</em></dt><dd><p>Settings have changed but the <strong>Send automatically</strong> checkbox
+has not been selected, so the user is prompted to click the <strong>Send</strong>
+button (or equivalently check the box) in order for computation and data
+emission to proceed.</p>
+</dd>
+<dt><em>You didn’t search anything</em></dt><dd><p>The user wants to make a search without changing the initial settings.</p>
+</dd>
+<dt><em>Your corpus is empty, please add some texts first</em></dt><dd><p>The corpus is empty, so the user have to add some texts before sending.</p>
+</dd>
+</dl>
+</section>
+<section id="errors">
+<h3>Errors<a class="headerlink" href="#errors" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>An error occurred while building the cache.</em></dt><dd><p>An error has prevented the cache generation.</p>
+</dd>
+<dt><em>An error occurred while interrogating the cache.</em></dt><dd><p>An error happend while searching the database.</p>
+</dd>
+<dt><em>Couldn’t download data from Gutenberg.</em></dt><dd><p>An error has prevented the widget from accessing the
+Gutenberg database or retrieving the data.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Gutenberg</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+<li><a class="reference internal" href="#caveat-about-searches">Caveat about searches</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a><ul>
+<li><a class="reference internal" href="#information">Information</a></li>
+<li><a class="reference internal" href="#warnings">Warnings</a></li>
+<li><a class="reference internal" href="#errors">Errors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Swiss_Law.html"
+                          title="previous chapter">Documentation Swiss Law widget</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="CHILDES.html"
+                          title="next chapter">CHILDES</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/widgets/gutenberg.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="CHILDES.html" title="CHILDES"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Swiss_Law.html" title="Documentation Swiss Law widget"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Gutenberg</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, University of Lausanne.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
