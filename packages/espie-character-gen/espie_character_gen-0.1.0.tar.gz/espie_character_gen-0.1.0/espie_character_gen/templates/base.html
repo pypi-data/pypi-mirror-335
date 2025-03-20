@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full w-full">
+<head>
+    {% block head %}
+    <title>{% block title %}{% endblock %} - Espie Character Gen</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    {% endblock %}
+</head>
+<body class="bg-[url(https://ichef.bbci.co.uk/ace/standard/976/cpsprodpb/16620/production/_91408619_55df76d5-2245-41c1-8031-07a4da3f313f.jpg)] bg-center bg-no-repeat h-full w-full block">
+    <navbar>
+        <h1 class="bg-black text-white text-6xl py-4 px-5"> Espie Character Gen </h1>
+        <ul class="flex bg-gray-500 h-10 px-3">
+            {% for item in links %}
+                <li class="flex-1 bg-gray-500 hover:bg-gray-100">
+                    <a class="block w-full h-full p-0 mx-auto my-0 text-center"  href="{{item.url | e }}">{{ item.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </navbar>
+    <div id="content" class="h-full w-full">{% block content %}{% endblock %}</div>
+    <div id="footer" class="p-5 bg-black text-white">
+        {% block footer %}
+        &copy; Copyright 2025 by <a href="http://blog.gxldcptrick.dev/">Andres Carrera</a>.
+        {% endblock %}
+    </div>
+</body>
+</html>

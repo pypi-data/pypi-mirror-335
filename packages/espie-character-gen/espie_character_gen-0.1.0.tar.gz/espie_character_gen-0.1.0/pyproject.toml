@@ -1,0 +1,61 @@
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[project]
+name = "espie_character_gen"
+dynamic = []
+description = "A Character creation app that will allow you to mess around with the different things and work with the within the rules of the Esper Genesis Role Playing Game based on the Core Manual"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Andres Carrera", email = "andreshcar@live.com" },
+]
+classifiers = [
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = [
+    "game",
+    "api",
+    "dice",
+]
+dependencies = [
+    "click >= 8.1.7",
+    "fastapi >= 0.115.0",
+    "uvicorn >= 0.31.1",
+    "ariadne >= 0.23.0",
+    "pydantic-settings >= 2.6.1",
+    "pyjwt >= 2.10.1",
+    "fastapi-sessions>=0.3.2",
+    "python-multipart>=0.0.20",
+]
+version = "0.1.0"
+
+[project.urls]
+Homepage = "https://github.com/carrera-dev-consulting/esper-genesis-character-creator"
+Documentation = "https://consulting.gxldcptrick.dev/esper-genesis-character-creator/docs"
+Repository = "https://github.com/carrera-dev-consulting/esper-genesis-character-creator"
+Issues = "https://github.com/carrera-dev-consulting/esper-genesis-character-creator/issues"
+Changelog = "https://github.com/carrera-dev-consulting/esper-genesis-character-creator/releases"
+
+[project.scripts]
+espie-character-gen = "espie_character_gen.app:main"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.version]
+source = "scm"
+tag_regex = "^(\\d+\\.){2}\\d+$"
