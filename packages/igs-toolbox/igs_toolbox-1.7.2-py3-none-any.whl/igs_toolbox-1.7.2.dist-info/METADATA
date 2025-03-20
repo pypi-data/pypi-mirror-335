@@ -1,0 +1,134 @@
+Metadata-Version: 2.1
+Name: igs-toolbox
+Version: 1.7.2
+Summary: A toolbox to check whether files follow a predefined schema.
+Author-email: IGS Developers <IGS-Developers@rki.de>
+License: The MIT License (MIT)
+        
+        Copyright (c) 2022 NA
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://www.rki.de/DE/Content/Infekt/IGS/IGS_node.html
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jsonschema >=4.22.0
+Requires-Dist: pandas >=2.0.0
+Requires-Dist: pdf2image >=1.16.3
+Requires-Dist: opencv-python >=4.8.0.7
+Requires-Dist: typer >=0.12.3
+Requires-Dist: openpyxl >=3.1.2
+Requires-Dist: rfc3339-validator >=0.1.4
+Requires-Dist: typing-extensions ; python_version < "3.10"
+Requires-Dist: backports.zoneinfo ; python_version < "3.9"
+Provides-Extra: dev
+Requires-Dist: mypy ; extra == 'dev'
+Requires-Dist: ruff ; extra == 'dev'
+Requires-Dist: pytest ; extra == 'dev'
+Requires-Dist: pytest-cov ; extra == 'dev'
+Requires-Dist: types-jsonschema ; extra == 'dev'
+Requires-Dist: pandas-stubs ; extra == 'dev'
+
+# igs-toolbox
+
+## Description
+This Python package contains tools to check whether files follow predefined schemas of the IGS project.
+Currently, only a JSON validator is implemented, but the idea is that it will be extended to more applications related to the IGS project in the future.
+
+## Installation 
+
+igs-toolbox is installable using pip.
+
+```bash
+pip install igs-toolbox
+```
+
+## Usage
+All tools can be used directly through the commandline.
+
+### jsonChecker
+
+```bash
+usage: jsonChecker [-h] -i INPUT 
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -i INPUT, --input INPUT
+                        Filepath to json file.
+```
+
+### convertSeqMetadata
+
+The method to convert the metadata table into JSONs for each sample. This inlcudes a validation to check if the IGS metadata scheme is matched.
+
+```bash
+Usage: convertSeqMetadata [OPTIONS]
+
+  Convert table of seq metadata to json files.
+
+Options:
+  -i, --input FILE                Path to input excel or csv/tsv file.
+                                  [required]
+  -o, --output DIRECTORY          Path to output folder for json files.
+                                  [required]
+  -l, --log_file FILE             Path to log file.  [default:
+                                  convertSeqMetadata_2023-12-01T09-56-04.log]
+  --version
+  --install-completion [bash|zsh|fish|powershell|pwsh]
+                                  Install completion for the specified shell.
+  --show-completion [bash|zsh|fish|powershell|pwsh]
+                                  Show completion for the specified shell, to
+                                  copy it or customize the installation.
+  --help                          Show this message and exit.
+```
+
+Example:
+```bash
+convertSeqMetadata -i IGS_Metadata.xlsx -o out/
+```
+
+### readQR
+
+The method readQR reads the Meldungsquittung and extracts the MeldungsID. 
+
+Poppler is required to read the pdfs
+```bash
+conda install poppler
+or
+mamba install poppler
+or
+apt install poppler-utils
+```
+
+
+```bash
+usage: readQR [-h] [--version] [file ...]
+
+positional arguments:
+  file
+
+options:
+  -h, --help  show this help message and exit
+  --version   show program's version number and exit
+```
+
+Example:
+```bash
+readQR *.pdf
+```

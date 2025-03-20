@@ -1,0 +1,538 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "adapter": {
+      "$ref": "#/$defs/sstr"
+    },
+    "author": {
+      "$ref": "#/$defs/sstr"
+    },
+    "date_of_deletion": {
+      "$ref": "#/$defs/date-datetime"
+    },
+    "date_of_receiving": {
+      "$ref": "#/$defs/date-datetime"
+    },
+    "date_of_sampling": {
+      "$ref": "#/$defs/date-datetime"
+    },
+    "date_of_sequencing": {
+      "$ref": "#/$defs/date-datetime"
+    },
+    "date_of_submission": {
+      "$ref": "#/$defs/date-datetime"
+    },
+    "demis_notification_id": {
+      "$ref": "#/$defs/sstr"
+    },
+    "genome": {
+      "$ref": "#/$defs/sstr"
+    },
+    "geographic_location": {
+      "type": "string",
+      "pattern": "^[0-9]{3}$"
+    },
+    "host": {
+      "enum": [
+        "Homo sapiens"
+      ]
+    },
+    "host_birth_month": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 12
+    },
+    "host_birth_year": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "host_sex": {
+      "enum": [
+        "unknown",
+        "other",
+        "female",
+        "male"
+      ]
+    },
+    "igs_id": {
+      "type": "string",
+      "pattern": "^I[MG]S-[0-9]{5}-[A-Z]{3}P-([0-9]{2,6}|[0-9]{9}|[0-9A-F]{8}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{4}-[0-9A-F]{12})$"
+    },
+    "isolate": {
+      "$ref": "#/$defs/sstr"
+    },
+    "isolation_source": {
+      "enum": [
+        "Oral saliva specimen (specimen)",
+        "Serum specimen (specimen)",
+        "Stool specimen (specimen)",
+        "Blood specimen (specimen)",
+        "Urine specimen (specimen)",
+        "Plasma specimen (specimen)",
+        "Sputum specimen (specimen)",
+        "Specimen from lung obtained by biopsy (specimen)",
+        "Whole blood specimen (specimen)",
+        "Lower respiratory tract specimen (specimen)",
+        "Upper respiratory swab specimen (specimen)",
+        "Lower respiratory fluid specimen (specimen)",
+        "Bronchoalveolar lavage fluid specimen (specimen)",
+        "Nasopharyngeal swab (specimen)",
+        "Swab from nasal sinus (specimen)",
+        "Anterior nares swab (specimen)",
+        "Oropharyngeal aspirate (specimen)",
+        "Nasopharyngeal aspirate (specimen)",
+        "Specimen from trachea obtained by aspiration (specimen)",
+        "Pleural fluid specimen (specimen)",
+        "Nasopharyngeal washings (specimen)",
+        "Plasma, serum, or whole blood specimen (specimen)",
+        "Swab of internal nose (specimen)",
+        "Throat swab (specimen)",
+        "Tracheal secretion (specimen)",
+        "Specimen of unknown material (specimen)"
+      ]
+    },
+    "lab_sequence_id": {
+      "$ref": "#/$defs/sstr"
+    },
+    "metadata_qc": {
+      "type": "boolean"
+    },
+    "metadata_qc_reason": {
+      "$ref": "#/$defs/sstr"
+    },
+    "name_amp_protocol": {
+      "$ref": "#/$defs/sstr"
+    },
+    "pathogen": {
+      "enum": [
+        "EHCP",
+        "LISP",
+        "SALP",
+        "STYP",
+        "INVP",
+        "NEIP",
+        "MSVP",
+        "MYTP",
+        "CVDP",
+        "HIVP",
+        "NEGP",
+        "EBCP",
+        "ACBP",
+        "CDFP",
+        "MRAP",
+        "HEVP",
+        "HAVP",
+        "LEGP",
+        "SPNP",
+        "WNVP"
+      ]
+    },
+    "prime_diagnostic_lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "demis_lab_id": {
+          "type": "string",
+          "pattern": "^DEMIS-[0-9]{5}$"
+        },
+        "federal_state": {
+          "enum": [
+            "Baden-Württemberg",
+            "Bayern",
+            "Berlin",
+            "Brandenburg",
+            "Bremen",
+            "Hamburg",
+            "Hessen",
+            "Mecklenburg-Vorpommern",
+            "Niedersachsen",
+            "Nordrhein-Westfalen",
+            "Rheinland-Pfalz",
+            "Saarland",
+            "Sachsen",
+            "Sachsen-Anhalt",
+            "Schleswig-Holstein",
+            "Thüringen"
+          ]
+        },
+        "city": {
+          "$ref": "#/$defs/sstr"
+        },
+        "name": {
+          "$ref": "#/$defs/sstr"
+        },
+        "postal_code": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$"
+        },
+        "street": {
+          "$ref": "#/$defs/sstr"
+        }
+      },
+      "required": [
+        "demis_lab_id"
+      ],
+      "$defs": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "date-datetime": {
+          "type": "string",
+          "anyOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            },
+            {
+              "pattern": "^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T]([01][0-9]|[2][0-3])[:]([0-5][0-9])[:]([0-5][0-9])([.][0-9]+){0,1}$"
+            }
+          ]
+        },
+        "sstr": {
+          "type": "string",
+          "anyOf": [
+            {
+              "pattern": "^[^\\n\\t\\r]*$"
+            }
+          ]
+        }
+      }
+    },
+    "primer_scheme": {
+      "$ref": "#/$defs/sstr"
+    },
+    "sequence_qc": {
+      "type": "boolean"
+    },
+    "sequence_qc_reason": {
+      "$ref": "#/$defs/sstr"
+    },
+    "sequencing_instrument": {
+      "enum": [
+        "454_GS",
+        "454_GS_20",
+        "454_GS_FLX",
+        "454_GS_FLX+",
+        "454_GS_FLX_Titanium",
+        "454_GS_Junior",
+        "HiSeq_X_Five",
+        "HiSeq_X_Ten",
+        "Illumina_Genome_Analyzer",
+        "Illumina_Genome_Analyzer_II",
+        "Illumina_Genome_Analyzer_IIx",
+        "Illumina_HiScanSQ",
+        "Illumina_HiSeq_1000",
+        "Illumina_HiSeq_1500",
+        "Illumina_HiSeq_2000",
+        "Illumina_HiSeq_2500",
+        "Illumina_HiSeq_3000",
+        "Illumina_HiSeq_4000",
+        "Illumina_iSeq_100",
+        "Illumina_MiSeq",
+        "Illumina_MiniSeq",
+        "Illumina_NovaSeq_6000",
+        "NextSeq_500",
+        "NextSeq_550",
+        "PacBio_RS",
+        "PacBio_RS_II",
+        "Sequel",
+        "Ion_Torrent_PGM",
+        "Ion_Torrent_Proton",
+        "Ion_Torrent_S5",
+        "Ion_Torrent_S5_XL",
+        "AB_3730xL_Genetic_Analyzer",
+        "AB_3730_Genetic_Analyzer",
+        "AB_3500xL_Genetic_Analyzer",
+        "AB_3500_Genetic_Analyzer",
+        "AB_3130xL_Genetic_Analyzer",
+        "AB_3130_Genetic_Analyzer",
+        "AB_310_Genetic_Analyzer",
+        "MinION",
+        "GridION",
+        "PromethION",
+        "BGISEQ-500",
+        "DNBSEQ-T7",
+        "DNBSEQ-G400",
+        "DNBSEQ-G50",
+        "DNBSEQ-G400_FAST",
+        "Illumina_NextSeq_1000",
+        "Illumina_NextSeq_2000",
+        "Illumina_NovaSeq_X",
+        "Illumina_NovaSeq_X_PLUS",
+        "Sequel_II",
+        "Sequel_IIe",
+        "Flongle",
+        "DNBSEQ-T10",
+        "DNBSEQ-T20",
+        "DNBSEQ-G99",
+        "Ion_Torrent_Genexus",
+        "Onso",
+        "Revio",
+        "UG_100",
+        "G4",
+        "PX",
+        "unspecified"
+      ]
+    },
+    "sequencing_lab": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "demis_lab_id": {
+          "type": "string",
+          "pattern": "^DEMIS-[0-9]{5}$"
+        },
+        "federal_state": {
+          "enum": [
+            "Baden-Württemberg",
+            "Bayern",
+            "Berlin",
+            "Brandenburg",
+            "Bremen",
+            "Hamburg",
+            "Hessen",
+            "Mecklenburg-Vorpommern",
+            "Niedersachsen",
+            "Nordrhein-Westfalen",
+            "Rheinland-Pfalz",
+            "Saarland",
+            "Sachsen",
+            "Sachsen-Anhalt",
+            "Schleswig-Holstein",
+            "Thüringen"
+          ]
+        },
+        "city": {
+          "$ref": "#/$defs/sstr"
+        },
+        "name": {
+          "$ref": "#/$defs/sstr"
+        },
+        "postal_code": {
+          "type": "string",
+          "pattern": "^[0-9]{5}$"
+        },
+        "street": {
+          "$ref": "#/$defs/sstr"
+        }
+      },
+      "required": [
+        "demis_lab_id"
+      ],
+      "$defs": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "date-datetime": {
+          "type": "string",
+          "anyOf": [
+            {
+              "format": "date"
+            },
+            {
+              "format": "date-time"
+            },
+            {
+              "pattern": "^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T]([01][0-9]|[2][0-3])[:]([0-5][0-9])[:]([0-5][0-9])([.][0-9]+){0,1}$"
+            }
+          ]
+        },
+        "sstr": {
+          "type": "string",
+          "anyOf": [
+            {
+              "pattern": "^[^\\n\\t\\r]*$"
+            }
+          ]
+        }
+      }
+    },
+    "sequencing_platform": {
+      "enum": [
+        "LS454",
+        "ILLUMINA",
+        "PACBIO_SMRT",
+        "ION_TORRENT",
+        "CAPILLARY",
+        "OXFORD_NANOPORE",
+        "BGISEQ",
+        "DNBSEQ",
+        "OTHER"
+      ]
+    },
+    "sequencing_reason": {
+      "enum": [
+        "random",
+        "requested",
+        "clinical",
+        "other"
+      ]
+    },
+    "sequencing_strategy": {
+      "enum": [
+        "WGS",
+        "WGA",
+        "WXS",
+        "RNA-Seq",
+        "ssRNA-seq",
+        "miRNA-Seq",
+        "ncRNA-Seq",
+        "FL-cDNA",
+        "EST",
+        "Hi-C",
+        "ATAC-seq",
+        "WCS",
+        "RAD-Seq",
+        "CLONE",
+        "POOLCLONE",
+        "AMPLICON",
+        "CLONEEND",
+        "FINISHING",
+        "ChIP-Seq",
+        "MNase-Seq",
+        "DNase-Hypersensitivity",
+        "Bisulfite-Seq",
+        "CTS",
+        "MRE-Seq",
+        "MeDIP-Seq",
+        "MBD-Seq",
+        "Tn-Seq",
+        "VALIDATION",
+        "FAIRE-seq",
+        "SELEX",
+        "RIP-Seq",
+        "ChIA-PET",
+        "Synthetic-Long-Read",
+        "Targeted-Capture",
+        "Tethered Chromatin Conformation Capture",
+        "OTHER"
+      ]
+    },
+    "species": {
+      "$ref": "#/$defs/sstr"
+    },
+    "status": {
+      "enum": [
+        "preliminary",
+        "amended",
+        "final"
+      ]
+    },
+    "uploads": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "public_id": {
+            "$ref": "#/$defs/sstr"
+          },
+          "repository_name": {
+            "enum": [
+              "GISAID",
+              "ENA",
+              "SRA",
+              "PubMLST",
+              "GenBank",
+              "Other"
+            ]
+          },
+          "submitter": {
+            "$ref": "#/$defs/sstr"
+          },
+          "upload_date": {
+            "$ref": "#/$defs/date-datetime"
+          },
+          "upload_status": {
+            "enum": [
+              "Accepted",
+              "Planned",
+              "Denied",
+              "Other"
+            ]
+          },
+          "upload_url": {
+            "$ref": "#/$defs/sstr"
+          }
+        },
+        "required": [
+          "public_id",
+          "repository_name",
+          "upload_status"
+        ],
+        "$defs": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "date-datetime": {
+            "type": "string",
+            "anyOf": [
+              {
+                "format": "date"
+              },
+              {
+                "format": "date-time"
+              },
+              {
+                "pattern": "^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T]([01][0-9]|[2][0-3])[:]([0-5][0-9])[:]([0-5][0-9])([.][0-9]+){0,1}$"
+              }
+            ]
+          },
+          "sstr": {
+            "type": "string",
+            "anyOf": [
+              {
+                "pattern": "^[^\\n\\t\\r]*$"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "date_of_submission",
+    "host",
+    "igs_id",
+    "lab_sequence_id",
+    "pathogen",
+    "sequencing_instrument",
+    "sequencing_lab",
+    "sequencing_platform",
+    "sequencing_reason"
+  ],
+  "$defs": {
+    "date": {
+      "type": "string",
+      "format": "date"
+    },
+    "date-datetime": {
+      "type": "string",
+      "anyOf": [
+        {
+          "format": "date"
+        },
+        {
+          "format": "date-time"
+        },
+        {
+          "pattern": "^((19|20)[0-9][0-9])[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])[T]([01][0-9]|[2][0-3])[:]([0-5][0-9])[:]([0-5][0-9])([.][0-9]+){0,1}$"
+        }
+      ]
+    },
+    "sstr": {
+      "type": "string",
+      "anyOf": [
+        {
+          "pattern": "^[^\\n\\t\\r]*$"
+        }
+      ]
+    }
+  }
+}
