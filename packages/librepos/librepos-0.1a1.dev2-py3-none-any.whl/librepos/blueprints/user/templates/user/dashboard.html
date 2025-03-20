@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% from "macros/_cards.html" import icon_card, order_card %}
+
+{% block main %}
+
+    <section>
+        <div class="container">
+            <div class="row">
+                {% for ticket_type in ticket_types %}
+                    <div class="col s6 m4 offset-m2">
+                        {{ icon_card(ticket_type.icon, ticket_type.name|title, "") }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="row">
+                {% for order in orders %}
+                    <div class="col s6">
+                        {{ order_card(order) }}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+    {##}
+    {#    <section>#}
+    {#        <table class="highlight centered">#}
+    {#            {{ render_thead(["Status", "Order", "Customer", "Time", "Actions"]) }}#}
+    {#            <tbody>#}
+    {#            <tr>#}
+    {#                <td>#}
+    {#                    <i class="material-icons green-text">radio_button_checked</i>#}
+    {#                </td>#}
+    {#                <td>#12</td>#}
+    {#                <td><b>7098</b></td>#}
+    {#                <td>07:35PM</td>#}
+    {#                <td>#}
+    {#                    <a href="" class="btn filled">view</a>#}
+    {#                </td>#}
+    {#            </tr>#}
+    {#            </tbody>#}
+    {#        </table>#}
+    {#    </section>#}
+
+
+    <div class="fixed-action-btn">
+        <button hx-post="" hx-trigger="click" class="btn-floating btn-large">
+            <i class="large material-icons">add</i>
+        </button>
+    </div>
+
+{% endblock %}
