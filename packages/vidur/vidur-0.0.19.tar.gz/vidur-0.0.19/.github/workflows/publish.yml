@@ -1,0 +1,80 @@
+name: Publish to PyPI
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:  # Allows manual triggering
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write  # For PyPI trusted publishing
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v4
+  
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python }}
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements-dev.txt
+
+    - name: Build package
+      run: |
+        python -m build --no-isolation --wheel
+        # only the first version needs to publish the source distribution
+        if [ "${{ matrix.python }}" = "3.10" ]; then
+          python -m build --no-isolation --sdist
+        fi
+
+    - name: Prepare PyPI distribution
+      run: |
+        mkdir pypi_dist
+        for f in dist/*.whl; do
+          # change linux to manylinux1 in the wheel name
+          new_f_name=$(echo $f | sed 's/linux/manylinux1/')
+          mv $f $new_f_name
+        done
+
+    - name: Store the distribution packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions-${{ matrix.python }}
+        path: dist/
+
+  publish:
+    needs:
+    - build
+
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12"]
+
+    runs-on: ubuntu-20.04
+    environment:
+      name: pypi
+      url: https://pypi.org/p/vidur
+    permissions:
+      id-token: write
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions-${{ matrix.python }}
+        path: dist/
+    - name: Publish distribution to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
