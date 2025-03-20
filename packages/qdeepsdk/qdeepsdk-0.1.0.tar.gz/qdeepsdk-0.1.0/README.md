@@ -1,0 +1,98 @@
+```markdown
+# QUBOSolver - Quadratic Unconstrained Binary Optimization Solver
+
+QUBOSolver is a Python library for solving Quadratic Unconstrained Binary Optimization (QUBO) problems using multiple algorithms via an external API service. It provides a clean interface to submit QUBO matrices and retrieve structured results from different solving algorithms.
+
+## Features
+
+- Supports multiple solving algorithms:
+  - Simulated Bifurcation
+  - Tensor Train
+  - Simulated Annealing
+- Type-hinted implementation using Python's TypedDict
+- Input validation for matrices
+- Authentication token management
+- Structured response handling
+
+## Installation
+
+```bash
+pip install numpy requests
+```
+
+Note: This library requires `numpy` and `requests` as dependencies.
+
+## Usage
+
+```python
+import numpy as np
+from qdeepsdk import QUBOSolver
+
+# Initialize solver
+solver = QUBOSolver()
+
+# Set authentication token
+solver.token = "your-auth-token-here"
+
+# Create a QUBO matrix
+matrix = np.array([
+    [-1,  2,  2],
+    [ 0, -1,  2],
+    [ 0,  0, -1]
+])
+
+# Solve the QUBO problem
+try:
+    results = solver.solve(matrix)
+  
+    # Access results
+    print("Simulated Bifurcation:", results["SimulatedBifurcation"])
+    print("Tensor Train:", results["TensorTrain"])
+    print("Simulated Annealing:", results["SimulatedAnnealer"])
+  
+except ValueError as e:
+    print(f"Error: {e}")
+except requests.RequestException as e:
+    print(f"API Error: {e}")
+```
+
+## API Response Structure
+
+The solver returns a `SolveResult` dictionary with the following structure:
+
+```python
+{
+    "SimulatedBifurcation": {
+        "configuration": List[int],  # Solution vector
+        "energy": float,            # Energy of the solution
+        "time": float              # Computation time in seconds
+    },
+    "TensorTrain": {
+        "configuration": List[int],
+        "energy": float,
+        "time": float
+    },
+    "SimulatedAnnealer": {
+        "configuration": List[int],
+        "energy": float,
+        "time": float
+    }
+}
+```
+
+## Requirements
+
+- Python 3.7+
+- NumPy
+- Requests
+
+```##
+
+The library includes comprehensive error handling for:
+
+- Invalid or missing authentication tokens
+- Non-square matrices
+- Non-2D matrices
+- Non-numpy array inputs
+- API connection issues
+```
