@@ -1,0 +1,46 @@
+Metadata-Version: 2.1
+Name: inorbit_edge_executor
+Version: 1.1.0
+Summary: InOrbit Edge Missions Executor
+Author: Mariano Cereda, Hernan Badenes
+Author-email: Mariano Cereda <mariano.cereda@inorbit.ai>, Hernan Badenes <herchu@inorbit.ai>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Provides-Extra: dev
+Provides-Extra: docs
+License-File: LICENSE
+
+# InOrbit Edge Executor
+
+This package allows to execute InOrbit missions in connector robots.
+
+## Installation
+
+**Stable Release:** `pip install inorbit_edge_executor`<br>
+**Development Head:**
+`pip install git+https://github.com/inorbit-ai/inorbit_edge_executor.git`
+
+## Development
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for information related to developing
+the code.
+
+## The Three Commands You Need To Know
+
+1. `pip install -e .[dev]`
+
+   This will install your package in editable mode with all the required
+   development dependencies (i.e. `tox`).
+
+2. `make build`
+
+   This will run `tox` which will run all your tests in Python 3.8 - 3.11 as
+   well as linting your code.
+
+3. `make clean`
+
+   This will clean up various Python and build generated files so that you can
+   ensure that you are working in a clean environment.
