@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "django-import-export-stomp"
+version = "0.4.0"
+description = "Run django-import-export processes using django-stomp"
+authors = [
+    "Nilton Frederico Teixeira <9078708+niltonfrederico@users.noreply.github.com>",
+]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "import_export_stomp" }]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+django = ">=5.1"
+django-stomp = "*"
+django-author = "*"
+django-import-export = "*"
+tablib = {version = "*", extras = ["html", "ods", "xls", "xlsx", "yaml"]}
+
+
+[tool.poetry.group.dev.dependencies]
+### Pytest: Essentials
+pytest = "*"
+pytest-mock = "*"
+pytest-django = "*"
+pytest-cov = "*"
+pytest-env = "*"
+pytest-xdist = "*"
+### Pytest: Add-ons
+pytest-icdiff = "*"
+pytest-clarity = "*"
+### Format, lint, static type checker, among others
+black = "*"
+mypy = "*"
+isort = "*"
+flake8 = "*"
+flake8-bugbear = "*"
+autoflake = "*"
+pre-commit = "*"
+#### Helpers and so on
+model-bakery = "*"
+django-storages = "^1.14.1"
+boto3 = "^1.28.57"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
