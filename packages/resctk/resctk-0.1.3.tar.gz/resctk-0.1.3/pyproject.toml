@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "resctk"
+version = "0.1.3"
+description = "A powerful AI-driven toolkit for parsing, extracting, scoring, and screening resumes, with customizable pipelines."
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "Rajdeep Roshan Sahu"}]
+requires-python = ">=3.7"
+dependencies = [
+    "pdfplumber==0.11.5",  
+    "nltk==3.9.1",
+    "sentence-transformers==3.4.1",
+    "spacy==3.8.4",
+    "scikit-learn==1.6.1",
+    "numpy==1.26.4"
+]
+
+[project.optional-dependencies]
+dev = ["pytest==8.3.5"]
+
+[project.urls]
+Repository = "https://github.com/Rajdeep108/resctk"
+Documentation = "https://github.com/Rajdeep108/resctk#readme"
