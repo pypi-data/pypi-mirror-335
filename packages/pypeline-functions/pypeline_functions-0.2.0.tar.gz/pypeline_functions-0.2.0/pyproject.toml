@@ -1,0 +1,154 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pypeline-functions"
+dynamic = ["version"]
+description = "A compiliation of data pipeline scripts in Python"
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">= 3.11"
+keywords = [
+    "data pipelines",
+    "ELT",
+    "dlt",
+    "pypeline",
+]
+authors = [{name = "Miguel Habana", email = "mighabana@gmail.com"}]
+dependencies = [
+    "pandas>=2.2.0",
+    "google-auth>=2.34.0",
+    "google-cloud-bigquery>=3.25.0",
+    "google-cloud-bigquery-storage>=2.26.0",
+    "google-cloud-storage>=2.18.0",
+    "fastparquet>=2024.5.0",
+    "pydantic>=2.9.0",
+    "dlt>=1.0.0",
+    "stream-unzip>=0.0.90",
+    "python-magic>=0.4.27",
+    "feedparser>=6.0.11",
+    "psycopg2-binary>=2.9.10",
+]
+
+# list of possible classifiers: https://pypi.org/classifiers/
+classifiers = [ 
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pre-commit",
+    "memray",
+]
+
+[project.scripts]
+extract_google_takeout_seed = "pypeline_functions.google_takeout.extract_google_takeout_seed:main"
+extract_spotify_seed = "pypeline_functions.spotify.extract_spotify_seed:main"
+google_takeout_seed_to_bigquery = "pypeline_functions.google_takeout.google_takeout_seed_to_bigquery:main"
+google_takeout_seed_to_postgres = "pypeline_functions.google_takeout.google_takeout_seed_to_postgres:main"
+spotify_seed_to_bigquery = "pypeline_functions.spotify.spotify_seed_to_bigquery:main"
+spotify_seed_to_postgres = "pypeline_functions.spotify.spotify_seed_to_postgres:main"
+rss_feed_to_postgres = "pypeline_functions.rss.rss_feed_to_postgres:main"
+
+[tool.hatch]
+# using hatch-vcs (https://github.com/ofek/hatch-vcs/tree/master) for single-source package versioning
+version.source = "vcs"
+version.template = "{tag}"
+
+[tool.hatch.build]
+hooks.vcs.version-file = "_version.py"
+include = [
+    "/src",
+    "README.md"
+]
+exclude = [
+    "__pycache__",
+    "*.pyc",
+    "*.pyo",
+    "*.log",
+    "dist/",
+    "build/",
+    "tests/",
+    ".git/",
+    "venv/",
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "tests/",
+    "*.tmp",
+    "*.bak",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/src",
+]
+
+[tool.ruff]
+line-length = 120
+lint.pylint.max-nested-blocks=10
+lint.extend-select = [
+    "F",
+    "E",
+    "W",
+    "I",
+    "N",
+    "D",
+    "UP",
+    "ANN",
+    "ASYNC",
+    "S",
+    # Remove BLE for now until I learn better exception handling
+    # "BLE",
+    "B",
+    "A",
+    "C4",
+    "DTZ",
+    "EXE",
+    "ISC",
+    "ICN",
+    "Q",
+    "ARG",
+    # Review TODO and FIXME tag usage
+    # "TD", "FIX",
+    "PD",
+    "PL",
+    "NPY",
+    "RUF"
+]
+lint.ignore = [
+    # Ignore docstring in public module
+    "D100",
+    # Ignore `self` and `cls` type annotations
+    "ANN101", "ANN102",
+    # Ignore checks for the `assert` keyword
+    "S101", 
+    # Ignore checks for possible passwords
+    "S105", "S106", "S107",
+    # Ignore argument clount limit
+    "PLR0913",
+    # Ignore generic `df` variable name for DataFrames
+    "PD901",
+    # Ignore mixed variable case for class scope
+    "N815",
+    # Ignore because of conflicts with the ruff formatter
+    "ISC001",
+]
+
+lint.pydocstyle.convention = "numpy"
+
+[tool.ruff.lint.per-file-ignores]
+"**/models.py" = ["D101"]
+"**/sources.py" = ["PLR0915"]
+"**/__init__.py" = ["D104", "E402"]
+
+# Additional configurations should include unit testing and test coverage (see pytest and pytest-cov respectively)
