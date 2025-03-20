@@ -1,0 +1,120 @@
+[tool.poetry]
+name = "oqc-qcaas-client"
+version = "3.18.0"
+description = "OQC Quantum Computing as a Service (QCaaS)"
+authors = [
+    "OQC <oqc_qcaas_support@oxfordquantumcircuits.com>",
+]
+readme = "README.md"
+license = "Proprietary"
+
+packages = [
+  { include = "qcaas_client", from = "." },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+toml = "^0.10.2"
+requests = "^2.32.3"
+requests-mock = "^1.12.1"
+python-dotenv = "^1.0.1"
+bandit = "^1.7.9"
+pip-audit = "^2.7.3"
+pip-licenses = "^5.0.0"
+setuptools = "^72.1.0"
+ujson = "^5.10.0"
+compiler-config= "0.1.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.5.7"
+poethepoet = "^0.31.1"
+
+[tool.poetry.group.testing.dependencies]
+pytest = "^8.2.2"
+pytest-mock = "^3.14.0"
+pytest-dotenv = "^0.5.2"
+python-dotenv = "^1.0.1"
+jinja2 = "^3.1.6"
+
+[tool.poe.tasks.cmd]
+help = "Launch the OQC client command line"
+script = "qcaas_client.commandline:main"
+
+[tool.poe.tasks.sync]
+help = "Update lock file, and synchronize the environment with it"
+shell = """
+echo Installing groups "$POETRY_GROUPS" \
+  && poetry lock \
+  && poetry install --only "$POETRY_GROUPS" --sync
+"""
+
+[tool.poe.tasks.checks]
+help = "Runs all checks prior to PR and CI pipeline run (non-intrusive/non-destructive)"
+sequence = ["lock", "vuln", "lint", "format", "licenses", "test"]
+
+[tool.poe.tasks.fix]
+help = "Fix code to adhere with project standards"
+shell = """
+ruff format \
+  && ruff check  --select I --fix
+"""
+
+[tool.poe.tasks.lock]
+help = "Checks that poetry.lock exists and is up-to-date with pyproject.toml"
+cmd = "poetry check --lock"
+
+[tool.poe.tasks.lint]
+help = "Lint all files against project standards"
+cmd = "ruff check"
+
+[tool.poe.tasks.format]
+help = "Format code to adhere with project standards"
+cmd = "ruff format --check"
+
+[tool.poe.tasks.vuln]
+help = "Static analysis for vulnerabilities"
+sequence = ["bandit", "pipaudit"]
+
+[tool.poe.tasks.bandit]
+help = "Search for common security issues in Python code"
+cmd = "bandit -c bandit_config.yaml -r ."
+
+[tool.poe.tasks.pipaudit]
+help = "Scan Python environment for packages with known vulnerabilities"
+cmd = """
+pip-audit --desc \
+  --ignore-vuln GHSA-84pr-m4jr-85g5
+"""
+
+[tool.poe.tasks.licenses]
+help = "Validate compliance with software license list of Python packages installed"
+cmd = """
+pip-licenses --fail-on "GNU General Public License (GPL);GNU Library or Lesser General Public License"
+"""
+
+[tool.poe.tasks.test]
+help = "Run unit tests"
+cmd = "pytest -v tests/client/unit/"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "slow_test: marks tests as slow"
+]
+env_files = [
+  ".env",
+]
+pythonpath = ["./qcaas_client"]
+testpaths = [
+    "tests/client",
+]
+
+[tool.ruff.lint]
+# Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+# Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+# McCabe complexity (`C901`) by default.
+# Isort (`I`)
+select = ["E4", "E7", "E9", "F" ,"I"]
