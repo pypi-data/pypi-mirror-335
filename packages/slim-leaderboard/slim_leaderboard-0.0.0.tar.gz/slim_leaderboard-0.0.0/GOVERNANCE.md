@@ -1,0 +1,1 @@
+Please see the SLIM governance agreement: https://nasa-ammos.github.io/slim/docs/about/GOVERNANCE 
