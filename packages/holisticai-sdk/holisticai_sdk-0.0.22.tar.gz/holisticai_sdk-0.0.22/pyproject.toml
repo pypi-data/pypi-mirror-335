@@ -1,0 +1,113 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "holisticai-sdk"
+dynamic = ["version"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "cristian", email = "cristian.munoz@holisticai.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "requests", 
+  "urllib3"
+]
+
+[project.urls]
+Documentation = "https://github.com/cristian/haisdk#readme"
+Issues = "https://github.com/cristian/haisdk/issues"
+Source = "https://github.com/cristian/haisdk"
+
+[tool.hatch.version]
+path = "src/holisticai_sdk/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/holisticai_sdk tests}"
+
+[tool.coverage.run]
+source_pkgs = ["holisticai_sdk", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/holisticai_sdk/__about__.py",
+]
+
+[tool.coverage.paths]
+holisticai_sdk = ["src/holisticai_sdk", "*/haisdk/src/holisticai_sdk"]
+tests = ["tests", "*/holisticai_sdk/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+  "src/holisticai_sdk",
+]
+
+[tool.hatch.envs.demo]
+dependencies = [
+  "pandas",
+  "scikit-learn",
+]
+
+[tool.hatch.envs.demo.scripts]
+bias = "python src/playground/example_bias.py"
+
+[tool.hatch.envs.dev]
+dependencies = [
+  "pandas",
+  "scikit-learn",
+  "requests",
+  "pydantic",
+  "jupyter",
+  "holisticai==1.0.14",
+  "myst-parser",
+  "sphinx",
+  "pydata-sphinx-theme",
+  "myst_parser",
+  "nbsphinx",
+  "jupyter",
+  "sphinx_copybutton",
+  "sphinx_design",
+  "sphinx_togglebutton",
+  "sphinxcontrib.youtube",
+  "matplotlib",
+  "sphinx-autobuild",
+  "python-dotenv",
+  "flask",
+]
+
+[tool.hatch.envs.dev.env-vars]
+SOURCE_DATE_EPOCH = "1580601600"
+
+[tool.hatch.envs.dev.scripts]
+bias = "python src/playground/example_bias.py"
+build = ["sphinx-build -b html docs docs/build"]
+
+[project.optional-dependencies]
+full = [
+  "pydantic","requests","holisticai[bias]>=1.0.14"
+]

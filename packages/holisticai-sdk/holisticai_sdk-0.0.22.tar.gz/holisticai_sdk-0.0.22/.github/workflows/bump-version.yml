@@ -1,0 +1,68 @@
+name: Bump Version, Tag and Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version_bump:
+        description: "Version increment type (patch, minor, major)"
+        required: true
+        default: "patch"
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        run: |
+          pip install hatch git-cliff
+
+      - name: Bump version
+        id: bump_version
+        run: |
+          hatch version ${{ github.event.inputs.version_bump }}
+          NEW_VERSION=$(hatch version)
+          echo "new_version=$NEW_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update Changelog
+        run: |
+          git cliff -o CHANGELOG.md
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Bump version to ${{ steps.bump_version.outputs.new_version }} and update changelog"
+          git push
+
+      - name: Create Git Tag
+        run: |
+          git tag v${{ steps.bump_version.outputs.new_version }}
+          git push origin v${{ steps.bump_version.outputs.new_version }}
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.bump_version.outputs.new_version }}
+          release_name: Release v${{ steps.bump_version.outputs.new_version }}
+          draft: false
+          prerelease: false

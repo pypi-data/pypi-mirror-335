@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: holisticai-sdk
+Version: 0.0.22
+Project-URL: Documentation, https://github.com/cristian/haisdk#readme
+Project-URL: Issues, https://github.com/cristian/haisdk/issues
+Project-URL: Source, https://github.com/cristian/haisdk
+Author-email: cristian <cristian.munoz@holisticai.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: >=3.9
+Requires-Dist: requests
+Requires-Dist: urllib3
+Provides-Extra: full
+Requires-Dist: holisticai[bias]>=1.0.14; extra == 'full'
+Requires-Dist: pydantic; extra == 'full'
+Requires-Dist: requests; extra == 'full'
+Description-Content-Type: text/markdown
+
+# .
+
+[![PyPI - Version](https://img.shields.io/pypi/v/holisticai-sdk.svg)](https://pypi.org/project/holisticai-sdk/)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/holisticai-sdk.svg)](https://pypi.org/project/holisticai-sdk/)
+
+---
+
+# Holistic AI SDK
+
+## Table of Contents
+
+- [Installation](#installation)
+- [License](#license)
+
+## Installation
+
+```bash
+# Run assessments in a self-contained environment
+pip install holisticai-sdk
+
+# Run assessments in your local environment
+pip install holisticai-sdk[full]
+```
+
+## License
+
+`-` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.

@@ -1,0 +1,57 @@
+name: Publish Python Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_to:
+        description: "Select where to publish"
+        required: true
+        default: "testpypi"
+        type: choice
+        options:
+          - testpypi
+          - pypi
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.9"
+
+      - name: Install Hatch
+        run: pip install hatch
+
+      - name: Configure authentication for TestPyPI
+        if: github.event.inputs.publish_to == 'testpypi'
+        run: |
+          echo "[test]" > ~/.pypirc
+          echo "repository = https://test.pypi.org/legacy/" >> ~/.pypirc
+          echo "username = __token__" >> ~/.pypirc
+          echo "password = ${{ secrets.TEST_PYPI_API_TOKEN }}" >> ~/.pypirc
+          chmod 600 ~/.pypirc
+
+      - name: Configure authentication for PyPI
+        if: github.event.inputs.publish_to == 'pypi'
+        run: |
+          echo "[pypi]" > ~/.pypirc
+          echo "repository = https://upload.pypi.org/legacy/" >> ~/.pypirc
+          echo "username = __token__" >> ~/.pypirc
+          echo "password = ${{ secrets.PYPI_API_TOKEN }}" >> ~/.pypirc
+          chmod 600 ~/.pypirc
+
+      - name: Build package
+        run: hatch build
+
+      - name: Publish to TestPyPI
+        if: github.event.inputs.publish_to == 'testpypi'
+        run: hatch publish --repo test
+
+      - name: Publish to PyPI
+        if: github.event.inputs.publish_to == 'pypi'
+        run: hatch publish
