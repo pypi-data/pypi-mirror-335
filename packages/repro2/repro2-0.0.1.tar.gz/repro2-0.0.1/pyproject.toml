@@ -1,0 +1,27 @@
+[project]
+name = "repro2"
+version = "0.0.1"
+description = "An open-source library for reproducing results from research papers"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "datasets>=3.4.1",
+    "docker>=7.1.0",
+    "joblib>=1.4.2",
+    "lark>=1.2.2",
+    "overrides>=7.7.0",
+    "pytest>=8.3.5",
+    "six>=1.17.0",
+]
+
+[tool.ruff]
+line-length = 120
+
+[dependency-groups]
+dev = ["black>=25.1.0", "parameterized>=0.9.0", "pytest>=8.3.5", "ruff>=0.11.0"]
+
+[tool.uv]
+package = true
+
+[tool.setuptools]
+py-modules = []
