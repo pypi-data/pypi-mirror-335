@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "debugBuddy"
+description = "A python package that gives you general tips and encouragement when debugging your file!"
+version = "0.0.0"
+authors = [
+    {name="Samir Hussain", email="sh6888@nyu.edu"},
+    {name = "Jake Chang", email = "jc11229@nyu.edu"},
+    {name = "Jimena Menendez", email = "jkm8294@nyu.edu"},
+    {name = "Sarah Wang", email = "ssw8645@nyu.edu"}
+]
+
+license = {file = "LICENSE"}
+readme = "README.md"
+keywords = ['python','package','debugging']
+requires-python = ">=3.7"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-p3-py"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-p3-py.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-p3-py/issues"
+
+[tool.setuptools]
+packages = ["debugBuddy"]
+package-dir = {"" = "src"} 
+
+[project.scripts]
+debugBuddy = "debugBuddy.__main__:main"
+motivate = "debugBuddy.cli:motivate_cli"
+rubberDucky = "debugBuddy.cli:ask_for_input_cli" 
+debug_hint = "debugBuddy.cli:debug_hint_cli"
+error_message_help = "debugBuddy.cli:error_message_help_cli"
+
