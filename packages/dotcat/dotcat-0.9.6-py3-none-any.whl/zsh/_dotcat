@@ -1,0 +1,91 @@
+#!/usr/bin/env zsh
+# shellcheck disable=SC1071  # ShellCheck only supports sh/bash/dash/ksh scripts, not zsh
+#compdef dotcat
+
+# zsh completion for dotcat command
+# Uses the dotcat-completion.py helper script for dotted path suggestions
+
+_dotcat() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments -C \
+    '1:file:_files' \
+    '2:dotted path:_dotcat_dotted_path' \
+    '--output=[Output format]:format:(raw formatted json yaml toml ini)' \
+    '--check-install[Check if required packages are installed]' \
+    '--version[Show version information]' \
+    '--help[Show help message]'
+}
+
+# Function to suggest dotted paths based on file content using the Python helper
+_dotcat_dotted_path() {
+  local file=${words[2]}
+  local current=${words[3]}
+  local prefix="" suggestions=()
+
+  # If we already have part of a dotted path, extract the prefix
+  if [[ "$current" == *.* ]]; then
+    prefix=$(echo "$current" | sed 's/\.[^.]*$//')
+  fi
+
+  # Check if we have a file argument and it exists
+  if [[ -n "$file" && -f "$file" ]]; then
+    # Get the path to the helper script
+    local script_dir=${0:A:h}  # Directory containing this completion script
+    local helper_script="${script_dir}/dotcat-completion.py"
+
+    # If the helper script doesn't exist in the same directory, try to find it
+    if [[ ! -f "$helper_script" ]]; then
+      # Try common locations
+      for dir in "/usr/local/bin" "/usr/bin" "$HOME/.local/bin" "$HOME/bin"; do
+        if [[ -f "${dir}/dotcat-completion.py" ]]; then
+          helper_script="${dir}/dotcat-completion.py"
+          break
+        fi
+      done
+    fi
+
+    # If we found the helper script, use it to get suggestions
+    if [[ -f "$helper_script" ]]; then
+      # Make sure the script is executable
+      [[ -x "$helper_script" ]] || chmod +x "$helper_script"
+
+      # Call the helper script with the file and prefix (if any)
+      if [[ -n "$prefix" ]]; then
+        # Get suggestions for the given prefix
+        while IFS= read -r line; do
+          [[ -n "$line" ]] && suggestions+=("$line")
+        done < <(python3 "$helper_script" "$file" "$prefix" 2>/dev/null)
+      else
+        # Get top-level suggestions
+        while IFS= read -r line; do
+          [[ -n "$line" ]] && suggestions+=("$line")
+        done < <(python3 "$helper_script" "$file" 2>/dev/null)
+      fi
+
+      # If we have suggestions, offer them as completions
+      if (( ${#suggestions} > 0 )); then
+        _describe -t dotted-paths 'dotted path' suggestions
+        return 0
+      fi
+    else
+      # If we couldn't find the helper script, show a message
+      _message "dotted path (helper script not found)"
+      return 1
+    fi
+  fi
+
+  # If we couldn't parse the file or there are no suggestions,
+  # just complete without suggestions
+  _message 'dotted path'
+  return 1
+}
+
+_dotcat "$@"
+
+# Installation instructions:
+# 1. Place this file in a directory in your $fpath (e.g., /usr/local/share/zsh/site-functions/)
+# 2. Rename it to _dotcat
+# 3. Make sure dotcat-completion.py is in your PATH or in the same directory
+# 4. Run `compinit` or restart your shell
