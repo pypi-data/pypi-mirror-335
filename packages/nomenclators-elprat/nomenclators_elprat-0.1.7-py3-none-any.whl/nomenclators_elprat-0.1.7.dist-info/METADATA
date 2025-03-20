@@ -1,0 +1,105 @@
+Metadata-Version: 2.4
+Name: nomenclators-elprat
+Version: 0.1.7
+Summary: A Python library for generating CRUD implementations based on DDD principles. Provides a modular and reusable structure for future projects of the town hall of l'prat
+Author-email: Yovany Dominico Girón <y.dominico.giron@elprat.cat>
+Maintainer-email: Yovany Dominico Girón <y.dominico.giron@elprat.cat>
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: FastAPI
+Requires-Python: >=3.11.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click>=8.1.7
+Requires-Dist: jinja2>=3.1.5
+Requires-Dist: Faker>=33.3.0
+Requires-Dist: fastapi>=0.115.5
+Requires-Dist: SQLAlchemy>=2.0.36
+Requires-Dist: pytest>=8.3.4
+Requires-Dist: virtualenv>=20.27.1
+Requires-Dist: python-json-logger>=3.3.0
+Requires-Dist: pyjwt>=2.10.1
+Dynamic: license-file
+
+# Nomenclator Archetype
+
+**Nomenclator Archetype** es una librería para generar implementaciones CRUD y utilizar dependencias 
+siguiendo los principios de la arquitectura **Domain-Driven Design (DDD)**.
+
+Proporciona una estructura modular y reutilizable para proyectos futuros del ayuntamiento de l'Prat, 
+incluyendo capas de Dominio, Repositorio, Servicio y Rutas.
+
+## Características
+
+- Basado en los principios de Domain-Driven Design.
+- Generación automática de CRUD utilizando comandos personalizados.
+- Plantillas configurables con Jinja2 para adaptarse a diferentes necesidades.
+- Integración con FastAPI para generación de rutas RESTful.
+- Extensible para diferentes tipos de almacenamiento y lógica de negocio.
+
+## Requisitos
+
+- Python 3.9.20 o superior.
+- Dependencias:
+  - `click`
+  - `jinja2`
+  - `fastapi`
+  - `SQLAlchemy`
+  - `pytest`
+  - `virtualenv`
+  - `python-json-logger`
+  - `pyjwt`
+
+## Instalación
+
+1. Clona el repositorio o descarga el código fuente.
+
+```bash
+git clone https://architectureBackend@dev.azure.com/architectureBackend/nomenclators_archetype/_git/nomenclators_archetype
+cd nomenclators_archetype
+```
+
+2. Verificamos que tenemos los paquetes necesarios para compilar la librería.
+
+```bash
+python -c "from setuptools import find_packages; print(find_packages())"
+```
+
+3. Compilar el código fuente de la biblioteca.
+
+```bash
+python -m build
+```
+
+4. Instala la librería utilizando `pip`.
+
+```bash
+  pip install .
+```
+
+5. Verificamos la versión de la library instalada.
+
+```bash
+pip show nomenclators-elprat
+```
+
+> mostramos la versión de la libreía instalada.
+
+6. Actualizar la versión actual de la librería instalada.
+
+```bash
+pip install --upgrade nomenclators-elprat
+```
+
+> también puedes se utilizar la opción -U: `pip install -U nomenclators-elprat`
+
+7. Eliminar compilación de la librería generada.
+
+```bash
+rm -rf build/* dist/* *.egg-info src/*.egg-info
+```
+
+8. Generar una nueva versión de la librería.
+
+> Antes de realizar el paso (3), además de modificar la implementación de la librería debemos incrementar el número de versión que se encuentra en los archivos `setup.py` y `pypropject.py`.
