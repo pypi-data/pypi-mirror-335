@@ -1,0 +1,24 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from typing import Optional
+
+from pydantic import Field as FieldInfo
+
+from ..._models import BaseModel
+
+__all__ = ["ScrapeConfig"]
+
+
+class ScrapeConfig(BaseModel):
+    optimize_urls: Optional[str] = FieldInfo(alias="optimizeUrls", default=None)
+    """
+    URL optimization helps improve performance during model analysis, but limits the
+    model's ability to analyze internal details of URLs (such as individual URL
+    parameters). This setting does not affect the ability to extract URLs or links
+    from web pages -- those will work regardless of how this option is set. However,
+    if you need to analyze URLs themselves and are not getting satisfactory results,
+    try setting this option to 'disabled'. If set to 'auto', Airtop AI will
+    automatically determine whether to apply URL optimization. If 'enabled', URLs
+    will always be optimized to improve performance. If 'disabled', URLs will not be
+    optimized.
+    """
