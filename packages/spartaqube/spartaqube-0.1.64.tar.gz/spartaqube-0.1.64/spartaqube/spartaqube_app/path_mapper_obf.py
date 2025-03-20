@@ -1,0 +1,3 @@
+import os
+from django.conf import settings as conf_settings
+def sparta_3acf216d77():F='project/app_template';E='project/core/developer';D='api';C='project';B='django_app_template';A=conf_settings.BASE_DIR;G={'spartaqube_path':A,B:os.path.join(A,B),C:os.path.join(A,C),D:os.path.join(A,D),'project/core':os.path.join(A,'project/sparta_6d49f7e4f5'),'project/core/api':os.path.join(A,'project/sparta_6d49f7e4f5/sparta_dac0a6d98d'),E:os.path.join(A,E),F:os.path.join(A,F),'project/core/sqKernelManager':os.path.join(A,'project/sparta_6d49f7e4f5/sparta_5adaec37f1')};return G
