@@ -1,0 +1,16 @@
+services:
+  github-webhook-server:
+    container_name: github-webhook-server
+    build: ghcr.io/myk-org/github-webhook-server:latest
+    volumes:
+      - "./webhook_server_data_dir:/home/podman/data:Z" # Should include config.yaml and webhook-server.private-key.pem
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Jerusalem
+      - DEVELOPMENT=false # Set to true when developing.
+      - UVICORN_MAX_WORKERS=50 # Defaults to 10 if not set and running in production
+    ports:
+      - "5000:5000"
+    privileged: true
+    restart: unless-stopped
