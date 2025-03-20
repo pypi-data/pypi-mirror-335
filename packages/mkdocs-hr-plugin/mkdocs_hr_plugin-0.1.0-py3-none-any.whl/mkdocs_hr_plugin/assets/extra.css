@@ -1,0 +1,60 @@
+/* 自定义分隔线样式 */
+hr.custom-hr {
+    position: relative;
+    text-align: center;
+    border: 0;
+    height: 1px;
+    background: none;
+    /* 使用主题的边框颜色 */
+    border-top: 2px solid var(--md-default-fg-color--lighter, currentColor);
+    margin: 100px 0 !important;
+}
+
+hr.custom-hr:before {
+    content: attr(data-content);
+    position: absolute;
+    /* 使用主题的背景色，fallback 到页面背景色 */
+    background: var(--md-default-bg-color, var(--md-primary-bg-color, inherit));
+    /* 使用主题的文本颜色 */
+    color: var(--md-default-fg-color, currentColor);
+    padding: 0 0.5em;
+    line-height: 1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2em;
+    font-weight: bold;
+}
+
+/* 目录中分隔线条目的样式 */
+.md-nav__item.hr-nav-item {
+    text-align: center;
+    margin: 1.16em 0;
+    /* 增加上下间距 */
+}
+
+.md-nav__item.hr-nav-item .md-nav__link {
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.1em;
+    color: var(--md-typeset-color) !important;
+}
+
+/* 悬停效果 */
+.md-nav__item.hr-nav-item .md-nav__link:hover {
+    color: var(--md-accent-fg-color) !important;
+}
+
+/* 修改分隔线的样式 */
+.md-content__inner hr.custom-hr {
+    border: none !important;
+    height: 2px !important;
+    background-color: var(--md-typeset-color) !important;
+    margin: 8em 0 !important;
+    /* 增加分隔线的上下间距 */
+}
+
+/* 确保分隔线文字可见 */
+.md-content__inner hr.custom-hr[data-content]::before {
+    color: var(--md-typeset-color) !important;
+}
