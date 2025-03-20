@@ -1,0 +1,30 @@
+{
+    "$jsonSchema": {
+      "description": "DRS Objects to be validated according to OCFL specification.",
+      "bsonType": "object",
+      "required": ["_id", "ocfl_object_key", "validation_status"],
+      "properties": {
+        "_id": {
+          "bsonType": "long",
+          "description": "Unique DRS Object ID."
+        },
+        "ocfl_object_key": {
+          "bsonType": "string",
+          "description": "The OCFL Object Key or Path."
+        },
+        "validation_status": {
+          "bsonType": "string",
+          "enum": ["pass", "fail", "pending", "queued"],
+          "description": "Validation status of the object."
+        },
+        "error_message": {
+          "bsonType": ["string", "null"],
+          "description": "Detailed reason for validation failure (optional)."
+        },
+        "validation_timestamp": {
+          "bsonType": ["date", "null"],
+          "description": "Timestamp when validation was executed (optional)."
+        }
+      }
+    }
+}

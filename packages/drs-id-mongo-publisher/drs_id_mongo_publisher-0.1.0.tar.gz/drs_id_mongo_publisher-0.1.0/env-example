@@ -1,0 +1,31 @@
+# netrc file is for authentication to the `check-url`, to protect against accidental version overwrites during publishing
+NETRC=./.netrc
+# publish vars are for authentication to the `publish-url` for the actual uploads
+UV_PUBLISH_USERNAME=<huit.artifactory.username>
+UV_PUBLISH_PASSWORD=<huit.artifactory.token>
+
+prod_db_user=
+prod_db_pass=
+prod_db_host=
+prod_db_port=
+prod_db_name=
+
+qa_db_user=
+qa_db_pass=
+qa_db_host=
+qa_db_port=
+qa_db_name=
+
+dev_db_user=
+dev_db_pass=
+dev_db_host=
+dev_db_port=
+dev_db_name=
+
+qa_mongo_url=
+qa_mongo_db=
+qa_mongo_collection=
+
+dev_mongo_url=mongodb://<user>:<pass>@<host>:<port>/?authSource=<db>&replicaSet=<*rs>&readPreference=secondaryPreferred&ssl=false
+dev_mongo_db=<db>
+dev_mongo_collection=drs-ocfl-validation
