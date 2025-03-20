@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "bio-image-unet"
+packages = [
+    { include = "bio_image_unet" }
+]
+version = "1.0.1a12"
+description = "Implementations of U-Net, Siam U-Net, U-Net++ and 3D U-Net for biological image segmentation"
+authors = ["Daniel Haertter", "Yuxi Long"]
+readme = "README.md"
+license = "MIT"
+repository = "https://github.com/danihae/bio-image-unet"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+albumentations = "^1.4.24"
+tifffile = "*"
+tqdm = "^4.61"
+numpy = "^1.20"
+scikit-image = ">0.18,<1.0"
+packaging = "*"
+torch = "2.*"
+tensorboard = "*"
+napari = "^0.4.18"
+matplotlib = "3.*"
+
+[poetry.group.dev.dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
