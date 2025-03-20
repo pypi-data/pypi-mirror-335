@@ -1,0 +1,59 @@
+[tool.poetry]
+name = "crudclient"
+version = "0.5.0"
+description = "A flexible CRUD client for RESTful APIs"
+authors = ["leikaab <nordavindltd@gmail.com>"]
+license = "LGPL-3.0-or-later"
+readme = "README.md"
+homepage = "https://github.com/Leikaab/crudclient"
+repository = "https://github.com/Leikaab/crudclient"
+documentation = "https://github.com/Leikaab/crudclient#readme"
+keywords = ["crud", "api", "client", "rest"]
+classifiers = [
+    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.32.3"
+pydantic = {version = "^2.8.2", extras = ["email"]}
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.1"
+pytest-cov = "*"
+requests-mock = "^1.12.1"
+
+autoflake = "*"
+isort = "*"
+black = "*"
+bandit = "*"
+flake8 = "*"
+mypy = "*"
+pycodestyle = "*"
+pydocstyle = "*"
+pylint = "*"
+pre-commit = "*"
+
+types-requests = "*"
+
+# autopep8 = "*"
+# yapf = "*"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/Leikaab/crudclient/issues"
+
+[tool.pyright]
+typeCheckingMode = "basic"
