@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/bin/oe-python-template", line 4, in <module>
+    from oe_python_template.cli import cli
+  File "/Users/helmut/Code/oe-python-template/src/oe_python_template/cli.py", line 7, in <module>
+    import typer
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/typer/__init__.py", line 29, in <module>
+    from .main import Typer as Typer
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/typer/main.py", line 21, in <module>
+    from .core import (
+    ...<6 lines>...
+    )
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/typer/core.py", line 36, in <module>
+    from . import rich_utils
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/typer/rich_utils.py", line 14, in <module>
+    from rich.columns import Columns
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/rich/columns.py", line 7, in <module>
+    from .console import Console, ConsoleOptions, RenderableType, RenderResult
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/rich/console.py", line 62, in <module>
+    from .scope import render_scope
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/rich/scope.py", line 7, in <module>
+    from .table import Table
+  File "/Users/helmut/Code/oe-python-template/.nox/docs-3-13/lib/python3.13/site-packages/rich/table.py", line 38, in <module>
+    @dataclass
+     ^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/dataclasses.py", line 1305, in dataclass
+    return wrap(cls)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/dataclasses.py", line 1295, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+                          frozen, match_args, kw_only, slots,
+                          weakref_slot)
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/dataclasses.py", line 1157, in _process_class
+    func_builder.add_fns_to_class(cls)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.13/3.13.2/Frameworks/Python.framework/Versions/3.13/lib/python3.13/dataclasses.py", line 498, in add_fns_to_class
+    exec(txt, self.globals, ns)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 0, in <module>
+KeyboardInterrupt
