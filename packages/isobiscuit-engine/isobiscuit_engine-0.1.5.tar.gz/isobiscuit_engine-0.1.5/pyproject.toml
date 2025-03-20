@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "isobiscuit-engine"
+version = "0.1.5"
+description = ""
+authors = ["trollmii <trollmii@outlook.de>"]
+readme = "README.md"
+packages = [
+    { include = "isobiscuit_engine", from = "."},
+]
+include = ["isobiscuit_engine/*.so"]
+
+exclude = [
+    "**/*.c"
+]
+build = 'build.py'
+[build-system]
+requires = ["setuptools", "wheel", "cython"]
+build-backend = "setuptools.build_meta"
+
+
+
