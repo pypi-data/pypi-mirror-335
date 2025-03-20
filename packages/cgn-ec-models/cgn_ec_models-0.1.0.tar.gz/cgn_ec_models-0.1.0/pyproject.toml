@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "cgn-ec-models"
+version = "0.1.0"
+description = "Models for cgn-ec"
+authors = ["BSpendlove <8687668+BSpendlove@users.noreply.github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pydantic = "^2.10.6"
+sqlmodel = "^0.0.24"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
