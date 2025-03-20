@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: damv1dotenvsecretdec
+Version: 0.1.0
+Summary: Decrypt encrypted .env files and load environment variables securely.
+Home-page: UNKNOWN
+Author: dhonyabumuhammad (Bekasi)
+Author-email: <baba-rtw24133@tutamail.com>
+License: UNKNOWN
+Keywords: timezoneplus7
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Software Development :: Debuggers
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: python-dotenv==1.0.1
+
+## damv1dotenvsecretdec
+
+<b>Overview</b><br />
+damv1dotenvsecretdec is a Python package designed to securely decrypt encrypted environment files and load environment variables into your application. This allows you to manage sensitive configuration settings safely.
+
+<br />
+
+<b>Features</b>
+- Decrypt encrypted environment files (e.g., .envsecret).
+- Securely load environment variables without storing plain-text secrets.
+- Currently supports OpenSSL AES-256 decryption.
+
+<br />
+
+<b>Installation</b>
+
+```sh
+pip install damv1dotenvsecretdec
+```
+
+<br />
+
+<b>Usage</b>
+
+```python
+from damv1dotenvsecretdec import Load
+```
+
+<br />
+
+<b>Usage (OpenSSL Method)</b> <br />
+This section demonstrates how to use the OpenSSL-based decryption method.
+
+```python
+from damv1dotenvsecretdec import OpenSSL
+
+# Load encrypted .envsecret file
+env_vars = OpenSSL.load_encrypted_dotenvsecret("path/to/.envsecret", "your-password", iteration=1000)
+
+# Access environment variables
+if env_vars:
+    print(env_vars.get("SECRET_KEY"))
+```
+
+<br />
+
+<b>Encrypting a .envsecret file (for OpenSSL Method)</b> <br />
+To create an encrypted .envsecret file using OpenSSL:
+
+```bash
+openssl enc -aes-256-cbc -pbkdf2 -iter 100 -salt -in .env -out .envsecret -k "your-password"
+```
+This will encrypt the .envsecret file into .envsecret.enc.
+
