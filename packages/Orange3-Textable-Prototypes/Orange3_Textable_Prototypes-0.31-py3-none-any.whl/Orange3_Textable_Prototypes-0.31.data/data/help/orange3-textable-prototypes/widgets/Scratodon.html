@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Orange3 Textable Prototypes documentation, Scratodon widget" name="description" />
+<meta content="Orange3, Textable, Prototypes, documentation, Scratodon, widget" name="keywords" />
+
+    <title>Scratodon &#8212; Orange3 Textable Prototypes 0.30 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <script src="../_static/documentation_options.js?v=658b33c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Documentation Swiss Law widget" href="Swiss_Law.html" />
+    <link rel="prev" title="Redditor" href="redditor.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Swiss_Law.html" title="Documentation Swiss Law widget"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="redditor.html" title="Redditor"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scratodon</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="scratodon">
+<span id="id1"></span><h1>Scratodon<a class="headerlink" href="#scratodon" title="Link to this heading">¶</a></h1>
+<img alt="../_images/scratodon_logo_doc.png" src="../_images/scratodon_logo_doc.png" />
+<p>Web scraping of the social media mastodon</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<p>Marly Rose, Savits Dimitra, Demierre Laure, Renteria Samuel, Oppliger Olivier</p>
+</section>
+<section id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p>Input: None</p>
+<p>Outputs:</p>
+<p><code class="docutils literal notranslate"><span class="pre">Segmentation</span></code></p>
+<blockquote>
+<div><p>Annoted segments for each scraped posts from an instance of Mastodon</p>
+</div></blockquote>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This widget is for the purpose of scrapping posts from instances of the social media <em>Mastodon</em>
+(for example: <a class="reference external" href="https://rivals.space/explore">https://rivals.space/explore</a>).
+The name comes from the combination of scraping and mastodon, but adapted to the fictional character
+of <em>Scrat</em> from <em>Ice Age</em> (Wedge &amp; Saldanha, 2002).
+Each post will be send as a segment, including annotations for specific informations.
+It can be information about: <em>account</em>, <em>URL</em>, <em>reply</em>, <em>reblog</em> (known also as <em>repost</em>)
+and the amount of them, <em>case sensitive</em>, <em>media</em>, <em>visibility</em> and <em>like</em>.</p>
+<section id="interface">
+<h3>Interface<a class="headerlink" href="#interface" title="Link to this heading">¶</a></h3>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/scratodon_interface.PNG"><img alt="Interface of the Scratodon widget" src="../_images/scratodon_interface.PNG" style="width: 312.0px; height: 386.0px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1: <strong>Scratodon</strong> widget interface.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Scratodon</strong> widget lets the user the possibility to scrap data from
+the social media Mastodon, coming from an user, a federated or a local instance.</p>
+<p>The <strong>Source</strong> roll down button allows to choose the type of source the user wants to use.
+It can be the following choices: <strong>User</strong>, <strong>Federated</strong> or <strong>Local</strong>.
+Depending of the choice, it will require either an <strong>User ID</strong> (for <strong>User</strong>) or an <strong>URL</strong> (for the two other choices).
+<strong>User ID</strong> is under the format of <em>(&#64;)user&#64;instance</em> or an entire user URL like <em>https://www.instance.fr/&#64;user</em>.
+<strong>URL</strong> format is <em>thisis.anexample</em> or an entire URL like <em>https://www.instance.something</em>.
+A default value is in the widget by default for a base example.</p>
+<p>The <strong>Max amount of posts</strong> counter lets the user to choose how many posts will be scraped.
+Warning: this is the amount of posts scraped and <strong>not</strong> the amount of posts received as segments at the end of the process.</p>
+<p>The <strong>Exclude reblogs</strong> and the <strong>Exclude replies</strong> button will delete all posts including a reblog/reply situation.</p>
+<p>The <strong>API key</strong> field is present if an user needs specific authorisation to gain access to the datas,
+such as with a private account.</p>
+<p>The <strong>Reblogs only</strong> button will only send back posts who’s been at least reposted once.</p>
+<p>The <strong>Minimum of reblogs</strong> and <strong>Minimum of likes</strong> counter allows to chose how many reblogs/likes a post needs to have.</p>
+<p>The <strong>Exclude images</strong> button will only return posts without media linked to it.
+In opposite, the <strong>Only images</strong> button allows only posts containing a media with them.</p>
+<p>The <strong>Send</strong> button is used to send data (the segments with their annotations) to output.</p>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<section id="information">
+<h3>Information<a class="headerlink" href="#information" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Succesfully scrapped ! X segments sent to output</em></dt><dd><p>This confirms that the widget has operated properly.</p>
+</dd>
+</dl>
+</section>
+<section id="warnings">
+<h3>Warnings<a class="headerlink" href="#warnings" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Please give a User ID.</em></dt><dd><p>The user didn’t give an user ID to retrieve posts.</p>
+</dd>
+<dt><em>Please give a URL.</em></dt><dd><p>The user didn’t give an URL to retrieve posts.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Scratodon</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a><ul>
+<li><a class="reference internal" href="#information">Information</a></li>
+<li><a class="reference internal" href="#warnings">Warnings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="redditor.html"
+                          title="previous chapter">Redditor</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="Swiss_Law.html"
+                          title="next chapter">Documentation Swiss Law widget</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/widgets/Scratodon.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Swiss_Law.html" title="Documentation Swiss Law widget"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="redditor.html" title="Redditor"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Scratodon</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, University of Lausanne.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

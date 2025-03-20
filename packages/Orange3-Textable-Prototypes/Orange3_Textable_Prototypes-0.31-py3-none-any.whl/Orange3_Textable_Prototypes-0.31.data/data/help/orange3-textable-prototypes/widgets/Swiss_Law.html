@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Orange3 Textable Prototypes documentation, Swiss Law widget" name="description" />
+<meta content="Orange3, Textable, Prototypes, documentation, Swiss, Law, widget" name="keywords" />
+
+    <title>Documentation Swiss Law widget &#8212; Orange3 Textable Prototypes 0.30 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <script src="../_static/documentation_options.js?v=658b33c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Gutenberg" href="gutenberg.html" />
+    <link rel="prev" title="Scratodon" href="Scratodon.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="gutenberg.html" title="Gutenberg"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Scratodon.html" title="Scratodon"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documentation Swiss Law widget</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="documentation-swiss-law-widget">
+<h1>Documentation Swiss Law widget<a class="headerlink" href="#documentation-swiss-law-widget" title="Link to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="../_images/SwissLaw.png"><img alt="Swiss Law Icon" class="align-center" src="../_images/SwissLaw.png" style="width: 102.4px; height: 102.4px;" />
+</a>
+<p>Make a corpus with Swiss law documents.</p>
+<section id="introduction">
+<h2>1 Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<section id="author">
+<h3>1.1 Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h3>
+<p>Antoine Vigand, Elijah Green, Samantha Allendes et Thomas Rywalski</p>
+</section>
+<section id="signals">
+<h3>1.2 Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h3>
+<p>Input: None</p>
+<p>Outputs:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Text</span> <span class="pre">data</span></code></p>
+<blockquote>
+<div><p>The selected Swiss law documents with the requested segmentation.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="description">
+<h3>1.3 Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h3>
+<p>Create a widget for Orange Textable (v3.7) to import the main Swiss legal texts from
+XML file from the site <a class="reference external" href="https://www.fedlex.admin.ch/fr/home?news_period=last_day&amp;news_pageNb=1&amp;news_order=desc&amp;news_itemsPerPage=10">fedlex.admin.ch</a>. SwissLaw is a widget included in Orange3-Textable-Prototypes, a tool developed with
+Orange 3 software using the Python language.</p>
+</section>
+<section id="interface">
+<h3>1.4 Interface<a class="headerlink" href="#interface" title="Link to this heading">¶</a></h3>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/SwissLaw3.png"><img alt="Interface of the Swiss Law widget" src="../_images/SwissLaw3.png" style="width: 246.0px; height: 381.5px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1: <strong>Swiss Law</strong> widget interface.</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="technique">
+<h2>2. Technique<a class="headerlink" href="#technique" title="Link to this heading">¶</a></h2>
+<section id="installation">
+<h3>2.1 Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h3>
+<p>To use the SwissLaw widget, you need to have Orange 3 and Orange3-Textable-Prototypes installed.
+Follow the instructions below to install the widget:</p>
+<ol class="arabic simple">
+<li><p>Install Orange 3: <a class="reference external" href="https://orangedatamining.com/download/#macos">Orange 3 Installation Guide</a></p></li>
+<li><p>Install Textable Prototypes: <a class="reference external" href="https://pypi.org/project/Orange3-Textable-Prototypes/">Textable Prototypes installation guide</a></p></li>
+</ol>
+</section>
+<section id="using-widget">
+<h3>2.2 Using Widget<a class="headerlink" href="#using-widget" title="Link to this heading">¶</a></h3>
+<ol class="arabic">
+<li><p>Launch Orange 3 and go to the “Textable Prototypes” section.</p></li>
+<li><p>Drag and drop the “Swiss Law” widget onto the work area.</p></li>
+<li><dl>
+<dt>Configure the widget by selecting the desired options.</dt><dd><dl>
+<dt>3a. Select the desired legal document. The <strong>Select Law Document</strong> section allows the user to choose a law document, a segmentation and a language.</dt><dd><blockquote>
+<div><figure class="align-default">
+<img alt="../_images/SwissLaw1.png" src="../_images/SwissLaw1.png" />
+</figure>
+</div></blockquote>
+<dl>
+<dt>3b. Click on “Add to corpus” to add the item to the corpus, the <strong>Corpus</strong> section allows the user to clear or remove selected document from the corpus.</dt><dd><figure class="align-default">
+<img alt="../_images/SwissLaw2.png" src="../_images/SwissLaw2.png" />
+</figure>
+</dd>
+<dt>3c. Click on “send” to send the segmentation. The <strong>Send</strong> button triggers the emission of a segmentation to the output connection(s). When selected, the <strong>Send automatically</strong> checkbox disables the button and the widget attempts to automatically emit a segmentation at every modification of its interface.</dt><dd><figure class="align-default">
+<img alt="../_images/SwissLaw3.png" src="../_images/SwissLaw3.png" />
+</figure>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+</li>
+<li><p>Connect the SwissLaw widget to other widgets or components in your workflow.</p></li>
+<li><p>Run the workflow to access and analyse SwissLaw documents.</p></li>
+</ol>
+</section>
+<section id="messages">
+<h3>2.3 Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h3>
+<section id="information">
+<h4>2.3.1 Information<a class="headerlink" href="#information" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt><em>&lt;n&gt; segments sent to output (&lt;m&gt; characters).</em></dt><dd><p>This confirms that the widget has operated properly.</p>
+</dd>
+</dl>
+</section>
+<section id="warnings">
+<h4>2.3.2 Warnings<a class="headerlink" href="#warnings" title="Link to this heading">¶</a></h4>
+<dl class="simple">
+<dt><em>Settings were changed, please click ‘Send’ when ready.</em></dt><dd><p>Settings have changed but the <strong>Send automatically</strong> checkbox
+has not been selected, so the user is prompted to click the <strong>Send</strong>
+button (or equivalently check the box) in order for computation and data
+emission to proceed.</p>
+</dd>
+<dt><em>Your corpus is empty, please add some law texts first.</em></dt><dd><p>The corpus is empty, so the user has to add some law documents before sending.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Documentation Swiss Law widget</a><ul>
+<li><a class="reference internal" href="#introduction">1 Introduction</a><ul>
+<li><a class="reference internal" href="#author">1.1 Author</a></li>
+<li><a class="reference internal" href="#signals">1.2 Signals</a></li>
+<li><a class="reference internal" href="#description">1.3 Description</a></li>
+<li><a class="reference internal" href="#interface">1.4 Interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#technique">2. Technique</a><ul>
+<li><a class="reference internal" href="#installation">2.1 Installation</a></li>
+<li><a class="reference internal" href="#using-widget">2.2 Using Widget</a></li>
+<li><a class="reference internal" href="#messages">2.3 Messages</a><ul>
+<li><a class="reference internal" href="#information">2.3.1 Information</a></li>
+<li><a class="reference internal" href="#warnings">2.3.2 Warnings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="Scratodon.html"
+                          title="previous chapter">Scratodon</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="gutenberg.html"
+                          title="next chapter">Gutenberg</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/widgets/Swiss_Law.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="gutenberg.html" title="Gutenberg"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Scratodon.html" title="Scratodon"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Documentation Swiss Law widget</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, University of Lausanne.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

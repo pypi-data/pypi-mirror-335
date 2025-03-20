@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Orange3 Textable Prototypes documentation, Translate widget" name="description" />
+<meta content="Orange3, Textable, Prototypes, documentation, Translate, widget" name="keywords" />
+
+    <title>Translate &#8212; Orange3 Textable Prototypes 0.30 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <script src="../_static/documentation_options.js?v=658b33c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Extract CSV" href="extractCSV.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="extractCSV.html" title="Extract CSV"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Translate</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="translate">
+<span id="id1"></span><h1>Translate<a class="headerlink" href="#translate" title="Link to this heading">¶</a></h1>
+<figure class="align-center">
+<a class="reference internal image-reference" href="../_images/Transletto.png"><img alt="Transletto Icon" src="../_images/Transletto.png" style="width: 100px; height: 100px;" />
+</a>
+</figure>
+<p>Translate a text using various translation APIs</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<p>André da Glória Santiago, Sébastien Franzone, Marie Fasel, (Klisman Kodra)</p>
+</section>
+<section id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p>Input:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Segmentation</span></code></p>
+<blockquote>
+<div><p>A text segmentation to be translated.</p>
+</div></blockquote>
+</li>
+</ul>
+<p>Outputs:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Translated</span> <span class="pre">data</span></code></p>
+<blockquote>
+<div><p>A translated text segmentation.</p>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This widget takes a text segmentation as input and translates it into a specified target language using one of the available translation services. The translation services currently supported include GoogleTranslator, DeepL, QCRI, MyMemory, Linguee, and Pons.</p>
+<p>The widget’s interface allows users to select the input language manually or enable automatic language detection. Users can also select the desired output language and choose the translation service to be used.</p>
+<section id="interface">
+<h3>Interface<a class="headerlink" href="#interface" title="Link to this heading">¶</a></h3>
+<p>The widget’s interface requires the following user inputs (see <a class="reference internal" href="#transletto-fig1"><span class="std std-ref">figure 1</span></a> below):</p>
+<ol class="arabic simple">
+<li><p><strong>Input language</strong>: The language of the input text. This can be set manually or automatically detected using the “Auto-detect” button</p></li>
+<li><p><strong>Output language</strong>: The language into which the text will be translated.</p></li>
+<li><p><strong>Translation service</strong>: The service to be used for translation (e.g., GoogleTranslator, DeepL, QCRI, MyMemory, Linguee, Pons).</p></li>
+<li><p><strong>API Key</strong>: In some instances, such as with DeepL and QCRI, an API key is required. Ensure you have the necessary API keys and enter them in the appropriate field.</p></li>
+<li><p><strong>Reset button</strong>: This button resets the interface to its default settings (GoogleTranslator as the translation service, and English as the default input and French as the output language).</p></li>
+</ol>
+<figure class="align-center" id="id2">
+<span id="transletto-fig1"></span><a class="reference internal image-reference" href="../_images/transletto_interface.png"><img alt="Interface of the Translate widget" src="../_images/transletto_interface.png" style="width: 235px; height: 337px;" />
+</a>
+<figcaption>
+<p><span class="caption-text">Figure 1: <strong>Transletto</strong> widget interface.</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Info</strong> section indicates that the input has been correctly processed or the reason why no output is emitted (e.g., no input, error in the translation process).</p>
+<p>The <strong>Send</strong> button triggers the translation and sends the translated text to the output connection. When the <strong>Send automatically</strong> checkbox is selected, the widget will attempt to automatically emit results whenever its interface is modified.</p>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<section id="information">
+<h3>Information<a class="headerlink" href="#information" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Segments sent to output.</em></dt><dd><p>This confirms that the widget has operated properly and the translation is complete.</p>
+</dd>
+</dl>
+</section>
+<section id="warnings">
+<h3>Warnings<a class="headerlink" href="#warnings" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Settings were changed, please click ‘Send’ when ready.</em></dt><dd><p>Settings have changed, but the <strong>Send automatically</strong> checkbox has not been selected, so the user is prompted to click the <strong>Send</strong> button (or check the box) to proceed with translation and data emission.</p>
+</dd>
+<dt><em>Widget needs input</em></dt><dd><p>A text segmentation should be input into the widget for translation.</p>
+</dd>
+</dl>
+</section>
+<section id="errors">
+<h3>Errors<a class="headerlink" href="#errors" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Translation failed</em></dt><dd><p>An error occurs when the translator cannot complete the translation. Please try changing the translation service or languages.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Translate</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a><ul>
+<li><a class="reference internal" href="#information">Information</a></li>
+<li><a class="reference internal" href="#warnings">Warnings</a></li>
+<li><a class="reference internal" href="#errors">Errors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="extractCSV.html"
+                          title="previous chapter">Extract CSV</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/widgets/transletto.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="extractCSV.html" title="Extract CSV"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Translate</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, University of Lausanne.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>

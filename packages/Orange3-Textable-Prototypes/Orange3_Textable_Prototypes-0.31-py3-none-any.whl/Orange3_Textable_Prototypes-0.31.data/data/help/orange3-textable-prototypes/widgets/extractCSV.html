@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Orange3 Textable Prototypes documentation, Extract CSV widget" name="description" />
+<meta content="Orange3, Textable, Prototypes, documentation, Extract CSV, widget" name="keywords" />
+
+    <title>Extract CSV &#8212; Orange3 Textable Prototypes 0.30 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/nature.css?v=279e0f84" />
+    <script src="../_static/documentation_options.js?v=658b33c6"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Translate" href="transletto.html" />
+    <link rel="prev" title="Lexical Hunter" href="lexical_hunter.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="transletto.html" title="Translate"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lexical_hunter.html" title="Lexical Hunter"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Extract CSV</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="extract-csv">
+<span id="extractcsv"></span><h1>Extract CSV<a class="headerlink" href="#extract-csv" title="Link to this heading">¶</a></h1>
+<img alt="../_images/extractCSV_icon.png" src="../_images/extractCSV_icon.png" />
+<p>Extract tabulated data as a Textable Segmentation</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<p>Sorcha Walsh, Noémie Carette, Saara Jones</p>
+</section>
+<section id="signals">
+<h2>Signals<a class="headerlink" href="#signals" title="Link to this heading">¶</a></h2>
+<p>Inputs: Tabulated data</p>
+<p>Outputs:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Text</span> <span class="pre">data</span></code></p>
+<p>Segmentation of tabulated data</p>
+</li>
+</ul>
+</section>
+<section id="description">
+<h2>Description<a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<p>This widget is designed to extract tabulated data as a Textable Segmentation in Orange Canvas.
+It takes .csv files as input and the user can choose which header he wants to use as content. The output is a segmentation containing a segment for each line of the file and each segment has annotations with each column’s header as keys.</p>
+<section id="interface">
+<h3>Interface<a class="headerlink" href="#interface" title="Link to this heading">¶</a></h3>
+<p>Extract CSV displays a list of the file’s headers and lets the user choose which one to use as content for the segmentation with the <strong>Use as Content</strong> button. If the file has no header it will simply display the number of the column.</p>
+<p>Quotation marks usually cause problems with detecting the segment position. If the file has quotes, the user can choose to preprocess his file with the checkbox <strong>delete quotation marks</strong>.</p>
+<figure class="align-center" id="id1">
+<span id="fig1"></span><img alt="Interface of Extract CSV" src="../_images/extractCSV_interface.png" />
+<figcaption>
+<p><span class="caption-text">Figure 1: <strong>Extract CSV</strong> widget</span><a class="headerlink" href="#id1" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Rename</strong> button allows the user to rename the headers.</p>
+<figure class="align-center" id="id2">
+<span id="fig2"></span><img alt="Options of Extract CSV" src="../_images/extractCSV_options.png" />
+<figcaption>
+<p><span class="caption-text">Figure 2: <strong>Extract CSV</strong> widget</span><a class="headerlink" href="#id2" title="Link to this image">¶</a></p>
+</figcaption>
+</figure>
+<p>The <strong>Info</strong> section indicates the number of segments in the
+output segmentation, or if any segment has been ignored because of a missing content.</p>
+<p>The <strong>Send</strong> button triggers the emission of a segmentation to the output
+connection(s). When it is selected, the <strong>Send automatically</strong> checkbox
+disables the button and the widget attempts to automatically emit a
+segmentation at every modification of its interface.</p>
+</section>
+</section>
+<section id="messages">
+<h2>Messages<a class="headerlink" href="#messages" title="Link to this heading">¶</a></h2>
+<section id="information">
+<h3>Information<a class="headerlink" href="#information" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>&lt;n&gt; segments analyzed.</em></dt><dd><p>This confirms that the widget has operated properly.</p>
+</dd>
+<dt><em>&lt;n&gt; segments sent to output. (Ignored &lt;m&gt; segments with no content)</em></dt><dd><p>Informs the user if segments were ignored.</p>
+</dd>
+</dl>
+</section>
+<section id="warnings">
+<h3>Warnings<a class="headerlink" href="#warnings" title="Link to this heading">¶</a></h3>
+<dl class="simple">
+<dt><em>Settings were changed, please click ‘Send’ when ready.</em></dt><dd><p>Settings have changed but the <strong>Send automatically</strong> checkbox
+has not been selected, so the user is prompted to click the <strong>Send</strong>
+button (or equivalently check the box) in order for computation and data
+emission to proceed.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="note">
+<h2>Note<a class="headerlink" href="#note" title="Link to this heading">¶</a></h2>
+<p>Note that the widget still has a problem when multiple segments are given to it as input.</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="../index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Extract CSV</a><ul>
+<li><a class="reference internal" href="#author">Author</a></li>
+<li><a class="reference internal" href="#signals">Signals</a></li>
+<li><a class="reference internal" href="#description">Description</a><ul>
+<li><a class="reference internal" href="#interface">Interface</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#messages">Messages</a><ul>
+<li><a class="reference internal" href="#information">Information</a></li>
+<li><a class="reference internal" href="#warnings">Warnings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#note">Note</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="lexical_hunter.html"
+                          title="previous chapter">Lexical Hunter</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="transletto.html"
+                          title="next chapter">Translate</a></p>
+  </div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/widgets/extractCSV.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="transletto.html" title="Translate"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lexical_hunter.html" title="Lexical Hunter"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Orange3 Textable Prototypes 0.30 documentation</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">Extract CSV</a></li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2016-2025, University of Lausanne.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+  </body>
+</html>
