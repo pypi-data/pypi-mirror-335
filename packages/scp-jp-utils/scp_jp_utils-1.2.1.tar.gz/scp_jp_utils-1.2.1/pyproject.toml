@@ -1,0 +1,37 @@
+[project]
+name = "scp-jp-utils"
+version = "1.2.1"
+authors = [{ name = "ukwhatn", email = "ukwhatn@gmail.com" }]
+description = "SCP-JP management utilities"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+]
+
+dependencies = [
+    "httpx >= 0.28",
+    "fastapi >= 0.115.0"
+]
+
+[project.optional-dependencies]
+build = [
+    "build",
+    "twine",
+]
+lint = [
+    "mypy",
+    "ruff"
+]
+format = [
+    "ruff"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/ukwhatn/scp-jp-utilities"
+"Bug Tracker" = "https://github.com/ukwhatn/scp-jp-utilities/issues"
