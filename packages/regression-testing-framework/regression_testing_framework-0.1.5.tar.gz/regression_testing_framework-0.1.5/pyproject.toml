@@ -1,0 +1,23 @@
+[project]
+name = "regression-testing-framework"
+version = "0.1.5"
+description = "Run parallel test configurations with log discovery and summary."
+readme = "README.md"
+authors = [
+    { name = "Nicholas Ballard", email = "nicholaesricballard@gmail.com" }
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+dependencies = [
+    "click>=8.1.0",
+    "flask>=3.1.0",
+    "pyyaml>=6.0.2",
+    "sqlite-utils>=3.38",
+]
+
+[project.scripts]
+reggie = "regression_testing_framework.cli:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
