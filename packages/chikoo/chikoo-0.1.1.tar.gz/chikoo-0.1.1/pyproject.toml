@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "chikoo"
+version = "0.1.1"
+description = "Experimental computing CLI utility"
+authors = [{name = "bhishe", email = "example@gmail.com"}]
+
+[project.scripts]
+quantum-cli = "chikoo.cli:main"
