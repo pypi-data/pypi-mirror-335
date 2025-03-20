@@ -1,0 +1,18 @@
+[project]
+name = "simple_currency_converter"
+version = "0.1.2"
+description = "Simple currency converter"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "requests",
+    "types-requests",
+    "pytest",
+    "pytest-cov",
+]
+
+[project.scripts]
+simple-currency-converter = "simple_currency_converter.__main__:main"
+
+[tool.uv]
+package = true
