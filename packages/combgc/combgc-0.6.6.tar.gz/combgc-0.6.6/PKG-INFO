@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: combgc
+Version: 0.6.6
+Summary: A tool that aggregates, filters and combines the results of BGC prediction tools: antiSMASH, deepBGC, and GECCO.
+Author-email: Tom Richtermeier <tom.richtermeier@gmx.de>
+Maintainer-email: Tom Richtermeier <tom.richtermeier@gmx.de>, Anan Ibrahim <ananhamido@hotmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Tom Richtermeier, Jasmin Frangenberg
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Project-URL: Homepage, https://github.com/tomrichtermeier/comBGC-Filter/tree/main
+Project-URL: Issues, https://github.com/tomrichtermeier/comBGC-Filter/issues
+Project-URL: Source, https://github.com/tomrichtermeier/comBGC-Filter
+Keywords: biosynthetic-gene-clusters,bioinformatics,genes,bgc
+Classifier: Environment :: Console
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: biopython>=1.79
+Requires-Dist: pandas>=1.0
+Dynamic: license-file
+
+# comBGC: A workflow for parsing, filtering, and merging biosynthetic gene clusters
+![comBGC logo](https://i.imgur.com/F0ooHWI.png)  
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+
+**comBGC** is a command-line tool that integrates, filters, and refines biosynthetic gene cluster (BGC) predictions from **deepBGC, GECCO, and antiSMASH**. It ensures that only **high-quality, non-redundant BGCs** are included in the final dataset.
+
+### Key Features
+✅ **Combines** results from multiple **BGC prediction tools**  
+✅ **Filters out** low-confidence BGCs, ensuring **high-quality output**  
+✅ **Merges** overlapping BGCs, keeping the **most comprehensive one**  
+✅ **Outputs a structured, non-redundant table** with key details  
+
+📖 Read the full documentation on our [GitHub Wiki →](https://github.com/tomrichtermeier/comBGC-Filter/wiki)
