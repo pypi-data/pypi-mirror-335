@@ -1,0 +1,1 @@
+from .pipeline_infer import InferenceTextClassification
