@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "commitPackage"
+description = "A fun and lighthearted package for generating random and styled Git commit messages."
+version = "0.1.0"
+authors = [
+  { name="Sophia", email="sms10010@nyu.edu" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["git", "commit", "messages", "automation", "fun"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-pack-it-up"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-pack-it-up.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-pack-it-up/issues"
+
+[project.scripts]
+commitPackage = "commitPackage.__main__:main"
