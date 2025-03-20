@@ -1,0 +1,47 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Run "release-please"
+        uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          release-type: python
+          package-name: magnum-cluster-api
+
+      - name: Checkout project
+        if: ${{ steps.release.outputs.release_created }}
+        uses: actions/checkout@v4
+
+      - name: Build package (x86_64)
+        if: ${{ steps.release.outputs.release_created }}
+        uses: vexxhost/maturin-action@1fd4380c3940bda702f839c74df45c5b1392dbcc
+        with:
+          command: publish
+          args: --non-interactive --skip-existing
+          manylinux: '2_28'
+          target: x86_64
+
+      - name: Build package (aarch64)
+        if: ${{ steps.release.outputs.release_created }}
+        uses: vexxhost/maturin-action@1fd4380c3940bda702f839c74df45c5b1392dbcc
+        with:
+          command: publish
+          args: --non-interactive --skip-existing
+          manylinux: '2_28'
+          target: aarch64
