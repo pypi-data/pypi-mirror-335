@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: osc-vad
+Version: 0.1.0
+Summary: Fast Voice Activity Detection Inference with Onnxruntime
+Author-email: wangmengdi <790990241@qq.com>
+License-File: LICENSE
+Requires-Python: >=3.10
+Requires-Dist: funasr-onnx>=0.4.1
+Requires-Dist: loguru>=0.7.3
+Description-Content-Type: text/markdown
+
+# osc-vad
+基于onnxruntime的高性能语音端点检测。
+
+
+## 特点
+- [x] 内置模型，无需下载。
+- [x] 自动选择cpu或者gpu。
+
+
+## 模型
+
+- [x] FSMN（16K采样率）
+- [ ] Silero
+
+## 安装
+```shell
+pip install osc-vad
+```
+
+## 性能
+
+| 模型 | 采样率 | RTF | Speedup Rate | device |
+| --- | --- | --- | --- | --- |
+| FSMN | 16K | 0.0038 | 263.64 | macbook pro m4 |
