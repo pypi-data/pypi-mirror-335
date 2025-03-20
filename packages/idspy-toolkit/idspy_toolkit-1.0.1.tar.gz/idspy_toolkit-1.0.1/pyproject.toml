@@ -1,0 +1,320 @@
+
+[build-system]
+# Minimum requirements for the build system to execute.
+# See https://github.com/scipy/scipy/pull/12940 for the AIX issue.
+requires = [
+    "setuptools>=77.0.0",
+    "wheel",
+]
+# build-backend = "setuptools.build_meta"
+
+[project]
+name = 'idspy_toolkit'
+version = '1.0.1'
+description = 'Tools to manipulate the IDSPy Dictionaries'
+readme = 'README.rst'
+authors = [
+  { name = 'Guillaume Fuhr', email='guillaume.fuhr@univ-amu.fr' },
+]
+license-files = ['LICENSE',]
+requires-python = '>=3.9'
+dependencies = [
+  "idspy_dictionaries>=40000.3.0",
+"numpy>=1.23",
+"h5py>=3.6.0",
+  "defusedxml"
+]
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Environment :: Console',
+    'Intended Audience :: Science/Research',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Topic :: Scientific/Engineering'
+]
+
+
+
+[project.urls]
+"Homepage" = "https://gitlab.com/gkdb/idspy_toolkit"
+"Bug Tracker" = "https://gitlab.com/gkdb/idspy_toolkit/-/issues"
+
+[project.optional-dependencies]
+test = ['pytest>=7.0.0',]
+
+[tool.ruff]
+line-length = 88
+update-check = false
+target-version = "py310"
+
+select = [
+  # pyflakes
+  "F",
+  # pycodestyle
+  "E",
+  "W",
+  # flake8-2020
+  "YTT",
+  # flake8-bugbear
+  "B",
+  # flake8-quotes
+  "Q",
+  # pylint
+  "PLE", "PLR", "PLW",
+  # misc lints
+  "PIE",
+  # tidy imports
+  "TID",
+]
+
+ignore = [
+  # space before : (needed for how black formats slicing)
+  # "E203",  # not yet implemented
+  # module level import not at top of file
+  "E402",
+  # do not assign a lambda expression, use a def
+  "E731",
+  # line break before binary operator
+  # "W503",  # not yet implemented
+  # line break after binary operator
+  # "W504",  # not yet implemented
+  # controversial
+  "B006",
+  # controversial
+  "B007",
+  # controversial
+  "B008",
+  # setattr is used to side-step mypy
+  "B009",
+  # getattr is used to side-step mypy
+  "B010",
+  # tests use assert False
+  "B011",
+  # tests use comparisons but not their returned value
+  "B015",
+  # false positives
+  "B019",
+  # Loop control variable overrides iterable it iterates
+  "B020",
+  # Function definition does not bind loop variable
+  "B023",
+  # Functions defined inside a loop must not use variables redefined in the loop
+  # "B301",  # not yet implemented
+  # Too many arguments to function call
+  "PLR0913",
+  # Too many returns
+  "PLR0911",
+  # Too many branches
+  "PLR0912",
+  # Too many statements
+  "PLR0915",
+
+  # Additional checks that don't pass yet
+  # Within an except clause, raise exceptions with ...
+  "B904",
+  # Magic number
+  "PLR2004",
+]
+
+exclude = [
+  "doc/sphinxext/*.py",
+  "doc/build/*.py",
+  "doc/temp/*.py",
+  ".eggs/*.py",
+  "versioneer.py",
+  # exclude asv benchmark environments from linting
+  "env",
+]
+
+
+[tool.pylint.messages_control]
+max-line-length = 88
+disable = [
+ # intentionally turned off
+  "bad-mcs-classmethod-argument",
+  "broad-except",
+  "c-extension-no-member",
+  "comparison-with-itself",
+  "consider-using-enumerate",
+  "import-error",
+  "import-outside-toplevel",
+  "invalid-name",
+  "invalid-unary-operand-type",
+  "line-too-long",
+  "no-else-continue",
+  "no-else-raise",
+  "no-else-return",
+  "no-member",
+  "no-name-in-module",
+  "not-an-iterable",
+  "overridden-final-method",
+  "pointless-statement",
+  "redundant-keyword-arg",
+  "singleton-comparison",
+  "too-many-ancestors",
+  "too-many-arguments",
+  "too-many-boolean-expressions",
+  "too-many-branches",
+  "too-many-function-args",
+  "too-many-instance-attributes",
+  "too-many-locals",
+  "too-many-nested-blocks",
+  "too-many-public-methods",
+  "too-many-return-statements",
+  "too-many-statements",
+  "unexpected-keyword-arg",
+  "ungrouped-imports",
+  "unsubscriptable-object",
+  "unsupported-assignment-operation",
+  "unsupported-membership-test",
+  "unused-import",
+  "use-dict-literal",
+  "use-implicit-booleaness-not-comparison",
+  "use-implicit-booleaness-not-len",
+  "wrong-import-order",
+  "wrong-import-position",
+
+ # misc
+  "abstract-class-instantiated",
+  "no-value-for-parameter",
+  "undefined-variable",
+  "unpacking-non-sequence",
+  "used-before-assignment",
+
+ # pylint type "C": convention, for programming standard violation
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "missing-module-docstring",
+  "superfluous-parens",
+  "too-many-lines",
+  "unidiomatic-typecheck",
+  "unnecessary-dunder-call",
+  "unnecessary-lambda-assignment",
+
+  # pylint type "R": refactor, for bad code smell
+  "consider-using-with",
+  "cyclic-import",
+  "duplicate-code",
+  "inconsistent-return-statements",
+  "redefined-argument-from-local",
+  "too-few-public-methods",
+
+  # pylint type "W": warning, for python specific problems
+  "abstract-method",
+  "arguments-differ",
+  "arguments-out-of-order",
+  "arguments-renamed",
+  "attribute-defined-outside-init",
+  "broad-exception-raised",
+  "comparison-with-callable",
+  "dangerous-default-value",
+  "deprecated-module",
+  "eval-used",
+  "expression-not-assigned",
+  "fixme",
+  "global-statement",
+  "invalid-overridden-method",
+  "keyword-arg-before-vararg",
+  "possibly-unused-variable",
+  "protected-access",
+  "raise-missing-from",
+  "redefined-builtin",
+  "redefined-outer-name",
+  "self-cls-assignment",
+  "signature-differs",
+  "super-init-not-called",
+  "try-except-raise",
+  "unnecessary-lambda",
+  "unspecified-encoding",
+  "unused-argument",
+  "unused-variable",
+  "using-constant-test"
+]
+
+[tool.pytest.ini_options]
+# sync minversion with pyproject.toml & install.rst
+minversion = "7.0"
+addopts = "--strict-markers --strict-config --capture=no --durations=30"
+empty_parameter_set_mark = "fail_at_collect"
+xfail_strict = true
+#testpaths = "idspy"
+doctest_optionflags = [
+  "NORMALIZE_WHITESPACE",
+  "IGNORE_EXCEPTION_DETAIL",
+  "ELLIPSIS",
+]
+
+[tool.mypy]
+# Import discovery
+mypy_path = "typings"
+files = ["idspy", "typings"]
+exclude = ['tests', '.venv', 'venv']
+namespace_packages = false
+explicit_package_bases = false
+ignore_missing_imports = false
+follow_imports = "normal"
+follow_imports_for_stubs = false
+no_site_packages = false
+no_silence_site_packages = false
+# Platform configuration
+python_version = "3.10"
+# Untyped definitions and calls
+check_untyped_defs = true
+disallow_untyped_decorators = true
+# None and Optional handling
+no_implicit_optional = true
+strict_optional = true
+# Configuring warnings
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = false # GH#27396
+# Suppressing errors
+ignore_errors = false
+enable_error_code = "ignore-without-code"
+# Miscellaneous strictness flags
+allow_untyped_globals = false
+allow_redefinition = false
+local_partial_types = false
+implicit_reexport = true
+strict_equality = true
+# Configuring error messages
+show_error_context = false
+show_column_numbers = false
+show_error_codes = true
+
+
+
+[tool.coverage.run]
+branch = true
+omit = []
+source = ["idspy_toolkit"]
+dynamic_context = "test_function"
+
+[tool.coverage.report]
+ignore_errors = false
+show_missing = true
+omit = []
+exclude_lines = [
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
+  # Don't complain about missing debug-only code:s
+  "def __repr__",
+  "if self.debug",
+  # Don't complain if tests don't hit defensive assertion code:
+  "raise AssertionError",
+  "raise NotImplementedError",
+  "AbstractMethodError",
+  # Don't complain if non-runnable code isn't run:
+  "if 0:",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[tool.coverage.html]
+directory = "coverage_html_report"
