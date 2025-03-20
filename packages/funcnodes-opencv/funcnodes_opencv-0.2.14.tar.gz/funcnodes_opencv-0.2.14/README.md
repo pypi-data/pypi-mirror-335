@@ -1,0 +1,1 @@
+OpenCV functionalities for funcnodes
