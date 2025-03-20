@@ -1,0 +1,164 @@
+Metadata-Version: 2.2
+Name: wagtail-enap-designsystem
+Version: 1.0.4
+Summary: Módulo de componentes utilizado nos portais ENAP, desenvolvido com Wagtail + CodeRedCMS
+Author: Renan Campos
+Author-email: renan.oliveira@enap.gov.br
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: django>=3.2
+Requires-Dist: wagtail==6.4
+Requires-Dist: coderedcms==4.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: summary
+
+# 📦 Enap Design System - Módulo para Wagtail
+
+Este é um módulo customizado para o **Wagtail**, criado para facilitar a implementação de layouts e componentes reutilizáveis no CMS.
+
+### 🛫 Readme para desenvolvimento local do módulo:
+ Acesse o readme aqui [README.md](README.md)
+
+---
+
+## 📌 Recursos
+
+- 📄 **Layouts Reutilizáveis**
+- 🎨 **Estilos e Scripts** organizados em `/static/enap_designsystem/`
+- 🦴 **Templates** organizados em `/templates/enap_designsystem/`
+- 🛠️ **Extensível e fácil de personalizar**
+- 🔌 **Compatível com Django (3.2+), Wagtail (6.4+) e Codered Extensions (4.1+)**
+
+---
+
+## 🚀 **Instalação**
+
+Para instalar este módulo no seu projeto Wagtail, use:
+
+```bash
+pip install enap-designsystem
+```
+
+Se estiver usando um repositório privado no **TestPyPI**, instale com:
+
+```bash
+pip install --index-url https://test.pypi.org/simple/ enap-designsystem
+```
+
+---
+
+## ⚙️ **Configuração no Django/Wagtail**
+
+1️⃣ **Adicione no `INSTALLED_APPS` no `settings.py` do seu projeto Wagtail:**
+```python
+INSTALLED_APPS = [
+    ...
+    "enap_designsystem",
+]
+```
+
+2️⃣ **Adicione a configuração para carregar os arquivos estáticos:**
+```python
+import os
+import enap_designsystem
+
+STATICFILES_DIRS = [
+    os.path.join(os.path.dirname(enap_designsystem.__file__), "static"),
+]
+```
+
+3️⃣ **Rode as migrações:**
+```bash
+python manage.py makemigrations enap_designsystem
+python manage.py migrate
+```
+
+4️⃣ **Rode o `collectstatic` para garantir que os arquivos CSS/JS sejam carregados corretamente:**
+```bash
+python manage.py collectstatic
+```
+
+---
+
+## 📄 **Como Usar os Layouts no Wagtail**
+### **Criando uma Página Usando `MainLayout`**
+Após a instalação, vá para o **Admin do Wagtail** e crie uma página baseada em `MainLayout` ou `MidLayout`.
+
+### **Exemplo de Uso no Template**
+Se precisar usar os estilos e scripts dentro de um template customizado:
+
+```html
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'enap_designsystem/css/main_layout.css' %}">
+<script src="{% static 'enap_designsystem/js/scripts.js' %}"></script>
+
+<div class="main-layout">
+    <h1>{{ page.title }}</h1>
+    <div class="content">
+        {{ page.content|safe }}
+    </div>
+</div>
+{% endblock %}
+```
+---
+
+## 🛠️ **Como funciona o ambiente de desenvolvimento ```(enap_designsystem)```**
+
+ - A pasta `enap_designsystem` é responsável pelo código a ser exportado para o [pypi.org](pypi.org)
+ - Nessa pasta existem diversas configurações como `apps.py`, `models.py`, `hooks` para wagtail e `arquivos static` e `templates html`
+
+ - Subindo nova versão:
+ 
+##### Atualize ou crie seu "C:\Users\\[USER]\\.pypric"
+###### testpypi é para testes, versões oficiais estarão no pypi.org
+```
+[distutils]
+index-servers =
+    testpypi
+
+[testpypi]
+repository = https://test.pypi.org/legacy/
+username = __token__
+password = [COLOQUE O TOKEN AQUI]
+```
+
+```
+- apague (se houver) pasta /dist e *.egg-info
+- re-faça o build "python -m build"
+- envie com twine: "twine upload --repository testpypi --config-file C:\Users\[USER]\.pypric dist/*"
+```
+
+## 📗 **SemVer ```(versionamento semântico)```**
+
+ - Este projeto segue o **versionamento semântico** ([SemVer.org](https://semver.org/)), utilizando o formato: `MAJOR.MINOR.PATCH`
+
+#### ✅ **1️⃣ Quando mudar cada número?**
+| Tipo de Mudança        | Exemplo         | Motivo |
+|------------------------|----------------|--------|
+| **PATCH** (`X.Y.Z+1`) | `1.0.0` → `1.0.1` | Correção de bugs, sem impacto na compatibilidade |
+| **MINOR** (`X.Y+1.0`) | `1.0.0` → `1.1.0` | Nova funcionalidade **compatível** com versões anteriores |
+| **MAJOR** (`X+1.0.0`) | `1.0.0` → `2.0.0` | Mudança **incompatível**, pode quebrar código existente |
+
+#### ✅ **2️⃣ Exemplos práticos**
+| Mudança | Nova Versão |
+|---------|------------|
+| Corrigiu um bug sem alterar a API | `1.0.0` → `1.0.1` |
+| Adicionou uma nova funcionalidade **sem quebrar compatibilidade** | `1.0.0` → `1.1.0` |
+| Removeu ou alterou algo que **quebra compatibilidade** | `1.0.0` → `2.0.0` |
+
+---
+
+## 📢 **Dúvidas ou Sugestões?**
+Caso tenha dúvidas ou queira contribuir, abra uma **issue** no GitLab ou envie um **Merge Request**! 🚀
+
+---
+
+## 📜 **Licença**
+Este projeto é licenciado sob a **MIT License**. Veja o arquivo [`LICENSE`](LICENSE) para mais detalhes.

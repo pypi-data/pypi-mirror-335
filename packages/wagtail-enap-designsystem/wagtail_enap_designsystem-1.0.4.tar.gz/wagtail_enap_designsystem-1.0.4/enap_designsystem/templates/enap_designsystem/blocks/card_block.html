@@ -1,0 +1,30 @@
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="{{block.value.type}} {{self.settings.custom_css_class}}" {% if self.settings.custom_id %}id="{{self.settings.custom_id}}"{% endif %}>
+    
+    {% if block.value.type == 'card-bgimage' %}
+        <div class="wrapper-text-card-bgimage">
+    {% endif %}
+
+    {% if self.image %}
+        {% image self.image fill-800x450 format-webp preserve-svg as card_img %}
+        <div class="img-card" style="background-image: url({{card_img.url}})">
+        </div>
+    {% endif %}
+    <div class="wrapper-text-card">
+        <h2 class="h2-card">{{self.title}}</h2>
+        <p class="p-card">{{self.description}}</p>
+    </div>
+
+    {% if self.link %}
+        <div class="wrapper-button">
+            {% include_block self.link %}
+        </div>
+    {% endif %}
+
+    {% if block.value.type == 'card-bgimage' %}
+        </div>
+    {% endif %}
+
+</div>

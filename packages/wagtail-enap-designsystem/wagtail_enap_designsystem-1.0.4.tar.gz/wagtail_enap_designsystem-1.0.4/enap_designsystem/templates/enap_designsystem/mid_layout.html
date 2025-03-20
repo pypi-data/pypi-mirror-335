@@ -1,0 +1,14 @@
+
+{% extends "enap_designsystem/base.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'enap_designsystem/css/mid_layout.css' %}">
+<script src="{% static 'enap_designsystem/js/mid_layout.js' %}"></script>
+
+<div class='mid-layout' id="MIDLAYOUT_PLUGIN">
+    <h2>{{ page.title }}</h2>
+    <div class='content'>
+        {{ page.content|safe }}
+    </div>
+</div>
+{% endblock %}

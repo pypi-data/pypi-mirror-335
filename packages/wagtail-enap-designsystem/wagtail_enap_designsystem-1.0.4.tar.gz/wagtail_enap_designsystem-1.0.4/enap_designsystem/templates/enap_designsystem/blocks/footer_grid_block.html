@@ -1,0 +1,17 @@
+
+{% load wagtailcore_tags %}
+
+{% block grid_content %}
+<div class="grid-3 {{self.settings.custom_css_class}}">
+
+    <div class="footer-item">
+        <h3>{{self.title}}</h3>
+        <ul class="ul-footer">
+            {% for link in self.links %}
+                {% include_block link %}
+            {% endfor %}
+        </ul>
+    </div>
+    
+</div>
+{% endblock %}
