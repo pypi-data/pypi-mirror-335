@@ -1,0 +1,81 @@
+[project]
+name = "rogue-scroll"
+dynamic = ["version"]
+description = "Generate scroll titles from the game rogue"
+readme = "README.md"
+license = "CC-BY-ND-4.0"
+authors = [
+    { name = "Jeffrey Goldberg", email = "jeffrey@goldmark.org" }
+]
+maintainers = [
+    { name = "Jeffrey Goldberg", email = "jeffrey@goldmark.org" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Typing :: Typed",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Games/Entertainment",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+[dependency-groups]
+dev = [
+  "pytest"
+]
+docs = [
+    "sphinx>=8.1.3",
+    "sphinx-argparse>=0.5.2",
+    "sphinx-autodoc-typehints>=3.0.1",
+    "sphinx-toolbox>=3.9.0",
+]
+lint = [
+  "ruff",
+  "mypy",
+]
+stats = [
+    "pandas>=2.2.3",
+    "pandas-stubs>=2.2.3.241126",
+    "scipy>=1.15.2",
+    "scipy-stubs>=1.15.2.0",
+    "seaborn>=0.13.2",
+    "types-seaborn>=0.13.2.20250111",
+]
+
+[project.urls]
+Repository = "https://github.com/jpgoldberg/rogue-scroll.git"
+Issues = "https://github.com/jpgoldberg/rogue-scroll/issues"
+Documentation = "https://jpgoldberg.github.io/rogue-scroll/"
+Changelog = "https://github.com/jpgoldberg/rogue-scroll/blob/main/CHANGELOG.md"
+
+
+[project.scripts]
+rogue-scroll = "rogue_scroll.__main__:main"
+
+[build-system]
+requires = ["hatchling", "hatch-argparse-manpage"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+path = "src/rogue_scroll/__about__.py"
+
+[tool.ruff]
+line-length = 80
+
+[tool.mypy]
+strict = true
+
+[[tool.mypy.overrides]]
+module = ["seaborn.*"]
+ignore_missing_imports = true
+
+# [tool.hatch.build.hooks.argparse-manpage]
+# manpages = [
+#    "man/rogue-scroll.1:function=argparser:pyfile=src/rogue_scroll/__main__.py",
+# ]
