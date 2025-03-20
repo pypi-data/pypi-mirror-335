@@ -1,0 +1,54 @@
+Metadata-Version: 2.4
+Name: nettracer3d
+Version: 0.6.3
+Summary: Scripts for intializing and analyzing networks from segmentations of three dimensional images.
+Author-email: Liam McLaughlin <mclaughlinliam99@gmail.com>
+Project-URL: User_Tutorial, https://www.youtube.com/watch?v=cRatn5VTWDY
+Project-URL: Reference_Citation_For_Use, https://doi.org/10.1101/2024.07.29.605633
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy==1.26.4
+Requires-Dist: scipy==1.14.1
+Requires-Dist: scikit-image==0.25.0
+Requires-Dist: Pillow==11.1.0
+Requires-Dist: matplotlib==3.9.2
+Requires-Dist: networkx==3.2.1
+Requires-Dist: opencv-python-headless==4.10.0.84
+Requires-Dist: openpyxl==3.1.2
+Requires-Dist: pandas==2.2.0
+Requires-Dist: napari==0.5.5
+Requires-Dist: python-louvain==0.16
+Requires-Dist: tifffile==2023.7.18
+Requires-Dist: qtrangeslider==0.1.5
+Requires-Dist: PyQt6==6.8.0
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: nibabel==5.2.0
+Provides-Extra: cuda11
+Requires-Dist: cupy-cuda11x; extra == "cuda11"
+Provides-Extra: cuda12
+Requires-Dist: cupy-cuda12x; extra == "cuda12"
+Provides-Extra: cupy
+Requires-Dist: cupy; extra == "cupy"
+Dynamic: license-file
+
+NetTracer3D is a python package developed for both 2D and 3D analysis of microscopic images in the .tif file format. It supports generation of 3D networks showing the relationships between objects (or nodes) in three dimensional space, either based on their own proximity or connectivity via connecting objects such as nerves or blood vessels. In addition to these functionalities are several advanced 3D data processing algorithms, such as labeling of branched structures or abstraction of branched structures into networks. Note that nettracer3d uses segmented data, which can be segmented from other softwares such as ImageJ and imported into NetTracer3D, although it does offer its own segmentation via intensity and volumetric thresholding, or random forest machine learning segmentation. NetTracer3D currently has a fully functional GUI. To use the GUI, after installing the nettracer3d package via pip, enter the command 'nettracer3d' in your command prompt:
+
+
+This gui is built from the PyQt6 package and therefore may not function on dockers or virtual envs that are unable to support PyQt6 displays. More advanced documentation is coming down the line, but for now please see: https://www.youtube.com/watch?v=cRatn5VTWDY
+for a video tutorial on using the GUI.
+
+NetTracer3D is free to use/fork for academic/nonprofit use so long as citation is provided, and is available for commercial use at a fee (see license file for information).
+
+NetTracer3D was developed by Liam McLaughlin while working under Dr. Sanjay Jain at Washington University School of Medicine.
+
+-- Version 0.6.3 updates --
+
+1. Fixed bug with the active channel indicator on the GUI not always updating when the active channel was changed by internal loading.
+
+2. Updated ram_lock mode in the segmenter to garbage collect better... again.
+
+3. Added new function (Label neighborhoods). Find it in process -> image -> label neighborhoods. Allows a 3d labeled array to act as a kernel and extend its labels along a secondary binary array. This can be useful in evaluating nearest neighbors en-masse. The method behind this (smart label) was previously used internally for some methods (ie watershedding) but I thought I'd include it as an actual function since it has some more general uses.
