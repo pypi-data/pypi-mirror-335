@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tufts-moss-wrapper"
+version = "5.3.2024"
+description = "Wrapper over the MOSS submission script that simplifies the interface (optimized for Tufts University's CS department) and cleans up the reporting of results and backs them up for local usage."
+readme = "README.md"
+authors = [{name = "Chami Lamelas"}]
+license = {file = "LICENSE"}
+requires-python = ">=3.9.2"
+
+dependencies = [
+    "toml>=0.10.2",
+    "pytz>=2022.1",
+    "python-magic>=0.4.24"
+]
+
+[project.urls]
+Repository = "https://github.com/ChamiLamelas/moss-wrapper"
+Author = "https://sites.google.com/view/chami-lamelas"
