@@ -1,0 +1,108 @@
+Metadata-Version: 2.2
+Name: chemdataextractor2
+Version: 2.4.0
+Summary: A toolkit for extracting chemical information from the scientific literature.
+Home-page: https://github.com/CambridgeMolecularEngineering/ChemDataExtractor2
+Author: Matt Swain, Callum Court, Juraj Mavracic, Taketomo Isazawa, and contributors
+Author-email: m.swain@me.com, cc889@cam.ac.uk, jm2111@cam.ac.uk, ti250@cam.ac.uk
+License: MIT
+Keywords: text-mining mining chemistry cheminformatics nlp html xml science scientific
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Topic :: Internet :: WWW/HTTP :: Indexing/Search
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Scientific/Engineering :: Chemistry
+Classifier: Topic :: Text Processing
+Classifier: Topic :: Text Processing :: Linguistic
+Classifier: Topic :: Text Processing :: Markup :: HTML
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: appdirs>=1.4.3
+Requires-Dist: beautifulsoup4>=4.12.0
+Requires-Dist: boto3>=1.15.18
+Requires-Dist: botocore>=1.18.18
+Requires-Dist: click>=6.7
+Requires-Dist: cssselect>=1.0.1
+Requires-Dist: DAWG2
+Requires-Dist: tabledataextractor
+Requires-Dist: lxml>=3.7.2
+Requires-Dist: nltk>=3.2.2
+Requires-Dist: pdfminer.six; python_version >= "3.8"
+Requires-Dist: pdfminer.six<=20220524,>=20160614; python_version < "3.8"
+Requires-Dist: python-crfsuite>=0.9.1
+Requires-Dist: python-dateutil>=2.6.0
+Requires-Dist: PyYAML>=3.12
+Requires-Dist: requests>=2.12.5
+Requires-Dist: selenium>=3.14.1
+Requires-Dist: protobuf>=3.0.0
+Requires-Dist: scipy<1.13.0
+Requires-Dist: numpy<2.0.0,>=1.17
+Requires-Dist: deprecation
+Requires-Dist: yaspin
+Requires-Dist: tokenizers>=0.12.1
+Requires-Dist: scikit-learn>=0.22.1
+Requires-Dist: stanza>=1.6.1
+Requires-Dist: overrides>=3.1.0
+Requires-Dist: transformers>=4.30.1
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+ChemDataExtractor
+==================================
+
+ChemDataExtractor v2 is a toolkit for extracting chemical information from the scientific literature. Python 3.9 to Python 3.11 supported.
+
+
+Installation
+------------
+
+#### Create a virtual environment, for example with `conda`
+
+`conda create -n cde2 python=3.11`
+
+#### Activate the `cde2` environment
+
+`conda activate cde2`
+
+#### Install `chemdataextractor2` with `pip`
+
+`pip install chemdataextractor2`
+
+
+Features
+--------
+
+- HTML, XML and PDF document readers
+- Chemistry-aware natural language processing pipeline
+- Chemical named entity recognition
+- Rule-based parsing grammars for property and spectra extraction
+- Table parser for extracting tabulated data
+- Document processing to resolve data interdependencies
+
+Documentation & Development
+-----------------------------
+
+Please read the documentation for instructions on contributing to the project.
+
+https://cambridgemolecularengineering-chemdataextractor-development.readthedocs-hosted.com/en/latest/
+
+License
+-------
+
+ChemDataExtractor v2 is licensed under the `MIT license`_, a permissive, business-friendly license for open source
+software.
+
+MIT license: https://github.com/CambridgeMolecularEngineering/ChemDataExtractor/blob/master/LICENSE
