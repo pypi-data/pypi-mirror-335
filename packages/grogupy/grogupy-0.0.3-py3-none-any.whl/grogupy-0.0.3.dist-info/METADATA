@@ -1,0 +1,55 @@
+Metadata-Version: 2.4
+Name: grogupy
+Version: 0.0.3
+Summary: Python package calculating relativistic magnetic interactions for the generalised Heisenberg model.
+Project-URL: Homepage, https://danielpozsar.web.elte.hu/grogu/
+Project-URL: Documentation, https://danielpozsar.web.elte.hu/grogu/
+Project-URL: Repository, https://github.com/danielpozsar/grogu
+Project-URL: Issues, https://github.com/danielpozsar/grogu/issues
+Author-email: Laszlo Oroszlany <laszlo.oroszlany@ttk.elte.hu>, Daniel Tibor Pozsar <danielpozsar@student.elte.hu>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Physics
+Requires-Python: >=3.9
+Requires-Dist: mpi4py
+Requires-Dist: netcdf4==1.7.2
+Requires-Dist: numpy==1.24.4
+Requires-Dist: openmpi
+Requires-Dist: scipy
+Requires-Dist: sisl==0.14.3
+Provides-Extra: gpu
+Requires-Dist: cupy-cuda12x; extra == 'gpu'
+Provides-Extra: tqdm
+Requires-Dist: tqdm; extra == 'tqdm'
+Provides-Extra: viz
+Requires-Dist: nbconvert; extra == 'viz'
+Requires-Dist: plotly; extra == 'viz'
+Description-Content-Type: text/markdown
+
+# Relativistic magnetic interactions from non-orthogonal basis sets
+
+More on the theoretical background can be seen on [arXiv](https://arxiv.org/abs/2309.02558).
+
+## TODO
+
+- get automatic emax
+- threadpol processpool?
+- move tests to src
+- better readme
+- dependency on how we choose the perpendicular directions
+
+- Use ReadThe Docs [addons](https://docs.readthedocs.io/en/stable/addons.html)
+- Document
+
+- majd egyszer warning ha szigetelő, de most siesta fermi
+- which magnetic moment should we write to magnopy atoms?
+- magnopy out lx ly lz
+
+- plot functions
+- add mesh and converge to batch
