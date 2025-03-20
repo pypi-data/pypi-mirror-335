@@ -1,0 +1,186 @@
+Metadata-Version: 2.4
+Name: agave
+Version: 1.3.2.dev2
+Summary: Rest_api
+Home-page: https://github.com/cuenca-mx/agave
+Author: Cuenca
+Author-email: dev@cuenca.com
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: cuenca-validations<3.0.0,>=2.1.0
+Requires-Dist: mongoengine<0.30.0,>=0.29.0
+Requires-Dist: mongoengine-plus<2.0.0,>=1.0.0
+Requires-Dist: python-multipart<0.0.30,>=0.0.20
+Provides-Extra: chalice
+Requires-Dist: chalice<2.0.0,>=1.30.0; extra == "chalice"
+Provides-Extra: fastapi
+Requires-Dist: fastapi<1.0.0,>=0.115.0; extra == "fastapi"
+Requires-Dist: starlette<0.46.0,>=0.45.0; extra == "fastapi"
+Requires-Dist: starlette-context<0.4.0,>=0.3.2; extra == "fastapi"
+Provides-Extra: tasks
+Requires-Dist: aiobotocore<3.0.0,>=2.0.0; extra == "tasks"
+Requires-Dist: types-aiobotocore-sqs<3.0.0,>=2.1.0; extra == "tasks"
+Provides-Extra: sync-aws-tools
+Requires-Dist: boto3<2.0.0,>=1.34.106; extra == "sync-aws-tools"
+Requires-Dist: types-boto3[sqs]<2.0.0,>=1.34.106; extra == "sync-aws-tools"
+Provides-Extra: asyncio-aws-tools
+Requires-Dist: aiobotocore<3.0.0,>=2.0.0; extra == "asyncio-aws-tools"
+Requires-Dist: types-aiobotocore-sqs<3.0.0,>=2.1.0; extra == "asyncio-aws-tools"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# agave
+[![test](https://github.com/cuenca-mx/agave/workflows/test/badge.svg)](https://github.com/cuenca-mx/agave/actions?query=workflow%3Atest)
+[![codecov](https://codecov.io/gh/cuenca-mx/agave/branch/main/graph/badge.svg)](https://codecov.io/gh/cuenca-mx/agave)
+[![PyPI](https://img.shields.io/pypi/v/agave.svg)](https://pypi.org/project/agave/)
+
+Agave is a library for building REST APIs using a Blueprint pattern, with support for both AWS Chalice and FastAPI frameworks. It simplifies the creation of JSON-based endpoints for querying, modifying, and creating resources.
+
+## Installation
+
+Choose the installation option based on your framework:
+
+### Chalice Installation
+
+```bash
+pip install agave[chalice]
+```
+
+### FastAPI Installation
+
+```bash
+pip install agave[fastapi]
+```
+
+### SQS task support:
+```bash
+pip install agave[fastapi,tasks]
+```
+
+## Usage
+
+### Chalice Example
+
+You can then create a REST API blueprint as follows:
+```python
+from agave.chalice import RestApiBlueprint
+
+app = RestApiBlueprint()
+
+@app.resource('/accounts')
+class Account:
+    model = AccountModel
+    query_validator = AccountQuery
+    update_validator = AccountUpdateRequest
+    get_query_filter = generic_query
+
+    @staticmethod
+    @app.validate(AccountRequest)
+    def create(request: AccountRequest) -> Response:
+        account = AccountModel(
+            name=request.name,
+            user_id=app.current_user_id,
+            platform_id=app.current_platform_id,
+        )
+        account.save()
+        return Response(account.to_dict(), status_code=201)
+
+    @staticmethod
+    def update(
+        account: AccountModel, request: AccountUpdateRequest
+    ) -> Response:
+        account.name = request.name
+        account.save()
+        return Response(account.to_dict(), status_code=200)
+
+    @staticmethod
+    def delete(account: AccountModel) -> Response:
+        account.deactivated_at = dt.datetime.utcnow().replace(microsecond=0)
+        account.save()
+        return Response(account.to_dict(), status_code=200)
+```
+
+### FastAPI Example
+
+```python
+from agave.fastapi import RestApiBlueprint
+
+app = RestApiBlueprint()
+
+@app.resource('/accounts')
+class Account:
+    model = AccountModel
+    query_validator = AccountQuery
+    update_validator = AccountUpdateRequest
+    get_query_filter = generic_query
+    response_model = AccountResponse
+
+    @staticmethod
+    async def create(request: AccountRequest) -> Response:
+        """This is the description for openapi"""
+        account = AccountModel(
+            name=request.name,
+            user_id=app.current_user_id,
+            platform_id=app.current_platform_id,
+        )
+        await account.async_save()
+        return Response(content=account.to_dict(), status_code=201)
+
+    @staticmethod
+    async def update(
+        account: AccountModel,
+        request: AccountUpdateRequest,
+    ) -> Response:
+        account.name = request.name
+        await account.async_save()
+        return Response(content=account.to_dict(), status_code=200)
+
+    @staticmethod
+    async def delete(account: AccountModel, _: Request) -> Response:
+        account.deactivated_at = dt.datetime.utcnow().replace(microsecond=0)
+        await account.async_save()
+        return Response(content=account.to_dict(), status_code=200)
+```
+
+### Async Tasks
+
+```python
+from agave.tasks.sqs_tasks import task
+
+QUEUE_URL = 'https://sqs.region.amazonaws.com/account/queue'
+AWS_DEFAULT_REGION = 'us-east-1'
+@task(
+    queue_url=QUEUE_URL,
+    region_name=AWS_DEFAULT_REGION,
+    visibility_timeout=30,
+    max_retries=10,
+)
+async def process_data(data: dict):
+    # Async task processing
+    return {'processed': data}
+```
+
+## Running Tests
+
+Run the tests using the following command:
+
+```bash
+make test
+```
