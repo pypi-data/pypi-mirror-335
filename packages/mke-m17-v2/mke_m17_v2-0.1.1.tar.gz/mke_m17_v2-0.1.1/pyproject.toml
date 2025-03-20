@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=66.1.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mke-m17-v2"
+version = "0.1.1"
+authors = [
+    { name = "Quy-An", email = "quyan18b@gmail.com" },
+]
+description = "A Python/MicroPython driver for the L9110 motor controller over I2C"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "smbus2>=0.4.3; platform_system != 'MicroPython'",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: Implementation :: MicroPython",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Embedded Systems",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Quy-An/MKE-M17-V2"  # Thay bằng URL của bạn
+"Documentation" = "https://github.com/Quy-An/MKE-M17-V2/blob/main/README.md"
