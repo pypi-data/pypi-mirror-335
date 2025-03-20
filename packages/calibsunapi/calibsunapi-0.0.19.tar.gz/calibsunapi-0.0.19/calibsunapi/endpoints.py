@@ -1,0 +1,21 @@
+import os
+
+BASE = "https://api.calibsun.com"
+API = "/api"
+OPEN = "/open"
+PUBLIC = "/public"
+
+
+class EndpointRoutes:
+    TOKEN = BASE + API + OPEN + "/token"
+    LISTPLANT = BASE + API + PUBLIC + "/listplant"
+    UPLOAD = BASE + API + PUBLIC + "/uploadmeasurements/{site_id}/{format}"
+    LATESTFORECASTDEMO = BASE + API + PUBLIC + "/latestforecastdemo/{target}"
+    LATESTFORECASTDEMO_PROBA = BASE + API + PUBLIC + "/latestforecastdemo/probabilistic/{target}"
+    LATESTFORECASTDEMO_DET = BASE + API + PUBLIC + "/latestforecastdemo/deterministic{target}"
+    LATESTFORECAST = BASE + API + PUBLIC + "/latestforecast/{site_id}/{target}"
+    LATESTFORECAST_PROBA = BASE + API + PUBLIC + "/latestforecast/probabilistic/{site_id}/{target}"
+    LATESTFORECAST_DET = BASE + API + PUBLIC + "/latestforecast/deterministic{site_id}/{target}"
+    FIXEDTIMEFORECAST = BASE + API + PUBLIC + "/fixedtimeforecast/{time}/{site_id}/{target}"
+    FIXEDTIMEFORECAST_PROBA = BASE + API + PUBLIC + "/fixedtimeforecast/probabilistic/{time}/{site_id}/{target}"
+    FIXEDTIMEFORECAST_DET = BASE + API + PUBLIC + "/fixedtimeforecast/deterministic{time}/{site_id}/{target}"
