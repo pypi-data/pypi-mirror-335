@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: funcnodes-opencv
+Version: 0.2.13
+Author-email: Julian Kimmig <julian.kimmig@gmx.net>
+License: AGPL-3.0
+Project-URL: homepage, https://github.com/Linkdlab/funcnodes_opencv
+Project-URL: source, https://github.com/Linkdlab/funcnodes_opencv
+Project-URL: tracker, https://github.com/Linkdlab/funcnodes_opencv/issues
+Project-URL: download, https://pypi.org/project/funcnodes-opencv/#files
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: funcnodes_images
+Requires-Dist: opencv-python-headless>=4.9; sys_platform != "emscripten"
+Requires-Dist: opencv-python; sys_platform == "emscripten"
+Requires-Dist: funcnodes
+Requires-Dist: funcnodes-numpy
+Requires-Dist: funcnodes-core>=0.3.49
+Dynamic: license-file
+
+OpenCV functionalities for funcnodes

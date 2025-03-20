@@ -1,0 +1,66 @@
+[project]
+name = "funcnodes-opencv"
+version = "0.2.13"
+description = ""
+readme = "README.md"
+dependencies = [
+ "funcnodes_images",
+ "opencv-python-headless>=4.9; sys_platform != 'emscripten'",
+ "opencv-python; sys_platform == 'emscripten'",
+ "funcnodes",
+ "funcnodes-numpy",
+ "funcnodes-core>=0.3.49",
+]
+requires-python = ">=3.11"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+]
+
+[[project.authors]]
+name = "Julian Kimmig"
+email = "julian.kimmig@gmx.net"
+
+[dependency-groups]
+dev = [
+ "pre-commit",
+ "pytest",
+ "funcnodes-module",
+ "pytest-funcnodes>=0.1.0",
+]
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[project.license]
+text = "AGPL-3.0"
+
+[project.urls]
+homepage = "https://github.com/Linkdlab/funcnodes_opencv"
+source = "https://github.com/Linkdlab/funcnodes_opencv"
+tracker = "https://github.com/Linkdlab/funcnodes_opencv/issues"
+download = "https://pypi.org/project/funcnodes-opencv/#files"
+
+[tool.setuptools.package-dir]
+"" = "src"
+
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "*"
+pytest = "*"
+funcnodes-module = "*"
+
+[project.entry-points."funcnodes.module"]
+module = "funcnodes_opencv"
+shelf = "funcnodes_opencv:NODE_SHELF"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.poetry.plugins."funcnodes.module"]
+module = "funcnodes_opencv"
+shelf = "funcnodes_opencv:NODE_SHELF"
