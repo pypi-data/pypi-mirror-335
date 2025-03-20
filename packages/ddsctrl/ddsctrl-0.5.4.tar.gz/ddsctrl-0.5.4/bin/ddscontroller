@@ -1,0 +1,614 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""package ddsctrl
+author    Benoit Dubois
+copyright FEMTO ENGINEERING, 2016, 2023
+license   GPL v3.0+
+brief     Main script of the DDS controller project.
+"""
+
+# Ctrl-c closes the application
+import signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
+
+import sys
+import argparse
+import os.path as path
+import logging
+import itertools
+import usb.core
+import usb.util
+from PyQt5.QtCore import QSettings
+from PyQt5.QtWidgets import QApplication, QMainWindow, QMessageBox
+
+import ad9xdds.sad9912dev as sad9912dev
+import ad9xdds.ad9912dev as ad9912dev
+import ad9xdds.sad9915dev_umr232hm as sad9915dev
+import ad9xdds.ad9915dev_umr232hm as ad9915dev
+
+from ddsctrl.ddsctrlui import DdsCtrlUi, DdsBoardSelection
+from ddsctrl.constants import ORGANIZATION, APP_NAME, DEFAULT_AUTO_UPDATE, \
+    DEFAULT_AD9912_OFREQ, DEFAULT_AD9912_AMP, DEFAULT_AD9912_PHASE, \
+    DEFAULT_AD9912_PLL_EN, DEFAULT_AD9912_PLL_FACTOR, \
+    DEFAULT_AD9912_CP_CURRENT, DEFAULT_AD9912_VCO_RANGE, \
+    DEFAULT_AD9912_PLL_DOUBLER, DEFAULT_AD9912_HSTL_EN, \
+    DEFAULT_AD9912_CMOS_EN, DEFAULT_AD9912_IFREQ, \
+    DEFAULT_AD9912_HSTL_DOUBLER
+
+CONSOLE_LOG_LEVEL = logging.DEBUG
+FILE_LOG_LEVEL = logging.DEBUG
+
+
+# =============================================================================
+def configure_logging():
+    """Configures logs.
+    """
+    home = path.expanduser("~")
+    log_file = "." + APP_NAME + ".log"
+    abs_log_file = path.join(home, log_file)
+    date_fmt = "%d/%m/%Y %H:%M:%S"
+    log_format = "%(asctime)s %(levelname) -8s %(filename)s " + \
+                 " %(funcName)s (%(lineno)d): %(message)s"
+    logging.basicConfig(level=FILE_LOG_LEVEL,
+                        datefmt=date_fmt,
+                        format=log_format,
+                        filename=abs_log_file,
+                        filemode='w')
+    console = logging.StreamHandler()
+    # define a Handler which writes messages to the sys.stderr
+    console.setLevel(CONSOLE_LOG_LEVEL)
+    # set a format which is simpler for console use
+    console_format = '%(levelname) -8s %(filename)s (%(lineno)d): %(message)s'
+    formatter = logging.Formatter(console_format)
+    # tell the handler to use this format
+    console.setFormatter(formatter)
+    # add the handler to the root logger
+    logging.getLogger('').addHandler(console)
+
+
+# =============================================================================
+def parse_cmd_line():
+    """Parses command line: allow user to choose a different ini file.
+    :returns: parser object (object)
+    """
+    parser = argparse.ArgumentParser(description='DdsController')
+    parser.add_argument('-ini', '--ini_file', dest='ini_file',
+                        type=str, default='', help='-ini=<str>')
+    parser.add_argument('-wt', '--window_title', dest='wtitle',
+                        type=str, default="DDS controller")
+    parser.add_argument('-d', '--dds_model', choices=["AD9912", "AD9915"],
+                        dest='model')
+    parser.add_argument('-b', '--dds_bus', type=int, dest='bus')
+    parser.add_argument('-a', '--dds_address', type=int, dest='address')
+    args = parser.parse_args()
+    if args.model and (args.bus is None or args.address is None):
+        parser.error("--dds_model requires --dds_bus and --dds_adress.")
+    if not args.model and (args.bus is not None or args.address is not None):
+        parser.error("--dds_bus and --dds_adress requires --dds_model.")
+    return args
+
+
+# =============================================================================
+def reset_ini(settings):
+    """Resets the "settings" file with default values.
+    We use AD9912 default values because these values are "conservative" values
+    which could be used with AD9915 device (ofreq, ifreq, amp).
+    Note: due to conversion problem from QVariant (type returned by QSettings)
+    to boolean type in Python, boolean value are stored in integer:
+    0 <-> False, 1 <-> True.
+    :param ui: ddsctrlui class instance (object)
+    :param settings: a valid QSettings object (QSettings)
+    :returns: None
+    """
+    settings.clear()
+    settings.setValue('dds_ctrl/auto_update', int(DEFAULT_AUTO_UPDATE))
+    settings.setValue('dds_ctrl/ifreq', DEFAULT_AD9912_IFREQ)
+    settings.setValue('dds_ctrl/ofreq', DEFAULT_AD9912_OFREQ)
+    settings.setValue('dds_ctrl/amp', DEFAULT_AD9912_AMP)
+    settings.setValue('dds_ctrl/phase', DEFAULT_AD9912_PHASE)
+    settings.setValue('dds_ctrl/hstl_en', int(DEFAULT_AD9912_HSTL_EN))
+    settings.setValue('dds_ctrl/cmos_en', int(DEFAULT_AD9912_CMOS_EN))
+    settings.setValue('dds_ctrl/hstl_doubler', int(DEFAULT_AD9912_HSTL_DOUBLER))
+    settings.setValue('dds_ctrl/pll_en', int(DEFAULT_AD9912_PLL_EN))
+    settings.setValue('dds_ctrl/pll_doubler', int(DEFAULT_AD9912_PLL_DOUBLER))
+    settings.setValue('dds_ctrl/pll_factor', DEFAULT_AD9912_PLL_FACTOR)
+    settings.setValue('dds_ctrl/vco_range', DEFAULT_AD9912_VCO_RANGE)
+    settings.setValue('dds_ctrl/cp_current', DEFAULT_AD9912_CP_CURRENT)
+
+
+# =============================================================================
+def save_all_settings(ui):
+    """Save current setting to ini file.
+    :returns: None
+    """
+    settings = QSettings()
+    settings.setValue('dds_ctrl/auto_update',
+                      ui.ocontroller_ui.auto_update_ckbox.isChecked())
+    settings.setValue('dds_ctrl/ofreq', ui.ocontroller_ui.ofreq_tuning.value())
+    settings.setValue('dds_ctrl/phase', ui.ocontroller_ui.phy_tuning.value())
+    settings.setValue('dds_ctrl/amp', ui.ocontroller_ui.amp_tuning.value())
+    settings.setValue('dds_ctrl/ifreq', ui.icontroller_ui.ifreq_dsb.value())
+    if model == "AD9912":
+        settings.setValue('dds_ctrl/hstl_en',
+                          int(ui.ocontroller_ui.out_hstl_ckbox.isChecked()))
+        settings.setValue('dds_ctrl/cmos_en',
+                          int(ui.ocontroller_ui.out_cmos_ckbox.isChecked()))
+        settings.setValue(
+            'dds_ctrl/hstl_doubler',
+            int(ui.ocontroller_ui.hstl_doubler_ckbox.isChecked()))
+        settings.setValue(
+            'dds_ctrl/pll_en',
+            int(ui.icontroller_ui.advanced_config_gbox.isChecked()))
+        settings.setValue(
+            'dds_ctrl/pll_doubler',
+            int(ui.icontroller_ui.pll_doubler_ckbox.checkState()))
+        settings.setValue('dds_ctrl/pll_factor',
+                          ui.icontroller_ui.pll_factor_sbox.value())
+        settings.setValue('dds_ctrl/vco_range',
+                          ui.icontroller_ui.vco_range_cbox.currentIndex())
+        settings.setValue('dds_ctrl/cp_current',
+                          ui.icontroller_ui.cp_current_cbox.currentIndex())
+
+
+# =============================================================================
+def check_ini_file(user_ini_file=None):
+    """Check validity of ini file. Ini file can be given by user or can be the
+    system default ini file. If the system ini file is broken or missing,
+    create an ini file with default values.
+    :param user_ini_file: Ini file given by user (str)
+    :returns: None
+    """
+    if user_ini_file is not None:
+        settings = QSettings(user_ini_file)
+    else:
+        settings = QSettings()
+    retval = list()
+    try:
+        retval.append(settings.value('dds_ctrl/auto_update'))
+        retval.append(settings.value('dds_ctrl/ofreq'))
+        retval.append(settings.value('dds_ctrl/phase'))
+        retval.append(settings.value('dds_ctrl/amp'))
+        retval.append(settings.value('dds_ctrl/hstl_en'))
+        retval.append(settings.value('dds_ctrl/cmos_en'))
+        retval.append(settings.value('dds_ctrl/hstl_doubler'))
+        retval.append(settings.value('dds_ctrl/ifreq'))
+        retval.append(settings.value('dds_ctrl/pll_en'))
+        retval.append(settings.value('dds_ctrl/pll_doubler'))
+        retval.append(settings.value('dds_ctrl/pll_factor'))
+        retval.append(settings.value('dds_ctrl/vco_range'))
+        retval.append(settings.value('dds_ctrl/cp_current'))
+        if None in retval:
+            # Test needded because QSettings does not catch exception when
+            # a parameter is missing in ini file, instead QSettings return None.
+            if user_ini_file is None:
+                logging.warning("Missing or broken ini file")
+                reset_ini(settings)
+                logging.info("Create ini file with default values")
+            else:
+                logging.critical("Ini file given by user is not valid")
+                QMessageBox().critical(None, "Ini file error", \
+                                       "User ini file not valid")
+                sys.exit()
+    except Exception as ex:
+        if user_ini_file is None:
+            logging.warning("Missing or broken ini file")
+            reset_ini(settings)
+            logging.info("Create ini file with default values")
+        else:
+            logging.critical("User ini file not valid %r", ex)
+            QMessageBox().critical(None, "Ini file error",
+                                   "User ini file not valid: {}".format(ex))
+            sys.exit()
+
+
+# =============================================================================
+def init_ui(ui, model):
+    """Init UI.
+    :param ui: ddsctrlui class instance (object)
+    :param model: dds model i.e. "AD9912" or "AD9915" (str)
+    :returns: None
+    """
+    if model == "AD9912":
+        amax = ad9912dev.AMAX
+        ifmax = ad9912dev.IFMAX
+    else:
+        amax = ad9915dev.AMAX
+        ifmax = ad9915dev.IFMAX
+    ui.icontroller_ui.set_ifmax(ifmax)
+    ui.ocontroller_ui.set_ofmax(ifmax*0.4)
+    ui.ocontroller_ui.set_amax(amax)
+    # Init UI with respect to (ini file) actual dds configuration
+    settings = QSettings()
+    auto_update = bool(settings.value('dds_ctrl/auto_update'))
+    ofreq = float(settings.value('dds_ctrl/ofreq'))
+    ifreq = float(settings.value('dds_ctrl/ifreq'))
+    phase = float(settings.value('dds_ctrl/phase'))
+    amp = int(settings.value('dds_ctrl/amp'))
+    ##ui.ocontroller_ui.auto_update_ckbox.setChecked(False)
+    ui.ocontroller_ui.auto_update_ckbox.setChecked(auto_update)
+    ui.ocontroller_ui.ofreq_tuning.setValue(ofreq)
+    ui.ocontroller_ui.phy_tuning.setValue(phase)
+    ui.ocontroller_ui.amp_tuning.setValue(amp)
+    ui.icontroller_ui.ifreq_dsb.setValue(ifreq)
+    if model == "AD9912":
+        hstl_en = bool(int(settings.value('dds_ctrl/hstl_en')))
+        cmos_en = bool(int(settings.value('dds_ctrl/cmos_en')))
+        hstl_doubler = bool(int(settings.value('dds_ctrl/hstl_doubler')))
+        pll_en = bool(int(settings.value('dds_ctrl/pll_en')))
+        pll_doubler = bool(int(settings.value('dds_ctrl/pll_doubler')))
+        pll_factor = int(settings.value('dds_ctrl/pll_factor'))
+        vco_range = int(settings.value('dds_ctrl/vco_range'))
+        cp_current = int(settings.value('dds_ctrl/cp_current'))
+        ui.ocontroller_ui.out_hstl_ckbox.setChecked(hstl_en)
+        ui.ocontroller_ui.hstl_doubler_ckbox.setChecked(hstl_doubler)
+        ui.ocontroller_ui.out_cmos_ckbox.setChecked(cmos_en)
+        ui.icontroller_ui.advanced_config_gbox.setChecked(pll_en)
+        ui.icontroller_ui.pll_doubler_ckbox.setChecked(pll_doubler)
+        ui.icontroller_ui.pll_factor_sbox.setValue(pll_factor)
+        ui.icontroller_ui.vco_range_cbox.setCurrentIndex(vco_range)
+        ui.icontroller_ui.cp_current_cbox.setCurrentIndex(cp_current)
+        ui.icontroller_ui.update_sys_clock_label()
+
+
+# =============================================================================
+def init_dev(dds, model):
+    """Init device.
+    :param dds: dds class instance (object)
+    :param model: dds model i.e. "AD9912" or "AD9915" (str)
+    :returns: None
+    """
+    settings = QSettings()
+    ofreq = float(settings.value('dds_ctrl/ofreq'))
+    ifreq = float(settings.value('dds_ctrl/ifreq'))
+    phase = float(settings.value('dds_ctrl/phase'))
+    amp = int(settings.value('dds_ctrl/amp'))
+    dds.set_ofreq(ofreq)
+    dds.set_ifreq(ifreq)
+    dds.set_phy(phase)
+    dds.set_amp(amp)
+    if model == "AD9912":
+        hstl_en = bool(int(settings.value('dds_ctrl/hstl_en')))
+        cmos_en = bool(int(settings.value('dds_ctrl/cmos_en')))
+        hstl_doubler = bool(int(settings.value('dds_ctrl/hstl_doubler')))
+        pll_en = bool(int(settings.value('dds_ctrl/pll_en')))
+        pll_doubler = bool(int(settings.value('dds_ctrl/pll_doubler')))
+        pll_factor = int(settings.value('dds_ctrl/pll_factor'))
+        vco_range = int(settings.value('dds_ctrl/vco_range'))
+        cp_current = int(settings.value('dds_ctrl/cp_current'))
+        dds.set_hstl_output_state(hstl_en)
+        dds.set_cmos_output_state(cmos_en)
+        dds.set_hstl_doubler_state(hstl_doubler)
+        dds.set_pll_state(pll_en)
+        dds.set_pll_doubler_state(pll_doubler)
+        dds.set_pll_multiplier_factor(pll_factor)
+        dds.set_vco_range(vco_range)
+        dds.set_cp_current(cp_current)
+
+
+# =============================================================================
+def handle_ocontroller_ui_behavior(ui, dds, model):
+    """Handle behavior of output widget tab with respect to automatic update
+    checkbox: if auto is true, modification are directly take into account,
+    else modification are take into account after apply button is pressed.
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :param model: dds model i.e. "AD9912" or "AD9915" (str)
+    :returns: None
+    """
+    if ui.ocontroller_ui.auto_update_ckbox.isChecked() is True:
+        ui.ocontroller_ui.ofreq_tuning.valueChanged[str].connect(
+            lambda: ofreq_changed(ui, dds))
+        ui.ocontroller_ui.amp_tuning.valueChanged[str].connect(
+            lambda: amplitude_changed(ui, dds))
+        ui.ocontroller_ui.phy_tuning.valueChanged[str].connect(
+            lambda: phase_changed(ui, dds))
+        if model == "AD9912":
+            ui.ocontroller_ui.out_hstl_ckbox.stateChanged.connect(
+                lambda: hstl_output_changed(ui, dds))
+            ui.ocontroller_ui.hstl_doubler_ckbox.stateChanged.connect(
+                lambda: hstl_doubler_changed(ui, dds))
+            ui.ocontroller_ui.out_cmos_ckbox.stateChanged.connect(
+                lambda: cmos_output_changed(ui, dds))
+        try:
+            ui.ocontroller_ui.apply_btn.clicked.disconnect()
+        except Exception as ex:
+            logging.warning(ex)
+    else:
+        ui.ocontroller_ui.apply_btn.clicked.connect(
+            lambda: apply_btn_octrl_clicked(ui, dds, model))
+        try:
+            ui.ocontroller_ui.ofreq_tuning.valueChanged[str].disconnect()
+            ui.ocontroller_ui.amp_tuning.valueChanged[str].disconnect()
+            ui.ocontroller_ui.phy_tuning.valueChanged[str].disconnect()
+            if model == "AD9912":
+                ui.ocontroller_ui.out_hstl_ckbox.stateChanged.disconnect()
+                ui.ocontroller_ui.hstl_doubler_ckbox.stateChanged.disconnect()
+                ui.ocontroller_ui.out_cmos_ckbox.stateChanged.disconnect()
+        except Exception as ex:
+            logging.warning(ex)
+
+
+# =============================================================================
+def get_reg_btn_clicked(ui, dds):
+    """Get register value.
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    try:
+        reg_val = dds.get_reg(
+            int(str(ui.debug_ui.reg_add_led.text()), 16))
+    except ValueError as ex:
+        pass # Error handled in dds.get_reg
+    except Exception as ex:
+        logging.warning("Problem when getting register value: %s", str(ex))
+    else:
+        ui.debug_ui.reg_val_led.setText(format(reg_val, '#02x'))
+
+
+# =============================================================================
+def set_reg_btn_clicked(ui, dds):
+    """Set register value.
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    dds.set_reg(int(str(ui.debug_ui.reg_add_led.text()), 16),
+                int(str(ui.debug_ui.reg_val_led.text()), 16))
+
+
+# =============================================================================
+def ofreq_changed(ui, dds, **kwargs):
+    """Update output frequency
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    act_ofreq = dds.set_ofreq(ui.ocontroller_ui.ofreq_tuning.value())
+    ui.ocontroller_ui.ofreq_tuning.setValue(float(act_ofreq))
+    QSettings().setValue('dds_ctrl/ofreq', act_ofreq)
+
+
+# =============================================================================
+def amplitude_changed(ui, dds):
+    """Update output amplitude
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    act_amp = dds.set_amp(int(ui.ocontroller_ui.amp_tuning.value()))
+    ui.ocontroller_ui.amp_tuning.setValue(float(act_amp))
+    QSettings().setValue('dds_ctrl/amp', act_amp)
+
+
+# =============================================================================
+def phase_changed(ui, dds):
+    """Update output phase
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    act_phy = dds.set_phy(ui.ocontroller_ui.phy_tuning.value())
+    ui.ocontroller_ui.phy_tuning.setValue(float(act_phy))
+    QSettings().setValue('dds_ctrl/phase', act_phy)
+
+
+# =============================================================================
+def hstl_output_changed(ui, dds):
+    """Update HSTL outputs state
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    dds.set_hstl_output_state(ui.ocontroller_ui.out_hstl_ckbox.isChecked())
+    QSettings().setValue('dds_ctrl/hstl_en',
+                         int(ui.ocontroller_ui.out_hstl_ckbox.isChecked()))
+
+
+# =============================================================================
+def hstl_doubler_changed(ui, dds):
+    """Update HSTL doubler state
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    dds.set_hstl_doubler_state(ui.ocontroller_ui.hstl_doubler_ckbox.isChecked())
+    QSettings().setValue('dds_ctrl/hstl_doubler',
+                         int(ui.ocontroller_ui.hstl_doubler_ckbox.isChecked()))
+
+
+# =============================================================================
+def cmos_output_changed(ui, dds):
+    """Update CMOS outputs state
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    dds.set_cmos_output_state(ui.ocontroller_ui.out_cmos_ckbox.isChecked())
+    QSettings().setValue('dds_ctrl/cmos_en',
+                         int(ui.ocontroller_ui.out_cmos_ckbox.isChecked()))
+
+
+# =============================================================================
+def apply_btn_ictrl_clicked(ui, dds, model):
+    """Define action when apply button of input control form is clicked.
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :returns: None
+    """
+    # Update input frequency
+    dds.set_ifreq(ui.icontroller_ui.ifreq_dsb.value())
+    if model == "AD9912":
+        # Update PLL attribute
+        dds.set_pll_state(ui.icontroller_ui.advanced_config_gbox.isChecked())
+        dds.set_pll_doubler_state(
+            ui.icontroller_ui.pll_doubler_ckbox.isChecked())
+        dds.set_pll_multiplier_factor(
+            ui.icontroller_ui.pll_factor_sbox.value())
+        dds.set_cp_current(ui.icontroller_ui.cp_current_cbox.currentIndex())
+        dds.set_vco_range(ui.icontroller_ui.vco_range_cbox.currentIndex())
+    # Force update of output frequency in case of system clock is updated
+    # because output is a function of system clock frequency value.
+    ####ofreq_changed(ui, dds)
+    # Save new settings in ini file.
+    settings = QSettings()
+    settings.setValue('dds_ctrl/ifreq', ui.icontroller_ui.ifreq_dsb.value())
+    if model == "AD9912":
+        settings.setValue(
+            'dds_ctrl/pll_en',
+            int(ui.icontroller_ui.advanced_config_gbox.isChecked()))
+        settings.setValue('dds_ctrl/pll_doubler',
+                          int(ui.icontroller_ui.pll_doubler_ckbox.isChecked()))
+        settings.setValue('dds_ctrl/pll_factor',
+                          ui.icontroller_ui.pll_factor_sbox.value())
+        settings.setValue('dds_ctrl/vco_range',
+                          ui.icontroller_ui.vco_range_cbox.currentIndex())
+        settings.setValue('dds_ctrl/cp_current',
+                          ui.icontroller_ui.cp_current_cbox.currentIndex())
+
+
+# =============================================================================
+def apply_btn_octrl_clicked(ui, dds, model):
+    """Define action when apply button of output control form is clicked.
+    :param ui: ddsctrlui class instance (object)
+    :param dds: dds class instance (object)
+    :param model: dds model i.e. "AD9912" or "AD9915" (str)
+    :returns: None
+    """
+    ofreq_changed(ui, dds)
+    amplitude_changed(ui, dds)
+    phase_changed(ui, dds)
+    if model == "AD9912":
+        hstl_output_changed(ui, dds)
+        hstl_doubler_changed(ui, dds)
+        cmos_output_changed(ui, dds)
+
+
+# =============================================================================
+def find_dds_board():
+    """Return list of AD9912 and AD9915 dds development board connected to
+    computer.
+    :returns: list of AD9912 and AD9915 dds (list of usb.core.Device)
+    """
+    # if firmware of AD9912Dev board is not loaded, display msgbox.
+    if usb.core.find(idVendor=0x0456, idProduct=0xee08) is not None or \
+       usb.core.find(idVendor=0x0456, idProduct=0xee24) is not None:
+        QMessageBox().warning(None, title="AD9912 detected",
+                              text="AD9912 detected but firmware not loaded")
+    # AD9912 dev board
+    ad9912dev = usb.core.find(idVendor=0x0456, idProduct=0xee09, find_all=True)
+    # AD9915 dev board (through FTDI UM232H)
+    ad9915dev = usb.core.find(idVendor=0x0403, idProduct=0x6014, find_all=True)
+    return {'ad9912dev': ad9912dev, 'ad9915dev': ad9915dev}
+
+
+# =============================================================================
+def ddscontroller(ini_file, window_title,
+                  dds_model=None, dds_bus=None, dds_address=None):
+    """Main program of DDS controller project.
+    :returns: None
+    """
+    app = QApplication(sys.argv)
+    app.setOrganizationName(ORGANIZATION)
+    app.setApplicationName(APP_NAME)
+
+    if dds_model is None or dds_bus is None or dds_address is None:
+        # Select board to handle
+        dds_boards = find_dds_board()
+        dds_boards_for_human = \
+            ["AD9912 on bus {} address {}".format(dds.bus, dds.address)
+             for dds in dds_boards['ad9912dev']] + \
+            ["AD9915 on bus {} address {}".format(dds.bus, dds.address)
+             for dds in dds_boards['ad9915dev']]
+        msg = DdsBoardSelection(dds_boards_for_human)
+        retval = msg.exec_()
+        if retval == 1:
+            dds_item = msg.dds_selected()
+            dds_model = dds_item.split()[0]
+            dds_bus = int(dds_item.split()[3])
+            dds_address = int(dds_item.split()[5])
+        else:
+            sys.exit()
+    if dds_model == "AD9912":
+        dds = sad9912dev.SAd9912Dev()
+        retval = dds.connect(bus=dds_bus, address=dds_address)
+        if retval is False:
+            logging.critical('DDS connection problem')
+            QMessageBox.critical(None, 'DDS connection error',
+                                 'DDS connection problem\nCheck connection')
+            sys.exit()
+        ui = DdsCtrlUi("ad9912")
+    elif dds_model == "AD9915":
+        dds = sad9915dev.SAd9915Dev()
+        url = "ftdi://ftdi:232h:{:x}:{:x}/1".format(dds_bus, dds_address)
+        retval = dds.connect(url)
+        if retval is False:
+            logging.critical('DDS connection problem')
+            QMessageBox.critical(None, 'DDS connection error',
+                                 'DDS connection problem\nCheck connection')
+            sys.exit()
+        dds.set_operation_mode(ad9915dev.OPMODE['modulus'])
+        ui = DdsCtrlUi("ad9915")
+    else:
+        logging.critical('DDS selection problem')
+        QMessageBox.critical(None, 'DDS selection error',
+                             'Problem with the DDS selection')
+        sys.exit()
+
+    if path.isfile(ini_file) is True:
+        check_ini_file(ini_file)
+    else:
+        check_ini_file()
+
+    init_dev(dds, dds_model)
+    init_ui(ui, dds_model)
+    handle_ocontroller_ui_behavior(ui, dds, dds_model)
+
+    # Logic
+    # # Following parameters, input freq, pll state, pll doubler state and
+    # # pll factor, modify system clock frequency which in turn modify
+    # # output frequency. Behavior of UI can be:
+    # # - update display of output frequency to new dds frequency
+    # # - update dds frequency to current display of output frequency
+    # # Choice was taken to used the last behavior.
+    dds.ifreq_updated.connect(lambda **kwargs: ofreq_changed(ui, dds))
+    if dds_model == "AD9912":
+        dds.pll_state_updated.connect(
+            lambda **kwargs: ofreq_changed(ui, dds))
+        dds.pll_doubler_updated.connect(
+            lambda **kwargs: ofreq_changed(ui, dds))
+        dds.pll_factor_updated.connect(
+            lambda **kwargs: ofreq_changed(ui, dds))
+
+    ui.ocontroller_ui.auto_update_ckbox.stateChanged.connect(
+        lambda: handle_ocontroller_ui_behavior(ui, dds, dds_model))
+    ui.ocontroller_ui.auto_update_ckbox.stateChanged.connect(
+        lambda: QSettings().setValue('dds_ctrl/auto_update',
+            ui.ocontroller_ui.auto_update_ckbox.isChecked()))
+
+    ui.icontroller_ui.apply_btn.clicked.connect(
+        lambda: apply_btn_ictrl_clicked(ui, dds, dds_model))
+
+    ui.debug_ui.get_reg_btn.clicked.connect(
+        lambda: get_reg_btn_clicked(ui, dds))
+    ui.debug_ui.set_reg_btn.clicked.connect(
+        lambda: set_reg_btn_clicked(ui, dds))
+
+    form = QMainWindow()
+    form.setCentralWidget(ui)
+    form.setWindowTitle(window_title)
+    form.show()
+
+    sys.exit(app.exec_())
+
+
+#==============================================================================
+if __name__ == '__main__':
+    # Setup logger
+    configure_logging()
+    # Parse command line
+    args = parse_cmd_line()
+    # Setup application
+    ddscontroller(args.ini_file, args.wtitle,
+                  args.model, args.bus, args.address)

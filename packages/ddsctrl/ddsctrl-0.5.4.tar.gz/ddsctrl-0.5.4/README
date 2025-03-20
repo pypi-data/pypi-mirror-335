@@ -1,0 +1,47 @@
+README FILE
+
+ddsctrl
+Benoit Dubois
+
+
+CONTENTS OF THIS FILE
+---------------------
+
+* Introduction
+* Requirements
+* Installation
+
+
+INTRODUCTION
+------------
+
+ddscontroller allow basic handling of AD9912 DDS development board.
+
+
+REQUIREMENTS
+------------
+
+Preferably a Linux system with a Debian distribution (not tested with others OS
+nor others distributions).
+The program requires the folowing packages:
+  * Python 3 (Normally already installed on a Debian system)
+          $ [sudo] apt-get install python3
+
+  * PyQt5
+
+  * Ad9xDds
+
+
+INSTALLATION
+------------
+
+Install ddsctrl:
+  * PyPi
+          $ python3 -m pip install --user ddsctrl
+  * From source
+          $ python3 -m pip install --user ddsctrlx.x.tar.gz
+
+Now you can start script from anywhere in your directory arborescence:
+          $ ddscontroler
+		
+
