@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fortunecookiepkg"
+description = "A package that shares fortunes, lucky numbers, and themed or personalized messages."
+version = "0.1.6"
+authors = [
+  { name="Emily Ney", email="emn8280@nyu.edu" },
+  { name="Nikita Bhaskar", email="nb3460@nyu.edu" },
+  { name="Ariya Mathrawala", email="aam9811@nyu.edu" },
+  { name="Oluwapelumi Adesiyan", email="oea9714@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-teamproj3"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-teamproj3.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-teamproj3/issues"
+
+[project.scripts]
+fortunecookiepkg = "fortunecookiepkg.__main__:main"
