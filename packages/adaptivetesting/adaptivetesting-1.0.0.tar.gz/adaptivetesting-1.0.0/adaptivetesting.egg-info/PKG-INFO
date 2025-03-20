@@ -1,0 +1,108 @@
+Metadata-Version: 2.4
+Name: adaptivetesting
+Version: 1.0.0
+Summary: adaptivetesting is a Python package that can be used to simulate and evaluate custom CAT scenarios as well as implement them in real-world testing scenarios from a single codebase
+Home-page: https://github.com/condecon/adaptivetesting
+Author: Jonas Engicht
+Author-email: jonas.engicht@uni-jena.de
+Maintainer: Jonas Engicht
+Maintainer-email: jonas.engicht@uni-jena.de
+License: Mozilla Public License Version 2.0
+Keywords: statistics,psychology,item-response-theory,computerized-adaptive-testing
+Requires-Python: >3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jax>=0.5.1
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: scipy>=1.15.0
+Requires-Dist: pandas>=2.2.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# adaptivetesting
+[![Unittests](https://github.com/condecon/adaptivetesting/actions/workflows/python-test.yml/badge.svg)](https://github.com/condecon/adaptivetesting/actions/workflows/python-test.yml)
+[![Deploy to PyPi](https://github.com/condecon/adaptivetesting/actions/workflows/publish.yml/badge.svg)](https://github.com/condecon/adaptivetesting/actions/workflows/publish.yml)
+
+<img src="/docs/source/_static/logo.svg" style="width: 100%">
+</img>
+
+_adaptivetesting_ is a Python package for computerized adaptive 
+testing that can be used to simulate and implement custom adaptive tests 
+in real-world testing scenarios.
+
+## Getting Started
+
+Required Python version: >= 3.11 (other versions may work, but they are not officially supported)
+
+``
+pip install adaptivetesting
+``
+
+If you want to install the current development version,
+you can do so by running the following command:
+
+``
+pip install git+https://github.com/condecon/adaptivetesting
+``
+
+## Features
+- IRT-Models: 
+    - 4PL
+    - simplified derivates (e.g., 3PL, Rasch model)
+- Ability estimators: 
+    - Maximum Likelihood Estimation
+    - Bayes Modal
+- Item selection algorithm: 
+    - Urry’s rule
+- Stopping criteria: 
+    - test length
+    - ability estimation standard error
+- Test results output formats
+    - SQLITE
+    - Pickle
+- Functions and wrappers for CAT simulations and application implementations
+
+__Any functionality can be modified and extended.__
+
+
+## Implementations
+The package comes with two CAT implementations that are ready to use.
+### Default implementation
+
+![Schematic overview of the Default implementation](/images/default.svg)
+
+### Semi-Adaptive implementation
+![Schematic overview of the Semi-Adaptive implementation](/images/semi-adaptive.svg)
+
+### Custom testing procedures
+Custom testing procedures can be implemented by implementing
+the abstract class ``AdaptiveTest``.
+Any existing functionality can be overridden while still
+retaining full compatibility with the packages' functionality.
+For more information, please consult the documentation for the ``AdaptiveTest`` class.
+
+## Package structure
+| submodule | description |
+|------------|-------------|
+| data | data management and processing of test results |
+| implementations | concrete implementations of the adaptive process, provides actual |
+| math | mathematical utilities and functions, such as estimators, item selection, test information |
+| models | data model definitions and structures used in the package |
+| services | interfaces that concrete implementations inherit from |
+| simulations | functions and classes used in CAT simulation |
+| tests | Unit test for the entire package |
+
+## Documentation
+Extensive documentation is available in the source code,
+but it can also be compiled to a webpage using sphinx.
