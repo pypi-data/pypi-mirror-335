@@ -1,0 +1,92 @@
+/* 现代简约风格 */
+.image-upload-wrapper {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    background: #f8f9fa;
+    max-width: 600px;
+    margin: 1rem 0;
+  }
+.url-value {
+  color:oklch(0.554 0.046 257.417);
+  margin: 1rem;
+}
+.preview-area {
+  position: relative;
+  margin-bottom: 1rem;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.preview-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.upload-local-btn,
+.upload-oss-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  margin: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-local-btn {
+  background: #4a90e2;
+  color: white;
+}
+
+.upload-local-btn:hover {
+  background: #357abd;
+}
+
+.upload-oss-btn {
+  background: #34a853;
+  color: white;
+}
+
+.upload-oss-btn:hover {
+  background: #268c3e;
+}
+
+.url-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 1rem;
+}
+
+/* Loading 状态 */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.uploading::after {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
