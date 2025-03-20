@@ -1,0 +1,29 @@
+Metadata-Version: 2.4
+Name: scp-jp-utils
+Version: 1.2.0
+Summary: SCP-JP management utilities
+Author-email: ukwhatn <ukwhatn@gmail.com>
+Project-URL: Homepage, https://github.com/ukwhatn/scp-jp-utilities
+Project-URL: Bug Tracker, https://github.com/ukwhatn/scp-jp-utilities/issues
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: httpx>=0.28
+Requires-Dist: fastapi>=0.115.0
+Provides-Extra: build
+Requires-Dist: build; extra == "build"
+Requires-Dist: twine; extra == "build"
+Provides-Extra: lint
+Requires-Dist: mypy; extra == "lint"
+Requires-Dist: ruff; extra == "lint"
+Provides-Extra: format
+Requires-Dist: ruff; extra == "format"
+Dynamic: license-file
+
+# SCP-JP Utilities
