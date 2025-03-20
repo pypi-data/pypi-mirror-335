@@ -1,0 +1,19 @@
+{
+  "type": "record",
+  "Aspect": {
+    "name": "dataHubRemoteExecutorPoolInfo"
+  },
+  "name": "RemoteExecutorPoolInfo",
+  "namespace": "com.linkedin.pegasus2avro.executorpool",
+  "fields": [
+    {
+      "Searchable": {
+        "fieldType": "COUNT",
+        "queryByDefault": false
+      },
+      "type": "long",
+      "name": "createdAt",
+      "doc": "UTC-based timestamp of when this pool was created"
+    }
+  ]
+}
