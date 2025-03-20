@@ -1,0 +1,135 @@
+Metadata-Version: 2.3
+Name: dotcat
+Version: 0.9.6
+Summary: Cat structured data , in style
+License: MIT
+Author: Arthur Debert
+Author-email: arthur@debert.xzy
+Requires-Python: >=3.11
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Provides-Extra: completions
+Provides-Extra: dev
+Provides-Extra: docs
+Requires-Dist: argcomplete (>=3.2.1) ; extra == "completions"
+Requires-Dist: argcomplete (>=3.6.0,<4.0.0)
+Requires-Dist: asttokens (>=2.4.1) ; extra == "dev"
+Requires-Dist: autopep8 (>=2.3.1) ; extra == "dev"
+Requires-Dist: black (>=24.10.0) ; extra == "dev"
+Requires-Dist: build (>=1.2.2.post1) ; extra == "dev"
+Requires-Dist: certifi (>=2024.6.2) ; extra == "dev"
+Requires-Dist: coverage (>=7.6.1) ; extra == "dev"
+Requires-Dist: decorator (>=5.1.1) ; extra == "dev"
+Requires-Dist: doc8 (>=1.1.2) ; extra == "docs"
+Requires-Dist: executing (>=2.1.0) ; extra == "dev"
+Requires-Dist: flake8 (>=7.1.1) ; extra == "dev"
+Requires-Dist: homebrew-pypi-poet (>=0.10.0) ; extra == "dev"
+Requires-Dist: iniconfig (>=2.0.0) ; extra == "dev"
+Requires-Dist: ipython (>=7.0.0) ; extra == "dev"
+Requires-Dist: isort (>=5.13.2) ; extra == "dev"
+Requires-Dist: jedi (>=0.19.1) ; extra == "dev"
+Requires-Dist: matplotlib-inline (>=0.1.7) ; extra == "dev"
+Requires-Dist: packaging (>=24.1) ; extra == "dev"
+Requires-Dist: parso (>=0.8.4) ; extra == "dev"
+Requires-Dist: pexpect (>=4.9.0) ; extra == "dev"
+Requires-Dist: piccolo-theme (>=0.24.0) ; extra == "dev"
+Requires-Dist: pluggy (>=1.5.0) ; extra == "dev"
+Requires-Dist: pre-commit (>=4.0.1) ; extra == "dev"
+Requires-Dist: prompt-toolkit (>=3.0.48) ; extra == "dev"
+Requires-Dist: ptyprocess (>=0.7.0) ; extra == "dev"
+Requires-Dist: pure-eval (>=0.2.3) ; extra == "dev"
+Requires-Dist: pyfakefs (>=5.7.1) ; extra == "dev"
+Requires-Dist: pygments (>=2.18.0) ; extra == "dev"
+Requires-Dist: pytest (>=8.3.3) ; extra == "dev"
+Requires-Dist: pytest-cov (>=6.0.0) ; extra == "dev"
+Requires-Dist: pytest-xdist (>=3.6.1) ; extra == "dev"
+Requires-Dist: python-dotenv (>=1.0.1) ; extra == "dev"
+Requires-Dist: pyyaml (>=6.0.2)
+Requires-Dist: rstcheck (>=6.2.4) ; extra == "docs"
+Requires-Dist: rstcheck-core (>=1.2.1) ; extra == "docs"
+Requires-Dist: setuptools (>=75.3.0) ; extra == "dev"
+Requires-Dist: six (>=1.16.0) ; extra == "dev"
+Requires-Dist: sphinx-rtd-theme (>=3.0.2) ; extra == "docs"
+Requires-Dist: sphinxcontrib-applehelp (>=2.0.0) ; extra == "docs"
+Requires-Dist: sphinxcontrib-devhelp (>=2.0.0) ; extra == "docs"
+Requires-Dist: sphinxcontrib-htmlhelp (>=2.1.0) ; extra == "docs"
+Requires-Dist: sphinxcontrib-jquery (>=4.1) ; extra == "docs"
+Requires-Dist: sphinxcontrib-jsmath (>=1.0.1) ; extra == "docs"
+Requires-Dist: sphinxcontrib-qthelp (>=2.0.0) ; extra == "docs"
+Requires-Dist: sphinxcontrib-serializinghtml (>=2.0.0) ; extra == "docs"
+Requires-Dist: stack-data (>=0.6.3) ; extra == "dev"
+Requires-Dist: traitlets (>=5.14.3) ; extra == "dev"
+Requires-Dist: twine (>=6.0.1) ; extra == "dev"
+Requires-Dist: wcwidth (>=0.2.13) ; extra == "dev"
+Project-URL: Homepage, https://github.com/arthur-debert/dotcat
+Description-Content-Type: text/markdown
+
+# dotcat: Cat Structured Data, in Style
+
+Dealing with structured data in shell scripts is all but impossible.
+`dotcat` gives you the ability to fetch structured data as easily as using cat it.
+
+```bash
+# Access data by attribute path
+dotcat data.json person.name.first
+# John
+dotcat data.json person.name.last
+# Doe
+
+# Controle your output format
+dotcat data.json person.name --output=yaml
+# name:
+#   first: John
+#   last: Doe
+dotcat data.json person.name --output=json
+# {"first": "John", "last": "Doe"}
+
+# List access
+dotcat data.json person.friends@0
+# {"name":{"first": "Alice", "last": "Smith"}, "age": 25} -> item access
+dotcat data.json person.friends@2:4
+# [{"name":{"first": "Alice", "last": "Smith"}, "age": 25}, {"name":{"first": "Bob", "last": "Johnson"}, "age": 30}]  -> slice access
+dotcat data.json person.friends@4:-1
+# ... from 5th to last item
+```
+
+## The good times are here
+
+Easily read values from **JSON, YAML, TOML, and INI** files without complex scripting or manual parsing.
+
+Access deeply **nested values** using intuitive dot-separated paths (e.g., **`person.first.name`**) while controlling the **output format** with `--output` flag.
+
+Dotcat is a good **unix citizen** with well structured **exit codes** so it can take part of your command pipeline like cat or grep would.
+
+Includes **ZSH autocompletion** for both file paths and dotted paths, making it even easier to navigate complex data structures.
+
+## Installation
+
+If you have a global pip install, this will install dotcat globally:
+
+```bash
+pip install dotcat
+```
+
+## ZSH Completion
+
+Dotcat comes with ZSH completion support that is automatically installed when you install the package with pip. The installation script will:
+
+1. Look for appropriate ZSH completion directories
+2. Install the completion files if possible
+3. Notify you of the installation location
+
+If the automatic installation fails, you can manually install the completions:
+
+```bash
+# Copy the completion script to your ZSH completions directory
+mkdir -p ~/.zsh/completions
+cp /path/to/installed/package/zsh/_dotcat ~/.zsh/completions/
+
+# Or run the installation script directly
+dotcat-install-completions
+```
+
+See the [ZSH completion README](zsh/README.md) for detailed instructions.
+
