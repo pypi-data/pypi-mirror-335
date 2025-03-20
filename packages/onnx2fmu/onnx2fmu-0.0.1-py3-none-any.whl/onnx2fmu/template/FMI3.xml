@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fmiModelDescription
+  fmiVersion="3.0"
+  modelName="{{ name }}"
+  description="{{ description }}"
+  generationTool="ONNX2FMU"
+  instantiationToken="{{ GUID }}"
+  generationDateAndTime="{{ generationDateAndTime }}">
+
+  <CoSimulation
+    modelIdentifier="{{ name }}"
+    canGetAndSetFMUState="{{ canGetAndSetFMUstate }}"
+    canSerializeFMUState="{{ canSerializeFMUstate }}"
+    canHandleVariableCommunicationStepSize="{{ canHandleVariableCommunicationStepSize }}"
+    providesIntermediateUpdate="{{ providesIntermediateUpdate }}"
+    canReturnEarlyAfterIntermediateUpdate="{{ canReturnEarlyAfterIntermediateUpdate }}"
+    fixedInternalStepSize="1"/>
+
+  <LogCategories>
+    <Category name="logEvents" description="Log events"/>
+    <Category name="logStatusError" description="Log error messages"/>
+  </LogCategories>
+
+  <DefaultExperiment startTime="{{ startTime }}" stopTime="{{ stopTime }}"/>
+
+  <ModelVariables>
+    <Float64 name="time" valueReference="0" causality="independent" variability="continuous" description="Simulation time"/>
+  </ModelVariables>
+
+  <ModelStructure>
+  </ModelStructure>
+
+</fmiModelDescription>
