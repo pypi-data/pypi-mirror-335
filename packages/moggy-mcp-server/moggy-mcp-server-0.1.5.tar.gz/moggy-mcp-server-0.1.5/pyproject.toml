@@ -1,0 +1,19 @@
+[project]
+name = "moggy-mcp-server"
+version = "0.1.5"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.4.1",
+]
+
+[project.scripts]
+moggy-mcp-server = "src.sample_mcp:main"
+
+[tool.hatch.version]
+path = "src/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/sample_mcp"]
+
