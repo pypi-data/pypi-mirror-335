@@ -1,0 +1,139 @@
+[tool.poetry]
+name = "mac_cleanup"
+version = "3.3.0"
+description = "Python cleanup script for macOS"
+license = "Apache-2.0"
+authors = [ "efa2d19" ]
+readme = "README.md"
+homepage = "https://github.com/mac-cleanup/mac-cleanup-py"
+repository = "https://github.com/mac-cleanup/mac-cleanup-py"
+keywords = [
+    "macos",
+    "script",
+    "cleanup",
+    "cleaner"
+]
+classifiers = [
+    "Environment :: Console",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+
+include = [ "LICENSE" ]
+exclude = [ "mac_cleanup/__main__.py", "mac_cleanup/py.typed" ]
+
+[tool.poetry.urls]
+"Documentation" = "https://github.com/mac-cleanup/mac-cleanup-py#install-automatically"
+"Issue Tracker" = "https://github.com/mac-cleanup/mac-cleanup-py/issues"
+
+
+[tool.poetry.dependencies]
+python = ">=3.10,<3.14"
+rich = "^13.9.4"
+attrs = "~25.3.0"
+inquirer = "^3.4.0"
+toml = "~0.10.2"
+beartype = "~0.20.0"
+xattr = "~1.1.4"
+
+[tool.poetry.scripts]
+mac-cleanup = "mac_cleanup:main"
+
+[tool.poetry.group.test.dependencies]
+tox = "~4.24.2"
+pytest = "^8.3.5"
+pytest-cov = "~6.0.0"
+pyright = "^1.1.397"
+ruff = "^0.11.0"
+
+[tool.poetry.group.dev.dependencies]
+commitizen = "~4.4.1"
+jinja2 = "^3.1.6"
+pre-commit = "~4.2.0"
+
+[tool.poetry.group.lint.dependencies]
+black = "^25.1.0"
+isort = "^6.0.1"
+docformatter = "^1.7.5"
+
+[build-system]
+requires = [ "poetry-core>=2.1.0,<3.0.0" ]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+skip-magic-trailing-comma = true
+target-version = [ "py313" ]
+
+[tool.isort]
+py_version=313
+profile = "black"
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = false
+
+[tool.docformatter]
+wrap-summaries = 100
+wrap-descriptions = 100
+tab-width = 4
+pre-summary-newline = true
+close-quotes-on-newline = true
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+version_files = [ "pyproject.toml:version" ]
+tag_format = "v$version"
+
+[tool.coverage.run]
+omit = [
+    "mac_cleanup/__main__.py",
+    "mac_cleanup/default_modules.py"
+]
+
+[tool.coverage.report]
+show_missing = true
+
+[tool.pyright]
+pythonVersion = "3.13"
+pythonPlatform = "Darwin"
+typeCheckingMode = "strict"
+reportPrivateUsage = false
+reportIncompatibleMethodOverride = false
+reportImportCycles = false
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+ignore = [
+    "F403",  # star imports
+    "F405",  #  probably undefined stuff from star imports
+    "E731",  # lambda expressions
+    "C408"  # dict/list as calls
+]
+select = [
+    "E",  # default
+    "F",  # default
+    "B",  # bugbear, blind-except
+    "C",  # comprehensions
+    "T",  # print
+    "Q",  # quotes
+    "A",  # builtins
+    "PT",  # pytest-style
+    "INP",  # pep420
+    "SIM",  # simplify
+]
+
+[tool.ruff.flake8-quotes]
+inline-quotes = "double"
+multiline-quotes = "double"
+
+[tool.pytest.ini_options]
+minversion = "8.3.5"
+addopts = "--cov=mac_cleanup"
+testpaths = [ "tests" ]
