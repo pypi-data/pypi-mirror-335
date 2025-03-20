@@ -1,0 +1,94 @@
+{# templates/components/breadcrumbs.html #}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+{% if breadcrumbs %}
+<ul class="breadcrumb {% if theme == 'dark' %}breadcrumb-dark{% endif %}">
+    {% for crumb in breadcrumbs %}
+        {% if not forloop.last %}
+            <li>
+                <a class="link-breadcrumbs {% if theme == 'dark' %}white{% endif %}" href="{{ crumb.url }}">
+                    {% if crumb.is_home %}
+                        <i style="{% if theme == 'dark' %}color: #30BFBC;{% else %}color: #007D7A;{% endif %} font-size: 14px; margin-right: 10px;" class="fa-solid fa-house"></i>
+                    {% else %}
+                        {{ crumb.title }}
+                    {% endif %}
+                    <span class="material-symbols-outlined {% if theme == 'dark' %}white{% endif %}">chevron_right</span>
+                </a>
+            </li>
+        {% else %}
+            <li class="text-local-breadcrumbs {% if theme == 'dark' %}white{% endif %}">{{ crumb.title }}</li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
+<style>
+    .breadcrumb {
+        padding: 10px 16px;
+        list-style: none;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+    
+    .breadcrumb-dark {
+        background-color: #333840;
+    }
+
+    .text-local-breadcrumbs {
+        font-size: 14px;
+        font-weight: 700;
+        color: #333840;
+        text-decoration: underline;
+    }
+
+    .material-symbols-outlined {
+        color: #007D7A;
+        font-size: 14px;
+        margin-right: 10px;
+    }
+
+    .link-breadcrumbs {
+        display: inline;
+        font-size: 14px;
+        color: #333840;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+    }
+
+    .white {
+        color: #EBEFF5;
+    }
+
+    .material-symbols-outlined.white {
+        color: #30BFBC;
+    }
+
+    .white:hover {
+        color: #EBEFF5;
+    }
+
+    li a:hover {
+        color: #333840;
+        text-decoration: none;
+    }
+    
+    /* Responsividade para dispositivos móveis */
+    @media (max-width: 768px) {
+        .breadcrumb {
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px 8px;
+        }
+        
+        .link-breadcrumbs {
+            font-size: 13px;
+        }
+        
+        .text-local-breadcrumbs {
+            font-size: 13px;
+        }
+    }
+</style>
+{% endif %}

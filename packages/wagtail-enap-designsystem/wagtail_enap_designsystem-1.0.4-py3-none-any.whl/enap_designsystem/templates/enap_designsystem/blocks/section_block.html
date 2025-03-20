@@ -1,0 +1,18 @@
+
+{% load wagtailcore_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="section {{self.custom_class}}" {% if self.id_slug %}id="{{self.id_slug}}"{% endif %}>
+
+        <h2 style="font-size: 40px; margin: 0;">{{self.title}}</h2>
+        {{self.subtitle}}
+        
+        {% for block in self.content %}
+            {% include_block block %}
+        {% endfor %}
+
+    </section>
+{% endblock %}
+

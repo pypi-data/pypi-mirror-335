@@ -1,0 +1,39 @@
+{% load static %}
+{% load wagtailcore_tags coderedcms_tags %}
+{% block content %}
+{% with a_id=self.accordion.id accordion=self.accordion %}
+
+<script src="https://kit.fontawesome.com/2e8803d931.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="{% static 'enap_designsystem/blocks/draft_accordions.css' %}">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=arrow_drop_down" />
+
+<div class="wrapper-accordion" id="enap-accordion-{{ a_id }}">
+    <h2 style="text-align: center; font-size: 40px;">FAQ</h2>
+    {% for panel in accordion.panels_content %}
+    <button class="accordion" onclick="togglePanel('panel-{{ forloop.counter }}')">
+        <div class="flex-accordion">
+            <h2 class="h2-accordion">{{panel.value.title}}</h2>
+            <div class="wrapper-icon">
+                <i style="font-size: 18px;" class="fa-solid fa-chevron-down"></i>
+            </div>
+        </div>
+        <div class="line-accordions"></div>
+    </button>
+
+    <div class="panel" id="panel-{{ forloop.counter }}" style="display: none;">
+        <p class="p-accordion">
+            {% include_block panel.value.content %}
+        </p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+    function togglePanel(panelId) {
+        const panel = document.getElementById(panelId);
+        panel.style.display = (panel.style.display === "none") ? "block" : "none";
+    }
+</script>
+
+{% endwith %}
+{% endblock %}

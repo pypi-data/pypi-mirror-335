@@ -1,0 +1,73 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'enap_designsystem/blocks/navbar/navbar.css' %}">
+
+<div style="background-color: #f8fafc;">
+	<nav class="navbar">
+		<!-- Menu Hamburguer + Logo -->
+		<div style="display: flex; gap: 30px;">
+			<div class="menu-container">
+				<!-- Ícone do Menu -->
+				<button class="menu-icon" onclick="toggleMenu()">
+					<span class="material-icons">menu</span>
+				</button>
+		
+				<!-- Dropdown do Menu -->
+				<div id="menu-dropdown" class="menu-dropdown hidden">
+					{% if navbar.links %}
+						{% for link in navbar.links %}
+							<a href="{{ link.value.url }}" class="nav-link" target="_blank">{{ link.value.label }}</a>
+						{% endfor %}
+					{% else %}
+						<span class="text-red-500">⚠️ Nenhum link cadastrado.</span>
+					{% endif %}
+				</div>
+			</div>
+		
+			<!-- Logo -->
+			{% for block in navbar.logo %}
+				{% if ".svg" in block.value.file.url|lower %}
+					<img src="{{ block.value.file.url }}" >
+				{% else %}
+					{% image block.value fill-118x18 format-webp as navbar_logo %}
+					<img src="{{ navbar_logo.url }}" alt="ENAP" class="logo-navbar">
+				{% endif %}
+			{% endfor %}
+		</div>
+	
+		<!-- Barra de Pesquisa -->
+		<div class="search-container">
+			<input type="text" placeholder="O que você procura ou quer aprender?">
+			<button><span class="material-icons">search</span></button>
+			<button><span class="material-icons">mic</span></button>
+		</div>
+	
+		<!-- Opções à Direita -->
+		<div class="options">
+			<!-- Seletor de Idioma -->
+			<button>
+				PT <span class="material-icons">expand_more</span>
+			</button>
+	
+			<!-- Botão de Contraste -->
+			<button>
+				<span class="material-icons">contrast</span>
+			</button>
+	
+			<!-- Botão de Login -->
+			<a href="/login" class="login-btn">
+				<span class="material-icons">person</span>
+				<span>Entrar</span>
+			</a>
+		</div>
+	</nav>
+</div>
+
+
+<script>
+	function toggleMenu() {
+		const menu = document.getElementById("menu-dropdown");
+		menu.classList.toggle("dropdown-active");
+	}
+</script>

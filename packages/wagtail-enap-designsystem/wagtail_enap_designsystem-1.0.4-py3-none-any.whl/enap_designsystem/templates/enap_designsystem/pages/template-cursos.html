@@ -1,0 +1,140 @@
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+<link rel="stylesheet" href="{% static 'enap_designsystem/blocks/pages/draft_template-teste.css' %}">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<section class="page-wrapper">
+    {% block navbar %}
+    {% if page.navbar %}
+        {% include "enap_designsystem/blocks/navbar/navbar_block.html" with navbar=page.navbar %}
+    {% else %}
+        <p style="color: red;">DEBUG: Nenhuma Navbar foi definida.</p>
+    {% endif %}
+{% endblock %}
+
+{% if page.modal %}
+    {% include "enap_designsystem/blocks/draft_modal.html" with modal=page.modal %}
+{% endif %}
+
+{% if page.modal %}
+    {% include "enap_designsystem/blocks/draft_modal.html" with modal=page.modal %}
+{% endif %}
+
+
+<!-- Enap Banner Video Block -->
+<section class="banner-hero">
+    {% block content %}
+    <div>
+        {% for block in page.content %}
+            <div class="block">
+                {{ block }}  {# Renderiza cada bloco do StreamField diretamente #}
+            </div>
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+    </div>
+{% endblock %}
+</section>
+
+
+
+<!-- Feature-->
+<section class="feature">
+        {% for block in page.feature %}
+            <div class="block">
+                {{ block }}  {# Renderiza cada bloco do StreamField diretamente #}
+            </div>
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+</section>
+
+<!-- Cards cursos -->
+<section class="cards-cursos" style="background-color: #EBEFF5;">
+    <div class="content">
+        {% for block in page.body %}
+            <div class="block" style="margin-bottom: 90px;">
+                {{ block }}  {# Renderiza cada bloco do StreamField diretamente #}
+            </div>
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+{% if page.wizard %}
+    {% with steps=page.wizard.steps.all current_step=1 id=page.wizard.id %}
+        {% include "enap_designsystem/blocks/draft_wizard.html" %}
+    {% endwith %}
+{% endif %}
+
+
+<!-- Accordions -->
+<section class="accordions">
+    <div style="max-width: 1142px; margin: auto;">
+        {% for block in page.accordion_cursos %}
+            <div class="block">
+                {{ block }}  {# Renderiza cada bloco do StreamField diretamente #}
+            </div>
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% block footer %}
+{% include "enap_designsystem/includes/footer.html" %}
+{% endblock %}
+
+</section>
+
+
+
+<style>
+    .page-wrapper{
+        max-width: 100vw;
+        overflow: hidden;
+    }
+    .content{
+        max-width: 1142px;
+        margin:auto;
+        padding: 60px 15px;
+    }
+
+    .cards-cursos{
+        padding: 120px 0;
+    }
+
+    .feature{
+        padding: 120px 0;
+    }
+
+    .accordions{
+        padding: 120px 0;
+    }
+
+    @media (max-width: 768px) {
+        .cards-cursos{
+            padding: 0;
+        }
+
+        .feature{
+            padding: 60px 15px;
+        }
+
+    }
+</style>

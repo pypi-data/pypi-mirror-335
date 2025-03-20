@@ -1,0 +1,880 @@
+
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="{% static 'enap_designsystem/blocks/pages/draft_template-teste.css' %}">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/2e8803d931.js" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<section class="page-wrapper">
+    <div style="background-color: #071E41;">
+        <div class="menu">
+            <div class="logo">
+                <img style="width: 51px; height: 18px;" src="{% static 'enap_designsystem/icons/logo-white.png' %}" alt="Passar pro lado esquerdo" alt="Logo GovBR" height="40">
+            </div>
+            <a href="#">Comunica BR</a>
+            <div class="separator"></div>
+            <a href="#">Acesso à informação</a>
+            <div class="separator"></div>
+            <a href="#">Participe</a>
+            <div class="separator"></div>
+            <a href="#">Legislação</a>
+            <div class="separator"></div>
+            <a href="#">Órgãos do Governo</a>
+        </div>
+    </div>
+    
+    {% block navbar %}
+        {% if page.navbar %}
+            {% include "enap_designsystem/blocks/navbar/navbar_block.html" with navbar=page.navbar %}
+        {% else %}
+            <p style="color: red;">DEBUG: Nenhuma Navbar foi definida.</p>
+        {% endif %}
+    {% endblock %}
+    
+    {% block content %}
+    
+    
+    <!-- Enap Banner Video Block -->
+    <section class="wrapperherov2">
+        {% if page.video_background %}
+            <video class="video-bg" autoplay muted loop>
+                <source src="{{ page.video_background.url }}" type="video/mp4">
+                Seu navegador não suporta o vídeo.
+            </video>
+        {% endif %}
+        
+            <div class="container-hero" style="width: 100%;">
+                <div class="wrapper-text-search">
+                    Conhecimento e prática para a <span style="font-weight: 800px;">transformação do Estado</span>
+                </div>
+                <div class="search-container-hero">
+                    <input type="text" class="search-input" placeholder="O que você procura na Enap?" id="searchInput" oninput="toggleClearButton()">
+                    <button class="clear-button" id="clearButton" onclick="clearInput()">✖</button>
+                    <div class="icons">
+                        <i class="fa-solid fa-microphone"></i>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                </div>
+                <div class="wrapper-menu-herov2">
+                    <ul class="column-listv2">
+                        <li class="topicos-liv2">Quem somos</li>
+                        <div class="grid-separator"></div>
+                        <li class="topicos-liv2">Pós-Graduação <i class="fa-solid fa-chevron-down"></i></li>
+                        <div class="grid-separator"></div>
+                        <li class="topicos-liv2">Inovação <i class="fa-solid fa-chevron-down"></i></li>
+                        <div class="grid-separator"></div>
+                        <li class="topicos-liv2">Pesquisa e Conhecimento<i class="fa-solid fa-chevron-down"></i></li>
+                        <div class="grid-separator"></div>
+                        <li class="topicos-liv2">Outras Categorias<i class="fa-solid fa-chevron-down"></i></li>
+                        <div class="grid-separator"></div>
+                        <li class="topicos-liv2">Notícias</li>
+                      </ul>
+                </div>
+                
+            </div>
+    </section>
+    <section class="quadro-azul">
+
+    </section>
+    
+    
+    <!-- Big Numbers -->
+    <div class="wrapper-big-numbers-v2" >
+        
+        <div class="big-numbers">
+            <div class="big-number">
+                <h2 class="h2-numbers">4 milhões <br> <span class="span-numbers">de alunos </span></h2>
+                <h3 class="frase-numbers">participaram de cursos, 
+                    oficinas ou eventos</h3>
+            </div>
+    
+            <div class="big-number">
+                <h2 class="h2-numbers">+ 1 milhões <br> <span class="span-numbers">de certificados </span></h2>
+                <h3 class="frase-numbers">emitidos somente 
+                    em 2023</h3>
+            </div>
+    
+    
+            <div class="big-number">
+                <h2 class="h2-numbers">+ 750 <br> <span class="span-numbers">cursos</span></h2>
+                <h3 class="frase-numbers">para enriquecer o 
+                    seu conhecimento</h3>
+            </div>
+            
+        
+        </div>
+    </div>
+    
+    
+    
+    <!-- Card dinamico -->
+    <section class="card-dinamico">
+        <div class="card-dinamico__content">
+            <div class="card-dinamico__text">
+                <h2 class="title-dinamico">{{ page.page_title }}</h2>
+                <button style="background-color: #007D7A; width: 100%; height: 60px; color: white; border-radius: 32px; border: none; font-size: 20px; margin-top: 46px;" onclick="window.location.href='{{ page.button_link }}';">Saiba mais <i class="fa-solid fa-circle-chevron-right"></i></button>
+    
+                {% for block in page.body %}
+                    {% if block.block_type != 'button' %}
+                        {{ block }}
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <div class="card-dinamico__content-image">
+                <div class="img-cta" style="width: 450px; height: auto; overflow: hidden; ">
+                {% for block in page.background_image %}
+                {{ block }}  {# Renderiza cada bloco no StreamField 'background_image' #}
+                {% empty %}
+                {% endfor %}
+                </div>
+                    <p>{{ page.paragrafo|safe }}</p>
+                </div>
+           
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Card holofotes -->
+    <section class="page-preview">
+        <div class="grid-two-hero">
+            <div class="wrapper-texts-holofotes">
+                <div style="height: auto;">
+                    {% for block in page.dropdown_content %}
+                        {% if block.block_type == 'dropdown' %}
+                            {% include_block block %}
+                        {% endif %}
+                    {% empty %}
+                        <p>Nenhum conteúdo de dropdown disponível.</p>
+                    {% endfor %}
+                </div>
+                <h3 class="h3-white">Descubra as Iniciativas da Enap explorando por temas que já vivemos</h3> <h4 class="h4-white">Explore no Holofote Enap com vários temas que vivemos na atualidade.</h4>            
+            </div>
+    
+            <div class="wrapper-cards-holofotes">
+                {% for block in page.teste_preview %}
+                {{ block }}  {# Renderiza cada bloco no StreamField 'teste_preview' #}
+            {% empty %}
+                <p>Nenhum conteúdo disponível.</p>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Card cursos -->
+        <div>
+            {% for block in page.teste_courses %}
+            {{ block }}  {# Renderiza cada bloco no StreamField 'teste_courses' #}
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+        </div>
+    
+    
+    <section style="background-color: #F5F7FA; padding: 90px 0px;">
+        {% for block in page.noticias %}
+        {{ block }}  {# Renderiza cada bloco no StreamField 'teste_courses' #}
+    {% empty %}
+        <p>Nenhum conteúdo disponível.</p>
+    {% endfor %}
+    </section>
+            
+    
+    
+    
+    
+    
+    
+    <!-- Cards noticias -->
+    
+    <section class="section-noticias">
+                {% for block in page.teste_noticia %}
+            {% if block.block_type == "noticias_carousel" %}
+                {{ block }}  {# Renderiza o bloco de carrossel de notícias #}
+            {% else %}
+                <p>Nenhum conteúdo disponível.</p>
+            {% endif %}
+        {% empty %}
+            <p>Nenhum conteúdo disponível.</p>
+        {% endfor %}
+    </section >
+    
+    <section class="ouvidoria">
+        <style>
+            .video-bg{
+                position: absolute; top: 0; left: 0; width: 100%; height: 100vh; object-fit: cover;
+            }
+            .ouvidoria{
+                border-top: 1px solid #e5e5e5;
+                padding-bottom: 100px!important;
+            }
+            .ouvidoria .title {
+                text-align: center;
+                margin: 0 0 24px;
+                color: #0c326f;
+                font-weight: 600;
+                font-size: 2.7rem;
+                line-height: 1.5;
+            }
+            .title-header{
+                text-align: center;
+                font-size: 1.4375rem;
+                margin: 0 0 24px;
+                color: #333;
+                font-weight: 400;
+            }
+    
+            .cards {
+                margin: 0;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 30px;
+            }
+    
+            .card-item {
+                width: 300px;
+                flex: 0 0 268px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                height: 230px;
+                background-color: #ededed;
+                box-shadow: 0 3px 6px 0 rgba(0,0,0,0.16);
+                color: #1351b4;
+                font-weight: 500;
+                padding: 4px;
+                text-decoration: none;
+            }
+    
+            .card-item span {
+                font-size: 50px;
+                color: #0c326f;
+                font-weight: 900;
+                margin-bottom: 30px;
+            }
+    
+            .card-item .title {
+                font-size: 20px;
+                color: #0c326f;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+    
+            .canais-atendimento {
+                margin-top: 60px;
+            }
+        </style>
+        <div class="container">
+            <div class="canais-atendimento" style="padding: 0 15px;">
+                <div class="title">
+                    Ouvidoria e Acesso à Informação
+                </div>
+                <div class="title-header">
+                    <p>
+                        Você pode realizar manifestações nos seguintes canais
+                    </p>
+                </div>
+                <div class="row cards">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/Login/Identificacao/Identificacao.aspx?idFormulario=4&tipo=1&ReturnUrl=%2fpublico%2fManifestacao%2fRegistrarManifestacao.aspx%3fidFormulario%3d4%26tipo%3d1%26origem%3didp%26modo%3d" class="card-item">
+                            <span class="fas fa-bullhorn"></span>
+                            <div class="title">Denúncia</div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/Login/Identificacao/Identificacao.aspx?idFormulario=1&tipo=5&ReturnUrl=%2fpublico%2fManifestacao%2fRegistrarManifestacao.aspx%3fidFormulario%3d1%26tipo%3d5%26origem%3didp%26modo%3d" class="card-item">
+                            <span class="fa fa-comments"></span>
+                            <div class="title">Solicitação</div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/Login/Identificacao/Identificacao.aspx?idFormulario=1&tipo=4&ReturnUrl=%2fpublico%2fManifestacao%2fRegistrarManifestacao.aspx%3fidFormulario%3d1%26tipo%3d4%26origem%3didp%26modo%3d" class="card-item">
+                            <span class="fa fa-comment"></span>
+                            <div class="title">Sugestão</div>
+                        </a>
+                    </div>
+                </div>
+    
+                <div class="row cards" style="margin-top: 30px;">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/Login/Identificacao/Identificacao.aspx?idFormulario=1&tipo=3&ReturnUrl=%2fpublico%2fManifestacao%2fRegistrarManifestacao.aspx%3fidFormulario%3d1%26tipo%3d3%26origem%3didp%26modo%3d" class="card-item">
+                            <span class="fa fa-thumbs-up"></span>
+                            <div class="title">Elogio</div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/web/login?tipo=2&redirect=/manifestacao/criar?tipo=2" class="card-item">
+                            <span class="fa fa-thumbs-down"></span>
+                            <div class="title">Reclamação</div>
+                        </a>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center mb-3">
+                        <a href="https://falabr.cgu.gov.br/web/home" class="card-item">
+                            <span class="fa fa-info-circle"></span>
+                            <div class="title">Acesso à informação</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    
+    {% endblock %}
+    
+    {% block footer %}
+    {% include "enap_designsystem/includes/footer.html" %}
+    {% endblock %}
+</section>
+
+
+
+<style>
+    
+    .navbar .search-container{
+        display: none;
+    }
+    .navbar {
+        height: 50px;
+    }
+    .menu {
+            background-color: #071E41;
+            color: white;
+            display: flex;
+            align-items: center;
+            margin: auto;
+            max-width: 1142px;
+        }
+        .menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        .menu a:hover {
+            background-color: #004494;
+        }
+        .separator {
+            height: 20px;
+            width: 1px;
+            background-color: white;
+            margin: 0 10px;
+        }
+        .logo {
+            margin-right: auto;
+            width: 51px;
+            height: 18px;
+        }
+
+        body{
+        margin: 0;
+        color: #434A54;
+        font-family: "Georama", serif;
+        font-optical-sizing: auto;
+    }
+
+        .container-medium{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            max-width: 1142px;
+            margin: auto;
+        }
+
+        .wrapper-text-search{
+            font-size: 40px;
+            font-weight: 600;
+            color: white;
+            text-align: center;
+            
+        }
+
+        .container-hero{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            position: relative;
+            gap: 50px;
+        }
+
+        .wrapperherov2{
+            width: 100vw;
+            height: 80vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .column-listv2{
+            max-width: 1142px;
+            margin: auto;
+            color: #007D7A;
+            font-size: 16px;
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr 1px 1fr 1px 1fr 1px 1fr 1px  1fr;
+        }
+
+        .topicos-liv2 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-left: 10px;
+            margin-right: 10px;
+            font-weight: 400;
+        }
+
+        .grid-separator {
+        background-color: #8E99AB;
+        height: 37px;
+        width: 1px;
+}
+
+        .wrapper-menu-herov2{
+            position: absolute;
+            bottom: -10px;
+            width: 100%;
+            background-color: #FFFFFF;
+            height: 80px;
+            color: #007D7A;
+            z-index: 1; padding: 20px;
+        }
+
+
+        .wrapper-big-numbers-v2{
+            align-items: center;
+            max-width: 1142px;
+            gap: 4rem;
+            margin: 60px auto 60px auto;
+            padding: 0 15px 0 15px;
+        }
+
+        .h2-title{
+            font-size: 40px;
+            font-weight: 600;
+        }
+
+        .title-dinamico{
+            font-size: 40px;
+            font-weight: 400;
+            margin: 0;
+            color: #024248;
+        }
+
+        .span-bold{
+            font-weight: 500;
+        }
+
+        .big-numbers{
+            display: grid; 
+            grid-template-columns: 1fr 1fr 1fr;
+            padding: 20px; 
+            gap: 10px;
+            border-radius: 10px;
+        }
+
+        .big-number{
+            display: flex;
+            flex-direction: column;
+            gap: 10px;   
+        }
+
+        .h2-numbers{
+            color: #025257;
+            font-size: 40px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0;
+        }
+
+        .span-numbers{
+            color: #58606E;
+            font-size: 30px;
+            font-weight: 400;
+            text-align: center;
+        }
+
+        .frase-numbers{
+            font-size: 20px;
+            font-weight: 300;
+            text-align: center;
+        }
+
+
+        .card-dinamico{
+            background-color: #EBEFF5;
+            padding: 46px 0 46px 0;
+        }
+
+        .card-dinamico__content{
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            background-color: white;
+            max-width: 1022px;
+            margin: auto;
+            border-radius: 20px;
+            padding: 30px 90px;
+        }
+
+
+        .page-preview{  
+            padding: 90px 0 90px 0;
+            background-color: #012124;
+            color: white;
+        }
+
+        .grid-two-hero{  
+            display: grid; 
+            grid-template-columns: 1fr 1fr;
+            color: white;
+            max-width: 1142px;
+            margin: auto;
+        }
+
+        .wrapper-texts-holofotes{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 30px;
+            width: 80%;
+        }
+
+        .h3-white{
+            font-size: 40px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .h4-white{
+            font-weight: 300;
+            text-align: left;
+            margin: 0;
+        }
+
+        .wrapper-cards-holofotes{
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .dynamic-cards{
+            background-color: white;
+            padding: 90px 0 90px 0;
+            color: #434A54; 
+        }
+
+        .section-noticias{
+            background-color: white;
+        }
+
+        .section-cursos{
+            padding: 90px 0 90px 0;
+            overflow: hidden;
+        }
+
+        .cursos{
+            padding: 90px 0 90px 0;
+        }
+
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        nav li {
+            position: relative;
+        }
+
+        nav ul ul {
+            display: none;
+            position: absolute;
+            left: 0;
+            top: 100%;
+        }
+
+        nav li:hover > ul {
+            display: block;
+        }
+
+
+
+        .search-container-hero {
+            padding: 10px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 646px;
+            height: 48px;
+            background-color: white;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .search-input:focus {
+            color: black;
+        }
+
+        .clear-button {
+            position: absolute;
+            right: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #707A8B;
+            margin-right: 80px;
+            display: none;
+        }
+
+        
+
+        .icons {
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #023236;
+            width: 70px;
+            height: 40px;
+            border-radius: 60px;
+            gap: 10px;
+        }
+
+        .border6px{
+            border-radius: 6px;
+        }
+
+        @media (max-width: 768px){
+            .card-dinamico__text{
+            max-width: 100%;
+            width: 83vw;
+        }
+        .card-dinamico__content-image{
+            max-width: 100%;
+            width: 83vw;
+        }
+            .big-numbers{
+            grid-template-columns: 1fr;
+        }
+
+        .search-container-hero {
+            padding: 10px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 646px;
+            height: 48px;
+            background-color: white;
+        }
+
+        .container-hero{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: column;
+            position: relative;
+            gap: 30px;
+        }
+        
+        .wrapperherov2{
+            width: 100vw;
+            height: 80vh;
+            position: relative;
+            overflow: visible;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-dinamico{
+        padding: 40px 1rem;
+    }
+    .card-dinamico__content{
+        display: grid; 
+        grid-template-columns: 1fr;
+        padding: 15px;
+        align-items: center;
+        background-color: white;
+        max-width: 90vw;
+        margin: auto;
+        border-radius: 20px;
+    }
+        .wrapper-big-numbers {
+        grid-template-columns: 1fr; 
+        padding: 20px;
+        max-width: 80vw;
+        margin: 2rem auto;
+    }
+
+        .h2-title {
+        font-size: 32px; /* Diminui o tamanho do título */
+    }
+
+        .big-numbers {
+        grid-template-columns: 1fr; /* Uma coluna para os números */
+        gap: 48px;
+    }
+
+        .h2-numbers {
+        font-size: 44px; /* Diminui o tamanho dos números */
+    }
+
+         .span-numbers {
+        font-size: 24px; /* Diminui o tamanho das legendas */
+    }
+
+        .frase-numbers {
+        font-size: 20px; /* Diminui o tamanho das frases */
+        margin: 0;
+    }
+
+         .wrapper-menu-hero{
+        margin: auto;
+    }
+
+     .wrapper-texts-holofotes{
+        width: 100%;
+    }
+
+    .h3-white{
+        font-size: 32px;
+    }
+
+    .title-dinamico{
+        font-size: 32px;
+    }
+
+    .img-fluid {
+        width: 100%;
+        height: auto;
+        overflow: hidden;
+        max-width: 300px;
+        object-fit: cover;
+    }
+
+    .grid-two-hero{  
+            display: grid; 
+            grid-template-columns: 1fr;
+            color: white;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .search-container-hero {
+            padding: 10px;
+            border-radius: 60px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 304px;
+            height: 48px;
+            background-color: white;
+        }
+
+        .wrapper-menu-herov2{
+            position: relative;
+            bottom: -10px;
+            width: 100%;
+            background-color: transparent;
+            height: 80px;
+            color: #007D7A;
+            z-index: 999;
+        }
+
+        .column-listv2{
+            margin: auto;
+            font-size: 16px;
+            list-style-type: none;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr;
+            background-color: white;
+            border-radius: 20px;
+            width: 304px;
+            height: 350px;
+            color: #007D7A;
+            
+        }
+
+        .grid-separator {
+        background-color: #8E99AB;
+        height: 1px;
+        width: 100%;
+        }
+    
+        .wrapper-text-search{
+            margin-top: 40px;
+        }
+
+        .quadro-azul{
+        height: 305px;
+        width: 100%;
+        background-color: #EBEFF5;
+    }
+
+    .video-bg{
+            position: absolute; top: 0; left: 0; width: 100%; height: 80vh; object-fit: cover;
+            }
+
+    .topicos-liv2 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 0px;
+    margin-right: 10px;
+    font-weight: 400;
+    }
+
+    }
+       
+
+</style>
+
+
+<script>
+    function clearInput() {
+        document.getElementById('searchInput').value = '';
+        document.getElementById('searchInput').focus();
+        toggleClearButton();
+    }
+
+    function toggleClearButton() {
+        const input = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
+        clearButton.style.display = input.value ? 'block' : 'none';
+    }
+</script>
