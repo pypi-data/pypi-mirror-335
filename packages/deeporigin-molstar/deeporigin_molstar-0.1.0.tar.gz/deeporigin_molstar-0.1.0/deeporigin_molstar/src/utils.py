@@ -1,0 +1,4 @@
+
+
+class NotValidPDBPath(Exception):
+    pass
