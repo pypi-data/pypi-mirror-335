@@ -1,0 +1,41 @@
+
+
+
+[project]
+
+name = "enrobie"
+description = "Enasis Network Chatting Robie"
+
+readme = "README.md"
+
+license.text = "MIT"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12"]
+
+requires-python = ">= 3.11"
+
+dynamic = ["version", "dependencies"]
+
+
+
+[project.urls]
+
+Source = "https://github.com/enasisnetwork/enrobie"
+Documentation = "https://enasisnetwork.github.io/enrobie/sphinx"
+
+
+
+[tool.setuptools.dynamic]
+
+version.attr = "enrobie.__version__"
+
+dependencies.file = ["require/install.txt"]
+
+
+
+[tool.setuptools.packages.find]
+
+include = ["enrobie", "enrobie.*"]
