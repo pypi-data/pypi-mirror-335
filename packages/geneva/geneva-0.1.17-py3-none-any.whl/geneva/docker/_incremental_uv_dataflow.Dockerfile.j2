@@ -1,0 +1,12 @@
+FROM {{ incremental_base_image }}
+
+# *** DO NOT COPY CODE UNTIL DEPENDENCIES ARE INSTALLED ***
+# so changing code does not invalidate the cache
+COPY . /geneva
+
+# finally sync the local code
+RUN --mount=type=bind,source=uv.lock,target=uv.lock \
+    uv sync --frozen --no-editable --extra dataflow --extra prefect
+
+# Set the entrypoint to Apache Beam SDK launcher.
+ENTRYPOINT ["uv", "run", "/opt/apache/beam/boot"]

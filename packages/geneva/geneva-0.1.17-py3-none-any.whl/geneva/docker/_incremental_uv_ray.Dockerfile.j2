@@ -1,0 +1,16 @@
+FROM {{ incremental_base_image }}
+
+# *** DO NOT COPY CODE UNTILL DEPENDENCIES ARE INSTALLED ***
+# so changing code does not invalidate the cache
+COPY ./src /geneva/src
+COPY ./pyproject.toml /geneva/pyproject.toml
+COPY ./README.md /geneva/README.md
+COPY ./uv.lock /geneva/uv.lock
+
+# finally sync the local code
+RUN --mount=type=bind,source=uv.lock,target=uv.lock \
+    uv sync --frozen --no-editable --extra ray
+
+# install package in the ray python environment
+RUN uv pip install --verbose --python /home/ray/anaconda3/bin/python .
+RUN uv pip install --verbose --python /home/ray/anaconda3/bin/python .[ray]
