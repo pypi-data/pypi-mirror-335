@@ -1,0 +1,31 @@
+[project]
+name = "emod-generic"
+version = "2.21.97"
+authors = [
+  { name="Kurt Frey", email="kfrey@idmod.org" },
+]
+description = "PyPI distribution of EMOD-Generic files."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: C++",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+license = {file = "LICENSE"}
+
+[project.urls]
+Homepage = "https://www.idmod.org/tool/emod-generic/"
+Documentation = "https://docs.idmod.org/projects/emod-generic/en/latest/"
+Repository = "https://github.com/EMOD-Hub/EMOD-Generic"
+Issues = "https://github.com/EMOD-Hub/EMOD-Generic/issues"
+
+[build-system]
+requires = [
+    "setuptools",
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.package-data]
+"*" = ["*.zip"]
