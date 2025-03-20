@@ -1,0 +1,116 @@
+name: CI Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ['hotreload', 'demopackage', 'external']
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Cache uv installation
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/bin/uv
+          ~/.cargo/registry
+          ~/.cargo/git
+        key: ${{ runner.os }}-uv-${{ hashFiles('**/Cargo.lock') }}
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+      
+    - name: Cache Python dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cache/uv
+          .venv
+          */*/venv
+          */.venv
+        key: ${{ runner.os }}-uv-deps-${{ matrix.package }}-${{ hashFiles('**/pyproject.toml') }}
+    
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+      
+    - name: Create virtual environment
+      run: |
+        uv venv
+        echo "VIRTUAL_ENV=$PWD/.venv" >> $GITHUB_ENV
+        echo "$PWD/.venv/bin" >> $GITHUB_PATH
+    
+    - name: Install hotreload dependencies & run lint
+      if: matrix.package == 'hotreload'
+      run: make ci-lint-hotreload
+        
+    - name: Install demopackage dependencies & run lint
+      if: matrix.package == 'demopackage'
+      # Our explicit uv add is necessary to override our locally set wheel. We should remove this
+      # once we have a way to update the built executable locally.
+      run: |
+        (cd demopackage && uv add ..)
+        make ci-lint-demopackage
+        
+    - name: Install external dependencies & run lint
+      if: matrix.package == 'external'
+      run: make ci-lint-external
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+    
+    - name: Create virtual environment
+      run: |
+        uv venv
+        echo "VIRTUAL_ENV=$PWD/.venv" >> $GITHUB_ENV
+        echo "$PWD/.venv/bin" >> $GITHUB_PATH
+        
+    - name: Run tests
+      env:
+        FIREHOT_LOG_LEVEL: trace
+      run: |
+        make test-hotreload
+      timeout-minutes: 5
