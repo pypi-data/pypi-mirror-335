@@ -1,0 +1,57 @@
+Metadata-Version: 2.2
+Name: json_graph_traversal
+Version: 0.1.0
+Summary: A package to traverse nested JSON data structures using BFS or DFS algorithms
+Home-page: https://github.com/prajak002/json_graph_traversal
+Author: Your Name
+Author-email: your.email@example.com
+Keywords: json,graph,traversal,bfs,dfs,search
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: requires-python
+Dynamic: summary
+
+from json_graph_traversal import JSONGraphTraversal
+
+# Create a JSONGraphTraversal object from a dictionary
+data = {
+    "name": "root",
+    "children": [
+        {
+            "name": "child1",
+            "children": [
+                {"name": "grandchild1", "value": 1},
+                {"name": "grandchild2", "value": 2}
+            ]
+        },
+        {
+            "name": "child2",
+            "value": 3
+        }
+    ]
+}
+
+traversal = JSONGraphTraversal(data)
+
+# Perform BFS traversal
+print("BFS Traversal:")
+for path, value in traversal.bfs():
+    print(f"Path: {path}, Value: {value}")
+
+# Perform DFS traversal
+print("\nDFS Traversal:")
+for path, value in traversal.dfs():
+    print(f"Path: {path}, Value: {value}")
