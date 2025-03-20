@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ap_gym"
+version = "0.2.0"
+description = "Active Perception Gym: extension of Gymnasium for active perception tasks."
+authors = [
+    { name = "Tim Schneider", email = "tim@robot-learning.de" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = [
+    "gymnasium>=1.1.0",
+    "scipy",
+    "numpy",
+    "datasets",
+    "shapely",
+]
+
+[project.urls]
+homepage = "https://github.com/TimSchneider42/active-perception-gym"
+
+[project.optional-dependencies]
+examples = ["matplotlib"]
+
+[tool.setuptools.packages.find]
+include = ["ap_gym*"]
+
+[project.scripts]
+ap-gym-create-env-gif = "ap_gym.tools.create_env_gif:main"
