@@ -1,0 +1,30 @@
+"""
+Streamlit web application that demonstrates a simple interface for {{ project_name }}.
+
+This module creates a web interface using Streamlit to demonstrate the usage of the service provided by
+{{ project_name }}.
+"""
+
+import streamlit as st
+
+from {{ project_name_snake_case }} import (
+    Service,
+    __version__,
+)
+
+sidebar = st.sidebar
+sidebar.write(
+    f" [{{ project_name }} v{__version__}](https://{{ readthedocs_project_key }}.readthedocs.io/en/latest/)",
+)
+sidebar.write("Built with love in Berlin 🐻")
+
+st.title("{{ project_icon }} {{ project_name }} ")
+
+# Initialize the service
+service = Service()
+
+# Get the message
+message = service.get_hello_world()
+
+# Print the message
+st.write(f"{message}")
