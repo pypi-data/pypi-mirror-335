@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pywe_tool"
+version = "0.1.0"
+description = "A simple GUI toolkit"
+authors = [{ name = "junho lim", email = "jim257302@gmail.com" }]
+license = { text = "MIT" }
+readme = "README.md"
+dependencies = []
+dynamic = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
