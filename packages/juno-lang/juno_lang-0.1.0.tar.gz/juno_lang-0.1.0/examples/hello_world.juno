@@ -1,0 +1,49 @@
+// Hello World program in Juno
+
+// Simple function definition
+func greet(name) {
+    Show("Hello, " + name + "!");
+}
+
+// Call the function
+greet("World");
+
+// Variables
+let x = 42;
+let y = 10;
+Show("x + y = " + (x + y));
+
+// Conditional logic with pattern matching
+let input = "hello";
+let message = match(input) {
+    case "hello" => "Hi there!"
+    case "goodbye" => "See you later!"
+    case _ => "Unknown input"
+};
+Show(message);
+
+// Loop
+let i = 0;
+while (i < 5) {
+    Show("Count: " + i);
+    i = i + 1;
+}
+
+// Error handling with result types
+let result = try readFile("nonexistent.txt")
+match result {
+    case Success(content) => Show(content)
+    case Error(err) => Show("Error reading file: " + err)
+};
+
+// Async function
+async func fetchData() {
+    Show("Fetching data...");
+    sleep(1);  // Simulate network delay
+    Show("Data received!");
+    return "Some data";
+}
+
+// Call async function
+let data = await fetchData();
+Show("Received: " + data);

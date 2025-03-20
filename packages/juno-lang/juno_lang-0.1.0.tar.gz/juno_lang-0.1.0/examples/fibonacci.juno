@@ -1,0 +1,39 @@
+// Fibonacci sequence in Juno
+
+// Recursive implementation
+func fibonacci(n) {
+    if (n <= 1) {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// Iterative implementation (more efficient)
+func fibonacci_iterative(n) {
+    if (n <= 1) {
+        return n;
+    }
+    
+    let a = 0;
+    let b = 1;
+    let result = 0;
+    
+    for (let i = 2; i <= n; i = i + 1) {
+        result = a + b;
+        a = b;
+        b = result;
+    }
+    
+    return result;
+}
+
+// Print the first 10 Fibonacci numbers
+print("First 10 Fibonacci numbers (recursive):");
+for (let i = 0; i < 10; i = i + 1) {
+    print(fibonacci(i));
+}
+
+print("\nFirst 10 Fibonacci numbers (iterative):");
+for (let i = 0; i < 10; i = i + 1) {
+    print(fibonacci_iterative(i));
+}

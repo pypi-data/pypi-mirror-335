@@ -1,0 +1,86 @@
+// Advanced Juno programming example
+// Demonstrating first-class functions, closures, and more
+
+// First-class functions
+func makeAdder(x) {
+    // Return a function that adds x to its argument
+    func adder(y) {
+        return x + y;
+    }
+    return adder;
+}
+
+// Create a function that adds 5 to its argument
+let add5 = makeAdder(5);
+Show("add5(10) = " + add5(10));  // Should print 15
+
+// Higher-order functions
+func map(arr, fn) {
+    let result = [];
+    let i = 0;
+    while (i < len(arr)) {
+        result[i] = fn(arr[i]);
+        i = i + 1;
+    }
+    return result;
+}
+
+// Use map with an anonymous function
+let numbers = [1, 2, 3, 4, 5];
+let doubled = map(numbers, func(x) { return x * 2; });
+Show("Doubled: " + doubled);
+
+// Pattern matching with complex conditions
+func describe(value) {
+    return match(value) {
+        case 0 => "Zero"
+        case 1 => "One"
+        case 2 => "Two"
+        case _ => "Many"
+    };
+}
+
+Show(describe(1));  // Should print "One"
+Show(describe(5));  // Should print "Many"
+
+// Async/await for asynchronous programming
+async func fetchUserData(userId) {
+    Show("Fetching user data for ID: " + userId);
+    sleep(1);  // Simulate network delay
+    return {
+        "id": userId,
+        "name": "User " + userId,
+        "email": "user" + userId + "@example.com"
+    };
+}
+
+async func processUser() {
+    let user = await fetchUserData("123");
+    Show("User name: " + user.name);
+    Show("User email: " + user.email);
+    return "Processed user: " + user.name;
+}
+
+// Execute the async function
+let result = await processUser();
+Show(result);
+
+// Error handling with try/match
+func divide(a, b) {
+    if (b == 0) {
+        return Error("Division by zero");
+    }
+    return Success(a / b);
+}
+
+let divResult = divide(10, 2);
+match divResult {
+    case Success(value) => Show("Result: " + value)
+    case Error(msg) => Show("Error: " + msg)
+};
+
+let errorResult = divide(10, 0);
+match errorResult {
+    case Success(value) => Show("Result: " + value)
+    case Error(msg) => Show("Error: " + msg)
+};

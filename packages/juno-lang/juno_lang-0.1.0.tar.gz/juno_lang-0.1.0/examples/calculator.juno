@@ -1,0 +1,59 @@
+// Simple calculator in Juno
+
+func calculator() {
+    print("Simple Calculator");
+    print("Operations: +, -, *, /, %");
+    print("Type 'exit' to quit");
+    
+    while (true) {
+        print("\nEnter expression (e.g., 2 + 3):");
+        let input_text = input();
+        
+        if (input_text == "exit") {
+            break;
+        }
+        
+        // Simple parsing of the expression
+        let parts = input_text.split(" ");
+        
+        if (len(parts) != 3) {
+            print("Invalid expression. Format: number operator number");
+            continue;
+        }
+        
+        let left = num(parts[0]);
+        let operator = parts[1];
+        let right = num(parts[2]);
+        
+        let result = 0;
+        
+        if (operator == "+") {
+            result = left + right;
+        } else if (operator == "-") {
+            result = left - right;
+        } else if (operator == "*") {
+            result = left * right;
+        } else if (operator == "/") {
+            if (right == 0) {
+                print("Error: Division by zero");
+                continue;
+            }
+            result = left / right;
+        } else if (operator == "%") {
+            if (right == 0) {
+                print("Error: Modulo by zero");
+                continue;
+            }
+            result = left % right;
+        } else {
+            print("Unknown operator: " + operator);
+            continue;
+        }
+        
+        print(left + " " + operator + " " + right + " = " + result);
+    }
+    
+    print("Calculator closed");
+}
+
+calculator();

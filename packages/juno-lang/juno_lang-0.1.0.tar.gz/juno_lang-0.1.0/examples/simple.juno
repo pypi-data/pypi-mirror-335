@@ -1,0 +1,31 @@
+// Simple Juno program to test the interpreter
+
+// Print a message
+Show("Hello, Juno!");
+
+// Define a variable
+let x = 42;
+Show("The answer is: " + x);
+
+// Define a function
+func add(a, b) {
+    return a + b;
+}
+
+// Call the function
+let result = add(5, 10);
+Show("5 + 10 = " + result);
+
+// Conditional statement
+if (result > 10) {
+    Show("Result is greater than 10");
+} else {
+    Show("Result is not greater than 10");
+}
+
+// Loop
+let i = 0;
+while (i < 5) {
+    Show("Count: " + i);
+    i = i + 1;
+}

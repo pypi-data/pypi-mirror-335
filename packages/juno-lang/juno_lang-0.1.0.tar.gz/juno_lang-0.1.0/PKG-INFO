@@ -1,0 +1,229 @@
+Metadata-Version: 2.4
+Name: juno-lang
+Version: 0.1.0
+Summary: An interpreted programming language with JIT compilation
+Home-page: https://github.com/junolang/juno
+Author: Juno Team
+Author-email: info@junolang.org
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Interpreters
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+# Juno Programming Language
+
+Juno is an interpreted programming language that improves upon Java's syntax while maintaining the benefits of Java's powerful features. It combines the flexibility of an interpreted language with the performance benefits of Just-In-Time (JIT) compilation.
+
+## Key Features
+
+- **Interpreted Language with JIT Compilation**: Executes code line-by-line with dynamic optimization of hot code paths
+- **Simplified Syntax**: Cleaner, more concise code with less boilerplate
+- **First-Class Functions**: Functions can be passed around like variables
+- **Modern Memory Management**: Automatic garbage collection with optional unsafe operations
+- **Dynamic Features**: Hot reloading and reflection capabilities
+- **Concurrency & Async Programming**: Built-in async/await and lightweight concurrency models
+- **Advanced Error Handling**: Result types with pattern matching
+- **Pattern Matching**: Powerful pattern matching for simplified conditional logic
+- **Comprehensive Standard Library**: Modern collections, I/O utilities, and functional programming tools
+- **Runtime Optimizations**: Hotspot detection, profile-guided optimization, and caching
+
+## Example
+
+```juno
+// Simple function definition and invocation
+func greet(name) {
+    Show("Hello, " + name)
+}
+
+greet("World")
+
+// Pattern matching example
+let message = match(input) {
+    case "hello" => "Hi there!"
+    case 42 => "The answer to everything!"
+    case _ => "Unknown input"
+}
+Show(message)
+
+// Error handling with result types
+let result = try readFile("data.txt")
+match result {
+    case Success(content) => Show(content)
+    case Error(err) => Show("Error reading file: " + err)
+}
+```
+
+## Getting Started
+
+### Installation
+
+You can install Juno using pip:
+
+```bash
+# Install from PyPI (when available)
+pip install juno-lang
+
+# Or install from source
+git clone https://github.com/junolang/juno.git
+cd juno
+pip install -e .
+```
+
+### Running Juno Programs
+
+Once installed, you can run Juno programs using the `juno` command:
+
+```bash
+# Run a Juno file
+juno path/to/your/program.juno
+
+# Start the interactive REPL
+juno --repl
+
+# Enable debugging
+juno --debug path/to/your/program.juno
+
+# Show version information
+juno --version
+```
+
+### Writing Your First Juno Program
+
+Create a file named `hello.juno` with the following content:
+
+```juno
+// My first Juno program
+func main() {
+    Show("Hello, Juno!");
+}
+
+main();
+```
+
+Then run it with:
+
+```bash
+juno hello.juno
+```
+
+## Language Syntax
+
+### Variables
+
+```juno
+// Variable declaration
+let name = "Juno";
+var age = 1;  // var can be reassigned
+
+// Constants (by convention, not enforced)
+let PI = 3.14159;
+```
+
+### Functions
+
+```juno
+// Named function
+func add(a, b) {
+    return a + b;
+}
+
+// Anonymous function
+let multiply = func(a, b) {
+    return a * b;
+};
+
+// Async function
+async func fetchData() {
+    // Asynchronous operations
+    return "data";
+}
+```
+
+### Control Flow
+
+```juno
+// If statement
+if (condition) {
+    // code
+} else if (otherCondition) {
+    // code
+} else {
+    // code
+}
+
+// While loop
+while (condition) {
+    // code
+}
+
+// For loop
+for (let i = 0; i < 10; i = i + 1) {
+    // code
+}
+```
+
+### Pattern Matching
+
+```juno
+let result = match(value) {
+    case 0 => "Zero"
+    case 1 => "One"
+    case "hello" => "Greeting"
+    case _ => "Default case"
+};
+```
+
+### Error Handling
+
+```juno
+// Using result types
+let result = try someOperationThatMightFail();
+match result {
+    case Success(value) => Show("Success: " + value)
+    case Error(err) => Show("Error: " + err)
+};
+
+// Using try/catch
+try {
+    // Code that might throw an error
+} case Error(e) => {
+    // Handle error
+} case _ => {
+    // Catch all other errors
+};
+```
+
+## Project Structure
+
+- `juno/` - The main package containing the interpreter
+  - `__main__.py` - Entry point for the interpreter
+  - `lexer.py` - Tokenizes source code
+  - `parser.py` - Parses tokens into an AST
+  - `ast.py` - Defines the Abstract Syntax Tree nodes
+  - `interpreter.py` - Interprets the AST
+  - `runtime.py` - Runtime environment
+  - `jit.py` - Just-In-Time compiler
+- `examples/` - Example Juno programs
+- `tests/` - Test suite
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
