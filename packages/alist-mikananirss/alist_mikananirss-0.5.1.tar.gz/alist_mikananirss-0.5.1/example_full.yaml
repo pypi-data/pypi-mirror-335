@@ -1,0 +1,51 @@
+common:
+  interval_time: 300
+  proxies:
+    http: http://127.0.0.1:7890
+    https: http://127.0.0.1:7890
+
+alist:
+  base_url: http[s]://www.example.com
+  # base_url: http://127.0.0.1:port
+  token: alist-xxx
+  downloader: aria2
+  download_path: Onedrive/Anime
+
+mikan:
+  subscribe_url: 
+    - https://mikanani.me/RSS/MyBangumi?token=xxx
+    - https://mikanani.me/RSS/rss2
+  regex_pattern:
+    简体: "(简体|简中|简日|CHS)"
+    繁体: "(繁体|繁中|繁日|CHT|Baha)"
+    1080p: "(X1080|1080P)"
+    非合集: "^(?!.*(\\d{2}-\\d{2}|合集)).*"
+  filters:
+    - 1080p
+    - 非合集
+    
+notification:
+  telegram:
+    bot_token: your_token
+    user_id: your_id
+  pushplus: 
+    token: xxxxx
+    channel: channel
+  interval_time: 300
+
+rename: 
+  chatgpt: 
+    api_key: sk-xxx
+    base_url: https://example.com/v1
+    model: gpt-4o-mini
+  rename_format: "{name} S{season:02d}E{episode:02d}"
+  remap: 
+    enable: trues
+    cfg_path: "remap.yaml"
+
+bot_assistant:
+  telegram:
+    bot_token: your_token
+
+dev:
+  log_level: INFO
