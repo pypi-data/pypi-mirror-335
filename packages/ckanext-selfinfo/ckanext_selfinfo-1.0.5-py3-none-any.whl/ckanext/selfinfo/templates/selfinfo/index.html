@@ -1,0 +1,272 @@
+{% extends "admin/base.html" %}
+
+{% block primary_content_inner %}
+<div class="">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <button class="nav-link active" id="nav-system-tab" data-bs-toggle="tab" data-bs-target="#nav-system" role="tab" aria-controls="nav-system" aria-selected="true">System Info</button>
+          <button class="nav-link" id="nav-ckan-tab" data-bs-toggle="tab" data-bs-target="#nav-ckan" role="tab" aria-controls="nav-ckan" aria-selected="false">CKAN Info</button>
+          {% if data.git_info %}
+            <button class="nav-link" id="nav-git-tab" data-bs-toggle="tab" data-bs-target="#nav-git"   role="tab" aria-controls="nav-git" aria-selected="false">GIT Info</button>
+          {% endif %}
+          <button class="nav-link" id="nav-python-tab" data-bs-toggle="tab" data-bs-target="#nav-python"   role="tab" aria-controls="nav-python" aria-selected="false">Python Info</button>
+          <button class="nav-link" id="nav-freeze-tab" data-bs-toggle="tab" data-bs-target="#nav-freeze"   role="tab" aria-controls="nav-freeze" aria-selected="false">PIP Freeze</button>
+          <button class="nav-link" id="nav-errors-tab" data-bs-toggle="tab" data-bs-target="#nav-errors"   role="tab" aria-controls="nav-errors" aria-selected="false">Errors</button>
+        </div>
+    </nav>
+
+    <div class="tab-content d-block" id="nav-data">
+        <div class="tab-pane fade show active" id="nav-system" role="tabpanel" aria-labelledby="nav-system-tab">
+            <h2 class="mt-3">
+                System Information
+            </h2>
+            <div class="mb-4">
+                <table class="table mb-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">System</th>
+                            <th scope="col">Python Version</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ data.platform_info.platform }}</td>
+                            <td>{{ data.platform_info.python_version }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="mt-3">
+                RAM
+            </h2>
+            <div class="mb-4">
+                <table class="table mb3">
+                    <tr>
+                        <th class="col">{{ _('RAM Usage in') }} %</th>
+                        <th class="col">{{ _('RAM Usage GB') }}</th>
+                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>{{ data.ram_usage.precent_usage }}%</td>
+                            <td>{{ data.ram_usage.used_ram }}GB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2 class="mt-3">
+                Disk Space
+            </h2>
+            <div class="mb-4">
+                <table class="table mb3">
+                    <tr>
+                        <th class="col">{{ _('Path') }}</th>
+                        <th class="col">{{ _('Disk Usage in') }} %</th>
+                        <th class="col">{{ _('Disk Total') }}</th>
+                        <th class="col">{{ _('Disk Free') }}</th>
+                    </tr>
+                    <tbody>
+                        {% for disk in data.disk_usage %}
+                            <tr>
+                                <td>{{ disk.path }}</td>
+                                <td>{{ disk.precent_usage }}%</td>
+                                <td>{{ disk.total_disk }}</td>
+                                <td>{{ disk.free_space }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-ckan" role="tabpanel" aria-labelledby="nav-ckan-tab">
+            <h2 class="mt-3">
+                CKAN Information
+            </h2>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Site Title</th>
+                            <th scope="col">CKAN Version</th>
+                            <th scope="col">Default Language</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ status_show.site_title }}</td>
+                            <td>{{ status_show.ckan_version }}</td>
+                            <td>{{ status_show.locale_default }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="accordion">
+                    <div class="accordion-item mb-3">
+                        <h2 class="accordion-header" id="extensions-heading">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#extensionsCollapse" aria-expanded="false" aria-controls="extensionsCollapse">
+                            {{ _('Extensions') }}
+                          </button>
+                        </h2>
+                        <div id="extensionsCollapse" class="accordion-collapse collapse" aria-labelledby="extensions-heading">
+                          <div class="accordion-body">
+                            <ul class="list-group">
+                                {% for extension in status_show.extensions %}
+                                <li class="list-group-item">
+                                    {{ extension }}
+                                </li>
+                                {% endfor %}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="nav-git" role="tabpanel" aria-labelledby="nav-git-tab">
+            {% if data.git_info %}
+                <h2 class="mt-3">
+                    GIT Information
+                </h2>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Project</th>
+                            <th scope="col">Head</th>
+                            <th scope="col">Based On</th>
+                            <th scope="col">Commit</th>
+                            <th scope="col">Remotes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in data.git_info %}
+                            <tr>
+                                <td>{{ data.name }}</td>
+                                <td>{{ data.head }}</td>
+                                <td>{{ data.on }}</td>
+                                <td>{{ data.commit }}</td>
+                                <td>
+                                    {% for remote in data.remotes %}
+                                        <div class="mb-2">
+                                            <div>
+                                                Name: {{ remote.name }}
+                                            </div>
+                                            <div>
+                                                URL: <a href="{{ remote.url }}" target="_blank">{{ remote.url }}</a>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+        <div class="tab-pane fade" id="nav-python" role="tabpanel" aria-labelledby="nav-python-tab">
+            <div class="d-flex justify-content-between">
+                <h2 class="mt-3">
+                    Python Packages
+                </h2>
+            </div>
+        
+            {% for group in data.groups %}
+            <div class="accordion">
+                <div class="accordion-item mb-3">
+                  <h2 class="accordion-header" id="{{group}}-headinginfo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{group}}-collapseinfo" aria-expanded="false" aria-controls="{{group}}-collapseinfo">
+                        {{ group|upper }}
+                    </button>
+                  </h2>
+                  <div id="{{group}}-collapseinfo" class="accordion-collapse collapse" aria-labelledby="{{group}}-headinginfo">
+                    <div class="accordion-body">
+                        <table class="table" data-module="reset-module-last-check">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Current Version</th>
+                                    <th scope="col">Possible Version</th>
+                                    <th scope="col">Last Checked</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for module in data.groups[group] %}
+                                    {% set values = data.groups[group][module] %}
+                                    {% if values.name %}
+                                        <tr>
+                                            <td class="td-{{ values.name }}-selfinfo-name">
+                                                {{ values.name }}
+                                            </td>
+                                            <td class="td-{{ values.name }}-selfinfo-curVersion">{{ values.current_version }}</td>
+                                            <td class="td-{{ values.name }}-selfinfo-latestVersion">
+                                                {{ values.latest_version }}
+                                                {% if values.current_version != values.latest_version %}
+                                                    <i class="fas fa-exclamation-triangle text-warning"></i>
+                                                {% endif %}
+                                            </td>
+                                            <td class="td-{{ values.name }}-selfinfo-updated">
+                                                {{ h.render_datetime(values.updated) }}
+                                                <button name="force-reset" data-target="{{ values.name }}" class="force-reset-selfinfo btn btn-primary">
+                                                    <i class="fas fa-sync-alt"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+        <div class="tab-pane fade mt-3" id="nav-freeze" role="tabpanel" aria-labelledby="nav-freeze-tab">
+            <button class="btn btn-primary mb-3" onclick="copyClip()">{{ _('Copy list') }}</button>
+            <textarea rows="{{ data.freeze.modules|length }}" class="w-100 form-control" id="freeze-list">{{ data.freeze.modules_html }}</textarea>
+            <script>
+                function copyClip() {
+                    let clip = document.getElementById("freeze-list");
+                    clip.select();
+                    navigator.clipboard.writeText(clip.value);
+                }
+            </script>
+        </div>
+        <div class="tab-pane fade mt-3" id="nav-errors" role="tabpanel" aria-labelledby="nav-errors-tab">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2 class="mt-3">
+                    {{ data.errors|length }} 
+                    {% if data.errors|length == 1 %}
+                        {{ _('Error') }}
+                    {% else %}
+                        {{ _('Errors') }}
+                    {% endif %}
+                </h2>
+                <div>
+                    {% if data.errors|length %}
+                        <form action="">
+                            <button class="btn btn-primary" type="submit" name="drop_errors" value="true">{{ _('Clear Errors') }}</button>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+            {% if data.errors|length %}
+            <div class="list-group">
+                {% for error in data.errors|reverse %}
+                    {% set even = loop.index % 2 == 0 %}
+                    <div class="list-group-item p-3 {% if even %} list-group-item-secondary {% endif %}">
+                        <pre class="pb-3 mb-0">{{ error }}</pre>
+                    </div>
+                {% endfor %}
+            </div>
+            {% else %}
+                <p>
+                    You don't have any errors yet.
+                </p>
+                <p>
+                    If the error should be displayed, make sure that changes mentioned in <b>Enable Errors Saving</b> section are being applied.
+                </p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+{% endblock %}
