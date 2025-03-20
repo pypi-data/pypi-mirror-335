@@ -1,0 +1,1 @@
+import{j as e}from"./@radix-AvWw-1nd.js";function s({children:t}){return e.jsx("div",{className:"flex h-7 w-7 items-center justify-center rounded-sm bg-primary-100 text-text-lg font-semibold text-theme-text-brand",children:t})}export{s as N};
