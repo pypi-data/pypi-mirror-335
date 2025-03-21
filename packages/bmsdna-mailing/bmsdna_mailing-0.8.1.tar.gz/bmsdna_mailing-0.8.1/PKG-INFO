@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: bmsdna-mailing
+Version: 0.8.1
+Author-email: Adrian Ehrsam <5270024+aersam@users.noreply.github.com>
+Requires-Python: ~=3.10
+Requires-Dist: aiofiles<25,>=24.1.0
+Requires-Dist: aiohttp<4,>=3.9.5
+Requires-Dist: azure-data-tables>=12.6.0
+Requires-Dist: azure-identity<2,>=1.17.1
+Requires-Dist: azure-storage-blob<13,>=12.19.0
+Requires-Dist: deltalake!=0.18.2,>=0.18.0
+Requires-Dist: deltalake2db>=0.8.0
+Requires-Dist: holidays>=0.52
+Requires-Dist: pydantic<3,>=1.10.0
+Requires-Dist: pytz>=2022.7
+Provides-Extra: polars
+Requires-Dist: deltalake2db>=0.8; extra == 'polars'
+Requires-Dist: polars>=1.19; extra == 'polars'
