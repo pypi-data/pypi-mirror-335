@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "nanomd"
+version = "0.1.0"
+description = ""
+authors = ["DeYing Zhang <legendzdy@dingtalk.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "^0.15.1"
+pysam = "^0.22.1"
+
+[tool.poetry.scripts]
+nanomd = "nanomd.main:app"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
