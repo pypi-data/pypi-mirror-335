@@ -1,0 +1,55 @@
+Metadata-Version: 2.3
+Name: ImageTileProcessor
+Version: 0.1.11
+Summary: This is a in-house package to deal with lazy tiled image tile loading to save RAM and various methods to post process tiled outpus s
+License: MIT
+Keywords: image,tiles,processing
+Author: Tong Li
+Author-email: tl10@sanger.ac.uk
+Requires-Python: >=3.8,<=3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: aicsimageio (>=4.12.1,<5.0.0)
+Requires-Dist: fire (>=0.6.0,<0.7.0)
+Requires-Dist: numpy (>=1.24.0,<2.0.0)
+Requires-Dist: shapely (>=2.0.3,<3.0.0)
+Requires-Dist: tifffile (>=2024.7.24,<2025.0.0)
+Requires-Dist: tqdm (>=4.67.1,<5.0.0)
+Project-URL: Homepage, https://github.com/BioinfoTongLI/ImageTileProcessor
+Project-URL: Repository, https://github.com/BioinfoTongLI/ImageTileProcessor
+Description-Content-Type: text/markdown
+
+# ImageTileProcessor
+
+This is a in-house package to deal with lazy tiled image tile loading to save RAM and various methods to post process tiled outpus.
+
+## Installation
+
+```sh
+poetry install
+```
+or
+```sh
+pip install ImageTileProcessor
+```
+## Usage
+There are several command line tools that can be used to process tiled images (and their processed results).
+```sh
+merge-peaks
+
+merge-polygons
+
+tile-2d-image
+```
+
+And if you just want to fetch the raw pixel data from a tile, you can use the following function:
+```python
+from imagetileprocessor import slice_and_crop_image
+slice_and_crop_image(
+    image_p, x_min, x_max, y_min, y_max, zs, channel, resolution_level
+)
+```
