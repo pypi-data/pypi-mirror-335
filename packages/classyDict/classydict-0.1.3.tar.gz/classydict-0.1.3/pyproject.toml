@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "classyDict"
+version = "0.1.3"
+description = "A dictionary that supports dot notation access, including nested dicts."
+readme = "readme.md"
+requires-python = ">=3.7"
+license = { text = "MIT" }
+authors = [
+    { name = "Hassan Rasool", email = "hassanrasool1057@gmail.com" }
+]
+
+keywords = ["dictionary", "dot-access", "nested", "python"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+packages = ["classyDict"]
+
+[project.optional-dependencies]
+dev = ["pytest", "black"]
