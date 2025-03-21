@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: depwise
+Version: 0.1.0a1
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Framework :: Pytest
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Programming Language :: Rust
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Software Development :: Version Control :: Git
+Classifier: Topic :: System :: Software Distribution
+Classifier: Typing :: Typed
+License-File: LICENSE
+Summary: A fast, comprehensive dependency analyzer for Python projects that detects unused, missing, and optional dependencies across multiple environments. Supports requirements.txt, conda, pyproject.toml, pixi, and setup.py without requiring installation. Features intelligent pattern detection for optional dependencies, synthetic fast-pass analysis, and validation against actual environments. Designed for pre-commit hooks and CI/CD pipelines.
+Keywords: dependencies,dependency analysis,package management,python,conda,rust,tool,requirements,pyproject,static-analysis,linter,lint,pre-commit,optional dependencies,dependency checker,development tools,code quality,dependency management
+Home-Page: https://github.com/zbowling/depwise
+Author: Zac Bowling <zac@zacbowling.com>
+Author-email: Zac Bowling <zac@zacbowling.com>
+Maintainer-email: Zac Bowling <zac@zacbowling.com>
+License: MIT
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: Homepage, https://github.com/zbowling/depwise
+Project-URL: Repository, https://github.com/zbowling/depwise.git
+Project-URL: Issues, https://github.com/zbowling/depwise/issues
+Project-URL: Changelog, https://github.com/zbowling/depwise/blob/master/CHANGELOG.md
+
+# Depwise
+
+![Depwise Logo](depwise_logo.png)
+
+Depwise is a tool for figuring out what Python dependencies you need or don't need.
+
+## Usage
+
+```bash
+depwise check --path <path-to-pyproject.toml>
+```
+
