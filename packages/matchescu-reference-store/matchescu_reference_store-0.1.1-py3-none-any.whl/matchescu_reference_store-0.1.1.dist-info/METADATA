@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: matchescu-reference-store
+Version: 0.1.1
+Summary: Storage options for entity references
+License: MIT
+Author: Andrei Olar
+Author-email: andrei.olar@samlex.ro
+Requires-Python: >=3.12,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: matchescu-base (>=0.12.0,<0.13.0)
+Description-Content-Type: text/markdown
+
+# Reference Store
+
+The entity reference store's main job is to keep entity references known by the system.
+Depending on the entity resolution model being used, it may persist relations between
+entity references.
+
+The entity reference store logically organizes the data it stores in workspaces.
+Each workspace corresponds to an entity resolution problem domain. For example,
+users might have one workspace for resolving publications across multiple data sources
+and another workspace for resolving e-commerce products across vendor databases.
+
+# Development
+
+First, ensure that the package builds locally and that the automated test suite runs
+fine.
+
+```shell
+$ make bootstrap
+$ make test
+```
+
+Then follow the coding guidelines to submit new contributions.
+
+# Usage
+
+This package is meant to be used as a subsystem in a larger entity resolution pipeline.
+The functionalities should be imported and used as per the pipeline's requirements.
+
