@@ -1,0 +1,17 @@
+[tool.isort]
+profile = "black"
+[tool.black]
+line-length = 100
+exclude = '''
+/(
+    \.git
+  | \__pycache__
+)/
+'''
+
+[tool.mypy]
+ignore_missing_imports = true
+explicit_package_bases = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+disallow_untyped_calls = true
