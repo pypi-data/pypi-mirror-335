@@ -1,0 +1,59 @@
+<div class="col-2 m-0 p-0">
+
+    {% for nav_item in nav %}
+
+        {% if nav_item.title == "Lectures" %}
+            {% set icon = "bi-journals" %}
+        {% elif nav_item.title == "Lab Activities" %}
+            {% set icon = "bi-pen" %}
+        {% elif nav_item.title == "Your Assessment" %}
+            {% set icon = "bi-journal-code" %}
+        {% elif nav_item.title == "Getting Started" %}
+            {% set icon = "bi-flag" %}
+        {% elif nav_item.title == "Support" %}
+            {% set icon = "bi-info-circle" %}
+        {% elif nav_item.title == "Module Essentials" %}
+            {% set icon = "bi-journal-bookmark" %}
+        {% elif nav_item.title == "Linux" %}
+                {% set icon = "bi-ubuntu" %}
+        {% elif nav_item.title == "macOS" %}
+                {% set icon = "bi-apple" %}
+        {% elif nav_item.title == "Windows" %}
+                {% set icon = "bi-microsoft" %}
+        {% elif nav_item.title == "Windows Subsystem for Linux" %}
+            {% set icon = "bi-terminal" %}
+        {% endif %}
+
+        {% if nav_item.children %}
+            <div class="{% if loop.last %}mb-0{% else %}mb-3{% endif %}">
+                <button class="btn btn-link"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#{{ nav_item.title.replace(' ', '-')|lower }}"
+                        aria-expanded="false"
+                        aria-controls="{{ nav_item.title.replace(' ', '-')|lower }}">
+                    <i class="bi {{ icon }} me-2"></i>
+                    <span class="btn-link-text">{{ nav_item.title }}</span>
+                </button>
+                <div class="collapse no-transition" id="{{ nav_item.title.replace(' ', '-')|lower }}">
+                    <ul class="sidebar-expanded">
+                        {% for nav_item in nav_item.children %}
+                            <li>
+                                <a href="{{ nav_item.url | url }}">{{ nav_item.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% else %}
+            <div class="{% if loop.last %}mb-0{% else %}mb-3{% endif %}">
+                <button class="btn btn-link-single" onclick="window.location='{{ nav_item.url | url }}'">
+                    <i class="bi {{ icon }} me-2"></i>
+                    <span class="btn-link-text">{{ nav_item.title }}</span>
+                </button>
+            </div>
+        {% endif %}
+
+    {% endfor %}
+
+
+</div>
