@@ -1,0 +1,44 @@
+[project]
+name = "aqi-hub"
+
+description = "Air quality index hub"
+maintainers = [
+    { name = "caiyunapp", email = "oss@caiyunapp.com" },
+    { name = "Water Ghost", email = "maxlee1991zyz@gmail.com" },
+    { name = "ringsaturn", email = "ringsaturn.me@gmail.com" },
+]
+authors = [
+    { name = "caiyunapp", email = "oss@caiyunapp.com" },
+    { name = "Water Ghost", email = "maxlee1991zyz@gmail.com" },
+    { name = "ringsaturn", email = "ringsaturn.me@gmail.com" },
+]
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["aqi", "air quality"]
+
+dependencies = []
+
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/caiyunapp/aqi-hub"
+Issues = "https://github.com/caiyunapp/aqi-hub/issues"
+
+[dependency-groups]
+dev = ["pytest", "ruff"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/aqi_hub"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/aqi_hub/**/*.py", "LICENSE", "README.md"]
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+# [tool.hatch-vcs]
+# version-scheme = "post-release"
+
+[tool.hatch.version]
+source = "vcs"
