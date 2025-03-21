@@ -1,0 +1,26 @@
+Metadata-Version: 2.4
+Name: mcp-kubernetes-server
+Version: 0.1.0
+Summary: MCP server to manage Kubernetes clusters via kubectl
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: mcp[cli]>=1.4.1
+
+# mcp-kubernetes-server
+
+MCP server to manage Kubernetes clusters via kubectl.
+
+## How to install
+
+```json
+{
+  "mcpServers": {
+    "kubernetes": {
+      "command": "uvx",
+      "args": [
+        "mcp-kubernetes-server"
+      ]
+    }
+  }
+}
+```
