@@ -1,0 +1,46 @@
+import nox
+
+nox.options.sessions = ["format_code", "lint", "tests"]
+
+# Common options
+PACKAGE_NAME = "{{ dict_data.mygen_name }}"
+FORMAT_TARGETS = [PACKAGE_NAME, "tests", "noxfile.py"]
+LINE_LENGTH = "100"
+LINE_LENGTH_OPTION = f"--line-length={LINE_LENGTH}"
+
+
+@nox.session(tags=["format"])
+def format_code(session):
+    """Format code and organize imports."""
+    # Install Black and isort
+    session.install("black", "isort")
+    # Run Black to format code
+    session.run("black", LINE_LENGTH_OPTION, *FORMAT_TARGETS)
+    # Run isort to sort imports
+    session.run("isort", "--profile", "black", LINE_LENGTH_OPTION, *FORMAT_TARGETS)
+
+
+@nox.session
+def lint(session):
+    """Run linters."""
+    # Install the package and its dependencies as specified in poetry.lock
+    session.install(".")
+    # Install linters
+    session.install("pylint", "black", "isort")
+    # Run Pylint
+    session.run("pylint", "pytemplify")
+    # Run Black in check mode (doesn't modify code)
+    session.run("black", "--check", LINE_LENGTH_OPTION, PACKAGE_NAME)
+    # Run isort in check mode (doesn't modify imports)
+    session.run("isort", "--check-only", LINE_LENGTH_OPTION, PACKAGE_NAME)
+
+
+@nox.session
+def tests(session):
+    """Run tests."""
+    # Install the package and its dependencies as specified in poetry.lock
+    session.install(".")
+    # Install pytest
+    session.install("pytest", "pytest-snapshot")
+    # Run pytest
+    session.run("pytest", "-v", "--ignore=temp")

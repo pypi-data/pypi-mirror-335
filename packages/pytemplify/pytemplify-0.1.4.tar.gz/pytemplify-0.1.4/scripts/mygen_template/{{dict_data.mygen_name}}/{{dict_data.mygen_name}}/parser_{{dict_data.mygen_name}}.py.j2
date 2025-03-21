@@ -1,0 +1,27 @@
+"""{{ dict_data.mygen_name | capitalize }} parser module."""
+
+from dataclasses import dataclass
+from pathlib import Path
+from pytemplify.base_classes import BaseDataClass, BaseParserClass
+from typing import Type
+
+@dataclass
+class {{ dict_data.mygen_name | capitalize }}DataClass(BaseDataClass):
+    """{{ dict_data.mygen_name | capitalize }} dataclass."""
+
+    # TODO: Add dataclass fields here
+
+
+class {{ dict_data.mygen_name | capitalize }}Parser(BaseParserClass):
+    """{{ dict_data.mygen_name | capitalize }} parser class."""
+
+    def parse(self, input_file: Path) -> {{ dict_data.mygen_name | capitalize }}DataClass:
+        """Parse {{ dict_data.mygen_name | capitalize }} file."""
+
+        # TODO: Implement parsing logic here
+        data = {}
+        
+        return {{ dict_data.mygen_name | capitalize }}DataClass.from_dict(data)
+
+    def get_data_class(self) -> Type[{{ dict_data.mygen_name | capitalize }}DataClass]:
+        return {{ dict_data.mygen_name | capitalize }}DataClass
