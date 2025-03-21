@@ -1,0 +1,1 @@
+Python implementation of Bayesian iterative robust rank aggregation (BIRRA), based on Badgeley et al (2014) 'Hybrid Bayesian-rank integration approach improves the predictive power of genomic dataset aggregation' (https://academic.oup.com/bioinformatics/article/31/2/209/2364920).
