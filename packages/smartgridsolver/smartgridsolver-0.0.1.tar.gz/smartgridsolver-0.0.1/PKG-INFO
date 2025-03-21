@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: smartgridsolver
+Version: 0.0.1
+Summary: A Machine Learning Benchmark Suite for AC Optimal Power Flow.
+Home-page: https://www.mit.edu/~arsam/
+Author: Arsam Aryandoust
+Author-email: Arsam Aryandoust <arsam@mit.edu>
+License: MIT License
+        
+        Copyright (c) 2025 Arsam Aryandoust
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Source, https://github.com/ArsamAryandoust/SmartGridSolver
+Project-URL: Documentation, https://readthedocs.org/projects/SmartGridSolver/
+Keywords: Artificial Intelligence,ACOPF,Machine Learning
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=2.0
+Requires-Dist: pandas>=2.0
+Requires-Dist: matplotlib>=3.0.0
+Requires-Dist: pyyaml>=6.0.0
+
+# SmartGridSolver: datasets, metrics and solvers for AC optimal power flow 
+
+## Overview
+
+1. [Standard datasets and benchmarks](docs/data.md)
+2. [Performance evaluation metrics](docs/metrics.md)
+3. [Machine Learning solvers](docs/solvers.md)
+4. [Contributions](docs/contributions.md)
+
+In the folowing, we provide a number of commands and instructions that are useful for the maintenance of this project as well as for contributions by collaborators.
+
+## Getting Started
+
+Install the package with pip: 
+```bash
+pip install smartgridsolver
+```
+
+Run Docker container with:
+```bash
+docker run -it aryandoustarsam/smartgridsolver
+```

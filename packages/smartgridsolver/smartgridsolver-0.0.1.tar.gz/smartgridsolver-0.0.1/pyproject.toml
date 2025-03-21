@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "smartgridsolver"
+version = "0.0.1"
+description = "A Machine Learning Benchmark Suite for AC Optimal Power Flow."
+readme = "README.md"
+authors = [
+  { name = "Arsam Aryandoust", email = "arsam@mit.edu" },
+]
+license = { file = "license" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent"
+]
+keywords = ["Artificial Intelligence", "ACOPF", "Machine Learning"]
+dependencies = [
+    "numpy >=2.0",
+    "pandas >=2.0",
+    "matplotlib >=3.0.0",
+    "pyyaml >=6.0.0"
+]
+requires-python = ">=3.9"
+
+[project.urls]
+"Source" = "https://github.com/ArsamAryandoust/SmartGridSolver"
+"Documentation" = "https://readthedocs.org/projects/SmartGridSolver/"
+
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["smartgridsolver"]
