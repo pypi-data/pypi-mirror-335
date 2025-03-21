@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "DailyQuotes"
+version = "0.1.1"
+description = "DailyQuotes is a simple Python package that generates random quotes including quotes that are well-known, from celebrities, mood-based, and in different languages. This Python package provides an easy way to integrate meaningful quotes into projects, daily routines, or personal motivation."
+authors = [
+    { name = "Andy Cabindol", email = "acc7936@nyu.edu" },
+    { name = "Maya Mabry", email = "mam10023@nyu.edu" },
+    { name = "Aaqila Patel", email = "amp10098@nyu.edu" },
+    { name = "Lina Sanchez", email = "lhs9817@nyu.edu" }
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "setuptools",
+    "python-dotenv",
+    "openai"
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
