@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "syspro-sdk"
+version = "0.1.2"
+authors = [
+    {name = "Vincent Goineau", email = "vincent@heyvince.co"}
+]
+description = "A python SDK for Syspro"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx==0.28.1",
+    "xmltodict==0.14.2",
+    "jsonpath-ng==1.7.0",
+    "jsonpath-ng==1.7.0",
+    "numpy==2.2.2"
+]
