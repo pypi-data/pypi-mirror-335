@@ -1,0 +1,28 @@
+# Runtime dependencies
+
+Django
+sqlparse
+Jinja2
+
+# Testing
+
+coverage[toml]
+html5lib
+selenium
+tox
+black
+django-csp<4 # Used in tests/test_csp_rendering
+
+# Integration support
+
+daphne # async in Example app
+
+# Documentation
+
+Sphinx
+sphinxcontrib-spelling
+sphinx-rtd-theme>1
+
+# Other tools
+
+pre-commit
