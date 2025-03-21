@@ -1,0 +1,26 @@
+[project]
+name = "cartero"
+version = "0.1.10"
+description = "Utilidad muy básica para enviar correos electrónicos."
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "logutils-serpucga==0.2.2",
+    "pydantic>=2.10.6",
+]
+authors = [
+    {name = "Sergio Puche García", email = "serpucga@inf.upv.es"}
+]
+license = {text = "GPL3"}
+
+[dependency-groups]
+dev = [
+    "cartero",
+]
+
+[tool.uv.sources]
+cartero = { workspace = true }
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
