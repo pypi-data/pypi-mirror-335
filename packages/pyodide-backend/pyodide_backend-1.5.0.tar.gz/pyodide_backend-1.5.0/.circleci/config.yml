@@ -1,0 +1,90 @@
+version: 2.1
+
+jobs:
+  test:
+    docker:
+      - image: cimg/python:3.12.7
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - venv-{{ checksum "pyproject.toml" }}
+            - venv-
+      - run:
+          name: Create venv
+          command: |
+            python -m venv venv
+            source venv/bin/activate
+            echo "source $(pwd)/venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Install dependencies
+          command: |
+            pip install .
+            pip install '.[test]'
+      - save_cache:
+          paths:
+            - ./venv
+          key: venv-{{ checksum "pyproject.toml" }}
+      - run:
+          name: Run tests
+          command: |
+            python -m pytest
+      - run:
+          name: Run linter
+          command: |
+            python -m black --check .
+
+  publish:
+    docker:
+      - image: cimg/python:3.12.7
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - venv-{{ checksum "pyproject.toml" }}
+            - venv-
+      - run:
+          name: Create venv
+          command: |
+            python -m venv venv
+            source venv/bin/activate
+            echo "source $(pwd)/venv/bin/activate" >> $BASH_ENV
+      - run:
+          name: Install dependencies
+          command: |
+            pip install .
+            pip install '.[build]'
+      - save_cache:
+          paths:
+            - ./venv
+          key: venv-{{ checksum "pyproject.toml" }}
+      - run:
+          name: Build
+          command: |
+            python -m build
+      - run:
+          name: Install twine
+          command: |
+            pip install twine
+      - run:
+          name: Publish to PyPI
+          command: |
+            twine upload dist/*
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore: master
+  publish:
+    jobs:
+      - publish:
+          context: org-global
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v\d+\.\d+\.\d+$/
