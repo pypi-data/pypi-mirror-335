@@ -1,0 +1,30 @@
+#
+# This file may be used to create a micromamba environment using:
+# $ micromamba create -f <this file>
+#
+# The environment will be created in the path indicated by the MAMBA_ROOT_PREFIX
+# environmental variable
+#
+
+# may be overwritten by the --name <name> micromamba option
+name: lhcb-online-cta
+
+channels:
+  - conda-forge
+  - nodefaults
+
+dependencies:
+  - python = 3.9
+  - pip
+  - pkg-config
+  - python-build
+  - twine
+  # Testing tools
+  - pre-commit
+  - pylint
+  - pytest
+  - pytest-cov
+  - coverage
+# Data mover code
+  - pip:
+    - .
