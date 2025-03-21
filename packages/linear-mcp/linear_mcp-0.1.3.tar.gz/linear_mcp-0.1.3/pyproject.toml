@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel>=0.40.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "linear-mcp"
+version = "0.1.3"
+description = "A Linear API integration for MCP"
+readme = "README.md"
+requires-python = ">=3.12"
+license = {text = "MIT"}
+authors = [
+    {name = "Kyle Pena", email = "kyle.pena@kuzco.xyz"},
+]
+dependencies = [
+    "httpx>=0.28.1",
+    "python-dotenv>=1.0.1",
+    "pydantic>=2.10.6",
+    "mcp>=0.4.0",
+]
+
+[project.scripts]
+linear-mcp = "linear_mcp.linear:main"
+
+[project.urls]
+Homepage = "https://github.com/context-labs/linear-mcp"
+Repository = "https://github.com/context-labs/linear-mcp.git"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]} 

@@ -1,0 +1,101 @@
+# Linear MCP
+
+A Linear API integration for MCP.
+
+## Quickstart
+
+### 1. Get Linear API Key
+
+Obtain a Linear API Key from your Linear Account: https://linear.app/YOUR-ORG-NAME-HERE/settings/account/security
+
+### 2. Install `pipx`
+
+```bash
+# MacOS
+brew install pipx
+
+# Linux
+apt install pipx
+
+# (All environments) Set up PATH
+pipx ensurepath
+```
+
+### Cursor
+
+Create a `command` MCP server with the following command:
+
+```bash
+pipx run linear-mcp --linear-api-key ...
+```
+
+You can also manually specify the `team_id` to say on tool calls: `--team_id ...` 
+
+### Windsurf
+
+In Windsurf settings, add a Custom MCP server with configuration like the following:
+
+```json
+{
+  "mcpServers": {
+    "linear": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "linear-mcp",
+        "--linear-api-key",
+        "..."
+      ]
+    }
+  }
+}
+```
+
+## Development
+
+### Using Docker
+
+```bash
+# Build the image
+docker build -t linear-mcp .
+
+# Run the container
+docker run -it --rm -e LINEAR_API_KEY=... linear-mcp
+```
+
+### Using pipx
+
+To build the pipx package locally, run:
+
+```bash
+pipx install -e . --force
+```
+
+### Using Virtual Environments
+
+
+1. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install build dependencies:
+```bash
+pip install -r requirements-build.txt
+```
+
+3. Install development dependencies:
+```bash
+pip install -r requirements-dev.txt
+```
+
+4. Install the package in development mode:
+```bash
+pip install -e .
+```
+
+
+## License
+
+MIT License
