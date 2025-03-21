@@ -1,0 +1,181 @@
+Metadata-Version: 2.4
+Name: ext_llm
+Version: 0.1.16
+Summary: A wrapper library to abstract common llm providers
+Home-page: https://github.com/giovanni-grieco/ext_llm
+Author: Giovanni Pio Grieco
+Author-email: Giovanni Pio Grieco <gio.grieco@stud.uniroma3.it>
+License-Expression: GPL-3.0
+Project-URL: Homepage, https://github.com/giovanni-grieco/ext_llm
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyyaml
+Requires-Dist: boto3
+Requires-Dist: botocore
+Requires-Dist: groq
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+
+# ext_llm - a wrapper library for common LLMs (WIP)
+## Installation
+```bash 
+pip install ext_llm
+```
+## Usage
+```python
+from concurrent.futures import Future
+import ext_llm
+from ext_llm.llm.response import Response
+from ext_llm.llm.stream import Stream
+
+#read config yaml file
+config : str = open("config.yaml").read()
+
+#initialize extllm library
+extllm = ext_llm.init(config)
+
+#request a client via user defined presets. In this instance it's "groq-llama"
+llm_client = extllm.get_client("groq-llama")
+
+#you can request e concurrent client, based on the same preset. This will allow for non blocking concurrent requests.
+llm_concurrent_client = extllm.get_concurrent_client("groq-llama")
+
+#Non blocking call. This will return a future object that will be resolved when the request is completed.
+future1: Future [Response | Stream] = llm_concurrent_client.generate_text("You are an helpful assistant", "Recite the first article of the Italian Constitution")
+
+#Blocking call. This will return the result of the request. The result can be either a Response or a Stream object.
+#Response or Stream are defined by the user in the config file.
+#If the "invocation_method" is "converse" then the result is a Response.
+#If the "invocation_method" is "converse_stream" then the result is a Stream.
+#A stream has to be handled differently from a response.
+result: Response | Stream = llm_client.generate_text("You are an helpful assistant", "Recite the first amendment of the American constitution")
+
+
+print(result.metadata)
+print(result)
+
+print(future1.result().metadata)
+print(future1.result())
+```
+## Config File
+Here's an example of a config file:
+```yaml
+config:
+  logging: true #false
+  db_path: logs.db
+  presets:
+      #User can define multiple presets
+      aws-claude-sonnet:
+        #available providers: aws, groq
+        provider: aws
+        #secrets are passed to the library by specifying environment variables names
+        aws_access_key_id_variable_name: AWS_ACCESS_KEY_ID
+        aws_secret_access_key_variable_name: AWS_SECRET_ACCESS_KEY
+        aws_region: eu-west-2
+        model_id: anthropic.claude-3-sonnet-20240229-v1:0
+        invocation_method: converse_stream
+        temperature: 0.5
+        max_tokens: 1000
+
+      groq-llama:
+        provider: groq
+        model_id: deepseek-r1-distill-llama-70b
+        groq_api_key_variable_name: GROQ_API_KEY
+        invocation_method: converse
+        temperature: 0.5
+        max_tokens: 500
+
+      groq-llama-streaming:
+        provider: groq
+        model_id: deepseek-r1-distill-llama-70b
+        groq_api_key_variable_name: GROQ_API_KEY
+        invocation_method: converse_stream
+        temperature: 0.5
+        max_tokens: 500
+
+      custom-provider:
+        #the library can instantiate custom classes that inherit from the Llm class
+        #this can be done by specifying the class name and the module name
+        class_name: MyLlm
+        module_name: custom_provider_llm
+        #these parameters are passed to the custom class, so the user can define custom parameters
+        custom_param1: 123
+        custom_param2: 456
+```
+## Defining a custom LLM Client
+
+To define a custom provider that can be used by the `ext_llm` library, you need to create a class that inherits from the `LlmClient` class and implements the required methods. Additionally, if your custom provider supports streaming, you should also define a stream class that inherits from the `Stream` class.
+
+### Step-by-Step Guide
+
+1. **Create the Custom LLM Client Class**:
+   - Inherit from the `LlmClient` class.
+   - Implement the `generate_text` method.
+   - Implement the `get_config` method.
+
+2. **Create the Custom Stream Class (if needed)**:
+   - Inherit from the `Stream` class.
+   - Implement the `__iter__` method to handle streaming responses.
+
+3. **Update the Configuration File**:
+   - Specify the custom class name and module name in the configuration file.
+   - Add any custom parameters required by your custom class.
+
+### Example
+
+#### Custom LLM Client Class
+
+```python
+# File: custom_provider_llm.py
+from ext_llm import LlmClient
+
+class MyLlmClient(LlmClient):
+    def __init__(self, config: dict, preset_name: str):
+        super().__init__()
+        self.preset_name = preset_name
+        self.config = config
+        self.custom_param1 = config['custom_param1']
+        self.custom_param2 = config['custom_param2']
+        
+
+    def generate_text(self, system_prompt: str, prompt: str, max_tokens=None, temperature=None):
+        return "Hello, world!"
+    
+    def get_config(self):
+        return self.config
+```
+
+#### Custom Stream Class (if needed)
+
+```python
+# File: custom_provider_llm.py
+from ext_llm.llm.stream import Stream
+from ext_llm.llm.response import Response
+
+class MyStream(Stream):
+    def __init__(self, stream):
+        super().__init__()
+        self.stream = stream
+
+    def __iter__(self):
+        for chunk in self.stream:
+            yield Response(chunk, {})
+```
+
+#### Configuration File
+
+```yaml
+config:
+  logging: true
+  db_path: logs.db
+  presets:
+      custom-provider:
+        class_name: MyLlmClient
+        module_name: custom_provider_llm
+        custom_param1: 123
+        custom_param2: 456
+```
+
+By following these steps, you can define a custom provider that integrates seamlessly with the `ext_llm` library.
+
