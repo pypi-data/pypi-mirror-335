@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "seed_guard"
+version = "0.1.2"
+authors = [
+  { name="WaxDevil", email="SeedGuard@mail.rybot.ca" },
+]
+description = "Secure seed phrase backup using Shamir's Secret Sharing"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+  "cryptography>=36.0.0",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/RyBut/seed-guard"
+"Bug Tracker" = "https://github.com/RyBut/seed-guard/issues"
+
+[tool.hatch.build]
+packages = ["src"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/seed_guard"]
