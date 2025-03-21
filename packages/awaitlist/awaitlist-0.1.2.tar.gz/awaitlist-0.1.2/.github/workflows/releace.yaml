@@ -1,0 +1,26 @@
+# Release the package to PyPI
+
+name: Release to PyPI
+
+on:
+    release:
+        types: [published]
+
+jobs:
+  release:
+    permissions:
+      id-token: write
+      contents: read
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install uv and set the python version
+      uses: astral-sh/setup-uv@v5
+    - name: Install the project
+      run: uv sync --all-extras --dev
+    - name: Run build
+      run: uv build
+    - name: Run publish
+      run: uv publish
