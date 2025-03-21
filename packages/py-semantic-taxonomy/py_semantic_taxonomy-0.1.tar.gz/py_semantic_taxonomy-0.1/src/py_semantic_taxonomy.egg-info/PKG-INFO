@@ -1,0 +1,101 @@
+Metadata-Version: 2.4
+Name: py_semantic_taxonomy
+Version: 0.1
+Summary: Python webapp and API for SKOS semantic taxonomies
+Author-email: Chris Mutel <chris@cauldron.ch>
+Maintainer-email: Chris Mutel <chris@cauldron.ch>
+Project-URL: source, https://github.com/cauldron/py-semantic-taxonomy
+Project-URL: homepage, https://github.com/cauldron/py-semantic-taxonomy
+Project-URL: tracker, https://github.com/cauldron/py-semantic-taxonomy/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: asyncpg
+Requires-Dist: fastapi
+Requires-Dist: fastapi_pagination
+Requires-Dist: langcodes
+Requires-Dist: orjson
+Requires-Dist: pydantic>=2
+Requires-Dist: pydantic_settings
+Requires-Dist: rdflib
+Requires-Dist: rfc3987
+Requires-Dist: sqlalchemy>=2.0
+Requires-Dist: structlog
+Requires-Dist: pyst_typesense_async
+Requires-Dist: uvicorn
+Provides-Extra: testing
+Requires-Dist: aiosqlite; extra == "testing"
+Requires-Dist: httpx; extra == "testing"
+Requires-Dist: py_semantic_taxonomy; extra == "testing"
+Requires-Dist: pytest; extra == "testing"
+Requires-Dist: pytest-asyncio; extra == "testing"
+Requires-Dist: pytest-cov; extra == "testing"
+Requires-Dist: pytest-randomly; extra == "testing"
+Requires-Dist: pytest-antilru; extra == "testing"
+Requires-Dist: python-coveralls; extra == "testing"
+Requires-Dist: testcontainers[postgres]; extra == "testing"
+Provides-Extra: dev
+Requires-Dist: build; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: aiosqlite; extra == "dev"
+Requires-Dist: httpx; extra == "dev"
+Requires-Dist: mkdocs; extra == "dev"
+Requires-Dist: mkdocs-material; extra == "dev"
+Requires-Dist: pylint; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-antilru; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: pytest-cov; extra == "dev"
+Requires-Dist: pytest-randomly; extra == "dev"
+Requires-Dist: setuptools; extra == "dev"
+Requires-Dist: testcontainers[postgres]; extra == "dev"
+Dynamic: license-file
+
+# py-semantic-taxonomy
+
+[![PyPI](https://img.shields.io/pypi/v/py-semantic-taxonomy.svg)][pypi status]
+[![Status](https://img.shields.io/pypi/status/py-semantic-taxonomy.svg)][pypi status]
+[![Python Version](https://img.shields.io/pypi/pyversions/py-semantic-taxonomy)][pypi status]
+[![License](https://img.shields.io/pypi/l/py-semantic-taxonomy)][license]
+[![Tests](https://github.com/cauldron/py-semantic-taxonomy/actions/workflows/python-test.yml/badge.svg)][tests]
+
+[pypi status]: https://pypi.org/project/py-semantic-taxonomy/
+[tests]: https://github.com/cauldron/py-semantic-taxonomy/actions?workflow=Tests
+
+## A Knowledge Organization System for Sustainability Assessment
+
+PyST is opinionated server software for creating, maintaining, and publishing [SKOS](https://www.w3.org/TR/skos-reference/)/[XKOS](https://rdf-vocabulary.ddialliance.org/xkos.html) taxonomies.
+
+* [General documentation](https://docs.pyst.dev)
+* [API documentation](https://docs.pytest.dev/api/)
+* [Example notebook](https://github.com/cauldron/py-semantic-taxonomy/blob/main/examples/PyST%20basic%20demo.ipynb)
+
+## Contributing
+
+Contributions are very welcome. Please be nice.
+
+## License
+
+Distributed under the terms of the [MIT license][License],
+_py_semantic_taxonomy_ is free and open source software.
+
+## Issues
+
+If you encounter any problems,
+please [file an issue][Issue Tracker] along with a detailed description.
+
+
+<!-- github-only -->
+
+[License]: https://github.com/cauldron/py-semantic-taxonomy/blob/main/LICENSE
+[Issue Tracker]: https://github.com/cauldron/py-semantic-taxonomy/issues
