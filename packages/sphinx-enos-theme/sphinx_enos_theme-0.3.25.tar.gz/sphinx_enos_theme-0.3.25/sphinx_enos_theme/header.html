@@ -1,0 +1,37 @@
+{%- if (language == 'en') or (language == 'en_us') or (language == 'en_US') or (language == 'EN_US') %}
+{%- set doc = 'Documentation' %}
+{%- set currentLan = 'English' %}
+{%- set logoClass = 'site-logo site-logo-en' %}
+{%- else %}
+{%- set doc = '文档' %}
+{%- set currentLan = '简体中文' %}
+{%- set logoClass = 'site-logo site-logo-zh' %}
+{%- endif %}
+{% if theme_display_header|tobool %}
+<div id="header">
+  <div class="header">
+    <div class="logo-wrap">
+      <div class="site-logo"></div>
+      <div class='menu-toggle-wrap'>
+        <button class="menu-toggle-button">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+    </div>
+    <div class="menu-wrap">
+      <div class="menu">
+        <div class="menu-items">
+          <div class="item">
+            <a class="active" href={{doc_url}}>{{doc}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tools">
+      {% include "tools.html" %}
+    </div>
+  </div>
+</div>
+{% endif %}
