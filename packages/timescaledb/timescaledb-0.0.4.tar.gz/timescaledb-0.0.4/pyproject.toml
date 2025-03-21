@@ -1,0 +1,107 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "timescaledb"
+version = "0.0.4"
+description = "TimescaleDB is a Python Client based on SQLModel and SQLAlchemy for high-performance real-time analytics time-series data."
+readme = "README.md"
+authors = [
+  { name = "Justin Mitchel", email = "justin@codingforentrepreneurs.com" },
+]
+license = { text = "MIT" }
+keywords = ["TimescaleDB", "SQLModel", "SQLAlchemy", "Time-Series", "Analytics"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.104.0",
+    "sqlmodel>=0.0.8",
+    "uvicorn>=0.23.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/jmitchel3/timescaledb"
+Repository = "https://github.com/jmitchel3/timescaledb"
+
+[project.entry-points."sqlalchemy.dialects"]
+"timescaledb" = "timescaledb.dialect:TimescaledbPsycopg2Dialect"
+"timescaledb.psycopg2" = "timescaledb.dialect:TimescaledbPsycopg2Dialect"
+"timescaledb.asyncpg" = "timescaledb.dialect:TimescaledbAsyncpgDialect"
+
+
+[tool.isort]
+force_single_line = true
+profile = "black"
+
+[tool.pytest.ini_options]
+addopts = """
+    --strict-config
+    --strict-markers
+    """
+xfail_strict = true
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["timescaledb"]
+omit = [
+    "*/migrations/*",
+    "*/admin.py",
+    "tests/*",
+]
+
+[tool.coverage.paths]
+source = [
+    "timescaledb",
+    "*/timescaledb",
+    "src/timescaledb",
+    ".tox/*/lib/python*/site-packages/timescaledb",
+]
+
+[tool.coverage.report]
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+
+[tool.mypy]
+enable_error_code = [
+    "ignore-without-code",
+    "redundant-expr",
+    "truthy-bool",
+]
+strict = true
+warn_unreachable = true
+
+[tool.poetry]
+name = "timescaledb"
+version = "0.0.4"
+description = "TimescaleDB is a Python Client based on SQLModel and SQLAlchemy for high-performance real-time analytics time-series data."
+authors = ["Justin Mitchel <justin@codingforentrepreneurs.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.8"
+sqlmodel = "^0.0.22"
+uvicorn = "^0.34.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^8.3.4" 
