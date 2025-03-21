@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: MVPanalytics
+Version: 0.1.28
+Author-email: "Kirill_Morozov(tu1try)" <kirmorozo6@gmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9.0
+Description-Content-Type: text/markdown
+
+MVPanalytics.keitaro:
+
+    keitaro_parser(): функция для парсинга данных из кейтаро на любой вкус и цвет
+
+MVPanalytics.analysis:
+
+    weightgiver(): Функция для раздачи офферам в партнёрке весов (сплитование)
+
+    off_analyzer(): Функция, позволяющая выявлять витрины по потоку (или офферу), на которых его: target < EPC, 0 < EPC < target, EPC=0
+
+    streamdiff(): Скрипт позволяет смотреть, сколько в рамках какого-то канала(витрина, вебмастер, пртнёр и тд) за промежуток времени(указыывается в параметрах запроса) было моментов в ремени в который целевая метрика была больше и меньше таргета
+
+
+
+MVPanalytics.graphics:
+
+    plot_acf_pacf(): Строит графики ACF и PACF для временного ряда.
+    
+    plot_external(): Строит графики для сравнения динамики по каким-то каналам (витринам\офферам\потомкам)
