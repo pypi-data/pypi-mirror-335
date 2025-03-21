@@ -1,0 +1,90 @@
+[tool.black]
+line-length = 80 # Code length, not docstrings
+
+[project]
+name = "py_fatigue"
+version = "2.0.2"
+description = "Py-fatigue bundles the main functionality for performing cyclic stress (fatigue) analysis and cycle-counting."
+authors = [
+    {name = "Pietro D'Antuono", email = "pietro.dantuono@vub.be"},
+    {name = "Wout Weijtjens", email = "wout.weijtjens@vub.be"}
+]
+classifiers=["Development Status :: 5 - Production/Stable",
+             "Environment :: Console",
+             "Intended Audience :: Science/Research",
+             "Intended Audience :: Information Technology",
+             "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+             "Natural Language :: English",
+             "Operating System :: POSIX :: Linux",
+             "Programming Language :: Python :: 3",
+             "Programming Language :: Python :: 3.8",
+             "Programming Language :: Python :: 3.9",
+             "Programming Language :: Python :: 3.10",
+             "Programming Language :: Python :: 3.11",
+             "Programming Language :: Python :: 3.12",
+             "Programming Language :: Python :: 3.13",
+             "Topic :: Database"]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.10,<3.14"
+
+dependencies = [
+    "numpy>=1.24",
+    "plotly",
+    "pandas>2.2",
+    "numba>=0.61,<0.62",
+    "matplotlib",
+    "pydantic<3.0.0",
+]
+
+[dependency-groups]
+dev = [
+    "gitchangelog~=3.0.4",
+    "pytest>=6.2.4",
+    "black",
+    "flake8~=7.1.2",
+    "pylint~=3.3.0",
+    "mypy==1.11.2",
+    "pyinstrument>=4.0",
+    "pytest-cov>=2.12",
+    "coverage>=6.5",
+    "invoke>=1.5",
+    "hypothesis>=6.14.0",
+    "notebook>=6.4",
+    "jupyter_contrib_nbextensions>=0.5",
+    "nb-clean>=2.1",
+    "nbdime>=3.1"
+]
+docs = [
+    "Sphinx>=7.0",
+    "myst-parser>=0.18",
+    "pydata-sphinx-theme>=0.11.0",
+    "sphinx_design>=0.3.0",
+    "autoclasstoc>=1.5.2",
+    "sphinx-autobuild<=2024.02.04",
+    "sphinx-copybutton>=0.5.2",
+]
+
+[project.urls]
+homepage = "https://github.com/owi-lab/py_fatigue"
+documentation = "https://owi-lab.github.io/py_fatigue"
+"Change Log" = "https://github.com/owi-lab/py_fatigue/blob/main/CHANGELOG.md"
+"Bug Tracker" = "https://github.com/owi-lab/py_fatigue/issues"
+"Organisation Homepage" = "https://www.owi-lab.be/"
+
+[tool.pytest.ini_options]
+markers = [
+    "success",
+    "error"
+]
+testpaths = [
+    "tests"
+]
+
+[build-system]
+requires = ["flit_core>=3.8"]
+build-backend = "flit_core.buildapi"
+
+[tool.uv]
+package = true
+default-groups = ["dev", "docs"]
