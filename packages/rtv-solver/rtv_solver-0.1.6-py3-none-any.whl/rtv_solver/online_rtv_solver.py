@@ -1,0 +1,258 @@
+from .handlers.request_handler import RequestHandler
+from .handlers.network_handler import NetworkHandler
+from .handlers.vehicle_handler import VehicleHandler
+from .handlers.trip_handler import TripHandler
+from .handlers.payload_parser import PayloadParser
+from .structure.node import Node
+import copy
+from multiprocessing import Pool
+import time
+
+class OnlineRTVSolver:
+
+    def __init__(self,server_url,SHAREABLE_COST_FACTOR=1,RTV_TIMEOUT=3000, LARGEST_TSP = 10):
+        self.ILP_SOLVER_TIMEOUT = 120 # seconds
+        self.RTV_TIMEOUT = RTV_TIMEOUT #seconds
+        self.PENALTY = 1000000 # penalty for not serving a trip
+        self.SHAREABLE_COST_FACTOR = SHAREABLE_COST_FACTOR
+        self.MAX_CARDINALITY = 4
+        self.MAX_THREAD_CNT = 64
+        self.REBALANCING = False
+        self.RH_FACTOR = 1
+        self.DWELL_PICKUP = 180
+        self.DWELL_ALIGHT = 60
+        self.LARGEST_TSP = LARGEST_TSP
+        self.server_url = server_url
+
+    def check_feasibility(self, payload):
+        NetworkHandler.init(True, self.server_url)
+        feasible_time_slots = []
+        request = payload["requests"][0]
+        origin = Node(request["pickup_pt"]["lat"],request["pickup_pt"]["lon"])
+        destination = Node(request["dropoff_pt"]["lat"],request["dropoff_pt"]["lon"])
+        request_travel_time = NetworkHandler.travel_time(origin,destination)
+        for time_window in request["time_windows"]:
+            request_copy = copy.deepcopy(request)
+            request_copy["pickup_time_window_start"] = time_window["pickup_time_window_start"]
+            request_copy["pickup_time_window_end"] = time_window["pickup_time_window_end"]
+            request_copy["dropoff_time_window_start"] = time_window["dropoff_time_window_start"]
+            request_copy["dropoff_time_window_end"] = time_window["dropoff_time_window_end"]
+            best_cost = float("inf")
+            for driver in driver_run:
+                cost, _ = self.insert_request_to_driver_run(driver_run, request_copy)
+                if cost < best_cost:
+                    best_cost = cost
+            if best_cost >= 0:
+                feasible_time_slots.append((time_window,best_cost/request_travel_time))
+
+        return feasible_time_slots
+
+    def solve_rtv(self, current_time, payload):
+        NetworkHandler.init(True, self.server_url)
+        payload_object = PayloadParser.get_payload_object(payload)
+        request_handler = RequestHandler(payload_object.requests, self.DWELL_PICKUP, self.DWELL_ALIGHT)
+        temp_batch = request_handler.get_all_requests()
+        batch = []
+        active_requests = {}
+        boarded_requests = {}
+        for req in temp_batch:
+            req_id = req.id
+            if req_id in payload_object.boarded_requests:
+                boarded_requests[req_id] = req
+            else:
+                if req_id in payload_object.active_requests:
+                    active_requests[req_id] = req
+                batch.append(req)
+
+        iteration = 0
+        boarded_trips = TripHandler.create_trip_for_picked_requests(boarded_requests,iteration)
+
+        vehicle_handler = VehicleHandler(payload_object.depot, payload_object.driver_runs,None,LARGEST_TSP=self.LARGEST_TSP)
+        vehicle_handler.add_manifest_to_vehicles(payload_object.driver_runs,boarded_requests,boarded_trips,self.DWELL_ALIGHT, self.DWELL_PICKUP)
+
+        NetworkHandler.initialize_travel_time_matrix()
+        iteration+=1
+        trip_handler = TripHandler(current_time,vehicle_handler.vehicles,batch, active_requests, iteration, self.ILP_SOLVER_TIMEOUT,self.PENALTY,self.MAX_CARDINALITY,self.MAX_THREAD_CNT,self.SHAREABLE_COST_FACTOR,self.REBALANCING,self.RTV_TIMEOUT)
+        for vehicle_id in trip_handler.vehicle_assignment:
+            vehicle = vehicle_handler.vehicles[vehicle_id]
+            trips = trip_handler.vehicle_assignment[vehicle_id]
+            VehicleHandler.add_new_trips(current_time, vehicle, trips, add=True)
+
+        # create updated driver runs
+        updated_driver_runs = []
+        for driver_run in payload_object.driver_runs:
+            state = driver_run[PayloadParser.DRIVER_STATE]
+            manifest = driver_run[PayloadParser.DRIVER_MANIFEST]
+            current_order = state[PayloadParser.DRIVER_STATE_LOC_SERV]
+            new_manifest = manifest[:current_order]
+            vehicle = vehicle_handler.vehicles[state[PayloadParser.DRIVER_STATE_RUN_ID]]
+            new_manifest.extend(VehicleHandler.get_manifest(vehicle,current_order))
+            state[PayloadParser.DRIVER_STATE_T_LOCS] = len(new_manifest)
+            new_driver_run = {PayloadParser.DRIVER_STATE:state,PayloadParser.DRIVER_MANIFEST:new_manifest}
+            updated_driver_runs.append(new_driver_run)
+
+        return updated_driver_runs #,trip_handler,vehicle_handler,request_handler,payload_object
+
+    def simulate_manifest(self, current_time, driver_runs, intermediate_location=True):
+        NetworkHandler.init(True, self.server_url)
+        new_driver_runs = []
+        for driver_run in driver_runs:
+            state = driver_run[PayloadParser.DRIVER_STATE]
+            current_order = state[PayloadParser.DRIVER_STATE_LOC_SERV]
+            manifest = driver_run[PayloadParser.DRIVER_MANIFEST]
+            next_immediate_time = state[PayloadParser.DRIVER_STATE_DT_SEC]
+            next_immediate_loc = state[PayloadParser.DRIVER_STATE_LOC]
+            
+            if len(manifest) == current_order and next_immediate_time < current_time:
+                next_immediate_time = current_time
+
+            while len(manifest) > current_order and current_time >= manifest[current_order]["scheduled_time"]:
+                next_stop = manifest[current_order]
+                next_immediate_time = next_stop["scheduled_time"]
+                next_immediate_loc = next_stop["loc"]
+
+                if next_stop["action"] == "pickup":
+                    next_immediate_time += self.DWELL_PICKUP
+                else:
+                    next_immediate_time += self.DWELL_ALIGHT
+                current_order+=1
+                if next_immediate_time > current_time:
+                    break
+                
+            
+            if len(manifest) > current_order and next_immediate_time < current_time and intermediate_location:
+                next_immediate_node = NetworkHandler.manifest_location(next_immediate_loc)
+                target_node = NetworkHandler.manifest_location(manifest[current_order]["loc"])
+                next_immediate_time, next_immediate_node = NetworkHandler.get_current_location_time(next_immediate_node,target_node,next_immediate_time,current_time)
+                next_immediate_loc = {"lat":next_immediate_node.lat,"lon":next_immediate_node.lon}
+            state[PayloadParser.DRIVER_STATE_DT_SEC] = next_immediate_time
+            state[PayloadParser.DRIVER_STATE_LOC] = next_immediate_loc
+            state[PayloadParser.DRIVER_STATE_LOC_SERV] = current_order
+            new_driver_runs.append({PayloadParser.DRIVER_STATE:state,PayloadParser.DRIVER_MANIFEST:manifest})
+        return new_driver_runs
+
+    def solve_rtv_fast(self, payload):
+        updated_driver_runs = copy.deepcopy(payload["driver_runs"])
+        total_cost = 0
+        for request in payload["requests"]:
+            cheapest_vehicle = None
+            cheapest_cost = float("inf")
+            cheapest_vehicle_index = -1
+            for vehicle_index in range(len(updated_driver_runs)):
+                driver_run = updated_driver_runs[vehicle_index]
+                cost, new_driver_run = self.insert_request_to_driver_run(driver_run, request)
+                if cost >=0 and cost < cheapest_cost:
+                    cheapest_cost = cost
+                    cheapest_vehicle = new_driver_run
+                    cheapest_vehicle_index = vehicle_index
+            if cheapest_vehicle is not None:
+                updated_driver_runs[cheapest_vehicle_index] = cheapest_vehicle
+                total_cost += cheapest_cost
+        return updated_driver_runs, total_cost #,trip_handler,vehicle_handler,request_handler,payload_object
+
+    def evaluate_insertion(args):
+        i, j, remaining_stops, pickup_stop, dropoff_stop, start_time, start_node, load, state = args
+        new_manifest = copy.deepcopy(remaining_stops[:i] + [pickup_stop] + remaining_stops[i:j] + [dropoff_stop] + remaining_stops[j:])
+        current_time = start_time
+        current_node = start_node
+        current_load = load
+        cost = 0
+        order = state[PayloadParser.DRIVER_STATE_LOC_SERV]
+        for stop in new_manifest:
+            next_node = Node(stop["loc"]["lat"], stop["loc"]["lon"], id=stop["loc"]["node_id"])
+            travel_time = NetworkHandler.travel_time(current_node, next_node)
+            cost += travel_time
+            current_node = next_node
+            current_time += travel_time
+            if current_time < stop["time_window_start"]:
+                current_time = stop["time_window_start"]
+            stop["scheduled_time"] = current_time
+            if current_time > stop["time_window_end"]:
+                return float("inf"), None
+            if stop["action"] == "pickup":
+                current_load += stop["am"]
+                current_time += 180
+            else:
+                current_load -= stop["am"]
+                current_time += 60
+            if current_load > state["am_capacity"]:
+                return float("inf"), None
+            order += 1
+            stop["order"] = order
+        return cost, new_manifest
+
+    def insert_request_to_driver_run(self, driver_run, request):
+        NetworkHandler.init(True, self.server_url)
+        driver_run_c = copy.deepcopy(driver_run)
+
+        pickup_stop = {'run_id': None, 'booking_id': request['booking_id'], 'order': -1, 'action': "pickup", 
+            "loc": request["pickup_pt"], 'scheduled_time': -1, 
+            'am': request["am"], 'wc': request["wc"], 'time_window_start': request['pickup_time_window_start'],
+            'time_window_end': request['pickup_time_window_end']}
+        dropoff_stop = {'run_id': None, 'booking_id': request['booking_id'], 'order': -1, 'action': "dropoff",
+            "loc": request["dropoff_pt"], 'scheduled_time': -1, 
+            'am': request["am"], 'wc': request["wc"], 'time_window_start': request['dropoff_time_window_start'],
+            'time_window_end': request['dropoff_time_window_end']}
+        
+        node_id = NetworkHandler.get_next_node_id(pickup_stop["loc"]["lat"],pickup_stop["loc"]["lon"])
+        pickup_stop["loc"]["node_id"] = node_id
+        node_id = NetworkHandler.get_next_node_id(dropoff_stop["loc"]["lat"],dropoff_stop["loc"]["lon"])
+        dropoff_stop["loc"]["node_id"] = node_id
+
+        load = 0
+        state = driver_run_c[PayloadParser.DRIVER_STATE]
+        pickup_stop["run_id"] = state[PayloadParser.DRIVER_STATE_RUN_ID]
+        dropoff_stop["run_id"] = state[PayloadParser.DRIVER_STATE_RUN_ID]
+        manifest = driver_run_c[PayloadParser.DRIVER_MANIFEST]
+        state_loc = state[PayloadParser.DRIVER_STATE_LOC]
+        node_id = NetworkHandler.get_next_node_id(state_loc["lat"],state_loc["lon"])
+        state_loc["node_id"] = node_id
+        start_node = Node(state_loc["lat"],state_loc["lon"],id=node_id)
+        start_time = state[PayloadParser.DRIVER_STATE_DT_SEC]
+        completed_stops = []
+        remaining_stops = []
+        for stop in manifest:
+            if stop["order"] <= state[PayloadParser.DRIVER_STATE_LOC_SERV]:
+                if stop["action"] == "pickup":
+                    load += stop["am"]
+                else:
+                    load -= stop["am"]
+                completed_stops.append(stop)
+            else:
+                remaining_stops.append(stop)
+                node_id = NetworkHandler.get_next_node_id(stop["loc"]["lat"],stop["loc"]["lon"])
+                stop["loc"]["node_id"] = node_id
+        
+        NetworkHandler.initialize_travel_time_matrix()
+
+        prev_cost = 0
+        current_node = start_node
+        for stop in remaining_stops:
+            next_node = Node(stop["loc"]["lat"],stop["loc"]["lon"],id=stop["loc"]["node_id"])
+            prev_cost += NetworkHandler.travel_time(current_node,next_node)
+            current_node = next_node
+
+        st_th = time.time()
+        pool = Pool(processes=max(1,min(len(remaining_stops), 8)))
+        args_list = [(i, j, remaining_stops, pickup_stop, dropoff_stop, start_time, start_node, load, state) 
+                     for i in range(len(remaining_stops) + 1) 
+                     for j in range(i + 1, len(remaining_stops) + 2)]
+        results = pool.map(OnlineRTVSolver.evaluate_insertion, args_list)
+        pool.close()
+        pool.join()
+
+        best_cost = float("inf")
+        best_insertion = None
+        for cost, new_manifest in results:
+            if cost < best_cost:
+                best_cost = cost
+                best_insertion = new_manifest
+
+
+        if best_insertion is None:
+            return -1,None
+
+        new_driver_run = copy.deepcopy(driver_run)
+        new_driver_run[PayloadParser.DRIVER_MANIFEST] = completed_stops + best_insertion
+        new_driver_run[PayloadParser.DRIVER_STATE][PayloadParser.DRIVER_STATE_T_LOCS] = len(new_driver_run[PayloadParser.DRIVER_MANIFEST])
+        return best_cost-prev_cost,new_driver_run
