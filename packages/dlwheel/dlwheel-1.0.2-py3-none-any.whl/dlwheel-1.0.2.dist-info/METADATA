@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: dlwheel
+Version: 1.0.2
+Summary: A lightweight deep learning library.
+Author-email: liiuhaao <liiuhaao66@gmail.com>
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: torch
+Requires-Dist: pyyaml
+Requires-Dist: pathspec
+
+# DLWheel
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue)]()
+
+A lightweight deep learning library.
+
+## Installation
+
+### Prerequisites
+
+### Editable Installation (Development Mode)
+```bash
+pip install -e .
+```
+
+### Stable Release
+```bash
+pip install dlwheel
+```
+
+## Getting Started
+
+### Basic Usage
+```python
+from dlwheel import setup
+from pprint import pprint
+
+cfg = setup()
+pprint(cfg)
+```
+
+### Enable Experiment Backup
+```bash
+# Run with automatic backup (default back up directory: ./logs)
+python main.py --backup
+```
+
+## Configuration System
+
+### YAML Configuration
+```yaml
+# config/default.yaml
+training:
+  batch_size: 32
+  optimizer: adam
+  learning_rate: 1e-3
+```
