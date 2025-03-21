@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[project]
+name = "devdice"
+description = "A package developed with pipenv, built with build using setuptools, uploaded to PyPI using twine, and distributed via pip."
+version = "0.0.4"
+authors = [
+  { name="Benjamin DeWeese" },
+  { name="Forrest Williams" },
+  { name="John Ma" },
+  { name="Edwin Chen" },
+
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Assignment Page" = "https://github.com/nyu-software-engineering/python-package-example"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-four-locals"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-four-locals/issues"
+
+[project.scripts]
+devdice = "devdice.__main__:main"
