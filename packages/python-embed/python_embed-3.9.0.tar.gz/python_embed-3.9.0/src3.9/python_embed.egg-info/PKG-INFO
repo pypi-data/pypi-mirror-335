@@ -1,0 +1,42 @@
+Metadata-Version: 2.4
+Name: python-embed
+Version: 3.9.0
+Summary: Get Embedded Python from pip
+Author: Tanix
+Author-email: tanixlu@foxmail.com
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Software Development
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: summary
+
+# python-embed
+
+**Install Embedded Python from pip**
+
+## Usage
+
+```cmd
+pip install python-embed==3.13 --target install_location
+```
+
+support 3.8 to 3.13
+
+## Build Package
+```cmd
+python -m build --sdist
+```
+
+## Test Installation
+```cmd
+pip install -v --target embed .\dist\python_embed-3.13.0.tar.gz
+```
+
+## Publish to PyPI
+```cmd
+python -m twine upload dist/*
+```
