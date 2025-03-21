@@ -1,0 +1,61 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "setuptools_scm>=8"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "carconnectivity-cli"
+description = "Library for retrieving information from car connectivity services"
+dynamic = ["version"]
+requires-python = ">=3.9"
+authors = [
+    { name = "Till Steinbach" }
+]
+dependencies = [
+    "carconnectivity>=0.5",
+    "argparse",
+    "JSON_minify~=0.3.0"
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = [
+      'Development Status :: 3 - Alpha',
+        'Environment :: Console',
+        'License :: OSI Approved :: MIT License',
+        'Intended Audience :: End Users/Desktop',
+        'Intended Audience :: System Administrators',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
+        'Programming Language :: Python :: 3.13',
+        'Topic :: Utilities',
+        'Topic :: System :: Monitoring',
+]
+
+[project.optional-dependencies]
+connectors = [
+    'carconnectivity-connector-volkswagen',
+    'carconnectivity-connector-skoda',
+]
+plugins = [
+    'carconnectivity-plugin-abrp',
+    'carconnectivity-plugin-homekit',
+]
+
+[project.urls]
+
+[project.scripts]
+carconnectivity-cli = "carconnectivity_cli.carconnectivity_cli_base:main"
+
+[tool.setuptools_scm]
+write_to = "src/carconnectivity_cli/_version.py"
+
+[tool.pylint.format]
+max-line-length = 160
+ignore-patterns= "_version.py"
+
+[tool.bandit]
+targets = "carconnectivity_cli"
