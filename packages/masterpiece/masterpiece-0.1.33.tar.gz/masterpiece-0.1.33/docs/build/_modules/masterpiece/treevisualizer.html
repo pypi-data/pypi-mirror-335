@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>masterpiece.treevisualizer &#8212; masterpiece  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/masterpiece.css?v=7a3aeb84" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          masterpiece</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../masterpiece/index.html">Masterpiece  Documentation</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for masterpiece.treevisualizer</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">TreeVisualizer, for rendering instance hierarchy.</span>
+
+<span class="sd">Author: Juha Meskanen</span>
+<span class="sd">Date: 2024-10-26</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">colorama</span> <span class="kn">import</span> <span class="n">Fore</span><span class="p">,</span> <span class="n">Style</span><span class="p">,</span> <span class="n">init</span>
+
+<span class="kn">from</span> <span class="nn">.composite</span> <span class="kn">import</span> <span class="n">Composite</span>
+<span class="kn">from</span> <span class="nn">.masterpiece</span> <span class="kn">import</span> <span class="n">MasterPiece</span>
+
+<span class="c1"># Initialize Colorama</span>
+<span class="n">init</span><span class="p">(</span><span class="n">autoreset</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="TreeVisualizer">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.TreeVisualizer">[docs]</a>
+<span class="k">class</span> <span class="nc">TreeVisualizer</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The `TreeVisualizer` class is designed to visually represent hierarchical structures</span>
+<span class="sd">    using ASCII art and colors, making it easy to understand the relationships between</span>
+<span class="sd">    nodes in a tree. It is particularly useful for visualizing instances of the</span>
+<span class="sd">    `MasterPiece` and `Composite` classes, which represent elements in a tree structure.</span>
+
+<span class="sd">    Features:</span>
+<span class="sd">    ---------</span>
+
+<span class="sd">    - Supports customizable colors for node representation using the Colorama library.</span>
+<span class="sd">    - Prints the hierarchy of nodes with clear visual indicators (├─, └─, and │) to represent parent-child relationships.</span>
+<span class="sd">    - Automatically resets colors after each print to maintain consistent output.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">    ------</span>
+<span class="sd">    To use the `TreeVisualizer`, first create an instance by specifying the desired color.</span>
+<span class="sd">    Then, call the `print_tree` method with the root node of your tree.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from masterpiece.core import TreeVisualizer, MasterPiece, Composite</span>
+
+<span class="sd">        # Create a sample hierarchy</span>
+<span class="sd">        parent = Composite(&quot;parent&quot;)</span>
+<span class="sd">        child1 = MasterPiece(&quot;child1&quot;)</span>
+<span class="sd">        child2 = MasterPiece(&quot;child2&quot;)</span>
+<span class="sd">        parent.add(child1)</span>
+<span class="sd">        parent.add(child2)</span>
+
+<span class="sd">        # Initialize the visualizer with a specified color</span>
+<span class="sd">        visualizer = TreeVisualizer(&quot;green&quot;)</span>
+
+<span class="sd">        # Print the hierarchy</span>
+<span class="sd">        visualizer.print_tree(parent)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="TreeVisualizer.__init__">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.TreeVisualizer.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the TreeVisualizer with a color.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            color (str): The color to use for visualizing the tree.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">color</span></div>
+
+
+<div class="viewcode-block" id="TreeVisualizer.get_color">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.TreeVisualizer.get_color">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_color</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the corresponding Colorama color code for the specified color.&quot;&quot;&quot;</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;red&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">RED</span><span class="p">,</span>
+            <span class="s2">&quot;green&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">GREEN</span><span class="p">,</span>
+            <span class="s2">&quot;yellow&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">YELLOW</span><span class="p">,</span>
+            <span class="s2">&quot;blue&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">BLUE</span><span class="p">,</span>
+            <span class="s2">&quot;magenta&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">MAGENTA</span><span class="p">,</span>
+            <span class="s2">&quot;cyan&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">CYAN</span><span class="p">,</span>
+            <span class="s2">&quot;white&quot;</span><span class="p">:</span> <span class="n">Fore</span><span class="o">.</span><span class="n">WHITE</span><span class="p">,</span>
+            <span class="s2">&quot;reset&quot;</span><span class="p">:</span> <span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">colors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">color</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span> <span class="n">Fore</span><span class="o">.</span><span class="n">WHITE</span>
+        <span class="p">)</span>  <span class="c1"># Default to white if color not found</span></div>
+
+
+<div class="viewcode-block" id="TreeVisualizer.print_tree">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.TreeVisualizer.print_tree">[docs]</a>
+    <span class="k">def</span> <span class="nf">print_tree</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">MasterPiece</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">is_last</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Print the hierarchy of the node using ├─, └─, and │ with the specified color.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            node (MasterPiece): The root node to print.</span>
+<span class="sd">            prefix (str, optional): The prefix for the current level.</span>
+<span class="sd">            is_last (bool, optional): Whether this node is the last child.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Get the color code for the current node</span>
+        <span class="n">color_code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_color</span><span class="p">()</span>
+
+        <span class="c1"># Print the current node&#39;s name with the color</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}</span><span class="s2">└─ &quot;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}</span><span class="s2">├─ &quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}{</span><span class="n">node</span><span class="o">.</span><span class="n">name</span><span class="si">}{</span><span class="n">Style</span><span class="o">.</span><span class="n">RESET_ALL</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Reset color after printing</span>
+
+        <span class="c1"># Prepare the new prefix for the child nodes</span>
+        <span class="k">if</span> <span class="n">prefix</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">+=</span> <span class="s2">&quot;    &quot;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}</span><span class="s2">│   &quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;    &quot;</span> <span class="k">if</span> <span class="n">is_last</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">color_code</span><span class="si">}</span><span class="s2">│   &quot;</span>
+
+        <span class="c1"># Recursively print all the children</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">Composite</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">):</span>
+                <span class="n">is_last_child</span> <span class="o">=</span> <span class="n">i</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">child</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">is_last_child</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, juha meskanen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

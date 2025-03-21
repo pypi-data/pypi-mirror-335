@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>masterpiece.jsonformat &#8212; masterpiece  documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../../_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/masterpiece.css?v=7a3aeb84" />
+    <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="https://unpkg.com/mermaid@10.2.0/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({startOnLoad:true});</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="../../_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="../../_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../../index.html">
+          masterpiece</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="../../index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../masterpiece/index.html">Masterpiece  Documentation</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"></ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm"></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+<form action="../../search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <h1>Source code for masterpiece.jsonformat</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Author: Juha Meskanen</span>
+<span class="sd">Date: 2024-10-26</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">IOBase</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Type</span>
+<span class="kn">from</span> <span class="nn">typing_extensions</span> <span class="kn">import</span> <span class="n">override</span>
+
+<span class="kn">from</span> <span class="nn">.masterpiece</span> <span class="kn">import</span> <span class="n">MasterPiece</span><span class="p">,</span> <span class="n">classproperty</span>
+<span class="kn">from</span> <span class="nn">.format</span> <span class="kn">import</span> <span class="n">Format</span>
+
+
+<div class="viewcode-block" id="JsonFormat">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat">[docs]</a>
+<span class="k">class</span> <span class="nc">JsonFormat</span><span class="p">(</span><span class="n">Format</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    The `JsonFormat` class provides methods for serializing and deserializing objects</span>
+<span class="sd">    to and from JSON format.</span>
+
+<span class="sd">    Features:</span>
+<span class="sd">    ---------</span>
+<span class="sd">    - Serializes object attributes to a JSON file or stream.</span>
+<span class="sd">    - Deserializes object attributes from a JSON file or stream.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">    ------</span>
+<span class="sd">    To use the `JsonFormat`, create an instance by passing the target stream. Then,</span>
+<span class="sd">    call the `serialize` or `deserialize` method with the appropriate object.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">    --------</span>
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        from masterpiece.core import JsonFormat, MasterPiece</span>
+
+<span class="sd">        # Create a JsonFormat instance with a file stream</span>
+<span class="sd">        with open(&quot;output.json&quot;, &quot;w&quot;) as f:</span>
+<span class="sd">            json_format = JsonFormat(f)</span>
+<span class="sd">            json_format.serialize(piece)  # piece is the object to serialize</span>
+
+<span class="sd">        with open(&quot;output.json&quot;, &quot;r&quot;) as f:</span>
+<span class="sd">            json_format = JsonFormat(f)</span>
+<span class="sd">            json_format.deserialize(piece)  # piece is the object to deserialize</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="JsonFormat.__init__">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat.__init__">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">stream</span><span class="p">:</span> <span class="n">IOBase</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the JsonFormat with a stream (file object).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            stream (Any): The stream to write/read JSON data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JsonFormat.serialize">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat.serialize">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">MasterPiece</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Serialize the object to the given JSON stream.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            obj (Any): The object to serialize.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JsonFormat.deserialize">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat.deserialize">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">deserialize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">:</span> <span class="n">MasterPiece</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load attributes from the given JSON stream into the object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            obj (Any): The object to deserialize into.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">attributes</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span>
+        <span class="n">obj</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JsonFormat.save_configuration">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat.save_configuration">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">save_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clazz</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MasterPiece</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create class configuration file, if configuration is enabled and</span>
+<span class="sd">        if the file does not exist yet. See --config startup argument.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            clazz (Type[Piece]) class to be saved</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">clazz</span><span class="o">.</span><span class="n">classattrs_to_dict</span><span class="p">(),</span> <span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="JsonFormat.load_configuration">
+<a class="viewcode-back" href="../../masterpiece/index.html#masterpiece.JsonFormat.load_configuration">[docs]</a>
+    <span class="nd">@override</span>
+    <span class="k">def</span> <span class="nf">load_configuration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">clazz</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">MasterPiece</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load class attributes from a JSON file.</span>
+<span class="sd">        Args:</span>
+<span class="sd">            clazz (Type[Piece]) class to be configured</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">clazz</span><span class="o">.</span><span class="n">classattrs_from_dict</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stream</span><span class="p">))</span></div>
+
+
+    <span class="c1"># TODO: Fix this, if you can, beats me. According to mypy:</span>
+    <span class="c1"># Argument 1 to &quot;classproperty&quot; has incompatible type &quot;Callable[[JsonFormat], str]&quot;</span>
+    <span class="c1"># expected &quot;Callable[[type[Any]], Any]&quot;Mypy</span>
+    <span class="nd">@classproperty</span>  <span class="c1"># type: ignore</span>
+    <span class="k">def</span> <span class="nf">file_extension</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Fetch the file extension</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            str: file extension including the dot</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;.json&quot;</span></div>
+
+</pre></div>
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, juha meskanen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

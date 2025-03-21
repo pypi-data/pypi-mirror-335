@@ -1,0 +1,386 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Masterpiece™ &#8212; masterpiece  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/masterpiece.css?v=7a3aeb84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          masterpiece</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="masterpiece/index.html">Masterpiece  Documentation</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Masterpiece™</a><ul>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#design-concepts-and-features">Design Concepts and Features</a></li>
+<li><a class="reference internal" href="#project-status-and-current-state">Project Status and Current State</a></li>
+<li><a class="reference internal" href="#projects">Projects</a></li>
+<li><a class="reference internal" href="#installing-masterpiece">Installing Masterpiece</a><ul>
+<li><a class="reference internal" href="#step-1-install-masterpiece-and-run-the-example-application"><strong>Step 1</strong>: Install Masterpiece and run the example application</a></li>
+<li><a class="reference internal" href="#step-2-install-the-desired-masterpiece-plugins"><strong>Step 2</strong>: Install the desired Masterpiece Plugins</a></li>
+<li><a class="reference internal" href="#step-3-configurating"><strong>Step 3</strong>: Configurating</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-s-next">What’s next</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#developer-documentation">Developer Documentation</a></li>
+<li><a class="reference internal" href="#special-thanks">Special Thanks</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/README.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Masterpiece™</a><ul>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#design-concepts-and-features">Design Concepts and Features</a></li>
+<li><a class="reference internal" href="#project-status-and-current-state">Project Status and Current State</a></li>
+<li><a class="reference internal" href="#projects">Projects</a></li>
+<li><a class="reference internal" href="#installing-masterpiece">Installing Masterpiece</a><ul>
+<li><a class="reference internal" href="#step-1-install-masterpiece-and-run-the-example-application"><strong>Step 1</strong>: Install Masterpiece and run the example application</a></li>
+<li><a class="reference internal" href="#step-2-install-the-desired-masterpiece-plugins"><strong>Step 2</strong>: Install the desired Masterpiece Plugins</a></li>
+<li><a class="reference internal" href="#step-3-configurating"><strong>Step 3</strong>: Configurating</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#what-s-next">What’s next</a></li>
+<li><a class="reference internal" href="#contributing">Contributing</a></li>
+<li><a class="reference internal" href="#developer-documentation">Developer Documentation</a></li>
+<li><a class="reference internal" href="#special-thanks">Special Thanks</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="sourcelink">
+  <a href="_sources/README.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <section id="masterpiece">
+<h1>Masterpiece™<a class="headerlink" href="#masterpiece" title="Link to this heading">¶</a></h1>
+<p><strong>Masterpiece</strong> is a Python framework designed for the rapid development of Python applications of any kind.</p>
+<p>It emerged from the unification of numerous diverse applications and projects, consolidating their shared
+functionality into a single, cohesive structure. By standardizing classes across different applications
+and extracting the common core, Masterpiece provides a robust foundation that can be adapted to any
+use case.
+nne</p>
+<p>At its heart, Masterpiece is a tree-based container system with features needed by all applications, features e.g. serialization,
+configuration, startup argument parsing, just to name a few.</p>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading">¶</a></h2>
+<p>Masterpiece integrates a rich set of features essential for modern application development, including:</p>
+<ul class="simple">
+<li><p>Hierarchical data structures – A flexible tree container for organizing objects.</p></li>
+<li><p>Serialization support – Save and load hierarchical models efficiently.</p></li>
+<li><p>Factory Method pattern – Dynamically create instances of registered classes.</p></li>
+<li><p>Configuration management – Easily define and manage application settings.</p></li>
+<li><p>Command-line argument parsing – Built-in support for processing startup options.</p></li>
+<li><p>Event and network loops – Support for asynchronous workflows and network-driven applications.</p></li>
+<li><p>Extensibility – Designed to be adaptable to various domains and use cases.</p></li>
+<li><p>File system oriented object identification / resolving through ‘object paths’</p></li>
+<li><p>Multi-threading</p></li>
+<li><p>MQTT Communication: Enables seamless communication between components using the MQTT protocol, ideal for distributed systems.</p></li>
+<li><p>Support for Tme series database</p></li>
+</ul>
+</section>
+<section id="design-concepts-and-features">
+<h2>Design Concepts and Features<a class="headerlink" href="#design-concepts-and-features" title="Link to this heading">¶</a></h2>
+<ul class="simple">
+<li><p><strong>Pythonic Purity</strong>: Adheres to Python conventions, ensuring idiomatic, readable, and maintainable code.</p></li>
+<li><p><strong>First-Time Excellence</strong>: Designed to be reliable, correct, and efficient from the start—while keeping things fun!</p></li>
+<li><p><strong>Completeness</strong>: A minimal yet robust API that gives developers total control over all aspects of their applications.</p></li>
+<li><p><strong>Productivity</strong>: Highly modular and reusable codebase to achieve maximum functionality with minimal effort. Productivity grows with the size of the project.</p></li>
+<li><p><strong>Proper Abstraction</strong>: Provides clean abstractions for essential third-party libraries, shielding application code from underlying framework changes.</p></li>
+</ul>
+</section>
+<section id="project-status-and-current-state">
+<h2>Project Status and Current State<a class="headerlink" href="#project-status-and-current-state" title="Link to this heading">¶</a></h2>
+<p>Here’s what’s currently available in Masterpiece™:</p>
+<ul class="simple">
+<li><p><strong>Absolutely Bug-free Status!</strong>: Just kidding—there are no <em>known</em> bugs (so far).</p></li>
+<li><p><strong>Wiki</strong>: The initial Wiki pages are under construction. Visit the <a class="reference external" href="https://gitlab.com/juham/masterpiece/-/wikis/home">Masterpiece Wiki</a>.</p></li>
+<li><p><strong>Tutorial</strong>: A <a class="reference external" href="docs/source/tutorial.rst">tutorial</a> to help you get started with building your masterpieces.</p></li>
+<li><p><strong>Package Infrastructure</strong>: The Python package setup is finalized, using <cite>pyproject.toml</cite>.</p></li>
+<li><p><strong>Classes</strong>: Existing classes have been finalized and tested in a production environment.</p></li>
+<li><p><strong>Example Application</strong>: A sample application (<cite>examples/myapp.py</cite>) prints out its instance structure when run.
+Despite its simplicity, it demonstrates the structure of a typical scalable and fully configurable software.</p></li>
+<li><p><strong>Plugin Projects</strong>: Several plugin examples, such as <cite>masterpiece_plugin</cite>, which adds a “Hello World” greeting to <cite>myapp.py</cite>,
+demonstrate minimal yet functional plugin implementations.</p></li>
+<li><p><strong>MQTT</strong>: Enables communication between all Masterpiece™ objects.</p></li>
+<li><p><strong>InfluxDB V3 Time Series</strong>: Supports writing and reading from time-series databases.</p></li>
+<li><p><strong>Serialization</strong>: Built-in support for JSON serialization, with options to extend to other formats via plugins.</p></li>
+<li><p><strong>CI Pipelines</strong>: For both frameworks and plugins.</p></li>
+<li><p><strong>…</strong>: And probably more features I’ve forgotten while writing this.</p></li>
+</ul>
+<p>Here’s what’s NOT ready:</p>
+<ul class="simple">
+<li><p><strong>GUI</strong>: no graphical user interface of any kind. The current projects use Graphana and other 3rd party tools for visualization.</p></li>
+</ul>
+</section>
+<section id="projects">
+<h2>Projects<a class="headerlink" href="#projects" title="Link to this heading">¶</a></h2>
+<p>Masterpiece comes in a set of Python projects:</p>
+<ol class="arabic simple">
+<li><p><strong>Masterpiece (core framework)</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>This is the core framework for building plugin-aware, multi-threaded applications. It includes a simple yet
+fully functional application to help you get started and serves as a plugin-aware reference application
+that can be scaled up to any size.</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p><strong>Masterpiece Plugin (plugin example)</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>This is a basic plugin example that demonstrates how to create third-party plugins for applications built
+using Masterpiece. It’s as simple as saying <strong>“Hello, World!”</strong>, literally.</p>
+</div></blockquote>
+<ol class="arabic simple" start="3">
+<li><p><strong>Masterpiece XML Format plugin:</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Plugin that adds XML serialization format support to Masterpiece.</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p><strong>Masterpiece Yaml Format plugin:</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Another format plugin. Adds Yaml support to Masterpiece.</p>
+</div></blockquote>
+<ol class="arabic simple" start="5">
+<li><p><strong>Masterpiece Influx:</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Support for InfluxDB V3 time series database.</p>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p><strong>Masterpiece Paho MQTT:</strong>:</p></li>
+</ol>
+<blockquote>
+<div><p>Support for Paho Mosquitto MQTT.</p>
+</div></blockquote>
+</section>
+<section id="installing-masterpiece">
+<h2>Installing Masterpiece<a class="headerlink" href="#installing-masterpiece" title="Link to this heading">¶</a></h2>
+<section id="step-1-install-masterpiece-and-run-the-example-application">
+<h3><strong>Step 1</strong>: Install Masterpiece and run the example application<a class="headerlink" href="#step-1-install-masterpiece-and-run-the-example-application" title="Link to this heading">¶</a></h3>
+<p>To install the core framework:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>masterpiece
+</pre></div>
+</div>
+<p>Then, navigate to the example folder and run the application:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/myapp.py
+</pre></div>
+</div>
+<p>The application will print out its instance hierarchy. This is a simple example application to demonstrate the
+basic structure of any multi-threaded, plugin-based, scalable MasterPiece applications.</p>
+<p><strong>Example output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>home
+    ├─ grid
+    ├─ downstairs
+    │   └─ kitchen
+    │       ├─ oven
+    │       └─ fridge
+    └─ garage
+        └─ EV charger
+</pre></div>
+</div>
+</section>
+<section id="step-2-install-the-desired-masterpiece-plugins">
+<h3><strong>Step 2</strong>: Install the desired Masterpiece Plugins<a class="headerlink" href="#step-2-install-the-desired-masterpiece-plugins" title="Link to this heading">¶</a></h3>
+<p>To extend the application with the say <strong>masterpiece_plugin</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>masterpiece_plugin
+</pre></div>
+</div>
+<p>Run the application again:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>examples/myapp.py
+</pre></div>
+</div>
+<p>You’ll now see a new object in the instance hierarchy, along with a friendly “Hello, World!” object.</p>
+<p><strong>Example output</strong>:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>home
+    ├─ grid
+    ├─ downstairs
+    │   └─ kitchen
+    │       ├─ oven
+    │       └─ fridge
+    ├─ garage
+    │   └─ EV charger
+    └─ Hello World - A Plugin
+</pre></div>
+</div>
+</section>
+<section id="step-3-configurating">
+<h3><strong>Step 3</strong>: Configurating<a class="headerlink" href="#step-3-configurating" title="Link to this heading">¶</a></h3>
+<p>The application also demonstrates the usage of startup arguments. Run the application again:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>examples/myapp.py --init --solar 10 --color red
+</pre></div>
+</div>
+<p>and new ‘Solar plant 10 kW’ object appears in the tree.</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--init</span></code> argument tells the application to save its current configuration to a configuration files.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--solar</span></code> argument creates an instance of a solar power plant with a specified peak power of 10 kW.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">--color</span></code> argument can be used for setting the color for the tree diagram.</p></li>
+</ul>
+<p>The above class properties (and many more) can also be defined in the class configuration files. By default,
+the configuration files are created in the <code class="docutils literal notranslate"><span class="pre">~/.myapp/config</span></code> folder, as determined by the <code class="docutils literal notranslate"><span class="pre">application</span> <span class="pre">identifier</span></code>
+and <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">[anyname]</span></code>.</p>
+<p>For example, <code class="docutils literal notranslate"><span class="pre">--config</span> <span class="pre">temp</span></code> will use the configuration files stored in the <code class="docutils literal notranslate"><span class="pre">~/.myapp/temp/</span></code>
+folder.</p>
+</section>
+</section>
+<section id="what-s-next">
+<h2>What’s next<a class="headerlink" href="#what-s-next" title="Link to this heading">¶</a></h2>
+<p>Congratulations! You’ve successfully installed Masterpiece, extended it with a plugin, and explored its configuration system.
+But what is all this for?</p>
+<p>That part is up to your imagination. Here’s what you can explore next:</p>
+<ul class="simple">
+<li><p>Write Plugins: Develop your own plugins to extend Masterpiece with domain-specific functionality.
+Use the masterpiece_plugin as a starting point for inspiration.</p></li>
+<li><p>Leverage Configurations: Take advantage of configuration files to fine-tune your application’s behavior
+without changing the code. Experiment with the –config argument to manage multiple configurations for
+different scenarios.</p></li>
+<li><p>Design a Custom Application: Build a unique application that fits your needs by combining existing plugins,
+creating new objects in the instance hierarchy, and integrating external services or data sources.</p></li>
+<li><p>Contribute to the Community: Share your plugins or improvements with the Masterpiece community.</p></li>
+</ul>
+<p>Masterpiece provides the building blocks. Where you go from here is entirely up to you. Happy coding!</p>
+</section>
+<section id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Link to this heading">¶</a></h2>
+<p>Please check out the <a class="reference external" href="https://gitlab.com/juham/masterpiece/-/boards">Masterpiece Issue Board</a> for tracking progress
+and tasks.</p>
+</section>
+<section id="developer-documentation">
+<h2>Developer Documentation<a class="headerlink" href="#developer-documentation" title="Link to this heading">¶</a></h2>
+<p>For full documentation and usage details, see the full documentation at <a class="reference external" href="docs/build/html/index.html">Documentation Index</a>
+(The docs may look rough; I’m still unraveling Sphinx’s mysteries).</p>
+</section>
+<section id="special-thanks">
+<h2>Special Thanks<a class="headerlink" href="#special-thanks" title="Link to this heading">¶</a></h2>
+<p>Big thanks to the generous support of [Mahi.fi](<a class="reference external" href="https://mahi.fi">https://mahi.fi</a>) for helping bring this framework to life.</p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, juha meskanen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

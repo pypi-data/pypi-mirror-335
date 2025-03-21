@@ -1,0 +1,208 @@
+
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Implementing Plugins &#8212; masterpiece  documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="_static/bootstrap-sphinx.css?v=4468db6d" />
+    <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="_static/masterpiece.css?v=7a3aeb84" />
+    <script src="_static/documentation_options.js?v=5929fcd5"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js"></script>
+<script type="text/javascript" src="_static/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          masterpiece</a>
+        <span class="navbar-text navbar-version pull-left"><b></b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="masterpiece/index.html">Masterpiece  Documentation</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Implementing Plugins</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#object-oriented-philosophy">Object-Oriented Philosophy</a></li>
+<li><a class="reference internal" href="#implementing-xml-format-plugin">Implementing XML Format Plugin</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/plugintutorial.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Implementing Plugins</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#object-oriented-philosophy">Object-Oriented Philosophy</a></li>
+<li><a class="reference internal" href="#implementing-xml-format-plugin">Implementing XML Format Plugin</a></li>
+</ul>
+</li>
+</ul>
+
+<div id="sourcelink">
+  <a href="_sources/plugintutorial.rst.txt"
+     rel="nofollow">Source</a>
+</div>
+<form action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <section id="implementing-plugins">
+<h1>Implementing Plugins<a class="headerlink" href="#implementing-plugins" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>The framework strongly encourages not to write applications but <strong>plugins</strong>.</p>
+<p>Applications should implement the minimal infrastructure required for the application
+in question.</p>
+<p>All the features should be implemented as independent plugins, that can be installed, or
+not to be installed.</p>
+<p>Each plugin should implement one self-contained and complete feature. If you install it,
+then you get a new feature in your application. If you uninstall it, then the application
+will not have a single piece of information related to the feature in question.</p>
+<p>An example of a good plugin is a new serialization format, e.g., XmlFormat. Once installed,
+the user will have an option to use it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>anyapp<span class="w"> </span>--application_serialization_format<span class="w"> </span>XmlFormat
+</pre></div>
+</div>
+<p>This will be the topic for the next tutorial <a class="reference external" href="docs/source/plugintutorial.rst">Implementing plugins</a>.</p>
+</section>
+<section id="object-oriented-philosophy">
+<h2>Object-Oriented Philosophy<a class="headerlink" href="#object-oriented-philosophy" title="Link to this heading">¶</a></h2>
+<p>Using this design, productivity increases with the size of the application because the number
+of reusable components increases over time, making it faster to implement new features.</p>
+<ol class="arabic simple">
+<li><p><strong>Reusable Components</strong>: As more plugins are developed, each representing a discrete feature
+or capability, the pool of reusable components increases. This allows developers to leverage
+existing plugins when building new features, reducing the time and effort required for
+implementation.</p></li>
+<li><p><strong>Simplified Development</strong>: With a plugin architecture, teams can work on different plugins
+simultaneously without stepping on each other’s toes. This parallel development not only speeds
+up feature delivery but also encourages innovation, as teams can focus on specific areas of
+functionality.</p></li>
+<li><p><strong>Easier Maintenance and Upgrades</strong>: Since plugins are independent, updating or replacing one
+feature does not necessitate a complete overhaul of the application. This modularity makes
+maintaining and upgrading the application more manageable, which is particularly valuable in
+larger systems.</p></li>
+<li><p><strong>Scalability</strong>: As the application scales, the modular nature of plugins makes it easier to
+manage complexity. New features can be added incrementally, allowing for gradual enhancement
+of the application without overwhelming the development team or introducing bugs.</p></li>
+<li><p><strong>User Customization</strong>: Users benefit from the flexibility to choose which features they want
+to include in their application, making it easier for them to tailor the software to their
+specific needs without requiring extensive modifications.</p></li>
+</ol>
+</section>
+<section id="implementing-xml-format-plugin">
+<h2>Implementing XML Format Plugin<a class="headerlink" href="#implementing-xml-format-plugin" title="Link to this heading">¶</a></h2>
+<p>TBD</p>
+</section>
+</section>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2024, juha meskanen.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 7.4.7.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
