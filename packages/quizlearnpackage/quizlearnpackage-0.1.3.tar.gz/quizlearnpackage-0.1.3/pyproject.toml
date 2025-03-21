@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "quizlearnpackage"
+description = "Python package that allows the user to play four different academic games which aim to improve the player's abilities in four different subjects. Developed with pipenv, built with build using setuptools, uploaded to PyPI using twine, and distributed via pip."
+version = "0.1.3"
+authors = [
+  { name="Tim Xu", email="tzx201@nyu.edu" },
+  { name="Anna Ye", email="azy2006@nyu.edu" },
+  { name="Jack Wang", email="jjw9077@nyu.edu" },
+  { name="Joylyn Gong", email="jxg2306@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+quizlearnpackage = "quizlearnpackage.__main__:main"
