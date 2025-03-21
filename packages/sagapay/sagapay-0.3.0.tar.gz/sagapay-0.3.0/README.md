@@ -1,0 +1,185 @@
+# SagaPay Python SDK
+
+Python SDK for [SagaPay](https://sagapay.net) - the world's first free, non-custodial blockchain payment gateway service provider. This SDK enables Python developers to seamlessly integrate cryptocurrency payments without holding customer funds. With enterprise-grade security and zero transaction fees, SagaPay empowers merchants to accept crypto payments across multiple blockchains while maintaining full control of their digital assets.
+
+## Installation
+
+```bash
+pip install sagapay
+```
+
+## Quick Start
+
+```python
+from sagapay import Client, NetworkType
+
+# Initialize the SagaPay client
+client = Client(
+    api_key="your-api-key",
+    api_secret="your-api-secret"
+)
+
+# Create a deposit address
+deposit = client.create_deposit({
+    "network_type": NetworkType.BEP20,
+    "contract_address": "0",  # Use '0' for native tokens (BNB)
+    "amount": "1.5",
+    "ipn_url": "https://yourwebsite.com/webhook",
+    "udf": "order-123",
+    "type": "TEMPORARY"
+})
+
+print(f"Deposit address created: {deposit.address}")
+print(f"Expires at: {deposit.expires_at}")
+```
+
+## Features
+
+- Deposit address generation
+- Withdrawal processing
+- Transaction status checking
+- Wallet balance fetching
+- Multi-chain support (ERC20, BEP20, TRC20, POLYGON, SOLANA)
+- Webhook notifications (IPN)
+- Custom UDF field support
+- Non-custodial architecture
+- Comprehensive error handling
+- Pydantic models for type safety
+
+## API Reference
+
+### Create Deposit
+
+```python
+deposit = client.create_deposit({
+    "network_type": NetworkType.BEP20,      # Required: Blockchain network type
+    "contract_address": "0",                # Required: Contract address or '0' for native coins
+    "amount": "1.5",                        # Required: Expected deposit amount
+    "ipn_url": "https://example.com/webhook", # Required: URL for notifications
+    "udf": "order-123",                     # Optional: User-defined field
+    "type": "TEMPORARY"                     # Optional: TEMPORARY or PERMANENT
+})
+```
+
+### Create Withdrawal
+
+```python
+withdrawal = client.create_withdrawal({
+    "network_type": NetworkType.ERC20,
+    "contract_address": "0xdAC17F958D2ee523a2206206994597C13D831ec7", # USDT on Ethereum
+    "address": "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+    "amount": "10.5",
+    "ipn_url": "https://example.com/webhook",
+    "udf": "withdrawal-456"
+})
+```
+
+### Check Transaction Status
+
+```python
+status = client.check_transaction_status(
+    address="0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+    transaction_type=TransactionType.DEPOSIT
+)
+```
+
+### Fetch Wallet Balance
+
+```python
+balance = client.fetch_wallet_balance(
+    address="0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+    network_type=NetworkType.ERC20,
+    contract_address="0xdAC17F958D2ee523a2206206994597C13D831ec7" # USDT on Ethereum
+)
+```
+
+## Handling Webhooks (IPN)
+
+SagaPay sends webhook notifications to your specified `ipn_url` when transaction statuses change. Use the `WebhookHandler` to process these notifications:
+
+```python
+from flask import Flask, request, jsonify
+from sagapay import WebhookHandler, TransactionStatus
+
+app = Flask(__name__)
+
+# Initialize the webhook handler
+webhook_handler = WebhookHandler(api_secret="your-api-secret")
+
+@app.route("/webhook", methods=["POST"])
+def handle_webhook():
+    # Get the signature from the headers
+    signature = request.headers.get("x-sagapay-signature")
+    
+    # Get the raw request body
+    payload = request.get_data()
+    
+    try:
+        # Process and validate the webhook
+        webhook = webhook_handler.process_webhook(payload, signature)
+        
+        # Handle different transaction statuses
+        if webhook.status == TransactionStatus.COMPLETED:
+            # Payment successful, update your database
+            if webhook.type == "deposit":
+                # Handle successful deposit
+                update_order_status(webhook.udf, "paid")
+            else:
+                # Handle successful withdrawal
+                update_withdrawal_status(webhook.udf, "completed")
+        
+        # Return a success response
+        return jsonify({"received": True}), 200
+        
+    except Exception as e:
+        # Log the error and return a response
+        # Still return 200 to prevent retries
+        return jsonify({"received": False, "error": str(e)}), 200
+```
+
+## Webhook Payload Format
+
+When SagaPay sends a webhook to your endpoint, it will include the following payload:
+
+```json
+{
+  "id": "transaction-uuid",
+  "type": "deposit|withdrawal",
+  "status": "PENDING|PROCESSING|COMPLETED|FAILED|CANCELLED",
+  "address": "0x123abc...",
+  "networkType": "ERC20|BEP20|TRC20|POLYGON|SOLANA",
+  "amount": "10.5",
+  "udf": "your-optional-user-defined-field",
+  "txHash": "0xabc123...",
+  "timestamp": "2025-03-16T14:30:00Z"
+}
+```
+
+## Error Handling
+
+The SDK includes comprehensive error handling with specific exception types:
+
+```python
+from sagapay import Client
+from sagapay.exceptions import APIError, ValidationError, WebhookError, NetworkError
+
+try:
+    client = Client(api_key="your-api-key", api_secret="your-api-secret")
+    deposit = client.create_deposit(params)
+except ValidationError as e:
+    print(f"Validation error: {e}")
+except APIError as e:
+    print(f"API error ({e.status_code}): {e.message}")
+    if e.error_code:
+        print(f"Error code: {e.error_code}")
+except NetworkError as e:
+    print(f"Network error: {e}")
+```
+
+## License
+
+This SDK is released under the MIT License.
+
+## Support
+
+For questions or support, please contact support@sagapay.net or visit [https://sagapay.net](https://sagapay.net).
