@@ -1,0 +1,37 @@
+stages:
+  - linting
+  - build
+  - publish
+
+
+ruff:
+  stage: linting
+  image: registry.gitlab.com/pipeline-components/ruff:latest
+  script:
+    - ruff check --output-format=gitlab .
+
+
+build:
+  stage: build
+  image: python:3.13
+  needs:
+    - ruff
+  script:
+    - pip install build
+    - pip wheel . --no-deps -w wheelhouse
+  artifacts:
+    paths:
+      - wheelhouse
+
+publish:
+  rules:
+      - if: $CI_COMMIT_TAG
+  stage: publish
+  image: python:3.13
+  needs:
+    - build
+  script:
+    - pip install build twine
+    - python -m build
+    - python -m twine check dist/*
+    - python -m twine upload -u=$TWINE_USERNAME -p=$TWINE_PASSWORD dist/*
