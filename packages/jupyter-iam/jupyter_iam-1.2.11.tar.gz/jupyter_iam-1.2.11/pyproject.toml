@@ -1,0 +1,62 @@
+# Copyright (c) 2023-2024 Datalayer, Inc.
+#
+# Datalayer License
+
+[build-system]
+requires = ["hatchling==1.21.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyter_iam"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+classifiers = [
+    "Framework :: Jupyter",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+
+dependencies = [
+    "datalayer_core>=1.0.0",
+    "jupyter_server>=2.10,<3",
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-jupyter",
+    "pytest-tornasync",
+]
+
+[project.scripts]
+ji = "jupyter_iam.application:main"
+jupyter-iam = "jupyter_iam.application:main"
+jupyter-iam-server= "jupyter_iam.serverapplication:main"
+
+[tool.hatch.version]
+path = "jupyter_iam/__version__.py"
+
+[tool.hatch.build]
+artifacts = [
+  "jupyter_iam/static",
+  "jupyter_iam/templates"
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = [".github", "binder", ".yarn"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyter-config/server-config" = "etc/jupyter/jupyter_server_config.d"
+"jupyter-config/nb-config" = "etc/jupyter/jupyter_notebook_config.d"
