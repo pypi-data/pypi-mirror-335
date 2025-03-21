@@ -1,0 +1,47 @@
+Metadata-Version: 2.1
+Name: kount-ris-sdk
+Version: 4.0.2
+Summary: Kount Python RIS SDK
+Home-page: https://github.com/Kount/kount-ris-python-sdk
+Author: Kount
+Author-email: sdkadmin@kount.com
+License: Kount
+Keywords: kount,sdk,ris
+Platform: any
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: Other/Proprietary License
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests (>=2.32.3)
+Provides-Extra: dev
+Requires-Dist: flake8 (>=2.5.0) ; extra == 'dev'
+Requires-Dist: pytest (>=8.3.4) ; extra == 'dev'
+Requires-Dist: pytest-cov (>=6.0.0) ; extra == 'dev'
+Requires-Dist: pytest-profiling (>=1.8.1) ; extra == 'dev'
+Requires-Dist: pylint (>=3.3.4) ; extra == 'dev'
+Requires-Dist: pytest-html (>=4.1.1) ; extra == 'dev'
+Requires-Dist: pytest-metadata (>=3.1.1) ; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: pytest (>=8.3.4) ; extra == 'test'
+Requires-Dist: pytest-cov (>=6.0.0) ; extra == 'test'
+Requires-Dist: pytest-profiling (>=1.8.1) ; extra == 'test'
+Requires-Dist: pytest-html (>=4.1.1) ; extra == 'test'
+Requires-Dist: pytest-metadata (>=3.1.1) ; extra == 'test'
+
+# Kount RIS Python SDK #
+
+The Kount RIS Python SDK contains the Python SDK, tests, and build/package routines. This enables integrating the Kount fraud fighting solution into your Python app.
+
+## Documentation ##
+
+For official **integration documentation**, go to [How to Integrate the RIS Python SDK](https://developer.kount.com/hc/en-us/articles/5866241145748) on the Kount Developer site.
+
+## Release Notes ##
+
+For the complete **release notes history**, go to [Kount RIS Python SDK Release Notes History](https://developer.kount.com/hc/en-us/articles/10406779365524) on the Kount Developer site.
+
+
