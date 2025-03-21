@@ -1,0 +1,81 @@
+api_version: v1
+
+api_endpoints:
+  stuart: 'https://stuart.canso.ai/'
+  risk_mgmt: 'https://risk-workflows-management.canso.ai/'
+  agents: 'https://agents.canso.ai/'
+  register:
+    data_source: /v2/data-sources
+    data_sink: /v2/data-sinks
+    raw_feature: /v2/ml-features
+    derived_batch_feature: /v2/ml-features
+    streaming_feature: /v2/ml-features
+    pre_processing_transform: /v2/ml-features
+    training_data: /v1/ml-training/register
+    infra_details: /v1/ml-infra/register
+  deploy:
+    raw_feature: /v2/feature-deployments
+    derived_batch_feature: /v2/feature-deployments
+    streaming_feature: /v2/feature-deployments
+    pre_processing_transform: /v1/ml-features/deploy
+    training_data: /v1/ml-training/generate
+    infra_details: /v1/ml-infra/deploy
+  dry_run:
+    raw_feature: /v2/feature-deployments
+    derived_feature: /v2/feature-deployments
+    pre_processing_transform: /v2/feature-deployments
+    training_data: /v1/ml-training/dry_run
+    infra_details: /v1/ml-infra/dry_run
+  update:
+    raw_feature: /v1/ml-features/{id}
+    derived_batch_feature: /v1/ml-features/{id}
+    pre_processing_transform: /v1/ml-features/{id}
+    training_data: /v1/ml-training/register/{id}
+    infra_details: /v1/ml-infra/register/{id}
+  health:
+    raw_feature: /v2/feature-health
+    derived_batch_feature: /v2/feature-health
+    streaming_feature: /v2/streaming-feature-health
+  ai_agent:
+    send_message: /rabbit-mq/send-message
+    register: /v1/agent/register
+    deploy: /v1/agent/{agent_name}/deploy
+    update: /v1/agent/{agent_name}
+    delete: /v1/agent/{agent_name}
+    prompt: /v2/agent/{agent_name}/prompt
+    converse: wss://agents.canso.ai/v1/agent/{agent_name}/converse?conversation_id={conversation_id}
+  component:
+    setup: /components/
+  risk:
+    list: /v1/risk/workflows
+    get: /v1/risk/workflows/{workflow-name}
+    create: /v1/risk/workflows
+    update_status: /v1/risk/workflows/{workflow-name}/status
+    deploy: /v1/risk/workflows/{workflow-name}/deploy
+    rules:
+      list: /v1/risk/workflows/{workflow-name}/rules
+      create: /v1/risk/workflows/{workflow-name}/rules
+      update: /v1/risk/workflows/{workflow-name}/rules/{rule-name}
+      update_status: /v1/risk/workflows/{workflow-name}/rules/{rule-name}/status
+      update_stage: /v1/risk/workflows/{workflow-name}/rules/{rule-name}/stage
+  generate_token: /v1/users/generate_token
+  online_fs_service: v1/ml-feature-serving
+
+schema_sink:
+  uri_scheme: s3
+  uri_scheme_pyspark: s3a
+  bucket: 'market-intelligence-platform'
+  prefix: 'sales/raw_data'
+
+airflow_dags_backup_path: "s3://internal-ml-demos/dags/"
+
+dry_run:
+  max_dry_run_duration_days: 3
+  default_dry_run_duration: 1
+
+online_feature_store:
+  family: 'redis'
+  cloud_provider: 'aws'
+  type: 'ElasticCacheRedisSink'
+  host: 'paltform-redis.pbqyka.clustercfg.aps1.cache.amazonaws.com'
+  port: 6379
