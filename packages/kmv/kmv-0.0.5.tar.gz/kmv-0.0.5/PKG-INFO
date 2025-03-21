@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: kmv
+Version: 0.0.5
+Summary: The kscale-mujoco-viewer project
+Home-page: https://github.com/kscalelabs/kscale-mujoco-viewer
+Author: Ali Kuwajerwala, Wesley Maa
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: mujoco
+Requires-Dist: numpy
+Requires-Dist: Pillow
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: darglint; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Dynamic: author
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# kscale-mujoco-viewer
+
+Mujoco viewer maintained by K-Scale Labs.
+
+Originally referenced from [mujoco-python-viewer](https://github.com/gaolongsen/mujoco-python-viewer).
+
+## Installation
+
+```bash
+pip install kmv
+```
+
+## Usage
+
+```python
+from kmv.viewer import launch_passive
+
+with launch_passive(viewer_model, viewer_data) as viewer:
+    while doing_stuff:
+        # do stuff
+        viewer.update_and_sync()
+```
+
