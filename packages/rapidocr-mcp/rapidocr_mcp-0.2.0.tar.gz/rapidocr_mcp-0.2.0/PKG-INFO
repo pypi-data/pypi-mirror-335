@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: rapidocr-mcp
+Version: 0.2.0
+Summary: RapidOCR MCP Server for OCR processing
+Home-page: https://github.com/z4none/rapidocr-mcp
+Author: z4none
+Author-email: z4none <z4none@gmail.com>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/z4none/rapidocr-mcp
+Project-URL: Repository, https://github.com/z4none/rapidocr-mcp.git
+Keywords: ocr,rapidocr,mcp
+Requires-Python: >=3.13
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: mcp[cli]>=1.4.1
+Requires-Dist: rapidocr>=2.0.3
+Requires-Dist: requests>=2.32.3
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+
+# RapidOCR MCP Server
+
+A MCP server based on RapidOCR, providing an easy-to-use OCR interface.
+
+## Usage
+
+```bash
+uvx run rapidocr-mcp
+```
+
+## Available Methods
+
+* ocr_by_content
+Perform OCR on an image content. Args: base64_data (str): The base64 encoded image content. Returns: List[TextContent]: A list of text content.
+
+* ocr_by_path
+Perform OCR on an image file. Args: path (str): The path to the image file. Returns: List[TextContent]: A list of text content.
