@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: traceback_assistant
+Version: 0.1.0
+Summary: A package to explain Python tracebacks using OpenAI.
+Home-page: https://github.com/yourusername/traceback_assistant
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: openai==0.27.8
+Requires-Dist: pytest==7.4.2
+Requires-Dist: setuptools
+Requires-Dist: wheel
+Requires-Dist: twine
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Traceback Assistant
+
+A Python package that explains tracebacks using OpenAI's API.
+
+## Installation
+
+```bash
+pip install traceback_assistant
+```
+
+## Usage
+
+### Set Open AI Key in environmental variable
+export OPENAI_API_KEY="your_openai_api_key"
+### Or pass as parameter 
+from traceback_assistant import TracebackAssistant
+
+assistant = TracebackAssistant(openai_api_key="your_openai_api_key")
+
+
+
+from traceback_assistant import TracebackAssistant, explain_errors
+
+@explain_errors
+def faulty_function():
+    return 1 / 0
+
+faulty_function()
+
+# Build Package:
+python setup.py sdist bdist_wheel
+# Publish to PyPI
+twine upload dist/*
+# Install package
+pip install traceback_assistant
+
+
