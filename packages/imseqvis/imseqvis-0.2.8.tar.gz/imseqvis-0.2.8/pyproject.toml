@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "imseqvis"
+dynamic = ["version"]
+
+description = "A Qt-based image sequence visualizer widget"
+readme = "README.md"
+
+license = {file = "LICENSE"}
+
+authors = [
+    { name = "snototter", email = "snototter@users.noreply.github.com" }
+]
+
+requires-python = ">=3.7"
+
+dependencies = [
+    "natsort",
+    "numpy",
+    "qimage2ndarray",
+    "qtpy",
+    "vito"
+]
+
+
+# For a list of valid classifiers, see https://pypi.org/classifiers/
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+]
+
+
+[project.urls]
+homepage = "https://github.com/snototter/imseqvis"
+
+[project.optional-dependencies]
+pyqt5 = ["PyQt5"]
+pyqt6 = ["PyQt6"]
+pyside2 = ["PySide2"]
+pyside6 = ["PySide6"]
+
+[tool.setuptools]
+packages = ["imseqvis"]
+
+[tool.setuptools.dynamic]
+version = {attr = "imseqvis.__version__"}
