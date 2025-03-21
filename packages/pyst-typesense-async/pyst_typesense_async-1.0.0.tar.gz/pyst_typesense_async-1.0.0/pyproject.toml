@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyst-typesense-async"
+description = "Python client for Typesense, an open source and typo tolerant search engine."
+authors = [
+    {"name" = "Typesense", "email" = "contact@typesense.org"},
+]
+readme = "README.md"
+requires-python = ">=3"
+keywords = ["search", "typesense"]
+license = {"text" = "Apache 2.0"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+dependencies = ["aiohttp>=3.10,<4"]
+dynamic = ["version"]
+
+[tool.poetry]
+name = "typesense"
+version = "1.0.0"
+description = ""
+authors = ["Fake Name fake@example.com"]
+
+[tool.poetry.dependencies]
+python = "==3.12.*|==3.13.*"
+aiohttp = "^3.10"
+
+[project.urls]
+Documentation = "https://typesense.org/"
+Source = "https://github.com/typesense/typesense-python"
+Tracker = "https://github.com/typesense/typesense-python/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "typesense.__version__"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["examples/*.py","./venv/*","tests/*/*.py","*__init__.py","*/*test.py", "./src/typesense/types/*.py"]
+
+[tool.coverage.report]
+omit = ["examples/*.py","./venv/*","tests/*.py","*__init__.py","*/*test.py"]
