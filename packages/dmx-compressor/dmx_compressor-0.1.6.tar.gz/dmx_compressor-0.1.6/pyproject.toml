@@ -1,0 +1,48 @@
+[project]
+name = "dmx-compressor"
+dynamic = []
+description = "d-Matrix Compressor"
+readme = "README.md"
+authors =[{name="Tristan Webb", email= "twebb@d-matrix.ai"},
+        {name="Xin Wang", email= "xwang@d-matrix.ai"},
+        {name="Michael Klachko", email= "mklachko@d-matrix.ai"},
+        {name="Sayeh Sharify", email= "sayehs@d-matrix.ai"},
+        {name="Wanzin Yazar", email="wyazar@d-matrix.ai"},
+        {name="Zifei Xu", email="xuzifei@d-matrix.ai"}]
+version = "0.1.6"
+
+
+[tool.poetry]
+include = [{ path = "tests", format = "sdist" }]
+packages = [    { include = "dmx/compressor", from = "src" },
+    { include = "mltools", from = "src" },
+]
+
+[tool.poetry.dependencies]
+datasets = "^3.0"
+numpy = "^1.22.3"
+bidict = "^0.22.0"
+parse = "^1.19.0"
+evaluate="^0.4.1"
+graphviz="^0.20.3"
+pptree = "^3.1"
+pytest = "^8.0"
+python = ">=3.8"
+tqdm = "^4.0"
+transformers = "^4.35.0"
+torch = "^2.4"
+tabulate = "^0.9.0"
+torchvision = ">=0.13.0, <0.21.0"
+diffusers = "^0.25"
+accelerate = "^1.0"
+
+[tool.poetry.requires-plugins]
+poetry-dynamic-versioning = { version = ">=1.0.0,<2.0.0", extras = ["plugin"] }
+
+[tool.poetry-dynamic-versioning]
+style = "pep440"
+enable = false
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
