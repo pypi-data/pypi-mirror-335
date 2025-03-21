@@ -1,0 +1,107 @@
+# tessie relay
+
+A relay and control server for [tessie](https://github.com/ursl/tessie/)
+MQTT messages.
+
+## Installation
+
+This project uses [uv](https://docs.astral.sh/uv/) for management and
+currently uses Python 3.11.
+
+```shell
+pip install tessie_relay
+```
+
+## Running coldbox controller
+
+Example script:
+
+```python
+from tessie_relay.psi_coldbox import Coldbox
+from time import sleep
+
+def handle_error_message(error_payload):
+    """
+    Custom callback to handle "Error" messages.
+    :param error_payload: The parsed "Error" payload
+    """
+    print("WARNING: Error detected!")
+    print(error_payload)
+
+
+if __name__ == "__main__":
+
+    # initialize the Coldbox controller and provide a callback for alarms
+    coldbox = Coldbox(host='coldbox02.psi.ch', error_callback=handle_error_message)
+
+    with coldbox:
+        coldbox.flush()
+        print("air temperature    ", coldbox.get_air_temperature())
+        print("water temperature  ", coldbox.get_water_temperature())
+        print("interlock status   ", coldbox.get_interlock_status(timeout=10))
+        print("traffic light      ", coldbox.get_traffic_light())
+        print("flow switch        ", coldbox.get_flow_switch())
+        print("lid                ", coldbox.get_lid_status())
+        channel = 8
+        print(f"voltage probes for channel {channel} = ", coldbox.get_voltage_probe(channel)) 
+
+        try:
+            while True:
+                print("relative humidity ", coldbox.get_relative_humidity())
+                sleep(10)
+        except KeyboardInterrupt:
+            print('interrupted!')
+
+    print("shutting down")
+```
+
+## Running coldbox QuestDB relay
+
+The relay requires a QuestDB instance running.
+Furthermore, an environment variable `QDB_CLIENT_CONF` must be set.
+In the example below, the QuestDB instance is running on the same machine
+as the relay and the client is authenticated with the default credentials.
+
+```shell
+export QDB_CLIENT_CONF='http::addr=localhost:9000;username=admin;password=quest;'
+uv run -m tessie_relay.relay
+```
+
+## Development
+
+**Important**: for local development, please make sure to always prepend `uv`.
+
+After changes have been made to the library (which means code in the `src` directory),
+update the local `tessie_relay` installation as follows:
+
+```shell
+uv pip install -e .
+```
+
+Then to test your changes, take e.g. the code in `examples/run_coldbox.py` and make
+the changes that would test the code. Then run:
+
+```shell
+uv run examples/run_coldbox.py
+```
+
+## Creating a new release
+
+Install `bump-my-version`:
+
+```shell
+uv tools install bump-my-version
+```
+
+Choose between  `major`, `minor`, and `patch` and run (here for `patch`):
+
+```shell
+bump-my-version bump patch --dry-run -vv
+```
+
+This displays the changes that would be made.
+If you are happy with the changes, run:
+
+```shell
+bump-my-version bump patch
+```
