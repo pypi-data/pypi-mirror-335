@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: ase-hdf5
+Version: 0.1.5
+Summary: Reading and writing ASE trajectories to HDF5 files.
+Author-email: Thomas C Nicholas <tcnicholas@me.com>
+License: MIT License
+        
+        Copyright (c) 2025 Thomas Nicholas
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: ase>=3.23.0
+Requires-Dist: h5py>=3.11.0
+Provides-Extra: dev
+Requires-Dist: bumpver; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Provides-Extra: publish
+Requires-Dist: twine; extra == "publish"
+Requires-Dist: build; extra == "publish"
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
+Requires-Dist: pytest-cov; extra == "tests"
+
+# `ase-hdf5`
+
+<div align="center">
+
+![PyPI - Version](https://img.shields.io/pypi/v/ase-hdf5)
+[![GitHub License](https://img.shields.io/github/license/tcnicholas/ase-hdf5)](LICENSE.md)
+[![](https://github.com/tcnicholas/ase-hdf5/actions/workflows/tests.yaml/badge.svg?branch=main)](https://github.com/tcnicholas/ase-hdf5/actions/workflows/tests.yaml)
+[![codecov](https://codecov.io/gh/tcnicholas/ase-hdf5/graph/badge.svg?token=LX45880JL6)](https://codecov.io/gh/tcnicholas/ase-hdf5)
+</div>
+
+
+`ase-hdf5` provides a simple I/O for converting list[ase.Atoms] <—> HDF5.
+
+
+## Quickstart
+
+Install the package with `pip install -q ase-hdf5`.
