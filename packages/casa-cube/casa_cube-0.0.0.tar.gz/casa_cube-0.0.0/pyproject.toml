@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=45",  "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "casa_cube"
+authors = [
+    {name = "Christophe Pinte", email = "christophe.pinte@univ-grenoble-alpes.fr"}
+]
+description = "Package to plot data cube from CASA in Python"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+keywords = ["astronomy", "CASA", "data-cube", "visualization"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+    "Topic :: Scientific/Engineering :: Physics",
+]
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "astropy",
+]
+
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "http://github.com/cpinte/casa_cube"
+Repository = "http://github.com/cpinte/casa_cube.git"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = ["casa_cube"]
+license-files = []
