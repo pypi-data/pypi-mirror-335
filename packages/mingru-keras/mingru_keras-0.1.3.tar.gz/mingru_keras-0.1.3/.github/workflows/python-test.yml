@@ -1,0 +1,28 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      KERAS_BACKEND: jax
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pip install -qU uv
+          uv sync --extra test --extra jax
+
+      - name: Run tests
+        run: |
+          uv run pytest
+          uv run python -m doctest README.md
