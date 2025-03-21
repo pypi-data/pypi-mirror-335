@@ -1,0 +1,45 @@
+Metadata-Version: 2.2
+Name: fastabx
+Version: 0.1.7
+Summary: Fast ABX
+Author: Maxime Poli
+License: MIT
+Project-URL: homepage, https://docs.cognitive-ml.fr/fastabx
+Project-URL: documentation, https://docs.cognitive-ml.fr/fastabx
+Project-URL: repository, https://github.com/bootphon/fastabx
+Project-URL: changelog, https://github.com/bootphon/fastabx/releases
+Keywords: speech,machine learning
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: cudf-polars-cu12>=24.12.0; sys_platform == "linux"
+Requires-Dist: numpy>=2.1.3
+Requires-Dist: polars>=1.14.0
+Requires-Dist: torch==2.6.0
+Requires-Dist: tqdm>=4.67.1
+
+# Fast ABX evaluation
+
+**fastabx** is a Python package for running the ABX discrimination test — and doing it fast.
+
+Check out the documentation for more information: https://docs.cognitive-ml.fr/fastabx
+
+## Install
+
+Install the pre-built package in your environment:
+
+```bash
+pip install fastabx
+```
+
+It requires Python 3.12 or later, and PyTorch 2.6.0 (CUDA 12.4 variant for Linux and Windows).
+Wheels are available for Linux x86-64 (glibc 2.34 or later), macOS 14 or later, and Windows x86-64.
