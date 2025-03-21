@@ -1,0 +1,56 @@
+Metadata-Version: 2.1
+Name: gmsdb
+Version: 3.0
+Summary: GMSDB Clusterer
+Home-page: https://github.com/berng/GMSDB
+Author: Oleg I.Berngardt
+Author-email: berng@rambler.ru
+License: UNKNOWN
+Keywords: clusterization
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: matplotlib
+Requires-Dist: mlxtend
+Requires-Dist: numpy
+Requires-Dist: scikit-learn
+Requires-Dist: scipy
+Requires-Dist: statsmodels
+
+# GMSDB Clusterer
+
+# Use
+pip install gmsdb
+
+## Simple use (sklearn -like style), no speed improvement, recommended significance level alpha=0.1. 
+Maximal number of gaussian components=50:
+
+from gmsdb import GMSDB
+
+clf=GMSDB(n_components=50)
+
+clf.fit(X)
+
+Y=clf.predict(X)
+
+## Complex use (with speed improvement for stages 1 and 3):
+
+clf=GMSDB(min_components=2,step_components=100,n_components=900,rand_search=1000,rand_level=0.5)
+
+## Complex use (with custom significance level alpha=0.15):
+
+clf=GMSDB(n_components=50,alpha_stage2=0.15,alpha_stage4=0.15)
+
+## Verbose use (show debug information):
+
+clf=GMSDB(n_components=50,verbose=True)
+
+
+# Desciption:
+https://arxiv.org/abs/2309.02623
+
+
+
