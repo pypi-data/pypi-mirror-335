@@ -1,0 +1,86 @@
+{
+    "sensor":{
+        "name": "EnMAP",
+        "fit":{
+            "wvl_center": [1051.3, 1062.6, 1074, 1085.4, 1096.9, 1108.5, 1120.1, 1131.8, 1143.5, 1155.3, 1167.1, 1179,
+                1190.9, 1202.8, 1214.8, 1226.7, 1238.7, 1250.7],
+            "fwhm": [13.52, 13.62, 13.72, 13.8, 13.88, 13.96, 14.03, 14.09, 14.15, 14.19, 14.24, 14.28, 14.31, 14.34,
+                14.36, 14.38, 14.39, 14.4],
+            "snr": [322.94254006, 313.45752342, 313.32464722, 306.19455173, 281.35641378, 227.9759974, 157.22390595,
+                148.93620623, 154.40197388, 182.60431866, 232.89644996, 250.1244036, 252.2267179, 272.16592448,
+                299.71964816, 316.11909184, 326.33202741, 312.28461288],
+            "idx": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]
+        }
+    },
+    "metadata":{
+        "jday": 16,
+        "month": 6,
+        "sza": 40,
+        "saa": 360,
+        "vza": 0,
+        "hsf": 0,
+        "aot": 0.2
+    },
+    "retrieval": {
+        "fn_LUT": "",
+        "cpu":12,
+        "disable_progressbars": false,
+        "state_vector": {
+            "water_vapor": {
+                "prior_mean": 2.5,
+                "use_prior_mean": true,
+                "ll": 0.001,
+                "ul": 4.999,
+                "prior_sigma": 1e3
+            },
+            "intercept": {
+                "prior_mean": 0.3,
+                "use_prior_mean": false,
+                "ll": 0.001,
+                "ul": 0.999,
+                "prior_sigma": 1e3
+            },
+            "slope": {
+                "prior_mean": 0.0002,
+                "use_prior_mean": false,
+                "ll": -0.0004,
+                "ul": 0.0004,
+                "prior_sigma": 1e3
+            },
+            "liquid_water": {
+                "prior_mean": 0.02,
+                "use_prior_mean": true,
+                "ll": 0.001,
+                "ul": 0.499,
+                "prior_sigma": 1e3
+            },
+            "ice": {
+                "prior_mean": 0.02,
+                "use_prior_mean": true,
+                "ll": 0.001,
+                "ul": 0.499,
+                "prior_sigma": 1e3
+            }
+        },
+        "unknowns": {
+            "Skyview": {
+                "sigma": 0.1
+            },
+            "H2O_ABSCO": {
+                "sigma": 0.01
+            },
+            "Liquid_ABSCO": {
+                "sigma": 2.43e-07
+            },
+            "Ice_ABSCO": {
+                "sigma": 2.39e-07
+            }
+        },
+        "inversion": {
+            "gnform": "n",
+            "full": false,
+            "maxiter": 35,
+            "eps": 0.01
+        }
+    }
+}

@@ -1,0 +1,157 @@
+# coding: utf-8
+
+# SICOR is a freely available, platform-independent software designed to process hyperspectral remote sensing data,
+# and particularly developed to handle data from the EnMAP sensor.
+
+# This file contains the package setup tools.
+
+# Copyright (C) 2018  Niklas Bohn (GFZ, <nbohn@gfz-potsdam.de>),
+# German Research Centre for Geosciences (GFZ, <https://www.gfz-potsdam.de>)
+
+# This software was developed within the context of the EnMAP project supported by the DLR Space Administration with
+# funds of the German Federal Ministry of Economic Affairs and Energy (on the basis of a decision by the German
+# Bundestag: 50 EE 1529) and contributions from DLR, GFZ and OHB System AG.
+
+# This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public
+# License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later
+# version.
+
+# This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+# You should have received a copy of the GNU General Public License along with this program.
+# If not, see <https://www.gnu.org/licenses/>.
+
+[build-system]
+requires = [
+    "setuptools>=61.2",
+    "setuptools-git",  # needed for package_data version controlled by GIT
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sicor"
+description = "Sensor Independent Atmospheric Correction"
+authors = [
+    {name = "Daniel Scheffler", email = "daniel.scheffler@gfz-potsdam.de"},
+    {name = "Niklas Bohn", email = "nbohn@gfz-potsdam.de"},
+]
+maintainers = [
+    {name = "Daniel Scheffler", email = "daniel.scheffler@gfz-potsdam.de"},
+]
+license-files = ["LICEN[CS]E*", "AUTHORS.rst"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Natural Language :: English",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+keywords = [
+    "SICOR",
+    "EnMAP",
+    "EnMAP-Box",
+    "hyperspectral",
+    "remote sensing",
+    "satellite",
+    "atmospheric correction"
+]
+requires-python = ">=3.8"
+dependencies = [
+    "arosics>=1.2.4",
+    "cachetools",
+    "cdsapi",
+    "cerberus",
+    "dicttoxml",
+    "dill",
+    "ecmwf-api-client",
+    "gdal",
+    "gdown",
+    "geoarray",
+    "glymur",
+    "h5py",
+    "iso8601",
+    "isofit",
+    "jsmin",
+    "matplotlib",
+    "mpld3",
+    "netCDF4",
+    "numba",
+    "numpy",
+    "numpy-indexed",
+    "openpyxl",  # implicitly required by pandas.read_excel()
+    "pandas",
+    "pillow",
+    "pint",
+    "psutil",
+    "py_tools_ds",
+    "pygrib",
+    "pyprind",
+    "pyproj",
+    "pyrsr",
+    "requests",
+    "scikit-image>=0.20.0",
+    "scikit-learn",
+    "scipy",
+    "spectral",
+    "sympy",
+    "tables",
+    "tqdm",
+    "xlrd",  # Excel support for pandas
+]
+dynamic = ["version"]
+
+[project.readme]
+file = "README.rst"
+content-type = "text/x-rst"
+
+[project.urls]
+"Source code" = "https://git.gfz-potsdam.de/EnMAP/sicor"
+"Issue Tracker" = "https://git.gfz-potsdam.de/EnMAP/sicor/-/issues"
+"Documentation" = "https://enmap.git-pages.gfz-potsdam.de/sicor/doc/"
+"Change log" = "https://git.gfz-potsdam.de/EnMAP/sicor/-/blob/main/HISTORY.rst"
+"Zenodo" = "https://zenodo.org/records/5535505"
+
+[project.optional-dependencies]
+doc = [
+    "sphinx-argparse",
+    "sphinx_rtd_theme",
+]
+test = [
+    "enpt>=0.20.0",
+    "ipython_memory_usage",
+    "pyorbital",  # needed to de-serialize a dill file from GeoMultiSens
+    "pytest",
+    "pytest-cov",
+    "pytest-reporter-hmtl1",
+    "urlchecker",
+]
+lint = [
+    "flake8",
+    "pycodestyle",
+    "pydocstyle",
+]
+dev = [
+    "sicor[test]",
+    "sicor[doc]",
+    "sicor[lint]",
+]
+
+[project.scripts]
+sicor_ac = "sicor.cli.sicor_ac:main"
+sicor_ecmwf = "sicor.cli.sicor_ecmwf:main"
+sicor_ac_EnMAP = "sicor.cli.sicor_ac_EnMAP:main"
+
+[tool.setuptools]
+zip-safe = false
+include-package-data = true
+
+[tool.setuptools.packages.find]
+namespaces = false
+
+[tool.setuptools.dynamic]
+version = {attr = "sicor.version.__version__"}
+
+[tool.distutils.bdist_wheel]
+universal = 1
