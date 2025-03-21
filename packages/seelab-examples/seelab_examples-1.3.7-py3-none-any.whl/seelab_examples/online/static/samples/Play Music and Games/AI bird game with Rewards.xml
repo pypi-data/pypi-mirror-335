@@ -1,0 +1,135 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="(eG:3Li8hL6{B*coh|%{">height</variable>
+  </variables>
+  <block type="set_servo" id="3.2b:k,F7q?uN1^Pg2(K" x="10" y="-460">
+    <field name="CHANNEL">SQ1</field>
+    <value name="ANGLE">
+      <block type="math_number" id="O~XLQ0*Sqmz7GTeBJh8-">
+        <field name="NUM">0</field>
+      </block>
+    </value>
+    <next>
+      <block type="add_mp_hands" id="PmpiSG1J7]?u]Qn0x`6A">
+        <next>
+          <block type="add_game" id="3YCPo!vOJS|o7/NBf9#[">
+            <next>
+              <block type="controls_whileUntil" id="{_DYrgvpuQ]o4DNAL(@c">
+                <field name="MODE">WHILE</field>
+                <value name="BOOL">
+                  <shadow type="logic_boolean" id="$:VeO#~_9=s}L[+8i)nP">
+                    <field name="BOOL">TRUE</field>
+                  </shadow>
+                </value>
+                <statement name="DO">
+                  <block type="controls_if" id="K+ZV~+Y14@?0=peOQVtl">
+                    <value name="IF0">
+                      <block type="ai_isHandAvailable" id="%Z`jR$L1A!{qhYi#`VX["></block>
+                    </value>
+                    <statement name="DO0">
+                      <block type="variables_set" id="_7zX2{OAM)%2nV1uq|00">
+                        <field name="VAR" id="(eG:3Li8hL6{B*coh|%{">height</field>
+                        <value name="VALUE">
+                          <block type="math_arithmetic" id="bxX+.6.-Mea/_I|nK(:]">
+                            <field name="OP">MULTIPLY</field>
+                            <value name="A">
+                              <shadow type="math_number" id="M3ty:b[3c|X8FDz740HX">
+                                <field name="NUM">2000</field>
+                              </shadow>
+                            </value>
+                            <value name="B">
+                              <shadow type="math_number" id="DV.Iq`Mh[$.DMy[h2}xW">
+                                <field name="NUM">1</field>
+                              </shadow>
+                              <block type="ai_distance" id="@G,9avKwi6w3KtnJw?1U">
+                                <field name="finger_joint_1">4</field>
+                                <field name="finger_joint_2">8</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="set_bird_y" id="Wl.)ky-Wt!w[_:zKLo#L">
+                            <value name="Y">
+                              <shadow type="math_number" id="S~pg(N]Su,l~c-0Rl9*m">
+                                <field name="NUM">200</field>
+                              </shadow>
+                              <block type="variables_get" id="zI_Fr`@g#$9C4I8yx(AN">
+                                <field name="VAR" id="(eG:3Li8hL6{B*coh|%{">height</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="controls_if" id="1t49Z)xk8~hJTghAxT:G">
+                        <value name="IF0">
+                          <block type="bird_trophy_available" id="~mF)hyV{3I]{i!d}^%-#"></block>
+                        </value>
+                        <statement name="DO0">
+                          <block type="pause_bird" id="pT%nL2B;)7lC(5dHry#q">
+                            <value name="STATE">
+                              <block type="logic_boolean" id="l5mwm5G%f?~|b7s9lI{O">
+                                <field name="BOOL">TRUE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="set_servo" id="GYNzN}-_a]#cgPfTeG9Q">
+                                <field name="CHANNEL">SQ1</field>
+                                <value name="ANGLE">
+                                  <block type="math_number" id="wTM8iLY7r1aXn:J.-#pY">
+                                    <field name="NUM">90</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="wait_seconds" id="K%uX^SGVz%{(i|[RRko1">
+                                    <field name="SECONDS">1</field>
+                                    <next>
+                                      <block type="set_servo" id="4{46.Cp18]Lbg!y(7_1z">
+                                        <field name="CHANNEL">SQ1</field>
+                                        <value name="ANGLE">
+                                          <block type="math_number" id="q~EW@;Y,AlW7Nn}EZ4rG">
+                                            <field name="NUM">0</field>
+                                          </block>
+                                        </value>
+                                        <next>
+                                          <block type="pause_bird" id="lUANqcZJO#CFqwy+4p4F">
+                                            <value name="STATE">
+                                              <block type="logic_boolean" id="c1!EmxHPy=u*`x`}tsV{">
+                                                <field name="BOOL">FALSE</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="wait_seconds" id="UU%OX4Rl^X!wa.N|v4*+">
+                            <field name="SECONDS">0.01</field>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="stop_game" id="csu/*}K@-iRufK-do++G"></block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </next>
+  </block>
+<description>
+<![CDATA[<h2>Bird game with AI</h2><p><br></p><p>addGame: Create a game set bird altitude; The height of the bird from the floor of the game box is set to the input number. It should be between 0(floor), and 1000(Roof)</p><p><br></p><p>The AI camera blocks are used to measure the distance between the index finger and the thumb.</p><p>These readings are measured and scaled to 0 to 1000 range by using basic arithmetic operators, and are then used to set the height of the character in the game.</p><p><br></p><p>Move your finger and thumb apart to move the bird up, and bring them closer to move the bird down.</p><p><br></p><h3>Trophy dispenser</h3><p>The game adds one trophy every 500 points. If a trophy is available, a servo motor is used to dispense a toffee from a queue.</p>]]>
+</description>
+</xml>
