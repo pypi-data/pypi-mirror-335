@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: leaflux
+Version: 0.1.4
+Summary: Core algorithms for the Leaflux project
+Home-page: https://github.com/silvxlabs/leaflux-core
+License: MIT
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: datetime
+Requires-Dist: pvlib
+Requires-Dist: scipy
+Requires-Dist: sparse
+Requires-Dist: numba
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# LeafLux
+
+## About
+LeafLux is a process based light dynamics model for forested environments. The goal 
+of LeafLux is to provide relative irradiance information for a user provided
+canopy and terrain at a finer resolution than is 
+typically available. It is a Python package that aims to be easy to use and is
+compatible with standard numpy data types.
+
+## Links
+[Documentation home](https://silvxlabs.github.io/leaflux-core/)
+
+[PyPi package](https://pypi.org/project/leaflux/)
+
+## Installation
+
+Leaflux can be installed using pip:
+
+`pip install leaflux`
+
+## Quick start guide
+
+Install LeafLux as shown above, then include it in your project like:
+
+`import leaflux`
+
+You can then follow a [how to guide](https://silvxlabs.github.io/leaflux-core/how-to-guides/) to learn how 
+to use LeafLux to generate irradiance information. 
+
+## Issues
+
+If you encounter any issues, please submit an issue to this project's [issue page](https://github.com/silvxlabs/leaflux-core/issues).
