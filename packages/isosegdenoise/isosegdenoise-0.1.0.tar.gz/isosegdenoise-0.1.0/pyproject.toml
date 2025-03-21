@@ -1,0 +1,44 @@
+[tool.poetry]
+name = "isosegdenoise"
+version = "0.1.0"
+description = "A GUI for Deepcell and Cellpose segmentation / denoising, for integrating into PalmettoBUG without triggering GPL3 restrictions. Can be launched on its own to do denoising and cell segmentation separate from PalmettoBUG -- but requires / assumes a PalmettoBUG like directory structure."
+authors = ["Ben Caiello <caiello@musc.edu>"]
+license = "BSD-3"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9, <3.11"
+cellpose = ">=3.0.8"
+numpy = "1.*"
+pandas = "2.*" 
+napari = "*" 
+qtconsole = "*"
+QtPy = "*"
+pyside2 = "*"
+scikit-image = ">=0.22.0"
+scikit-learn = "*"
+scipy = "*" 
+#simpledeepcell = ">=0.1.3"
+tifffile = ">=2024.2.12" 
+torch = "*" 
+# xtiff = ">=0.7.9" 
+customtkinter = ">=5.2.2"
+defusedxml = "0.*"
+opencv-python-headless = "*"
+# tf2onnx = "*"
+onnx2torch = "*"
+
+[tool.poetry.group.tensorflow]
+optional = true
+
+[tool.poetry.group.tensorflow.dependencies]
+tensorflow = ">=2.8.0,<=2.13.*"
+tensorflow-addons = ">=0.16.1"
+keras = "<3.0.0"
+
+[tool.poetry.scripts]
+segdenoise = 'isosegdenoise.Executable:run_GUI'
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
