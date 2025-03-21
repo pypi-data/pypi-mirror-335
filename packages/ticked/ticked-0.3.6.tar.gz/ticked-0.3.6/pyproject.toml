@@ -1,0 +1,212 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ticked"
+version = "0.3.6"
+description = "A terminal-based task management and productivity tool."
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Akrm Al-Hakimi", email = "alhakimiakrmj@gmail.com"}
+]
+keywords = ["terminal-ui", "task-management", "productivity", "spotify", "vim-like", "code-editor", "pomodoro", "student", "STEM", "university"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Office/Business :: Scheduling",
+    "Topic :: Utilities"
+]
+dependencies = [
+    "aiohappyeyeballs",
+    "aiohttp",
+    "aiohttp-jinja2",
+    "aiosignal",
+    "anyio",
+    "arrow",
+    "attrs",
+    "build",
+    "bs4",
+    "caldav",
+    "canvasapi",
+    "certifi",
+    "charset-normalizer",
+    "click",
+    "docutils",
+    "frozenlist",
+    "h11",
+    "httpcore",
+    "httpx",
+    "icalendar",
+    "idna",
+    "jaraco.classes",
+    "jaraco.context",
+    "jaraco.functools",
+    "Jinja2",
+    "keyring",
+    "linkify-it-py",
+    "lxml",
+    "markdown-it-py",
+    "MarkupSafe",
+    "mdit-py-plugins",
+    "mdurl",
+    "more-itertools",
+    "msgpack",
+    "multidict",
+    "nh3",
+    "packaging",
+    "pkginfo",
+    "platformdirs",
+    "propcache",
+    "psutil",
+    "pyfiglet",
+    "Pygments",
+    "pyproject_hooks",
+    "python-dateutil",
+    "python-dotenv",
+    "pytz",
+    "readme_renderer",
+    "recurring-ical-events",
+    "redis",
+    "requests",
+    "requests-toolbelt",
+    "rfc3986",
+    "rich",
+    "six",
+    "sniffio",
+    "spotipy",
+    "textual>=2.1.1",
+    "textual[syntax]",
+    "textual-serve",
+    "tree-sitter",
+    "tree-sitter-bash",
+    "tree-sitter-css",
+    "tree-sitter-go",
+    "tree-sitter-html",
+    "tree-sitter-java",
+    "tree-sitter-javascript>=0.23.0,<0.24.0",
+    "tree-sitter-json>=0.24.0,<0.25.0",
+    "tree-sitter-python",
+    "tree-sitter-regex",
+    "tree-sitter-rust",
+    "tree-sitter-sql",
+    "tree-sitter-toml",
+    "tree-sitter-xml",
+    "tree-sitter-yaml",
+    "twine",
+    "types-python-dateutil",
+    "typing_extensions",
+    "tzdata",
+    "uc-micro-py",
+    "urllib3",
+    "vobject",
+    "x-wr-timezone",
+    "yarl",
+    "jedi",
+    "send2trash"
+]
+
+[project.urls]
+Homepage = "https://github.com/cachebag/Ticked"
+
+[project.scripts]
+ticked = "ticked.app:main"
+
+[tool.setuptools]
+packages = [
+    "ticked",
+    "ticked.ui",
+    "ticked.ui.views",
+    "ticked.ui.screens",
+    "ticked.ui.mixins",
+    "ticked.core",
+    "ticked.core.database",
+    "ticked.config",
+    "ticked.utils",
+    "ticked.widgets"
+]
+
+[tool.setuptools.package-data]
+ticked = [
+    "config/*.tcss",
+    "*.json",
+    "quotes_cache.json"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.11.1",
+]
+
+[tool.ruff]
+line-length = 88
+indent-width = 4
+target-version = "py38"
+exclude = [
+    ".git",
+    ".venv",
+    "build",
+    "dist"
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = [
+    "E501",    # Line too long
+    "F841",    # Unused variables in functions
+    "E722",    # Bare except clauses
+    "F401",    # Unused imports
+    "I001",    # Import block is un-sorted or un-formatted
+    "E741"     # Ambiguous variable names
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pylint.messages_control]
+disable = ["C0111", "C0103", "C0330", "C0326"]
+
+[tool.pylint.format]
+max-line-length = "88"
+
+[tool.bandit]
+exclude_dirs = ["tests", "venv"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
