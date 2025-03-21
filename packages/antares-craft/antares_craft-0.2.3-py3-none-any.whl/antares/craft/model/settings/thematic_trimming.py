@@ -1,0 +1,209 @@
+# Copyright (c) 2024, RTE (https://www.rte-france.com)
+#
+# See AUTHORS.txt
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+#
+# This file is part of the Antares project.
+from dataclasses import dataclass
+from typing import Optional
+
+
+@dataclass(frozen=True)
+class ThematicTrimmingParameters:
+    ov_cost: bool = False
+    op_cost: bool = False
+    mrg_price: bool = False
+    co2_emis: bool = False
+    dtg_by_plant: bool = False
+    balance: bool = False
+    row_bal: bool = False
+    psp: bool = False
+    misc_ndg: bool = False
+    load: bool = False
+    h_ror: bool = False
+    wind: bool = False
+    solar: bool = False
+    nuclear: bool = False
+    lignite: bool = False
+    coal: bool = False
+    gas: bool = False
+    oil: bool = False
+    mix_fuel: bool = False
+    misc_dtg: bool = False
+    h_stor: bool = False
+    h_pump: bool = False
+    h_lev: bool = False
+    h_infl: bool = False
+    h_ovfl: bool = False
+    h_val: bool = False
+    h_cost: bool = False
+    unsp_enrg: bool = False
+    spil_enrg: bool = False
+    lold: bool = False
+    lolp: bool = False
+    avl_dtg: bool = False
+    dtg_mrg: bool = False
+    max_mrg: bool = False
+    np_cost: bool = False
+    np_cost_by_plant: bool = False
+    nodu: bool = False
+    nodu_by_plant: bool = False
+    flow_lin: bool = False
+    ucap_lin: bool = False
+    loop_flow: bool = False
+    flow_quad: bool = False
+    cong_fee_alg: bool = False
+    cong_fee_abs: bool = False
+    marg_cost: bool = False
+    cong_prob_plus: bool = False
+    cong_prob_minus: bool = False
+    hurdle_cost: bool = False
+    res_generation_by_plant: bool = False
+    misc_dtg_2: bool = False
+    misc_dtg_3: bool = False
+    misc_dtg_4: bool = False
+    wind_offshore: bool = False
+    wind_onshore: bool = False
+    solar_concrt: bool = False
+    solar_pv: bool = False
+    solar_rooft: bool = False
+    renw_1: bool = False
+    renw_2: bool = False
+    renw_3: bool = False
+    renw_4: bool = False
+    dens: bool = False
+    profit_by_plant: bool = False
+    sts_inj_by_plant: bool = False
+    sts_withdrawal_by_plant: bool = False
+    sts_lvl_by_plant: bool = False
+    psp_open_injection: bool = False
+    psp_open_withdrawal: bool = False
+    psp_open_level: bool = False
+    psp_closed_injection: bool = False
+    psp_closed_withdrawal: bool = False
+    psp_closed_level: bool = False
+    pondage_injection: bool = False
+    pondage_withdrawal: bool = False
+    pondage_level: bool = False
+    battery_injection: bool = False
+    battery_withdrawal: bool = False
+    battery_level: bool = False
+    other1_injection: bool = False
+    other1_withdrawal: bool = False
+    other1_level: bool = False
+    other2_injection: bool = False
+    other2_withdrawal: bool = False
+    other2_level: bool = False
+    other3_injection: bool = False
+    other3_withdrawal: bool = False
+    other3_level: bool = False
+    other4_injection: bool = False
+    other4_withdrawal: bool = False
+    other4_level: bool = False
+    other5_injection: bool = False
+    other5_withdrawal: bool = False
+    other5_level: bool = False
+    sts_cashflow_by_cluster: bool = False
+
+
+@dataclass
+class ThematicTrimmingParametersUpdate:
+    ov_cost: Optional[bool] = None
+    op_cost: Optional[bool] = None
+    mrg_price: Optional[bool] = None
+    co2_emis: Optional[bool] = None
+    dtg_by_plant: Optional[bool] = None
+    balance: Optional[bool] = None
+    row_bal: Optional[bool] = None
+    psp: Optional[bool] = None
+    misc_ndg: Optional[bool] = None
+    load: Optional[bool] = None
+    h_ror: Optional[bool] = None
+    wind: Optional[bool] = None
+    solar: Optional[bool] = None
+    nuclear: Optional[bool] = None
+    lignite: Optional[bool] = None
+    coal: Optional[bool] = None
+    gas: Optional[bool] = None
+    oil: Optional[bool] = None
+    mix_fuel: Optional[bool] = None
+    misc_dtg: Optional[bool] = None
+    h_stor: Optional[bool] = None
+    h_pump: Optional[bool] = None
+    h_lev: Optional[bool] = None
+    h_infl: Optional[bool] = None
+    h_ovfl: Optional[bool] = None
+    h_val: Optional[bool] = None
+    h_cost: Optional[bool] = None
+    unsp_enrg: Optional[bool] = None
+    spil_enrg: Optional[bool] = None
+    lold: Optional[bool] = None
+    lolp: Optional[bool] = None
+    avl_dtg: Optional[bool] = None
+    dtg_mrg: Optional[bool] = None
+    max_mrg: Optional[bool] = None
+    np_cost: Optional[bool] = None
+    np_cost_by_plant: Optional[bool] = None
+    nodu: Optional[bool] = None
+    nodu_by_plant: Optional[bool] = None
+    flow_lin: Optional[bool] = None
+    ucap_lin: Optional[bool] = None
+    loop_flow: Optional[bool] = None
+    flow_quad: Optional[bool] = None
+    cong_fee_alg: Optional[bool] = None
+    cong_fee_abs: Optional[bool] = None
+    marg_cost: Optional[bool] = None
+    cong_prob_plus: Optional[bool] = None
+    cong_prob_minus: Optional[bool] = None
+    hurdle_cost: Optional[bool] = None
+    res_generation_by_plant: Optional[bool] = None
+    misc_dtg_2: Optional[bool] = None
+    misc_dtg_3: Optional[bool] = None
+    misc_dtg_4: Optional[bool] = None
+    wind_offshore: Optional[bool] = None
+    wind_onshore: Optional[bool] = None
+    solar_concrt: Optional[bool] = None
+    solar_pv: Optional[bool] = None
+    solar_rooft: Optional[bool] = None
+    renw_1: Optional[bool] = None
+    renw_2: Optional[bool] = None
+    renw_3: Optional[bool] = None
+    renw_4: Optional[bool] = None
+    dens: Optional[bool] = None
+    profit_by_plant: Optional[bool] = None
+    sts_inj_by_plant: Optional[bool] = None
+    sts_withdrawal_by_plant: Optional[bool] = None
+    sts_lvl_by_plant: Optional[bool] = None
+    psp_open_injection: Optional[bool] = None
+    psp_open_withdrawal: Optional[bool] = None
+    psp_open_level: Optional[bool] = None
+    psp_closed_injection: Optional[bool] = None
+    psp_closed_withdrawal: Optional[bool] = None
+    psp_closed_level: Optional[bool] = None
+    pondage_injection: Optional[bool] = None
+    pondage_withdrawal: Optional[bool] = None
+    pondage_level: Optional[bool] = None
+    battery_injection: Optional[bool] = None
+    battery_withdrawal: Optional[bool] = None
+    battery_level: Optional[bool] = None
+    other1_injection: Optional[bool] = None
+    other1_withdrawal: Optional[bool] = None
+    other1_level: Optional[bool] = None
+    other2_injection: Optional[bool] = None
+    other2_withdrawal: Optional[bool] = None
+    other2_level: Optional[bool] = None
+    other3_injection: Optional[bool] = None
+    other3_withdrawal: Optional[bool] = None
+    other3_level: Optional[bool] = None
+    other4_injection: Optional[bool] = None
+    other4_withdrawal: Optional[bool] = None
+    other4_level: Optional[bool] = None
+    other5_injection: Optional[bool] = None
+    other5_withdrawal: Optional[bool] = None
+    other5_level: Optional[bool] = None
+    sts_cashflow_by_cluster: Optional[bool] = None
