@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: judgeval
+Version: 0.0.21
+Summary: Judgeval Package
+Project-URL: Homepage, https://github.com/JudgmentLabs/judgeval
+Project-URL: Issues, https://github.com/JudgmentLabs/judgeval/issues
+Author-email: Andrew Li <andrew@judgmentlabs.ai>, Alex Shan <alex@judgmentlabs.ai>, Joseph Camyre <joseph@judgmentlabs.ai>
+License-Expression: Apache-2.0
+License-File: LICENSE.md
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.11
+Requires-Dist: anthropic
+Requires-Dist: fastapi
+Requires-Dist: langchain
+Requires-Dist: langchain-anthropic
+Requires-Dist: langchain-core
+Requires-Dist: langchain-huggingface
+Requires-Dist: langchain-openai
+Requires-Dist: litellm
+Requires-Dist: nest-asyncio
+Requires-Dist: openai
+Requires-Dist: openpyxl
+Requires-Dist: pandas
+Requires-Dist: pika
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: requests
+Requires-Dist: supabase
+Requires-Dist: together
+Requires-Dist: uvicorn
+Provides-Extra: dev
+Requires-Dist: pytest-asyncio>=0.25.0; extra == 'dev'
+Requires-Dist: pytest-mock>=3.14.0; extra == 'dev'
+Requires-Dist: pytest>=8.3.4; extra == 'dev'
+Requires-Dist: tavily-python; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# judgeval
+
+Judgeval is an open-source evaluation framework for multi-agent LLM workflows, for both real-time and offline evaluations.

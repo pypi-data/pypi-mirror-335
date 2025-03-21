@@ -1,0 +1,214 @@
+---
+title: Tracing
+---
+
+## Overview ##
+
+`judgeval`'s tracing module allows you to view your LLM application's execution from **end-to-end**. 
+
+Using tracing, you can:
+- Gain observability into **every layer of your agentic system**, from database queries to tool calling and text generation.
+- Measure the performance of **each system component in any way** you want to measure it. For instance:
+    - Catch regressions in **retrieval quality, factuality, answer relevance**, and 10+ other [**research-backed metrics**](/evaluation/scorers/introduction).
+    - Quantify the **quality of each tool call** your agent makes
+    - Track the latency of each system component
+    - Count the token usage of each LLM generation
+- Export your workflow runs to the Judgment platform for **real-time analysis** or as a dataset for [**offline experimentation**](/evaluation/introduction).
+
+
+## Tracing Your Workflow ##
+
+Setting up tracing with `judgeval` takes two simple steps:
+
+### 1. Initialize a tracer with your API keys and project name
+
+```python
+from judgeval.tracer import Tracer
+
+# loads from JUDGMENT_API_KEY and JUDGMENT_ORG_ID env vars
+judgment = Tracer(project_name="my_project")
+```
+
+<Note>
+    The [Judgment tracer](/api_reference/trace) is a singleton object that should be shared across your application. 
+    Your project name will be used to organize your traces in one place on the Judgment platform.
+</Note>
+
+
+### 2. Wrap your workflow components
+
+`judgeval` provides wrapping mechanisms for your workflow components:
+
+#### `wrap()` ####
+The `wrap()` function goes over your LLM client (e.g. OpenAI, Anthropic, etc.) and captures metadata surrounding your LLM calls, such as:
+- Latency
+- Token usage
+- Prompt/Completion
+- Model name
+
+Here's an example of using `wrap()` on an OpenAI client:
+```python
+from openai import OpenAI
+from judgeval.tracer import wrap
+
+client = wrap(OpenAI())
+```
+
+#### `@observe` ####
+The `@observe` decorator wraps your functions/tools and captures metadata surrounding your function calls, such as:
+- Latency
+- Input/Output
+- Span type (e.g. `retriever`, `tool`, `LLM call`, etc.)
+
+Here's an example of using the `@observe` decorator on a function:
+```python
+from judgeval.tracer import Tracer
+
+# loads from JUDGMENT_API_KEY env var
+judgment = Tracer(project_name="my_project")
+
+@judgment.observe(span_type="tool")
+def my_tool():
+    print("Hello world!")
+
+```
+
+<Note>
+    `span_type` is a string that you can use to categorize and organize your trace spans. 
+    Span types are displayed on the trace UI to easily nagivate a visualization of your workflow. 
+    Common span types include `tool`, `function`, `retriever`, `database`, `web search`, etc.
+</Note>
+
+
+#### Putting it all Together
+Here's a complete example of using judgeval's tracing mechanisms:
+```python
+from judgeval.tracer import Tracer, wrap
+from openai import OpenAI
+
+openai_client = wrap(OpenAI())
+# loads from JUDGMENT_API_KEY and JUDGMENT_ORG_ID env vars
+judgment = Tracer(project_name="my_project")
+
+@judgment.observe(span_type="tool")
+def my_tool():
+    return "Hello world!"
+
+@judgment.observe(span_type="function")
+def my_llm_call():
+    message = my_tool()
+    res = openai_client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": message}]
+    )
+    return res.choices[0].message.content
+
+@judgment.observe(span_type="function")
+def main():
+    res = my_llm_call()
+    return res
+```
+
+And the trace will appear on the Judgment platform as follows:
+
+![Alt text](/images/basic_trace_example.png "Basic Trace Example")
+
+### 3. Running Production Evaluations
+
+Optionally, you can run asynchronous evaluations directly inside your traces.
+
+This enables you to run evaluations on your **production data in real-time**, which can be useful for:
+- **Guardrailing your production system** against quality regressions (hallucinations, toxic responses, revealing private data, etc.).
+- Exporting production data for **offline experimentation** (e.g for A/B testing your workflow versions on relevant use cases).
+- Getting **actionable insights** on how to fix common failure modes in your workflow (e.g. missing knowledge base info, suboptimal prompts, etc.). 
+
+To execute an asynchronous evaluation, you can use the `trace.async_evaluate()` method. Here's an example of that:
+
+```python
+from judgeval.tracer import Tracer
+from judgeval.scorers import AnswerRelevancyScorer
+
+judgment = Tracer(project_name="my_project")
+
+@judgment.observe(span_type="function")
+def main():
+    query = "What is the capital of France?"
+    res = ...  # Your workflow logic
+    
+    judgment.get_current_trace().async_evaluate(
+        scorers=[AnswerRelevancyScorer(threshold=0.5)],
+        input="",
+        actual_output=res,
+        model="gpt-4o",
+    )
+    return res
+```
+
+<Tip>
+    Your async evaluations will be logged to the Judgment platform as part of the original trace and 
+    a new evaluation will be created on the Judgment platform.
+</Tip>
+
+## Example: Music Recommendation Agent
+
+In this video, we'll walk through all of the topics covered in this guide by tracing over a simple OpenAI API-based music recommendation agent.
+
+<iframe 
+    width="560" 
+    height="315" 
+    src="https://www.youtube.com/embed/7g0fut06UxQ"
+    title="YouTube video player" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen
+></iframe>
+
+
+## Advanced: Customizing Traces Using the Context Manager ##
+
+If you need to customize your tracing context, you can use the `with judgment.trace()` context manager.
+
+The context manager can **save/print the state of the trace at any point in the workflow**.
+This is useful for debugging or exporting any state of your workflow to run an evaluation from!
+
+<Tip>
+    The `with judgment.trace()` context manager detects any `@observe` decorated functions or wrapped LLM calls within the context and automatically captures their metadata.
+</Tip>
+
+Here's an example of using the context manager to trace a workflow:
+```python
+from judgeval.tracer import Tracer, wrap
+from openai import OpenAI
+
+judgment = Tracer(project_name="my_project")
+client = wrap(OpenAI())
+
+@judgment.observe(span_type="tool")
+def my_tool():
+    return "Hello world!"
+
+def main():
+    with judgment.trace(name="my_workflow") as trace:
+        res = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{"role": "user", "content": f"{my_tool()}"}]
+        )
+    
+    trace.print()  # prints the state of the trace to console
+    trace.save()  # saves the current state of the trace to the Judgment platform
+
+    return res.choices[0].message.content
+```
+
+<Warning>
+    The `with judgment.trace()` context manager should only be used if you need to customize the context 
+    over which you're tracing. In most cases, you should trace using the `@observe` decorator.
+</Warning>
+
+
+
+
+
+
+

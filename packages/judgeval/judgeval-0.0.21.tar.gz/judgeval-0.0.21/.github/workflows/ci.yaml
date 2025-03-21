@@ -1,0 +1,44 @@
+name: CI
+
+# Run on PR change request, approval, or comment.
+# TODO: Don't allow until the approved unit test pass (can only do with Github Pro)
+on:
+  pull_request_review:
+    types: [submitted]
+    branches:
+      - main
+
+jobs:
+  run-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version:
+          - "3.11"
+    name: Test
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHONPATH: "."
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install pipenv
+          pipenv install --dev
+          
+
+      - name: Run tests
+        run: |
+          cd src
+          pipenv run pytest
