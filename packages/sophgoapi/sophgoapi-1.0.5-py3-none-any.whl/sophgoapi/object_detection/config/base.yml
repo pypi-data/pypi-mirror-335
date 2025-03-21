@@ -1,0 +1,10 @@
+detect_mode: DetectModel
+recognition_mode: TargetRadius  # ['TargetRadius', 'MoveDetect']
+
+bmodels:
+    -
+        labels: 58
+        model: bt_det
+        anchor: True
+        algorithm: v5n
+        checkpoint: v5n_fp16_1088

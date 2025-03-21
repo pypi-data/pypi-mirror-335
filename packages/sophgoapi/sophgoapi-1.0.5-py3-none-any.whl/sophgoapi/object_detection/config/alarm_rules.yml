@@ -1,0 +1,189 @@
+_BASE_: [
+  'base.yml',
+]
+
+wait_time: 5
+threshold: 0.6
+
+sample_behavior:
+    behavior_6000001:
+        behavior_info: 人脸识别
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.2
+        mode: half_in
+        target: []
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000002:
+        behavior_info: 未佩戴安全帽
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.5
+        mode: half_in
+        target: ['unsafehel']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000003:
+        behavior_info: 打架行为
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.5
+        mode: overlap_in
+        target: ['fighting']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000004:
+        behavior_info: 关键人员
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.7
+        mode: overlap_in
+        target: ['safetyvest']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000005:
+        behavior_info: 未正确着装
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.5
+        mode: overlap_in
+        target: ['inapprodress']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000006:
+        behavior_info: 电子围栏闯入
+        alarm_time: 5
+        thr: 0.7
+        rate: 0.5
+        mode: half_in
+        target: ['otherperson', 'unsafehel']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000007:
+        behavior_info: 电子围栏越界
+        alarm_time: 5
+        thr: 0.7
+        rate: 0.4
+        mode: half_out
+        target: ['otherperson', 'unsafehel']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000008:
+        behavior_info: 站班会
+        alarm_num: 6
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.5
+        mode: overlap_in
+        target: ['assembly']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000009:
+        behavior_info: 明火
+        alarm_time: 15
+        thr: 0.9
+        rate: 0.5
+        mode: overlap_in
+        target: ['fire']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000010:
+        behavior_info: 明烟
+        alarm_time: 15
+        thr: 0.9
+        rate: 0.4
+        mode: overlap_in
+        target: ['smoking']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000011:
+        behavior_info: 相机遮挡
+        alarm_time: 10
+        thr: 0.7
+        rate: 0.8
+        refresh_time: 10  # 刷新m
+        detect_interval: 5  # 10
+        mode: overlap_in
+        occlusion: {}
+        target: ['occlusion', 'otherperson', 'unsafehel', 'safehel', 'inapprodress']
+        kwargs: {'post_process': {'behavior': '6000011', 'iou': 0.5}}
+        function: ['target_filter', 'post_process', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000012:
+        behavior_info: 绝缘梯
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['insulatel']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000013:
+        behavior_info: 验电棒
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['checkelectric']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000014:
+        behavior_info: 绝缘夹钳
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['insulatec']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000015:
+        behavior_info: 绝缘操作杆
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['hastings']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000016:
+        behavior_info: 35Kv刀闸-on
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['35son']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000017:
+        behavior_info: 球体字母开关-on
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['sphereletterson']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000018:
+        behavior_info: 球体字母开关-off
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['spherechinesesoff']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000019:
+        behavior_info: 200Kv隔离开关和接地刀闸-分
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['200igsoff']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000020:
+        behavior_info: 200Kv隔离开关和接地刀闸-合
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['200igson']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000021:
+        behavior_info: 500Kv隔离开关和接地刀闸-on
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['500igson']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
+    behavior_6000022:
+        behavior_info: 500Kv隔离开关和接地刀闸-off
+        alarm_time: 5
+        thr: 0.5
+        rate: 0.4
+        mode: overlap_in
+        target: ['500igsoff']
+        function: ['target_filter', 'package_bbox', 'check_bbox', 'check_ftime', 'transform_result']
