@@ -1,0 +1,33 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "sphinx-ifelse"
+authors = [{name = "Team X-As-Code", email = "info@x-as-code.org" }]
+dynamic = ["version", "description"]
+license = "EUPL-1.2"
+license-file = "LICENSE"
+readme = "README.md"
+urls.Repository = "https://github.com/x-as-code/sphinx-ifelse"
+urls.Documentation = "https://x-as-code.github.io/sphinx-ifelse"
+classifiers = [
+  'Development Status :: 3 - Alpha',
+  'Intended Audience :: Developers',
+  'Framework :: Sphinx :: Extension',
+  'Operating System :: OS Independent',
+  'Programming Language :: Python',
+  'Programming Language :: Python :: 3',
+  'Programming Language :: Python :: 3.9',
+  'Programming Language :: Python :: 3.10',
+  'Programming Language :: Python :: 3.11',
+  'Programming Language :: Python :: 3.12',
+  'Programming Language :: Python :: 3.13',
+  'Programming Language :: Python :: 3.14',
+  'Topic :: Documentation',
+  'Topic :: Utilities',
+]
+requires-python = ">=3.9,<4"
+dependencies = [
+  "sphinx>=7.4,<9",
+]
