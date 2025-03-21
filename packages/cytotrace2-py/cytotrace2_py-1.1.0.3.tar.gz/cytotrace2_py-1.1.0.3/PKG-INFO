@@ -1,0 +1,183 @@
+Metadata-Version: 2.4
+Name: cytotrace2_py
+Version: 1.1.0.3
+Summary: CytoTRACE 2 is a computational method for predicting cellular potency categories and absolute developmental potential from single-cell RNA-sequencing data.
+Author-email: "CytoTRACE 2 Team, Newman Lab" <cytotrace2team@gmail.com>
+Project-URL: Homepage, https://github.com/digitalcytometry/cytotrace2/tree/main/cytotrace2_python
+Project-URL: Issues, https://github.com/digitalcytometry/cytotrace2/issues
+Project-URL: License, https://github.com/digitalcytometry/cytotrace2/blob/main/LICENSE
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: anndata
+Requires-Dist: numpy<2.0.0
+Requires-Dist: pandas
+Requires-Dist: scanpy
+Requires-Dist: scipy
+Requires-Dist: scikit-learn>=1.0.2
+Requires-Dist: torch>=2.0.0
+Requires-Dist: gdown
+Provides-Extra: docs
+Requires-Dist: sphinx>=4.0; extra == "docs"
+Requires-Dist: sphinx-rtd-theme>=0.5.0; extra == "docs"
+Provides-Extra: tests
+Requires-Dist: pytest>=6.2.4; extra == "tests"
+Requires-Dist: pytest-cov>=2.12.1; extra == "tests"
+
+<p align="center">
+  <img width="500" src="https://github.com/digitalcytometry/cytotrace2/raw/main/cytotrace2_python/images_py/logo.jpg"> 
+</p>
+
+<h2> <p align="center">
+      Prediction of absolute developmental potential <br> using  single-cell expression data
+</p> </h2>
+
+**CytoTRACE 2** is a computational method for predicting cellular potency categories and absolute developmental potential from single-cell RNA-sequencing data. 
+
+Potency categories in the context of CytoTRACE 2 classify cells based on their developmental potential, ranging from totipotent and pluripotent cells with broad differentiation potential to lineage-restricted oligopotent, multipotent and unipotent cells capable of producing varying numbers of downstream cell types, and finally, differentiated cells, ranging from mature to terminally differentiated phenotypes.
+
+The predicted potency scores additionally provide a continuous measure of developmental potential, ranging from 0 (differentiated) to 1 (totipotent).
+
+Underlying this method is a novel, interpretable deep learning framework trained and validated across 34 human and mouse scRNA-seq datasets encompassing 24 tissue types, collectively spanning the developmental spectrum. 
+
+This framework learns multivariate gene expression programs for each potency category and calibrates outputs across the full range of cellular ontogeny, facilitating direct cross-dataset comparison of developmental potential in an absolute space. 
+
+<p align="center">
+    <img width="900" src="https://raw.githubusercontent.com/digitalcytometry/cytotrace2/main/cytotrace2_python/images_py/schematic.png">
+</p>
+
+
+
+## Installation instructions
+
+<details><summary>Expand section</summary>
+
+Install using pip/pip3:
+
+```bash
+pip install cytotrace2-py
+```
+
+__Optional:__
+For faster data reading, you can optionally install `datatable` (e.g., `pip install datatable` or `conda install -c conda-forge datatable`) if your OS and environment support it. If not installed, the code will default to using `pandas` for reading input files.
+
+</details>
+
+
+## Input files
+
+<details><summary>Expand section</summary>
+
+By default, CytoTRACE 2 requires only a single-cell gene expression file as input. For output plotting, a cell annotation file is accepted as well. All files should be provided in a tab-delimited tabular input format (.txt) with no double quotations. Further formatting details for each input file are specified below. 
+
+__scRNA-seq gene expression file:__
+- The table must be genes (rows) by cells (columns).
+- The first row must contain the single cell IDs and the first column must contain the gene names.
+- The gene expression data can be represented as raw or normalized counts, as long as normalization preserves relative ranking of input gene values within a cell.  
+- No instances of duplicate gene or cell names should be present.
+
+<p align="center">
+    <img width="600" src="https://raw.githubusercontent.com/digitalcytometry/cytotrace2/main/cytotrace2_python/images_py/data.png">
+</p>
+
+__Cell annotation file:__
+- The table should contain two columns, where column 1 contains the single cell IDs corresponding to the columns of the scRNA-seq matrix and column 2 contains the corresponding cell type annotations.
+- The columns must have a header. 
+- Additional columns beyond the first two will be ignored.
+
+<p align="center">
+    <img width="600" src="https://raw.githubusercontent.com/digitalcytometry/cytotrace2/main/cytotrace2_python/images_py/annotation.png">
+</p>
+
+</details>
+
+## Running CytoTRACE 2 
+
+<details><summary>Expand section</summary>
+
+After installing the package and its dependencies, the tool is ready to run both from command line and from within a Python script.
+
+**NOTE**: Only during the first run, the script will download remotely hosted underlying models. This is done just once and saved for all future runs. 
+
+For mouse data with default settings, CytoTRACE 2 would be run from command line as: 
+ ```bash
+ cytotrace2 \
+    --input-path /path/to/cell_expression \
+    --annotation-path /path/to/cell_annotations \
+    --species mouse
+```
+Or with more condensed parameter names: 
+ ```bash
+ cytotrace2 \
+    -f /path/to/cell_expression \
+    -a /path/to/cell_annotations \
+    -sp mouse
+```
+
+CytoTRACE 2 can also be called from within a Python script after importing the package.
+
+ ```python
+from cytotrace2_py.cytotrace2_py import *
+
+input_path = "/path/to/cell_expression.txt"
+example_annotation_path = "/path/to/cell_annotations.txt"
+example_species = "human"
+
+results =  cytotrace2(input_path,
+                      annotation_path=example_annotation_path,
+                      species=example_species)
+ ```
+
+**NOTE**: When running on computers with less than 16GB memory, we recommend reducing *max_cores* parameter to 1 or 2 to avoid memory issues.
+</details>
+
+## Extended usage details
+
+<details><summary>Expand section</summary>
+
+Key notes:
+
+- By default, CytoTRACE 2 expects mouse data. To provide human data, users should specify ```species = "human"```
+
+Required input:
+
+- *input_path*: A filepath to a .txt file containing a single-cell RNA-seq gene expression matrix (rows as genes, columns as cells) 
+
+Optional arguments:
+
+- *annotation_path*: A filepath to a .txt file containing phenotype annotations corresponding to the cells of the scRNA-seq expression matrix
+- *species*: String indicating the species name for the gene names in the input data
+(options: **"human"** or **"mouse"**, default is **"mouse"**).
+- *batch_size*: Integer indicating the number of cells to process at once for the pipeline steps, including subsampling for KNN smoothing (default is **10000**).
+- *smooth_batch_size*: Integer indicating the number of cells to subsample further
+within the batch_size for the smoothing by diffusion step of the pipeline
+(default is **1000**).
+- *disable_parallelization*: Flag indicating whether to disable parallelization (default is **FALSE**, or absent for the command line).
+- *disable_plotting*: Flag indicating whether to disable plotting (default is **FALSE**, or absent for the command line). To plot results, data are reprocessed following the core CytoTRACE 2 pipeline to produce UMAP embeddings via a standard scanpy pipeline. As this step can be time-consuming, we provide the option to disable it if desired.
+- *max_cores*: Integer indicating user-provided restriction on the maximum number of CPU cores to use for parallelization (default is **None**, and the number of cores used will then be determined based on system capacity; when running on computers with less than 16GB memory, we recommend reducing it to 1 or 2 to avoid memory issues.).
+- *seed*: Integer specifying the seed for reproducibility in random processes (default is **14**).
+- *output_dir*: Path to the directory to which to save CytoTRACE 2 outputs (default is **cytotrace2_results** in the current working directory).
+
+Information about these arguments is also available in the function's manual, which can be accessed by running ```cytotrace2 -h``` from the command line.
+
+</details>
+
+**For more information about the tool, R/Python package documentation, Vignettes, example input files, and more, visit out GitHub page: https://github.com/digitalcytometry/cytotrace2.**
+
+## Authors
+CytoTRACE 2 was developed in the <a href="https://anlab.stanford.edu/" target="_blank">Newman Lab</a> by Minji Kang, Erin Brown, Jose Juan Almagro Armenteros, Gunsagar Gulati, Rachel Gleyzer, and Susanna Avagyan.
+
+## Contact
+If you have any questions, please contact the CytoTRACE 2 team at cytotrace2team@gmail.com.
+
+## License
+Please see the <a href="https://github.com/digitalcytometry/cytotrace2/blob/main/LICENSE">LICENSE</a> file.
+
+
+## Preprint
+Mapping single-cell developmental potential in health and disease with interpretable deep learning.
+<br> bioRxiv 2024.03.19.585637; <br> doi: https://doi.org/10.1101/2024.03.19.585637
+
+

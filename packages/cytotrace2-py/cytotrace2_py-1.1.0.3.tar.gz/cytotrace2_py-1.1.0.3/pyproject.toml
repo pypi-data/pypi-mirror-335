@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cytotrace2_py"
+version = "1.1.0.3"
+authors = [
+  { name = "CytoTRACE 2 Team, Newman Lab", email = "cytotrace2team@gmail.com" },
+]
+description = "CytoTRACE 2 is a computational method for predicting cellular potency categories and absolute developmental potential from single-cell RNA-sequencing data."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }  # Updated to reference the LICENSE file directly
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Other/Proprietary License",
+    "Operating System :: OS Independent",
+]
+
+# Runtime Dependencies
+dependencies = [
+  "anndata",
+  "numpy<2.0.0",
+  "pandas",
+  "scanpy",
+  "scipy",
+  "scikit-learn>=1.0.2",
+  "torch>=2.0.0",
+  "gdown"
+]
+
+# Optional Dependencies
+[project.optional-dependencies]
+docs = [
+  "sphinx>=4.0",
+  "sphinx-rtd-theme>=0.5.0",
+]
+tests = [
+  "pytest>=6.2.4",
+  "pytest-cov>=2.12.1",
+]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cytotrace2_py = [
+  "resources/*",         
+  "resources/**/*",      
+]
+
+# Entry Points for CLI (if applicable)
+[project.scripts]
+cytotrace2 = "cytotrace2_py:run_cytotrace2"
+
+[project.urls]
+Homepage = "https://github.com/digitalcytometry/cytotrace2/tree/main/cytotrace2_python"
+Issues = "https://github.com/digitalcytometry/cytotrace2/issues"
+License = "https://github.com/digitalcytometry/cytotrace2/blob/main/LICENSE"
+
