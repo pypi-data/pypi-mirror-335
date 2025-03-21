@@ -1,0 +1,203 @@
+default:
+  providers:
+    openai:
+      auth_env_var: OPENAI_API_KEY
+      base_url: https://api.openai.com/v1
+      timeout: 300
+    anthropic:
+      auth_env_var: ANTHROPIC_API_KEY
+      base_url: https://api.anthropic.com
+      timeout: 300
+      retry:
+        wait_multiplier: 5.0
+        wait_min: 2
+        wait_max: 120
+        max_attempts: 8
+    openrouter:
+      auth_env_var: OPENROUTER_API_KEY
+      base_url: https://openrouter.ai/api/v1
+      timeout: 300
+    ollama:
+      base_url: http://localhost:11434
+      timeout: 300
+    azure_openai:
+      auth_env_var: AZURE_OPENAI_API_KEY
+      base_url: AZURE_OPENAI_ENDPOINT
+      timeout: 300
+    gemini:
+      auth_env_var: GEMINI_API_KEY
+      base_url: https://generativelanguage.googleapis.com/v1beta/openai/
+      timeout: 300
+    deepseek:
+      auth_env_var: DEEPSEEK_API_KEY
+      base_url: "https://api.deepseek.com"
+      timeout: 300
+    mlx:
+      timeout: 300
+
+  models:
+    openrouter/google/gemini-2.0-flash-thinking-exp:free:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 66000]
+      supports_streaming: true
+    openrouter/deepseek/deepseek-r1-distill-llama-70b:
+      capabilities:
+        - text
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 131072]
+      supports_streaming: true
+    deepseek/deepseek-chat:
+      capabilities:
+        - text
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    gemini/gemini-1.5-flash:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    gemini/gemini-1.5-pro:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    gemini/gemini-2.0-flash-exp:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    gemini/gemini-exp-1206:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    openai/gpt-4o-mini:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 2.0]
+        max_tokens_range: [1, 16384]
+      supports_streaming: true
+      max_function_calls: 3
+    anthropic/claude-3-5-haiku-20241022:
+      capabilities:
+        - text
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      supports_streaming: true
+    anthropic/claude-3-5-sonnet-latest:
+      capabilities:
+        - text
+        - images
+        - structured_output
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 8192]
+      max_function_calls: 100
+      supports_streaming: true
+    ollama/llama3.2-vision:
+      capabilities:
+        - text
+        - images
+        - structured_output
+      parameters:
+        temperature_range: [0.0, 1.0]
+        max_tokens_range: [1, 2048]
+      supports_streaming: true
+    azure_openai/gpt-4o-mini:
+      capabilities:
+        - text
+        - images
+        - structured_output
+      parameters:
+        temperature_range: [0.0, 2.0]
+        max_tokens_range: [1, 3000]
+      supports_streaming: true
+      azure:
+        azure_deployment: AZURE_OPENAI_DEPLOYMENT
+        openai_api_version: AZURE_OPENAI_API_VERSION
+    mlx/numind/NuExtract-1.5:
+      capabilities:
+        - text
+        - structured_output
+      parameters:
+        temperature_range: [0.0, 2.0]
+        max_tokens_range: [1, 16384]
+      max_function_calls: 3
+      supports_streaming: true
+    mlx/mlx-community/SmolLM2-1.7B-Instruct:
+      capabilities:
+        - text
+        - function_calling
+      parameters:
+        temperature_range: [0.0, 2.0]
+        max_tokens_range: [1, 8192]
+      max_function_calls: 3
+      supports_streaming: true            
+
+  system:
+    prompt: "You are a helpful assistant."
+  persistence:
+    enabled: true
+    path: "./.promptscript"
+  logging:
+    level: "WARNING"
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+  model:
+    name: "azure_openai/gpt-4o-mini"
+    temperature: 0.7
+    max_tokens: 2048
+    strict_mode: false  # Off by default
+
+  model_fallback:
+    capabilities:
+      - text
+      - images
+      - structured_output
+      - function_calling
+    parameters:
+      temperature_range: [0.0, 2.0]
+      max_tokens_range: [1, 8192]
+    supports_streaming: false
+    max_function_calls: 5
