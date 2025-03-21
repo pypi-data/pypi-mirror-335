@@ -1,0 +1,18 @@
+Metadata-Version: 2.3
+Name: pytidb-experimental
+Version: 0.0.1.dev4
+Summary: A experimental Python library for TiDB.
+Author-email: Mini256 <minianter@foxmail.com>, sykp241095 <sykp241095@gmail.com>
+Requires-Python: >=3.10
+Requires-Dist: pymysql>=1.1.1
+Requires-Dist: sqlmodel==0.0.22
+Requires-Dist: tidb-vector>=0.0.14
+Provides-Extra: models
+Requires-Dist: litellm<2.0.0,>=1.59.8; extra == 'models'
+Provides-Extra: pandas
+Requires-Dist: pandas; extra == 'pandas'
+Description-Content-Type: text/markdown
+
+# TiDB Python SDK [Experimental]
+
+Python SDK for TiDB.
