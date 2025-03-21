@@ -1,0 +1,76 @@
+Metadata-Version: 2.4
+Name: blue_assistant
+Version: 4.399.1
+Summary: 🧠 An AI Assistant.
+Home-page: https://github.com/kamangir/blue-assistant
+Author: Arash Abadpour (Kamangir)
+Author-email: arash@kamangir.net
+License: Public Domain
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Unix Shell
+Classifier: License :: Public Domain
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: blueness
+Requires-Dist: blue-options
+Requires-Dist: abcli
+Requires-Dist: openai_commands
+Requires-Dist: blueflow
+Requires-Dist: boto3
+Requires-Dist: openai
+Requires-Dist: geojson
+Requires-Dist: geopandas
+Requires-Dist: matplotlib
+Requires-Dist: numpy
+Requires-Dist: opencv-python
+Requires-Dist: pymysql
+Requires-Dist: pyyaml
+Requires-Dist: pylint
+Requires-Dist: pytest
+Requires-Dist: python-dotenv[cli]
+Requires-Dist: tqdm
+Requires-Dist: beautifulsoup4
+Requires-Dist: networkx
+Requires-Dist: pydot
+Requires-Dist: openai
+Requires-Dist: faiss-cpu
+Requires-Dist: langchain
+Requires-Dist: pypdf2
+Requires-Dist: langchain_openai
+Requires-Dist: sentence-transformers
+Requires-Dist: langchain_community
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+# 🧠 blue-assistant
+
+🧠 `@assistant` runs [AI](https://github.com/kamangir/openai-commands) [DAG](https://networkx.org/)s that combine deterministic and AI operations.
+
+```bash
+pip install blue-assistant
+```
+
+
+
+|   |   |   |
+| --- | --- | --- |
+| [`orbital-data-explorer`](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/orbital_data_explorer) [![image](https://github.com/kamangir/assets/raw/main/blue-assistant/PDS/uahirise-ESP_086795_1970.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/orbital_data_explorer) Poking around [Orbital Data Explorer](https://ode.rsl.wustl.edu/) with an [AI DAG](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/orbital_data_explorer/metadata.yaml). ⏸️ | [`@hue`](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/hue) [![image](https://github.com/kamangir/assets/raw/main/blue-assistant/20250314_143702-2.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/hue) "[Hey AI](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/hue/metadata.yaml), help me write code to send color commands to the [Hue LED lights](https://www.philips-hue.com/en-ca) in my apartment." | [`blue-amo`](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/blue_amo/README.md) [![image](https://github.com/kamangir/assets/blob/main/test_blue_assistant_script_run-2025-03-15-06pbpf/generating_frame_007.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/blue_amo/README.md) Story development and visualization, with an [AI DAG](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/repository/blue_amo/metadata.yaml). |
+| [`🌀 blue script`](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/) [![image](https://github.com/kamangir/assets/raw/main/blue-plugin/marquee.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/script/) A minimal AI DAG interface. | [``@RAG``](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/RAG/) [![image](https://github.com/kamangir/assets/raw/main/orbital-data-explorer-2025-03-16-xoo5vc/thumbnail-workflow.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/RAG/)  RAG on a DAG. 🔥 | [``@web``](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/web/) [![image](https://github.com/kamangir/assets/raw/main/blue-plugin/marquee.png?raw=true)](https://github.com/kamangir/blue-assistant/blob/main/blue_assistant/web/) A minimal web interface for an AI agent. |
+
+---
+
+
+[![pylint](https://github.com/kamangir/blue-assistant/actions/workflows/pylint.yml/badge.svg)](https://github.com/kamangir/blue-assistant/actions/workflows/pylint.yml) [![pytest](https://github.com/kamangir/blue-assistant/actions/workflows/pytest.yml/badge.svg)](https://github.com/kamangir/blue-assistant/actions/workflows/pytest.yml) [![bashtest](https://github.com/kamangir/blue-assistant/actions/workflows/bashtest.yml/badge.svg)](https://github.com/kamangir/blue-assistant/actions/workflows/bashtest.yml) [![PyPI version](https://img.shields.io/pypi/v/blue-assistant.svg)](https://pypi.org/project/blue-assistant/) [![PyPI - Downloads](https://img.shields.io/pypi/dd/blue-assistant)](https://pypistats.org/packages/blue-assistant)
+
+built by 🌀 [`blue_options-4.240.1`](https://github.com/kamangir/awesome-bash-cli), based on 🧠 [`blue_assistant-4.399.1`](https://github.com/kamangir/blue-assistant).
+
+built by 🌀 [`blueness-3.96.1`](https://github.com/kamangir/blueness).
