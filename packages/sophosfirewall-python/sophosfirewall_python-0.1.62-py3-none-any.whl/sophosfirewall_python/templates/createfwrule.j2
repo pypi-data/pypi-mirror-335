@@ -1,0 +1,63 @@
+<Request>
+   <Login>
+        <Username>{{username}}</Username>
+        <Password >{{password}}</Password>
+    </Login>
+    <Set operation="add">
+       <FirewallRule transactionid="">
+        <Name>{{ rulename }}</Name>
+        <Description>{{ description if description else '' }}</Description>
+        <IPFamily>IPv4</IPFamily>
+        <Status>{{ status }}</Status>
+        <Position>{{ position }}</Position>
+        <PolicyType>Network</PolicyType>
+        {% if position == 'After' %}
+        <After>
+            <Name>{{ after_rulename }}</Name>
+        </After>
+        {% endif %}
+        {% if position == 'Before' %}
+        <Before>
+            <Name>{{ before_rulename }}</Name>
+        </Before>
+        {% endif %}
+        <NetworkPolicy>
+            <Action>{{ action }}</Action>
+            {% if log %}
+            <LogTraffic>{{ log }}</LogTraffic>
+            {% endif %}
+            <SkipLocalDestined>Disable</SkipLocalDestined>
+            {% if src_zones %}
+            <SourceZones>
+                {% for zone in src_zones %}
+                <Zone>{{ zone }}</Zone>
+                {% endfor %}
+            </SourceZones>
+            {% endif %}
+            {% if dst_zones %}
+            <DestinationZones>
+                {% for zone in dst_zones %}
+                <Zone>{{ zone }}</Zone>
+                {% endfor %}
+            </DestinationZones>
+            {% endif %}
+            <Schedule>All The Time</Schedule>
+            <SourceNetworks>
+                {% for network in src_networks %}
+                <Network>{{ network }}</Network>
+                {% endfor %}
+            </SourceNetworks>
+            <DestinationNetworks>
+                {% for network in dst_networks %}
+                <Network>{{ network }}</Network>
+                {% endfor %}
+            </DestinationNetworks>
+            <Services>
+                {% for service in service_list %}
+                <Service>{{ service }}</Service>
+                {% endfor %}
+            </Services>
+        </NetworkPolicy>
+      </FirewallRule>
+    </Set>
+</Request>
