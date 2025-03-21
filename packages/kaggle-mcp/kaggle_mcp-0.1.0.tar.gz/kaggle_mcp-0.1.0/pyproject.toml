@@ -1,0 +1,24 @@
+[project]
+name = "kaggle-mcp"
+version = "0.1.0"
+description = "A MCP server for kaggle apis"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "diskcache>=5.6.3",
+ "kaggle>=1.7.4.2",
+ "mcp>=1.4.1",
+ "pandas>=2.2.3",
+ "py7zr>=0.22.0",
+ "tenacity>=9.0.0",
+]
+[[project.authors]]
+name = "Dixing Xu"
+email = "i@dex.moe"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+kaggle-mcp = "kaggle_mcp:main"
