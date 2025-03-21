@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "thestage-license"
+version = "0.1.8"
+description = "License validation module for TheStage AI projects"
+authors = ["TheStage AI team <hello@thestage.ai>"]
+readme = "README.md"
+packages = [
+  { include = "thestage_license", from = "obf" }
+]
+include = [
+    "obf/thestage_license/**/*"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+requests = ">=2.20"
+cryptography = ">=44.0.0"
+pyopenssl = ">=25.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
