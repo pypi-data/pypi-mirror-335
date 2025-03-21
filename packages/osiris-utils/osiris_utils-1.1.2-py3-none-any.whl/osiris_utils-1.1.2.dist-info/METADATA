@@ -1,0 +1,71 @@
+Metadata-Version: 2.4
+Name: osiris_utils
+Version: 1.1.2
+Summary: Utilities to manipulate and visualize OSIRIS framework output data
+Author: ['João Pedro Ferreira Biu', 'João Cândido', 'Diogo Carvalho']
+Author-email: ['joaopedrofbiu@tecnico.ulisboa.pt']
+License: MIT
+Project-URL: Issues Tracker, https://github.com/joaopedrobiu6/osiris_utils/issues
+Project-URL: Source Code, https://github.com/joaopedrobiu6/osiris_utils
+Keywords: OSIRIS,particle-in-cell,plasma,physics
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.11
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: pandas
+Requires-Dist: scipy
+Requires-Dist: h5py
+Requires-Dist: pyside6
+Requires-Dist: pyarrow
+Requires-Dist: tqdm
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+OSIRIS_UTILS
+============
+|Pypi|
+
+This package contains a set of utilities to open and analyze OSIRIS output files, using Python. All the methods implemented are fully integrated with `NumPy`, and use `np.ndarray` as the main data structure.
+
+How to install it?
+------------------
+
+To install this package, you can use `pip`::
+
+    pip install osiris_utils
+
+To install it from source, you can clone this repository and run (in the folder containing ``setup.py``)::
+
+    pip install -e .
+
+Documentation
+-------------
+
+The documentation is available at https://osiris-utils.readthedocs.io or via this link: `osiris-utils.readthedocs.io <https://osiris-utils.readthedocs.io>`_.
+
+.. |Pypi| image:: https://img.shields.io/pypi/v/osiris-utils
+    :target: https://pypi.org/project/osiris-utils/
+    :alt: Pypi
+
