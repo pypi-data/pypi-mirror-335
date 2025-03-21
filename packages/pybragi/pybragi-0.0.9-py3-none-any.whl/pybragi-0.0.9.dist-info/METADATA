@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: pybragi
+Version: 0.0.9
+Summary: pybragi is server framework
+Author-email: DeJoker <localjie@163.com>
+License-Expression: Apache-2.0
+Project-URL: homepage, https://github.com/DeJoker/pybragi
+Project-URL: Repository, https://github.com/DeJoker/pybragi
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: facebook-scribe==2.0.post1
+Requires-Dist: thrift
+Requires-Dist: pydantic
+Requires-Dist: netifaces
+Requires-Dist: psutil>=5.9.1
+Requires-Dist: tornado>=6.0.2
+Requires-Dist: pymongo>=3.4.0
+Requires-Dist: kafka-python>=2.0.2
+Requires-Dist: requests>=2.22.0
+Requires-Dist: prometheus_client>=0.14.1
+Requires-Dist: numpy
+Requires-Dist: uvicorn
+Requires-Dist: nvidia-ml-py
+Provides-Extra: image
+Requires-Dist: opencv-python>=4.4.0; extra == "image"
+Requires-Dist: pillow; extra == "image"
+Provides-Extra: zy
+Requires-Dist: tos>=2.8.1; extra == "zy"
+Requires-Dist: volcengine>=1.0.174; extra == "zy"
+Provides-Extra: test
+Requires-Dist: jsonlines; extra == "test"
+Requires-Dist: matplotlib; extra == "test"
+Requires-Dist: ujson>=1.35; extra == "test"
+Provides-Extra: all
+Requires-Dist: pybragi[image]; extra == "all"
+Requires-Dist: pybragi[zy]; extra == "all"
+Provides-Extra: dev
+Requires-Dist: pybragi[all]; extra == "dev"
+Requires-Dist: pybragi[test]; extra == "dev"
+Dynamic: license-file
+
+
+# pybragi is server framework
+- tronado
+- pydantic
+- thrift
+- prometheus
+- kafka
+- mongo
