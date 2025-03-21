@@ -1,0 +1,44 @@
+# Task: Generate List of Strings
+
+{{requirement}}
+
+## CFER Framework
+When generating your list of strings, follow these principles:
+- **Complete**: Include all items that match the requirement criteria
+- **Focused**: Each string should represent a distinct, relevant item
+- **Exact**: Follow the requirement precisely without adding irrelevant items
+- **Refined**: Format each string consistently and appropriately
+
+## Response Guidelines
+When creating your list:
+1. Identify all items that fully satisfy the requirement
+2. Express each item as a clear, concise string
+3. Remove duplicates and redundant entries
+4. Use consistent formatting across all items (capitalization, terminology)
+5. Order items logically (alphabetical, chronological, or by importance)
+{{#if k}}6. Provide EXACTLY {{k}} items as specified{{/if}}
+
+## Response Format
+Return your list as a JSON array of strings within a code block.
+
+# Example:
+Requirement: Extract all fruit names mentioned in the text:
+"The apple is red, the banana is yellow, the orange is orange, and the green apple is sour."
+
+----- Start of response example -----
+```json
+[
+"apple",
+"banana",
+"orange",
+"green apple"
+]
+```
+----- End of response example -----
+
+## Format Requirements
+- Response MUST be a valid JSON array within a code block
+- Every element MUST be a string type
+- No explanations or additional text outside the code block
+- No empty strings or null values
+{{#if k}}- The array MUST contain EXACTLY {{k}} strings{{/if}}
