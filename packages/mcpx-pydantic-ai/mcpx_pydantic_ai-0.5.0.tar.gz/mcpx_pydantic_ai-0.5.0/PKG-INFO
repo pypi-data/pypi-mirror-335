@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: mcpx-pydantic-ai
+Version: 0.5.0
+Summary: Pydantic Agent with mcp.run tools
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: mcp-run>=0.3.0
+Requires-Dist: pydantic>=2.10.4
+Requires-Dist: pydantic-ai>=0.0.35
+
+# mcpx-pydantic-ai
+
+A Python library for using mcp.run tools with [pydantic-ai](https://github.com/pydantic/pydantic-ai)
+
+## Example
+
+```python
+agent = Agent("claude-3-5-sonnet-latest", result_type=int)
+results = agent.run_sync(
+    "find the largest prime under 1000 that ends with the digit '3'"
+)
+print(results.data)
+```
