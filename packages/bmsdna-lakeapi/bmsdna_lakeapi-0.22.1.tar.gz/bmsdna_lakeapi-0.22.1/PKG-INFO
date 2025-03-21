@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: bmsdna-lakeapi
+Version: 0.22.1
+Author-email: DWH Team <you@example.com>
+License-File: LICENSE
+Requires-Python: ~=3.10
+Requires-Dist: adlfs<2025,>=2024.2.0
+Requires-Dist: argon2-cffi<24,>=23.1.0
+Requires-Dist: arrow-odbc>=5.0.0
+Requires-Dist: deltalake2db>=0.7.0
+Requires-Dist: deltalake>=0.16.1
+Requires-Dist: duckdb<2,>=1.1.0
+Requires-Dist: expandvars>=0.12.0
+Requires-Dist: fastapi>=0.110.0
+Requires-Dist: fastexcel>=0.10.4
+Requires-Dist: fsspec<2025,>=2024.2.0
+Requires-Dist: numpy<2,>=1.26.0
+Requires-Dist: pandas<3,>=2.1.0
+Requires-Dist: polars<2,>=1.12.0
+Requires-Dist: pyjwt<3,>=2.6.0
+Requires-Dist: pyyaml~=6.0
+Requires-Dist: ruamel-yaml>=0.18.5
+Requires-Dist: sqlglot>=24.0.0
+Requires-Dist: xlsxwriter<4,>=3.1.0
+Provides-Extra: auth
+Requires-Dist: argon2-cffi; extra == 'auth'
+Requires-Dist: pyjwt; extra == 'auth'
+Provides-Extra: odbc
+Requires-Dist: arrow-odbc; extra == 'odbc'
+Provides-Extra: polars
+Requires-Dist: fastexcel; extra == 'polars'
+Provides-Extra: useradd
+Requires-Dist: ruamel-yaml; extra == 'useradd'
