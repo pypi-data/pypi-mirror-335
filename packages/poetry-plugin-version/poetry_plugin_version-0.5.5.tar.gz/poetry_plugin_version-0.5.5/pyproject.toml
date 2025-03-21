@@ -1,0 +1,75 @@
+[project]
+name = "poetry-plugin-version"
+version = "0.5.5"
+description = "Poetry plugin for dynamically extracting the package version from a __version__ variable or a Git tag."
+authors = [
+    { name="Waket Zheng", email="waketzheng@gmail.com" },  # For version>=0.2.2 which published as `poetry-plugin-version`
+    { name="Sebastián Ramírez", email="tiangolo@gmail.com" },  # For version<=0.2.1 which published as `poetry-version-plugin`
+]
+homepage = "https://github.com/waketzheng/poetry-plugin-version"
+documentation = "https://github.com/waketzheng/poetry-plugin-version"
+readme = "README.md"
+packages = [{include = "poetry_plugin_version"}]
+dynamic = ["classifiers"]
+requires-python = ">=3.9"
+dependencies = ["poetry-core>=2.0; python_version < '4.0'"]
+
+[tool.poetry]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: System Administrators",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Version Control :: Git",
+    "Topic :: Software Development",
+    "Topic :: System :: Archiving :: Packaging",
+    "Topic :: System :: Installation/Setup",
+    "Topic :: System :: Software Distribution",
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License"
+]
+requires-poetry = ">=2.0"
+
+[tool.poetry.group.dev.dependencies]
+poetry = {version=">=2.1.1", python="<4.0"}
+mypy = "^1.15.0"
+
+[tool.poetry.group.test.dependencies]
+coverage = {extras = ["toml"], version = ">=7.2"}
+pytest = "^8.3.5"
+
+[project.entry-points."poetry.plugin"]
+poetry-plugin-version = "poetry_plugin_version.plugin:VersionPlugin"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.coverage.run]
+parallel = true
+
+[tool.mypy]
+ignore_missing_imports = true
+[[tool.mypy.overrides]]
+module = "poetry_plugin_version.*"
+disallow_untyped_defs = true
+strict = true
+
+[tool.ruff.lint]
+extend-select = [
+    "I",      # https://docs.astral.sh/ruff/rules/#isort-i
+    "B",     # https://docs.astral.sh/ruff/rules/#flake8-bugbear-b
+    "UP",     # https://docs.astral.sh/ruff/rules/#pyupgrade-up
+    "SIM", # https://docs.astral.sh/ruff/rules/#flake8-simplify-sim
+]
