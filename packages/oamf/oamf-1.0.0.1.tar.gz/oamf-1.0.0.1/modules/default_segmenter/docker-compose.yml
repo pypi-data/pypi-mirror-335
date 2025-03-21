@@ -1,0 +1,10 @@
+version: '3'
+###
+
+services:
+  default_segmenter:
+    container_name: default-segmenter
+    build: .
+    ports:
+      - "5005:5005"
+

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services: #
+  bert-te:
+    container_name: bert_te
+    build:
+      context: . # Specify the build context
+      dockerfile: Dockerfile # Specify the Dockerfile if it's not named 'Dockerfile'
+    ports:
+      - "5002:5002" # Map port 5002 on the host to port 5002 in the container
+
