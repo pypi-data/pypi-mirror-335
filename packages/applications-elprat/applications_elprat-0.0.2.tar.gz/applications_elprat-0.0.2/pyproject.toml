@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "applications-elprat"
+version = "0.0.2"
+description = "A Python library for applications and reusable structure for future projects of the town hall of l'prat"
+readme = "README.md"
+license-files = ["LICENSE"]
+authors = [
+    { name = "Yovany Dominico Girón", email = "y.dominico.giron@elprat.cat" }
+]
+maintainers = [
+    { name = "Yovany Dominico Girón", email = "y.dominico.giron@elprat.cat" }
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Framework :: FastAPI"
+]
+dependencies = [
+    "click>=8.1.7",
+    "jinja2>=3.1.5",
+    "Faker>=33.3.0",
+    "fastapi>=0.115.5",
+    "SQLAlchemy>=2.0.36",
+    "pytest>=8.3.4",
+    "virtualenv>=20.27.1",
+    "jsonschema>=4.23.0"
+]
+requires-python = ">=3.11.11"
+
+[tool.poetry.scripts]
+applications-elprat = "command.clip:cli"
+
+## En el caso de que se quiera crear un plugin personalizado
+# [tool.poetry.plugins."my.custom.entrypoint"]
+# clip = "command.clip:PluginClass"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+packages = [
+    "applications_archetype.core", 
+    "applications_archetype.infrastructure", 
+    "applications_archetype.infrastructure.db", 
+    "applications_archetype.infrastructure.http"
+]
+include-package-data = true
