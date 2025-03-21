@@ -1,0 +1,8 @@
+TAG_WORKDIR = "workdir"
+TAG_FOLDERS = "folders"
+TAG_FILES = "files"
+TAG_EXCLUDE = "exclude"
+ATTRIBUTE_FILE_PATH = "path"
+ATTRIBUTE_FILE_CONTENT = "content"
+ATTRIBUTE_FILE_MODE = "mode"
+ATTRIBUTE_FILE_CONTENT_SYNTAX_FILE = "file:"
