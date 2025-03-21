@@ -1,0 +1,1 @@
+from .yandex_gpt_entrypoint import YandexGPTEntryPoint
