@@ -1,0 +1,14 @@
+[project]
+name = "fig2q"
+version = "0.1.2"
+description = "Directly upload Figma designs to Q"
+authors = [{ name = "NZZ Visuals", email = "visuals@nzz.ch" }]
+dependencies = ["requests", "PyYAML"]
+readme = "README.md"
+
+[project.scripts]
+fig2q = "fig2q.cli:main"
+
+[build-system]
+requires = ["setuptools", "wheel", "requests", "PyYAML"]
+build-backend = "setuptools.build_meta"
