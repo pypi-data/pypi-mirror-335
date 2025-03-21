@@ -1,0 +1,220 @@
+Metadata-Version: 2.1
+Name: akz-lang
+Version: 2.2.3
+Summary: Bahasa pemrograman AKZ untuk pemula
+Home-page: https://akuzz.my.id/akz
+Author: Azzam Jauzi
+Author-email: bbb.azzam.jauzi@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+# Bahasa Pemrograman Akz 🚀
+
+**Akz** adalah bahasa pemrograman yang mudah digunakan untuk pemula. Dengan sintaks yang sederhana dan intuitif, Akz dirancang untuk membantu siapa pun mempelajari dasar-dasar pemrograman dengan cepat.
+
+---
+
+## Fitur Utama ✨
+- **Sintaks sederhana**: Menggunakan kata-kata sehari-hari seperti `jika`, `ulangi`, dan `tampilkan`.
+- **Mudah dipasang**: Cukup install via `pip`.
+- **Cross-platform**: Bisa dijalankan di Windows, macOS, Linux, dan Android.
+- **Dukungan matematika**: Operasi dasar seperti `+`, `-`, `*`, `/`, dan `^` (pangkat).
+
+---
+
+## Instalasi 💻
+
+### 1. Install Python (Jika Belum)
+Akz membutuhkan Python 3.6 atau versi yang lebih baru. Jika belum terinstall, download dan install Python dari tautan berikut:
+[Install Python](https://www.python.org/downloads/)
+
+### 2. Install Akz
+Install bahasa Akz menggunakan `pip`:
+```bash
+pip install akz-lang
+```
+
+### 3. Verifikasi Instalasi
+Setelah terinstall, coba jalankan perintah berikut untuk memastikan Akz berfungsi:
+```bash
+akz --version
+```
+Output:
+```
+Akz v2.2.1
+```
+
+---
+
+## Cara Menjalankan Program 🛠️
+
+### 1. Buat File .akz
+Buat file dengan ekstensi `.akz` dan tulis kode Akz di dalamnya.  
+Contoh file `contoh.akz`:
+```akz
+@@
+  tampilkan "Halo dari AKZ!"
+  masukkan "Masukkan nama: " -> nama
+  jika nama == "Budi" {
+    tampilkan "Halo Bos Budi!"
+  } lainnya {
+    tampilkan "Hai " + nama
+  }
+$$
+```
+
+### 2. Jalankan File .akz
+Gunakan perintah berikut untuk menjalankan file `.akz`:
+```bash
+akz run contoh.akz
+```
+Output:
+```
+Halo dari AKZ!
+Masukkan nama: Budi
+Halo Bos Budi!
+```
+
+### 3. Compile ke Python (Opsional)
+Anda juga bisa mengcompile file `.akz` ke Python:
+```bash
+akz compile contoh.akz -o hasil.py
+```
+File `hasil.py` akan berisi kode Python yang setara dengan kode Akz.
+
+---
+
+## Dokumentasi 📚
+
+### 1. Input dan Output
+**Input**: Gunakan `masukkan` untuk mengambil input dari pengguna.
+```akz
+masukkan "Masukkan nama: " -> nama
+```
+**Output**: Gunakan `tampilkan` untuk menampilkan pesan.
+```akz
+tampilkan "Halo, " + nama
+```
+
+### 2. Kondisi
+Gunakan `jika`, `atau jika`, dan `lainnya` untuk membuat percabangan.
+Contoh:
+```akz
+@@
+  masukkan "Masukkan umur: " -> umur
+  jika umur > 18 {
+    tampilkan "Anda dewasa"
+  } atau jika umur > 12 {
+    tampilkan "Anda remaja"
+  } lainnya {
+    tampilkan "Anda anak-anak"
+  }
+$$
+```
+
+### 3. Perulangan
+Gunakan `ulangi` untuk membuat perulangan.
+Contoh:
+```akz
+@@
+  ulangi 3 kali {
+    tampilkan "Ini loop ke-" + (angka + 1)
+  }
+$$
+```
+
+### 4. Operasi Matematika
+Akz mendukung operasi matematika dasar seperti `+`, `-`, `*`, `/`, dan `^` (pangkat).
+Contoh:
+```akz
+@@
+  d.a = 10
+  d.b = 5
+  d.hasil = (#a * #b) + (#a / #b)
+  tampilkan "Hasil: " + #hasil
+$$
+```
+
+---
+
+## Contoh Program 🎯
+
+### FizzBuzz
+```akz
+@@
+  ulangi 100 kali<i> {
+    jika i % 15 == 0 {
+      tampilkan "FizzBuzz"
+    } atau jika i % 3 == 0 {
+      tampilkan "Fizz"
+    } atau jika i % 5 == 0 {
+      tampilkan "Buzz"
+    } lainnya {
+      tampilkan i
+    }
+  }
+$$
+```
+
+### Kalkulator Sederhana
+```akz
+@@
+  masukkan "Masukkan angka pertama: " -> a
+  masukkan "Masukkan angka kedua: " -> b
+  masukkan "Pilih operasi (+, -, *, /, ^): " -> op
+
+  jika op == "+" {
+    tampilkan "Hasil: " + (a + b)
+  } atau jika op == "-" {
+    tampilkan "Hasil: " + (a - b)
+  } atau jika op == "*" {
+    tampilkan "Hasil: " + (a * b)
+  } atau jika op == "/" {
+    tampilkan "Hasil: " + (a / b)
+  } atau jika op == "^" {
+    tampilkan "Hasil: " + (a ^ b)
+  } lainnya {
+    tampilkan "Operasi tidak valid!"
+  }
+$$
+```
+
+---
+
+## Kontribusi 🤝
+Anda bisa berkontribusi dengan:
+- Melaporkan bug di Issues.
+- Membuat pull request untuk fitur baru atau perbaikan.
+- Menyebarkan berita tentang Akz ke teman-teman Anda!
+
+---
+
+## Lisensi 📜
+Proyek ini dilisensikan di bawah MIT License.
+
+---
+
+## Hubungi Saya 📞
+Jika ada pertanyaan tentang Akz, silakan hubungi pembuat/author melalui:
+[WhatsApp](wa.me/6281288196028)
+
+---
+
+## Terima Kasih! 🙏
+Terima kasih telah menggunakan Akz. Semoga bahasa ini membantu Anda belajar pemrograman dengan lebih menyenangkan! 🎉
+
+---
+
+## Info Tambahan
+Dalam Versi :
+|Angka ke-1|Angka ke-2|Angka ke-3|
+|----------|----------|----------|
+|Penambahan Fitur |Debugging/Bug Fix eset ke-0 jika angka ke-1 berubah|Markdown Edit ,Reset ke-0 jika angka ke-1 berubah|
+
+Info Fitur :
+|v1.0.0|v1.1.1|v2.1.2|v2.2.3|
+|------|------|------|------|
+|Perilisan AKZ|Penambahan Matimatika Dan Erorr Fix|Pengeditan Markdown dan Perubahan # Menjadi d.|Error Fix Dan Pengeditan Markdown|
