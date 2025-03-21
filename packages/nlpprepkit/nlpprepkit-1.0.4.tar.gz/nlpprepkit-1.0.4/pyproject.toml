@@ -1,0 +1,24 @@
+[project]
+name = "nlpprepkit"
+version = "1.0.4"
+description = "Text Preprocessing Library"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "contractions>=0.1.73",
+    "emoji>=2.14.1",
+    "nltk>=3.9.1",
+    "tqdm>=4.67.1",
+    "twine>=6.1.0",
+    "unidecode>=1.2.0",
+]
+authors = [
+    { name = "vnniciusg", email = "vnniciusg@gmail.com" }
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "setuptools>=76.0.0",
+    "twine>=6.1.0",
+]
