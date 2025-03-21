@@ -1,0 +1,308 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    i18n_domain="plone"
+    >
+
+  <include package=".login" />
+  <include file="admin.zcml" />
+  <include
+      file="caching.zcml"
+      zcml:condition="installed z3c.caching"
+      />
+
+  <class class="Products.CMFPlone.Portal.PloneSite">
+    <implements interface="plone.base.interfaces.INavigationRoot" />
+  </class>
+
+  <class class=".navtree.NavtreeQueryBuilder">
+    <allow interface="plone.app.layout.navigation.interfaces.INavigationQueryBuilder" />
+  </class>
+
+  <permission
+      id="Products.CMFPlone.AllowSendto"
+      title="Allow sendto"
+      />
+
+  <browser:resource
+      name="plone-logo.svg"
+      file="static/plone-logo.svg"
+      />
+
+  <browser:page
+      name="site-logo"
+      for="*"
+      class=".sitelogo.SiteLogo"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="favicon.ico"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".favicon.SiteFavicon"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="sendto_form"
+      for="*"
+      class=".sendto.SendToForm"
+      permission="Products.CMFPlone.AllowSendto"
+      />
+
+  <browser:page
+      name="breadcrumbs_view"
+      for="*"
+      class=".navigation.PhysicalNavigationBreadcrumbs"
+      allowed_attributes="breadcrumbs"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="breadcrumbs_view"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".navigation.RootPhysicalNavigationBreadcrumbs"
+      allowed_attributes="breadcrumbs"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="sitemap_builder_view"
+      for="*"
+      class=".navigation.CatalogSiteMap"
+      allowed_attributes="siteMap"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="portal_tabs_view"
+      for="*"
+      class=".navigation.CatalogNavigationTabs"
+      allowed_attributes="topLevelTabs"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="plone"
+      for="*"
+      class=".ploneview.Plone"
+      allowed_interface=".interfaces.IPlone"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="sitemap"
+      for="*"
+      class=".sitemap.SitemapView"
+      allowed_interface=".interfaces.ISitemapView"
+      template="templates/sitemap.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="main_template"
+      for="*"
+      class=".main_template.MainTemplate"
+      allowed_interface=".interfaces.IMainTemplate"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="title"
+      for="*"
+      template="templates/title.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="description"
+      for="*"
+      template="templates/description.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="render-toolbar"
+      for="*"
+      template="templates/toolbar.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="global_statusmessage"
+      for="*"
+      class=".global_statusmessage.GlobalStatusMessage"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="accessibility-info"
+      for="plone.base.interfaces.INavigationRoot"
+      template="templates/accessibility-info.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="author"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".author.AuthorView"
+      template="templates/author.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="author-feedback-template"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      template="templates/author_feedback_template.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="contact-info"
+      for="*"
+      class=".contact_info.ContactForm"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="contact-info-email"
+      for="*"
+      template="templates/contact-info-email.pt"
+      permission="zope.Public"
+      />
+
+  <adapter
+      factory=".navtree.DefaultNavtreeStrategy"
+      provides="plone.app.layout.navigation.interfaces.INavtreeStrategy"
+      for="*
+           .interfaces.INavigationTree"
+      />
+
+  <adapter
+      factory=".navtree.SitemapNavtreeStrategy"
+      provides="plone.app.layout.navigation.interfaces.INavtreeStrategy"
+      for="*
+           .interfaces.ISiteMap"
+      />
+
+  <browser:page
+      name="robots.txt"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".robots.Robots"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="ok"
+      for="*"
+      class=".okay.OK"
+      permission="zope.Public"
+      />
+
+  <!-- Useful for cross domain iframe proxying -->
+  <browser:resource
+      name="blank.html"
+      file="static/blank.html"
+      />
+
+  <include package=".syndication" />
+
+  <browser:page
+      name="search"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".search.Search"
+      template="templates/search.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="ajax-search"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".search.AjaxSearch"
+      permission="zope2.View"
+      />
+
+  <!-- Default Page View -->
+  <browser:page
+      name="default_page"
+      for="OFS.interfaces.ITraversable"
+      class=".defaultpage.DefaultPage"
+      allowed_interface="plone.base.interfaces.defaultpage.IDefaultPage"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="footer"
+      for="*"
+      template="templates/footer.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="colophon"
+      for="*"
+      template="templates/colophon.pt"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="index.html"
+      for="Exception"
+      class=".exceptions.ExceptionView"
+      template="templates/error_message.pt"
+      permission="zope.Public"
+      layer="zope.interface.Interface"
+      />
+
+  <browser:page
+      name="test_rendering"
+      for="*"
+      class=".test_rendering.TestRenderingView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="test-rendering"
+      for="*"
+      class=".test_rendering.TestRenderingView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="test-rendering-cheatsheet"
+      for="*"
+      class=".test_rendering.TestRenderingCheatsheetView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="test-rendering-icons"
+      for="*"
+      class=".test_rendering.TestRenderingIconsView"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="iconresolver"
+      for="*"
+      class=".icons.IconsView"
+      permission="zope.Public"
+      />
+
+  <browser:page
+      name="recently_modified"
+      for="*"
+      template="templates/recently_modified.pt"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      name="recently_published"
+      for="*"
+      template="templates/recently_published.pt"
+      permission="zope2.View"
+      />
+
+</configure>

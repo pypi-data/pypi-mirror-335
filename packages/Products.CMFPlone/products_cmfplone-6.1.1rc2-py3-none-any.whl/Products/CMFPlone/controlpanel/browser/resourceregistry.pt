@@ -1,0 +1,278 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      lang="en"
+      metal:use-macro="context/prefs_main_template/macros/master"
+      xml:lang="en"
+      i18n:domain="plone"
+>
+  <body>
+
+    <metal:main metal:fill-slot="prefs_configlet_main"
+                i18n:domain="plone"
+    >
+      <header>
+        <h1 class="documentFirstHeading"
+            i18n:translate=""
+        >Resource Registry</h1>
+
+        <div class="text-muted"
+             i18n:translate=""
+        >
+      Configure Plone JavaScript/CSS resource bundles.
+        </div>
+      </header>
+
+      <div id="content-core">
+        <div class="portalMessage statusmessage statusmessage-error alert alert-danger js-errors">
+          <tal:icon tal:replace="structure python:icons.tag('plone-statusmessage-error', tag_alt='', tag_class='statusmessage-icon mb-1 me-2')" />
+          <strong i18n:translate="">Javascript disabled or error(s) occurred</strong>
+          <span class="content"
+                i18n:translate=""
+          >
+            If this message persists, a Javascript Error occurred within the
+            resources below.
+          </span>
+        </div>
+        <div class="portalMessage statusmessage statusmessage-info alert alert-info"
+             role="alert"
+             tal:condition="python:view.global_debug_mode()"
+        >
+          <tal:icon tal:replace="structure python:icons.tag('plone-statusmessage-info', tag_alt='', tag_class='statusmessage-icon mb-1 me-2')" />
+          <strong i18n:translate="">Global Debug Mode Activated</strong>
+          <span class="content"
+                i18n:translate=""
+          >
+            This is great for development.
+            Resource hashes will be recalculated on each request.
+            This is expensive, do not use use in production!
+          </span>
+        </div>
+        <form action="${python:context.absolute_url()}/@@resourceregistry-controlpanel"
+              method="post"
+              tal:condition="python:not view.global_debug_mode() and view.debug_mode()"
+        >
+          <div class="portalMessage statusmessage statusmessage-info alert alert-warning"
+               role="alert"
+          >
+            <button class="btn btn-primary ms-1 me-1 mb-1 float-end"
+                    name="action"
+                    type="submit"
+                    value="deactivate_cache"
+                    i18n:translate=""
+            >Deactivate</button>
+            <tal:icon tal:replace="structure python:icons.tag('plone-statusmessage-warning', tag_alt='', tag_class='statusmessage-icon mb-1')" />
+            <strong i18n:translate="">Resource Debug Mode Activated</strong>
+            <span class="content"
+                  i18n:translate=""
+            >
+            Resources are not cached in Plone.
+            Their hashes will be recalculated on each request.
+            This is expensive, do not use use in production!
+            </span>
+          </div>
+        </form>
+        <form action="${python:context.absolute_url()}/@@resourceregistry-controlpanel"
+              method="post"
+              tal:condition="python:not view.global_debug_mode() and not view.debug_mode()"
+        >
+          <div class="portalMessage statusmessage statusmessage-info alert alert-info"
+               role="alert"
+          >
+            <button class="btn btn-primary ms-1 me-1 mb-1 float-end"
+                    name="action"
+                    type="submit"
+                    value="activate_cache"
+                    i18n:translate=""
+            >Activate Debug Mode</button>
+            <tal:icon tal:replace="structure python:icons.tag('plone-statusmessage-info', tag_alt='', tag_class='statusmessage-icon mb-1')" />
+            <strong i18n:translate="">Production Mode Activated</strong>
+            <span class="content"
+                  i18n:translate=""
+            >
+            Resources are fast and hashes are cached in Plone.
+            </span>
+          </div>
+        </form>
+        <div class="accordion"
+             id="accordionRR"
+             tal:define="
+               dummy python:view.process_form();
+             "
+        >
+          <tal:block tal:repeat="bundle python:view.bundles_data">
+            <details class="accordion-item ${python:'active' if bundle['name'] == request.form.get('name', None) else ''}">
+              <summary class="accordion-button">
+                <span class="me-2"
+                      tal:condition="python:bundle['name'] and bundle['enabled']"
+                      i18n:translate=""
+                ><tal:icon tal:replace="structure python:icons.tag('file-check', tag_alt='Enabled bundle')" /></span>
+                <span class="me-2"
+                      tal:condition="python:bundle['name'] and not bundle['enabled']"
+                      i18n:translate=""
+                ><tal:icon tal:replace="structure python:icons.tag('file-x', tag_alt='Disabled bundle')" /></span>
+                <span class="me-2"
+                      tal:condition="python:not bundle['name']"
+                      i18n:translate=""
+                ><tal:icon tal:replace="structure python:icons.tag('file-plus', tag_alt='Add a bundle')" /></span>
+                <h2 class="accordion-header fs-5 fw-bold" tal:condition="python:bundle['name']">${python:bundle["name"]}</h2>
+                <h2 class="accordion-header fs-5 fw-bold" tal:condition="python:not bundle['name']"
+                        i18n:translate=""
+                >Add new bundle</h2>
+              </summary>
+              <form class="accordion-body"
+                    action="${python:context.absolute_url()}/@@resourceregistry-controlpanel"
+                    method="post"
+              >
+                <input name="original_name"
+                       type="hidden"
+                       value="${python:bundle['name']}"
+                />
+                <div class="mb-3">
+                  <label class="form-label">
+                    <tal:i18n i18n:translate="label_bundle_name">Name</tal:i18n>
+                    <input class="form-control"
+                           name="name"
+                           type="text"
+                           value="${python:bundle['name']}"
+                    />
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">
+                    JavaScript
+                    <input class="form-control"
+                           name="jscompilation"
+                           type="text"
+                           value="${python:bundle['jscompilation']}"
+                    />
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">
+                    CSS
+                    <input class="form-control"
+                           name="csscompilation"
+                           type="text"
+                           value="${python:bundle['csscompilation']}"
+                    />
+                  </label>
+                </div>
+                <div class="form-check mb-3">
+                  <label class="form-check-label">
+                    <input class="form-check-input"
+                           checked="${python:'checked' if bundle['enabled'] else None}"
+                           name="enabled"
+                           type="checkbox"
+                           value=""
+                    />
+                    <tal:i18n i18n:translate="label_bundle_enabled">enabled</tal:i18n>
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">
+                    <tal:i18n i18n:translate="label_bundle_condition">Condition</tal:i18n>
+                    <input class="form-control"
+                           name="expression"
+                           placeholder="expression"
+                           type="text"
+                           value="${python:bundle['expression']}"
+                           i18n:attributes="placeholder label_expression_placeholder"
+                    />
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">
+                    <tal:i18n i18n:translate="">Depends on</tal:i18n>
+                    <input class="form-control"
+                           name="depends"
+                           type="text"
+                           value="${python:bundle['depends']}"
+                    />
+                  </label>
+                </div>
+                <div class="form-check mb-3">
+                  <label class="form-check-label">
+                    <input class="form-check-input"
+                           checked="${python:'checked' if bundle['load_async'] else None}"
+                           name="load_async"
+                           type="checkbox"
+                           value="1"
+                    />
+                    <tal:i18n i18n:translate="label_bundle_js_load_async">Async</tal:i18n>
+                  </label>
+                </div>
+                <div class="form-check mb-3">
+                  <label class="form-check-label">
+                    <input class="form-check-input"
+                           checked="${python:'checked' if bundle['load_defer'] else None}"
+                           name="load_defer"
+                           type="checkbox"
+                           value="1"
+                    />
+                    <tal:i18n i18n:translate="label_bundle_js_load_defer">Defer</tal:i18n>
+                  </label>
+                </div>
+                <div class="mb-3">
+                  <button class="btn btn-primary me-1"
+                          name="action"
+                          type="submit"
+                          value="update"
+                          tal:condition="python:bundle['name']"
+                          i18n:translate=""
+                  >Save</button>
+                  <button class="btn btn-success me-1"
+                          name="action"
+                          type="submit"
+                          value="add"
+                          tal:condition="python:not bundle['name']"
+                          i18n:translate=""
+                  >Add</button>
+                  <button class="btn btn-danger"
+                          name="action"
+                          type="submit"
+                          value="delete"
+                          tal:condition="python:bundle['name']"
+                          i18n:translate=""
+                  >Delete</button>
+                </div>
+              </form>
+            </details>
+          </tal:block>
+        </div>
+
+        <div class="mt-3">
+          <h2 i18n:translate="">Additional Resources</h2>
+          <p i18n:translate="">After the above resources, the following might get loaded:</p>
+          <dl>
+            <dt i18n:translate="">Theme CSS and JavaScript</dt>
+            <dd i18n:translate="">
+          The activated Plone-Theme usually provides one CSS bundle and sometimes a javascript bundle.
+            </dd>
+            <dt i18n:translate="">Custom CSS</dt>
+            <dd i18n:translate="">
+          At last a custom CSS is loaded, if non-empty.
+          It can be used to override the previous loaded CSS.
+          It is provided for tinkerers and those in need of urgent through-the-web changes.
+          Hint:
+              <a href="${python:context.absolute_url()}/@@theming-controlpanel#autotoc-item-autotoc-1"
+                 i18n:name="link"
+                 i18n:translate=""
+              >Edit the Custom CSS in the Theming-Control-Panel</a>.
+            </dd>
+          </dl>
+        </div>
+      </div>
+
+      <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+          /* Hide the JavaScript warning when JavaScript is enabled. */
+          document.querySelector(".alert.js-errors").style.display = "none";
+        });
+      </script>
+
+    </metal:main>
+
+  </body>
+</html>

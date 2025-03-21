@@ -1,0 +1,351 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
+
+  <!-- Control Panel Main Template -->
+  <browser:page
+      name="prefs_main_template"
+      for="*"
+      class=".prefsmaintemplate.PrefsMainTemplate"
+      permission="plone.app.controlpanel.Overview"
+      />
+
+  <!-- Control Panel Overview -->
+  <browser:page
+      name="overview-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".overview.OverviewControlPanel"
+      permission="plone.app.controlpanel.Overview"
+      />
+
+  <!-- Editing Control Panel -->
+  <browser:page
+      name="editing-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".editing.EditingControlPanel"
+      permission="plone.app.controlpanel.Editing"
+      />
+
+  <!-- Filter Control Panel -->
+  <browser:page
+      name="filter-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".filter.FilterControlPanelView"
+      permission="plone.app.controlpanel.Filtering"
+      />
+
+  <!-- TinyMCE Control Panel -->
+  <browser:page
+      name="tinymce-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".tinymce.TinyMCEControlPanel"
+      permission="plone.app.controlpanel.TinyMCE"
+      />
+
+  <!-- Language Control Panel -->
+  <browser:page
+      name="language-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".language.LanguageControlPanel"
+      permission="plone.app.controlpanel.Language"
+      />
+
+  <!-- Maintenance Control Panel -->
+  <browser:page
+      name="maintenance-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".maintenance.MaintenanceControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <!-- Mail Control Panel -->
+  <browser:page
+      name="mail-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".mail.MailControlPanel"
+      permission="plone.app.controlpanel.Mail"
+      />
+
+  <!-- Navigation Control Panel -->
+  <browser:page
+      name="navigation-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".navigation.NavigationControlPanel"
+      permission="plone.app.controlpanel.Navigation"
+      />
+
+  <!-- Search Control Panel -->
+  <browser:page
+      name="search-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".search.SearchControlPanel"
+      permission="plone.app.controlpanel.Search"
+      />
+
+  <!-- Security Control Panel -->
+  <browser:page
+      name="security-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".security.SecurityControlPanel"
+      permission="plone.app.controlpanel.Security"
+      />
+
+  <!-- Security Control Panel - EMail Login -->
+  <browser:page
+      name="migrate-to-emaillogin"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".security.EmailLogin"
+      template="emaillogin.pt"
+      permission="cmf.ManagePortal"
+      />
+
+  <!-- Error Log Form Control Panel -->
+  <browser:page
+      name="error-log-form"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      template="error_log_form.pt"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="error-log-show-entry"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      template="error_log_show_entry.pt"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="error-log-update"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".error_log_form.ErrorLogUpdate"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="error-log-set-properties"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".error_log_form.ErrorLogSetProperties"
+      permission="cmf.ManagePortal"
+      />
+
+  <!-- Site Control Panel -->
+  <browser:page
+      name="site-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".site.SiteControlPanel"
+      permission="plone.app.controlpanel.Site"
+      />
+
+  <!-- Date and Time Control panel -->
+  <browser:page
+      name="dateandtime-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".dateandtime.DateAndTimeControlPanel"
+      permission="plone.app.controlpanel.Site"
+      />
+
+  <!-- Types Control panel -->
+  <browser:page
+      name="content-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".types.TypesControlPanel"
+      permission="plone.app.controlpanel.Types"
+      />
+
+  <!-- Resource Registry -->
+  <browser:page
+      name="resourceregistry-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".resourceregistry.ResourceRegistryControlPanelView"
+      template="resourceregistry.pt"
+      permission="plone.app.controlpanel.Site"
+      />
+
+  <!-- Markup Control Panel -->
+  <browser:page
+      name="markup-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".markup.MarkupControlPanel"
+      permission="plone.app.controlpanel.Markup"
+      />
+
+  <!-- Syndication Control Panel -->
+  <browser:page
+      name="syndication-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".syndication.SyndicationControlPanel"
+      permission="cmf.ManagePortal"
+      />
+  <browser:page
+      name="syndication-settings"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".syndication.SyndicationControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <!-- Usergroup Control Panel -->
+  <browser:page
+      name="usergroup-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups.UserGroupsSettingsPanelView"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <browser:page
+      name="usergroup-userprefs"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups_usersoverview.UsersOverviewControlPanel"
+      template="usergroups_usersoverview.pt"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <browser:page
+      name="usergroup-groupprefs"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups_groupsoverview.GroupsOverviewControlPanel"
+      template="usergroups_groupsoverview.pt"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <browser:page
+      name="usergroup-groupmembership"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups_groupmembership.GroupMembershipControlPanel"
+      template="usergroups_groupmembership.pt"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <browser:page
+      name="usergroup-usermembership"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups_usermembership.UserMembershipControlPanel"
+      template="usergroups_usermembership.pt"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <browser:page
+      name="usergroup-groupdetails"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".usergroups_groupdetails.GroupDetailsControlPanel"
+      template="usergroups_groupdetails.pt"
+      permission="plone.app.controlpanel.UsersAndGroups"
+      />
+
+  <!-- Add-ons control panel -->
+
+  <!-- First register an easy to remember browser view '@@installer'.
+       It is the replacement for any use of the portal_quickinstaller. -->
+  <browser:page
+      name="installer"
+      for="*"
+      class=".quickinstaller.InstallerView"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="prefs_install_products_form"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".quickinstaller.ManageProductsView"
+      template="quickinstaller.pt"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="upgrade_products"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".quickinstaller.UpgradeProductsView"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="install_products"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".quickinstaller.InstallProductsView"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="uninstall_products"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".quickinstaller.UninstallProductsView"
+      permission="cmf.ManagePortal"
+      />
+
+  <!-- Social Media Control Panel -->
+  <browser:page
+      name="social-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".socialmedia.SocialControlPanel"
+      permission="plone.app.controlpanel.Site"
+      />
+
+  <!-- Imaging Control Panel -->
+  <browser:page
+      name="imaging-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".imaging.ImagingControlPanel"
+      permission="plone.app.controlpanel.Imaging"
+      />
+
+  <!-- Portal actions -->
+  <browser:page
+      name="actions-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".actions.ActionListControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <adapter factory=".actions.ActionControlPanelAdapter" />
+
+  <browser:page
+      name="action-form"
+      for="Products.CMFCore.interfaces.IAction"
+      class=".actions.ActionControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="new-action"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".actions.NewActionControlPanel"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="redirection-controlpanel"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".redirects.RedirectsControlPanel"
+      template="redirects-controlpanel.pt"
+      permission="Products.CMFPlone.ManagePortalAliases"
+      />
+
+  <browser:page
+      name="manage-aliases"
+      for="Products.CMFCore.interfaces.IContentish"
+      class=".redirects.RedirectsView"
+      allowed_attributes="redirects view_url"
+      template="redirects-manage.pt"
+      permission="Products.CMFPlone.ManageContextAliases"
+      />
+
+  <!-- Relations -->
+
+  <browser:page
+      name="inspect-relations"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".relations.RelationsInspectControlpanel"
+      template="relations_inspect.pt"
+      permission="Products.CMFPlone.InspectRelations"
+      />
+
+  <browser:page
+      name="rebuild-relations"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".relations.RelationsRebuildControlpanel"
+      template="relations_rebuild.pt"
+      permission="cmf.ManagePortal"
+      />
+
+</configure>
