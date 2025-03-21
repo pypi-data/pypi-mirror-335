@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -e
+
+source scripts/str_lib.sh
+source scripts/clean
+
+build() {
+  if [[ "$1" == "-c" || "$1" == "--clean" ]]; then
+    clean
+  fi
+
+  message "info" "Build package"
+  uv build
+  message "success" "Build completed"
+}
+
+if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
+  build "$@"
+fi

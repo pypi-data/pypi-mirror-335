@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -e
+
+source scripts/str_lib.sh
+
+install() {
+  message "info" "Install Python requirements"
+  uv sync --all-extras --dev "$@"
+  cd templates
+  message "info" "Install JS requirements"
+  npm i
+  message "info" "Build templates"
+  npm run build
+  cd ..
+  message "success" "Install completed"
+}
+
+if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
+  install "$@"
+fi

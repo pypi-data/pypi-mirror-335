@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e
+
+source scripts/str_lib.sh
+
+FOLDERS="dist flama.egg-info pip-wheel-metadata site test-results .coverage .pytest_cache .mypy_cache .ruff_cache flama/templates"
+
+clean() {
+  message "info" "Clean project"
+  for folder in $FOLDERS; do
+    if [[ ! -d $folder ]]; then
+      message "warning" "Not found: $folder"
+    else
+      message "success" "Deleted: $folder"
+      rm -r "$folder" 2>/dev/null
+    fi
+  done
+  find . | grep -E "(/__pycache__$|\.pyc$|\.pyo$)" | xargs rm -rf
+}
+
+if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
+  clean "$@"
+fi

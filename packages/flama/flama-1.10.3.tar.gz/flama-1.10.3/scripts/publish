@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -e
+
+source scripts/str_lib.sh
+source scripts/clean
+source scripts/build
+
+publish() {
+  if [ "$1" == "--build" ]; then
+    clean
+    build
+  fi
+
+  message "info" "Publish package"
+  uv publish
+  message "success" "Publish completed"
+}
+
+if [[ "${#BASH_SOURCE[@]}" -eq 1 ]]; then
+  publish "$@"
+fi
