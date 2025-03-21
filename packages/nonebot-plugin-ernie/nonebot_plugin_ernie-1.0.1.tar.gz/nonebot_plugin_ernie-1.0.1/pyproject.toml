@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "nonebot-plugin-ernie"
+version = "1.0.1"
+description = "文心一言 Nonebot 插件"
+authors = ["Noctulus <fangyuhao0612@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/Noctulus/nonebot-plugin-ernie"
+packages = [
+    { include = "nonebot_plugin_ernie/*.py"}
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4"
+nonebot2 = ">=2.1.2"
+nonebot-plugin-apscheduler = "^0.5.0"
+httpx = ">=0.19.0"
+nonebot-plugin-send-anything-anywhere = ">=0.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
