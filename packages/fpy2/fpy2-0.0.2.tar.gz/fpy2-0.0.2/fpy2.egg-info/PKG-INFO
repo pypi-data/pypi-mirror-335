@@ -1,0 +1,39 @@
+Metadata-Version: 2.4
+Name: fpy2
+Version: 0.0.2
+Summary: An embedded DSL for numerical computing
+Author-email: Brett Saiki <bsaiki@cs.washington.edu>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/bksaiki/fpy
+Project-URL: Issues, https://github.com/bksaiki/fpy/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: titanfp==0.1.1
+Provides-Extra: dev
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Dynamic: license-file
+
+# FPy
+
+An embedded Python DSL for numerical computing.
+
+## Building
+
+Create a virtual environment:
+```bash
+python3 -m venv .env/
+```
+and activate it using using
+```bash
+source .env/bin/activate
+```
+Then, install the dependencies:
+```bash
+pip install -e .[dev]
+```
