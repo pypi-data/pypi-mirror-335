@@ -1,0 +1,59 @@
+[project]
+name = "nnunet_extend"
+version = "2025.03.02"
+requires-python = ">=3.10"
+description = "nnunet extend"
+readme = "readme.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "jiang yan", email = "1900812927@qq.com"},
+]
+classifiers = [
+]
+keywords = [
+    'deep learning',
+    'image segmentation',
+    'semantic segmentation',
+    'medical image analysis',
+    'medical image segmentation',
+    'nnU-Net',
+    'nnunet'
+]
+dependencies = [
+    "torch>=2.6.0",
+    "nnunetv2>=2.6.0",
+   # "mmcv==2.1.0",
+    "monai>=1.4.0",
+    "mmengine>=0.10.6",
+   # "mmsegmentation>=1.2.2",
+    "ml_collections",
+    "timm",
+    "fairscale",
+    "ftfy",
+]
+
+[project.urls]
+homepage = "https://gitee.com/Eason596/nnunet_extend"
+repository = "https://gitee.com/Eason596/nnunet_extend"
+
+[project.scripts]
+nnUNetv2_extend_train = "nnunet_extend.run.run_training:run_training_entry"
+nnUNetv2_extend_predict = "nnunet_extend.inference.predict_from_raw_data:predict_entry_point"
+nnUNetv2_extend_cmp_swc = "nnunet_extend.utils.utils:entry_point_compare_swc"
+nnUNetv2_extend_swc_to_img = "nnunet_extend.utils.utils:entry_point_swc_to_img"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ruff",
+    "pre-commit"
+]
+
+[build-system]
+requires = ["setuptools>=67.8.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.codespell]
+skip = '.git,*.pdf,*.svg'
+#
+# ignore-words-list = ''
