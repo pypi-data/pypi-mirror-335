@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mycodebuddyproject"
+description = "An example of a package developed with pipenv, built with build using setuptools, uploaded to PyPI using twine, and distributed via pip."
+version = "0.1.4"
+authors = [
+  { name = "Melissa Kelly", email = "mlk9103@nyu.edu" },
+  { name = "Angel Serrano", email = "ads8881@nyu.edu" },
+  { name = "Aria Nguyen", email = "ann9911@nyu.edu" },
+  { name = "Siyu Lei", email = "sl8839@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-float"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-float.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-float/issues"
+
+[project.scripts]
+mycodebuddyproject = "mycodebuddyproject.__main__:main"
