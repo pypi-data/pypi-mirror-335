@@ -1,0 +1,69 @@
+Metadata-Version: 2.1
+Name: pmc-xml
+Version: 1.0.0
+Summary: XML parser for PubMed Central (PMC) Database
+Home-page: https://github.com/suqingdong/pmc_xml
+Author: suqingdong
+Author-email: suqingdong1114@gmail.com
+License: MIT License
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Software Development :: Libraries
+Description-Content-Type: text/markdown
+Requires-Dist: lxml
+Requires-Dist: click
+Requires-Dist: w3lib
+Requires-Dist: requests
+Requires-Dist: simple-loggers
+
+# XML parser for PubMed Central (PMC) Database
+
+## Installation
+```bash
+python3 -m pip install pmc_xml
+```
+
+## Usage
+
+### CommandLine
+```bash
+pmc_xml --help
+
+# parse single
+pmc_xml PMC6039336
+
+# parse batch
+pmc_xml PMC6039336,PMC6031859,PMC6031856
+
+# parse multiple
+pmc_xml PMC6039336 PMC6031859 PMC6031856
+
+# save file
+pmc_xml PMC6039336,PMC6031859,PMC6031856 -o out.jl
+```
+
+### Python
+```python
+from pmc_xml import PMC_XML_Parser
+
+pmc = PMC_XML_Parser()
+
+for article in pmc.parse('PMC6039336,PMC6031859,PMC6031856'):
+    print(article)        # Article<30003002>
+    print(article.data)   # dict object
+    print(article.to_json(indent=2))   # json string
+    print(article.pmid, article.title, article.abstract) # by attribute
+    print(article['pmid'], article['title'], article['abstract']) # by key
+```
+
+
