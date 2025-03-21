@@ -1,0 +1,195 @@
+Metadata-Version: 2.4
+Name: apsbits
+Version: 1.0.0rc5
+Summary: Model of a Bluesky Data Acquisition Instrument in console, notebook, & queueserver.
+Author-email: Eric Codrea <ecodrea@anl.gov>, Pete Jemian <prjemian+instrument@gmail.com>, Rafael Vescovi <rvescovi@anl.gov>
+Maintainer-email: Eric Codrea <ecodrea@anl.gov>, Pete Jemian <prjemian+instrument@gmail.com>, Rafael Vescovi <rvescovi@anl.gov>
+License: Copyright (c) 2023-2025, UChicago Argonne, LLC
+        
+        All Rights Reserved
+        
+        BITS
+        
+        BCDA, Advanced Photon Source, Argonne National Laboratory
+        
+        
+        OPEN SOURCE LICENSE
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice,
+           this list of conditions and the following disclaimer.  Software changes,
+           modifications, or derivative works, should be noted with comments and
+           the author and organization's name.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        3. Neither the names of UChicago Argonne, LLC or the Department of Energy
+           nor the names of its contributors may be used to endorse or promote
+           products derived from this software without specific prior written
+           permission.
+        
+        4. The software and the end-user documentation included with the
+           redistribution, if any, must include the following acknowledgment:
+        
+           "This product includes software produced by UChicago Argonne, LLC
+           under Contract No. DE-AC02-06CH11357 with the Department of Energy."
+        
+        ****************************************************************************
+        
+        DISCLAIMER
+        
+        THE SOFTWARE IS SUPPLIED "AS IS" WITHOUT WARRANTY OF ANY KIND.
+        
+        Neither the United States GOVERNMENT, nor the United States Department
+        of Energy, NOR uchicago argonne, LLC, nor any of their employees, makes
+        any warranty, express or implied, or assumes any legal liability or
+        responsibility for the accuracy, completeness, or usefulness of any
+        information, data, apparatus, product, or process disclosed, or
+        represents that its use would not infringe privately owned rights.
+        
+        ****************************************************************************
+        
+Project-URL: Homepage, https://BCDA-APS.github.io/BITS/
+Project-URL: Bug Tracker, https://github.com/BCDA-APS/BITS/issues
+Keywords: bluesky,queueserver
+Classifier: Development Status :: 6 - Mature
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Classifier: License :: Freely Distributable
+Classifier: License :: Public Domain
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Utilities
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: apstools>=1.7.2
+Requires-Dist: bluesky-queueserver-api
+Requires-Dist: bluesky-queueserver
+Requires-Dist: bluesky-widgets
+Requires-Dist: bluesky
+Requires-Dist: caproto
+Requires-Dist: databroker==1.2.5
+Requires-Dist: guarneri
+Requires-Dist: ipython
+Requires-Dist: jupyterlab
+Requires-Dist: ophyd-registry
+Requires-Dist: ophyd
+Requires-Dist: PyQt5>5.15
+Requires-Dist: pyRestTable
+Requires-Dist: pysumreg
+Requires-Dist: qtpy
+Requires-Dist: toml
+Requires-Dist: tomli
+Requires-Dist: tomli-w
+Provides-Extra: dev
+Requires-Dist: build; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: ruff; extra == "dev"
+Provides-Extra: doc
+Requires-Dist: babel; extra == "doc"
+Requires-Dist: ipykernel; extra == "doc"
+Requires-Dist: jinja2; extra == "doc"
+Requires-Dist: markupsafe; extra == "doc"
+Requires-Dist: myst_parser; extra == "doc"
+Requires-Dist: nbsphinx; extra == "doc"
+Requires-Dist: pydata-sphinx-theme; extra == "doc"
+Requires-Dist: pygments-ipython-console; extra == "doc"
+Requires-Dist: pygments; extra == "doc"
+Requires-Dist: sphinx-design; extra == "doc"
+Requires-Dist: sphinx-tabs; extra == "doc"
+Requires-Dist: sphinx; extra == "doc"
+Provides-Extra: all
+Requires-Dist: apsbits[dev,doc]; extra == "all"
+Dynamic: license-file
+
+# APSBITS: Template Package for Bluesky Instruments
+
+| PyPI | Coverage |
+| --- | --- |
+[![PyPi](https://img.shields.io/pypi/v/apsbits.svg)](https://pypi.python.org/pypi/apsbits) | [![Coverage Status](https://coveralls.io/repos/github/BCDA-APS/BITS/badge.svg?branch=main)](https://coveralls.io/github/BCDA-APS/BITS?branch=main) |
+
+BITS: **B**luesky **I**nstrument **T**emplate **S**tructure
+
+Template of a Bluesky Data Acquisition Instrument in console, notebook, &
+queueserver.
+
+## Production use of BITS
+
+Please create a bits instrument using our template repository: https://github.com/BCDA-APS/DEMO-BITS
+
+
+## Installing the BITS Package for Development
+
+```bash
+git clone github.com:BCDA-APS/BITS.git
+cd BITS
+conda create -y -n BITS_env python=3.11 pyepics
+conda activate BITS_env
+pip install -e ."[all]"
+```
+
+## Testing the apsbits base installation
+
+On an ipython console
+
+```py
+from apsbits.demo_instrument.startup import *
+listobjects()
+RE(sim_print_plan())
+RE(sim_count_plan())
+RE(sim_rel_scan_plan())
+```
+
+## Testing
+
+Use this command to run the test suite locally:
+
+```bash
+pytest -vvv --lf ./src
+```
+
+## Documentation
+
+<details>
+<summary>prerequisite</summary>
+
+To build the documentation locally, install [`pandoc`](https://pandoc.org/) in
+your conda environment:
+
+```bash
+conda install conda-forge::pandoc
+```
+
+</details>
+
+Use this command to build the documentation locally:
+
+```bash
+make -C docs clean html
+```
+
+Once the documentation builds, view the HTML pages using your web browser:
+
+```bash
+BROWSER ./docs/build/html/index.html &
+```
+
+### Adding to the documentation source
+
+The documentation source is located in files and directories under
+`./docs/source`.  Various examples are provided.
+
+Documentation can be added in these formats:
+[`.rst`](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
+(reStructured text), [`.md`](https://en.wikipedia.org/wiki/Markdown) (markdown),
+and [`.ipynb`](https://jupyter.org/) (Jupyter notebook). For more information,
+see the [Sphinx](https://www.sphinx-doc.org/) documentation.
