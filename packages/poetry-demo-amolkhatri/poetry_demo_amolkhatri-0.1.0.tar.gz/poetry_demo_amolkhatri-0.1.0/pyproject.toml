@@ -1,0 +1,19 @@
+[project]
+name = "poetry-demo-amolkhatri"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Amol Khatri",email = "amolkhatri@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+]
+
+[tool.poetry.scripts]
+main = "poetry_demo.main:main"
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
