@@ -1,0 +1,33 @@
+---
+source: parser/src/parse.rs
+expression: res
+---
+Ok(
+    [
+        RawStmt {
+            stmt: AlterDomainStmt(
+                Object({
+                    "behavior": String(
+                        "DROP_RESTRICT",
+                    ),
+                    "subtype": String(
+                        "O",
+                    ),
+                    "typeName": Array([
+                        Object({
+                            "String": Object({
+                                "sval": String(
+                                    "zipcode",
+                                ),
+                            }),
+                        }),
+                    ]),
+                }),
+            ),
+            stmt_location: 0,
+            stmt_len: Some(
+                33,
+            ),
+        },
+    ],
+)
