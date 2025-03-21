@@ -1,0 +1,42 @@
+Metadata-Version: 2.2
+Name: eubi_bridge
+Version: 0.0.2
+Summary: A package for converting datasets to OME-Zarr format.
+Home-page: https://github.com/Euro-BioImaging/EuBI-Bridge
+Author: Bugra Özdemir
+Author-email: bugraa.ozdemir@gmail.com
+License: MIT
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy
+Requires-Dist: natsort
+Requires-Dist: dask<=2024.7.0
+Requires-Dist: distributed<=2024.7.0
+Requires-Dist: zarr<=2.18.3
+Requires-Dist: matplotlib
+Requires-Dist: dask-jobqueue
+Requires-Dist: s3fs
+Requires-Dist: fire
+Requires-Dist: rechunker
+Requires-Dist: zstandard
+Requires-Dist: xmlschema
+Requires-Dist: aicsimageio==4.10.*
+Requires-Dist: openjdk==8.*
+Requires-Dist: bfio
+Requires-Dist: bioformats_jar
+Requires-Dist: readlif
+Requires-Dist: czifile
+Requires-Dist: aicspylibczi
+Requires-Dist: pydantic==1.9.*
+Requires-Dist: tifffile==2024.8.*
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+A package to convert collections of image data from diverse formats
+to the OME-Zarr format in a distributed manner.
