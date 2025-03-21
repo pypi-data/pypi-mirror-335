@@ -1,0 +1,21 @@
+{
+    "level_count": 4,
+    "count_by_level": [1, 2, 4, 8],
+    "uid_hash": "sha256",
+    "sig_hash": "sha256",
+    "encrypt_alg": {
+        "alg": "rsa",
+        "params": {
+            "pub_exp": 65537,
+            "key_size": 2048
+        }
+    },
+    "revoc_probs": [0.0, 0.0001, 0.001, 0.01],
+    "cert_valid_durs": ["none", "00:15:00", "00:10:00", "00:05:00"],
+    "cache_durs": ["none", "11:00", "06:00", "01:00"],
+    "cooldown_durs": ["5", "5", "5", "5"],
+    "timeout_durs": ["20", "20", "20", "20"],
+    "runtime": "00:30:00",
+    "log_save_filepath": "output/saved_network_logs_json.csv",
+    "db_folder_path": "output/database"
+}

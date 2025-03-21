@@ -1,0 +1,257 @@
+{
+    "default_root_ca": {
+        "location": {
+            "level": 1
+        },
+        "env_overrides": {
+            "uid_hash": "sha3_512",
+            "sig_hash": "sha3_512",
+            "encrypt_alg": {
+                "alg": "ecc",
+                "params": {
+                    "curve": "secp256r1"
+                }
+            },
+            "revoc_prob": 0.0,
+            "cert_valid_dur": "none",
+            "cache_dur": "none",
+            "cooldown_dur": "10",
+            "timeout_dur": "40"
+        },
+        "holder_type_info": {
+            "hardware_type": "endpoint",
+            "hardware_subtype": "server",
+            "hardware_brand": "dell",
+            "os_category": "microsoft",
+            "os_subcategory": "windows_server",
+            "os_dist": "windows_server_2019",
+            "os_subdist": "standard",
+            "account_type": "admin",
+            "account_subtype": "domain_admin",
+            "ca_status": "root_auth"
+        },
+        "holder_info": {
+            "common_name": "Root Enterprises Root CA",
+            "country": "US",
+            "state": "CA",
+            "locality": "San Francisco",
+            "org": "Root Enterprises",
+            "org_unit": "Certificates",
+            "email": "root_ca_team@root_enterprises.com",
+            "url": "root_enterprises.com/root_ca"
+        }
+    },
+    "second_lvl_ca_one": {
+        "location": {
+            "level": 2
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512",
+            "encrypt_alg": {
+                "alg": "ecc",
+                "params": {
+                    "curve": "secp256r1"
+                }
+            }
+        },
+        "holder_type_info": {
+            "os_category": "unix",
+            "os_subcategory": "linux",
+            "os_dist": "ubuntu_server"
+        }
+    },
+    "second_lvl_ca_two": {
+        "location": {
+            "level": 2
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512",
+            "encrypt_alg": {
+                "alg": "ecc",
+                "params": {
+                    "curve": "secp256r1"
+                }
+            }
+        },
+        "holder_type_info": {
+            "os_category": "unix",
+            "os_subcategory": "linux",
+            "os_dist": "ubuntu_server"
+        }
+    },
+    "third_lvl_ca_one": {
+        "location": {
+            "level": 3
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512"
+        },
+        "holder_info": {
+            "common_name": "Cert Incorporated South America CA",
+            "country": "PE",
+            "state": "Lima",
+            "locality": "Ventanilla",
+            "org": "Cert Incorporated",
+            "org_unit": "South American Certificates",
+            "email": "certs_sa@cert_incorporated.com",
+            "url": "cert_incorporated.com/peru/intermediate_ca"
+        }
+    },
+    "third_lvl_ca_two": {
+        "location": {
+            "level": 3
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512"
+        },
+        "holder_info": {
+            "common_name": "CloudCert Inc West Africa CA",
+            "country": "NG",
+            "state": "Oyo",
+            "locality": "Ibadan",
+            "org": "CloudCert Inc",
+            "org_unit": "West African Certificates",
+            "email": "certs_africa@cloudcert.com",
+            "url": "cloudcert.com/nigeria/intermediate_ca"
+        }
+    },
+    "third_lvl_ca_three": {
+        "location": {
+            "level": 3
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512"
+        },
+        "holder_info": {
+            "common_name": "EuroPass International Norway CA",
+            "country": "NO",
+            "state": "Bergen",
+            "locality": "Kokstad",
+            "org": "EuroPass International",
+            "org_unit": "Western European Certificates",
+            "email": "certs_europe@europass.com",
+            "url": "europass.com/norway_intermediate_ca"
+        }
+    },
+    "third_lvl_ca_four": {
+        "location": {
+            "level": 3
+        },
+        "env_overrides": {
+            "uid_hash": "sha512",
+            "sig_hash": "sha512"
+        },
+        "holder_info": {
+            "common_name": "Lone Star Networking Houston CA",
+            "country": "US",
+            "state": "Texas",
+            "locality": "Houston",
+            "org": "Lone Star Networking",
+            "org_unit": "North American Certificates",
+            "email": "lone_star_certs@lonestarnet.com",
+            "url": "lonestarnet.com/us/houston/intermediate_ca"
+        }
+    },
+    "fourth_level_one": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "network",
+            "hardware_subtype": "access_point",
+            "hardware_brand": "cisco",
+            "os_category": "routing",
+            "os_subcategory": "openwrt",
+            "os_dist": "openwrt",
+            "os_subdist": "openwrt",
+            "account_type": "admin",
+            "account_subtype": "network_admin"
+        }
+    },
+    "fourth_level_two": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "endpoint",
+            "hardware_subtype": "laptop",
+            "hardware_brand": "asus",
+            "os_category": "microsoft",
+            "os_subcategory": "windows",
+            "os_dist": "windows_10",
+            "os_subdist": "home",
+            "account_type": "user",
+            "account_subtype": "personal"
+        }
+    },
+    "fourth_level_three": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "peripheral",
+            "hardware_subtype": "smart_card"
+        }
+    },
+    "fourth_level_four": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "endpoint",
+            "hardware_subtype": "phone",
+            "account_type": "user"
+        }
+    },
+    "fourth_level_five": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "appliance",
+            "hardware_subtype": "utm",
+            "hardware_brand": "barracuda"
+        }
+    },
+    "fourth_level_six": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "endpoint",
+            "hardware_subtype": "desktop",
+            "os_category": "unix",
+            "os_subcategory": "solaris",
+            "account_subtype": "cloud_admin"
+        }
+    },
+    "fourth_level_seven": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "hardware_type": "endpoint",
+            "hardware_subtype": "iot",
+            "hardware_brand": "arduino",
+            "os_category": "unix",
+            "os_subcategory": "linux",
+            "os_dist": "alpine",
+            "os_subdist": "alpine",
+            "account_type": "user",
+            "account_subtype": "guest"
+        }
+    },
+    "fourth_level_eight": {
+        "location": {
+            "level": 4
+        },
+        "holder_type_info": {
+            "os_subcategory": "mac_os_x"
+        }
+    }
+}
