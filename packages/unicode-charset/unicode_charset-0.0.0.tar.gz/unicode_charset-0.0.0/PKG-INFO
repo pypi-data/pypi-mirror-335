@@ -1,0 +1,57 @@
+Metadata-Version: 2.1
+Name: unicode-charset
+Version: 0.0.0
+Summary: efficient python generator to yield all characters for a given encoding.
+License: MIT
+Keywords: charset,unicode
+Author: Christoph Dörrer
+Author-email: d-chris@web.de
+Requires-Python: >=3.9,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Project-URL: repository, https://github.com/d-chris/unicode-charset
+Description-Content-Type: text/markdown
+
+# unicode-charset
+
+---
+
+`unicode-charset` is a package that uses generators to return all characters of a given charset.
+
+The main purpose is to efficently get random characters of specific encodings for testing purposes.
+
+## Install
+
+```cmd
+pip install unicode-charset
+```
+
+## Usage
+
+```python
+from charset import charset
+
+# print the first 10 charset of ansi charset
+for c in charset("ansi", n=10, random=False):
+    print(c, c.name)
+```
+
+```cmd
+  SPACE
+! EXCLAMATION MARK
+" QUOTATION MARK
+# NUMBER SIGN
+$ DOLLAR SIGN
+% PERCENT SIGN
+& AMPERSAND
+' APOSTROPHE
+( LEFT PARENTHESIS
+) RIGHT PARENTHESIS
+```
+

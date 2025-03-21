@@ -1,0 +1,53 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = [ "poetry-core" ]
+
+[tool.poetry]
+name = "unicode-charset"
+version = "0.0.0"
+description = "efficient python generator to yield all characters for a given encoding."
+authors = [ "Christoph Dörrer <d-chris@web.de>" ]
+readme = "README.md"
+license = "MIT"
+classifiers = [
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+keywords = [ "charset", "unicode" ]
+packages = [ { include = "charset" } ]
+
+[tool.poetry.urls]
+repository = "https://github.com/d-chris/unicode-charset"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.5"
+pytest-cov = "^6.0.0"
+pytest-randomly = "^3.16.0"
+
+[tool.poetry.group.dev.dependencies]
+tox = "^4.24.2"
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [ "tests" ]
+markers = [ "slow: marks tests as slow." ]
+addopts = [
+  "--color=yes",
+  "--cov=charset",
+  "--cov-report=term-missing:skip-covered",
+  "--cov-report=xml",
+]
+
+[tool.coverage.run]
+omit = [ "*/tests/*", "*/docs/*" ]
