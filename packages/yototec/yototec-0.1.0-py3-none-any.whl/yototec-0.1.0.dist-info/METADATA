@@ -1,0 +1,112 @@
+Metadata-Version: 2.4
+Name: yototec
+Version: 0.1.0
+Summary: A Python client for interacting with the Yototec Market API
+Author-email: Edward Chen <rchen@yototec.com>
+License: Copyright (c) 2024-2025 Yototec Ltd
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Project-URL: Homepage, https://github.com/Yototec/client_lightweight
+Project-URL: Source Code, https://github.com/Yototec/client_lightweight
+Project-URL: Tracker, https://github.com/Yototec/client_lightweight/issues
+Keywords: yototec,api,client
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests
+Dynamic: license-file
+
+# Yototec Market Python Client
+
+A lightweight Python client to interact with the Yototec Market [REST API](https://market.yototec.com).
+
+This library provides convenience methods for:
+
+- Retrieving a time series of aggregated price data for a ticker between a date range.
+- Retrieving the latest available aggregated price data for a ticker.
+
+## Table of Contents
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Initializing the Client](#initializing-the-client)
+  - [Examples](#examples)
+- [Supports](#supports)
+
+## Features
+
+- Historical Data
+  - Fetch a time series of aggregated prices for a given ticker in a specified frequency (minute/hour/day), within a date range.
+- Latest Data
+  - Fetch the latest available aggregated price data for a given ticker.
+
+## Requirements
+
+- Python 3.8+ (recommend)
+- [requests](https://pypi.org/project/requests/) library
+
+## Installation
+
+Since this is a standalone Python file, you can simply:
+1. Clone or download this repository.
+2. Ensure you have `requests` installed:
+   ```bash
+   pip install requests
+   ```
+3. Place `client.py` in your project, or install it as a local module.
+
+## Usage
+
+### Initializing the Client
+
+```python
+from yototec.client import Client
+
+# If you have an API key:
+api_key = "YOUR_YOTOTEC_API_KEY"
+
+# Initialize the client with the default Yototec Market API URL
+client = Client(api_key=api_key)
+
+# Or override the base URL if needed:
+# client = Client(base_url="https://some-other-domain.com", api_key=api_key)
+```
+
+### Examples
+
+This is an example of how you might use this client:
+
+```python
+from yototec.client import Client
+
+def main():
+    # Replace with your real API key
+    api_key = "YOUR_YOTOTEC_API_KEY"
+    client = Client(api_key=api_key)
+
+    # Example: Fetch hourly data for a ticker from 2025-01-01 to 2025-01-05
+    sdate = "2025-01-01T00:00:00"
+    edate = "2025-01-05T00:00:00"
+    data = client.get_data(tic="BTCUSD", sdate=sdate, edate=edate, freq="hour")
+
+    if data:
+        print("Historical Data:", data)
+    else:
+        print("No data or an error occurred")
+
+if __name__ == "__main__":
+    main()
+```
+
+## Supports
+
+Contributions, bug reports, and feature requests are welcome! Feel free to email us at info@yototec.com
