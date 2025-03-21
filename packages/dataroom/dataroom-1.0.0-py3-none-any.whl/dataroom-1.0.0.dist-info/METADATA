@@ -1,0 +1,199 @@
+Metadata-Version: 2.1
+Name: dataroom
+Version: 1.0.0
+Summary: A powerful and easy-to-use data processing library
+Author: Mohammad Taha Gorji
+Author-email: MohammadTahaGorjiProfile@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: requests
+Requires-Dist: sqlalchemy
+Requires-Dist: scikit-learn
+
+```markdown
+# DataRoom
+
+DataRoom is a powerful and easy-to-use Python library for data processing, cleaning, analysis, machine learning, and optimization. It provides an intuitive API with well-structured classes and functions, making it simple to work with data in various formats, including CSV, JSON, Excel, databases, and APIs.
+
+## Features
+
+- **Data Ingestion**: Load data from multiple sources, including CSV, JSON, Excel, databases, and APIs.
+- **Data Cleaning**: Handle missing values, normalize data, encode categorical variables, and detect outliers.
+- **Data Exploration**: Generate descriptive statistics, correlation matrices, and interactive plots.
+- **Data Pipelines**: Automate data transformation and preprocessing.
+- **Machine Learning Integration**: Train and evaluate classification and regression models.
+- **Optimization**: Parallel processing and memory optimization for large datasets.
+
+---
+
+## Installation
+
+You can install DataRoom using pip:
+
+```bash
+pip install dataroom
+```
+
+---
+
+## Usage
+
+### 1. Data Ingestion
+
+#### Load Data from Different Sources
+
+```python
+from dataroom import DataIngestor
+
+ingestor = DataIngestor()
+df_csv = ingestor.from_csv("data.csv")
+df_json = ingestor.from_json("data.json")
+df_excel = ingestor.from_excel("data.xlsx")
+df_sql = ingestor.from_sql("sqlite:///database.db", "SELECT * FROM users")
+df_api = ingestor.from_api("https://api.example.com/data")
+
+print(df_csv.head())
+```
+
+---
+
+### 2. Data Cleaning
+
+#### Handle Missing Values
+
+```python
+from dataroom import DataCleaner
+
+cleaner = DataCleaner()
+df_clean = cleaner.handle_missing(df_csv, strategy="mean")  # Fill missing values with column mean
+print(df_clean.head())
+```
+
+#### Encode Categorical Data
+
+```python
+df_encoded = cleaner.encode(df_clean, encoding_type="onehot")
+print(df_encoded.head())
+```
+
+#### Detect and Remove Outliers
+
+```python
+df_no_outliers = cleaner.detect_outliers(df_encoded, method="iqr")
+print(df_no_outliers.head())
+```
+
+---
+
+### 3. Data Exploration
+
+#### Generate Summary Statistics
+
+```python
+from dataroom import DataExplorer
+
+explorer = DataExplorer()
+print(explorer.describe(df_no_outliers))
+```
+
+#### Plot Data
+
+```python
+explorer.plot(df_no_outliers, kind="hist")  # Histogram
+```
+
+#### Generate a Data Profile Report
+
+```python
+profile_report = explorer.profile(df_no_outliers)
+print(profile_report)
+```
+
+---
+
+### 4. Data Pipeline
+
+#### Automate Data Processing
+
+```python
+from dataroom import DataPipeline
+
+pipeline = DataPipeline()
+pipeline.add_step(cleaner.normalize, method="minmax")
+pipeline.add_step(lambda data: cleaner.handle_missing(data, strategy="median"))
+
+df_pipeline = pipeline.run(df_no_outliers)
+print(df_pipeline.head())
+```
+
+---
+
+### 5. Machine Learning Integration
+
+#### Train a Classification Model
+
+```python
+from dataroom import DataML
+
+ml_module = DataML()
+df_pipeline["target"] = [0, 1, 0, 1, 0, 1]
+
+model, score = ml_module.train_model(df_pipeline, target="target", model_type="classification")
+print("Model Accuracy:", score)
+```
+
+#### Make Predictions
+
+```python
+predictions = ml_module.predict(model, df_pipeline.drop(columns=["target"]))
+print(predictions)
+```
+
+#### Auto Feature Selection
+
+```python
+selected_features = ml_module.auto_feature_selection(df_pipeline, target="target", method="correlation")
+print("Selected Features:", selected_features)
+```
+
+---
+
+### 6. Optimization
+
+#### Parallel Processing
+
+```python
+from dataroom import DataOptimizer
+
+optimizer = DataOptimizer()
+
+def process_function(x):
+    return x * 2
+
+parallel_result = optimizer.parallel_process(process_function, [1, 2, 3, 4, 5])
+print(parallel_result)
+```
+
+#### Optimize Memory Usage
+
+```python
+df_optimized = optimizer.optimize_memory(df_pipeline)
+print(df_optimized.info())
+```
+
+---
+
+## Coded By Mohammad Taha Gorji
+
+## License
+
+This project is licensed under the MIT License.
+```
