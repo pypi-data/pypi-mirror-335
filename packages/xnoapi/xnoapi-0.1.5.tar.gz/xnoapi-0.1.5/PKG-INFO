@@ -1,0 +1,46 @@
+Metadata-Version: 2.2
+Name: xnoapi
+Version: 0.1.5
+Summary: XNO API Library for Financial Data
+Author: xno_project
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: pandas
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# XNO API Library
+
+XNO API is a Python package for retrieving financial data from multiple sources.
+
+## Installation
+
+```sh
+pip install xnoapi
+```
+
+## Usage
+
+```sh
+from xnoapi import client
+from xnoapi.vn.data import stocks, derivatives
+
+client(apikey="...")
+
+stocks.list_liquid_asset()
+stocks.get_hist("VIC", "1D")
+```
