@@ -1,0 +1,25 @@
+[project]
+name = "quadfeather"
+version = "2.2.0rc1"
+description = "Quadtree tiling from CSV/Apache Arrow for use with deepscatter in the browser."
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.22.0",
+    "pandas>=1.0.0",
+    "pyarrow>=13.0.0",
+]
+
+[project.scripts]
+quadfeather = "quadfeather.tiler:cli"
+quadfeather-test-data = "quadfeather.demo:main"
+quadfeather-sidecars = "quadfeather.add_sidecars:add_sidecars_cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.3.3",
+]
