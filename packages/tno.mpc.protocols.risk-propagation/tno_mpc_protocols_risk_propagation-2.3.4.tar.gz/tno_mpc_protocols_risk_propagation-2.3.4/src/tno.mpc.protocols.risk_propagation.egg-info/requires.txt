@@ -1,0 +1,15 @@
+numpy<3,>=1.24
+tno.mpc.communication>=4.8.1,~=4.8
+tno.mpc.encryption_schemes.paillier
+tno.mpc.protocols.distributed_keygen~=4.0
+
+[gmpy]
+tno.mpc.encryption_schemes.paillier[gmpy]
+tno.mpc.protocols.distributed_keygen[gmpy]
+
+[tests]
+numpy>=1.21
+pandas
+pandas-stubs
+pytest>=8.1
+pytest-asyncio
