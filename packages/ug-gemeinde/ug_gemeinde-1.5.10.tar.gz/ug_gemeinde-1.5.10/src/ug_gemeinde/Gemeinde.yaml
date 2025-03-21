@@ -1,0 +1,63 @@
+## Gemeinde.yaml
+#
+# Einzulesen mit PyYAML
+
+## NAME - Name der Anwendung
+NAME: 'Gemeinde'
+
+##  VERSION - Version des Programms
+#       Sollte nicht gesetzt werden, das sollte im Python Quelltext geschehen.
+#       Achtung: wenn doch gesetzt, überschreibt es ...
+# VERSION: 'x.x'
+
+##  ICON_THEME - Icon Theme
+#       'oxygen' oder 'breeze'
+ICON_THEME: 'breeze'
+
+##  ICON_NAVI_SIZE - Icon größe für Navis
+#       14 ist eine sinnvolle Größe, sonst auch kleiner
+ICON_NAVI_SIZE: 14
+
+##  TKINTER_THEME - Theme fü TkInter
+#       Sollte immer 'classic' sein, damit PanedWindows richtig dargestellt werden.
+TKINTER_THEME: 'classic'
+
+##  LOGGING_LEVEL - Logging Level für Python logging
+#       Sollte während der Entwicklung auf DEBUG stehen, später auf WARNING
+LOGGING_LEVEL: 'WARNING'
+
+##  PostgreSQL Server Daten
+#       PSQL_HOST
+#           I.d.R. 138.199.218.230, also der Hetzner vServer
+#       PSQL_PORT
+#       PSQL_DATABASE
+#
+#   Achtung
+#   =======
+#   Insb. diese drei Werte werden durch Einstellungen in Override.yaml überschrieben
+#   Override.yaml liegt nicht im Arbeitsverzeichnis, sondern je nach Entwicklungsumgebung
+#   bzw. Installationsumgebung tiefer im Verzeichnisbaum. Dort soll es auch bleiben,
+#   damit dort Konfigurationen für den Server sozusagen statisch mit der App
+#   ausgeliefert werden können. Mit anderen Worten: Darüber hat der Entwickler
+#   die Steuerungs-Hoheit.
+#
+PSQL_HOST: '138.199.218.230'
+PSQL_PORT: '22555'
+PSQL_DATABASE: 'cg'
+
+##  Formatstrings für date, time, datetime
+#       Damit wird festgelegt, wie diese Typen dargestellt und
+#       interpretiert werden. Die Werte sind als Liste von Möglichkeiten
+#       zu definieren. Der erste Wert dient der Darstellung, alle
+#       weiteren als Alternativen zur Interpretation.
+FORMATS_TIME: ['%H:%M',]
+FORMATS_DATE: ['%d.%m.%Y', '%Y-%m-%d']
+FORMATS_DATETIME: ['%Y-%m-%d %H:%M',]
+
+## Erlaubte Datei-Erweiterungen für Anhänge von Massenmails
+#       Als kommaseperierte Aufzählung in einem String, Whitespaces erlaubt.
+#       Wildcards sind zu vermeiden; Abfrage wird durch filename.endswith(...)
+#       erledigt.
+#       Case-insensitiv
+#       Bsp.: 'pdf, png, jpg, jpeg'
+ERLAUBTE_EXTENSIONS: '.pdf, .png, .jpg, .jpeg'
