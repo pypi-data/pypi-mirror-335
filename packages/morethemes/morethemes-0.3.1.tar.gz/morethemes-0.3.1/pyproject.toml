@@ -1,0 +1,26 @@
+[project]
+name = "morethemes"
+version = "0.3.1"
+description = "More themes for matplotlib"
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Framework :: Matplotlib"
+]
+
+dependencies = [
+    "matplotlib>=3.6.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.4",
+    "pre-commit>=4.0.1",
+    "setuptools>=75.8.0",
+    "mkdocs-material>=9.5.49",
+]
+[tool.setuptools]
+include-package-data = true
