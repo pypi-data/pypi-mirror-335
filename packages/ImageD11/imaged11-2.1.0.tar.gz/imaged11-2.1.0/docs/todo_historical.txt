@@ -1,0 +1,101 @@
+
+# 25/07/2024
+
+Move this to docs.
+Now tracked in github issues.
+
+
+# 26-2-2019
+
+Overhaul or new package?
+
+peaksearcher:
+  return to image-by-image processing
+    background?  
+      pixels at radius / azimuth. Assume azimuth doesn't matter.
+      Histogram of intensity values (different intensities) at each tth
+       ... characterize this distribution
+         - tail = Bragg peaks
+         - azimuthal components?
+      powder1D with a few fourier components in azimuth
+  record pixel labelling for peaks
+  merge across frames in nDimensions and more intelligent overlaps
+    (fraction of pixels in peak, central part of intensity)
+
+Geometry:
+  General purpose package - look at GREWGG
+  Geometry of transations+rotations is in both ImageCIF and NeXus
+
+Indexing:
+  Identification of scattering vectors / g-vectors as groups of peaks:
+    h, -h, 2h, -2h,  h@180, ...
+  Known unit cells (angles between g or grainspotter)
+    assigned to 2theta rings
+  Unknown (index_unknown code)
+    using 2theta rings and typical powder methods
+    additional zone searching information from 3D
+
+Refinement:
+  Geometrical for strains from far-field
+    Diffractometer zeros, camera distortions
+  Intensities (point groups needed)
+    Rint, Rmerge
+  Difftomo for grain shapes
+
+
+
+
+
+# 23-3-2017
+
+Moved the repository to github.com/jonwright
+
+Started work on a spring cleaning...
+
+  - sort out the testsuites
+  - sort out the documentation (e.g. sphinx)
+  - try to update pyPI
+  ...
+
+
+# 19-3-2013
+
+Need to make a some spring cleaning
+ - remove bbfreeze, py2exe
+ - put test files into svn ignores
+ - make testsuites and clean up testing
+ - etc
+
+
+
+# 20-11-08
+
+Reduce and then fix the duplicate peak issue in peaksearch
+Sort out the omega error bars in peaksearch
+Have another look at makemap performance with >500 grains and >50000K peaks...
+
+
+# 3-3-08
+To Add with some cleaning: 
+   filterout.py	-  removes grains from flt files
+   makemap.py	-  fitgrain/filtergrain pairs
+   xyz_rod.py   -  convert map output
+   make_uniq.py  - flip ubifiles according to symmetry
+		 ... bugfix hexagonal case, etc
+
+
+
+
+Module docs and functions and function docs from compiled extensions
+
+
+run makedocs in doc subdir as part of setup.py build ??
+
+
+Separation of gui from useful code to be completed:
+
+"Some people are  naturally  more  comfortable with point-n-shoot 
+GUI interfaces.  Some of us old retrograde dinosaurs imagine GUIs 
+to be a place to run  multiple xterms  so we can use the keyboard 
+even more."        Tim Daneliuk, in comp.lang.python, 16 Jun 2006 
+

@@ -1,0 +1,56 @@
+six
+numpy
+setuptools
+xfab>=0.0.4
+matplotlib
+pyopengltk
+scipy
+h5py
+pyyaml
+pytest
+bslz4_to_sparse
+fast_histogram
+scikit-image
+tqdm
+
+[:python_version < "3"]
+pyopengl==3.1.7
+hdf5plugin==1.4.1
+numba==0.46.0
+llvmlite==0.30.0
+
+[:python_version < "3" and sys_platform == "win32"]
+fabio==0.2.2
+
+[:python_version >= "3"]
+pyopengl
+hdf5plugin
+numba
+threadpoolctl
+orix
+diffpy.structure
+
+[:python_version >= "3" or sys_platform != "win32"]
+fabio
+
+[full]
+papermill
+pillow
+lmfit
+sympy
+pandas
+
+[full:python_version < "3"]
+numexpr<=2.7.0
+
+[full:python_version >= "3"]
+ipywidgets
+pyopencl
+pyFAI
+silx[full]
+
+[rare]
+FitAllB
+minuit
+PyTango
+PyMca5
