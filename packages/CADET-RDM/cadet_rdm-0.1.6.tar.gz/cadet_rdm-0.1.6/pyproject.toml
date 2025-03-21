@@ -1,0 +1,86 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "CADET-RDM"
+dynamic = ["version"]
+authors = [
+    { name = "Ronald Jäpel", email = "r.jaepel@fz-juelich.de" },
+    { name = "Johannes Schmölder", email = "j.schmoelder@fz-juelich.de" },
+    { name = "Eric von Lieres", email = "e.von.lieres@fz-juelich.de" }
+]
+description = "A Python toolbox for research data management."
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ["research data management"]
+license = { text = "GPLv3" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Intended Audience :: Science/Research",
+]
+dependencies = [
+    "gitpython>=3.1",
+    "python-gitlab",
+    "pygithub",
+    "click",
+    "tabulate",
+    "keyring",
+    "addict",
+    "numpy",
+    "pyyaml",
+    "semantic-version",
+    "docker", # python-docker interface
+    "cookiecutter",
+]
+
+[project.scripts]
+rdm = "cadetrdm.cli_integration:cli"
+
+
+[project.urls]
+homepage = "https://github.com/cadet/CADET-RDM"
+documentation = "https://cadet-rdm.readthedocs.io/en/latest/index.html"
+"Bug Tracker" = "https://github.com/cadet/CADET-RDM/issues"
+
+
+[project.optional-dependencies]
+testing = [
+    "setuptools",
+    "pytest",
+    "certifi", # tries to prevent certificate problems on windows
+    "pre-commit", # system tests run pre-commit
+    "flake8", # system tests run flake8
+    "matplotlib",
+    "numpy",
+    "build",
+]
+jupyter = [
+    "nbformat",
+    "nbconvert",
+    "ipylab",
+    "junix",
+    "jupytext",
+    "jupyterlab",
+]
+docs = [
+    "sphinx>=5.3.0",
+    "sphinxcontrib-bibtex>=2.5.0",
+    "sphinx_book_theme>=1.0.0",
+    "sphinx_copybutton>=0.5.1",
+    "sphinx-sitemap>=2.5.0",
+    "numpydoc>=1.5.0",
+    "myst-nb>=0.17.1",
+]
+
+[tool.pytest.ini_options]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "server_api: marks tests as using the GitLab/GitHub API",
+    "docker: marks tests as using the Docker API"
+]
+
+[tool.setuptools.dynamic]
+version = { attr = "cadetrdm.__version__" }

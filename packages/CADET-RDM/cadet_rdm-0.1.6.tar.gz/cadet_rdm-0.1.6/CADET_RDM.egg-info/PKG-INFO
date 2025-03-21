@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: CADET-RDM
+Version: 0.1.6
+Summary: A Python toolbox for research data management.
+Author-email: Ronald Jäpel <r.jaepel@fz-juelich.de>, Johannes Schmölder <j.schmoelder@fz-juelich.de>, Eric von Lieres <e.von.lieres@fz-juelich.de>
+License: GPLv3
+Project-URL: homepage, https://github.com/cadet/CADET-RDM
+Project-URL: documentation, https://cadet-rdm.readthedocs.io/en/latest/index.html
+Project-URL: Bug Tracker, https://github.com/cadet/CADET-RDM/issues
+Keywords: research data management
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Intended Audience :: Science/Research
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: gitpython>=3.1
+Requires-Dist: python-gitlab
+Requires-Dist: pygithub
+Requires-Dist: click
+Requires-Dist: tabulate
+Requires-Dist: keyring
+Requires-Dist: addict
+Requires-Dist: numpy
+Requires-Dist: pyyaml
+Requires-Dist: semantic-version
+Requires-Dist: docker
+Requires-Dist: cookiecutter
+Provides-Extra: testing
+Requires-Dist: setuptools; extra == "testing"
+Requires-Dist: pytest; extra == "testing"
+Requires-Dist: certifi; extra == "testing"
+Requires-Dist: pre-commit; extra == "testing"
+Requires-Dist: flake8; extra == "testing"
+Requires-Dist: matplotlib; extra == "testing"
+Requires-Dist: numpy; extra == "testing"
+Requires-Dist: build; extra == "testing"
+Provides-Extra: jupyter
+Requires-Dist: nbformat; extra == "jupyter"
+Requires-Dist: nbconvert; extra == "jupyter"
+Requires-Dist: ipylab; extra == "jupyter"
+Requires-Dist: junix; extra == "jupyter"
+Requires-Dist: jupytext; extra == "jupyter"
+Requires-Dist: jupyterlab; extra == "jupyter"
+Provides-Extra: docs
+Requires-Dist: sphinx>=5.3.0; extra == "docs"
+Requires-Dist: sphinxcontrib-bibtex>=2.5.0; extra == "docs"
+Requires-Dist: sphinx_book_theme>=1.0.0; extra == "docs"
+Requires-Dist: sphinx_copybutton>=0.5.1; extra == "docs"
+Requires-Dist: sphinx-sitemap>=2.5.0; extra == "docs"
+Requires-Dist: numpydoc>=1.5.0; extra == "docs"
+Requires-Dist: myst-nb>=0.17.1; extra == "docs"
+Dynamic: license-file
+
+# The CADET-Research Data Management toolbox
+
+Welcome to CADET-RDM, a project by the Forschungszentrum Jülich.
+
+This tool aims to help track and version control:
+- input data
+- code
+- software versions
+- output data
+
+and allow for easy sharing, integration, and reproduction of generated results. 
+
+## Documentation
+
+You can read the documentation [here](https://cadet-rdm.readthedocs.io).
