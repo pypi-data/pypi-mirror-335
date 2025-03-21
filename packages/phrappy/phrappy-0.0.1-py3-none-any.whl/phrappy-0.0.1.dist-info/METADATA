@@ -1,0 +1,22 @@
+Metadata-Version: 2.4
+Name: phrappy
+Version: 0.0.1
+Summary: Unofficial Python Client for the Phrase TMS API.
+Author-email: Henrik Kühnemann <hello@yellownape.se>
+Project-URL: Homepage, https://github.com/kuhnemann/phrappy
+Keywords: phrase,api,translation,localization,tms
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENCE
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: pydantic<3.0.0,>=2.0.0
+Provides-Extra: dev
+Requires-Dist: black; extra == "dev"
+Requires-Dist: bumpver; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: pip-tools; extra == "dev"
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file
