@@ -1,0 +1,44 @@
+[build-system]
+# 3.4 이상이어야 pip install -e 가 가능하다
+requires = ["flit_core >=3.7"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "analyser_hj3415"
+version = "4.5.1"
+description = "Stock analyser and database processing programs"
+readme = "README.md"
+requires-python = ">=3.6"
+#license = {text = "MIT"}
+#authors = [
+#    {name = "Hyungjin Kim", email = "hj3415@gmail.com"}
+#]
+#keywords = ["keyword1", "keyword2", "keyword3"]
+#classifiers = [
+#    "Programming Language :: Python :: 3",
+#    "License :: OSI Approved :: MIT License",
+#    "Operating System :: OS Independent"
+#]
+dependencies = [
+    "utils-hj3415>=3.2.0",
+    "db-hj3415>=4.7.1",
+    "scikit-learn>=1.5.2",
+    "plotly>=5.24.1",
+    "yfinance>=0.2.54",
+    "prophet>=1.1.6",
+    "kaleido>=0.2.1",   #plotly로 이미지출력위해
+    "matplotlib>=3.9.2",
+    "marshmallow>=3.26.0",
+    # Apple Silicon (ARM, macOS)에서 tensorflow-macos 사용
+    "tensorflow-macos>=2.16.2; platform_machine == 'arm64' and sys_platform == 'darwin'",
+    "tensorflow-metal>=0.5.0; platform_machine == 'arm64' and sys_platform == 'darwin'",
+    # 그 외 환경에서는 일반 tensorflow 사용
+    "tensorflow>=2.18.0; platform_machine != 'arm64' or sys_platform != 'darwin'"
+
+]
+
+[project.scripts]
+analyser = "analyser_hj3415.cli:analyser_manager"
+
+[tool.flit.sdist]
+exclude = ["tests/", ".gitignore"]
