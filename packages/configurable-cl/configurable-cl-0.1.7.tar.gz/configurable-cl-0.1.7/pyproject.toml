@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "configurable-cl"
+version = "0.1.7"
+authors = [
+    { name = "Julien Rabault", email = "julienrabault@icloud.com" }
+]
+description = "This module provides classes and utilities for managing configurations, validating schemas, and creating Configurable objects from configuration data. It is particularly useful for AI applications where configurations can be complex and need to be validated at runtime."
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = [
+    "wheel",
+    "PyYAML",
+    "pytest",
+    "typing-extensions"
+]
+
+[project.urls]
+Homepage = "https://github.com/JulienRabault/Configurable-cl"
+
+[tool.setuptools]
+packages = ["configurable"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
