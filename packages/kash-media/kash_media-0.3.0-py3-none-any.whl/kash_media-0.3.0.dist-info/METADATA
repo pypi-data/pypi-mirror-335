@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: kash-media
+Version: 0.3.0
+Summary: The knowledge agent shell (media kit)
+Project-URL: Repository, https://github.com/jlevy/kash-media
+Author-email: Joshua Levy <joshua@cal.berkeley.edu>
+License-Expression: AGPL-3.0-or-later
+License-File: LICENSE
+Requires-Python: <4.0,>=3.11
+Requires-Dist: curl-cffi>=0.7.4
+Requires-Dist: kash-shell>=0.3.0
+Requires-Dist: opencv-python>=4.11.0.86
+Requires-Dist: scikit-image>=0.25.2
+Requires-Dist: typing-extensions>=4.11.1
+Requires-Dist: weasyprint>=63.1
+Requires-Dist: yt-dlp>=2025.2.19
+Description-Content-Type: text/markdown
+
+# kash-media-kit
+
+See the main [kash](https://github.com/jlevy/kash) repo for general instructions.
+
+To run media kit, ensure you have uv set up then:
+
+```shell
+# Install all deps and run tests:
+make
+# Run kash with media kit actions enabled:
+uv run kash
+```
+
+## Installing uv and Python
+
+This project is set up to use [**uv**](https://docs.astral.sh/uv/), the new package
+manager for Python. `uv` replaces traditional use of `pyenv`, `pipx`, `poetry`, `pip`,
+etc. This is a quick cheat sheet on that:
+
+On macOS or Linux, if you don't have `uv` installed, a quick way to install it:
+
+```shell
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+For macOS, you prefer [brew](https://brew.sh/) you can install or upgrade uv with:
+
+```shell
+brew update
+brew install uv
+```
+
+See [uv's docs](https://docs.astral.sh/uv/getting-started/installation/) for more
+installation methods and platforms.
+
+Now you can use uv to install a current Python environment:
+
+```shell
+uv python install 3.13 # Or pick another version.
+```
+
+## Development
+
+For development workflows, see [development.md](development.md).
+
+* * *
+
+*This project was built from
+[simple-modern-uv](https://github.com/jlevy/simple-modern-uv).*
