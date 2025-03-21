@@ -1,0 +1,150 @@
+---
+# The JSONSchema for 'Workflow' YAML files.
+#
+# See https://json-schema.org/understanding-json-schema/index.html
+
+$schema: http://json-schema.org/draft-07/schema#
+
+title: Data Manager Workflow Schema
+description: >-
+  The Schema for Data Manager Workflows
+
+# The root-level object -------------------------------------------------------
+
+type: object
+properties:
+  kind:
+    const: DataManagerWorkflow
+  kind-version:
+    enum:
+    - '2024.1'
+  name:
+    $ref: '#/definitions/rfc1035-label-name'
+  description:
+    type: string
+    description: A description of the workflow
+  steps:
+    type: array
+    items:
+      $ref: "#/definitions/step"
+  variables:
+    type: object
+    properties:
+      inputs:
+        type: array
+        items:
+          $ref: "#/definitions/workflow-input-parameter"
+required:
+- kind
+- kind-version
+- name
+- steps
+
+# Sub-object definitions ------------------------------------------------------
+
+definitions:
+
+  # RFC 1035 Label Names (as used in Kubernetes)
+  # See https://kubernetes.io/docs/concepts/overview/working-with-objects/names/
+  rfc1035-label-name:
+    type: string
+    pattern: ^[a-z][a-z0-9-]{,63}(?<!-)$
+    description: >-
+      A value compatible with Kubernetes variables
+      to allow it to be used ins Pod Label
+
+  parameter-name:
+    type: string
+    pattern: ^[a-zA-Z_][a-zA-Z0-9_-]*$
+
+  workflow-input-parameter:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/parameter-name'
+
+  # Declaration of a value from a workflow input (variable)
+  from-workflow-input:
+    type: object
+    additionalProperties: false
+    properties:
+      workflow-input:
+        $ref: '#/definitions/parameter-name'
+    required:
+    - workflow-input
+
+  # Declaration of a value from another step
+  from-step-output:
+    type: object
+    additionalProperties: false
+    properties:
+      step:
+        $ref: '#/definitions/rfc1035-label-name'
+      output:
+        $ref: '#/definitions/parameter-name'
+    required:
+    - step
+    - output
+
+  # A Step input (from an output of a prior step)
+  step-input-from-step:
+    type: object
+    additionalProperties: false
+    properties:
+      input:
+        $ref: '#/definitions/parameter-name'
+      from:
+        $ref: '#/definitions/from-step-output'
+    required:
+    - input
+
+  step-input-from-workflow:
+    type: object
+    additionalProperties: false
+    properties:
+      input:
+        $ref: '#/definitions/parameter-name'
+      from:
+        $ref: '#/definitions/from-workflow-input'
+    required:
+    - input
+
+  # A Step output (with an 'as' - a declared value)
+  step-output-as:
+    type: object
+    additionalProperties: false
+    properties:
+      output:
+        $ref: '#/definitions/parameter-name'
+      as:
+        type: string
+        description: The value to set the parameter to
+    required:
+    - output
+    - as
+
+  step:
+    type: object
+    properties:
+      name:
+        $ref: '#/definitions/rfc1035-label-name'
+      description:
+        type: string
+        description: A description of the step
+      specification:
+        type: string
+        description: The Data Manager Job Specification, a JSON string
+      inputs:
+        type: array
+        items:
+          anyOf:
+          - $ref: "#/definitions/step-input-from-step"
+          - $ref: "#/definitions/step-input-from-workflow"
+      outputs:
+        type: array
+        items:
+          anyOf:
+          - $ref: "#/definitions/step-output-as"
+    required:
+    - name
+    - specification
