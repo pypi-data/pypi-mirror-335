@@ -1,0 +1,107 @@
+[project]
+name = "mostlyai-qa"
+version = "1.5.9"
+description = "Synthetic Data Quality Assurance"
+authors = [{ name = "MOSTLY AI", email = "dev@mostly.ai" }]
+requires-python = ">=3.10"
+readme = "README.md"
+license = "Apache-2.0"
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Financial and Insurance Industry",
+    "Intended Audience :: Healthcare Industry",
+    "Intended Audience :: Telecommunications Industry",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries",
+    "Typing :: Typed",
+]
+dependencies = [
+    "pydantic>=2.0.0,<3.0.0",
+    "numpy>=1.26.3,<2.0.0",
+    "scipy>=1.11.0",
+    "pandas>=2.0.0",
+    "pyarrow>=14.0.0",
+    "plotly>=5.18.0,<6.0.0",
+    "phik>=0.12.4",
+    "fastcluster>=1.2.6",
+    "joblib>=1.2.0",
+    "Jinja2>=3.1.2",
+    "scikit-learn>=1.4.0",
+    "sentence-transformers>=3.1.0",
+    "rich>=13.9.4,<14",
+    "skops>=0.11.0",
+    "torch>=2.6.0",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "torch>=2.6.0",
+]
+cpu = [
+    "torch==2.6.0+cpu; sys_platform == 'linux'",
+    "torch>=2.6.0; sys_platform != 'linux'",
+]
+
+[project.urls]
+homepage = "https://github.com/mostly-ai/mostlyai-qa"
+repository = "https://github.com/mostly-ai/mostlyai-qa"
+documentation = "https://mostly-ai.github.io/mostlyai-qa/"
+
+[dependency-groups]
+dev = [
+    "ruff==0.9.2",
+    "pytest>=7.1.2",
+    "pre-commit>=3.2.0",
+    "twine>=6.1.0,<7",
+    "ipykernel>=6.25.2",
+]
+docs = [
+    "mkdocs>=1.5.3",
+    "mkdocstrings[crystal, python]>=0.27.0,<0.28",
+    "mkdocs-material>=9.0.0,<10",
+    "griffe>=1.0.0,<2",
+    "pymdown-extensions>=10.0.0,<11",
+    "griffe-fieldz>=0.2.0,<0.3",
+    "black>=22.1.0",
+]
+
+[tool.uv]
+default-groups = ["dev", "docs"]
+conflicts = [
+  [
+    { extra = "cpu" },
+    { extra = "gpu" },
+  ],
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[tool.uv.sources]
+torch = [
+  { index = "pytorch-cpu", extra = "cpu", marker = "sys_platform == 'linux'"},
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["mostlyai/qa"]
+
+[tool.hatch.build.targets.wheel]
+include = ["mostlyai/qa"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
