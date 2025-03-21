@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "VideoGameDay"
+description = "A fun package for video game recommendations, trivia, guessing, and luck prediction"
+readme = "README.md"
+version = "0.1.0"
+authors = [
+    {name = "Lily Fu", email = "jf4296@nyu.edu"},
+    {name = "Jialiang Tang", email = "jt4260@nyu.edu"},
+    {name = "Peng Jiang", email = "pj2196@nyu.edu"},
+    {name = "Adam Cao", email = "jc9770@nyu.edu"}
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License (GPL)",
+    "Programming Language :: Python :: 3"
+]
+keywords = ["game", "fortune", "fun", "gaming", "guessing", "trivia", "luck"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/software-students-spring2025/3-python-package-atajo-devs"
