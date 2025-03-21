@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "procrastination_helper"
+description = "A fun package to help procrastinators with excuses, quotes, and more"
+version = "0.1.2"
+authors = [
+  { name = "Chris Leu", email = "cl3880@nyu.edu" },
+  { name = "Ava August", email = "aca9900@nyu.edu" },
+  { name = "Keith Dusling", email = "ksd332@nyu.edu" },
+  { name = "Joel Kim", email = "jdk9137@nyu.edu" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["procrastination", "excuses", "quotes", "python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-market-correction"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-market-correction.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-market-correction/issues"
+
+[project.scripts]
+procrastination_helper = "procrastination_helper.__main__:main"
