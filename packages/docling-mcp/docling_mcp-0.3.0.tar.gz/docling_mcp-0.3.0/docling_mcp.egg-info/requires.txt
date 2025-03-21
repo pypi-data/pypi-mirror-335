@@ -1,0 +1,14 @@
+docling~=2.25
+httpx>=0.28.1
+mcp[cli]>=1.4.0
+pydantic~=2.10
+pydantic-settings~=2.4
+
+[rapidocr]
+onnxruntime~=1.7
+
+[rapidocr:python_version < "3.13"]
+rapidocr-onnxruntime~=1.4
+
+[tesserocr]
+tesserocr~=2.7
