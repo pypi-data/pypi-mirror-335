@@ -1,0 +1,38 @@
+
+package:
+  name: dv-flow-mgr
+
+  dep-sets:
+
+  - name: default
+    deps:
+    - name: pytest
+      src: pypi
+    - name: svdep
+      url: https://github.com/fvutils/svdep.git
+
+  - name: default-dev
+    deps:
+    - name: pytest
+      src: pypi
+    - name: pydantic
+      src: pypi
+    - name: pyyaml
+      src: pypi
+    - name: Sphinx
+      src: pypi
+    - name: sphinx-jsonschema
+#      src: pypi
+      url: https://github.com/lnoor/sphinx-jsonschema.git
+    - name: sphinxcontrib-mermaid
+      src: pypi
+    - name: sphinxcontrib-dv-flow
+      url: https://github.com/dv-flow/sphinxcontrib-dv-flow.git
+    - name: jq
+      src: pypi
+    - name: ply
+      src: pypi
+    - name: rich
+      src: pypi
+
+
