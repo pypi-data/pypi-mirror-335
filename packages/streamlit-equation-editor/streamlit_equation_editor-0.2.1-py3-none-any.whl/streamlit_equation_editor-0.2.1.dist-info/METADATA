@@ -1,0 +1,60 @@
+Metadata-Version: 2.4
+Name: streamlit-equation-editor
+Version: 0.2.1
+Summary: A WYSIWYG equation editor component for Streamlit
+Home-page: https://github.com/teaghan/Streamlit-Equation-Editor
+Author: Teaghan O'Briain
+Author-email: obriaintb@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: streamlit>=0.63
+Provides-Extra: devel
+Requires-Dist: wheel; extra == "devel"
+Requires-Dist: pytest==7.4.0; extra == "devel"
+Requires-Dist: playwright==1.39.0; extra == "devel"
+Requires-Dist: requests==2.31.0; extra == "devel"
+Requires-Dist: pytest-playwright-snapshot==1.0; extra == "devel"
+Requires-Dist: pytest-rerunfailures==12.0; extra == "devel"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Streamlit-Equation-Editor
+
+A WYSIWYG math expression editor for Streamlit using Mathlive math field and on-screen keyboard.
+This package is a modified version of [Streamlit-Mathlive-Editor](https://github.com/sinagolchi/Streamlit-Mathlive-Editor) by Sina Golchi.
+
+## Installation instructions
+
+```sh
+pip install streamlit-equation-editor
+```
+
+## Usage instructions
+
+```python
+import streamlit as st
+from st_equation_editor import mathfield
+
+Tex, MathML = mathfield(value=r"\frac{1}{2} \times 5")
+
+st.latex(Tex)
+st.write(MathML)
+```
+
+## Features
+- WYSIWYG math equation editor with virtual keyboard
+- Direct "Copy Equation" button for LaTeX output
+- Returns both LaTeX and MathML representations
