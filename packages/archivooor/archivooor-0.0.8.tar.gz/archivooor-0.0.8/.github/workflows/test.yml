@@ -1,0 +1,44 @@
+name: test
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv and set the python version
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Ubuntu keyring setup
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: t1m0thyj/unlock-keyring@v1
+
+      - name: MacOS keychain setup
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: |
+          security create-keychain -p "" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "" build.keychain
+
+      - name: Run tests
+        run: |
+          uv run archivooor
+          uv run archivooor keys set test_value test_secret
+          uv run archivooor keys delete
