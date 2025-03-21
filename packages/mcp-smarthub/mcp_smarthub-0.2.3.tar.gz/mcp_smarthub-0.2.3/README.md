@@ -1,0 +1,18 @@
+# SmartHub MCP
+
+MCP server for interacting with SmartHub and analyzing Account Manager books of business.
+
+## Features
+- Book analysis and merchant tracking
+- Variable compensation metric tracking (GPV Growth 60%, AR Growth 40%)
+- Custom analysis templates
+- NNRO tracking
+- Contract multiplier analysis
+
+## Setup
+```bash
+# Install using uv
+uvx mcp_smarthub
+
+# Or install using pip
+pip install mcp_smarthub
