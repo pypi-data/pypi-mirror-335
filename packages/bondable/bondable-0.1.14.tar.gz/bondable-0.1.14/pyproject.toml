@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "bondable"
+version = "0.1.14"
+description = "Bond AI is and SDK and UI for working with agents built using the OpenAI Assistants API"
+license = "MIT"
+authors = ["jmcarnahan <jmcarny@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/jmcarnahan/bond-ai"
+homepage = "https://github.com/jmcarnahan/bond-ai"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+pytest = "^8.3.4"
+sqlalchemy = "^2.0.36"
+python-dotenv = "^1.0.1"
+ipython = "^8.31.0"
+google-cloud-secret-manager = "^2.23.1"
+google-auth-oauthlib = "^1.2.1"
+google-auth-httplib2 = "^0.2.0"
+google-auth = "^2.38.0"
+google-api-python-client = "^2.163.0"
+streamlit-cookies-controller = "^0.0.4"
+openai = "^1.66.3"
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
+deptry = "^0.23.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
