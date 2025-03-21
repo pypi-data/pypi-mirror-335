@@ -1,0 +1,88 @@
+site_name: Schemathesis
+repo_url: https://github.com/schemathesis/schemathesis
+
+nav:
+  - Introduction: index.md
+  - Getting Started: getting-started.md
+  - Core Concepts: core-concepts.md
+  - Using Schemathesis:
+      - Command-Line Interface: using/cli.md
+      - Python Integration: using/python-integration.md
+      - Configuration: using/configuration.md
+  - Continuous Integration:
+      - Overview: ci/overview.md
+      - GitHub Actions: ci/github-actions.md
+      - GitLab CI: ci/gitlab-ci.md
+  - Extending:
+      - Overview: extending/overview.md
+      - Checks: extending/checks.md
+      - Data Generation: extending/data-generation.md
+      - Authentication: extending/auth.md
+      - Hooks: extending/hooks.md
+      - Metrics: extending/metrics.md
+  - Open API:
+      - Examples in API Schemas: openapi/examples.md
+  - Advanced:
+      - Targeted Testing: advanced/targeted.md
+  - Troubleshooting: troubleshooting.md
+  - Reference:
+      - Configuration Options: reference/configuration.md
+      - CLI Options: reference/cli.md
+      - Checks: reference/checks.md
+      - Reporting: reference/reporting.md
+      - Python API Reference: reference/python.md
+  - External Resources: resources.md
+  - FAQ: faq.md
+
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    # Palette toggle for automatic mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - navigation.footer
+    - content.code.copy
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/schemathesis/schemathesis
+      name: GitHub
+    - icon: fontawesome/brands/discord
+      link: https://discord.gg/R9ASRAmHnA
+      name: Discord
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+copyright: Copyright &copy; 2020-2025 Dmitry Dygalo & Schemathesis.io
