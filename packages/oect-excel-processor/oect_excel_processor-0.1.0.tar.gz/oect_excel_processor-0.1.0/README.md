@@ -1,0 +1,144 @@
+# OECT Excel Processor
+
+用于处理OECT（有机电化学晶体管）性能测试后的Excel数据并转换为CSV格式的Python包。
+
+## 功能特点
+
+- 支持两种类型的工作表处理：
+  - `transfer`类型：从第三行开始有字段名，共四列数据
+  - `transient`类型：第三行前两列是字段名，数据按每两列一组排列，需要合并
+- 可以处理包含多个工作表的Excel文件
+- 自动将每个工作表转换为单独的CSV文件
+- 支持自定义输出文件名前缀
+- 自动去除transient类型工作表中的空行和不完整数据行
+- 支持批量处理多个Excel文件，并按自然排序处理
+- 支持多核并行处理，加速批量文件处理
+- 提供命令行工具，方便直接使用
+
+## 安装
+
+### 从PyPI安装
+
+```bash
+pip install oect-excel-processor
+```
+
+### 从源码安装
+
+```bash
+git clone https://github.com/Durian-leader/oect-excel-processor.git
+cd oect-excel-processor
+pip install -e .
+```
+
+## 使用方法
+
+### 作为Python库使用
+
+#### 单个Excel文件处理
+
+```python
+from oect_excel_processor import ExcelProcessor
+
+# 创建处理器实例
+excel_file = "your_excel_file.xls"
+sheet_types = ["transfer", "transient", "transfer", "transfer"]
+output_prefix = "output"
+
+processor = ExcelProcessor(excel_file, sheet_types, output_prefix)
+saved_files = processor.process_and_save()
+
+print("保存的CSV文件:")
+for file in saved_files:
+    print(f"- {file}")
+```
+
+#### 批量处理Excel文件
+
+```python
+from oect_excel_processor import BatchExcelProcessor
+
+# 创建批处理器实例
+batch_processor = BatchExcelProcessor(
+    directory="your_directory",
+    file_pattern="*.xls",
+    sheet_types=["transfer", "transient"],
+    output_prefix="batch_output"
+)
+
+# 使用多核处理加速
+results = batch_processor.process_all_files(
+    output_dir="csv_output",
+    use_multiprocessing=True,  # 启用多进程处理
+    max_workers=None  # 自动使用所有可用CPU核心
+)
+
+# 获取处理摘要
+summary = batch_processor.get_processing_summary(results)
+print(f"总Excel文件数: {summary['total_excel_files']}")
+print(f"成功处理的文件数: {summary['successful_files']}")
+print(f"生成的CSV文件总数: {summary['total_csv_files']}")
+```
+
+### 作为命令行工具使用
+
+安装后，可以使用`oect-processor`命令行工具：
+
+#### 处理单个文件
+
+```bash
+oect-processor single your_excel_file.xls --sheet-types transfer,transient --output-prefix output
+```
+
+#### 批量处理文件
+
+```bash
+oect-processor batch your_directory --pattern "*.xls" --sheet-types transfer,transient --output-prefix batch_output --output-dir csv_output --multiprocessing
+```
+
+## 工作表类型说明
+
+### transfer类型
+
+- 从第三行开始，第三行包含字段名
+- 总共有四列数据
+- 从第四行开始是实际数据
+
+### transient类型
+
+- 第三行的前两列是字段名
+- 数据按每两列一组排列（AB, CD, EF等）
+- 每组的数据应该连接在一起
+- 从第四行开始是实际数据
+- 自动去除空行和不完整的数据行
+
+## 输出文件
+
+输出的CSV文件将按照以下格式命名：
+
+```
+{output_prefix}-{sheet_index}-{sheet_type}.csv
+```
+
+例如，如果`output_prefix`设置为"data"，则输出文件将为：
+- data-1-transfer.csv
+- data-2-transient.csv
+- 等等
+
+对于批处理，输出文件名格式为：
+
+```
+{output_prefix}-{file_index}-{sheet_index}-{sheet_type}.csv
+```
+
+## 示例
+
+包中提供了几个示例脚本，展示如何使用该包：
+
+- `single_file_example.py`: 展示如何处理单个Excel文件
+- `batch_processing_example.py`: 展示如何批量处理Excel文件
+- `multiprocessing_comparison.py`: 展示多核处理与单核处理的性能对比
+
+## 许可证
+
+MIT 
