@@ -1,0 +1,91 @@
+Metadata-Version: 2.4
+Name: anagram_package
+Version: 0.1.1
+Summary: A package with fun functions for anagrams, pallidromes, and words with missing letters.
+Author: Wyatt Destabelle, Nick Michael, Alan Chen, Isaac Fisher
+License: MIT License
+        
+        Copyright (c) 2025 Isaac Fisher, Wyatt Destabelle, Alan Chen, Nick Michael
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/software-students-spring2025/3-python-package-fedex-package-delivery-services
+Project-URL: Repository, https://github.com/software-students-spring2025/3-python-package-fedex-package-delivery-services.git
+Project-URL: Bug Tracker, https://github.com/software-students-spring2025/3-python-package-fedex-package-delivery-services/issues
+Keywords: python,package
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file
+
+![Python build & test](https://github.com/software-students-spring2025/3-python-package-fedex-package-delivery-services/actions/workflows/build.yml/badge.svg)
+
+# Anagram Package
+A package that contains a collection of playful word based functions, allowing you generate and check anagrams, as well as solve missing letter puzzles and find palindromes!
+
+[PyPI link]()
+Authors:
+- [Isaac Fisher](https://github.com/isaac1000000)
+- [Wyatt Destabelle](https://github.com/Wyatt-Destabelle)
+- [Alan Chen](https://github.com/Chen-zexi)
+- [Nick Michael](https://github.com/NMichael111)
+## Installation
+
+Install this package using pip: \
+`pip install anagram-package`
+
+## Functions
+This Program currently contains four functions:
+1. fill_word(pattern): This takes a String containing one word with any number of letters replaced with an underscore '_', and returns all words that could fill the gap. eg. "Pyt_on" would return "Python".
+    - Parameters:
+        - `pattern`: Required. A String containing only one word (no spaces), with any amount of letters replaced with an underscore ('_'). 
+    - Return: Returns a list of strings, respresenting all words that could fill the missing spaces in the word given in `pattern`.
+2. create_anagram(word): This takes a String containing one word, and returns a list of strings containing every anagram of that word.
+   - Parameters:
+        - `word`: Required. A String containing only one word (no spaces).
+    - Return: Returns a list of strings, respresenting anagrams of the word entered in `word`.
+3. check_anagram(word1,word2): This takes two strings, each containing one word (no spaces), and checks if they are anagrams of each other. It will return a boolean of the result of the comparision.
+    - Parameters:
+        - `word1`: Required. A String containing only one word (no spaces).
+        - `word2`: Required. A String containing only one word (no spaces).
+    - Return: Returns a boolean, which is true if `word1` and `word2` are anagrams, and false if not.
+4. filter_palindromes(words): Takes a list of Strings each containing only one word (no spaces), and returns a list of the words that are palindromes.
+   - Parameters:
+        - `words`: Required. A List of Strings each containing only one word (no spaces).
+   - Return: Retursn a list of Strings containing all the Strings from `words` that are palindromic.
+
+## Contributions
+
+Please preform the following steps if you wish to make a contribution to the project:
+1. Fork this repository:
+    - `git clone https://github.com/software-students-spring2025/3-python-package-fedex-package-delivery-services.git`
+2. Enter the directory:
+    - `cd 3-python-package-fedex-package-delivery-services`
+3. Create a new branch for your changes.
+4. Set up a virtual enviroment and install dependencies:
+    - `pipenv install` \
+`pipenv shell`
+5. Write your changes!
+5. Build the package:
+    - `pipenv run python -m build`
+6. After you have built your changes, run the unit tests included within the project (please include new unit tests for any new or changed functions):
+    - `pipenv run python -m pytest tests/`
+7. Submit a pull request on github so we can review your changes!
