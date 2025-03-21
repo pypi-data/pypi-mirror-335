@@ -1,0 +1,41 @@
+from cogito import BasePredictor
+
+{% for route in routes %}
+class {{ route.class_name }}(BasePredictor):
+    """
+    Name: {{ route.class_data.name }}
+    Description:
+        {{ route.class_data.description | indent(8) }}
+    Route path: {{ route.class_data.path }}
+    Tags: {{ route.class_data.tags }}
+    """
+
+    def setup(self):
+        """
+        This method is called once before the first prediction is made.
+        """
+
+        # TODO: (USER) Implement the setup method or remove it if not needed
+
+        pass
+
+    def predict(self, prompt: str, temperature: float, steps: int) -> str:
+        """
+
+        # TODO: (USER) Implement the predict method for inference using your parameters
+        This method is called for each prediction request. 
+        
+        Parameters:
+            prompt (str): The prompt to generate text from.
+            temperature (float): The temperature setting for generation.
+            steps (int): The number of steps in the generation process.
+            
+        Returns:
+            bool: True if the prediction was successful, False otherwise.
+        """
+
+        # TODO: (USER) Implement the predict method for inference
+        # TODO: (USER) set the value of result based on inference logic
+        return f"Executed {prompt} with temperature {temperature} and steps {steps}"
+
+{% endfor %}
