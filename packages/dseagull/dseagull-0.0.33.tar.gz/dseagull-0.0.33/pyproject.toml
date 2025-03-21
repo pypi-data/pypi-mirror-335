@@ -1,0 +1,46 @@
+[build-system]
+requires = [
+    "setuptools>=61.0",
+    "Django>=5.0.9",
+    "djangorestframework>=3.15.2",
+    "PyJWT>=2.9.0",
+    "django-cors-headers>=4.6.0",
+    "pymysql>=1.1.1",
+    "django-filter>=24.3",
+    "coreapi>=2.3.3",
+    "mysqlclient>=2.2.6",
+    "django-redis>=5.4.0",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dseagull"
+version = "0.0.33"
+authors = [
+  { name="chenhaiou", email="haiou_chen@sina.cn" },
+]
+dependencies = [
+    "setuptools>=61.0",
+    "Django>=5.0.9",
+    "djangorestframework>=3.15.2",
+    "PyJWT>=2.9.0",
+    "django-cors-headers>=4.6.0",
+    "pymysql>=1.1.1",
+    "django-filter>=24.3",
+    "coreapi>=2.3.3",
+    "mysqlclient>=2.2.6",
+    "django-redis>=5.4.0",
+]
+description = "快速构建 RESTful API"
+readme = "README.md"
+requires-python = ">=3.12.3"
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+# [project.urls]
+# Changelog = "https://github.com/MrLawes/dseagull/blob/main/CHANGELOG.md"
+# Homepage = "https://github.com/MrLawes/dseagull"
+# Issues = "https://github.com/MrLawes/dseagull/issues"
