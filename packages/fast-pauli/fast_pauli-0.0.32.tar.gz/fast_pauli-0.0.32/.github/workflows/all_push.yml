@@ -1,0 +1,27 @@
+name: "Push Build/Test"
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  push-build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        compiler: [clang++-17]
+        python-version: ["3.12"]
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: recursive
+      - name: Push Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Push Build
+        uses: ./.github/actions/build
+        env:
+          BUILD_OS: ${{ matrix.os }}
+          CXX: ${{ matrix.compiler }}
