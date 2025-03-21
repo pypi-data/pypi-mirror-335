@@ -1,0 +1,42 @@
+[project]
+name = "ForkedMachineState"
+version = "0.6.1"
+description = "Gathering the system state before benchmarking and other tests on compute systems."
+readme = "README.md"
+authors = [
+  { name = "Thomas Gruber", email = "thomas.gruber@fau.de" },
+  { name = "Jan Laukemann", email = "jan.laukemann@fau.de" },
+  { name = "Julian Hammer", email = "julian.hammer@fau.de" }
+]
+license = { text = "GPL-3.0-or-later" }
+requires-python = ">=3.6"
+keywords = ["benchmarking", "linux", "system state", "topology"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: System :: Benchmark",
+    "Topic :: System :: Hardware",
+    "Topic :: System :: Operating System",
+    "Topic :: System :: Systems Administration",
+    "Topic :: Education :: Testing",
+    "Operating System :: POSIX :: Linux",
+    "Environment :: Console",
+    "Programming Language :: Python :: 3"
+]
+
+[project.scripts]
+machinestate = "machinestate:main"
+
+[project.urls]
+Homepage = "https://github.com/RRZE-HPC/MachineState"
+Issues = "https://github.com/RRZE-HPC/MachineState/issues"
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["machinestate"]
