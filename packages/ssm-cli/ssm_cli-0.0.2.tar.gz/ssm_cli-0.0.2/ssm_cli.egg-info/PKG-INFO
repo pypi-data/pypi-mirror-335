@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: ssm-cli
+Version: 0.0.2
+Summary: CLI tool to help with SSM functionality, aimed at adminstrators
+Author-email: Simon Fletcher <simon.fletcher@lexisnexisrisk.com>
+License: MIT License
+        
+        Copyright (c) 2025 Simon Fletcher
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/simonfletcher-ln/ssm-cli
+Project-URL: Issues, https://github.com/simonfletcher-ln/ssm-cli/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE
+Requires-Dist: boto3
+Requires-Dist: inquirer
+Requires-Dist: paramiko
+Requires-Dist: rich-argparse
+Requires-Dist: confclasses
+Requires-Dist: xdg_base_dirs
+Dynamic: license-file
+
+# SSM CLI
+
+A tool to make common tasks with SSM easier. The goal of this project is to help with the Session Manager, the tool tries to keep the access it requires to a minimum.
+
+## Installation
+
+It can be installed with `pip install ssm-cli`, however most features rely on the session-manager-plugin being installed as well, this is the standard way to make SSM connections.
+
+[AWS install guide](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-install-plugin.html)
+
+## AWS permission
+
+The tool uses boto3, so any standard AWS_ environment variables can be used. Also the `--profile` option can be used.
+
+You will need access to a few aws actions, below is a policy which should cover all features used by the tool.
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+        "Sid": "FirstStatement",
+        "Effect": "Allow",
+        "Action": [
+            "resourcegroupstaggingapi:GetResources",
+            "ssm:DescribeInstanceInformation",
+            "ssm:StartSession"
+        ],
+        "Resource": "*"
+        }
+    ]
+}
+```
