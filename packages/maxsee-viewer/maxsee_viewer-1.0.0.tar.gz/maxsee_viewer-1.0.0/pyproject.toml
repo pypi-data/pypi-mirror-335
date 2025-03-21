@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maxsee_viewer"
+description = "Viewer for MaxSee USB/Wifi microscope"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Topic :: Scientific/Engineering",
+    "Programming Language :: Python",
+    "License :: OSI Approved :: MIT License",
+]
+authors = [
+    {name = "Johannes Löhnert", email="loehnert.kde@gmx.de"}
+]
+version = "1.0.0"
+dependencies = [
+    "ascii-designer",
+    "pillow",
+]
+requires-python = ">= 3.9"
+
+[project.urls]
+Homepage = "https://github.com/loehnertj/maxsee_viewer"
+
+[project.gui-scripts]
+maxsee_viewer = "maxsee_viewer:main"

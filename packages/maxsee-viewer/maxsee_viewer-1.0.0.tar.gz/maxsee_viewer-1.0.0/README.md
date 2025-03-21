@@ -1,0 +1,57 @@
+# Maxsee Viewer
+
+Viewer for the Maxsee USB/Wifi microscope. Receives the microscope's image
+stream over WiFi and displays it on a PC.
+
+![Screenshot](maxsee_viewer_screenshot.png)
+
+This wouldn't exist without the work done by czietz:
+
+https://www.chzsoft.de/site/hardware/reverse-engineering-a-wifi-microscope/
+
+https://github.com/czietz/wifimicroscope/
+
+## Microscope model
+
+This program *only* works with the MaxSee Wifi microscope. This is sold on
+Amazon under various brands. If your Microscope provides a Wifi hotspot with the
+name ``Maxsee_3a96``, chances are that it will work.
+
+## Installation
+
+``pip install maxsee-viewer``
+
+This provides the ``maxsee_viewer`` command. As of now, no icons / start menu
+entries / etc are created. On Windows, you might need to add your Python/scripts
+directory to path or something, didn't test it.
+
+## Usage
+
+1. Switch on the microscope
+2. Connect your PC to the ``Maxsee_3a96`` Wifi network
+3. Run the command ``maxsee_viewer``.
+
+MaxSee viewer should open immediately and start displaying images continuously.
+
+Use the "Save" menu command to save a snapshot. Snapshots are saved in the
+current working directory as ``snapshot0.jpg``, ``snapshot1.jpg``, and so on.
+Snapshots are always 1280x720 pixels as sent by the microscope.
+
+## Hacking
+
+If you want to do something else with the live stream, you can just use the
+receiver without the viewer. `src/maxsee.py` packages everything necessary in a
+convenient context manager.
+
+Usage example:
+
+```
+from pathlib import Path
+from maxsee import maxsee_receiver
+
+with maxsee_receiver() as receiver:
+    # receiver is a queue.Queue object
+    data = receiver.get()
+    # data is raw JPG byte data
+    Path("dump.jpg").write_bytes(data)
+```
