@@ -1,0 +1,51 @@
+Metadata-Version: 2.1
+Name: zns-discord-bot
+Version: 1.0.1
+Summary: A Discord bot library that integrates many functionalities for Python
+Home-page: https://github.com/Zennisch/zns-discord-bot
+Author: Zennisch
+Author-email: zennisch@gmail.com
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: discord.py
+Requires-Dist: zns-logging
+
+<h1 align="center">zns-discord-bot</h1>
+
+<h3 align="center">A Discord bot library that integrates many functionalities for Python</h3>
+
+# Installation
+```bash
+pip install zns-discord-bot
+```
+
+# Usage
+```python
+from discord import Intents
+
+from zns_discord_bot.ZnsDiscordBot import ZnsDiscordBot
+
+bot = ZnsDiscordBot(
+    token="YOUR.DISCORD.BOT.TOKEN",
+    command_prefix="!",
+    intents=Intents.default()
+)
+
+if __name__ == "__main__":
+    bot.init()
+```
+
+# Features
+(Will be updated soon)
+
+# Change Log
+```markdown
+1.0.0
+- Status: Yanked
+- Changes: Wrong README.md documentation
+
+1.0.1
+- Status: Released
+- Changes: Fixed README.md documentation
+```
