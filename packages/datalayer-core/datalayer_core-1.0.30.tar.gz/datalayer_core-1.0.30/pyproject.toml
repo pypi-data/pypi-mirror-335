@@ -1,0 +1,87 @@
+# Copyright (c) 2023-2025 Datalayer, Inc.
+# Distributed under the terms of the Modified BSD License.
+
+[build-system]
+requires = ["hatchling==1.21.1"]
+build-backend = "hatchling.build"
+
+[project]
+name = "datalayer_core"
+description="Datalayer Core"
+keywords = []
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+classifiers = [
+    "Framework :: Jupyter",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: BSD License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "jupyter-kernel-client",
+    "jupyter-console",
+    "jupyter_server>=2,<3",
+    "keyring",
+    "questionary",
+    "requests",
+    "rich",
+    "traitlets",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/datalayer/core"
+Documentation = "https://core.datalayer.tech"
+Repository = "https://github.com/datalayer/core"
+Issues = "https://github.com/datalayer/core/issues"
+Changelog = "https://github.com/datalayer/core/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest_jupyter",
+    "pytest-tornasync",
+]
+
+[project.scripts]
+d = "datalayer_core.cli.datalayer:main"
+dla = "datalayer_core.cli.datalayer:main"
+datalayer = "datalayer_core.cli.datalayer:main"
+datalayer-config = "datalayer_core.config:main"
+datalayer-migrate = "datalayer_core.migrate:main"
+datalayer-server = "datalayer_core.serverapplication:main"
+datalayer-troubleshoot = "datalayer_core.troubleshoot:main"
+
+[tool.hatch.version]
+path = "datalayer_core/__version__.py"
+
+[tool.hatch.build.targets.sdist]
+artifacts = [
+    "datalayer_core/about/about.md",
+]
+exclude = [".github", "binder"]
+
+[tool.hatch.build.targets.wheel]
+artifacts = [
+    "datalayer_core/about/about.md",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyter-config/server-config" = "etc/jupyter/jupyter_server_config.d"
+"jupyter-config/nb-config" = "etc/jupyter/jupyter_notebook_config.d"
+
+[tool.hatch.build.hooks.version]
+path = "datalayer_core/_version.py"
+
+[tool.jupyter-releaser.options]
+version_cmd = "hatch version"
