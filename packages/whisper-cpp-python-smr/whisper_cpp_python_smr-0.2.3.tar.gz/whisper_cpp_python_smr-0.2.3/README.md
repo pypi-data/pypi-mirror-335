@@ -1,0 +1,1 @@
+A tiny wrapper around whisper.cpp

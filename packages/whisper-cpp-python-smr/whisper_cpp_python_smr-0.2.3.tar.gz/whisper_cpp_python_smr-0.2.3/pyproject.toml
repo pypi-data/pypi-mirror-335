@@ -1,0 +1,16 @@
+[build-system]
+requires = ["scikit-build-core[pyproject]>=0.5.1"]
+build-backend = "scikit_build_core.build"
+
+[project]
+name = "whisper_cpp_python_smr"
+version = "0.2.3"
+requires-python = ">=3.11"
+dependencies = []
+description = "A tiny wrapper around whisper.cpp"
+readme = "README.md"
+
+[tool.scikit-build]
+wheel.packages = ["whisper_cpp"]
+cmake.verbose = true
+
