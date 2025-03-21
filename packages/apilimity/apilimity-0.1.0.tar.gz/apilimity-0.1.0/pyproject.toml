@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apilimity"
+version = "0.1.0"
+description = "APIlimity – FastAPI-based request limiter and API key manager"
+authors = [
+    { name = "Oleksii Valitov", email = "valitovalexey@gmail.com" }
+]
+readme = "README.md"
+license = { text = "MIT" }
+dependencies = [
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "redis>=5.0.1"
+]
+
+[project.urls]
+Homepage = "https://github.com/shtilev/apilimity"
+Documentation = "https://github.com/shtilev/apilimity"
+Source = "https://github.com/shtilev/apilimity"
+Issues = "https://github.com/shtilev/apilimity/issues"
