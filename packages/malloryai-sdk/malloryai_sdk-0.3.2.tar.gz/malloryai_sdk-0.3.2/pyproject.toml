@@ -1,0 +1,52 @@
+[project]
+name = "malloryai-sdk"
+version = "0.3.2"
+description = "Official Python SDK for the MalloryAI platform providing seamless API integration"
+authors = [
+    { name = "Mallory Team", email = "hello@mallory.ai" },
+]
+requires-python = ">=3.9"
+readme = "README.md"
+dependencies = [
+    "aiohttp>=3.11.12",
+    "pydantic>=2.10.6",
+    "requests>=2.32.3",
+]
+
+[project.license]
+text = "MIT"
+
+[project.urls]
+Homepage = "https://github.com/malloryai/mallory-api-sdk"
+Documentation = "https://github.com/malloryai/mallory-api-sdk#readme"
+Repository = "https://github.com/malloryai/mallory-api-sdk.git"
+Issues = "https://github.com/malloryai/mallory-api-sdk/issues"
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = [
+    "tests",
+]
+
+[dependency-groups]
+dev = [
+    "python-dotenv>=1.0.1",
+    "pre-commit",
+    "flake8",
+    "black",
+]
+test = [
+    "pytest>=8.3.4",
+    "pytest-asyncio>=0.25.3",
+    "aioresponses>=0.7.8",
+    "pytest-cov>=4.1.0",
+]
