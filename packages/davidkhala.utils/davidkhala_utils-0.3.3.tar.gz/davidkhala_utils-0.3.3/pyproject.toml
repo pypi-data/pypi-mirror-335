@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "davidkhala.utils"
+version = "0.3.3"
+description = "@davidkhala/python-utils"
+authors = ["David Liu <david-khala@hotmail.com>"]
+readme = "README.md"
+packages = [{ include = "davidkhala" }]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+# for extras
+requests = { version = "*", optional = true }
+sqlparse = { version = "*", optional = true }
+python-dotenv = { version = "*", optional = true }
+pyinstaller = { version = "*", optional = true, python = "<3.14"}
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+python-dotenv = "*"
+
+[tool.poetry.scripts]
+build-poetry = "poetry:build"
+clean-poetry = "poetry:clean"
+
+[tool.poetry.extras]
+sql = ["sqlparse"]
+http_request = ["requests"]
+poetry = ["python-dotenv"]
+build = ["pyinstaller"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
