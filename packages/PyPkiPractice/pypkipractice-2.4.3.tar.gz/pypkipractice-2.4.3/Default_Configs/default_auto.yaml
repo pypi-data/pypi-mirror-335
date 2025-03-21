@@ -1,0 +1,96 @@
+# default_auto.yaml
+# This is an example configuration file for the default environment in YAML format.
+# This file can be used as a template to create your own custom autoconfiguration.
+
+# This parameter states how many levels there are in the PKI hierarchy.
+level_count: 4
+
+# This parameter states how many holders there are in each level.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# For example, in this setup there is one root CA, two intermediate CAs, and then four intermediate CAs that directly
+#     communicate with the clients.
+# The number of values in the list must match the level_count parameter.
+# In addition, the numbers should be arranged from lowest to highest. There should always be more devices the further
+#     down the hierarchy you are.
+count_by_level: [1, 2, 4, 8]
+
+# This parameter states what hashing algorithm will be used to create the user's personal hash.
+# Supported algorithms are: SHA224, SHA256, SHA384, SHA512, SHA3_224, SHA3_256, SHA3_384, SHA3_512, BLAKE2b, BLAKE2s.
+# Please write your chosen hash using lowercase letters.
+uid_hash: sha256
+
+# This parameter states what hashing algorithm will be used to sign certificates.
+# Supported algorithms are: SHA224, SHA256, SHA384, SHA512, SHA3_224, SHA3_256, SHA3_384, SHA3_512, BLAKE2b, BLAKE2s.
+# Please write your chosen hash using lowercase letters.
+sig_hash: sha256
+
+# These parameters state what asymmetric encryption algorithm (and parameters) will be used.
+# Supported algorithms are: RSA, ECC.
+# For RSA, pass a public exponent and key size as params.
+# For ECC, pass a valid curve as a param. Valid curves include SECP256R1, SECP384R1, SECP521R1, SECP224R1, SECP192R1,
+#     and SECP256K1.
+# Please write your chosen encryption (and parameters) using lowercase letters.
+encrypt_alg: {
+    alg: rsa,
+    params: {
+        pub_exp: 65537,
+        key_size: 2048
+    }
+}
+
+# This parameter state the revocation probabilities for each level.
+# This probability is used by holders to determine the chance that they randomly decide to revoke their certificate or
+#     other certificates (simulating unexpected events). Certificates affected by this are unable to be used again.
+# All probabilities must be between 0 and 1 (inclusive). 0 is a 0% chance and 1 is a 100% chance.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# The number of values in the list must match the level_count parameter.
+revoc_probs: [0.0, 0.0001, 0.001, 0.01]
+
+# This parameter states the validity durations for each level.
+# This parameter starts counting for a certificate that has been created. Once time expires, the certificate is
+#     considered invalid and must be renewed.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# The left-most value representing the root CAs must be set to none.
+# All other values must either be none (meaning no limit) or a duration in the format HH:MM:SS.
+# The total number of values in the list must match the level_count parameter.
+cert_valid_durs: ["none", "00:15:00", "00:10:00", "00:05:00"]
+
+# This parameter states the regular cache durations for each level.
+# This parameter starts counting for a certificate that has been added to the cache. Once time expires, the certificate
+#     information is considered old and must be reexamined for validity.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# The left-most value representing the root CAs must be set to none.
+# All other values must either be a duration in the format MM:SS.
+# The total number of values in the list must match the level_count parameter.
+cache_durs: ["none", "11:00", "06:00", "01:00"]
+
+# This parameter states the message cooldown durations for each level.
+# This parameter starts counting after a rejection or unexpected response. Once time expires, a new message may be
+#     tried again.
+# All values must be a number in seconds.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# The number of values in the list must match the level_count parameter.
+cooldown_durs: ["5", "5", "5", "5"]
+
+# This parameter states the timeout durations for each level.
+# This parameter starts counting once a message of any kind is sent and the holder is waiting for a response. Once time
+#     expires, the message is considered lost and failed.
+# All values must be a number in seconds.
+# The left-most value represent the root CA layer and the right-most value represents normal clients communicating.
+# The number of values in the list must match the level_count parameter.
+timeout_durs: ["20", "20", "20", "20"]
+
+# This parameter states how long the program will run for.
+# This parameter starts counting the moment all holders, the hub, and the underlying network start running.
+# All values must either be none (meaning no limit) or a duration in the format HH:MM:SS.
+runtime: "00:30:00"
+
+# This parameter specifies where the logs from the program save.
+# All values must be string filepaths that end in ".csv" as CSV is the only supported output.
+# Please ensure the filepath has a descriptive file name. Relative and Absolute paths are allowed.
+log_save_filepath: output/saved_network_logs_yaml.csv
+
+# This parameter specifies where the database files from the program save.
+# All values must be string folder paths.
+# Please ensure the folder path has a descriptive name. Relative and Absolute paths are allowed.
+db_folder_path: output/database
