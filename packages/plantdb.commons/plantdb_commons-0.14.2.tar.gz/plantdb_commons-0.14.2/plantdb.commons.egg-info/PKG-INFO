@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: plantdb.commons
+Version: 0.14.2
+Summary: Core shared library for the ROMI (Robotics for Microfarms) plant database ecosystem.
+Author-email: Peter Hanappe <peter.hanappe@sony.com>, Timothée Wintz <timothee@timwin.fr>, Nabil Ait Taleb <mohamednabil.aittaleb@sony.com>, Arthur Luciani <arthur.luciani@ens-lyon.fr>
+Maintainer-email: Jonathan Legrand <jonathan.legrand@ens-lyon.fr>
+Project-URL: Homepage, https://romi-project.eu/
+Project-URL: Documentation, https://docs.romi-project.eu/plant_imager/
+Project-URL: Repository, https://github.com/romi/plantdb
+Project-URL: Issues, https://github.com/romi/plantdb/issues
+Keywords: Robotics for Microfarms,ROMI,Plant Phenotyping,Scientific Database,Data Management
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Topic :: Database
+Classifier: Topic :: Scientific/Engineering :: Bio-Informatics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Operating System :: OS Independent
+Classifier: Natural Language :: English
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: appdirs
+Requires-Dist: colorlog
+Requires-Dist: imagecodecs
+Requires-Dist: imageio>=2.16.2
+Requires-Dist: numpy
+Requires-Dist: pillow
+Requires-Dist: plyfile
+Requires-Dist: toml
+Requires-Dist: tqdm
+Provides-Extra: doc
+Requires-Dist: mkdocs; extra == "doc"
+Requires-Dist: mkdocs-material; extra == "doc"
+Requires-Dist: mkdocstrings[python]; extra == "doc"
+Requires-Dist: pymdown-extensions; extra == "doc"
+Requires-Dist: markdown-exec[ansi]; extra == "doc"
+Requires-Dist: mkdocs-gen-files; extra == "doc"
+Requires-Dist: mkdocs-literate-nav; extra == "doc"
+Requires-Dist: mkdocs-section-index; extra == "doc"
+Provides-Extra: test
+Requires-Dist: nose2[coverage]; extra == "test"
+Requires-Dist: coverage[toml]; extra == "test"
+Requires-Dist: networkx; extra == "test"
+Requires-Dist: tifffile; extra == "test"
+Requires-Dist: open3d>=0.9.0.0; extra == "test"
