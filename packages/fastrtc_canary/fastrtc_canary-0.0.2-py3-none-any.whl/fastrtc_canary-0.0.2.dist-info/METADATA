@@ -1,0 +1,124 @@
+Metadata-Version: 2.4
+Name: fastrtc_canary
+Version: 0.0.2
+Summary: The realtime communication library for Python - fastrtc with Nvidia's Canary STT
+Project-URL: repository, https://github.com/freddyaboulton/gradio-webrtc
+Project-URL: issues, https://github.com/freddyaboulton/gradio-webrtc/issues
+Project-URL: Documentation, https://freddyaboulton.github.io/gradio-webrtc/cookbook/
+Author-email: Freddy Boulton <YOUREMAIL@domain.com>, Mahimai Raja <YOUREMAIL@domain.com>
+License-Expression: Apache-2.0
+License-File: LICENSE
+Keywords: audio,audio processing,computer vision,gradio-custom-component,image,machine learning,realtime,streaming,video,video processing,webrtc
+Classifier: Development Status :: 3 - Alpha
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Internet
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Visualization
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Requires-Dist: aiortc
+Requires-Dist: audioop-lts; python_version >= '3.13'
+Requires-Dist: librosa
+Requires-Dist: nemo-toolkit[asr]
+Requires-Dist: numba>=0.60.0
+Requires-Dist: numpy>=2.0.2
+Requires-Dist: standard-aifc; python_version >= '3.13'
+Requires-Dist: standard-sunau; python_version >= '3.13'
+Provides-Extra: dev
+Requires-Dist: build; extra == 'dev'
+Requires-Dist: twine; extra == 'dev'
+Description-Content-Type: text/markdown
+
+<div style='text-align: center; margin-bottom: 1rem; display: flex; justify-content: center; align-items: center;'>
+    <h1 style='color: white; margin: 0;'>FastRTC Canary</h1>
+    <img src='https://huggingface.co/datasets/freddyaboulton/bucket/resolve/main/fastrtc_logo_small.png'
+         alt="FastRTC Logo" 
+         style="margin-right: 10px;">
+</div>
+
+<div style="display: flex; flex-direction: row; justify-content: center">
+<img style="display: block; padding-right: 5px; height: 20px;" alt="Static Badge" src="https://img.shields.io/pypi/v/fastrtc_canary"> 
+<a href="https://github.com/mahimairaja/fastrtc_canary" target="_blank"><img alt="Static Badge" src="https://img.shields.io/badge/github-white?logo=github&logoColor=black"></a>
+</div>
+
+<h3 style='text-align: center'>
+The Real-Time Communication Library for Python with Canary STT
+</h3>
+
+Turn any python function into a real-time audio and video stream over WebRTC or WebSockets.
+
+## Installation
+
+### Assume you have fastrtc installed - [fastrtc](https://github.com/freddyaboulton/fastrtc)
+
+```bash
+pip install fastrtc_canary
+```
+
+
+## Features
+
+- 🎯 Direct integration with Nvidia's Canary STT model
+- 🔄 Seamless compatibility with all FastRTC features
+- 🚀 Real-time audio transcription
+- 🔌 Drop-in replacement for FastRTC's STT components
+
+## Available Models
+
+- `nvidia/canary-1b`
+- `nvidia/canary-1b-flash`
+
+## Supported Languages
+
+- `en` (English)
+- `es` (Spanish)
+- `fr` (French)
+- `de` (German)
+
+## Quick Start
+
+```python
+from multiprocessing import freeze_support
+from fastrtc_canary import get_stt_model, load_audio
+
+def main():
+    # Load model
+    model = get_stt_model(
+        model="nvidia/canary-1b",
+        lang="en",
+    )
+
+    # Load audio file (automatically resamples to 16kHz)
+    audio = load_audio("test_file.wav")
+
+    # Transcribe
+    text = model.stt(audio)
+    print(f"Transcription: {text}")
+
+if __name__ == '__main__':
+    freeze_support()
+    main()
+```
+
+
+Note: This is additional package for fastrtc to support Nvidia's Canary STT models. If you want to use fastrtc, you can install it from [here](https://github.com/freddyaboulton/fastrtc)
+
+
+## Documentation
+
+For more detailed information about the base FastRTC package, visit [https://fastrtc.org](https://fastrtc.org)
+
+## License
+
+MIT
+
