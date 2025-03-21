@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: mccn-engine
+Version: 0.1.0
+Summary: mccn engine
+Author-Email: Joseph <joseph.sclauzero@adelaide.edu.au>
+License: MIT
+Requires-Python: >=3.11
+Requires-Dist: owslib<1.0.0,>=0.31.0
+Requires-Dist: rasterio<2.0.0,>=1.3.10
+Requires-Dist: pystac-client>=0.8.5
+Requires-Dist: matplotlib<4.0.0,>=3.9.0
+Requires-Dist: odc-stac<1.0.0,>=0.3.10
+Requires-Dist: tqdm<5.0.0,>=4.66.4
+Requires-Dist: rioxarray<1.0.0,>=0.16.0
+Requires-Dist: scipy<2.0.0,>=1.14.0
+Requires-Dist: pystac-generator>=0.2.0
+Requires-Dist: geopandas>=1.0.1
+Requires-Dist: pystac>=1.11.0
+Requires-Dist: dask>=2025.1.0
+Description-Content-Type: text/markdown
+
+# mccn-engine
+## Installing the MCCN and using the demo notebook.
+
+It is recommended to clone this repository into a pyenv managed virtual environment and install its dependencies with Poetry.
+Here are some of the main steps to set up your environment so you are able to use the MCCN demo notebook.
+
+
+### 1. Install pyenv and pyenv-virtualenv plugin
+
+- To install this pyenv follow this [link](https://github.com/pyenv/pyenv?tab=readme-ov-file#getting-pyenv)
+- To install pyenv-virtualenv follow this [link](https://github.com/pyenv/pyenv-virtualenv?tab=readme-ov-file#activate-virtualenv)
+
+### 2. Create a virtual environment using Python 3.12.2
+##### Using pyenv virtualenv with pyenv
+
+- Follow this [link](https://github.com/pyenv/pyenv-virtualenv) use pyenv virtualenv with pyenv
+
+### 3. Activate virtualenv
+``
+pyenv activate <env_name>
+``
+
+- For more info follow this [link](https://github.com/pyenv/pyenv-virtualenv?tab=readme-ov-file#activate-virtualenv)
+
+### 4. Clone the mccn repository
+``git clone https://github.com/aus-plant-phenomics-network/mccn-engine``
+
+### 5. Install poetry following the instructions in the link
+
+- Follow this [link](https://github.com/python-poetry/install.python-poetry.org)
+
+Note: You might want to add Poetry to the $PATH, copy the $PATH showed when you install Poetry.
+
+**On MAC**
+
+``
+vim ~/.zshrc
+``
+
+Paste the $PATH in the first row of the file and save file
+
+### 6. Install dependencies
+
+In the root directory of this repository run the following command:
+
+``poetry install``
+
+### 7. Start the Notebook server
+
+``python -m notebook``
