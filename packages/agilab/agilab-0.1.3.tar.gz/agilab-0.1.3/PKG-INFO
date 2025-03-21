@@ -1,0 +1,93 @@
+Metadata-Version: 2.4
+Name: agilab
+Version: 0.1.3
+Summary: AGILAB a datascience IDE for engineering to explore AI
+Author-email: Jean-Pierre Morard <focus@thalesgroup.com>
+Project-URL: Documentation, https://thalesgroup.github.io/agilab
+Project-URL: Source, https://github.com/ThalesGroup/agilab
+Project-URL: Tracker, https://github.com/ThalesGroup/agilab/issue
+Keywords: jupyter,mlflow,paramiko,asyncio,dask,rapids,streamlit,distributed,cython,cluster,dataframe,dataset,loadbalancing,genai,copilot,agi,pycharm,datascience
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: ==3.12.*
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: build>=1.2.2.post1
+Requires-Dist: pip>=25.0.1
+Requires-Dist: setuptools>=76.0.0
+Requires-Dist: sphinxcontrib-plantuml>=0.30
+Requires-Dist: twine>=6.1.0
+Requires-Dist: wheel>=0.45.1
+Requires-Dist: agi-core
+Requires-Dist: agi-gui
+Requires-Dist: agi-env
+Dynamic: license-file
+
+# AGILAB Open Source Project
+
+| Version Status                                                                               |
+|----------------------------------------------------------------------------------------------|
+| [![PyPI version](https://img.shields.io/pypi/v/agilab.svg)](https://pypi.org/project/agilab) |
+
+
+## Get started
+
+AGILAB project purpose is to explore AI for engineering. It is designed to help engineers quickly experiment with AI-driven methods.
+
+
+## Install AGILAB for endusers
+
+```bash
+    mkdir agi-workspace && cd agi-workspace
+    uv init && uv add agilab 
+````
+
+## Install AGILAB for contributors
+
+#### Linux and MacOS
+
+```bash
+    
+    git clone https://github.com/ThalesGroup/agilab.git
+    cd agilab
+    git checkout main
+    ./install.sh --openai-api-key "your-api-key" --install-path "your-install-dir"
+    then open agilab/src project preferably with Pycharm
+ ```
+
+#### Windows
+
+```powershell
+    go with your browser to https://github.com/ThalesGroup/agilab and download agilab-main.zip 
+    unzip agilab-main.zip
+    cd agilab-main
+    powershell.exe -ExecutionPolicy Bypass -File .\install.ps1 --openai-api-key "your-api-key" --install-path "your-install-dir"
+    then open agilab/src project preferably with Pycharm
+ ```
+
+#### Execution
+
+```bash
+uv run agilab
+ ```
+
+## Documentation
+
+Documentation is available at [documentation site](https://thalesgroup.github.io/agilab)
+).
+For additional guides and tutorials, consider checking our GitHub Pages.
+
+## Contributing
+
+If you are interested in contributing to the AGILAB project, start by reading the [Contributing guide](/CONTRIBUTING.md).
+
+## License
+
+This project is distributed under the New BSD License.
+See the [License File](agi/LICENSE) for full details.
