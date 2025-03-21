@@ -1,0 +1,276 @@
+Metadata-Version: 2.4
+Name: cricket-tannmay-headless
+Version: 0.1.1
+Summary: A computer vision package to recognize and assess different cricket shots and bowling videos.
+Author-email: Tannmay Khandelwal <tannmaykhandelwal@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Tannmay Khandelwal
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: absl-py==2.1.0
+Requires-Dist: altair==5.4.1
+Requires-Dist: astunparse==1.6.3
+Requires-Dist: attrs==24.2.0
+Requires-Dist: blinker==1.8.2
+Requires-Dist: cachetools==5.5.0
+Requires-Dist: certifi==2024.8.30
+Requires-Dist: cffi==1.17.1
+Requires-Dist: charset-normalizer==3.4.0
+Requires-Dist: click==8.1.7
+Requires-Dist: colorama==0.4.6
+Requires-Dist: contourpy==1.3.0
+Requires-Dist: cycler==0.12.1
+Requires-Dist: flatbuffers==24.3.25
+Requires-Dist: fonttools==4.54.1
+Requires-Dist: gast==0.6.0
+Requires-Dist: gitdb==4.0.11
+Requires-Dist: GitPython==3.1.43
+Requires-Dist: google-pasta==0.2.0
+Requires-Dist: grpcio==1.66.2
+Requires-Dist: h5py==3.12.1
+Requires-Dist: idna==3.10
+Requires-Dist: jax==0.4.34
+Requires-Dist: jaxlib==0.4.34
+Requires-Dist: Jinja2==3.1.4
+Requires-Dist: jsonschema==4.23.0
+Requires-Dist: jsonschema-specifications==2024.10.1
+Requires-Dist: keras==3.6.0
+Requires-Dist: kiwisolver==1.4.7
+Requires-Dist: libclang==18.1.1
+Requires-Dist: Markdown==3.7
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: MarkupSafe==3.0.1
+Requires-Dist: matplotlib==3.9.2
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: mediapipe==0.10.11
+Requires-Dist: ml-dtypes==0.4.1
+Requires-Dist: namex==0.0.8
+Requires-Dist: narwhals==1.9.3
+Requires-Dist: numpy==1.26.4
+Requires-Dist: opencv-contrib-python-headless==4.11.0.86
+Requires-Dist: opencv-python-headless==4.11.0.86
+Requires-Dist: opt_einsum==3.4.0
+Requires-Dist: optree==0.13.0
+Requires-Dist: packaging==24.1
+Requires-Dist: pandas==2.2.3
+Requires-Dist: pillow==10.4.0
+Requires-Dist: pip==24.2
+Requires-Dist: protobuf==3.20.3
+Requires-Dist: pyarrow==17.0.0
+Requires-Dist: pycparser==2.22
+Requires-Dist: pydeck==0.9.1
+Requires-Dist: Pygments==2.18.0
+Requires-Dist: pyparsing==3.1.4
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: pytz==2024.2
+
+# Cricket
+This is a package which can be used for assessing videos of bowling and batting.It is different from cricket as this can work in situations where opencv-python is throwing this type of error:
+```text
+ImportError: libGL.so.1: cannot open shared object file: No such file or directory
+```
+**Note:** Please add a packages.txt file inside your project having the following data:
+```text
+libgl1-mesa-glx
+libglib2.0-0
+libxrender1
+```
+
+## Installation
+### Option 1
+Use the command:
+```commandline
+pip install cricket-tannmay
+```
+
+### Option 2
+Go to this [link](https://github.com/tannmaycoding/Cricket "The link for cricket github repository"). Then download the source code and `requirements.txt` and run this command:
+```commandline
+pip install -r requirements.txt
+```
+
+## How To Use
+**Note:** The name to use while installing is `cricket-tannmay` but while using it in python we have to import `cricket` 
+### Batting
+#### Specific Shot
+##### Option 1
+
+This option will give a single string in return telling It will also if it was a:
+- Good shot
+- Bad shot
+- Not the shot the function was called for
+
+This is the implementation for the compatible shots: 
+- Straight Drive:
+```python
+from cricket.batting import straight_drive
+decision = straight_drive.classify_entire_video("video_path")
+```
+- Cover drive:
+```python
+from cricket.batting import cover_drive
+decision = cover_drive.classify_entire_video("video_path")
+```
+- Pull shot:
+```python
+from cricket.batting import pull_shot
+decision = pull_shot.classify_entire_video("video_path")
+```
+- Sweep:
+```python
+from cricket.batting import sweep
+decision = sweep.classify_entire_video("video_path")
+```
+- Reverse sweep:
+```python
+from cricket.batting import reverse_sweep
+decision = reverse_sweep.classify_entire_video("video_path")
+```
+- Hook shot:
+```python
+from cricket.batting import hook_shot
+decision = hook_shot.classify_entire_video("video_path")
+```
+- Defense:
+```python
+from cricket.batting import defense
+decision = defense.classify_entire_video("video_path")
+```
+
+##### Option 2
+This will return a dictionary which tells about what it thinks at that frame, whether it is a:
+- Good Shot
+- Bad Shot
+- Not the shot it was called for
+
+This is the implementation for the compatible shots:
+- Straight Drive:
+```python
+from cricket.batting import straight_drive
+decision = straight_drive.analyze_video("video_path")
+```
+- Cover drive:
+```python
+from cricket.batting import cover_drive
+decision = cover_drive.analyze_video("video_path")
+```
+- Pull shot:
+```python
+from cricket.batting import pull_shot
+decision = pull_shot.analyze_video("video_path")
+```
+- Sweep:
+```python
+from cricket.batting import sweep
+decision = sweep.analyze_video("video_path")
+```
+- Reverse sweep:
+```python
+from cricket.batting import reverse_sweep
+decision = reverse_sweep.analyze_video("video_path")
+```
+- Hook shot:
+```python
+from cricket.batting import hook_shot
+decision = hook_shot.analyze_video("video_path")
+```
+- Defense:
+```python
+from cricket.batting import defense
+decision = defense.analyze_video("video_path")
+```
+
+#### Overall
+```python
+from cricket.batting import overall_shot_detection
+classifier = overall_shot_detection.CricketShotClassifier()
+classifier.classify_entire_video("video_path")
+```
+This classifier class is compatible with the following shots:
+- Straight Drive
+- Cover Drive
+- Sweep
+- Defence
+- Reverse Sweep
+- Pull Shot
+- Hook Shot
+
+This will also return if it was a:
+- Good Shot
+- Bad Shot
+
+### Balling
+#### Specific Type
+
+```python
+from cricket.balling import fast
+import cricket.utils as utils
+
+ball_colour_range = utils.color_ranges["white"]
+decision = fast.classify_entire_video("video_path", ball_colour_range)
+```
+This method is compatible with:
+- Fast ball
+- Slow ball
+- Yorker
+- Spin
+
+This was an implementation of a fast ball. It will also tell if it was a:
+- Good Delivery
+- Bad Delivery
+
+#### Overall
+```python
+from cricket.balling.overall_bowl_detection import CricketBallAnalyzer
+import cricket.utils as utils
+
+ball_colour_range = utils.color_ranges["white"]
+analyser = CricketBallAnalyzer("video_path", ball_colour_range[0], ball_colour_range[1], 22)
+decision = analyser.analyze_video()
+```
+This classifier class is compatible with:
+- Fast Ball
+- Slow ball
+- Yorker
+- Spin
+
+### Combined
+```python
+from cricket.combined import classify_overall
+import cricket.utils as utils
+
+ball_colour = utils.color_ranges["white"]
+decision = classify_overall("video_path", ball_colour, 22)
+```
+
+This will run both the classes given above and will return a dictionary. First key will be of bowling and second key will be of batting
+
+**Note:** For ease of use you can import like this and it would import all things for implementation from both the subpackages
+```python
+from cricket import *
+```
