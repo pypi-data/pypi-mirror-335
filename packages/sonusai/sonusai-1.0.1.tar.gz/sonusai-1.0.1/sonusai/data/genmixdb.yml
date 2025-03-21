@@ -1,0 +1,47 @@
+# Default configuration for genmixdb
+
+# The values in this file are the defaults used if they are not specified in a
+# local config.
+
+seed: 0
+
+feature: ""
+
+num_classes: 1
+
+asr_configs: { }
+
+level_type: default
+
+class_indices: 1
+class_labels: [ ]
+class_weights_threshold: 0.5
+
+class_balancing_effect:
+  - norm -3.5
+  - pitch sai_rand(-300, 300)
+  - tempo -s sai_rand(0.8, 1.2)
+  - equalizer sai_rand(50, 250) sai_rand(0.2, 2.0) sai_rand(-6, 6)
+  - equalizer sai_rand(250, 1200) sai_rand(0.2, 2.0) sai_rand(-6, 6)
+  - equalizer sai_rand(1200, 6000) sai_rand(0.2, 2.0) sai_rand(-6, 6)
+
+class_balancing: false
+
+impulse_responses: [ ]
+
+sources:
+  primary:
+    files: [ ]
+  noise:
+    files: [ ]
+
+summed_source_effects: [ ]
+
+mixture_effects: [ ]
+
+spectral_masks:
+  - f_max_width: 27
+    f_num: 0
+    t_max_width: 100
+    t_num: 0
+    t_max_percent: 100
