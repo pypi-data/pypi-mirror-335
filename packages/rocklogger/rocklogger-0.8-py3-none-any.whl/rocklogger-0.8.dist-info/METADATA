@@ -1,0 +1,206 @@
+Metadata-Version: 2.2
+Name: rocklogger
+Version: 0.8
+Summary: Rockwool logger with intelligent module filtering
+Home-page: https://github.com/rw-MohamedAbouseif/Rocklogger.git
+Download-URL: https://github.com/rw-MohamedAbouseif/Rocklogger/archive/refs/tags/v0.8.0.tar.gz
+Author: Mohamed Abouseif
+Author-email: mohamed.abouseif@rockwool.com
+License: MIT
+Keywords: Logger,ROCKWOOL,Logging,Filter
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.4
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: download-url
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: summary
+
+# rocklogger
+
+A simple and flexible logging utility for Python applications with singleton pattern support and intelligent log filtering.
+
+### PyPI
+https://pypi.org/project/rocklogger/
+
+## Installation
+
+```bash
+pip install rocklogger
+```
+
+## Usage
+
+### Basic Usage
+
+```python
+from rocklogger import Rocklogger
+
+# Initialize the logger using the singleton pattern
+# level can be 'info', 'debug', 'warning', or 'error'
+logger = Rocklogger.get_instance(level='debug', use_date_in_filename=True).get_logger()
+
+# Log messages at different levels
+logger.debug('This is a debug message')
+logger.info('This is an info message')
+logger.warning('This is a warning message')
+logger.error('This is an error message')
+```
+
+### Custom Log Directory
+
+By default, log files are created in a 'logs' directory in the same location as your script. You can specify a custom base directory where the 'logs' folder will be created:
+
+```python
+import os
+from rocklogger import Rocklogger
+
+# Specify a custom base directory where the 'logs' folder will be created
+custom_base_dir = os.path.join(os.getcwd(), 'my_application')
+logger = Rocklogger.get_instance(level='debug', base_dir=custom_base_dir).get_logger()
+
+# Logs will now be stored in 'my_application/logs/' directory
+logger.info('This log is stored in a custom location')
+```
+
+### Log Files
+
+By default, the logger creates two log files in a 'logs' directory in the same location as your script (or in your custom base directory if specified):
+1. `your_script_name_YYYYMMDD.log` - Contains all log messages
+2. `your_script_name_error_YYYYMMDD.log` - Contains only error level messages
+
+If `use_date_in_filename` is set to `False`, the date will not be included in the filename.
+
+### Logging Exceptions
+
+```python
+try:
+    # Some code that might raise an exception
+    result = 10 / 0
+except Exception as e:
+    logger.error(f"An error occurred: {e}", exc_info=True)
+```
+
+### Singleton Pattern
+
+Rocklogger implements the singleton pattern, ensuring that only one logger instance exists across your application:
+
+```python
+# In your main script
+from rocklogger import Rocklogger
+logger = Rocklogger.get_instance(level='debug').get_logger()
+
+# In another module
+from rocklogger import Rocklogger
+# This will use the same instance created in the main script
+logger = Rocklogger.get_instance().get_logger()
+```
+
+Benefits:
+- Ensures consistent logging configuration across your application
+- Log files are named after the script that first created the logger
+- Prevents multiple log file handlers from being created
+
+#### Important Note About Process Isolation
+
+The singleton pattern works within a single Python process. When modules are imported within the same process, they will share the same logger instance:
+
+```python
+# main.py
+from rocklogger import Rocklogger
+logger = Rocklogger.get_instance(level='debug').get_logger()
+logger.info('Main script')
+
+import module_a  # Will use the same logger instance
+import module_b  # Will also use the same logger instance
+```
+
+However, if you run separate Python scripts as independent processes, each process will have its own singleton instance:
+
+```bash
+# These will create separate logger instances
+python script1.py
+python script2.py
+```
+
+For applications with multiple entry points, consider creating a central logging module that's imported by all other modules.
+
+### Closing the Logger
+
+When you're done with the logger, you can close it (optional):
+
+```python
+# This is automatically done when the Rocklogger instance is garbage collected
+logger.close()
+```
+
+### Resetting the Logger (for testing)
+
+If you need to reset the logger (mainly for testing purposes):
+
+```python
+Rocklogger.reset()
+```
+
+### Filtering Third-Party Library Logs
+
+Rocklogger automatically filters out debug messages from common libraries that you might not be directly using. This prevents cluttering your logs with verbose internal messages from libraries like matplotlib, PIL, etc.
+
+By default, the following modules are excluded from debug logs:
+- matplotlib 
+- PIL
+- fontTools
+- tensorflow
+- torch
+- numpy
+
+You can add additional modules to filter when initializing:
+
+```python
+from rocklogger import Rocklogger
+
+# Exclude additional modules at initialization
+logger = Rocklogger.get_instance(
+    level='debug',
+    excluded_modules=['requests', 'urllib3', 'boto3']
+).get_logger()
+
+logger.debug('This debug message will appear')
+# Debug messages from requests, urllib3, and boto3 will be filtered out
+```
+
+You can also add modules to filter dynamically:
+
+```python
+# Get the Rocklogger instance
+rocklogger_instance = Rocklogger.get_instance()
+
+# Add a module to filter
+rocklogger_instance.add_excluded_module('pandas')
+rocklogger_instance.add_excluded_module('sqlalchemy')
+
+# Now debug messages from pandas and sqlalchemy will also be filtered
+```
+
+This feature is especially useful when:
+- Working with data visualization libraries that generate verbose debug output
+- Using machine learning frameworks that produce many internal messages
+- Integrating with third-party APIs where you don't need to see their internal logging
