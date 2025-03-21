@@ -1,0 +1,43 @@
+import asyncio
+
+import aiohttp
+import jsonpickle
+
+from . import AuthToken
+
+
+class Connection:
+
+    def __init__(
+        self, event_loop: asyncio.AbstractEventLoop, url: str, token: AuthToken = None, token_str=None, token_json=None
+    ):
+        self.event_loop = event_loop
+        self.url = url
+        if token is not None:
+            self.token = token
+        elif token_json is not None:
+            self.token = AuthToken.from_json(token_json)
+        elif token_str is not None:
+            self.token = AuthToken.from_string(token_str)
+        else:
+            self.token = None
+
+    async def get_token(self) -> AuthToken:
+        try:
+            async with aiohttp.ClientSession(self.url) as session:
+                async with session.post(
+                    "/api/AppParing/getToken",
+                    headers={"accept": "*/*", "Content-Type": "application/json"},
+                    data=jsonpickle.encode(self.token, unpicklable=False),
+                ) as response:
+                    if response.status != 200:
+                        return None
+                    json_body = await response.json()
+        except ValueError:
+            return None
+        try:
+            new_token = AuthToken.from_json(json_body)
+        except ValueError:
+            return None
+        self.token = new_token
+        return self.token
