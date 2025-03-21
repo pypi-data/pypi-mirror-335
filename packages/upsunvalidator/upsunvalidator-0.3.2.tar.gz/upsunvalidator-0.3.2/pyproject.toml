@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=45", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "upsunvalidator/_version.py"
+version_scheme = "release-branch-semver"
+local_scheme = "no-local-version"
+
+[project]
+name = "upsunvalidator"
+authors = [{name = "Jeck.ai", email = "robert@jeck.ai"}]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.12"
+description = "Validation library for Upsun Configuration"
+dynamic = ["version"]
+dependencies = [
+    "pyyaml",
+    "jsonschema",
+    "ruamel.yaml",
+    "pytest",
+    "click",
+    "click-extra"
+]
+
+[project.urls]
+Home = "https://jeck.ai"
+Source = "https://github.com/Jeck-ai/upsunvalidator"
+
+[tool.setuptools.package-data]
+upsunvalidator = ["tests/valid/**/*"]
+
+[project.scripts]
+upsunvalidator = "upsunvalidator.__main__:cli"
