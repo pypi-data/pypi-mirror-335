@@ -1,0 +1,106 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "whl2conda"
+description = "Build conda packages directly from pure python wheels"
+readme = "README.md"
+dynamic = ["version"]
+license = "Apache-2.0"
+license-files.paths = ["LICENSE.md"]
+authors = [
+  { name = "Christopher Barber", email = "christopher.barber@analog.com" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Build Tools",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["conda", "wheel", "build"]
+requires-python = ">=3.9"
+dependencies = [
+    "conda-package-handling >=2.2",
+    "platformdirs >=3.10",
+    "pyyaml >=6.0",
+    "tomlkit >=0.12",
+    "wheel >=0.41",
+]
+
+[project.urls]
+homepage = "https://github.com/analog-cbarber/whl2conda"
+repository = "https://github.com/analog-cbarber/whl2conda"
+documentation = "https://zuzukin.github.io/whl2conda/"
+
+[project.scripts]
+whl2conda = "whl2conda.cli:main"
+
+[tool.hatch.build]
+include = [
+    "src/whl2conda/**/*.py",
+    "src/whl2conda/**/*.json",
+    "src/whl2conda/py.typed",
+    "src/whl2conda/VERSION"
+]
+
+[tool.hatch.version]
+path = "src/whl2conda/VERSION"
+pattern = "\\s*(?P<version>[\\w.]*)"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/whl2conda"]
+
+# TODO: Using coverage config in pyproject is resulting in
+#    INTERNALERROR> coverage.exceptions.DataError: Can't combine line data with arc data
+#
+#[tool.coverage.run]
+#branch = true
+#
+#[tool.coverage.report]
+#include = ["src/whl2conda/*"]
+#omit = ["src/whl2conda/external/*"]
+#exclude_also = [
+#    "pragma: no cover",
+#    "raise AssertionError",
+#    "raise NotImplementedError"
+#]
+
+[tool.black]
+line-length = 88
+skip-string-normalization = true
+
+[tool.mypy]
+check_untyped_defs = true
+mypy_path = "src"
+explicit_package_bases = true
+files = [
+    "src/whl2conda",
+    "test"
+]
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "conda_package_handling.*",
+    "wheel.*"
+]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 88
+exclude = [
+    "src/whl2conda/external"
+]
+
+[tool.ruff.format]
+line-ending = "lf"
+preview = true
+quote-style = "preserve"
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
