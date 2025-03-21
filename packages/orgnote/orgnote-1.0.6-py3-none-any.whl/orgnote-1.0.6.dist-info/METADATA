@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: orgnote
+Version: 1.0.6
+Summary: A simple blog based on org-mode
+Home-page: https://github.com/LeslieZhu/OrgNote
+Author: Leslie Zhu
+Author-email: pythonisland@gmail.com
+License: GPL
+Keywords: org-mode,emacs,orgnote,blog
+Platform: linux
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2.7
+Classifier: Programming Language :: Python :: 3.5
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Environment :: Other Environment
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: Text Processing :: Linguistic
+License-File: LICENSE
+Requires-Dist: pyyaml >=4.2b1
+Requires-Dist: Pygments >=2.7.4
+Requires-Dist: beautifulsoup4 >=4.4.1
+Requires-Dist: bs4 >=0.0.1
+Requires-Dist: mistune ==2.0.4
+Requires-Dist: Markdown >=3.1.1
+Requires-Dist: watchdog >=0.9.0
+
+
+Quick Started
+==============
+
+
+At first, you should crate a **yourname.github.com.git** on **GitHub**::
+
+  $ git clone git@github.com:yourname/yourname.github.com.git
+  $ cd yourname.github.com
+  $ orgnote init
+
+Thus, update **_config.yml** configure file.
+
+
+
+Usage
+======
+
+The usage of **orgnote**::
+
+   $ orgnote help
+
+   Usage: orgnote <command>
+
+   Commands:
+   init       Create a new OrgNote folder
+   new        Create a new .org/.md post
+   list       List this blog notes
+   status     Status of those notes
+   publish    Auto Publish a note
+   recall     Cancel publish a note
+   generate   Generate static files
+   server     Start the server
+   deploy     Deploy your website
+   help       Get help on a command
+   version    Display version information
+
+For more help, you can check the docs:  http://orgnote.readthedocs.org/zh_CN/latest/
