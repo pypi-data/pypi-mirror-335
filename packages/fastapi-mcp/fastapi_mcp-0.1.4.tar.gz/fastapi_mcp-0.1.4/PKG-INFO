@@ -1,0 +1,183 @@
+Metadata-Version: 2.4
+Name: fastapi-mcp
+Version: 0.1.4
+Summary: Automatic MCP server generator for FastAPI applications - converts FastAPI endpoints to MCP tools for LLM integration
+Project-URL: Homepage, https://github.com/tadata-org/fastapi_mcp
+Project-URL: Documentation, https://github.com/tadata-org/fastapi_mcp#readme
+Project-URL: Bug Tracker, https://github.com/tadata-org/fastapi_mcp/issues
+Project-URL: PyPI, https://pypi.org/project/fastapi-mcp/
+Project-URL: Source Code, https://github.com/tadata-org/fastapi_mcp
+Project-URL: Changelog, https://github.com/tadata-org/fastapi_mcp/blob/main/CHANGELOG.md
+Author-email: "Tadata Inc." <itay@tadata.com>
+License: MIT License
+        
+        Copyright (c) 2024 Tadata Inc.
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: ai,api,claude,conversion,fastapi,llm,mcp,openapi,tools
+Classifier: Development Status :: 3 - Alpha
+Classifier: Framework :: FastAPI
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.10
+Requires-Dist: fastapi>=0.100.0
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: inspect-mate>=0.0.2
+Requires-Dist: mcp>=1.3.0
+Requires-Dist: pydantic-settings>=2.5.2
+Requires-Dist: pydantic>=2.0.0
+Requires-Dist: requests>=2.25.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: tomli>=2.2.1
+Requires-Dist: typer>=0.9.0
+Requires-Dist: uvicorn>=0.20.0
+Description-Content-Type: text/markdown
+
+# FastAPI-MCP
+
+A zero-configuration tool for automatically exposing FastAPI endpoints as Model Context Protocol (MCP) tools.
+
+[![PyPI version](https://badge.fury.io/py/fastapi-mcp.svg)](https://pypi.org/project/fastapi-mcp/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/fastapi-mcp.svg)](https://pypi.org/project/fastapi-mcp/)
+
+## Features
+
+- **Direct integration** - Mount an MCP server directly to your FastAPI app
+- **Zero configuration** required - just point it at your FastAPI app and it works
+- **Automatic discovery** of all FastAPI endpoints and conversion to MCP tools
+- **Preserving schemas** of your request models and response models
+- **Preserve documentation** of all your endpoints, just as it is in Swagger
+- **Extend** - Add custom MCP tools alongside the auto-generated ones
+
+## Installation
+
+We recommend using [uv](https://docs.astral.sh/uv/), a fast Python package installer:
+
+```bash
+uv add fastapi-mcp
+```
+
+Alternatively, you can install with pip:
+
+```bash
+pip install fastapi-mcp
+```
+
+## Basic Usage
+
+The simplest way to use FastAPI-MCP is to add an MCP server directly to your FastAPI application:
+
+```python
+from fastapi import FastAPI
+from fastapi_mcp import add_mcp_server
+
+# Your FastAPI app
+app = FastAPI()
+
+# Mount the MCP server to your app
+add_mcp_server(
+    app,                    # Your FastAPI app
+    mount_path="/mcp",      # Where to mount the MCP server
+    name="My API MCP",      # Name for the MCP server
+)
+```
+
+That's it! Your auto-generated MCP server is now available at `https://app.base.url/mcp`.
+
+## Advanced Usage
+
+FastAPI-MCP provides several ways to customize and control how your MCP server is created and configured. Here are some advanced usage patterns:
+
+```python
+from fastapi import FastAPI
+from fastapi_mcp import add_mcp_server
+
+app = FastAPI()
+
+mcp_server = add_mcp_server(
+    app,                                    # Your FastAPI app
+    mount_path="/mcp",                      # Where to mount the MCP server
+    name="My API MCP",                      # Name for the MCP server
+    describe_all_responses=True,            # False by default. Include all possible response schemas in tool descriptions, instead of just the successful response.
+    describe_full_response_schema=True      # False by default. Include full JSON schema in tool descriptions, instead of just an LLM-friendly response example.
+)
+
+# Optionally add custom tools in addition to existing APIs.
+@mcp_server.tool()
+async def get_server_time() -> str:
+    """Get the current server time."""
+    from datetime import datetime
+    return datetime.now().isoformat()
+```
+
+## Examples
+
+See the [examples](examples) directory for complete examples.
+
+## Connecting to the MCP Server
+
+Once your FastAPI app with MCP integration is running, you can connect to it with any MCP client, such as Cursor:
+
+1. Run your application
+2. In Cursor -> Settings -> MCP, use the URL of your MCP server endpoint (e.g., `http://localhost:8000/mcp`) as sse.
+3. Cursor will discover all available tools and resources automatically
+
+## Development and Contributing
+
+If you're interested in contributing to FastAPI-MCP:
+
+```bash
+# Clone the repository
+git clone https://github.com/tadata-org/fastapi_mcp.git
+cd fastapi_mcp
+
+# Create a virtual environment and install dependencies with uv
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv add -e ".[dev]"
+
+# Run tests
+uv run pytest
+```
+
+For more details about contributing, see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## Community
+
+Join [MCParty Slack community](https://join.slack.com/t/themcparty/shared_invite/zt-30yxr1zdi-2FG~XjBA0xIgYSYuKe7~Xg) to connect with other MCP enthusiasts, ask questions, and share your experiences with FastAPI-MCP.
+
+## Requirements
+
+- Python 3.10+
+- uv
+
+## License
+
+MIT License. Copyright (c) 2024 Tadata Inc.
+
+## About
+
+Developed and maintained by [Tadata Inc.](https://github.com/tadata-org)
