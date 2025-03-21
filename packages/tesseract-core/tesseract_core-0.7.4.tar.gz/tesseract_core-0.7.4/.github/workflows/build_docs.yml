@@ -1,0 +1,35 @@
+name: Build documentation
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install system requirements
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+
+      - name: Setup Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install doc requirements
+        run: |
+          pip install .[dev] -r requirements.txt
+          pip install -r docs/requirements.txt
+
+      - name: Build docs
+        run: |
+          cd docs
+          export SPHINXOPTS="-W"  # treat warnings as errors
+          make html
