@@ -1,0 +1,93 @@
+0.7.7
+ - fix: check output path is writable on startup (#33)
+ - fix: do not apply default output path when changing settings (#32)
+0.7.6
+ - fix: handle cases where transfer error message is not given
+ - setup: bump version of dclab to 0.62.11
+0.7.5
+ - setup: bump version of dclab to 0.62.10
+0.7.4
+ - enh: add user preference for default recipe
+ - setup: bump version of dclab to 0.62.1
+0.7.3
+ - fix: segmentation fault due to mixing threading.Thread with PyQt6
+ - enh: introduce logging and make logging Path available to the user
+ - enh: improved logging
+ - enh: increased verbosity when encountering exceptions during hash check
+0.7.2
+ - fix: remove unnecessary print-calls
+0.7.1
+ - build: fix macOS pipeline
+0.7.0
+ - fix: handle copy errors (retry first, fail better)
+ - fix: handle stat errors when scanning directory tree
+ - setup: bump dclab from 0.58.2 to 0.60.0
+0.6.4
+ - setup: compile PyInstaller bootloader for every release
+0.6.3
+ - fix: cleanup temporary directories on startup (#29)
+ - fix: avoid possible name clashes when storing logs in DC output file
+ - enh: warn user when source and target directory are identical (#28)
+0.6.2
+ - setup: bump dclab from 0.55.7 to 0.57.0
+0.6.1
+ - enh: compute the hash of the input file a second time while waiting
+   for the hash of the target file
+0.6.0
+ - feat: generalize GUI to use all recipes
+ - enh: prevent GUI from locking when transferring large file
+ - enh: display currently processed file in GUI
+ - enh: re-use tree count information for transfer progress bar
+ - enh: display the actual directory tree instead of a table
+ - enh: compute file hash while copying, avoiding reading data twice
+ - enh: handle PermissionError when building directory tree
+ - enh: identify existing target paths based on size quicker
+ - enh: correct progress display and remove unused code
+ - enh: display object count and size in tree views
+ - ref: migrate from pkg_resources to importlib.resources
+ - ref: unify input and output tree widget with one base class
+ - ref: remove the path_tree submodule
+0.5.2
+ - build: add mpldc.exe CLI to Windows binary release
+ - setup: bump dclab to 0.55.6
+0.5.1
+ - build: introduce Windows and macOS binary releases (#22)
+0.5.0
+ - fix: fast file size check for detecting invalid upload did not take place
+ - fix: delete temporary files when they are not needed anymore (#24)
+ - setup: migrate to pyproject.toml
+0.4.2:
+ - fix: properly check output directory (#20)
+ - fix: error handler not able to copy error message to clipboard (#21)
+ - enh: make directory selection dialogs more user-friendly
+ - enh: make Ctr+C close the app
+ - setup: bump dclab from 0.39.15 to 0.48.4
+ - setup: bump h5py from 3.6.0 to 3.8.0
+ - docs: fix CLI section in docs (#19)
+0.4.1
+ - build: bump required Python version to 3.10 (#18)
+0.4.0
+ - feat: add first GUI that supports transfer of RTDC data (#3)
+ - enh: use type hints everywhere (#9)
+0.3.2
+ - setup: add hdf5plugin to setup dependencies
+0.3.1
+ - fix: compress with Zstd level 5 for RT-DC recipe
+0.3.0
+ - feat: implement recipe for QLSI data from our SPIM setup
+0.2.4
+ - fix: continue when encountering errors during conversion (#13)
+0.2.3
+ - fix: zero-division error when computing transfer rate (#12)
+0.2.2
+ - fix: copy additional files not belonging to any dataset
+   to the target directory  (#11)
+ - enh: print current status of CLI to stdout (#8)
+0.2.1
+ - fix: added docs to RTDC recipe
+0.2.0
+ - feat: several improvements for CLI
+ - feat: add generic catch-all recipe
+ - feat: add RT-DC recipe
+0.1.0
+ - initial release
