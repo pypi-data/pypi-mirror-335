@@ -1,0 +1,64 @@
+2024-10-22 Version: 1.2.0
+- Support API ExportOssCheckStat.
+- Support API GetOssCheckStat.
+- Update API DeleteKeyword: add param KeywordIdList.
+- Update API GetBackupConfig: update response param.
+
+
+2024-10-18 Version: 1.1.0
+- Support API ExportOssCheckStat.
+- Support API GetOssCheckStat.
+- Update API GetBackupConfig: update response param.
+
+
+2024-08-29 Version: 1.0.1
+- Generated python 2022-09-26 for Green.
+
+2024-08-19 Version: 1.0.0
+- Support API AddImageLib.
+- Support API AddKeywordLib.
+- Support API AddKeywords.
+- Support API AddKeywordsToLib.
+- Support API CancelStockOssCheckTask.
+- Support API CopyServiceConfig.
+- Support API CreatStockOssCheckTask.
+- Support API CreatePreCheck.
+- Support API DeleteKeyword.
+- Support API DeleteKeywordLib.
+- Support API ExportCipStats.
+- Support API ExportKeyword.
+- Support API ExportResult.
+- Support API ExportScanResult.
+- Support API ExportTextScanResult.
+- Support API GetBackupBucketsList.
+- Support API GetBackupConfig.
+- Support API GetBackupStatus.
+- Support API GetBucketsList.
+- Support API GetCipStats.
+- Support API GetExecuteTime.
+- Support API GetImageSceneLabelListConf.
+- Support API GetJobNameList.
+- Support API GetKeywordImportResult.
+- Support API GetOssCheckStatus.
+- Support API GetScanNum.
+- Support API GetScanResult.
+- Support API GetServiceConf.
+- Support API GetServiceConfig.
+- Support API GetServiceLabelConfig.
+- Support API GetStockOssCheckTasksList.
+- Support API GetTextScanResult.
+- Support API GetUserBuyStatus.
+- Support API ListImageLib.
+- Support API ListKeywordLibs.
+- Support API ListKeywords.
+- Support API ListOssCheckResult.
+- Support API ListServiceConfigs.
+- Support API ModifyServiceInfo.
+- Support API UpdateBackupConfig.
+- Support API UpdateImageLib.
+- Support API UpdateImageLibFreeInspection.
+- Support API UpdateKeywordLib.
+- Support API UpdateScanResultFeedback.
+- Support API UpdateServiceConfig.
+
+
