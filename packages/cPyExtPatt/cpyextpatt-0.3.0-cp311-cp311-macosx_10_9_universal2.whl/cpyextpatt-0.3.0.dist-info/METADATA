@@ -1,0 +1,297 @@
+Metadata-Version: 2.4
+Name: cPyExtPatt
+Version: 0.3.0
+Summary: Python C Extension Patterns.
+Home-page: https://github.com/paulross/PythonExtensionPatterns
+Author: Paul Ross
+Author-email: apaulross@gmail.com
+Maintainer: Paul Ross
+Maintainer-email: apaulross@gmail.com
+License: The MIT License (MIT)
+        
+        Copyright (c) 2014-2025 Paul Ross https://github.com/paulross
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in
+        all copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+        THE SOFTWARE.
+Platform: Mac OSX
+Platform: POSIX
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: C
+Classifier: Programming Language :: C++
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Documentation
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Description-Content-Type: text/x-rst
+License-File: LICENSE.txt
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: platform
+Dynamic: summary
+
+***************************
+PythonExtensionPatterns
+***************************
+
+If you need to write C extension for Python then this is the place for you.
+
+The full documentation is on
+`Read the Docs <http://pythonextensionpatterns.readthedocs.org/en/latest/index.html>`_.
+
+Code examples and documentation source are `on GitHub <https://github.com/paulross/PythonExtensionPatterns>`_.
+The example and test code is available `on PyPi <https://pypi.org/project/cPyExtPatt>`_.
+
+====================================
+Subjects Covered
+====================================
+
+- Introduction
+- A Simple Example
+- PyObjects and Reference Counting
+- Containers and Reference Counts
+- Struct Sequence Objects (a namedtuple in C)
+- Exception Raising
+- A Pythonic Coding Pattern for C Functions
+- Parsing Python Arguments
+- Creating New Types
+- Setting and Getting Module Globals
+- Logging and Frames
+- File Paths and Files
+- Subclassing and Using super()
+- Capsules
+- Iterators and Generators
+- Context Managers
+- Pickling C Extension Types
+- Watchers [Python 3.12+]
+- Setting Compiler Flags
+- Debugging
+- Memory Leaks
+- Thread Safety
+- Source Code Layout
+- Using C++ With CPython Code
+- Miscellaneous
+- Installation
+- Further Reading
+- TODO
+- History
+- Index
+
+=============
+Project Links
+=============
+
+- Source is `on GitHub <https://github.com/paulross/PythonExtensionPatterns>`_.
+- Documentation `on Read the Docs <http://pythonextensionpatterns.readthedocs.org/en/latest/index.html>`_.
+- Project is `on PyPi <https://pypi.org/project/cPyExtPatt>`_.
+
+==================
+Videos
+==================
+
+I have presented some of this, well mostly the chapter "PyObjects and Reference Counting",
+at Python conferences so if you prefer videos they are here:
+
+- `PyCon UK 2015 <https://www.youtube.com/watch?v=ViRIYqiU128>`_
+- `PyCon US 2016 <https://www.youtube.com/watch?v=Yq__HtUIH5Y>`_
+
+
+Installation
+========================
+
+This is primarily a documentation project hosted on
+`Read the Docs <http://pythonextensionpatterns.readthedocs.org/en/latest/index.html>`_.
+However all the example code is buildable and testable so if you want to examine that then here is how to get the
+project.
+
+From PyPi
+------------------------
+
+.. code-block:: console
+
+    pip install cPyExtPatt
+
+From Source
+------------------------
+
+Choose a directory of your choice, in this case: ``~/dev/tmp``.
+
+.. code-block:: console
+
+    mkdir -p ~/dev/tmp
+    cd ~/dev/tmp
+    git clone https://github.com/paulross/PythonExtensionPatterns.git
+    cd PythonExtensionPatterns
+
+Virtual Environment
+---------------------
+
+Create a Python environment in the directory of your choice, in this case:
+``~/dev/tmp/PythonExtensionPatterns/venv_3.11`` and activate it:
+
+.. code-block:: console
+
+    python3.11 -m venv venv_3.11
+    source venv_3.11/bin/activate
+
+
+Install the Dependencies
+---------------------------------
+
+.. code-block:: console
+
+    pip install -r requirements.txt
+
+Running the Tests
+-----------------------
+
+You now should be able to run the following commands successfully in
+``~/dev/tmp/PythonExtensionPatterns`` with your environment activated:
+
+.. code-block:: console
+
+    pytest tests/
+
+Building the Documentation
+----------------------------------
+
+This will build the html and PDF documentation (requires a latex installation):
+
+.. code-block:: console
+
+    cd doc/sphinx
+    make html latexpdf
+
+
+
+
+=====================
+History
+=====================
+
+0.3.0 (2025-03-20)
+=====================
+
+Added Chapters
+--------------
+
+- "Containers and Reference Counts" which corrects the Python documentation where that is wrong, misleading or missing.
+- "Struct Sequences (namedtuple in C)" which corrects the Python documentation where that is wrong, misleading or missing.
+- "Context Managers" with practical C code examples.
+- "Watchers" with practical examples for dictionary watchers (Python 3.12+).
+- "Installation" for the project.
+- "Source Code Layout" for the project.
+
+Changed Chapters
+----------------
+
+- Update the "Homogeneous Python Containers and C++" chapter.
+- Expand the "Memory Leaks" chapter.
+- Extended the "Logging" chapter to show how to access the CPython Frame from C.
+- Add "Emulating Sequence Types" to the "Creating New Types" chapter.
+- Expand the Index.
+
+Other
+------
+
+- Python versions supported: 3.9, 3.10, 3.11, 3.12, 3.13.
+- Development Status :: 5 - Production/Stable
+- The documentation content, example and test code has roughly doubled since version 0.2.2.
+- PDF Documentation is 339 pages.
+
+TODO
+----
+
+- Add "Debugging Python with CLion".
+
+..
+    .. todo::
+
+        Update this history file.
+
+0.2.2 (2024-10-21)
+=====================
+
+- Expand note on PyDict_SetItem(), PySet_Add() with code in src/cpy/RefCount/cRefCount.c and tests.
+
+0.2.1 (2024-07-29)
+=====================
+
+- Python versions supported: 3.9, 3.10, 3.11, 3.12, 3.13 (possibly backwards compatible with Python 3.6, 3.7, 3.8)
+- Almost all example code is built and tested against these Python versions.
+- Added a chapter on managing file paths and files between Python and C.
+- Added a chapter on subclassing from your classes or builtin classes.
+- Added a chapter on pickling from C.
+- Added a chapter on Capsules.
+- Added a chapter on Iterators and Generators.
+- Added a chapter on memory leaks and how to detect them.
+- Added a chapter on thread safety.
+- Update "Homogeneous Python Containers and C++" to refer to https://github.com/paulross/PyCppContainers
+- All the documentation has been extensively reviewed and corrected where necessary.
+- Development Status :: 5 - Production/Stable
+
+Contributors
+-------------------------
+
+Many thanks!
+
+Pull Requests
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- https://github.com/marioemmanuel
+- https://github.com/miurahr
+- https://github.com/gdevanla
+- https://github.com/joelwhitehouse
+- https://github.com/dhermes
+- https://github.com/gst
+- https://github.com/adamchainz
+- https://github.com/nnathan
+
+
+Issues
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- https://github.com/ngoldbaum
+- https://github.com/niki-sp
+- https://github.com/ldo
+- https://github.com/1a1a11a
+- https://github.com/congma
+
+0.1.0 (2014-09-09)
+=====================
+
+- First release.
+- Originally "Examples of reliable coding of Python 'C' extensions by Paul Ross.".
+- Development Status :: 3 - Alpha
