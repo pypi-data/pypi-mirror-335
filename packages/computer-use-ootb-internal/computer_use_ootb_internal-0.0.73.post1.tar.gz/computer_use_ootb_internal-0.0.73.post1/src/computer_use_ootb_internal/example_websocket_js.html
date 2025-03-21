@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Teachmode Client</title>
+    <!-- include socket.io client -->
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>Teachmode WebSocket Test</h1>
+    <div id="messages"></div>
+
+    <script>
+      const socket = io("http://localhost:5000"); // Your server’s URL/port
+
+      // Listen for partial responses
+      socket.on("partial_response", (data) => {
+        console.log("Got partial:", data);
+        const div = document.createElement("div");
+        div.innerText = "Assistant: " + data.content;
+        document.getElementById("messages").appendChild(div);
+      });
+
+      // Listen for done event
+      socket.on("done", (data) => {
+        console.log("Task completed:", data);
+        const div = document.createElement("div");
+        div.innerText = "TASK DONE!";
+        document.getElementById("messages").appendChild(div);
+      });
+
+      // When connected, emit run_teachmode
+      socket.on("connect", () => {
+        console.log("Connected to server. Emitting run_teachmode event...");
+        socket.emit("run_teachmode", {
+          user_input: "Hello, I'd like to do X, Y, Z."
+          // you can include model, task, user_id, trace_id, etc. if desired
+        });
+      });
+    </script>
+  </body>
+</html>
