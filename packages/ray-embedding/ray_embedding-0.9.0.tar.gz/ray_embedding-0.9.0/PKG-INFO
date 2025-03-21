@@ -1,0 +1,24 @@
+Metadata-Version: 2.4
+Name: ray-embedding
+Version: 0.9.0
+Summary: Deploy SentenceTransformers models to a ray cluster
+Author: Crispin Almodovar
+Author-email: crispin.almodovar@docorto.ai
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+
+# ray-embedding
+
+A tool for deploying SentenceTransformers models to a ray cluster.
+
+### Supports the following backends
+
+- sbert-pytorch-gpu
+- sbert-pytorch-cpu
+- sbert-onnx-gpu
+- sbert-onnx-cpu
+- sbert-openvino-cpu
+- fastembed-onnx-cpu
