@@ -1,0 +1,71 @@
+Metadata-Version: 2.1
+Name: tamagotchi-jeu
+Version: 0.1
+Summary: Un jeu Tamagotchi en Python
+Home-page: https://github.com/toncompte/tamagotchi
+Author: Meyer Robin
+Author-email: robin.meyer@cpe.fr
+License: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+
+# Tamagotchi - Jeu de simulation
+
+## Description
+
+Ce projet permet de simuler un Tamagotchi interactif. Le joueur peut nourrir, jouer ou ignorer son Tamagotchi, et l'état de ce dernier évolue en fonction des actions effectuées. Le but est de garder le Tamagotchi en vie le plus longtemps possible en surveillant son énergie, son bonheur et son capital biologique.
+
+## Fonctionnalités principales
+
+1. Création d'un Tamagotchi
+Le joueur peut entrer son prénom, et un Tamagotchi est créé avec ce nom.
+
+2. Actions du Tamagotchi
+Trois actions sont disponibles pendant le jeu :
+    - Nourrir : Augmente l'énergie et le bonheur du Tamagotchi.
+    - Jouer : Diminue l'énergie, mais augmente le bonheur.
+    - Ignorer : Diminue à la fois l'énergie et le bonheur.
+
+3. État du Tamagotchi
+    À chaque action, l'état du Tamagotchi est mis à jour et affiché, y compris son énergie, son bonheur et son capital biologique.
+
+4. Sauvegarde de la partie
+    À la fin du jeu (lorsque le Tamagotchi meurt), le jeu sauvegarde les résultats de la partie dans un fichier JSON (`parties.json`), incluant le nom du joueur, le nombre d'actions et l'historique des actions.
+
+## Ce qui fonctionne
+
+- **Création du Tamagotchi** : Le joueur peut entrer son prénom et un Tamagotchi est créé.
+- **Gestion des actions** : Les actions "Nourrir", "Jouer" et "Ignorer" affectent correctement l'état du Tamagotchi.
+- **Calcul du vieillissement** : Le vieillissement du Tamagotchi est correctement pris en compte avec un impact sur son capital biologique.
+- **Conditions de vie** : Le Tamagotchi meurt lorsque ses paramètres (énergie, bonheur, capital biologique) ne sont plus dans les limites acceptables.
+- **Sauvegarde des résultats** : Les résultats sont sauvegardés dans un fichier JSON à la fin de la partie.
+
+## Ce qui pourrait être amélioré
+
+1. **Gestion des erreurs de saisie** :
+    Le jeu ne gère pas encore très bien les erreurs de saisie de l'utilisateur (par exemple, si le joueur entre une valeur incorrecte pour l'action). Il serait intéressant d'ajouter une vérification plus stricte et des messages d'erreur plus explicites.
+
+2. **Comportement du Tamagotchi plus dynamique** :
+    Le comportement du Tamagotchi pourrait être plus complexe. Par exemple, ajouter des réactions spécifiques en fonction des actions passées ou de l'état actuel du Tamagotchi pourrait enrichir l'expérience de jeu.
+
+3. **Amélioration du vieillissement** :
+    Le vieillissement du Tamagotchi est actuellement basé sur un facteur aléatoire. Un système plus détaillé pourrait prendre en compte différents facteurs (ex. : fréquence des actions, état du Tamagotchi) pour rendre la simulation plus réaliste.
+
+4. **Ajout d'un système de niveaux ou d'objectifs** :
+    Il pourrait être intéressant d'ajouter un système de niveaux ou des objectifs à atteindre pour rendre le jeu plus engageant. Par exemple, chaque action pourrait permettre de débloquer des éléments ou des améliorations pour le Tamagotchi.
+
+5. **Interface graphique** :
+    Le jeu pourrait être amélioré avec une interface graphique (par exemple, en utilisant Tkinter ou Pygame) pour rendre le jeu plus interactif et visuellement attrayant.
+
+## Ce qui ne fonctionne pas
+
+- **Problème de sauvegarde dans certains cas** :
+    La sauvegarde des parties ne gère pas correctement les erreurs liées à l'ouverture ou à l'écriture du fichier. Par exemple, si le fichier parties.json est déjà corrompu ou inaccessible, cela pourrait provoquer une erreur. Il serait nécessaire d'améliorer la gestion des erreurs liées à la sauvegarde des données.
+
+## Test 
+
+![test](images/testV1.png)
+
