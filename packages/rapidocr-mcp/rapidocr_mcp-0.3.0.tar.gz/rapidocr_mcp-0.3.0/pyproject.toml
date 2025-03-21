@@ -1,0 +1,30 @@
+[project]
+name = "rapidocr-mcp"
+version = "0.3.0"
+description = "RapidOCR MCP Server for OCR processing"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+authors = [
+    { name = "z4none", email = "z4none@gmail.com" }
+]
+keywords = ["ocr", "rapidocr", "mcp"]
+dependencies = [
+    "mcp[cli]>=1.4.1",
+    "rapidocr>=2.0.3",
+    "requests>=2.32.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/z4none/rapidocr-mcp"
+Repository = "https://github.com/z4none/rapidocr-mcp.git"
+
+[project.scripts]
+rapidocr-mcp = "rapidocr_mcp.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["rapidocr_mcp"]
