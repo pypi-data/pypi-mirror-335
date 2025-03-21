@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["django_hmac_authentication*"]
+namespaces = false
+
+[project]
+name = "django_hmac_authentication"
+version = "5.0.2"
+authors = [
+  { name="Harisankar Krishna Swamy @ Vevde", email="harisankar.krishna@outlook.com" },
+]
+description = "Django HMAC authentication using shared secret"
+readme = "README.md"
+requires-python = ">=3.9.2"
+dependencies = [
+    "Django>=3.2.18",
+    "djangorestframework>=3.12.4",
+    "cryptography>=3.4.8",
+    "vevde-security-utils>=2.0.0"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/harisankar-krishna-swamy/django_hmac_authentication"
