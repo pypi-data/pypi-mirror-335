@@ -1,0 +1,71 @@
+Metadata-Version: 2.3
+Name: llmailbot
+Version: 0.3.1
+Summary: A bot for automatically replying to emails using LLMs.
+License: MIT
+Author: Jerome Boisvert-Chouinard
+Author-email: github@jbchouinard.net
+Requires-Python: >=3.12,<4.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Communications :: Email
+Classifier: Topic :: Utilities
+Provides-Extra: dkim
+Provides-Extra: redis
+Requires-Dist: aiorun (>=2025.1.1,<2026.0.0)
+Requires-Dist: click (>=8.1.8,<9.0.0)
+Requires-Dist: config-path (>=1.0.5,<2.0.0)
+Requires-Dist: dkimpy[ed25519] (>=1.1.8,<2.0.0) ; extra == "dkim"
+Requires-Dist: email-validator (>=2.2.0,<3.0.0)
+Requires-Dist: imap-tools (>=1.10.0,<2.0.0)
+Requires-Dist: langchain (>=0.3.20,<0.4.0)
+Requires-Dist: loguru (>=0.7.3,<0.8.0)
+Requires-Dist: py3dns (>=4.0.2,<5.0.0) ; extra == "dkim"
+Requires-Dist: pydantic (>=2.10.6,<3.0.0)
+Requires-Dist: pydantic-settings (>=2.8.1,<3.0.0)
+Requires-Dist: redis[hiredis] (>=5.2.1,<6.0.0) ; extra == "redis"
+Project-URL: Documentation, https://github.com/jbchouinard/llmailbot#readme
+Project-URL: Homepage, https://github.com/jbchouinard/llmailbot
+Project-URL: Repository, https://github.com/jbchouinard/llmailbot
+Description-Content-Type: text/markdown
+
+# LLMailBot
+
+LLMailBot is a service that enables chatting with Large Language Models (LLMs) via email. It connects to an email account using IMAP/SMTP protocols, then automatically responds to incoming emails using LLM chat models like GPT-4, Claude, or other compatible models.
+
+**⚠️ IMPORTANT: LLMailBot may delete emails in the connected account. Always use a dedicated email account created specifically for this purpose, never your personal email account.**
+
+## Key Features
+
+- **LLM Integration**: Uses LangChain chat models to provide compatibility with most mainstream LLMs
+- **Security**: Includes basic security features such as rate limiting and address filtering
+- **Dynamic Configuration**: Supports multiple model configurations based on pattern-matching email addresses
+- **Scalability**: Horizontally scalable architecture using Redis queues for high-volume deployments
+- **Flexible Deployment**: Run using Pipx, Docker, or Docker Compose depending on your needs
+
+## Documentation
+
+For complete documentation, installation instructions, and security considerations, please visit the [GitHub repository](https://github.com/jbchouinard/llmailbot).
+
+## Installation
+
+```bash
+# Install the base package
+pipx install llmailbot
+
+# Add LangChain provider packages for your preferred LLMs
+pipx inject llmailbot langchain-openai langchain-anthropic langchain-ollama
+```
+
+## Security Warning
+
+**⚠️ WARNING: Since generally anyone can email anyone, using LLMailBot means you risk letting unauthorized people indirectly use your LLM API keys or access your self-hosted LLM.**
+
+For security recommendations and detailed configuration options, please refer to the [full documentation](https://github.com/jbchouinard/llmailbot#security-considerations).
+
