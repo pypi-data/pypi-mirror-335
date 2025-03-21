@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Table View</title>
+    <style>
+        $tabulator_css
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;  /* Ensure body can contain fixed elements */
+            overflow-x: hidden;  /* Prevent horizontal scrolling */
+        }
+        .controls-container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+            flex-shrink: 0;  /* Prevent controls from shrinking */
+            position: relative;
+            z-index: 1;
+        }
+        .table-container {
+            flex: 1;  /* Take remaining space */
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;  /* Center the table horizontally */
+            position: relative;
+            z-index: 1;
+        }
+        .table-controls {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: auto minmax(200px, 400px) auto;
+            gap: 16px;
+            align-items: center;
+        }
+        .control-group {
+            display: flex;
+            gap: 8px;
+            justify-self: end;
+        }
+        .table-controls input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            background: white;
+            width: 100%;
+        }
+        .table-controls input:focus {
+            outline: none;
+            border-color: #666;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+        .table-controls select, .table-controls button {
+            padding: 8px 12px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #333;
+            min-width: 120px;
+        }
+        .table-controls select option:first-child {
+            color: #757575;
+        }
+        .table-controls select {
+            padding-right: 30px;  /* Extra space for the dropdown arrow */
+            appearance: none;  /* Remove default arrow */
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+        }
+        .table-controls select:hover, .table-controls button:hover {
+            background-color: #f8f8f8;
+            border-color: #999;
+        }
+        .table-controls select:focus {
+            outline: none;
+            border-color: #666;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+        }
+        /* Style all header filter inputs consistently */
+        .tabulator-header-filter {
+            padding: 4px !important;
+        }
+        .tabulator-header-filter input {
+            padding: 4px 8px !important;
+            border: 1px solid #ddd !important;
+            border-radius: 4px !important;
+            font-size: 12px !important;
+            height: auto !important;
+            box-sizing: border-box !important;
+        }
+        /* Styles for min-max filter inputs */
+        .header-filter-min-max {
+            display: flex;
+            gap: 4px;
+        }
+        .header-filter-min-max input {
+            width: 50%;
+        }
+        /* Hide number input spinners */
+        .header-filter-min-max input[type="number"]::-webkit-inner-spin-button,
+        .header-filter-min-max input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        .header-filter-min-max input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        .tabulator-header-filter input:focus {
+            outline: none !important;
+            border-color: #666 !important;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1) !important;
+        }
+        #table {
+            margin: 20px;
+            max-width: 1200px;
+            flex: 0 1 auto;  /* Allow table to shrink */
+            width: auto !important;  /* Override Tabulator's width */
+        }
+        /* Override hover styles to maintain row colors */
+        .tabulator-row.tabulator-selectable:hover {
+            background-color: #fff !important;
+        }
+        .tabulator-row.tabulator-selectable.tabulator-row-even:hover {
+            background-color: #efefef !important;
+        }
+        /* Floating Editor Box Styles */
+        .floating-editor-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .floating-editor-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .floating-editor-content {
+            font-family: monospace;
+            white-space: pre-wrap;
+            overflow-y: auto;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #f8f8f8;
+            min-height: 100px;
+            max-height: calc(80vh - 44px);
+        }
+    </style>
+    <script>$tabulator_js</script>
+</head>
+<body>
+    <div class="controls-container">
+        <div class="table-controls">
+            <select id="group-field">
+                <option value="">Group by...</option>
+                $column_options
+            </select>
+            <input type="text" id="search" placeholder="Search...">
+            <div class="control-group">
+                <button id="download-csv">Download CSV</button>
+                <button id="download-json">Download JSON</button>
+            </div>
+        </div>
+    </div>
+    <div class="table-container">
+        <div id="table"></div>
+    </div>
+    <script>
+        // Define the min/max filter function
+        function minMaxFilterFunction(headerValue, rowValue, rowData, filterParams) {
+            if (rowValue === null || rowValue === undefined) return false;
+            
+            const value = parseFloat(rowValue);
+            if (isNaN(value)) return false;
+
+            if (headerValue.min !== "" && value < parseFloat(headerValue.min)) return false;
+            if (headerValue.max !== "" && value > parseFloat(headerValue.max)) return false;
+            
+            return true;
+        }
+
+        // Define the min/max filter editor
+        function minMaxFilterEditor(cell, onRendered, success, cancel, editorParams) {
+            const container = document.createElement("div");
+            container.className = "header-filter-min-max";
+
+            const min = document.createElement("input");
+            min.setAttribute("type", "number");
+            min.setAttribute("placeholder", "Min");
+            min.style.width = "50%";
+
+            const max = document.createElement("input");
+            max.setAttribute("type", "number");
+            max.setAttribute("placeholder", "Max");
+            max.style.width = "50%";
+
+            function buildValues() {
+                success({
+                    min: min.value,
+                    max: max.value
+                });
+            }
+
+            function keypress(e) {
+                if (e.key === "Enter") {
+                    buildValues();
+                }
+                if (e.key === "Escape") {
+                    cancel();
+                }
+            }
+
+            min.addEventListener("change", buildValues);
+            min.addEventListener("blur", buildValues);
+            min.addEventListener("keydown", keypress);
+
+            max.addEventListener("change", buildValues);
+            max.addEventListener("blur", buildValues);
+            max.addEventListener("keydown", keypress);
+
+            container.appendChild(min);
+            container.appendChild(max);
+
+            return container;
+        }
+
+        const data = $table_data;
+        const columns = $column_defs;
+        var rows_showing = data.length;
+
+        // Update column definitions to use the editor function directly
+        columns.forEach(function(col) {
+            if (col.headerFilter === "minMax") {
+                col.headerFilter = minMaxFilterEditor;
+                col.headerFilterFunc = minMaxFilterFunction;
+            }
+        });
+
+        // Add error event listeners for debugging
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+        });
+
+        // Log ResizeObserver errors
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('Unhandled promise rejection:', event.reason);
+        });
+
+        // Create and add floating editor to document
+        function createFloatingEditor() {
+            const overlay = document.createElement('div');
+            overlay.className = 'floating-editor-overlay';
+            overlay.style.display = 'none';
+            
+            const box = document.createElement('div');
+            box.className = 'floating-editor-box';
+            
+            const content = document.createElement('div');
+            content.className = 'floating-editor-content';
+            
+            box.appendChild(content);
+            overlay.appendChild(box);
+            document.body.appendChild(overlay);
+            
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    overlay.style.display = 'none';
+                }
+            });
+            
+            return { overlay, content };
+        }
+
+        function showFloatingEditor(cellContent) {
+            editorContent.textContent = cellContent;
+            overlay.style.display = 'flex';
+        }
+
+        // Calculate appropriate table height based on data and viewport
+        function calculateTableHeight(rowCount) {
+            const headerHeight = 37; // Approximate height of header row
+            const rowHeight = 30; // Approximate height of data row
+            const controlsHeight = document.querySelector('.controls-container').offsetHeight;
+            const padding = 50; // Account for margins/padding
+            const viewportHeight = window.innerHeight;
+            const availableHeight = viewportHeight - controlsHeight - padding;
+            
+            // Calculate height needed for all rows plus header
+            rowCount = rowCount || data.length;
+            const contentHeight = (rowCount * rowHeight) + headerHeight;
+
+            // Only return a height if content would exceed available space
+            return contentHeight > availableHeight ? availableHeight : null;
+        }
+
+        const initialHeight = calculateTableHeight();
+        var tbl = new Tabulator("#table", {
+            data: data,
+            layout: "fitData",
+            columns: columns.map(col => ({
+                ...col,
+                cellClick: function(e, cell) {
+                    const content = cell.getValue();
+                    const element = cell.getElement();
+                    
+                    if (content && typeof content === 'string' && (
+                        content.includes('\n') || 
+                        content.length > 100 || 
+                        element.scrollWidth > element.clientWidth
+                    )) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        showFloatingEditor(content);
+                    }
+                }
+            })),
+            movableColumns: true,
+            clipboard: true,
+            history: true,
+            headerFilter: true,
+            selectable: true,
+            groupBy: null,
+            virtualDom: true,
+            virtualDomBuffer: 300,
+            ...(initialHeight && { height: initialHeight }),
+            renderVertical: "virtual",
+            renderHorizontal: "virtual",
+            groupToggleElement: "header",
+            groupHeader: function(value, count, data, group) {
+                return value + ' <span style="color: #666;">(' + count + ' items)</span>';
+            },
+        });
+
+        tbl.on("dataFiltered", function(filters, rows) {
+            rows_showing = rows.length;
+            const newHeight = calculateTableHeight(rows.length);
+            if (newHeight) {
+                tbl.setHeight(newHeight);
+            } else {
+                tbl.setHeight(false);
+            }
+        });
+
+        // Recalculate height on window resize
+        window.addEventListener('resize', function() {
+            const newHeight = calculateTableHeight(rows_showing);
+            if (newHeight) {
+                tbl.setHeight(newHeight);
+            } else {
+                tbl.setHeight(false); // Remove height constraint
+            }
+        });
+
+        // Move the floating editor creation to after table initialization
+        const { overlay, content: editorContent } = createFloatingEditor();
+        
+        // Add keyboard handler for ESC key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && overlay.style.display === 'flex') {
+                overlay.style.display = 'none';
+            }
+        });
+
+        // Setup grouping control
+        document.getElementById("group-field").addEventListener("change", function(e) {
+            tbl.setGroupBy(e.target.value || false);
+        });
+
+        // Custom filter function that searches across all fields
+        function matchAny(data, filterParams) {
+            if (!filterParams.value) return true;
+            
+            const searchTerm = filterParams.value.toLowerCase();
+            
+            for (const key in data) {
+                const cellValue = String(data[key]).toLowerCase();
+                if (cellValue.includes(searchTerm)) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+
+        // Setup search functionality
+        document.getElementById("search").addEventListener("input", function(e) {
+            tbl.setFilter(matchAny, {value: e.target.value});
+        });
+
+        // Setup download buttons
+        document.getElementById("download-csv").addEventListener("click", function() {
+            tbl.download("csv", "data.csv");
+        });
+
+        document.getElementById("download-json").addEventListener("click", function() {
+            tbl.download("json", "data.json");
+        });
+    </script>
+</body>
+</html> 
