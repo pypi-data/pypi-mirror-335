@@ -1,0 +1,1 @@
+target_sources(pylena_cxx PRIVATE morpho.cpp se.cpp soperations.cpp maxtree.cpp watershed.cpp)
