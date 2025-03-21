@@ -1,0 +1,78 @@
+Metadata-Version: 2.4
+Name: kupala
+Version: 0.60.0
+Summary: A web framework for those who value their time.
+Author-email: "alex.oleshkevich" <alex.oleshkevich@gmail.com>
+License-File: LICENSE
+Requires-Python: >=3.13
+Requires-Dist: asgi-lifespan>=2.1.0
+Requires-Dist: async-storages>=0.7
+Requires-Dist: blinker>=1.9.0
+Requires-Dist: click>=8.1
+Requires-Dist: cryptography>=44.0
+Requires-Dist: factory-boy>=3.3.1
+Requires-Dist: httpx>=0.28
+Requires-Dist: itsdangerous>=2.2
+Requires-Dist: jinja2>=3.0
+Requires-Dist: limits>=4.0.1
+Requires-Dist: mailers[css-inline,smtp]>=3.2
+Requires-Dist: passlib>=1.7
+Requires-Dist: pytest-asyncio>=0.25
+Requires-Dist: pytest-cov>=6.0
+Requires-Dist: python-multipart>=0.0.20
+Requires-Dist: redis>=5.2.1
+Requires-Dist: sqlalchemy[asyncio]>=2.0
+Requires-Dist: starception>=1.2
+Requires-Dist: starlette-auth>=0.2.3
+Requires-Dist: starlette-babel>=1.0
+Requires-Dist: starlette-flash>=1.0
+Requires-Dist: starlette-sqlalchemy>=0.1
+Requires-Dist: starlette-sqlalchemy>=0.1.1
+Requires-Dist: starlette>=0.45
+Requires-Dist: starsessions>=2.2.1
+Requires-Dist: types-babel>=2.11
+Requires-Dist: types-passlib>=1.7
+Description-Content-Type: text/markdown
+
+# Kupala Framework
+
+A set of extensions for Starlette for rapid application development.
+
+![PyPI](https://img.shields.io/pypi/v/kupala)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/alex-oleshkevich/kupala/Lint)
+![GitHub](https://img.shields.io/github/license/alex-oleshkevich/kupala)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/pypi/kupala)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/kupala)
+![GitHub Release Date](https://img.shields.io/github/release-date/alex-oleshkevich/kupala)
+![Lines of code](https://img.shields.io/tokei/lines/github/alex-oleshkevich/kupala)
+
+## Installation
+
+Install `kupala` using PIP or poetry:
+
+```bash
+pip install kupala
+# or
+poetry add kupala
+```
+
+## Features
+
+- dependency injection
+- SQLAlchemy 2 intergration
+- wtforms integration
+- click integration
+- jinja integration
+- file storage abstraction (S3, local files, in memory)
+- mail delivery
+- authentication (multi-backend, remember me)
+- django-like choices enums
+- configuration secrets reader
+- chainable guards (function that control access to the endpoint)
+- pagination
+- decorator-style routing
+- composable routing
+
+## Quick start
+
+See example application in `examples/` directory of this repository.
