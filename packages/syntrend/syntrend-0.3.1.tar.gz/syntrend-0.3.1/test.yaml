@@ -1,0 +1,76 @@
+
+--- !syntrend/ref::users
+output:
+  collection: true
+  count: 3
+type: object
+properties:
+  first_name:
+    type: first_name
+  last_name:
+    type: last_name
+  user_uuid:
+    type: uuid
+
+--- !syntrend/ref::sensors
+output:
+  format: xml
+  count: 5
+  xml_tag: sensor
+type: object
+properties:
+  user:
+    type: uuid
+    xml_attr: true
+  attribute:
+    type: integer
+    xml_attr: true
+  content:
+    type: string
+
+--- !syntrend/root
+output:
+  directory: out
+objects:
+  users:
+    bases:
+      ref: users
+    output:
+      format: sql
+  users_report:
+    bases:
+      ref: users
+    output:
+      format: table
+      directory: '-'
+    properties:
+      first_name:
+        expression: users(interval + 1).first_name
+      last_name:
+        expression: users(interval + 1).last_name
+      user_uuid:
+        expression: users(interval + 1).user_uuid
+  sensor1:
+    bases:
+      ref: sensors
+    properties:
+      user:
+        expression: users(1).user_uuid
+      attribute:
+        expression: interval * 2 + 10
+  sensor2:
+    bases:
+      ref: sensors
+    properties:
+      user:
+        expression: users(2).user_uuid
+      attribute:
+        expression: 10 * sin(interval * 2/3) + 11
+  sensor3:
+    bases:
+      ref: sensors
+    properties:
+      user:
+        expression: users(3).user_uuid
+      attribute:
+        expression: 5 + interval ** 3

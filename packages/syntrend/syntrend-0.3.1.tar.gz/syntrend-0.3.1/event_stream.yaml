@@ -1,0 +1,86 @@
+#output:
+#  count: 5
+#  time_field: timestamp
+#  console_event_format: "{name}: {body}"
+#type: object
+#properties:
+#  timestamp:
+#    type: timestamp
+#    start: 1735689600
+#    expression: random(0, 5) + this(1).timestamp
+#  name:
+#    type: choice
+#    items:
+#      - John
+#      - Jane
+#  sensor:
+#    type: integer
+user_base: &users
+  output:
+    collection: true
+    count: 3
+  type: object
+  properties:
+    first_name:
+      type: first_name
+    last_name:
+      type: last_name
+    user_uuid:
+      type: uuid
+
+sensor_base: &sensors
+  output:
+    directory: out
+    format: xml
+    count: 5
+  type: object
+  xml_tag: sensor
+  properties:
+    user:
+      type: uuid
+      xml_attr: true
+    attribute:
+      type: integer
+      xml_attr: true
+    content:
+      type: string
+
+
+objects:
+  users:
+    <<: *users
+    output:
+      directory: out
+      format: sql
+  users_report:
+    <<: *users
+    output:
+      format: table
+    properties:
+      first_name:
+        expression: users(interval + 1).first_name
+      last_name:
+        expression: users(interval + 1).last_name
+      user_uuid:
+        expression: users(interval + 1).user_uuid
+  sensor1:
+    <<: *sensors
+    properties:
+      user:
+        expression: users(1).user_uuid
+      attribute:
+        expression: interval * 2 + 10
+  sensor2:
+    <<: *sensors
+    properties:
+      user:
+        expression: users(2).user_uuid
+      attribute:
+        expression: 10 * sin(interval * 2/3) + 11
+  sensor3:
+    <<: *sensors
+    properties:
+      user:
+        expression: users(3).user_uuid
+      attribute:
+        expression: 5 + interval ** 3
