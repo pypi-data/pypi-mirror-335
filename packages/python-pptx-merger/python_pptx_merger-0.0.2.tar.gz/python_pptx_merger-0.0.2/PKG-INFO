@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: python-pptx-merger
+Version: 0.0.2
+Summary: Merge PowerPoint (.pptx) files
+Project-URL: Homepage, https://github.com/Tailen/python-pptx-merger
+Project-URL: Issues, https://github.com/Tailen/python-pptx-merger/issues
+Author-email: Hao Mei <wuximeihao@gmail.com>
+License-Expression: MIT
+License-File: LICENSE
+Keywords: office,openxml,powerpoint,ppt,pptx
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Office/Business :: Office Suites
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.9
+Requires-Dist: pythonnet>=3.0.5
+Description-Content-Type: text/markdown
+
+# python-pptx-merger
+
+A Python library for merging PowerPoint (.pptx) files.
+
+## Installation
+
+1. Install libgdiplus:
+   - On MacOS: `brew install mono-libgdiplus`
+   - On Ubuntu: `sudo apt-get install libgdiplus`
+
+2. Install the official .NET 8.0 runtime from [Microsoft's website](https://dotnet.microsoft.com/download/dotnet/8.0)
+
+3. Install the package via pip:
+   ```bash
+   pip install python-pptx-merger
+   ```
+
+## Usage
+
+### Merge Whole Presentations
+
+```python
+from pptx_merger import Merger
+
+merger = Merger()
+merged_doc = merger.merge_slides([src_doc_1, src_doc_2])
+```
+
+### Merge Specific Slides
+
+```python
+from pptx_merger import SlideRef, Merger
+
+merger = Merger()
+slide_refs = [
+    SlideRef(doc_idx=0, slide_idx=0),
+    SlideRef(doc_idx=0, slide_idx=1),
+    SlideRef(doc_idx=1, slide_idx=3),
+    SlideRef(doc_idx=0, slide_idx=3),  # Note that slide refs can be out of order
+]
+merged_doc = merger.merge_slides([src_doc_1, src_doc_2], slide_refs)
+```
