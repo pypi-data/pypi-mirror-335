@@ -1,0 +1,207 @@
+CHANGES
+=======
+
+v14.3.0
+-------
+
+* Om 912: SignalListener and SignalSimulator for testcases
+* OM-1001: CostEntryData from settings models, added valid\_from and valid\_to to AccessCheckAccess and type hints for io/signals and io/inputs settings
+
+v14.1.1
+-------
+
+* OM-1000: added --library flag for openmodule commands so "\_\_READABLE\_NAME" and "\_\_DESCRIPTION" are not added there
+
+v14.1.0
+-------
+
+* newer settings-models (non-breaking)
+* OM-901 Python 12 Support
+
+v14.0.4
+-------
+
+* OM-945 Fix Trace parent in ZMQMessage
+
+v14.0.3
+-------
+
+* OM-941 Sentry Bugfix
+
+v14.0.2
+-------
+
+* Sentry improvements
+
+v14.0.1
+-------
+
+* fixed sentry release name
+
+v14.0.0
+-------
+
+* Add breaking changes to docs
+* OM-693 Openmodule sentry v2
+* Update known\_issues.md [skip ci]
+
+v13.6.0
+-------
+
+* OM-697 OpenModule Verbesserungen
+
+v13.5.0
+-------
+
+* document breaking changes
+* OM-405: remove database imports from non-database services + isolate migration process to exclude alembic import in the main process
+
+v13.4.0
+-------
+
+* Om 164: settings-models update for enforcment settings changes
+
+v13.3.0
+-------
+
+* [OM-359] cleanup helper function
+
+v13.2.0
+-------
+
+* OM 187 Alembic migration test mixin
+* add a testcase for expiring session data while adding new models (noticed in OM-327)
+* OM-184 Openmodule Database: Migration Backups and Fix in Operations "pre\_downgrade()" and "post\_downgrade()"
+* Aktualisierung der Dokumentation
+* OM-255
+
+v13.1.4
+-------
+
+* fixed missing leave time in got better vehicle fake leave
+
+v13.1.3
+-------
+
+* [OM-134] small changes in AccessCheck Models
+
+v13.1.2
+-------
+
+* [OM-117] fixed error output on RPCs not sent by this RPCClient
+
+v13.1.1
+-------
+
+* fixed bugs in edge cases in PresenceListener
+
+v13.1.0
+-------
+
+* fixed testcase race condition
+* improvements for PresenceSimulator and new commit to fix pipeline
+
+v13.1.0.rc1
+-----------
+
+* settings model update
+
+v13.1.0.rc0
+-----------
+
+* OM-61 Openmodule Anpassungen für Access Events
+* [OM-56] added enter\_time and leave\_time to vehicle and implemented presence message changes
+* fixes and refactoring of presencelistener
+* Resolve OM-78 improved KVStore performance
+* fixes INBOX-2510
+
+v13.0.3
+-------
+
+* added garage\_settings mode "barrier\_bypass" in settings models removal of some unused imports
+
+v13.0.2
+-------
+
+* added vehicle\_id to AccessCheckRequest removed unused code (AccessServiceWithSessions, AccessTime) fix in docs
+
+v13.0.1
+-------
+
+* DEV-6522 Quick Task: Refactor für KVStore Update
+
+v13.0.0
+-------
+
+* DEV-6382 KVSync Änderungen für mehrere Datenbank Models und DEV-6432 Access Service Anpassungen
+
+v12.1.5
+-------
+
+* fixed crash when receiving broken messages
+
+v12.1.4
+-------
+
+* fixed bug in presence listener with delayed forward and backward messages
+* removed invalid volumn check from column rendering, because base.meta is sufficient
+* fixed bug in the csv export documentation
+
+v12.1.3
+-------
+
+* docs
+* use hashlib to compute hash
+
+v12.1.2
+-------
+
+* databox changed to rpc\_no\_blocking -> no exceptions and no waiting added immediate\_callbacks to MockRPCClient
+
+v12.1.1
+-------
+
+* trigger requirements update for changes in settings-models
+* docs and additional assertion in databox upload function
+
+v12.1.0
+-------
+
+* additional test cases for export\_iterator
+* first version of export iterator
+
+v12.0.0
+-------
+
+* SettingsProvider rework and small changes
+* docs update
+* settings model 1.0
+* small fix in test utils
+
+v12.0.0.rc1
+-----------
+
+* removed debug entries from kv store removed cost\_entries from AccessCheckAccess
+
+v12.0.0.rc0
+-----------
+
+* Removed parking\_area\_id from AccessCheckAccess changed gate permission check in AccessService to new behavior
+
+v11.1.1
+-------
+
+* added state parameter to VehicleBuilder.lpr function
+
+v11.1.0
+-------
+
+* csv export library, databox upload and schedule library tips
+* removed mock rpcs from schema
+
+v11.0.3
+-------
+
+* Fixed typo, added compute\_id as label to all metrics, convert all label values to string
+* touch to get rid of skip ci on my commit
+* docs update [skip ci]
