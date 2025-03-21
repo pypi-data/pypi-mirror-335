@@ -1,0 +1,14 @@
+[ansys.almgw.connector]
+exe=ansys.scade.almgw_msoffice:exe
+
+[ansys.scade.registry]
+register=ansys.scade.almgw_msoffice.register:register
+srg=ansys.scade.almgw_msoffice:srg
+unregister=ansys.scade.almgw_msoffice.unregister:unregister
+
+[console_scripts]
+ansys_scade_almgw_msoffice=ansys.scade.almgw_msoffice.msoffice:main
+register_ansys_scade_almgw_msoffice=ansys.scade.almgw_msoffice.register:main
+setup_ansys_scade_almgw_msoffice=ansys.scade.almgw_msoffice.setup:main
+unregister_ansys_scade_almgw_msoffice=ansys.scade.almgw_msoffice.unregister:main
+
