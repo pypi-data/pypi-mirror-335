@@ -1,0 +1,1 @@
+from .subtitle_corrector_sdk import SubtitleCorrector
