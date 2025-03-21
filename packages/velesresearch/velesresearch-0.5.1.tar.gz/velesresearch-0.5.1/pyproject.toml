@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "velesresearch"
+version = "0.5.1"
+description = "Veles is a free and open source python survey tool for researchers."
+license = "GPL-3.0-or-later"
+authors = ["Jakub Jędrusiak <kuba23031999@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/jakub-jedrusiak/VelesResearch"
+documentation = "https://docs.velesweb.org/"
+packages = [{include = "velesresearch"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pydantic = "^2.0.0"
+markdown = "^3.4.3"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3.2"
+pytest = "^7.3.2"
+coverage = "^7.2.7"
+pylint-pydantic = "^0.3.2"
+ipykernel = "^6.23.2"
+
+[tool.pylint]
+load-plugins = "pylint_pydantic"
+
+[tool.pylint.'MESSAGES CONTROL']
+extension-pkg-whitelist = "pydantic"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,19 @@
+/* Center questions on pages */
+.sd-row {
+  justify-content: center;
+}
+
+/* Center rating items */
+.sd-scrollable-container:not(.sd-scrollable-container--compact) {
+  width: max-content;
+  overflow: visible;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Make buttons not transparent while time minimum countdown is active */
+/* despite the buttons being disabled */
+.override-opacity-for-time-minimum {
+  --sjs-primary-forecolor-light: var(--sjs-primary-forecolor);
+  opacity: 1 !important;
+}
