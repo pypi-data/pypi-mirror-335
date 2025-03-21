@@ -1,0 +1,70 @@
+# dbS3
+
+Este módulo implementa um pequeno banco de dados que armazena informações no Amazon S3 usando o TinyDB. Foi criado inicialmente para armazenar dados de telemetria, como:
+
+- Hora da chamada de um endpoint
+- Tempo de execução da chamada
+- Indicação de sucesso ou erro
+
+## Instalação
+
+Para instalar o pacote, use:
+
+```sh
+pip install dbS3
+```
+
+Ou, se estiver instalando a partir do código-fonte:
+
+```sh
+pip install .
+```
+
+## Dependências
+
+O módulo depende das seguintes bibliotecas:
+
+- `boto3==1.28.25` (para interação com o Amazon S3)
+- `tinydb==4.8.0` (para armazenamento de dados no formato NoSQL)
+
+## Uso
+
+Aqui está um exemplo básico de como utilizar o módulo:
+
+```python
+from dbS3 import insert_tinydb 
+
+# Use suas funções
+some_data = {"example_key": "example_value"}
+insert_tinydb(some_data)
+```
+
+Ou utilizando diretamente uma instância do banco:
+
+```python
+from dbS3 import MeuBanco
+
+# Inicializa o banco com um bucket S3
+db = MeuBanco(bucket_name='meu-bucket', path='telemetria.json')
+
+# Armazena uma entrada de telemetria
+db.salvar({
+    'endpoint': '/api/dados',
+    'hora': '2025-03-20T18:00:47Z',
+    'tempo_execucao': 0.342,
+    'sucesso': True
+})
+
+# Recupera todas as entradas
+entradas = db.listar()
+print(entradas)
+```
+
+## Configuração
+
+O banco de dados utiliza um bucket S3 para armazenar os dados. Certifique-se de que suas credenciais da AWS estão corretamente configuradas via `AWS_ACCESS_KEY_ID` e `AWS_SECRET_ACCESS_KEY`, ou através do perfil da AWS CLI.
+
+## Licença
+
+Este projeto está licenciado sob a licença MIT.
+
