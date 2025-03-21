@@ -1,0 +1,60 @@
+[tool.poetry]
+name = "treat"
+version = "0.4.0"
+description = "Delicious tests for Python"
+authors = ["Sébastien Eustace <sebastien@eustace.io>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pytest = ">=8.0.0"
+pytest-asyncio = ">=0.21.1"
+pprintpp = ">=0.4.0"
+cleo = ">=2.0.1"
+coverage = ">=6.2"
+
+[tool.poetry.group.dev.dependencies]
+freezegun = ">=1.1.0"
+black = ">=22.3.0"
+isort = ">=5.10.1"
+pre-commit = ">=2.2.0"
+tox = ">=3.21.4"
+
+[tool.poetry.plugins."pytest11"]
+treat = "treat.pytest.plugin"
+
+[tool.black]
+line-length = 88
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+force_single_line = true
+atomic = true
+lines_after_imports = 2
+lines_between_types = 1
+
+known_first_party = "treat"
+known_third_party = ["clikit", "pprintpp", "pytest", "_pytest", "pluggy"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[build-system]
+requires = ["poetry-core>=1.0.0a5"]
+build-backend = "poetry.core.masonry.api"
