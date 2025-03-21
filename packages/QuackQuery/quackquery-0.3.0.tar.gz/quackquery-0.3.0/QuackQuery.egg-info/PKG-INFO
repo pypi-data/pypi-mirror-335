@@ -1,0 +1,120 @@
+Metadata-Version: 2.4
+Name: QuackQuery
+Version: 0.3.0
+Summary: A versatile AI assistant with multi-model support
+Home-page: https://github.com/kushagra2503/ai_assistant
+Author: Kushagra
+Author-email: radhikayash2@gmail.com
+Project-URL: Bug Tracker, https://github.com/kushagra2503/ai_assistant/issues
+Project-URL: Documentation, https://github.com/kushagra2503/ai_assistant#readme
+Project-URL: Source Code, https://github.com/kushagra2503/ai_assistant
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Topic :: Utilities
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: google-generativeai
+Requires-Dist: openai
+Requires-Dist: SpeechRecognition
+Requires-Dist: pillow
+Requires-Dist: opencv-python
+Requires-Dist: python-dotenv>=0.19.2
+Requires-Dist: gtts
+Requires-Dist: pytesseract
+Requires-Dist: requests
+Requires-Dist: send2trash
+Requires-Dist: pywin32; platform_system == "Windows"
+Requires-Dist: pyaudio
+Requires-Dist: rich
+Requires-Dist: email-validator>=2.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# QuackQuery
+
+QuackQuery is a versatile AI assistant with multiple integrations including GitHub automation, file management, and application launching capabilities.
+
+## Features
+
+- **Multi-model AI Support**: Seamlessly switch between Google Gemini and OpenAI models
+- **Natural Language Commands**: Control your computer with simple English instructions
+- **GitHub Integration**: Create repositories, manage issues, and more with voice or text
+- **File Management**: Navigate, create, move, and search files using natural language
+- **Application Automation**: Launch applications with simple voice commands
+- **OCR Capabilities**: Extract text from images and screenshots
+- **Voice Recognition**: Interact with the assistant using speech
+- **Desktop Screenshots**: Capture and analyze your screen
+- **Role-based Personalities**: Switch between different assistant roles for specialized help
+- **Email Integration**: Send, read, reply to, and manage emails with natural language commands
+
+## Installation
+
+### From PyPI (Recommended)
+
+```bash
+pip install QuackQuery
+```
+
+### From Source
+
+```bash
+git clone https://github.com/kushagra2503/ai_assistant.git
+cd ai_assistant
+pip install -e .
+```
+
+## Quick Start
+
+After installation, run QuackQuery from your terminal:
+
+```bash
+quackquery
+```
+
+On first run, you'll be prompted to configure your API keys.
+
+## API Keys
+
+QuackQuery requires at least one of the following API keys:
+
+- **Google Gemini API key**: Get from [Google AI Studio](https://makersuite.google.com/app/apikey)
+- **OpenAI API key**: Get from [OpenAI Platform](https://platform.openai.com/api-keys)
+
+You can set these as environment variables:
+```bash
+# For Windows
+set GEMINI_API_KEY=your_gemini_api_key
+set OPENAI_API_KEY=your_openai_api_key
+
+# For Linux/macOS
+export GEMINI_API_KEY=your_gemini_api_key
+export OPENAI_API_KEY=your_openai_api_key
+```
+
+Or create a `.env` file in your working directory:
+
+## Usage
+
+```bash
+quackquery
+```
+
+## Usage Examples
+
+### Email Management
