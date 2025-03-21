@@ -1,0 +1,94 @@
+Metadata-Version: 2.4
+Name: opticomlib
+Version: 1.5.11
+Summary: Python package for optical communication systems.
+Home-page: https://github.com/armando-palacio/opticomlib.git
+Maintainer: Armando P. Romeu
+Maintainer-email: armandopr3009@gmail.com
+License: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: Intended Audience :: Telecommunications Industry
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: scipy==1.12.0
+Requires-Dist: numpy==1.26.4
+Requires-Dist: matplotlib==3.10.1
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: pympler==1.1
+Requires-Dist: pyvisa==1.14.1
+Provides-Extra: opticomlib
+Requires-Dist: scipy==1.12.0; extra == "opticomlib"
+Requires-Dist: numpy==1.26.4; extra == "opticomlib"
+Requires-Dist: matplotlib==3.10.1; extra == "opticomlib"
+Requires-Dist: scikit-learn==1.6.1; extra == "opticomlib"
+Requires-Dist: tqdm==4.67.1; extra == "opticomlib"
+Requires-Dist: pympler==1.1; extra == "opticomlib"
+Requires-Dist: pyvisa==1.14.1; extra == "opticomlib"
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: maintainer
+Dynamic: maintainer-email
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+## Features
+
+* **Electro-optic devices:** most common electro-optic devices are implemented in the package (`opticomlib.devices`):
+  * `PRBS`: Pseudo Random Binary Sequence Generator
+  * `DAC`: Digital to Analog Converter
+  * `ADC`: Analog to Digital Converter
+  * `PM`: Phase Modulator
+  * `MZM`: Mach-Zehnder Modulator (intensity modulator)
+  * `FIBER`: Optical Fiber
+  * `DM`: Pure Dispersive Medium
+  * `PD`: Photodetector
+  * `EDFA`: Erbium Doped Fiber Amplifier
+  * `SAMPLER`: electrical sampler
+  * `LPF`: Low Pass Filter
+  * `BPF`: Band Pass Filter
+  * `GET_EYE`: Eye Diagram parameters estimator
+  * `FBG`: Fiber Bragg Grating
+  * ... and more in the future
+* **Modulation formats:** modulations are implemented in separate modules, with their own functionalities:
+  * `OOK`: On-Off Keying (`opticomlib.ook`)
+  * `PPM`: Pulse Position Modulation (`opticomlib.ppm`)
+  * ... and more in the future
+* **Objects types:** methods for signal processing and visualization are integrated in the following objects:
+  * `binary_sequence`: object for binary sequences
+  * `electrical_signal`: object for electrical signals
+  * `optical_signal`: object for optical signals
+  * `eye`: object for eye diagrams
+
+* **Laboratory utilities:** framework for communication with laboratory equipment and post-processing of data (`opticomlib.lab`).
+
+## Installation
+
+You can install opticomlib using pip:
+
+```bash
+pip install opticomlib
+```
+
+or from source code:
+
+```bash
+pip install git+https://github.com/armando-palacio/opticomlib.git
+```
+
+## License
+
+This project is licensed under the terms of the [MIT license](LICENSE.md).
+
+## Contact
+
+If you wish to contact me you can do so at <armandopr3009@gmail.com>.
