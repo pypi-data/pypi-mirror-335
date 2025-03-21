@@ -1,0 +1,27 @@
+[project]
+name = "awaitlist"
+version = "0.1.1"
+description = "A simple async task scheduler"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { file = "LICENSE" }
+dependencies = []
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest-asyncio>=0.25.2",
+    "pytest>=8.3.4",
+    "ruff>=0.9.2",
+]
+
+[tool.ruff]
+lint.select = ["E", "F", "I", "W"]
+line-length = 88
+
+[tool.ruff.lint.per-file-ignores]
+# allow unused imports in __init__.py
+"__init__.py" = ["F401"]
