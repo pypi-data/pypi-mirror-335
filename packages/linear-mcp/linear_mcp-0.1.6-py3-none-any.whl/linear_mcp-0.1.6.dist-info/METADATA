@@ -1,0 +1,141 @@
+Metadata-Version: 2.4
+Name: linear-mcp
+Version: 0.1.6
+Summary: A Linear API integration for MCP
+Home-page: https://github.com/context-labs/linear-mcp
+Author-email: Kyle Pena <kyle.pena@kuzco.xyz>
+License: MIT
+Project-URL: Homepage, https://github.com/context-labs/linear-mcp
+Project-URL: Repository, https://github.com/context-labs/linear-mcp.git
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: httpx>=0.28.1
+Requires-Dist: python-dotenv>=1.0.1
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: mcp>=0.4.0
+Dynamic: home-page
+Dynamic: requires-python
+
+# Linear MCP
+
+A Linear API integration for MCP.
+
+## Quickstart
+
+### 1. Get Linear API Key
+
+Obtain a Linear API Key from your Linear Account: https://linear.app/YOUR-ORG-NAME-HERE/settings/account/security
+
+### 2. Install `pipx`
+
+```bash
+# MacOS
+brew install pipx
+
+# Linux
+apt install pipx
+
+# (All environments) Set up PATH
+pipx ensurepath
+```
+
+### Cursor
+
+Create a `command` MCP server with the following command:
+
+```bash
+pipx run linear-mcp --linear-api-key ... --team_name ...
+```
+
+### Windsurf
+
+In Windsurf settings, add a Custom MCP server with configuration like the following:
+
+```json
+{
+  "mcpServers": {
+    "linear": {
+      "command": "pipx",
+      "args": [
+        "run",
+        "linear-mcp",
+        "--linear-api-key",
+        "...",
+        "--team_name",
+        "..."
+      ]
+    }
+  }
+}
+```
+
+## Development
+
+### Using Docker
+
+```bash
+# Build the image
+docker build -t linear-mcp .
+
+# Run the container
+docker run -it --rm -e LINEAR_API_KEY=... linear-mcp LINEAR_TEAM_NAME=...
+```
+
+### Using pipx
+
+To build the pipx package locally, run:
+
+```bash
+pipx install -e . --force
+```
+
+### Using Virtual Environments
+
+
+1. Create and activate a virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+```
+
+2. Install build dependencies:
+```bash
+pip install -r requirements-build.txt
+```
+
+3. Install development dependencies:
+```bash
+pip install -r requirements-dev.txt
+```
+
+4. Install the package in development mode:
+```bash
+pip install -e .
+```
+
+## Releases
+
+This repository is published to PyPI using GitHub Actions. 
+
+This happens automatically when you push to the `main` branch.
+
+If you do not bump the verison in `pyproject.toml`, the release will fail.
+
+Prior to merging to main, it is also a good idea to install the package globally on your local machine:
+
+```bash
+pipx install -e . --force
+```
+
+... and then use the mcp inspector to test all the resources, tools, etc.:
+
+```bash
+npx @modelcontextprotocol/inspector linear-mcp --linear-api-key ... --team_name ...
+```
+
+Because a `transport stdio` cannot write to standard out, there is file based logging.
+By default, the server writes to `linear_api.log`, whose location varies depending on how the server was installed / started.
+
+## License
+
+MIT License
