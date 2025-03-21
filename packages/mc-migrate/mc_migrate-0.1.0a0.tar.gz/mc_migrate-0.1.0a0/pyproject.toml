@@ -1,0 +1,65 @@
+[project]
+name = "mc-migrate"
+version = "0.1.0-alpha"
+description = "Minecraft Player Migrator"
+authors = [
+    {name = "lostyawolfer",email = "lostyawolfer@gmail.com"}
+]
+license = {text = "ISC"}
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+keywords = [ 
+    "Minecraft", "MC", "Player", "Migrate", "Migration", "Migrator", "UUID",
+    "PaperMC"
+]
+dynamic = [ "classifiers" ]
+
+
+[project.urls]
+homepage = "https://github.com/lostyawolfer/mc-migrate"
+repository = "https://github.com/lostyawolfer/mc-migrate"
+documentation = "https://github.com/lostyawolfer/mc-migrate?tab=readme-ov-file"
+"Bug Tracker" = "https://github.com/lostyawolfer/mc-migrate/issues"
+
+[project.scripts]
+mc-migrate = 'mc_migrate.mcmigrate:main'
+
+[tool.poetry]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Topic :: Games/Entertainment",
+    "Topic :: Utilities"
+]
+
+[tool.poetry.group.main.dependencies]
+nbtlib = ">=2.0.4,<3.0.0"
+
+[tool.poetry.group.dev.dependencies]
+yapf = "^0.43.0"
+pytest = "^8.3.4"
+pytest-cov = "^6.0.0"
+
+
+[tool.coverage.run]
+branch = true
+data_file = ".coverage/.coverage"
+
+[tool.coverage.html]
+directory = ".coverage/html"
+
+[tool.coverage.lcov]
+output = ".coverage/coverage.lcov"
+
+[tool.yapf]
+based_on_style = "pep8"
+column_limit = 99
+
+#[tool.pyright]
+#venvPath = "."
+#venv = ".venv"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
