@@ -1,0 +1,74 @@
+# SPDX-FileCopyrightText: 2025 German Aerospace Center <fame@dlr.de>
+#
+# SPDX-License-Identifier: Apache-2.0
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "fameio"
+version = "3.1.1"
+description = "Tools for input preparation and output digestion of FAME models"
+license = "Apache-2.0"
+authors = [
+    "Felix Nitsch <fame@dlr.de>",
+    "Christoph Schimeczek <fame@dlr.de>",
+    "Ulrich Frey <fame@dlr.de>",
+    "Benjamin Fuchs <fame@dlr.de>",
+]
+maintainers = [
+    "Felix Nitsch <fame@dlr.de>",
+]
+readme = "README.md"
+homepage = "https://gitlab.com/fame-framework/wiki/-/wikis/home"
+repository = "https://gitlab.com/fame-framework/fame-io/"
+keywords = ["FAME", "fameio", "agent-based modelling", "energy systems"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering",
+    "Environment :: Console",
+    "Intended Audience :: Science/Research",
+]
+packages = [{ include = "fameio", from = "src" }]
+include = ["CHANGELOG.md"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+fameprotobuf = "^2.0.2"
+pandas = ">= 1.0, <3.0"
+pyyaml = "^6.0"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3"
+mockito = "^1.5"
+pre-commit = "^3.8"
+coverage = { version = "^7.6", extras = ["toml"] }
+black = "^24.8"
+prospector = "^1.15"
+
+[tool.poetry.scripts]
+makeFameRunConfig = "fameio.scripts:makeFameRunConfig"
+convertFameResults = "fameio.scripts:convertFameResults"
+
+[tool.black]
+line-length = 120
+
+[tool.coverage.run]
+branch = true
+source = ["fameio"]
+omit = ["./src/fameio/scripts/*"]
+command_line = "-m pytest"
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = true
+skip_empty = true
+precision = 2
+sort = "Cover"
+
+[tool.coverage.xml]
+output = "coverage.xml"
