@@ -1,0 +1,40 @@
+from enum import Enum
+
+
+class SearchItemsScheduleBCodeValue(str, Enum):
+    BARRELS = "_barrels"
+    CARAT = "_carat"
+    CLEAN_YIELD_KILOGRAM = "_cleanYieldKilogram"
+    CONTENT_KILOGRAM = "_contentKilogram"
+    CONTENT_TON = "_contentTon"
+    CUBIC_METERS = "_cubicMeters"
+    CURIE = "_curie"
+    DOZEN = "_dozen"
+    DOZEN_PAIRS = "_dozenPairs"
+    DOZEN_PIECES = "_dozenPieces"
+    FIBER_METER = "_fiberMeter"
+    GRAM = "_gram"
+    GROSS = "_gross"
+    GROSS_CONTAINERS = "_grossContainers"
+    HUNDRED = "_hundred"
+    KILOGRAM = "_kilogram"
+    KILOGRAM_TOTAL_SUGARS = "_kilogramTotalSugars"
+    LITER = "_liter"
+    METER = "_meter"
+    MILLICURIE = "_millicurie"
+    NO_QUANTITY_REQ = "_noQuantityReq"
+    NUMBER = "_number"
+    PACK = "_pack"
+    PAIRS = "_pairs"
+    PIECES = "_pieces"
+    PROOF_LITER = "_proofLiter"
+    RUNNING_BALES = "_runningBales"
+    SQUARE = "_square"
+    SQUARE_CENTIMETERS = "_squareCentimeters"
+    SQUARE_METERS = "_squareMeters"
+    TON = "_ton"
+    VALUE_1000 = "_1000"
+    VALUE_1000_CUBIC_METERS = "_1000cubicMeters"
+
+    def __str__(self) -> str:
+        return str(self.value)
