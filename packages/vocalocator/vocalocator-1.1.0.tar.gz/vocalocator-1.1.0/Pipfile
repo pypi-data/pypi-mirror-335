@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+torch = "*"
+torchaudio = "*"
+scipy = "*"
+h5py = "*"
+pyjson5 = "*"
+torch-audiomentations = "*"
+
+[dev-packages]
+matplotlib = "*"
+ipython = "*"
+notebook = "*"
+ipykernel = "*"
+vocalocator = {editable = true, path = "."}
+
+[requires]
+python_version = "3.9"
