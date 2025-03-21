@@ -1,0 +1,21 @@
+[project]
+name = "dsupdater"
+version = "0.1.2"
+description = "Multi-platform system updater script"
+authors = [{ name = "Danny Stewart", email = "danny@stewart.cc" }]
+license = { text = "GPL-3.0-or-later" }
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = ["dsbase (>=0.2.2,<0.3.0)", "pexpect (>=4.9.0,<5.0.0)"]
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.1"
+mypy = "^1.15.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+dsupdater = "dsupdater.updater:main"
+dsupdater-install = "dsupdater.install:main"
