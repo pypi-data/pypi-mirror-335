@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "speed-spike-sort"
+version = "0.1.0"
+description = "High-performance framework for neural spike sorting of electrophysiological data"
+readme = "README.md"
+authors = [
+    {name = "NileshArnaiya"}
+]
+license = "CC0-1.0"
+requires-python = ">=3.6"
+
+
+[project.urls]
+Homepage = "https://github.com/NileshArnaiya/Speed-Spike-Sort"
+
+[project.scripts]
+speed-spike-sort = "spike_sort_run:main"
+
+[tool.setuptools]
+py-modules = [
+    "download_dandi_sample",
+    "spikesort",
+    "spike_sort_run"
+]
+
+[tool.setuptools.package-data]
+"*" = ["*.npy"]
