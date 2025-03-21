@@ -1,0 +1,26 @@
+{
+  "nonebot": {
+    "project_name": "bootstrap",
+    "folder_name": "bootstrap",
+    "adapters": "[]",
+    "env_superusers": "",
+    "env_nickname": "",
+    "env_command_start": "",
+    "env_command_sep": "",
+    "env_host": "",
+    "env_port": "",
+    "use_run_script": true,
+    "is_windows": true,
+    "redirect_localstore": true,
+    "use_ping": true,
+    "use_logpile": true,
+    "plugins": "[]",
+    "packages": "[]",
+    "nb_python_path": "python",
+    "nb_command": "nb"
+  },
+  "computed": {
+    "project_slug": "{{ cookiecutter.nonebot.project_name.replace(' ', '-') }}"
+  },
+  "_extensions": ["nb_cli.extensions.UnJsonifyExtension"]
+}
