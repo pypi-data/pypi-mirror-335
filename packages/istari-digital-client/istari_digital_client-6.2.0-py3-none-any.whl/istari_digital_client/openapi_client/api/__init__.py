@@ -1,0 +1,22 @@
+# flake8: noqa
+
+# import apis into api package
+from istari_digital_client.openapi_client.api.access_api import AccessApi
+from istari_digital_client.openapi_client.api.agent_api import AgentApi
+from istari_digital_client.openapi_client.api.artifact_api import ArtifactApi
+from istari_digital_client.openapi_client.api.author_api import AuthorApi
+from istari_digital_client.openapi_client.api.comment_api import CommentApi
+from istari_digital_client.openapi_client.api.files_api import FilesApi
+from istari_digital_client.openapi_client.api.healthchecks_api import HealthchecksApi
+from istari_digital_client.openapi_client.api.job_api import JobApi
+from istari_digital_client.openapi_client.api.model_api import ModelApi
+from istari_digital_client.openapi_client.api.module_api import ModuleApi
+from istari_digital_client.openapi_client.api.operating_system_api import OperatingSystemApi
+from istari_digital_client.openapi_client.api.personal_access_tokens_api import PersonalAccessTokensApi
+from istari_digital_client.openapi_client.api.revision_api import RevisionApi
+from istari_digital_client.openapi_client.api.systems_api import SystemsApi
+from istari_digital_client.openapi_client.api.token_api import TokenApi
+from istari_digital_client.openapi_client.api.tools_api import ToolsApi
+from istari_digital_client.openapi_client.api.users_api import UsersApi
+from istari_digital_client.openapi_client.api.default_api import DefaultApi
+
