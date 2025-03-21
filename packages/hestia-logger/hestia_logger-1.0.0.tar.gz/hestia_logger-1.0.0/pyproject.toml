@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "hestia-logger"
+version = "1.0.0"
+description = "HESTIA is a high-performance, structured logging system for Python applications. Supports async logging, Elastic Stack integration, structured JSON logs, and colorized console output."
+authors = ["FOX Techniques <ali.nabbi@fox-techniques.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+packages = [{ include = "hestia_logger" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+python-dotenv = "^1.0.1"
+coloredlogs = "^15.0.1"
+elasticsearch = "^8.17.2"
+python-json-logger = "^3.2.1"
+fastapi = "^0.115.11"
+requests = "^2.32.3"
+structlog = "^25.1.0"
+aiofiles = "^24.1.0"
+httpx = "^0.28.1"
+colorlog = "^6.9.0"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-asyncio = "^0.25.3"
+tox = "^4.24.2"
+yamllint = "^1.36.0"
+
+
+[tool.poetry.group.docs.dependencies]
+mkdocs-material = "^9.6.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
