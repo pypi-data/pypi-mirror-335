@@ -1,0 +1,31 @@
+[project]
+name = "cslib"
+version = "0.1.0"
+description = "AI Lab of Charles Shan -- A Notebook for AI Learning"
+authors = [{name = "Charles Shan", email = "charles.shht@gmail.com"}]
+requires-python = ">=3.7"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision",
+    "torchmetrics",
+    "tensorboard",
+    "kornia",
+    "seaborn",
+    "albumentations",
+    "click",
+    "einops",
+    "pycocotools",
+    "scikit-image",
+    "scikit-learn",
+    "tqdm",
+    "timm",
+    "wandb",
+    "visdom",
+]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+test = ["pytest"]
