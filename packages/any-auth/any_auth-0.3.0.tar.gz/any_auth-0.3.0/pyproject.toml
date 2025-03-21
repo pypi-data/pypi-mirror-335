@@ -1,0 +1,54 @@
+[tool.poetry]
+authors = ["Allen Chou <f1470891079@gmail.com>"]
+description = "An Any-Auth, A Essential Auth Lib."
+homepage = "https://github.com/allen2c/any-auth"
+license = "MIT"
+name = "any-auth"
+packages = [{ include = "any_auth" }]
+readme = "README.md"
+version = "0.3.0"
+
+[tool.poetry.dependencies]
+authlib = "*"
+bcrypt = "*"
+diskcache = "*"
+fastapi = { extras = ["standard"], version = "*" }
+fastapi_mail = "*"
+itsdangerous = "*"
+logging-bullet-train = "*"
+pydantic = { extras = ["email", "timezone"], version = "*" }
+pydantic-settings = "*"
+pyjwt = "*"
+pymongo = { extras = ["srv"], version = "*" }
+python = ">=3.11,<4.0"
+redis = "*"
+
+[tool.poetry.extras]
+all = []
+
+[tool.poetry.group.dev.dependencies]
+black = { extras = ["jupyter"], version = "*" }
+codepress = "*"
+faker = "*"
+isort = "*"
+poetry-plugin-export = "*"
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+pytest-env = "*"
+pytest-xdist = "*"
+setuptools = "*"
+
+[tool.isort]
+profile = "black"
+
+[tool.flake8]
+ignore = ["E203", "E704", "W503"]
+max-line-length = 88
+
+[tool.pytest.ini_options]
+env = "ENVIRONMENT=test"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
