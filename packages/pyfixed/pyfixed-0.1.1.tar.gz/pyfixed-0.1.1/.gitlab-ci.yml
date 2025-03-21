@@ -1,0 +1,187 @@
+default:
+  image: python:latest
+  interruptible: true
+  tags: []
+
+workflow:
+  auto_cancel:
+    on_new_commit: interruptible
+    on_job_failure: all
+
+stages:
+  - lint
+  - build
+  - test
+  - deploy
+
+lint:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  stage: lint
+  script:
+    - pip3 install autopep8 gitlint yamllint
+    - apt update && apt install -y ripgrep
+    - autopep8 . -r --max-line-length 100 --diff -j 0
+    - gitlint --commits HEAD
+    - yamllint .
+    - diff <(echo "$(rg -i '#\s*TODO' .)") <(echo "") # Look for TODO comments
+
+build:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" || $CI_COMMIT_TAG'
+  stage: build
+  artifacts:
+    paths:
+      - dist
+  script:
+    - pip3 install build
+    - python3 -m build
+
+.test_template:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+  dependencies:
+    - build
+  stage: test
+  before_script:
+    - pip3 install dist/*.whl
+
+test_fixed_cmp:
+  extends: .test_template
+  script:
+    - fixed_cmp --help
+
+test_fixed_cast:
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/fixed/test_cast.py
+      -n $(nproc)
+
+test_fixed_init:
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/fixed/test_init.py
+      -n $(nproc)
+
+test_fixed_rounding:
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/fixed/test_rounding.py
+      -n $(nproc)
+
+test_fixed_unary:
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/fixed/test_unary.py
+      -n $(nproc)
+
+test_complex_cast:
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/complex/test_complex_cast.py
+      -n $(nproc)
+
+test_complex_init:
+  tags: [saas-linux-xlarge-amd64]
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/complex/test_complex_init.py
+      -n $(nproc)
+
+test_complex_rounding:
+  tags: [saas-linux-xlarge-amd64]
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/complex/test_complex_rounding.py
+      -n $(nproc)
+
+test_complex_unary:
+  tags: [saas-linux-xlarge-amd64]
+  extends: .test_template
+  parallel: 16
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/complex/test_complex_unary.py
+      -n $(nproc)
+
+test_fixed_arith:
+  tags: [saas-linux-xlarge-amd64]
+  extends: .test_template
+  parallel: 8
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/fixed/test_arith.py
+      -n $(nproc)
+
+test_complex_arith:
+  tags: [saas-linux-xlarge-amd64]
+  extends: .test_template
+  parallel: 8
+  script:
+    - >
+      PYFIXED_TEST_BITS_START=$CI_NODE_INDEX
+      PYFIXED_TEST_BITS_END=$CI_NODE_INDEX
+      PYFIXED_TEST_FLOAT_RANGE_SAMPLES=262144
+      pytest
+      tests/complex/test_complex_arith.py
+      -n $(nproc)
+
+pypi:
+  stage: deploy
+  dependencies:
+    - build
+  rules:
+    - if: $CI_COMMIT_TAG
+  script:
+    - pip3 install twine
+    - TWINE_USERNAME=__token__ twine upload dist/* --non-interactive --verbose
