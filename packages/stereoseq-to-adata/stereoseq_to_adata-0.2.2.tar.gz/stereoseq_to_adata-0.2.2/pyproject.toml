@@ -1,0 +1,46 @@
+[project]
+name = "stereoseq-to-adata"
+version = "0.2.2"
+description = "Quickly convert parquet files exported from stereo-seq to adata format and add appropriate metadata"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "anndata>=0.11.3",
+    "polars>=1.22.0",
+    "scanpy>=1.10.4",
+    "tyro>=0.9.14",
+]
+authors = [
+    {name = "myuan"},
+]
+license = {text = "MIT"}
+
+[project.urls]
+"GitHub" = "https://github.com/myuanz/stereoseq-to-adata"
+
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5",
+]
+
+[project.scripts]
+process-stereo-folder = "s2a.cli:process_stereo_folder"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/s2a"]
+exclude = [
+    ".vscode",
+]
+
+[tool.hatch.build.targets.sdist]
+ignore-vcs = true
+exclude = [
+    ".vscode",
+]
+
+[tool.uv]
+package = true
