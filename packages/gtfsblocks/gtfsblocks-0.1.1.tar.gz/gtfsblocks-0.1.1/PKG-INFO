@@ -1,0 +1,105 @@
+Metadata-Version: 2.4
+Name: gtfsblocks
+Version: 0.1.1
+Summary: Python package for processing GTFS feeds to assemble bus blocks and relevant data 
+Author-email: Dan McCabe <Dan.McCabe@nrel.gov>
+License: BSD 3-Clause License
+        
+        Copyright (c) 2025 Alliance for Sustainable Energy, LLC
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+        
+        3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS “AS IS” AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Project-URL: Homepage, https://github.com/dan-mccabe/gtfsblocks
+Project-URL: Issues, https://github.com/dan-mccabe/gtfsblocks/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 3 - Alpha
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pandas<3.0,>=2.2
+Requires-Dist: numpy<2.0,>=1.26
+Requires-Dist: plotly>=5.24
+Dynamic: license-file
+
+# GTFS Blocks
+`gtfsblocks` is a Python package that pieces together GTFS feed data to assemble individual vehicle blocks and compile relevant data from various tables. The code was originally developed to analyze transit bus electrification, but the functionality can be helpful to other applications as well. The package was predominantly built off of the GTFS processing code from [`ebusopt`](https://github.com/dan-mccabe/ebusopt).
+
+Some core functions include:
+- Reading static GTFS tables into Pandas `DataFrame` objects and performing a bit of basic validation that necessary columns are populated while dropping what isn't needed.
+- Parsing the `calendar.txt` and `calendar_dates.txt` files to identify the active `service_id` values on each day of service.
+- Merging together trip-level data from different GTFS tables for easy manipulation and analysis. For example:
+    - Adding trip start and end times from `stop_times.txt`
+    - Adding trip start and end locations from `shapes.txt`
+        - Esimating deadhead distances between consecutive trips based on these coordinates
+    - Adding trip distances calculated from the lat/lon coordinates in `shapes.txt`
+ 
+See [this gist](https://gist.github.com/dan-mccabe/2c0b0a4d58ab7f3f3068f7102b121672) for an overview of core functionality as well as the example usage below. Documentation is a work in progress.
+
+## Installation
+`gtfsblocks` is installable via `pip`:
+
+`pip install gtfsblocks`
+
+## Example Usage
+It's easy to read in a GTFS feed with `gtfsblocks`. Just supply the path to the directory where unzipped GTFS files are housed:
+
+```python
+from gtfsblocks import Feed
+gtfs = Feed.from_dir('/path/to/your/data')
+```
+
+This will load all relevant files into memory as Pandas DataFrames. Future releases may take advantage of [`partridge`](https://github.com/remix/partridge) for better memory management.
+
+From here, you can access predictably named tables like `gtfs.trips_df` or `gtfs.stop_times_df`, or call various methods on `Feed` to perform some transformations and aggregations for you.
+
+### Getting active trips on a particular day
+```python
+# Get a Pandas Series of the number of trips per day in the scope of these files
+trips_per_day = gtfs.get_n_trips_per_day()
+
+# Filter down trips.txt to just those happening on a particular day
+test_date = '2/25/25'
+day_trips = gtfs.get_trips_from_date(test_date)
+```
+
+### Only include blocks serving a specific set of routes
+```python
+from gtfsblocks import filter_blocks_by_route
+routes = ['D Line', 'E Line']
+route_trips = filter_blocks_by_route(
+    trips=day_trips,
+    routes=routes,
+    route_method=route_method,
+    route_column='route_short_name'
+)
+```
+
+### Add data from other GTFS tables to trips DataFrame
+```python
+# Add all trip data columns (e.g. locations and distances)
+route_trips = gtfs.add_trip_data(route_trips, test_date)
+```
+
+### Estimate deadhead distance between trips
+```python
+from gtfsblocks import add_deadhead
+trips_with_dh = add_deadhead(route_trips)
+```
+
+### Plot the trips on an interactive Plotly map
+```python
+from gtfsblocks import plot_trips_and_terminals
+fig = plot_trips_and_terminals(
+    trips_df=route_trips,
+    shapes_df=gtfs.shapes_df
+)
+```
