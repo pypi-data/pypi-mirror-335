@@ -1,0 +1,56 @@
+- job:
+    name: bindep-base
+    description: |
+      Check that bindep itself can install packages on various platforms.
+    abstract: true
+    roles:
+      - zuul: zuul/zuul-jobs
+    run: playbooks/bindep/run.yaml
+    vars:
+      zuul_work_dir: '{{ zuul.project.src_dir }}'
+      zuul_work_virtualenv: '{{ ansible_user_dir }}/.venv'
+
+- job:
+    name: bindep-centos-9-stream
+    parent: bindep-base
+    nodeset: centos-9-stream
+
+- job:
+    name: bindep-ubuntu-noble
+    parent: bindep-base
+    nodeset: ubuntu-noble
+
+- project:
+    vars:
+      release_python: python3
+    templates:
+      - publish-opendev-nox-docs
+    check:
+      jobs:
+        - bindep-centos-9-stream
+        - bindep-ubuntu-noble
+        - build-python-release
+        - nox-linters
+        - nox-py37:
+            nodeset: ubuntu-bionic
+        - nox-py312:
+            nodeset: ubuntu-noble
+        - nox-cover
+    gate:
+      jobs:
+        - bindep-centos-9-stream
+        - bindep-ubuntu-noble
+        - build-python-release
+        - nox-linters
+        - nox-py37:
+            nodeset: ubuntu-bionic
+        - nox-py312:
+            nodeset: ubuntu-noble
+        - nox-cover
+    promote:
+      jobs:
+        - opendev-promote-python
+    release:
+      jobs:
+        - opendev-release-python
+        - opendev-publish-unversioned-nox-docs
