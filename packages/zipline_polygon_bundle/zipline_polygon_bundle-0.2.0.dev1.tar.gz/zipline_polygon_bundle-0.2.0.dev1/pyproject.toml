@@ -1,0 +1,63 @@
+[project]
+name = 'zipline_polygon_bundle'
+version = '0.2.0dev1'
+description = 'A zipline-reloaded data provider bundle for Polygon.io'
+authors = [
+    { name = 'Jim White', email = 'jim@fovi.com' },
+]
+license = { file = 'LICENSE' }
+readme = 'README.md'
+keywords = ['zipline', 'data-bundle', 'finance']
+classifiers = [
+    'Programming Language :: Python :: 3',
+    'License :: OSI Approved :: GNU Affero General Public License v3',
+    'Operating System :: OS Independent',
+]
+
+[project.urls]
+Repository = 'https://github.com/fovi-llc/zipline-polygon-bundle'
+
+[tool.poetry]
+name = 'zipline-polygon-bundle'
+version = '0.2.0dev1'
+description = 'A zipline-reloaded data provider bundle for Polygon.io'
+authors = ['Jim White <jim@fovi.com>']
+license = 'AGPL-3.0'
+readme = 'README.md'
+keywords = ['zipline', 'data-bundle', 'finance']
+classifiers = [
+    'Programming Language :: Python :: 3',
+    'License :: OSI Approved :: GNU Affero General Public License v3',
+    'Operating System :: OS Independent',
+]
+
+[tool.poetry.dependencies]
+fsspec = ">=2024.10"
+python = ">=3.9,<4.0"
+polygon-api-client = ">=1.14.2"
+pandas = ">=2.2,<3"
+pandas-market-calendars = ">=4.4.2"
+pandas_ta = ">=0.3"
+pytz = ">=2018.5"
+requests = ">=2.9.1"
+bcolz-zipline = ">=1.2.11"
+pyarrow = ">=18.1.0,<19"
+numpy = "<2"
+toolz = ">=0.8.2"
+zipline-reloaded = ">=3.1"
+
+[tool.poetry.dev-dependencies]
+pytest = "*"
+
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry_core>=1.0.0"]
+
+[tool.pytest.ini_options]
+# https://docs.pytest.org/en/stable/how-to/capture-warnings.html#controlling-warnings
+filterwarnings = [
+    # "error",
+    # "ignore::UserWarning",
+    # note the use of single quote below to denote "raw" strings in TOML
+    'ignore:co_lnotab is deprecated, use co_lines instead:DeprecationWarning',
+]
