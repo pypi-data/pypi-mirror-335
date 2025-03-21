@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-fleur"
+version = "0.1.0"
+description = "Fleur MCP Server"
+authors = [
+    {name = "Vinayak Mehta", email = "vmehta94@gmail.com"},
+]
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+]
+dependencies = [
+    "httpx>=0.24.0",
+    "mcp>=0.1.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+mcp-fleur = "mcp_fleur.main:main"
+
+[project.urls]
+"Homepage" = "https://github.com/fleuristes/fleur-mcp"
+"Bug Tracker" = "https://github.com/fleuristes/fleur-mcp/issues"

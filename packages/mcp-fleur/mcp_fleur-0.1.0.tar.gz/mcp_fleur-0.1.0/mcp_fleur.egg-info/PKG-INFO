@@ -1,0 +1,30 @@
+Metadata-Version: 2.4
+Name: mcp-fleur
+Version: 0.1.0
+Summary: Fleur MCP Server
+Author-email: Vinayak Mehta <vmehta94@gmail.com>
+License: MIT
+Project-URL: Homepage, https://github.com/fleuristes/fleur-mcp
+Project-URL: Bug Tracker, https://github.com/fleuristes/fleur-mcp/issues
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: httpx>=0.24.0
+Requires-Dist: mcp>=0.1.0
+Requires-Dist: python-dotenv>=1.0.0
+Dynamic: license-file
+
+# Fleur MCP
+
+Fleur onboarding within Claude.
+
+## Running the Server
+
+```bash
+uvx --from git+https://github.com/fleuristes/fleur-mcp fleur-mcp
+```
+
+## License
+
+Apache 2.0
