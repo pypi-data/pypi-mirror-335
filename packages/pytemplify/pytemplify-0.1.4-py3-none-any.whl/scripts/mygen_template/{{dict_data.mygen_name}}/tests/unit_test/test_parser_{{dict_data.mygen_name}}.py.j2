@@ -1,0 +1,22 @@
+import pytest
+from {{ dict_data.mygen_name }}.parser_{{ dict_data.mygen_name }} import {{ dict_data.mygen_name | capitalize }}Parser, {{ dict_data.mygen_name | capitalize }}DataClass
+import json
+
+
+@pytest.fixture
+def sample_input(tmp_path):
+    file_path = tmp_path / "sample.input"
+    # TODO: Prepare the sample input file
+    return file_path
+
+
+def test_parse(sample_input):
+    parser = {{ dict_data.mygen_name | capitalize }}Parser()
+    result = parser.parse(sample_input)
+    assert isinstance(result, {{ dict_data.mygen_name | capitalize }}DataClass)
+    # TODO: Add assertions for the parsed data
+
+
+def test_get_data_class():
+    parser = {{ dict_data.mygen_name | capitalize }}Parser()
+    assert parser.get_data_class() == {{ dict_data.mygen_name | capitalize }}DataClass
