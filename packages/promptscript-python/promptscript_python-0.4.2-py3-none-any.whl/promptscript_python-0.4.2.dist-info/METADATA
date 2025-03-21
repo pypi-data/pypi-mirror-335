@@ -1,0 +1,228 @@
+Metadata-Version: 2.4
+Name: promptscript-python
+Version: 0.4.2
+Summary: A library for writing LLM prompts as Python functions
+Author-email: John Lam <jflam@microsoft.com>
+License: MIT
+Project-URL: Homepage, https://github.com/jflam/promptscript
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: openai>=1.62.0
+Requires-Dist: anthropic>=0.45.2
+Requires-Dist: google-genai>=1.2.0
+Requires-Dist: pytest>=8.3.4
+Requires-Dist: filelock>=3.17.0
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: pillow>=11.1.0
+Requires-Dist: tenacity>=9.0.0
+Requires-Dist: pytest-cov>=6.0.0
+
+# PromptScript
+
+PromptScript bridges natural language and programming by integrating English
+with Python. It introduces a single `@prompt` decorator along with Python
+conventions to seamlessly integrate LLM interactions into your code. 
+
+## Key Principles
+
+1. **Lowering Friction for Experimentation**:
+   PromptScript aims to reduce the overhead of working with LLMs in Python. By
+   keeping syntax minimal, you can move quickly from idea to functioning
+   prototype.
+
+2. **Modularity and Ecosystem Integration**:
+   We build on Python’s extensive libraries and tooling. You can incorporate
+   data handling, Pydantic models, and other Python-based systems while relying
+   on standard Python packaging approaches.
+
+3. **User-Focused Experience**:
+   PromptScript is designed to integrate with your existing workflow—whether
+   that’s a code editor (like VS Code), a notebook environment, or a custom
+   application. You write Python code; PromptScript handles the LLM aspects in
+   a straightforward way.
+
+## Key Features
+
+- **`@prompt` Decorator**: Wrap Python functions that contain prompt logic. 
+- **Type-Safe Prompting**: Optionally use type hints or Pydantic models for
+  safer, more reliable structured outputs.
+- **Multi-Modal Inputs**: Use images, text, or binary attachments alongside
+  your prompts. 
+- **Built-in Observability**: Collect execution traces and debug logs (through
+  our tracer and persistence modules).
+- **Persistent Sessions**: Save execution traces in JSON format for later
+  analysis.
+- **Minimal Dependencies**: The library is self-contained and fits well in
+  existing Python development environments.
+
+## Setup
+
+Below are instructions for a typical setup using Python 3.10 or higher. 
+
+### Using `pyenv`, `venv`, and `pip` (Ubuntu example)
+
+1. **Install System Dependencies**
+   ```bash
+   sudo apt update
+   sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+       libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+       libncurses5-dev libncursesw5-dev xz-utils tk-dev libffi-dev liblzma-dev \
+       python3-openssl git
+   ```
+
+2. **Install `pyenv`**
+   Follow the official [pyenv installation
+   instructions](https://github.com/pyenv/pyenv#installation).
+
+3. **Set up Python environment**:
+   ```bash
+   cd promptscript
+   pyenv install
+   pyenv local
+   python -m venv venv
+   source venv/bin/activate
+   pip install --upgrade pip
+   pip install -r requirements.txt
+   ```
+
+### Getting Started on Windows
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/jflam/promptscript.git
+   cd promptscript
+   ```
+
+2. Create and activate a virtual environment:
+
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate.bat
+   ```
+
+3. Install the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Optionally install PromptScript in editable mode:
+
+   ```bash
+   pip install -e .
+   ```
+
+   This installs symlinks so that editing the source immediately reflects in
+   your environment.
+
+5. **Set up your OpenAI API key** (if you plan to use OpenAI as a provider):
+
+   ```bash
+   setx OPENAI_API_KEY <your-api-key-here>
+   ```
+
+   (Restart the terminal if needed to pick up environment changes.)
+
+## Basic Example
+
+With PromptScript, you define a function that uses the `@prompt` decorator and
+write your prompt inside. When you call that Python function, the library
+manages the LLM interaction. For example:
+
+```python
+from pscript import gen, prompt
+
+@prompt
+def tell_joke() -> str:
+    """
+    Write a short dad joke about Java.
+    """
+    return gen("Tell me a dad joke about Java.")
+
+if __name__ == "__main__":
+    joke = tell_joke()
+    print(joke)
+```
+
+- Use the `return gen(...)` syntax within your decorated function to supply the
+  prompt text. 
+- When the function is called, PromptScript invokes the LLM provider (e.g.
+  OpenAI, Anthropic, etc.). 
+- The result is captured and returned as a normal Python string.
+
+### Structured Output with Pydantic
+
+You can optionally specify a Pydantic model return type for more robust
+type-safety and structured data handling:
+
+```python
+from pydantic import BaseModel
+from pscript import gen, prompt
+
+class JokeData(BaseModel):
+    setup: str
+    punchline: str
+
+@prompt
+def typed_joke() -> JokeData:
+    """
+    Prompt the LLM to return a structured joke with fields setup and punchline.
+    """
+    return gen("Tell me a dad joke about Java in JSON format with 'setup' and 'punchline'.")
+```
+
+PromptScript will then parse the LLM’s JSON response directly into the
+`JokeData` model. If parsing fails, you get a Python exception right away.
+
+## Observability & Tracing
+
+PromptScript has a built-in tracer that captures:
+- The function name and timestamp
+- Input data, output data, and errors
+- Execution duration
+
+This data is stored in JSON under a `.promptscript/traces` directory. You can
+customize or disable the tracer/persistence if needed. It’s useful for logging,
+debugging, or replaying your experiments.
+
+## Multi-Modal Support
+
+PromptScript supports sending additional binary attachments (e.g., images) to
+the LLM. For example:
+
+```python
+from pscript import gen, prompt, Attachment
+
+@prompt
+def analyze_image(image: Attachment) -> str:
+    return gen("Describe what you see in this image.", attachments=[image])
+
+if __name__ == "__main__":
+    with open("example.jpg", "rb") as f:
+        img_data = f.read()
+    image_attachment = Attachment(data=img_data, mime_type="image/jpeg")
+    result = analyze_image(image_attachment)
+    print(result)
+```
+
+## Advanced Usage
+
+- **Provider-Specific Settings**: You can configure providers (OpenAI, Anthropic,
+  Azure OpenAI, etc.) in the `promptscript.yml` config file.
+- **Environment Variables**: For authentication keys, you typically set
+  environment variables (e.g. `OPENAI_API_KEY`, `ANTHROPIC_API_KEY`).
+- **Concurrency**: For more complex usage, you can manage concurrency or
+  parallel calls using standard Python concurrency patterns. 
+- **Error Handling**: If a response cannot be parsed into your Pydantic model,
+  PromptScript raises an exception right away, letting you handle the error in
+  pure Python.
+
+## Contributing
+
+1. Fork the repo and create a feature branch.
+2. Make your changes, add tests if applicable.
+3. Submit a pull request for review.
+
+We welcome fixes, new features, and documentation improvements!
+
