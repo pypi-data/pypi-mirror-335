@@ -1,0 +1,36 @@
+Metadata-Version: 2.4
+Name: my-cloud-devops-consulting
+Version: 5.4.9
+Summary: This is my consulting website for Cloud & DevOps services.
+Home-page: https://github.com/Betrand1999/project-root
+Author: Betrand Mutagha
+Author-email: mmutagha@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: Flask>=2.0
+Requires-Dist: pymongo
+Requires-Dist: werkzeug
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+sudo systemctl restart sshd
+3.235.142.37:8443 # rancher 
+
+sudo docker run --privileged -d \
+  --restart=always \
+  -p 8081:80 -p 8443:443 \
+  rancher/rancher
+
+# docker volume prune -f
