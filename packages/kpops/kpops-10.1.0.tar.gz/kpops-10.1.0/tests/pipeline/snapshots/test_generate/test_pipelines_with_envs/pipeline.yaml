@@ -1,0 +1,116 @@
+- name: input-producer
+  namespace: example-namespace
+  prefix: resources-pipeline-with-envs-
+  to:
+    models:
+      com/bakdata/kafka/fake: 1.0.0
+    topics:
+      resources-pipeline-with-envs-input-producer:
+        configs:
+          cleanup.policy: compact,delete
+        partitions_count: 12
+        type: output
+        value_schema: com.bakdata.fake.Produced
+  type: scheduled-producer
+  values:
+    commandLine:
+      FAKE_ARG: override-arg
+    image: example-registry/fake-image
+    imageTag: 0.0.1
+    kafka:
+      bootstrapServers: http://k8kafka-cp-kafka-headless.kpops.svc.cluster.local:9092
+      outputTopic: resources-pipeline-with-envs-input-producer
+      schemaRegistryUrl: http://localhost:8081/
+    schedule: 20 3/8 * * *
+  version: 3.6.1
+- name: converter
+  namespace: example-namespace
+  prefix: resources-pipeline-with-envs-
+  to:
+    models: {}
+    topics:
+      resources-pipeline-with-envs-converter:
+        configs:
+          cleanup.policy: compact,delete
+          retention.ms: '-1'
+        partitions_count: 50
+        type: output
+      resources-pipeline-with-envs-converter-error:
+        configs:
+          cleanup.policy: compact,delete
+        partitions_count: 10
+        type: error
+        value_schema: com.bakdata.kafka.DeadLetter
+  type: converter
+  values:
+    autoscaling:
+      enabled: true
+      lagThreshold: 10000
+      maxReplicas: 1
+    commandLine:
+      CONVERT_XML: true
+    image: bakdata-demo-streams-app
+    kafka:
+      applicationId: converter-resources-pipeline-with-envs-converter
+      bootstrapServers: http://k8kafka-cp-kafka-headless.kpops.svc.cluster.local:9092
+      config:
+        large.message.id.generator: com.bakdata.kafka.MurmurHashIdGenerator
+      errorTopic: resources-pipeline-with-envs-converter-error
+      inputTopics:
+        - resources-pipeline-with-envs-input-producer
+      outputTopic: resources-pipeline-with-envs-converter
+      schemaRegistryUrl: http://localhost:8081/
+    resources:
+      limits:
+        memory: 2G
+      requests:
+        memory: 2G
+    statefulSet: false
+  version: 3.6.1
+- name: filter
+  namespace: example-namespace
+  prefix: resources-pipeline-with-envs-
+  to:
+    models: {}
+    topics:
+      resources-pipeline-with-envs-filter:
+        configs:
+          retention.ms: '-1'
+        partitions_count: 50
+        type: output
+      resources-pipeline-with-envs-filter-error:
+        configs:
+          cleanup.policy: compact,delete
+        partitions_count: 1
+        type: error
+        value_schema: com.bakdata.kafka.DeadLetter
+  type: filter
+  values:
+    autoscaling:
+      enabled: true
+      lagThreshold: 10000
+      maxReplicas: 4
+      minReplicas: 4
+      topics:
+        - resources-pipeline-with-envs-filter
+    commandLine:
+      TYPE: nothing
+    image: fake-registry/filter
+    imageTag: 2.4.1
+    kafka:
+      applicationId: filter-resources-pipeline-with-envs-filter
+      bootstrapServers: http://k8kafka-cp-kafka-headless.kpops.svc.cluster.local:9092
+      config:
+        large.message.id.generator: com.bakdata.kafka.MurmurHashIdGenerator
+      errorTopic: resources-pipeline-with-envs-filter-error
+      inputTopics:
+        - resources-pipeline-with-envs-converter
+      outputTopic: resources-pipeline-with-envs-filter
+      schemaRegistryUrl: http://localhost:8081/
+    replicaCount: 4
+    resources:
+      requests:
+        memory: 3G
+    statefulSet: false
+  version: 3.6.1
+

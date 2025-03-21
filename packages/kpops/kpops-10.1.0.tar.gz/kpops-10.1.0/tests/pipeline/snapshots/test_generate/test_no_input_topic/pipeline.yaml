@@ -1,0 +1,75 @@
+- from:
+    components: {}
+    topics:
+      .*:
+        type: pattern
+  name: app1
+  namespace: example-namespace
+  prefix: resources-no-input-topic-pipeline-
+  to:
+    models: {}
+    topics:
+      example-output:
+        configs: {}
+        type: output
+      resources-no-input-topic-pipeline-app1-error:
+        configs:
+          cleanup.policy: compact,delete
+        partitions_count: 1
+        type: error
+        value_schema: com.bakdata.kafka.DeadLetter
+  type: streams-app
+  values:
+    commandLine:
+      CONVERT_XML: true
+    image: bakdata-demo-streams-app
+    kafka:
+      bootstrapServers: http://k8kafka-cp-kafka-headless.kpops.svc.cluster.local:9092
+      config:
+        large.message.id.generator: com.bakdata.kafka.MurmurHashIdGenerator
+      errorTopic: resources-no-input-topic-pipeline-app1-error
+      inputPattern: .*
+      outputTopic: example-output
+      schemaRegistryUrl: http://localhost:8081/
+    resources:
+      limits:
+        memory: 2G
+      requests:
+        memory: 2G
+    statefulSet: false
+  version: 3.6.1
+- name: app2
+  namespace: example-namespace
+  prefix: resources-no-input-topic-pipeline-
+  to:
+    models: {}
+    topics:
+      example-output-extra:
+        configs: {}
+        label: extra
+      resources-no-input-topic-pipeline-app2-error:
+        configs:
+          cleanup.policy: compact,delete
+        partitions_count: 1
+        type: error
+        value_schema: com.bakdata.kafka.DeadLetter
+      test-output-extra:
+        configs: {}
+        label: test-output
+  type: streams-app
+  values:
+    image: bakdata-demo-streams-app
+    kafka:
+      bootstrapServers: http://k8kafka-cp-kafka-headless.kpops.svc.cluster.local:9092
+      config:
+        large.message.id.generator: com.bakdata.kafka.MurmurHashIdGenerator
+      errorTopic: resources-no-input-topic-pipeline-app2-error
+      inputTopics:
+        - example-output
+      labeledOutputTopics:
+        extra: example-output-extra
+        test-output: test-output-extra
+      schemaRegistryUrl: http://localhost:8081/
+    statefulSet: false
+  version: 3.6.1
+
