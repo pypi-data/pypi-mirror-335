@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "uselessString"  
+version = "1.0.2"  
+description = "A fun string manipulation package"
+readme = "README.md"
+authors = [{ name = "goodgood", email = "wf2152@nyu.edu" }]
+license = { file = "LICENSE" }
+requires-python = ">=3.6"
+dependencies = ["pytest"]  
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
