@@ -1,0 +1,52 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "link_categorizer"
+version = "0.1.5"
+description = "A Python library that categorizes HTML links based on their domain names, title text, and anchor text."
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Sam Texas", email = "dev@simplecto.com"},
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/heysamtexas/link-categorizer"
+"Bug Tracker" = "https://github.com/heysamtexas/link-categorizer/issues"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+
+[tool.ruff.lint]
+# Add the `line-too-long` rule to the enforced rule set. By default, Ruff omits rules that
+# overlap with the use of a formatter, like Black, but we can override this behavior by
+# explicitly adding the rule.
+ignore = [
+    "E501",
+    "D203",
+    "D213",
+    "D100",
+    "COM812"
+]
+select = ["ALL", "W2", "I", "B"]
+exclude = [
+    "tests/*",
+    ".idea/**",
+]
+
+[dependency-groups]
+dev = [
+    "flit>=3.9.0",
+    "pre-commit>=2.21.0",
+    "ruff>=0.11.0",
+]
