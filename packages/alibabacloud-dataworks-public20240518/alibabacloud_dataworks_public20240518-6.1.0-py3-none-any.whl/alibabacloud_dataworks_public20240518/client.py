@@ -1,0 +1,20066 @@
+# -*- coding: utf-8 -*-
+# This file is auto-generated, don't edit it. Thanks.
+from typing import Dict
+from Tea.core import TeaCore
+
+from alibabacloud_tea_openapi.client import Client as OpenApiClient
+from alibabacloud_tea_openapi import models as open_api_models
+from alibabacloud_tea_util.client import Client as UtilClient
+from alibabacloud_endpoint_util.client import Client as EndpointUtilClient
+from alibabacloud_dataworks_public20240518 import models as dataworks_public_20240518_models
+from alibabacloud_tea_util import models as util_models
+from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
+from alibabacloud_openplatform20191219.client import Client as OpenPlatformClient
+from alibabacloud_openplatform20191219 import models as open_platform_models
+from alibabacloud_oss_sdk import models as oss_models
+from alibabacloud_oss_sdk.client import Client as OSSClient
+from alibabacloud_tea_fileform import models as file_form_models
+from alibabacloud_oss_util import models as ossutil_models
+
+
+class Client(OpenApiClient):
+    """
+    *\
+    """
+    def __init__(
+        self, 
+        config: open_api_models.Config,
+    ):
+        super().__init__(config)
+        self._endpoint_rule = 'regional'
+        self._endpoint_map = {
+            'ap-northeast-1': 'dataworks.ap-northeast-1.aliyuncs.com',
+            'ap-south-1': 'dataworks.ap-south-1.aliyuncs.com',
+            'ap-southeast-1': 'dataworks.ap-southeast-1.aliyuncs.com',
+            'ap-southeast-2': 'dataworks.ap-southeast-2.aliyuncs.com',
+            'ap-southeast-3': 'dataworks.ap-southeast-3.aliyuncs.com',
+            'ap-southeast-5': 'dataworks.ap-southeast-5.aliyuncs.com',
+            'cn-beijing': 'dataworks.cn-beijing.aliyuncs.com',
+            'cn-chengdu': 'dataworks.cn-chengdu.aliyuncs.com',
+            'cn-hangzhou': 'dataworks.cn-hangzhou.aliyuncs.com',
+            'cn-hongkong': 'dataworks.cn-hongkong.aliyuncs.com',
+            'cn-huhehaote': 'dataworks.aliyuncs.com',
+            'cn-qingdao': 'dataworks.aliyuncs.com',
+            'cn-shanghai': 'dataworks.cn-shanghai.aliyuncs.com',
+            'cn-shenzhen': 'dataworks.cn-shenzhen.aliyuncs.com',
+            'cn-zhangjiakou': 'dataworks.aliyuncs.com',
+            'eu-central-1': 'dataworks.eu-central-1.aliyuncs.com',
+            'eu-west-1': 'dataworks.eu-west-1.aliyuncs.com',
+            'me-east-1': 'dataworks.me-east-1.aliyuncs.com',
+            'us-east-1': 'dataworks.us-east-1.aliyuncs.com',
+            'us-west-1': 'dataworks.us-west-1.aliyuncs.com',
+            'cn-hangzhou-finance': 'dataworks.aliyuncs.com',
+            'cn-shenzhen-finance-1': 'dataworks.aliyuncs.com',
+            'cn-shanghai-finance-1': 'dataworks.aliyuncs.com',
+            'cn-north-2-gov-1': 'dataworks.aliyuncs.com'
+        }
+        self.check_config(config)
+        self._endpoint = self.get_endpoint('dataworks-public', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
+
+    def get_endpoint(
+        self,
+        product_id: str,
+        region_id: str,
+        endpoint_rule: str,
+        network: str,
+        suffix: str,
+        endpoint_map: Dict[str, str],
+        endpoint: str,
+    ) -> str:
+        if not UtilClient.empty(endpoint):
+            return endpoint
+        if not UtilClient.is_unset(endpoint_map) and not UtilClient.empty(endpoint_map.get(region_id)):
+            return endpoint_map.get(region_id)
+        return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
+
+    def abolish_deployment_with_options(
+        self,
+        request: dataworks_public_20240518_models.AbolishDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AbolishDeploymentResponse:
+        """
+        @summary Terminates the process for deploying or undeploying an entity. The process is not deleted and can still be queried by calling query operations.
+        
+        @param request: AbolishDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AbolishDeploymentResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AbolishDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AbolishDeploymentResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AbolishDeploymentResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def abolish_deployment_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.AbolishDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AbolishDeploymentResponse:
+        """
+        @summary Terminates the process for deploying or undeploying an entity. The process is not deleted and can still be queried by calling query operations.
+        
+        @param request: AbolishDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AbolishDeploymentResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AbolishDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AbolishDeploymentResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AbolishDeploymentResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def abolish_deployment(
+        self,
+        request: dataworks_public_20240518_models.AbolishDeploymentRequest,
+    ) -> dataworks_public_20240518_models.AbolishDeploymentResponse:
+        """
+        @summary Terminates the process for deploying or undeploying an entity. The process is not deleted and can still be queried by calling query operations.
+        
+        @param request: AbolishDeploymentRequest
+        @return: AbolishDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.abolish_deployment_with_options(request, runtime)
+
+    async def abolish_deployment_async(
+        self,
+        request: dataworks_public_20240518_models.AbolishDeploymentRequest,
+    ) -> dataworks_public_20240518_models.AbolishDeploymentResponse:
+        """
+        @summary Terminates the process for deploying or undeploying an entity. The process is not deleted and can still be queried by calling query operations.
+        
+        @param request: AbolishDeploymentRequest
+        @return: AbolishDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.abolish_deployment_with_options_async(request, runtime)
+
+    def associate_project_to_resource_group_with_options(
+        self,
+        request: dataworks_public_20240518_models.AssociateProjectToResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse:
+        """
+        @summary Associates a resource group with a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: AssociateProjectToResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AssociateProjectToResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AssociateProjectToResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def associate_project_to_resource_group_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.AssociateProjectToResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse:
+        """
+        @summary Associates a resource group with a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: AssociateProjectToResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AssociateProjectToResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AssociateProjectToResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def associate_project_to_resource_group(
+        self,
+        request: dataworks_public_20240518_models.AssociateProjectToResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse:
+        """
+        @summary Associates a resource group with a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: AssociateProjectToResourceGroupRequest
+        @return: AssociateProjectToResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.associate_project_to_resource_group_with_options(request, runtime)
+
+    async def associate_project_to_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.AssociateProjectToResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.AssociateProjectToResourceGroupResponse:
+        """
+        @summary Associates a resource group with a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: AssociateProjectToResourceGroupRequest
+        @return: AssociateProjectToResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.associate_project_to_resource_group_with_options_async(request, runtime)
+
+    def attach_data_quality_rules_to_evaluation_task_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse:
+        """
+        @summary Associates monitoring rules with a monitor
+        
+        @param tmp_req: AttachDataQualityRulesToEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AttachDataQualityRulesToEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rule_ids):
+            request.data_quality_rule_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rule_ids, 'DataQualityRuleIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.data_quality_rule_ids_shrink):
+            body['DataQualityRuleIds'] = request.data_quality_rule_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AttachDataQualityRulesToEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def attach_data_quality_rules_to_evaluation_task_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse:
+        """
+        @summary Associates monitoring rules with a monitor
+        
+        @param tmp_req: AttachDataQualityRulesToEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: AttachDataQualityRulesToEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rule_ids):
+            request.data_quality_rule_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rule_ids, 'DataQualityRuleIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.data_quality_rule_ids_shrink):
+            body['DataQualityRuleIds'] = request.data_quality_rule_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AttachDataQualityRulesToEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def attach_data_quality_rules_to_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse:
+        """
+        @summary Associates monitoring rules with a monitor
+        
+        @param request: AttachDataQualityRulesToEvaluationTaskRequest
+        @return: AttachDataQualityRulesToEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.attach_data_quality_rules_to_evaluation_task_with_options(request, runtime)
+
+    async def attach_data_quality_rules_to_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.AttachDataQualityRulesToEvaluationTaskResponse:
+        """
+        @summary Associates monitoring rules with a monitor
+        
+        @param request: AttachDataQualityRulesToEvaluationTaskRequest
+        @return: AttachDataQualityRulesToEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.attach_data_quality_rules_to_evaluation_task_with_options_async(request, runtime)
+
+    def batch_update_tasks_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.BatchUpdateTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.BatchUpdateTasksResponse:
+        """
+        @summary Performs incremental updates on multiple tasks at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: BatchUpdateTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: BatchUpdateTasksResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.BatchUpdateTasksShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchUpdateTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.BatchUpdateTasksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.BatchUpdateTasksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def batch_update_tasks_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.BatchUpdateTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.BatchUpdateTasksResponse:
+        """
+        @summary Performs incremental updates on multiple tasks at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: BatchUpdateTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: BatchUpdateTasksResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.BatchUpdateTasksShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='BatchUpdateTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.BatchUpdateTasksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.BatchUpdateTasksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def batch_update_tasks(
+        self,
+        request: dataworks_public_20240518_models.BatchUpdateTasksRequest,
+    ) -> dataworks_public_20240518_models.BatchUpdateTasksResponse:
+        """
+        @summary Performs incremental updates on multiple tasks at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: BatchUpdateTasksRequest
+        @return: BatchUpdateTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.batch_update_tasks_with_options(request, runtime)
+
+    async def batch_update_tasks_async(
+        self,
+        request: dataworks_public_20240518_models.BatchUpdateTasksRequest,
+    ) -> dataworks_public_20240518_models.BatchUpdateTasksResponse:
+        """
+        @summary Performs incremental updates on multiple tasks at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: BatchUpdateTasksRequest
+        @return: BatchUpdateTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.batch_update_tasks_with_options_async(request, runtime)
+
+    def clone_data_source_with_options(
+        self,
+        request: dataworks_public_20240518_models.CloneDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CloneDataSourceResponse:
+        """
+        @summary Clones an existing data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CloneDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CloneDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.clone_data_source_name):
+            query['CloneDataSourceName'] = request.clone_data_source_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloneDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CloneDataSourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CloneDataSourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def clone_data_source_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CloneDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CloneDataSourceResponse:
+        """
+        @summary Clones an existing data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CloneDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CloneDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.clone_data_source_name):
+            query['CloneDataSourceName'] = request.clone_data_source_name
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloneDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CloneDataSourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CloneDataSourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def clone_data_source(
+        self,
+        request: dataworks_public_20240518_models.CloneDataSourceRequest,
+    ) -> dataworks_public_20240518_models.CloneDataSourceResponse:
+        """
+        @summary Clones an existing data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CloneDataSourceRequest
+        @return: CloneDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.clone_data_source_with_options(request, runtime)
+
+    async def clone_data_source_async(
+        self,
+        request: dataworks_public_20240518_models.CloneDataSourceRequest,
+    ) -> dataworks_public_20240518_models.CloneDataSourceResponse:
+        """
+        @summary Clones an existing data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CloneDataSourceRequest
+        @return: CloneDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.clone_data_source_with_options_async(request, runtime)
+
+    def create_alert_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateAlertRuleResponse:
+        """
+        @summary Creates a custom monitoring alert rule.
+        
+        @param tmp_req: CreateAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateAlertRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateAlertRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification):
+            request.notification_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification, 'Notification', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_condition):
+            request.trigger_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_condition, 'TriggerCondition', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.enabled):
+            query['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.notification_shrink):
+            query['Notification'] = request.notification_shrink
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.trigger_condition_shrink):
+            query['TriggerCondition'] = request.trigger_condition_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateAlertRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateAlertRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_alert_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateAlertRuleResponse:
+        """
+        @summary Creates a custom monitoring alert rule.
+        
+        @param tmp_req: CreateAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateAlertRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateAlertRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification):
+            request.notification_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification, 'Notification', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_condition):
+            request.trigger_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_condition, 'TriggerCondition', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.enabled):
+            query['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.notification_shrink):
+            query['Notification'] = request.notification_shrink
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.trigger_condition_shrink):
+            query['TriggerCondition'] = request.trigger_condition_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateAlertRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateAlertRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_alert_rule(
+        self,
+        request: dataworks_public_20240518_models.CreateAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateAlertRuleResponse:
+        """
+        @summary Creates a custom monitoring alert rule.
+        
+        @param request: CreateAlertRuleRequest
+        @return: CreateAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_alert_rule_with_options(request, runtime)
+
+    async def create_alert_rule_async(
+        self,
+        request: dataworks_public_20240518_models.CreateAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateAlertRuleResponse:
+        """
+        @summary Creates a custom monitoring alert rule.
+        
+        @param request: CreateAlertRuleRequest
+        @return: CreateAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_alert_rule_with_options_async(request, runtime)
+
+    def create_dialarm_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDIAlarmRuleResponse:
+        """
+        @summary Creates an alert rule for a synchronization task.
+        
+        @param tmp_req: CreateDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDIAlarmRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification_settings):
+            request.notification_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification_settings, 'NotificationSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_conditions):
+            request.trigger_conditions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_conditions, 'TriggerConditions', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIAlarmRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIAlarmRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_dialarm_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDIAlarmRuleResponse:
+        """
+        @summary Creates an alert rule for a synchronization task.
+        
+        @param tmp_req: CreateDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDIAlarmRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification_settings):
+            request.notification_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification_settings, 'NotificationSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_conditions):
+            request.trigger_conditions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_conditions, 'TriggerConditions', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIAlarmRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIAlarmRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_dialarm_rule(
+        self,
+        request: dataworks_public_20240518_models.CreateDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDIAlarmRuleResponse:
+        """
+        @summary Creates an alert rule for a synchronization task.
+        
+        @param request: CreateDIAlarmRuleRequest
+        @return: CreateDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dialarm_rule_with_options(request, runtime)
+
+    async def create_dialarm_rule_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDIAlarmRuleResponse:
+        """
+        @summary Creates an alert rule for a synchronization task.
+        
+        @param request: CreateDIAlarmRuleRequest
+        @return: CreateDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_dialarm_rule_with_options_async(request, runtime)
+
+    def create_dijob_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDIJobResponse:
+        """
+        @summary Creates a new-version synchronization task.
+        
+        @description    This API operation is available for all DataWorks editions.
+        You can call this API operation to create a synchronization task. When you call this API operation, you must configure parameters such as SourceDataSourceSettings, DestinationDataSourceSettings, MigrationType, TransformationRules, TableMappings, and JobSettings. The SourceDataSourceSettings parameter defines the settings related to the source. The DestinationDataSourceSettings parameter defines the settings related to the destination. The MigrationType parameter defines the synchronization task type. The TransformationRules parameter defines the transformation rules for objects involved in the synchronization task. The TableMappings parameter defines the mappings between rules used to select synchronization objects in the source and transformation rules applied to the selected synchronization objects. The JobSettings parameter defines the settings for the dimension of the synchronization task, including policies for data type mappings between source fields and destination fields and settings for periodic scheduling.
+        
+        @param tmp_req: CreateDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.destination_data_source_settings):
+            request.destination_data_source_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.destination_data_source_settings, 'DestinationDataSourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.job_settings):
+            request.job_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_settings, 'JobSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_settings):
+            request.resource_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_settings, 'ResourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.source_data_source_settings):
+            request.source_data_source_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_data_source_settings, 'SourceDataSourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.table_mappings):
+            request.table_mappings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.table_mappings, 'TableMappings', 'json')
+        if not UtilClient.is_unset(tmp_req.transformation_rules):
+            request.transformation_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transformation_rules, 'TransformationRules', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_dijob_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDIJobResponse:
+        """
+        @summary Creates a new-version synchronization task.
+        
+        @description    This API operation is available for all DataWorks editions.
+        You can call this API operation to create a synchronization task. When you call this API operation, you must configure parameters such as SourceDataSourceSettings, DestinationDataSourceSettings, MigrationType, TransformationRules, TableMappings, and JobSettings. The SourceDataSourceSettings parameter defines the settings related to the source. The DestinationDataSourceSettings parameter defines the settings related to the destination. The MigrationType parameter defines the synchronization task type. The TransformationRules parameter defines the transformation rules for objects involved in the synchronization task. The TableMappings parameter defines the mappings between rules used to select synchronization objects in the source and transformation rules applied to the selected synchronization objects. The JobSettings parameter defines the settings for the dimension of the synchronization task, including policies for data type mappings between source fields and destination fields and settings for periodic scheduling.
+        
+        @param tmp_req: CreateDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.destination_data_source_settings):
+            request.destination_data_source_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.destination_data_source_settings, 'DestinationDataSourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.job_settings):
+            request.job_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_settings, 'JobSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_settings):
+            request.resource_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_settings, 'ResourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.source_data_source_settings):
+            request.source_data_source_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.source_data_source_settings, 'SourceDataSourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.table_mappings):
+            request.table_mappings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.table_mappings, 'TableMappings', 'json')
+        if not UtilClient.is_unset(tmp_req.transformation_rules):
+            request.transformation_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transformation_rules, 'TransformationRules', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_dijob(
+        self,
+        request: dataworks_public_20240518_models.CreateDIJobRequest,
+    ) -> dataworks_public_20240518_models.CreateDIJobResponse:
+        """
+        @summary Creates a new-version synchronization task.
+        
+        @description    This API operation is available for all DataWorks editions.
+        You can call this API operation to create a synchronization task. When you call this API operation, you must configure parameters such as SourceDataSourceSettings, DestinationDataSourceSettings, MigrationType, TransformationRules, TableMappings, and JobSettings. The SourceDataSourceSettings parameter defines the settings related to the source. The DestinationDataSourceSettings parameter defines the settings related to the destination. The MigrationType parameter defines the synchronization task type. The TransformationRules parameter defines the transformation rules for objects involved in the synchronization task. The TableMappings parameter defines the mappings between rules used to select synchronization objects in the source and transformation rules applied to the selected synchronization objects. The JobSettings parameter defines the settings for the dimension of the synchronization task, including policies for data type mappings between source fields and destination fields and settings for periodic scheduling.
+        
+        @param request: CreateDIJobRequest
+        @return: CreateDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dijob_with_options(request, runtime)
+
+    async def create_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDIJobRequest,
+    ) -> dataworks_public_20240518_models.CreateDIJobResponse:
+        """
+        @summary Creates a new-version synchronization task.
+        
+        @description    This API operation is available for all DataWorks editions.
+        You can call this API operation to create a synchronization task. When you call this API operation, you must configure parameters such as SourceDataSourceSettings, DestinationDataSourceSettings, MigrationType, TransformationRules, TableMappings, and JobSettings. The SourceDataSourceSettings parameter defines the settings related to the source. The DestinationDataSourceSettings parameter defines the settings related to the destination. The MigrationType parameter defines the synchronization task type. The TransformationRules parameter defines the transformation rules for objects involved in the synchronization task. The TableMappings parameter defines the mappings between rules used to select synchronization objects in the source and transformation rules applied to the selected synchronization objects. The JobSettings parameter defines the settings for the dimension of the synchronization task, including policies for data type mappings between source fields and destination fields and settings for periodic scheduling.
+        
+        @param request: CreateDIJobRequest
+        @return: CreateDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_dijob_with_options_async(request, runtime)
+
+    def create_data_asset_tag_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataAssetTagResponse:
+        """
+        @summary Creates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: CreateDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.managers):
+            request.managers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.managers, 'Managers', 'json')
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.managers_shrink):
+            query['Managers'] = request.managers_shrink
+        if not UtilClient.is_unset(request.value_type):
+            query['ValueType'] = request.value_type
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataAssetTagResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataAssetTagResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_asset_tag_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataAssetTagResponse:
+        """
+        @summary Creates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: CreateDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.managers):
+            request.managers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.managers, 'Managers', 'json')
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.managers_shrink):
+            query['Managers'] = request.managers_shrink
+        if not UtilClient.is_unset(request.value_type):
+            query['ValueType'] = request.value_type
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataAssetTagResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataAssetTagResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_asset_tag(
+        self,
+        request: dataworks_public_20240518_models.CreateDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.CreateDataAssetTagResponse:
+        """
+        @summary Creates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: CreateDataAssetTagRequest
+        @return: CreateDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_asset_tag_with_options(request, runtime)
+
+    async def create_data_asset_tag_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.CreateDataAssetTagResponse:
+        """
+        @summary Creates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: CreateDataAssetTagRequest
+        @return: CreateDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_asset_tag_with_options_async(request, runtime)
+
+    def create_data_quality_evaluation_task_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse:
+        """
+        @summary Creates a monitor in DataWorks Data Quality.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param tmp_req: CreateDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rules):
+            request.data_quality_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rules, 'DataQualityRules', 'json')
+        if not UtilClient.is_unset(tmp_req.hooks):
+            request.hooks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hooks, 'Hooks', 'json')
+        if not UtilClient.is_unset(tmp_req.notifications):
+            request.notifications_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notifications, 'Notifications', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_rules_shrink):
+            body['DataQualityRules'] = request.data_quality_rules_shrink
+        if not UtilClient.is_unset(request.data_source_id):
+            body['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.hooks_shrink):
+            body['Hooks'] = request.hooks_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.notifications_shrink):
+            body['Notifications'] = request.notifications_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_conf):
+            body['RuntimeConf'] = request.runtime_conf
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_quality_evaluation_task_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse:
+        """
+        @summary Creates a monitor in DataWorks Data Quality.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param tmp_req: CreateDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rules):
+            request.data_quality_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rules, 'DataQualityRules', 'json')
+        if not UtilClient.is_unset(tmp_req.hooks):
+            request.hooks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hooks, 'Hooks', 'json')
+        if not UtilClient.is_unset(tmp_req.notifications):
+            request.notifications_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notifications, 'Notifications', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_rules_shrink):
+            body['DataQualityRules'] = request.data_quality_rules_shrink
+        if not UtilClient.is_unset(request.data_source_id):
+            body['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.hooks_shrink):
+            body['Hooks'] = request.hooks_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.notifications_shrink):
+            body['Notifications'] = request.notifications_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_conf):
+            body['RuntimeConf'] = request.runtime_conf
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_quality_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse:
+        """
+        @summary Creates a monitor in DataWorks Data Quality.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param request: CreateDataQualityEvaluationTaskRequest
+        @return: CreateDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_quality_evaluation_task_with_options(request, runtime)
+
+    async def create_data_quality_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskResponse:
+        """
+        @summary Creates a monitor in DataWorks Data Quality.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param request: CreateDataQualityEvaluationTaskRequest
+        @return: CreateDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_quality_evaluation_task_with_options_async(request, runtime)
+
+    def create_data_quality_evaluation_task_instance_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Creates a monitor instance
+        
+        @param tmp_req: CreateDataQualityEvaluationTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityEvaluationTaskInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.runtime_resource):
+            request.runtime_resource_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.runtime_resource, 'RuntimeResource', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.parameters):
+            body['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource_shrink):
+            body['RuntimeResource'] = request.runtime_resource_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityEvaluationTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_quality_evaluation_task_instance_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Creates a monitor instance
+        
+        @param tmp_req: CreateDataQualityEvaluationTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityEvaluationTaskInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.runtime_resource):
+            request.runtime_resource_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.runtime_resource, 'RuntimeResource', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.parameters):
+            body['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource_shrink):
+            body['RuntimeResource'] = request.runtime_resource_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityEvaluationTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_quality_evaluation_task_instance(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Creates a monitor instance
+        
+        @param request: CreateDataQualityEvaluationTaskInstanceRequest
+        @return: CreateDataQualityEvaluationTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_quality_evaluation_task_instance_with_options(request, runtime)
+
+    async def create_data_quality_evaluation_task_instance_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Creates a monitor instance
+        
+        @param request: CreateDataQualityEvaluationTaskInstanceRequest
+        @return: CreateDataQualityEvaluationTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_quality_evaluation_task_instance_with_options_async(request, runtime)
+
+    def create_data_quality_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleResponse:
+        """
+        @summary Creates a data quality monitoring rule.
+        
+        @param tmp_req: CreateDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.error_handlers):
+            request.error_handlers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.error_handlers, 'ErrorHandlers', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.enabled):
+            body['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.error_handlers_shrink):
+            body['ErrorHandlers'] = request.error_handlers_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.severity):
+            body['Severity'] = request.severity
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_quality_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleResponse:
+        """
+        @summary Creates a data quality monitoring rule.
+        
+        @param tmp_req: CreateDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.error_handlers):
+            request.error_handlers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.error_handlers, 'ErrorHandlers', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.enabled):
+            body['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.error_handlers_shrink):
+            body['ErrorHandlers'] = request.error_handlers_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.severity):
+            body['Severity'] = request.severity
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_quality_rule(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleResponse:
+        """
+        @summary Creates a data quality monitoring rule.
+        
+        @param request: CreateDataQualityRuleRequest
+        @return: CreateDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_quality_rule_with_options(request, runtime)
+
+    async def create_data_quality_rule_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleResponse:
+        """
+        @summary Creates a data quality monitoring rule.
+        
+        @param request: CreateDataQualityRuleRequest
+        @return: CreateDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_quality_rule_with_options_async(request, runtime)
+
+    def create_data_quality_rule_template_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse:
+        """
+        @summary Creates a data quality monitoring rule template.
+        
+        @param tmp_req: CreateDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityRuleTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.directory_path):
+            body['DirectoryPath'] = request.directory_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.visible_scope):
+            body['VisibleScope'] = request.visible_scope
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_quality_rule_template_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse:
+        """
+        @summary Creates a data quality monitoring rule template.
+        
+        @param tmp_req: CreateDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDataQualityRuleTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.directory_path):
+            body['DirectoryPath'] = request.directory_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.visible_scope):
+            body['VisibleScope'] = request.visible_scope
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_quality_rule_template(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse:
+        """
+        @summary Creates a data quality monitoring rule template.
+        
+        @param request: CreateDataQualityRuleTemplateRequest
+        @return: CreateDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_quality_rule_template_with_options(request, runtime)
+
+    async def create_data_quality_rule_template_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.CreateDataQualityRuleTemplateResponse:
+        """
+        @summary Creates a data quality monitoring rule template.
+        
+        @param request: CreateDataQualityRuleTemplateRequest
+        @return: CreateDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_quality_rule_template_with_options_async(request, runtime)
+
+    def create_data_source_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataSourceResponse:
+        """
+        @summary Adds a data source to the development environment or production environment of a workspace.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CreateDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_properties):
+            query['ConnectionProperties'] = request.connection_properties
+        if not UtilClient.is_unset(request.connection_properties_mode):
+            query['ConnectionPropertiesMode'] = request.connection_properties_mode
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_source_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataSourceResponse:
+        """
+        @summary Adds a data source to the development environment or production environment of a workspace.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CreateDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_properties):
+            query['ConnectionProperties'] = request.connection_properties
+        if not UtilClient.is_unset(request.connection_properties_mode):
+            query['ConnectionPropertiesMode'] = request.connection_properties_mode
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_source(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceRequest,
+    ) -> dataworks_public_20240518_models.CreateDataSourceResponse:
+        """
+        @summary Adds a data source to the development environment or production environment of a workspace.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CreateDataSourceRequest
+        @return: CreateDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_source_with_options(request, runtime)
+
+    async def create_data_source_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceRequest,
+    ) -> dataworks_public_20240518_models.CreateDataSourceResponse:
+        """
+        @summary Adds a data source to the development environment or production environment of a workspace.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: CreateDataSourceRequest
+        @return: CreateDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_source_with_options_async(request, runtime)
+
+    def create_data_source_shared_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceSharedRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse:
+        """
+        @summary Creates a rule for sharing a data source to other workspaces or RAM users.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to share a data source from Workspace A to Workspace B, you must have the permissions to share the data source in both workspaces. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: CreateDataSourceSharedRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataSourceSharedRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.shared_user):
+            query['SharedUser'] = request.shared_user
+        if not UtilClient.is_unset(request.target_project_id):
+            query['TargetProjectId'] = request.target_project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSourceSharedRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_data_source_shared_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceSharedRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse:
+        """
+        @summary Creates a rule for sharing a data source to other workspaces or RAM users.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to share a data source from Workspace A to Workspace B, you must have the permissions to share the data source in both workspaces. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: CreateDataSourceSharedRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDataSourceSharedRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.shared_user):
+            query['SharedUser'] = request.shared_user
+        if not UtilClient.is_unset(request.target_project_id):
+            query['TargetProjectId'] = request.target_project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDataSourceSharedRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_data_source_shared_rule(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceSharedRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse:
+        """
+        @summary Creates a rule for sharing a data source to other workspaces or RAM users.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to share a data source from Workspace A to Workspace B, you must have the permissions to share the data source in both workspaces. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: CreateDataSourceSharedRuleRequest
+        @return: CreateDataSourceSharedRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_data_source_shared_rule_with_options(request, runtime)
+
+    async def create_data_source_shared_rule_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDataSourceSharedRuleRequest,
+    ) -> dataworks_public_20240518_models.CreateDataSourceSharedRuleResponse:
+        """
+        @summary Creates a rule for sharing a data source to other workspaces or RAM users.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to share a data source from Workspace A to Workspace B, you must have the permissions to share the data source in both workspaces. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: CreateDataSourceSharedRuleRequest
+        @return: CreateDataSourceSharedRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_data_source_shared_rule_with_options_async(request, runtime)
+
+    def create_deployment_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDeploymentResponse:
+        """
+        @summary Creates a process for deploying or undeploying an entity in DataStudio.
+        
+        @description >  You cannot use this API operation to create a process for multiple entities at a time. If you specify multiple entities in a request, the system creates a process only for the first entity.
+        
+        @param tmp_req: CreateDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDeploymentResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDeploymentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.object_ids):
+            request.object_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.object_ids, 'ObjectIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.object_ids_shrink):
+            body['ObjectIds'] = request.object_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDeploymentResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDeploymentResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_deployment_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateDeploymentResponse:
+        """
+        @summary Creates a process for deploying or undeploying an entity in DataStudio.
+        
+        @description >  You cannot use this API operation to create a process for multiple entities at a time. If you specify multiple entities in a request, the system creates a process only for the first entity.
+        
+        @param tmp_req: CreateDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateDeploymentResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateDeploymentShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.object_ids):
+            request.object_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.object_ids, 'ObjectIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.object_ids_shrink):
+            body['ObjectIds'] = request.object_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDeploymentResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateDeploymentResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_deployment(
+        self,
+        request: dataworks_public_20240518_models.CreateDeploymentRequest,
+    ) -> dataworks_public_20240518_models.CreateDeploymentResponse:
+        """
+        @summary Creates a process for deploying or undeploying an entity in DataStudio.
+        
+        @description >  You cannot use this API operation to create a process for multiple entities at a time. If you specify multiple entities in a request, the system creates a process only for the first entity.
+        
+        @param request: CreateDeploymentRequest
+        @return: CreateDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_deployment_with_options(request, runtime)
+
+    async def create_deployment_async(
+        self,
+        request: dataworks_public_20240518_models.CreateDeploymentRequest,
+    ) -> dataworks_public_20240518_models.CreateDeploymentResponse:
+        """
+        @summary Creates a process for deploying or undeploying an entity in DataStudio.
+        
+        @description >  You cannot use this API operation to create a process for multiple entities at a time. If you specify multiple entities in a request, the system creates a process only for the first entity.
+        
+        @param request: CreateDeploymentRequest
+        @return: CreateDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_deployment_with_options_async(request, runtime)
+
+    def create_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateFunctionResponse:
+        """
+        @summary Creates a user-defined function (UDF) in DataStudio. The information about the UDF is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple UDFs at a time. If you specify multiple UDFs by using FlowSpec, the system creates only the first specified UDF.
+        
+        @param request: CreateFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateFunctionResponse:
+        """
+        @summary Creates a user-defined function (UDF) in DataStudio. The information about the UDF is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple UDFs at a time. If you specify multiple UDFs by using FlowSpec, the system creates only the first specified UDF.
+        
+        @param request: CreateFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_function(
+        self,
+        request: dataworks_public_20240518_models.CreateFunctionRequest,
+    ) -> dataworks_public_20240518_models.CreateFunctionResponse:
+        """
+        @summary Creates a user-defined function (UDF) in DataStudio. The information about the UDF is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple UDFs at a time. If you specify multiple UDFs by using FlowSpec, the system creates only the first specified UDF.
+        
+        @param request: CreateFunctionRequest
+        @return: CreateFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_function_with_options(request, runtime)
+
+    async def create_function_async(
+        self,
+        request: dataworks_public_20240518_models.CreateFunctionRequest,
+    ) -> dataworks_public_20240518_models.CreateFunctionResponse:
+        """
+        @summary Creates a user-defined function (UDF) in DataStudio. The information about the UDF is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple UDFs at a time. If you specify multiple UDFs by using FlowSpec, the system creates only the first specified UDF.
+        
+        @param request: CreateFunctionRequest
+        @return: CreateFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_function_with_options_async(request, runtime)
+
+    def create_network_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateNetworkResponse:
+        """
+        @summary Creates a network and associates the network with a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.vpc_id):
+            body['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vswitch_id):
+            body['VswitchId'] = request.vswitch_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNetworkResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNetworkResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_network_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateNetworkResponse:
+        """
+        @summary Creates a network and associates the network with a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.vpc_id):
+            body['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vswitch_id):
+            body['VswitchId'] = request.vswitch_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNetworkResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNetworkResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_network(
+        self,
+        request: dataworks_public_20240518_models.CreateNetworkRequest,
+    ) -> dataworks_public_20240518_models.CreateNetworkResponse:
+        """
+        @summary Creates a network and associates the network with a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateNetworkRequest
+        @return: CreateNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_network_with_options(request, runtime)
+
+    async def create_network_async(
+        self,
+        request: dataworks_public_20240518_models.CreateNetworkRequest,
+    ) -> dataworks_public_20240518_models.CreateNetworkResponse:
+        """
+        @summary Creates a network and associates the network with a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateNetworkRequest
+        @return: CreateNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_network_with_options_async(request, runtime)
+
+    def create_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateNodeResponse:
+        """
+        @summary Creates a node in DataStudio. The information about the node is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple nodes at a time. If you specify multiple nodes by using FlowSpec, the system creates only the first specified node.
+        
+        @param request: CreateNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.container_id):
+            body['ContainerId'] = request.container_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.scene):
+            body['Scene'] = request.scene
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateNodeResponse:
+        """
+        @summary Creates a node in DataStudio. The information about the node is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple nodes at a time. If you specify multiple nodes by using FlowSpec, the system creates only the first specified node.
+        
+        @param request: CreateNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.container_id):
+            body['ContainerId'] = request.container_id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.scene):
+            body['Scene'] = request.scene
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_node(
+        self,
+        request: dataworks_public_20240518_models.CreateNodeRequest,
+    ) -> dataworks_public_20240518_models.CreateNodeResponse:
+        """
+        @summary Creates a node in DataStudio. The information about the node is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple nodes at a time. If you specify multiple nodes by using FlowSpec, the system creates only the first specified node.
+        
+        @param request: CreateNodeRequest
+        @return: CreateNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_node_with_options(request, runtime)
+
+    async def create_node_async(
+        self,
+        request: dataworks_public_20240518_models.CreateNodeRequest,
+    ) -> dataworks_public_20240518_models.CreateNodeResponse:
+        """
+        @summary Creates a node in DataStudio. The information about the node is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple nodes at a time. If you specify multiple nodes by using FlowSpec, the system creates only the first specified node.
+        
+        @param request: CreateNodeRequest
+        @return: CreateNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_node_with_options_async(request, runtime)
+
+    def create_project_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateProjectResponse:
+        """
+        @summary Creates a workspace.
+        
+        @param tmp_req: CreateProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateProjectResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateProjectShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.display_name):
+            body['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_project_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateProjectResponse:
+        """
+        @summary Creates a workspace.
+        
+        @param tmp_req: CreateProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateProjectResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateProjectShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.display_name):
+            body['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_project(
+        self,
+        request: dataworks_public_20240518_models.CreateProjectRequest,
+    ) -> dataworks_public_20240518_models.CreateProjectResponse:
+        """
+        @summary Creates a workspace.
+        
+        @param request: CreateProjectRequest
+        @return: CreateProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_project_with_options(request, runtime)
+
+    async def create_project_async(
+        self,
+        request: dataworks_public_20240518_models.CreateProjectRequest,
+    ) -> dataworks_public_20240518_models.CreateProjectResponse:
+        """
+        @summary Creates a workspace.
+        
+        @param request: CreateProjectRequest
+        @return: CreateProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_project_with_options_async(request, runtime)
+
+    def create_project_member_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateProjectMemberResponse:
+        """
+        @summary Adds a workspace member and assigns a workspace-level role to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: CreateProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateProjectMemberResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateProjectMemberShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectMemberResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectMemberResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_project_member_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateProjectMemberResponse:
+        """
+        @summary Adds a workspace member and assigns a workspace-level role to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: CreateProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateProjectMemberResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateProjectMemberShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectMemberResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateProjectMemberResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_project_member(
+        self,
+        request: dataworks_public_20240518_models.CreateProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.CreateProjectMemberResponse:
+        """
+        @summary Adds a workspace member and assigns a workspace-level role to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateProjectMemberRequest
+        @return: CreateProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_project_member_with_options(request, runtime)
+
+    async def create_project_member_async(
+        self,
+        request: dataworks_public_20240518_models.CreateProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.CreateProjectMemberResponse:
+        """
+        @summary Adds a workspace member and assigns a workspace-level role to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateProjectMemberRequest
+        @return: CreateProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_project_member_with_options_async(request, runtime)
+
+    def create_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateResourceResponse:
+        """
+        @summary >  You cannot use this API operation to create multiple file resources at a time. If you specify multiple file resources by using FlowSpec, the system creates only the first specified resource.
+        
+        @description Private
+        
+        @param request: CreateResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateResourceResponse:
+        """
+        @summary >  You cannot use this API operation to create multiple file resources at a time. If you specify multiple file resources by using FlowSpec, the system creates only the first specified resource.
+        
+        @description Private
+        
+        @param request: CreateResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_resource(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceRequest,
+    ) -> dataworks_public_20240518_models.CreateResourceResponse:
+        """
+        @summary >  You cannot use this API operation to create multiple file resources at a time. If you specify multiple file resources by using FlowSpec, the system creates only the first specified resource.
+        
+        @description Private
+        
+        @param request: CreateResourceRequest
+        @return: CreateResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_resource_with_options(request, runtime)
+
+    async def create_resource_async(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceRequest,
+    ) -> dataworks_public_20240518_models.CreateResourceResponse:
+        """
+        @summary >  You cannot use this API operation to create multiple file resources at a time. If you specify multiple file resources by using FlowSpec, the system creates only the first specified resource.
+        
+        @description Private
+        
+        @param request: CreateResourceRequest
+        @return: CreateResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_resource_with_options_async(request, runtime)
+
+    def create_resource_group_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateResourceGroupResponse:
+        """
+        @summary Creates a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param tmp_req: CreateResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateResourceGroupResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateResourceGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.auto_renew_enabled):
+            body['AutoRenewEnabled'] = request.auto_renew_enabled
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.payment_duration):
+            body['PaymentDuration'] = request.payment_duration
+        if not UtilClient.is_unset(request.payment_duration_unit):
+            body['PaymentDurationUnit'] = request.payment_duration_unit
+        if not UtilClient.is_unset(request.payment_type):
+            body['PaymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        if not UtilClient.is_unset(request.vpc_id):
+            body['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vswitch_id):
+            body['VswitchId'] = request.vswitch_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_resource_group_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateResourceGroupResponse:
+        """
+        @summary Creates a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param tmp_req: CreateResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateResourceGroupResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateResourceGroupShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.auto_renew_enabled):
+            body['AutoRenewEnabled'] = request.auto_renew_enabled
+        if not UtilClient.is_unset(request.client_token):
+            body['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.payment_duration):
+            body['PaymentDuration'] = request.payment_duration
+        if not UtilClient.is_unset(request.payment_duration_unit):
+            body['PaymentDurationUnit'] = request.payment_duration_unit
+        if not UtilClient.is_unset(request.payment_type):
+            body['PaymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        if not UtilClient.is_unset(request.vpc_id):
+            body['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.vswitch_id):
+            body['VswitchId'] = request.vswitch_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_resource_group(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.CreateResourceGroupResponse:
+        """
+        @summary Creates a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: CreateResourceGroupRequest
+        @return: CreateResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_resource_group_with_options(request, runtime)
+
+    async def create_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.CreateResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.CreateResourceGroupResponse:
+        """
+        @summary Creates a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: CreateResourceGroupRequest
+        @return: CreateResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_resource_group_with_options_async(request, runtime)
+
+    def create_route_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateRouteResponse:
+        """
+        @summary Creates a route for a network.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.destination_cidr):
+            body['DestinationCidr'] = request.destination_cidr
+        if not UtilClient.is_unset(request.network_id):
+            body['NetworkId'] = request.network_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateRouteResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateRouteResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_route_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateRouteResponse:
+        """
+        @summary Creates a route for a network.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.destination_cidr):
+            body['DestinationCidr'] = request.destination_cidr
+        if not UtilClient.is_unset(request.network_id):
+            body['NetworkId'] = request.network_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateRouteResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateRouteResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_route(
+        self,
+        request: dataworks_public_20240518_models.CreateRouteRequest,
+    ) -> dataworks_public_20240518_models.CreateRouteResponse:
+        """
+        @summary Creates a route for a network.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateRouteRequest
+        @return: CreateRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_route_with_options(request, runtime)
+
+    async def create_route_async(
+        self,
+        request: dataworks_public_20240518_models.CreateRouteRequest,
+    ) -> dataworks_public_20240518_models.CreateRouteResponse:
+        """
+        @summary Creates a route for a network.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: CreateRouteRequest
+        @return: CreateRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_route_with_options_async(request, runtime)
+
+    def create_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateWorkflowDefinitionResponse:
+        """
+        @summary Creates a workflow in a directory of DataStudio.
+        
+        @description > You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system creates only the first specified workflow. Other specified workflows and the nodes in the workflows are ignored. You can call the CreateNode operation to create a node.
+        
+        @param request: CreateWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateWorkflowDefinitionResponse:
+        """
+        @summary Creates a workflow in a directory of DataStudio.
+        
+        @description > You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system creates only the first specified workflow. Other specified workflows and the nodes in the workflows are ignored. You can call the CreateNode operation to create a node.
+        
+        @param request: CreateWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.CreateWorkflowDefinitionResponse:
+        """
+        @summary Creates a workflow in a directory of DataStudio.
+        
+        @description > You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system creates only the first specified workflow. Other specified workflows and the nodes in the workflows are ignored. You can call the CreateNode operation to create a node.
+        
+        @param request: CreateWorkflowDefinitionRequest
+        @return: CreateWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_workflow_definition_with_options(request, runtime)
+
+    async def create_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.CreateWorkflowDefinitionResponse:
+        """
+        @summary Creates a workflow in a directory of DataStudio.
+        
+        @description > You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system creates only the first specified workflow. Other specified workflows and the nodes in the workflows are ignored. You can call the CreateNode operation to create a node.
+        
+        @param request: CreateWorkflowDefinitionRequest
+        @return: CreateWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_workflow_definition_with_options_async(request, runtime)
+
+    def create_workflow_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateWorkflowInstancesResponse:
+        """
+        @param tmp_req: CreateWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.default_run_properties):
+            request.default_run_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.default_run_properties, 'DefaultRunProperties', 'json')
+        if not UtilClient.is_unset(tmp_req.periods):
+            request.periods_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.periods, 'Periods', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.auto_start_enabled):
+            body['AutoStartEnabled'] = request.auto_start_enabled
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.default_run_properties_shrink):
+            body['DefaultRunProperties'] = request.default_run_properties_shrink
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.periods_shrink):
+            body['Periods'] = request.periods_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_parameters):
+            body['TaskParameters'] = request.task_parameters
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        if not UtilClient.is_unset(request.workflow_parameters):
+            body['WorkflowParameters'] = request.workflow_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def create_workflow_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.CreateWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.CreateWorkflowInstancesResponse:
+        """
+        @param tmp_req: CreateWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: CreateWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.CreateWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.default_run_properties):
+            request.default_run_properties_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.default_run_properties, 'DefaultRunProperties', 'json')
+        if not UtilClient.is_unset(tmp_req.periods):
+            request.periods_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.periods, 'Periods', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.auto_start_enabled):
+            body['AutoStartEnabled'] = request.auto_start_enabled
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.default_run_properties_shrink):
+            body['DefaultRunProperties'] = request.default_run_properties_shrink
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.periods_shrink):
+            body['Periods'] = request.periods_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.task_parameters):
+            body['TaskParameters'] = request.task_parameters
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        if not UtilClient.is_unset(request.workflow_parameters):
+            body['WorkflowParameters'] = request.workflow_parameters
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.CreateWorkflowInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def create_workflow_instances(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.CreateWorkflowInstancesResponse:
+        """
+        @param request: CreateWorkflowInstancesRequest
+        @return: CreateWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_workflow_instances_with_options(request, runtime)
+
+    async def create_workflow_instances_async(
+        self,
+        request: dataworks_public_20240518_models.CreateWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.CreateWorkflowInstancesResponse:
+        """
+        @param request: CreateWorkflowInstancesRequest
+        @return: CreateWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.create_workflow_instances_with_options_async(request, runtime)
+
+    def delete_alert_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteAlertRuleResponse:
+        """
+        @summary Deletes a custom alert monitoring rule.
+        
+        @param request: DeleteAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteAlertRuleResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteAlertRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteAlertRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_alert_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteAlertRuleResponse:
+        """
+        @summary Deletes a custom alert monitoring rule.
+        
+        @param request: DeleteAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteAlertRuleResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteAlertRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteAlertRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_alert_rule(
+        self,
+        request: dataworks_public_20240518_models.DeleteAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteAlertRuleResponse:
+        """
+        @summary Deletes a custom alert monitoring rule.
+        
+        @param request: DeleteAlertRuleRequest
+        @return: DeleteAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_alert_rule_with_options(request, runtime)
+
+    async def delete_alert_rule_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteAlertRuleResponse:
+        """
+        @summary Deletes a custom alert monitoring rule.
+        
+        @param request: DeleteAlertRuleRequest
+        @return: DeleteAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_alert_rule_with_options_async(request, runtime)
+
+    def delete_certificate_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteCertificateResponse:
+        """
+        @summary 删除认证文件
+        
+        @param request: DeleteCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_certificate_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteCertificateResponse:
+        """
+        @summary 删除认证文件
+        
+        @param request: DeleteCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteCertificateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteCertificateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_certificate(
+        self,
+        request: dataworks_public_20240518_models.DeleteCertificateRequest,
+    ) -> dataworks_public_20240518_models.DeleteCertificateResponse:
+        """
+        @summary 删除认证文件
+        
+        @param request: DeleteCertificateRequest
+        @return: DeleteCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_certificate_with_options(request, runtime)
+
+    async def delete_certificate_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteCertificateRequest,
+    ) -> dataworks_public_20240518_models.DeleteCertificateResponse:
+        """
+        @summary 删除认证文件
+        
+        @param request: DeleteCertificateRequest
+        @return: DeleteCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_certificate_with_options_async(request, runtime)
+
+    def delete_dialarm_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDIAlarmRuleResponse:
+        """
+        @summary Deletes an alert rule configured for a synchronization task.
+        
+        @param request: DeleteDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIAlarmRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIAlarmRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_dialarm_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDIAlarmRuleResponse:
+        """
+        @summary Deletes an alert rule configured for a synchronization task.
+        
+        @param request: DeleteDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIAlarmRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIAlarmRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_dialarm_rule(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDIAlarmRuleResponse:
+        """
+        @summary Deletes an alert rule configured for a synchronization task.
+        
+        @param request: DeleteDIAlarmRuleRequest
+        @return: DeleteDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dialarm_rule_with_options(request, runtime)
+
+    async def delete_dialarm_rule_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDIAlarmRuleResponse:
+        """
+        @summary Deletes an alert rule configured for a synchronization task.
+        
+        @param request: DeleteDIAlarmRuleRequest
+        @return: DeleteDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_dialarm_rule_with_options_async(request, runtime)
+
+    def delete_dijob_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDIJobResponse:
+        """
+        @summary Deletes a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_dijob_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDIJobResponse:
+        """
+        @summary Deletes a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_dijob(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIJobRequest,
+    ) -> dataworks_public_20240518_models.DeleteDIJobResponse:
+        """
+        @summary Deletes a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteDIJobRequest
+        @return: DeleteDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dijob_with_options(request, runtime)
+
+    async def delete_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDIJobRequest,
+    ) -> dataworks_public_20240518_models.DeleteDIJobResponse:
+        """
+        @summary Deletes a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteDIJobRequest
+        @return: DeleteDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_dijob_with_options_async(request, runtime)
+
+    def delete_data_asset_tag_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.DeleteDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataAssetTagResponse:
+        """
+        @summary Deletes a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: DeleteDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.DeleteDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataAssetTagResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataAssetTagResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_asset_tag_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.DeleteDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataAssetTagResponse:
+        """
+        @summary Deletes a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: DeleteDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.DeleteDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataAssetTagResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataAssetTagResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_asset_tag(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataAssetTagResponse:
+        """
+        @summary Deletes a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: DeleteDataAssetTagRequest
+        @return: DeleteDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_asset_tag_with_options(request, runtime)
+
+    async def delete_data_asset_tag_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataAssetTagResponse:
+        """
+        @summary Deletes a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: DeleteDataAssetTagRequest
+        @return: DeleteDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_asset_tag_with_options_async(request, runtime)
+
+    def delete_data_quality_evaluation_task_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse:
+        """
+        @summary Deletes a data quality monitoring task.
+        
+        @param request: DeleteDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_quality_evaluation_task_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse:
+        """
+        @summary Deletes a data quality monitoring task.
+        
+        @param request: DeleteDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_quality_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse:
+        """
+        @summary Deletes a data quality monitoring task.
+        
+        @param request: DeleteDataQualityEvaluationTaskRequest
+        @return: DeleteDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_quality_evaluation_task_with_options(request, runtime)
+
+    async def delete_data_quality_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityEvaluationTaskResponse:
+        """
+        @summary Deletes a data quality monitoring task.
+        
+        @param request: DeleteDataQualityEvaluationTaskRequest
+        @return: DeleteDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_quality_evaluation_task_with_options_async(request, runtime)
+
+    def delete_data_quality_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleResponse:
+        """
+        @summary Deletes a data quality monitoring rule.
+        
+        @param request: DeleteDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_quality_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleResponse:
+        """
+        @summary Deletes a data quality monitoring rule.
+        
+        @param request: DeleteDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_quality_rule(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleResponse:
+        """
+        @summary Deletes a data quality monitoring rule.
+        
+        @param request: DeleteDataQualityRuleRequest
+        @return: DeleteDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_quality_rule_with_options(request, runtime)
+
+    async def delete_data_quality_rule_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleResponse:
+        """
+        @summary Deletes a data quality monitoring rule.
+        
+        @param request: DeleteDataQualityRuleRequest
+        @return: DeleteDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_quality_rule_with_options_async(request, runtime)
+
+    def delete_data_quality_rule_template_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse:
+        """
+        @summary Deletes a data quality monitoring rule template.
+        
+        @param request: DeleteDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_quality_rule_template_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse:
+        """
+        @summary Deletes a data quality monitoring rule template.
+        
+        @param request: DeleteDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_quality_rule_template(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse:
+        """
+        @summary Deletes a data quality monitoring rule template.
+        
+        @param request: DeleteDataQualityRuleTemplateRequest
+        @return: DeleteDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_quality_rule_template_with_options(request, runtime)
+
+    async def delete_data_quality_rule_template_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataQualityRuleTemplateResponse:
+        """
+        @summary Deletes a data quality monitoring rule template.
+        
+        @param request: DeleteDataQualityRuleTemplateRequest
+        @return: DeleteDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_quality_rule_template_with_options_async(request, runtime)
+
+    def delete_data_source_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceResponse:
+        """
+        @summary Removes a data source by ID.
+        
+        @description 1.  This API operation is available for all Dataworks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DeleteDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_source_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceResponse:
+        """
+        @summary Removes a data source by ID.
+        
+        @description 1.  This API operation is available for all Dataworks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DeleteDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_source(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceResponse:
+        """
+        @summary Removes a data source by ID.
+        
+        @description 1.  This API operation is available for all Dataworks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DeleteDataSourceRequest
+        @return: DeleteDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_source_with_options(request, runtime)
+
+    async def delete_data_source_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceResponse:
+        """
+        @summary Removes a data source by ID.
+        
+        @description 1.  This API operation is available for all Dataworks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DeleteDataSourceRequest
+        @return: DeleteDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_source_with_options_async(request, runtime)
+
+    def delete_data_source_shared_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceSharedRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse:
+        """
+        @summary Deletes a sharing rule of a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to delete a sharing rule of a data source from Workspace A to Workspace B, you must have the permissions to share the data source in Workspace A or Workspace B. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: DeleteDataSourceSharedRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataSourceSharedRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSourceSharedRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_data_source_shared_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceSharedRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse:
+        """
+        @summary Deletes a sharing rule of a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to delete a sharing rule of a data source from Workspace A to Workspace B, you must have the permissions to share the data source in Workspace A or Workspace B. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: DeleteDataSourceSharedRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteDataSourceSharedRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDataSourceSharedRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_data_source_shared_rule(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceSharedRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse:
+        """
+        @summary Deletes a sharing rule of a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to delete a sharing rule of a data source from Workspace A to Workspace B, you must have the permissions to share the data source in Workspace A or Workspace B. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: DeleteDataSourceSharedRuleRequest
+        @return: DeleteDataSourceSharedRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_data_source_shared_rule_with_options(request, runtime)
+
+    async def delete_data_source_shared_rule_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteDataSourceSharedRuleRequest,
+    ) -> dataworks_public_20240518_models.DeleteDataSourceSharedRuleResponse:
+        """
+        @summary Deletes a sharing rule of a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to delete a sharing rule of a data source from Workspace A to Workspace B, you must have the permissions to share the data source in Workspace A or Workspace B. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: DeleteDataSourceSharedRuleRequest
+        @return: DeleteDataSourceSharedRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_data_source_shared_rule_with_options_async(request, runtime)
+
+    def delete_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteFunctionResponse:
+        """
+        @summary Deletes a user-defined function (UDF) in DataStudio.
+        
+        @description >  A UDF that is deployed cannot be deleted. If you want to delete such a UDF, you must first undeploy the UDF.
+        
+        @param request: DeleteFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteFunctionResponse:
+        """
+        @summary Deletes a user-defined function (UDF) in DataStudio.
+        
+        @description >  A UDF that is deployed cannot be deleted. If you want to delete such a UDF, you must first undeploy the UDF.
+        
+        @param request: DeleteFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_function(
+        self,
+        request: dataworks_public_20240518_models.DeleteFunctionRequest,
+    ) -> dataworks_public_20240518_models.DeleteFunctionResponse:
+        """
+        @summary Deletes a user-defined function (UDF) in DataStudio.
+        
+        @description >  A UDF that is deployed cannot be deleted. If you want to delete such a UDF, you must first undeploy the UDF.
+        
+        @param request: DeleteFunctionRequest
+        @return: DeleteFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_function_with_options(request, runtime)
+
+    async def delete_function_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteFunctionRequest,
+    ) -> dataworks_public_20240518_models.DeleteFunctionResponse:
+        """
+        @summary Deletes a user-defined function (UDF) in DataStudio.
+        
+        @description >  A UDF that is deployed cannot be deleted. If you want to delete such a UDF, you must first undeploy the UDF.
+        
+        @param request: DeleteFunctionRequest
+        @return: DeleteFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_function_with_options_async(request, runtime)
+
+    def delete_network_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteNetworkResponse:
+        """
+        @summary Disassociates and deletes a network from a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNetworkResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNetworkResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_network_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteNetworkResponse:
+        """
+        @summary Disassociates and deletes a network from a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNetworkResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNetworkResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_network(
+        self,
+        request: dataworks_public_20240518_models.DeleteNetworkRequest,
+    ) -> dataworks_public_20240518_models.DeleteNetworkResponse:
+        """
+        @summary Disassociates and deletes a network from a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteNetworkRequest
+        @return: DeleteNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_network_with_options(request, runtime)
+
+    async def delete_network_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteNetworkRequest,
+    ) -> dataworks_public_20240518_models.DeleteNetworkResponse:
+        """
+        @summary Disassociates and deletes a network from a general resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteNetworkRequest
+        @return: DeleteNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_network_with_options_async(request, runtime)
+
+    def delete_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteNodeResponse:
+        """
+        @summary Deletes a node from DataStudio.
+        
+        @description >  A node that is deployed cannot be deleted. If you want to delete such a node, you must first undeploy the node.
+        
+        @param request: DeleteNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteNodeResponse:
+        """
+        @summary Deletes a node from DataStudio.
+        
+        @description >  A node that is deployed cannot be deleted. If you want to delete such a node, you must first undeploy the node.
+        
+        @param request: DeleteNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_node(
+        self,
+        request: dataworks_public_20240518_models.DeleteNodeRequest,
+    ) -> dataworks_public_20240518_models.DeleteNodeResponse:
+        """
+        @summary Deletes a node from DataStudio.
+        
+        @description >  A node that is deployed cannot be deleted. If you want to delete such a node, you must first undeploy the node.
+        
+        @param request: DeleteNodeRequest
+        @return: DeleteNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_node_with_options(request, runtime)
+
+    async def delete_node_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteNodeRequest,
+    ) -> dataworks_public_20240518_models.DeleteNodeResponse:
+        """
+        @summary Deletes a node from DataStudio.
+        
+        @description >  A node that is deployed cannot be deleted. If you want to delete such a node, you must first undeploy the node.
+        
+        @param request: DeleteNodeRequest
+        @return: DeleteNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_node_with_options_async(request, runtime)
+
+    def delete_project_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteProjectResponse:
+        """
+        @summary Deletes a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteProjectResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_project_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteProjectResponse:
+        """
+        @summary Deletes a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteProjectResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_project(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectRequest,
+    ) -> dataworks_public_20240518_models.DeleteProjectResponse:
+        """
+        @summary Deletes a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectRequest
+        @return: DeleteProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_project_with_options(request, runtime)
+
+    async def delete_project_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectRequest,
+    ) -> dataworks_public_20240518_models.DeleteProjectResponse:
+        """
+        @summary Deletes a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectRequest
+        @return: DeleteProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_project_with_options_async(request, runtime)
+
+    def delete_project_member_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteProjectMemberResponse:
+        """
+        @summary Removes a workspace member and the workspace-level roles that are assigned to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteProjectMemberResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectMemberResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectMemberResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_project_member_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteProjectMemberResponse:
+        """
+        @summary Removes a workspace member and the workspace-level roles that are assigned to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteProjectMemberResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectMemberResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteProjectMemberResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_project_member(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.DeleteProjectMemberResponse:
+        """
+        @summary Removes a workspace member and the workspace-level roles that are assigned to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectMemberRequest
+        @return: DeleteProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_project_member_with_options(request, runtime)
+
+    async def delete_project_member_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.DeleteProjectMemberResponse:
+        """
+        @summary Removes a workspace member and the workspace-level roles that are assigned to the member.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteProjectMemberRequest
+        @return: DeleteProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_project_member_with_options_async(request, runtime)
+
+    def delete_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteResourceResponse:
+        """
+        @summary Deletes a file resource from DataStudio.
+        
+        @description >  A file resource that is deployed cannot be deleted. If you want to delete such a file resource, you must first undeploy the file resource.
+        
+        @param request: DeleteResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteResourceResponse:
+        """
+        @summary Deletes a file resource from DataStudio.
+        
+        @description >  A file resource that is deployed cannot be deleted. If you want to delete such a file resource, you must first undeploy the file resource.
+        
+        @param request: DeleteResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_resource(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceRequest,
+    ) -> dataworks_public_20240518_models.DeleteResourceResponse:
+        """
+        @summary Deletes a file resource from DataStudio.
+        
+        @description >  A file resource that is deployed cannot be deleted. If you want to delete such a file resource, you must first undeploy the file resource.
+        
+        @param request: DeleteResourceRequest
+        @return: DeleteResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_resource_with_options(request, runtime)
+
+    async def delete_resource_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceRequest,
+    ) -> dataworks_public_20240518_models.DeleteResourceResponse:
+        """
+        @summary Deletes a file resource from DataStudio.
+        
+        @description >  A file resource that is deployed cannot be deleted. If you want to delete such a file resource, you must first undeploy the file resource.
+        
+        @param request: DeleteResourceRequest
+        @return: DeleteResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_resource_with_options_async(request, runtime)
+
+    def delete_resource_group_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteResourceGroupResponse:
+        """
+        @summary Deletes a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: DeleteResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_resource_group_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteResourceGroupResponse:
+        """
+        @summary Deletes a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: DeleteResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_resource_group(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.DeleteResourceGroupResponse:
+        """
+        @summary Deletes a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: DeleteResourceGroupRequest
+        @return: DeleteResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_resource_group_with_options(request, runtime)
+
+    async def delete_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.DeleteResourceGroupResponse:
+        """
+        @summary Deletes a serverless resource group.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  *Before you call this API operation, you must make sure that you have a good command of the billing details and [pricing](https://help.aliyun.com/document_detail/2680173.html) of serverless resource groups.
+        
+        @param request: DeleteResourceGroupRequest
+        @return: DeleteResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_resource_group_with_options_async(request, runtime)
+
+    def delete_route_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteRouteResponse:
+        """
+        @summary Deletes a route from a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteRouteResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteRouteResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_route_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteRouteResponse:
+        """
+        @summary Deletes a route from a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteRouteResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteRouteResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_route(
+        self,
+        request: dataworks_public_20240518_models.DeleteRouteRequest,
+    ) -> dataworks_public_20240518_models.DeleteRouteResponse:
+        """
+        @summary Deletes a route from a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteRouteRequest
+        @return: DeleteRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_route_with_options(request, runtime)
+
+    async def delete_route_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteRouteRequest,
+    ) -> dataworks_public_20240518_models.DeleteRouteResponse:
+        """
+        @summary Deletes a route from a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteRouteRequest
+        @return: DeleteRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_route_with_options_async(request, runtime)
+
+    def delete_task_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteTaskResponse:
+        """
+        @summary Deletes a task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_env):
+            query['ProjectEnv'] = request.project_env
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_task_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteTaskResponse:
+        """
+        @summary Deletes a task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_env):
+            query['ProjectEnv'] = request.project_env
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_task(
+        self,
+        request: dataworks_public_20240518_models.DeleteTaskRequest,
+    ) -> dataworks_public_20240518_models.DeleteTaskResponse:
+        """
+        @summary Deletes a task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteTaskRequest
+        @return: DeleteTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_task_with_options(request, runtime)
+
+    async def delete_task_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteTaskRequest,
+    ) -> dataworks_public_20240518_models.DeleteTaskResponse:
+        """
+        @summary Deletes a task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteTaskRequest
+        @return: DeleteTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_task_with_options_async(request, runtime)
+
+    def delete_workflow_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowResponse:
+        """
+        @summary Deletes a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteWorkflowResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_workflow_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowResponse:
+        """
+        @summary Deletes a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteWorkflowResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_workflow(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowRequest,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowResponse:
+        """
+        @summary Deletes a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteWorkflowRequest
+        @return: DeleteWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_workflow_with_options(request, runtime)
+
+    async def delete_workflow_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowRequest,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowResponse:
+        """
+        @summary Deletes a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: DeleteWorkflowRequest
+        @return: DeleteWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_workflow_with_options_async(request, runtime)
+
+    def delete_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse:
+        """
+        @summary Deletes a workflow from DataStudio.
+        
+        @description >  A workflow that is deployed cannot be deleted. If you want to delete such a workflow, you must first undeploy the workflow.
+        
+        @param request: DeleteWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def delete_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse:
+        """
+        @summary Deletes a workflow from DataStudio.
+        
+        @description >  A workflow that is deployed cannot be deleted. If you want to delete such a workflow, you must first undeploy the workflow.
+        
+        @param request: DeleteWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DeleteWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def delete_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse:
+        """
+        @summary Deletes a workflow from DataStudio.
+        
+        @description >  A workflow that is deployed cannot be deleted. If you want to delete such a workflow, you must first undeploy the workflow.
+        
+        @param request: DeleteWorkflowDefinitionRequest
+        @return: DeleteWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_workflow_definition_with_options(request, runtime)
+
+    async def delete_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.DeleteWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.DeleteWorkflowDefinitionResponse:
+        """
+        @summary Deletes a workflow from DataStudio.
+        
+        @description >  A workflow that is deployed cannot be deleted. If you want to delete such a workflow, you must first undeploy the workflow.
+        
+        @param request: DeleteWorkflowDefinitionRequest
+        @return: DeleteWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.delete_workflow_definition_with_options_async(request, runtime)
+
+    def detach_data_quality_rules_from_evaluation_task_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse:
+        """
+        @summary Disassociates monitoring rules from a monitor
+        
+        @param tmp_req: DetachDataQualityRulesFromEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DetachDataQualityRulesFromEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rule_ids):
+            request.data_quality_rule_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rule_ids, 'DataQualityRuleIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.data_quality_rule_ids_shrink):
+            body['DataQualityRuleIds'] = request.data_quality_rule_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DetachDataQualityRulesFromEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def detach_data_quality_rules_from_evaluation_task_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse:
+        """
+        @summary Disassociates monitoring rules from a monitor
+        
+        @param tmp_req: DetachDataQualityRulesFromEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DetachDataQualityRulesFromEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rule_ids):
+            request.data_quality_rule_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rule_ids, 'DataQualityRuleIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_evaluation_task_id):
+            body['DataQualityEvaluationTaskId'] = request.data_quality_evaluation_task_id
+        if not UtilClient.is_unset(request.data_quality_rule_ids_shrink):
+            body['DataQualityRuleIds'] = request.data_quality_rule_ids_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DetachDataQualityRulesFromEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def detach_data_quality_rules_from_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse:
+        """
+        @summary Disassociates monitoring rules from a monitor
+        
+        @param request: DetachDataQualityRulesFromEvaluationTaskRequest
+        @return: DetachDataQualityRulesFromEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.detach_data_quality_rules_from_evaluation_task_with_options(request, runtime)
+
+    async def detach_data_quality_rules_from_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.DetachDataQualityRulesFromEvaluationTaskResponse:
+        """
+        @summary Disassociates monitoring rules from a monitor
+        
+        @param request: DetachDataQualityRulesFromEvaluationTaskRequest
+        @return: DetachDataQualityRulesFromEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.detach_data_quality_rules_from_evaluation_task_with_options_async(request, runtime)
+
+    def dissociate_project_from_resource_group_with_options(
+        self,
+        request: dataworks_public_20240518_models.DissociateProjectFromResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse:
+        """
+        @summary Disassociates a resource group from a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DissociateProjectFromResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DissociateProjectFromResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DissociateProjectFromResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def dissociate_project_from_resource_group_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.DissociateProjectFromResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse:
+        """
+        @summary Disassociates a resource group from a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DissociateProjectFromResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: DissociateProjectFromResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DissociateProjectFromResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def dissociate_project_from_resource_group(
+        self,
+        request: dataworks_public_20240518_models.DissociateProjectFromResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse:
+        """
+        @summary Disassociates a resource group from a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DissociateProjectFromResourceGroupRequest
+        @return: DissociateProjectFromResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.dissociate_project_from_resource_group_with_options(request, runtime)
+
+    async def dissociate_project_from_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.DissociateProjectFromResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.DissociateProjectFromResourceGroupResponse:
+        """
+        @summary Disassociates a resource group from a workspace.
+        
+        @description 1.  You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        2.  Your account must be assigned one of the following roles of the desired workspace:
+        Tenant Owner, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: DissociateProjectFromResourceGroupRequest
+        @return: DissociateProjectFromResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.dissociate_project_from_resource_group_with_options_async(request, runtime)
+
+    def exec_deployment_stage_with_options(
+        self,
+        request: dataworks_public_20240518_models.ExecDeploymentStageRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ExecDeploymentStageResponse:
+        """
+        @summary Executes a stage in a process.
+        
+        @description >  The stages in a process are sequential. For more information, see the GetDeployment operation. Skipping or repeating a stage is not allowed.
+        >  The execution of a stage is asynchronous. The response of this operation indicates only whether a stage is triggered but does not indicate whether the execution of the stage is successful. You can call the GetDeployment operation to check whether the execution is successful.
+        
+        @param request: ExecDeploymentStageRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ExecDeploymentStageResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.code):
+            body['Code'] = request.code
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecDeploymentStage',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecDeploymentStageResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecDeploymentStageResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def exec_deployment_stage_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ExecDeploymentStageRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ExecDeploymentStageResponse:
+        """
+        @summary Executes a stage in a process.
+        
+        @description >  The stages in a process are sequential. For more information, see the GetDeployment operation. Skipping or repeating a stage is not allowed.
+        >  The execution of a stage is asynchronous. The response of this operation indicates only whether a stage is triggered but does not indicate whether the execution of the stage is successful. You can call the GetDeployment operation to check whether the execution is successful.
+        
+        @param request: ExecDeploymentStageRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ExecDeploymentStageResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.code):
+            body['Code'] = request.code
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecDeploymentStage',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecDeploymentStageResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecDeploymentStageResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def exec_deployment_stage(
+        self,
+        request: dataworks_public_20240518_models.ExecDeploymentStageRequest,
+    ) -> dataworks_public_20240518_models.ExecDeploymentStageResponse:
+        """
+        @summary Executes a stage in a process.
+        
+        @description >  The stages in a process are sequential. For more information, see the GetDeployment operation. Skipping or repeating a stage is not allowed.
+        >  The execution of a stage is asynchronous. The response of this operation indicates only whether a stage is triggered but does not indicate whether the execution of the stage is successful. You can call the GetDeployment operation to check whether the execution is successful.
+        
+        @param request: ExecDeploymentStageRequest
+        @return: ExecDeploymentStageResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.exec_deployment_stage_with_options(request, runtime)
+
+    async def exec_deployment_stage_async(
+        self,
+        request: dataworks_public_20240518_models.ExecDeploymentStageRequest,
+    ) -> dataworks_public_20240518_models.ExecDeploymentStageResponse:
+        """
+        @summary Executes a stage in a process.
+        
+        @description >  The stages in a process are sequential. For more information, see the GetDeployment operation. Skipping or repeating a stage is not allowed.
+        >  The execution of a stage is asynchronous. The response of this operation indicates only whether a stage is triggered but does not indicate whether the execution of the stage is successful. You can call the GetDeployment operation to check whether the execution is successful.
+        
+        @param request: ExecDeploymentStageRequest
+        @return: ExecDeploymentStageResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.exec_deployment_stage_with_options_async(request, runtime)
+
+    def execute_adhoc_workflow_instance_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse:
+        """
+        @summary Create a temporary workflow instance based on configurations.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ExecuteAdhocWorkflowInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ExecuteAdhocWorkflowInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecuteAdhocWorkflowInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def execute_adhoc_workflow_instance_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse:
+        """
+        @summary Create a temporary workflow instance based on configurations.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ExecuteAdhocWorkflowInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ExecuteAdhocWorkflowInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExecuteAdhocWorkflowInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def execute_adhoc_workflow_instance(
+        self,
+        request: dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceRequest,
+    ) -> dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse:
+        """
+        @summary Create a temporary workflow instance based on configurations.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ExecuteAdhocWorkflowInstanceRequest
+        @return: ExecuteAdhocWorkflowInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.execute_adhoc_workflow_instance_with_options(request, runtime)
+
+    async def execute_adhoc_workflow_instance_async(
+        self,
+        request: dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceRequest,
+    ) -> dataworks_public_20240518_models.ExecuteAdhocWorkflowInstanceResponse:
+        """
+        @summary Create a temporary workflow instance based on configurations.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ExecuteAdhocWorkflowInstanceRequest
+        @return: ExecuteAdhocWorkflowInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.execute_adhoc_workflow_instance_with_options_async(request, runtime)
+
+    def get_alert_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetAlertRuleResponse:
+        """
+        @summary Queries a list of custom alert monitoring rules.
+        
+        @param request: GetAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetAlertRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetAlertRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetAlertRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_alert_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetAlertRuleResponse:
+        """
+        @summary Queries a list of custom alert monitoring rules.
+        
+        @param request: GetAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetAlertRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetAlertRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetAlertRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_alert_rule(
+        self,
+        request: dataworks_public_20240518_models.GetAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.GetAlertRuleResponse:
+        """
+        @summary Queries a list of custom alert monitoring rules.
+        
+        @param request: GetAlertRuleRequest
+        @return: GetAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_alert_rule_with_options(request, runtime)
+
+    async def get_alert_rule_async(
+        self,
+        request: dataworks_public_20240518_models.GetAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.GetAlertRuleResponse:
+        """
+        @summary Queries a list of custom alert monitoring rules.
+        
+        @param request: GetAlertRuleRequest
+        @return: GetAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_alert_rule_with_options_async(request, runtime)
+
+    def get_certificate_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetCertificateResponse:
+        """
+        @summary 查看认证文件
+        
+        @param request: GetCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_certificate_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetCertificateResponse:
+        """
+        @summary 查看认证文件
+        
+        @param request: GetCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCertificateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCertificateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_certificate(
+        self,
+        request: dataworks_public_20240518_models.GetCertificateRequest,
+    ) -> dataworks_public_20240518_models.GetCertificateResponse:
+        """
+        @summary 查看认证文件
+        
+        @param request: GetCertificateRequest
+        @return: GetCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_certificate_with_options(request, runtime)
+
+    async def get_certificate_async(
+        self,
+        request: dataworks_public_20240518_models.GetCertificateRequest,
+    ) -> dataworks_public_20240518_models.GetCertificateResponse:
+        """
+        @summary 查看认证文件
+        
+        @param request: GetCertificateRequest
+        @return: GetCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_certificate_with_options_async(request, runtime)
+
+    def get_create_workflow_instances_result_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetCreateWorkflowInstancesResultRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse:
+        """
+        @summary Queries the result of asynchronously creating a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetCreateWorkflowInstancesResultRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetCreateWorkflowInstancesResultResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCreateWorkflowInstancesResult',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_create_workflow_instances_result_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetCreateWorkflowInstancesResultRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse:
+        """
+        @summary Queries the result of asynchronously creating a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetCreateWorkflowInstancesResultRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetCreateWorkflowInstancesResultResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCreateWorkflowInstancesResult',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_create_workflow_instances_result(
+        self,
+        request: dataworks_public_20240518_models.GetCreateWorkflowInstancesResultRequest,
+    ) -> dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse:
+        """
+        @summary Queries the result of asynchronously creating a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetCreateWorkflowInstancesResultRequest
+        @return: GetCreateWorkflowInstancesResultResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_create_workflow_instances_result_with_options(request, runtime)
+
+    async def get_create_workflow_instances_result_async(
+        self,
+        request: dataworks_public_20240518_models.GetCreateWorkflowInstancesResultRequest,
+    ) -> dataworks_public_20240518_models.GetCreateWorkflowInstancesResultResponse:
+        """
+        @summary Queries the result of asynchronously creating a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetCreateWorkflowInstancesResultRequest
+        @return: GetCreateWorkflowInstancesResultResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_create_workflow_instances_result_with_options_async(request, runtime)
+
+    def get_dijob_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDIJobResponse:
+        """
+        @summary Queries the information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_dijob_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDIJobResponse:
+        """
+        @summary Queries the information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_dijob(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobRequest,
+    ) -> dataworks_public_20240518_models.GetDIJobResponse:
+        """
+        @summary Queries the information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobRequest
+        @return: GetDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_dijob_with_options(request, runtime)
+
+    async def get_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobRequest,
+    ) -> dataworks_public_20240518_models.GetDIJobResponse:
+        """
+        @summary Queries the information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobRequest
+        @return: GetDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_dijob_with_options_async(request, runtime)
+
+    def get_dijob_log_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobLogRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDIJobLogResponse:
+        """
+        @summary Obtains logs generated for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobLogRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDIJobLogResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDIJobLog',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobLogResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobLogResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_dijob_log_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobLogRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDIJobLogResponse:
+        """
+        @summary Obtains logs generated for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobLogRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDIJobLogResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDIJobLog',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobLogResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDIJobLogResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_dijob_log(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobLogRequest,
+    ) -> dataworks_public_20240518_models.GetDIJobLogResponse:
+        """
+        @summary Obtains logs generated for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobLogRequest
+        @return: GetDIJobLogResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_dijob_log_with_options(request, runtime)
+
+    async def get_dijob_log_async(
+        self,
+        request: dataworks_public_20240518_models.GetDIJobLogRequest,
+    ) -> dataworks_public_20240518_models.GetDIJobLogResponse:
+        """
+        @summary Obtains logs generated for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDIJobLogRequest
+        @return: GetDIJobLogResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_dijob_log_with_options_async(request, runtime)
+
+    def get_data_quality_evaluation_task_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse:
+        """
+        @summary Queries the details of a monitor.
+        
+        @param request: GetDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_data_quality_evaluation_task_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse:
+        """
+        @summary Queries the details of a monitor.
+        
+        @param request: GetDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_data_quality_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse:
+        """
+        @summary Queries the details of a monitor.
+        
+        @param request: GetDataQualityEvaluationTaskRequest
+        @return: GetDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_data_quality_evaluation_task_with_options(request, runtime)
+
+    async def get_data_quality_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskResponse:
+        """
+        @summary Queries the details of a monitor.
+        
+        @param request: GetDataQualityEvaluationTaskRequest
+        @return: GetDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_data_quality_evaluation_task_with_options_async(request, runtime)
+
+    def get_data_quality_evaluation_task_instance_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Queries the details of a monitor instance.
+        
+        @param request: GetDataQualityEvaluationTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityEvaluationTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityEvaluationTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_data_quality_evaluation_task_instance_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Queries the details of a monitor instance.
+        
+        @param request: GetDataQualityEvaluationTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityEvaluationTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityEvaluationTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_data_quality_evaluation_task_instance(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Queries the details of a monitor instance.
+        
+        @param request: GetDataQualityEvaluationTaskInstanceRequest
+        @return: GetDataQualityEvaluationTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_data_quality_evaluation_task_instance_with_options(request, runtime)
+
+    async def get_data_quality_evaluation_task_instance_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityEvaluationTaskInstanceResponse:
+        """
+        @summary Queries the details of a monitor instance.
+        
+        @param request: GetDataQualityEvaluationTaskInstanceRequest
+        @return: GetDataQualityEvaluationTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_data_quality_evaluation_task_instance_with_options_async(request, runtime)
+
+    def get_data_quality_rule_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_data_quality_rule_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityRuleResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_data_quality_rule(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleRequest
+        @return: GetDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_data_quality_rule_with_options(request, runtime)
+
+    async def get_data_quality_rule_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleRequest
+        @return: GetDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_data_quality_rule_with_options_async(request, runtime)
+
+    def get_data_quality_rule_template_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule template.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_data_quality_rule_template_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule template.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_data_quality_rule_template(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule template.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleTemplateRequest
+        @return: GetDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_data_quality_rule_template_with_options(request, runtime)
+
+    async def get_data_quality_rule_template_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.GetDataQualityRuleTemplateResponse:
+        """
+        @summary Queries the information about a data quality monitoring rule template.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetDataQualityRuleTemplateRequest
+        @return: GetDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_data_quality_rule_template_with_options_async(request, runtime)
+
+    def get_data_source_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataSourceResponse:
+        """
+        @summary Queries a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deployment, Development, Project Owner, and O\\&M
+        
+        @param request: GetDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataSourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataSourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_data_source_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDataSourceResponse:
+        """
+        @summary Queries a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deployment, Development, Project Owner, and O\\&M
+        
+        @param request: GetDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataSourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDataSourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_data_source(
+        self,
+        request: dataworks_public_20240518_models.GetDataSourceRequest,
+    ) -> dataworks_public_20240518_models.GetDataSourceResponse:
+        """
+        @summary Queries a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deployment, Development, Project Owner, and O\\&M
+        
+        @param request: GetDataSourceRequest
+        @return: GetDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_data_source_with_options(request, runtime)
+
+    async def get_data_source_async(
+        self,
+        request: dataworks_public_20240518_models.GetDataSourceRequest,
+    ) -> dataworks_public_20240518_models.GetDataSourceResponse:
+        """
+        @summary Queries a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deployment, Development, Project Owner, and O\\&M
+        
+        @param request: GetDataSourceRequest
+        @return: GetDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_data_source_with_options_async(request, runtime)
+
+    def get_deployment_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDeploymentResponse:
+        """
+        @summary Queries the information about a process for deploying or undeploying an entity.
+        
+        @param request: GetDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDeploymentResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDeploymentResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDeploymentResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_deployment_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetDeploymentRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetDeploymentResponse:
+        """
+        @summary Queries the information about a process for deploying or undeploying an entity.
+        
+        @param request: GetDeploymentRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetDeploymentResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDeployment',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDeploymentResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetDeploymentResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_deployment(
+        self,
+        request: dataworks_public_20240518_models.GetDeploymentRequest,
+    ) -> dataworks_public_20240518_models.GetDeploymentResponse:
+        """
+        @summary Queries the information about a process for deploying or undeploying an entity.
+        
+        @param request: GetDeploymentRequest
+        @return: GetDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_deployment_with_options(request, runtime)
+
+    async def get_deployment_async(
+        self,
+        request: dataworks_public_20240518_models.GetDeploymentRequest,
+    ) -> dataworks_public_20240518_models.GetDeploymentResponse:
+        """
+        @summary Queries the information about a process for deploying or undeploying an entity.
+        
+        @param request: GetDeploymentRequest
+        @return: GetDeploymentResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_deployment_with_options_async(request, runtime)
+
+    def get_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetFunctionResponse:
+        """
+        @summary Queries the information about a user-defined function (UDF) in DataStudio.
+        
+        @param request: GetFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetFunctionResponse:
+        """
+        @summary Queries the information about a user-defined function (UDF) in DataStudio.
+        
+        @param request: GetFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_function(
+        self,
+        request: dataworks_public_20240518_models.GetFunctionRequest,
+    ) -> dataworks_public_20240518_models.GetFunctionResponse:
+        """
+        @summary Queries the information about a user-defined function (UDF) in DataStudio.
+        
+        @param request: GetFunctionRequest
+        @return: GetFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_function_with_options(request, runtime)
+
+    async def get_function_async(
+        self,
+        request: dataworks_public_20240518_models.GetFunctionRequest,
+    ) -> dataworks_public_20240518_models.GetFunctionResponse:
+        """
+        @summary Queries the information about a user-defined function (UDF) in DataStudio.
+        
+        @param request: GetFunctionRequest
+        @return: GetFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_function_with_options_async(request, runtime)
+
+    def get_job_status_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetJobStatusRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetJobStatusResponse:
+        """
+        @summary Queries the status information of an asynchronous task. After you call an asynchronous operation, an asynchronous task is generated. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: GetJobStatusRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetJobStatusResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetJobStatus',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetJobStatusResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetJobStatusResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_job_status_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetJobStatusRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetJobStatusResponse:
+        """
+        @summary Queries the status information of an asynchronous task. After you call an asynchronous operation, an asynchronous task is generated. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: GetJobStatusRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetJobStatusResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetJobStatus',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetJobStatusResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetJobStatusResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_job_status(
+        self,
+        request: dataworks_public_20240518_models.GetJobStatusRequest,
+    ) -> dataworks_public_20240518_models.GetJobStatusResponse:
+        """
+        @summary Queries the status information of an asynchronous task. After you call an asynchronous operation, an asynchronous task is generated. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: GetJobStatusRequest
+        @return: GetJobStatusResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_job_status_with_options(request, runtime)
+
+    async def get_job_status_async(
+        self,
+        request: dataworks_public_20240518_models.GetJobStatusRequest,
+    ) -> dataworks_public_20240518_models.GetJobStatusResponse:
+        """
+        @summary Queries the status information of an asynchronous task. After you call an asynchronous operation, an asynchronous task is generated. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: GetJobStatusRequest
+        @return: GetJobStatusResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_job_status_with_options_async(request, runtime)
+
+    def get_network_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetNetworkResponse:
+        """
+        @summary Queries the information about a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNetworkResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNetworkResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_network_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetNetworkRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetNetworkResponse:
+        """
+        @summary Queries the information about a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetNetworkRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetNetworkResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNetwork',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNetworkResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNetworkResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_network(
+        self,
+        request: dataworks_public_20240518_models.GetNetworkRequest,
+    ) -> dataworks_public_20240518_models.GetNetworkResponse:
+        """
+        @summary Queries the information about a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetNetworkRequest
+        @return: GetNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_network_with_options(request, runtime)
+
+    async def get_network_async(
+        self,
+        request: dataworks_public_20240518_models.GetNetworkRequest,
+    ) -> dataworks_public_20240518_models.GetNetworkResponse:
+        """
+        @summary Queries the information about a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetNetworkRequest
+        @return: GetNetworkResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_network_with_options_async(request, runtime)
+
+    def get_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetNodeResponse:
+        """
+        @summary Queries the information about a node in DataStudio.
+        
+        @param request: GetNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetNodeResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetNodeResponse:
+        """
+        @summary Queries the information about a node in DataStudio.
+        
+        @param request: GetNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetNodeResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_node(
+        self,
+        request: dataworks_public_20240518_models.GetNodeRequest,
+    ) -> dataworks_public_20240518_models.GetNodeResponse:
+        """
+        @summary Queries the information about a node in DataStudio.
+        
+        @param request: GetNodeRequest
+        @return: GetNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_node_with_options(request, runtime)
+
+    async def get_node_async(
+        self,
+        request: dataworks_public_20240518_models.GetNodeRequest,
+    ) -> dataworks_public_20240518_models.GetNodeResponse:
+        """
+        @summary Queries the information about a node in DataStudio.
+        
+        @param request: GetNodeRequest
+        @return: GetNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_node_with_options_async(request, runtime)
+
+    def get_project_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectResponse:
+        """
+        @summary Queries the information about a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_project_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectResponse:
+        """
+        @summary Queries the information about a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_project(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRequest,
+    ) -> dataworks_public_20240518_models.GetProjectResponse:
+        """
+        @summary Queries the information about a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRequest
+        @return: GetProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_project_with_options(request, runtime)
+
+    async def get_project_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRequest,
+    ) -> dataworks_public_20240518_models.GetProjectResponse:
+        """
+        @summary Queries the information about a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRequest
+        @return: GetProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_project_with_options_async(request, runtime)
+
+    def get_project_member_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectMemberResponse:
+        """
+        @summary Queries the details about a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectMemberResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectMemberResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectMemberResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_project_member_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectMemberRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectMemberResponse:
+        """
+        @summary Queries the details about a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectMemberRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectMemberResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetProjectMember',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectMemberResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectMemberResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_project_member(
+        self,
+        request: dataworks_public_20240518_models.GetProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.GetProjectMemberResponse:
+        """
+        @summary Queries the details about a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectMemberRequest
+        @return: GetProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_project_member_with_options(request, runtime)
+
+    async def get_project_member_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectMemberRequest,
+    ) -> dataworks_public_20240518_models.GetProjectMemberResponse:
+        """
+        @summary Queries the details about a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectMemberRequest
+        @return: GetProjectMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_project_member_with_options_async(request, runtime)
+
+    def get_project_role_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRoleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectRoleResponse:
+        """
+        @summary Queries the information about a role in a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRoleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectRoleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProjectRole',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectRoleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectRoleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_project_role_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRoleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetProjectRoleResponse:
+        """
+        @summary Queries the information about a role in a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRoleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetProjectRoleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetProjectRole',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectRoleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetProjectRoleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_project_role(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRoleRequest,
+    ) -> dataworks_public_20240518_models.GetProjectRoleResponse:
+        """
+        @summary Queries the information about a role in a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRoleRequest
+        @return: GetProjectRoleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_project_role_with_options(request, runtime)
+
+    async def get_project_role_async(
+        self,
+        request: dataworks_public_20240518_models.GetProjectRoleRequest,
+    ) -> dataworks_public_20240518_models.GetProjectRoleResponse:
+        """
+        @summary Queries the information about a role in a DataWorks workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetProjectRoleRequest
+        @return: GetProjectRoleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_project_role_with_options_async(request, runtime)
+
+    def get_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetResourceResponse:
+        """
+        @summary Queries the information about a file resource.
+        
+        @param request: GetResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetResourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetResourceResponse:
+        """
+        @summary Queries the information about a file resource.
+        
+        @param request: GetResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetResourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_resource(
+        self,
+        request: dataworks_public_20240518_models.GetResourceRequest,
+    ) -> dataworks_public_20240518_models.GetResourceResponse:
+        """
+        @summary Queries the information about a file resource.
+        
+        @param request: GetResourceRequest
+        @return: GetResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_resource_with_options(request, runtime)
+
+    async def get_resource_async(
+        self,
+        request: dataworks_public_20240518_models.GetResourceRequest,
+    ) -> dataworks_public_20240518_models.GetResourceResponse:
+        """
+        @summary Queries the information about a file resource.
+        
+        @param request: GetResourceRequest
+        @return: GetResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_resource_with_options_async(request, runtime)
+
+    def get_resource_group_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetResourceGroupResponse:
+        """
+        @summary Queries the information about a resource group based on its ID.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: GetResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_resource_group_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetResourceGroupResponse:
+        """
+        @summary Queries the information about a resource group based on its ID.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: GetResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_resource_group(
+        self,
+        request: dataworks_public_20240518_models.GetResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.GetResourceGroupResponse:
+        """
+        @summary Queries the information about a resource group based on its ID.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: GetResourceGroupRequest
+        @return: GetResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_resource_group_with_options(request, runtime)
+
+    async def get_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.GetResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.GetResourceGroupResponse:
+        """
+        @summary Queries the information about a resource group based on its ID.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: GetResourceGroupRequest
+        @return: GetResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_resource_group_with_options_async(request, runtime)
+
+    def get_route_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetRouteResponse:
+        """
+        @summary Queries the information about a route based on its ID.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetRouteResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetRouteResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetRouteResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_route_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetRouteResponse:
+        """
+        @summary Queries the information about a route based on its ID.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetRouteResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetRouteResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetRouteResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_route(
+        self,
+        request: dataworks_public_20240518_models.GetRouteRequest,
+    ) -> dataworks_public_20240518_models.GetRouteResponse:
+        """
+        @summary Queries the information about a route based on its ID.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetRouteRequest
+        @return: GetRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_route_with_options(request, runtime)
+
+    async def get_route_async(
+        self,
+        request: dataworks_public_20240518_models.GetRouteRequest,
+    ) -> dataworks_public_20240518_models.GetRouteResponse:
+        """
+        @summary Queries the information about a route based on its ID.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetRouteRequest
+        @return: GetRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_route_with_options_async(request, runtime)
+
+    def get_task_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskResponse:
+        """
+        @summary Queries the information about a task.
+        
+        @param request: GetTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_task_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskResponse:
+        """
+        @summary Queries the information about a task.
+        
+        @param request: GetTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_task(
+        self,
+        request: dataworks_public_20240518_models.GetTaskRequest,
+    ) -> dataworks_public_20240518_models.GetTaskResponse:
+        """
+        @summary Queries the information about a task.
+        
+        @param request: GetTaskRequest
+        @return: GetTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_task_with_options(request, runtime)
+
+    async def get_task_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskRequest,
+    ) -> dataworks_public_20240518_models.GetTaskResponse:
+        """
+        @summary Queries the information about a task.
+        
+        @param request: GetTaskRequest
+        @return: GetTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_task_with_options_async(request, runtime)
+
+    def get_task_instance_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceResponse:
+        """
+        @summary Queries the information about an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_task_instance_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceResponse:
+        """
+        @summary Queries the information about an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_task_instance(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceResponse:
+        """
+        @summary Queries the information about an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceRequest
+        @return: GetTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_task_instance_with_options(request, runtime)
+
+    async def get_task_instance_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceResponse:
+        """
+        @summary Queries the information about an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceRequest
+        @return: GetTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_task_instance_with_options_async(request, runtime)
+
+    def get_task_instance_log_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceLogRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceLogResponse:
+        """
+        @summary Queries the run log generated during a specific run of an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceLogRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskInstanceLogResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTaskInstanceLog',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceLogResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceLogResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_task_instance_log_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceLogRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceLogResponse:
+        """
+        @summary Queries the run log generated during a specific run of an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceLogRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetTaskInstanceLogResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTaskInstanceLog',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceLogResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetTaskInstanceLogResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_task_instance_log(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceLogRequest,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceLogResponse:
+        """
+        @summary Queries the run log generated during a specific run of an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceLogRequest
+        @return: GetTaskInstanceLogResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_task_instance_log_with_options(request, runtime)
+
+    async def get_task_instance_log_async(
+        self,
+        request: dataworks_public_20240518_models.GetTaskInstanceLogRequest,
+    ) -> dataworks_public_20240518_models.GetTaskInstanceLogResponse:
+        """
+        @summary Queries the run log generated during a specific run of an instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetTaskInstanceLogRequest
+        @return: GetTaskInstanceLogResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_task_instance_log_with_options_async(request, runtime)
+
+    def get_workflow_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_workflow_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_workflow(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowRequest
+        @return: GetWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_workflow_with_options(request, runtime)
+
+    async def get_workflow_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowRequest
+        @return: GetWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_workflow_with_options_async(request, runtime)
+
+    def get_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowDefinitionResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @param request: GetWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowDefinitionResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @param request: GetWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowDefinitionResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @param request: GetWorkflowDefinitionRequest
+        @return: GetWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_workflow_definition_with_options(request, runtime)
+
+    async def get_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowDefinitionResponse:
+        """
+        @summary Queries the information about a workflow.
+        
+        @param request: GetWorkflowDefinitionRequest
+        @return: GetWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_workflow_definition_with_options_async(request, runtime)
+
+    def get_workflow_instance_with_options(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowInstanceResponse:
+        """
+        @summary Queries the information about a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflowInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def get_workflow_instance_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GetWorkflowInstanceResponse:
+        """
+        @summary Queries the information about a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GetWorkflowInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkflowInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GetWorkflowInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def get_workflow_instance(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowInstanceResponse:
+        """
+        @summary Queries the information about a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowInstanceRequest
+        @return: GetWorkflowInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_workflow_instance_with_options(request, runtime)
+
+    async def get_workflow_instance_async(
+        self,
+        request: dataworks_public_20240518_models.GetWorkflowInstanceRequest,
+    ) -> dataworks_public_20240518_models.GetWorkflowInstanceResponse:
+        """
+        @summary Queries the information about a workflow instance.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GetWorkflowInstanceRequest
+        @return: GetWorkflowInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.get_workflow_instance_with_options_async(request, runtime)
+
+    def grant_member_project_roles_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.GrantMemberProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GrantMemberProjectRolesResponse:
+        """
+        @summary Assigns roles to members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: GrantMemberProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GrantMemberProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.GrantMemberProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GrantMemberProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GrantMemberProjectRolesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GrantMemberProjectRolesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def grant_member_project_roles_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.GrantMemberProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.GrantMemberProjectRolesResponse:
+        """
+        @summary Assigns roles to members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: GrantMemberProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: GrantMemberProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.GrantMemberProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GrantMemberProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GrantMemberProjectRolesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.GrantMemberProjectRolesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def grant_member_project_roles(
+        self,
+        request: dataworks_public_20240518_models.GrantMemberProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.GrantMemberProjectRolesResponse:
+        """
+        @summary Assigns roles to members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GrantMemberProjectRolesRequest
+        @return: GrantMemberProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.grant_member_project_roles_with_options(request, runtime)
+
+    async def grant_member_project_roles_async(
+        self,
+        request: dataworks_public_20240518_models.GrantMemberProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.GrantMemberProjectRolesResponse:
+        """
+        @summary Assigns roles to members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: GrantMemberProjectRolesRequest
+        @return: GrantMemberProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.grant_member_project_roles_with_options_async(request, runtime)
+
+    def import_certificate_with_options(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        """
+        @summary 验证用
+        
+        @param request: ImportCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ImportCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.certificate_file):
+            query['CertificateFile'] = request.certificate_file
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportCertificateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportCertificateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def import_certificate_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        """
+        @summary 验证用
+        
+        @param request: ImportCertificateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ImportCertificateResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.certificate_file):
+            query['CertificateFile'] = request.certificate_file
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportCertificate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportCertificateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportCertificateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def import_certificate(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateRequest,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        """
+        @summary 验证用
+        
+        @param request: ImportCertificateRequest
+        @return: ImportCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.import_certificate_with_options(request, runtime)
+
+    async def import_certificate_async(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateRequest,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        """
+        @summary 验证用
+        
+        @param request: ImportCertificateRequest
+        @return: ImportCertificateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.import_certificate_with_options_async(request, runtime)
+
+    def import_certificate_advance(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateAdvanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        # Step 0: init client
+        access_key_id = self._credential.get_access_key_id()
+        access_key_secret = self._credential.get_access_key_secret()
+        security_token = self._credential.get_security_token()
+        credential_type = self._credential.get_type()
+        open_platform_endpoint = self._open_platform_endpoint
+        if UtilClient.empty(open_platform_endpoint):
+            open_platform_endpoint = 'openplatform.aliyuncs.com'
+        if UtilClient.is_unset(credential_type):
+            credential_type = 'access_key'
+        auth_config = open_api_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            security_token=security_token,
+            type=credential_type,
+            endpoint=open_platform_endpoint,
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        auth_client = OpenPlatformClient(auth_config)
+        auth_request = open_platform_models.AuthorizeFileUploadRequest(
+            product='dataworks-public',
+            region_id=self._region_id
+        )
+        auth_response = open_platform_models.AuthorizeFileUploadResponse()
+        oss_config = oss_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            type='access_key',
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        oss_client = OSSClient(oss_config)
+        file_obj = file_form_models.FileField()
+        oss_header = oss_models.PostObjectRequestHeader()
+        upload_request = oss_models.PostObjectRequest()
+        oss_runtime = ossutil_models.RuntimeOptions()
+        OpenApiUtilClient.convert(runtime, oss_runtime)
+        import_certificate_req = dataworks_public_20240518_models.ImportCertificateRequest()
+        OpenApiUtilClient.convert(request, import_certificate_req)
+        if not UtilClient.is_unset(request.certificate_file_object):
+            auth_response = auth_client.authorize_file_upload_with_options(auth_request, runtime)
+            oss_config.access_key_id = auth_response.body.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.body.endpoint, auth_response.body.use_accelerate, self._endpoint_type)
+            oss_client = OSSClient(oss_config)
+            file_obj = file_form_models.FileField(
+                filename=auth_response.body.object_key,
+                content=request.certificate_file_object,
+                content_type=''
+            )
+            oss_header = oss_models.PostObjectRequestHeader(
+                access_key_id=auth_response.body.access_key_id,
+                policy=auth_response.body.encoded_policy,
+                signature=auth_response.body.signature,
+                key=auth_response.body.object_key,
+                file=file_obj,
+                success_action_status='201'
+            )
+            upload_request = oss_models.PostObjectRequest(
+                bucket_name=auth_response.body.bucket,
+                header=oss_header
+            )
+            oss_client.post_object(upload_request, oss_runtime)
+            import_certificate_req.certificate_file = f'http://{auth_response.body.bucket}.{auth_response.body.endpoint}/{auth_response.body.object_key}'
+        import_certificate_resp = self.import_certificate_with_options(import_certificate_req, runtime)
+        return import_certificate_resp
+
+    async def import_certificate_advance_async(
+        self,
+        request: dataworks_public_20240518_models.ImportCertificateAdvanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportCertificateResponse:
+        # Step 0: init client
+        access_key_id = await self._credential.get_access_key_id_async()
+        access_key_secret = await self._credential.get_access_key_secret_async()
+        security_token = await self._credential.get_security_token_async()
+        credential_type = self._credential.get_type()
+        open_platform_endpoint = self._open_platform_endpoint
+        if UtilClient.empty(open_platform_endpoint):
+            open_platform_endpoint = 'openplatform.aliyuncs.com'
+        if UtilClient.is_unset(credential_type):
+            credential_type = 'access_key'
+        auth_config = open_api_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            security_token=security_token,
+            type=credential_type,
+            endpoint=open_platform_endpoint,
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        auth_client = OpenPlatformClient(auth_config)
+        auth_request = open_platform_models.AuthorizeFileUploadRequest(
+            product='dataworks-public',
+            region_id=self._region_id
+        )
+        auth_response = open_platform_models.AuthorizeFileUploadResponse()
+        oss_config = oss_models.Config(
+            access_key_id=access_key_id,
+            access_key_secret=access_key_secret,
+            type='access_key',
+            protocol=self._protocol,
+            region_id=self._region_id
+        )
+        oss_client = OSSClient(oss_config)
+        file_obj = file_form_models.FileField()
+        oss_header = oss_models.PostObjectRequestHeader()
+        upload_request = oss_models.PostObjectRequest()
+        oss_runtime = ossutil_models.RuntimeOptions()
+        OpenApiUtilClient.convert(runtime, oss_runtime)
+        import_certificate_req = dataworks_public_20240518_models.ImportCertificateRequest()
+        OpenApiUtilClient.convert(request, import_certificate_req)
+        if not UtilClient.is_unset(request.certificate_file_object):
+            auth_response = await auth_client.authorize_file_upload_with_options_async(auth_request, runtime)
+            oss_config.access_key_id = auth_response.body.access_key_id
+            oss_config.endpoint = OpenApiUtilClient.get_endpoint(auth_response.body.endpoint, auth_response.body.use_accelerate, self._endpoint_type)
+            oss_client = OSSClient(oss_config)
+            file_obj = file_form_models.FileField(
+                filename=auth_response.body.object_key,
+                content=request.certificate_file_object,
+                content_type=''
+            )
+            oss_header = oss_models.PostObjectRequestHeader(
+                access_key_id=auth_response.body.access_key_id,
+                policy=auth_response.body.encoded_policy,
+                signature=auth_response.body.signature,
+                key=auth_response.body.object_key,
+                file=file_obj,
+                success_action_status='201'
+            )
+            upload_request = oss_models.PostObjectRequest(
+                bucket_name=auth_response.body.bucket,
+                header=oss_header
+            )
+            await oss_client.post_object_async(upload_request, oss_runtime)
+            import_certificate_req.certificate_file = f'http://{auth_response.body.bucket}.{auth_response.body.endpoint}/{auth_response.body.object_key}'
+        import_certificate_resp = await self.import_certificate_with_options_async(import_certificate_req, runtime)
+        return import_certificate_resp
+
+    def import_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.ImportWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportWorkflowDefinitionResponse:
+        """
+        @summary Imports a workflow and its child nodes that are specified by the FlowSpec field to DataStudio.
+        
+        @description >
+        You cannot use this API operation to import multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system imports only the first specified workflow.
+        ImportWorkflowDefinition is an asynchronous operation. After you send a request, an asynchronous task is generated, and the system returns the ID of the asynchronous task. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: ImportWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ImportWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ImportWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def import_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ImportWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ImportWorkflowDefinitionResponse:
+        """
+        @summary Imports a workflow and its child nodes that are specified by the FlowSpec field to DataStudio.
+        
+        @description >
+        You cannot use this API operation to import multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system imports only the first specified workflow.
+        ImportWorkflowDefinition is an asynchronous operation. After you send a request, an asynchronous task is generated, and the system returns the ID of the asynchronous task. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: ImportWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ImportWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ImportWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ImportWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def import_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.ImportWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.ImportWorkflowDefinitionResponse:
+        """
+        @summary Imports a workflow and its child nodes that are specified by the FlowSpec field to DataStudio.
+        
+        @description >
+        You cannot use this API operation to import multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system imports only the first specified workflow.
+        ImportWorkflowDefinition is an asynchronous operation. After you send a request, an asynchronous task is generated, and the system returns the ID of the asynchronous task. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: ImportWorkflowDefinitionRequest
+        @return: ImportWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.import_workflow_definition_with_options(request, runtime)
+
+    async def import_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.ImportWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.ImportWorkflowDefinitionResponse:
+        """
+        @summary Imports a workflow and its child nodes that are specified by the FlowSpec field to DataStudio.
+        
+        @description >
+        You cannot use this API operation to import multiple workflows at a time. If you specify multiple workflows by using FlowSpec, the system imports only the first specified workflow.
+        ImportWorkflowDefinition is an asynchronous operation. After you send a request, an asynchronous task is generated, and the system returns the ID of the asynchronous task. You can call the GetJobStatus operation to query the status of the asynchronous task.
+        
+        @param request: ImportWorkflowDefinitionRequest
+        @return: ImportWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.import_workflow_definition_with_options_async(request, runtime)
+
+    def list_alert_rules_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListAlertRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListAlertRulesResponse:
+        """
+        @summary Queries a list of custom monitoring alert rule by page.
+        
+        @param tmp_req: ListAlertRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListAlertRulesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListAlertRulesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        if not UtilClient.is_unset(tmp_req.types):
+            request.types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.types, 'Types', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.receiver):
+            query['Receiver'] = request.receiver
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            query['TaskIds'] = request.task_ids_shrink
+        if not UtilClient.is_unset(request.types_shrink):
+            query['Types'] = request.types_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAlertRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListAlertRulesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListAlertRulesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_alert_rules_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListAlertRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListAlertRulesResponse:
+        """
+        @summary Queries a list of custom monitoring alert rule by page.
+        
+        @param tmp_req: ListAlertRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListAlertRulesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListAlertRulesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        if not UtilClient.is_unset(tmp_req.types):
+            request.types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.types, 'Types', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.receiver):
+            query['Receiver'] = request.receiver
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            query['TaskIds'] = request.task_ids_shrink
+        if not UtilClient.is_unset(request.types_shrink):
+            query['Types'] = request.types_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAlertRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListAlertRulesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListAlertRulesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_alert_rules(
+        self,
+        request: dataworks_public_20240518_models.ListAlertRulesRequest,
+    ) -> dataworks_public_20240518_models.ListAlertRulesResponse:
+        """
+        @summary Queries a list of custom monitoring alert rule by page.
+        
+        @param request: ListAlertRulesRequest
+        @return: ListAlertRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_alert_rules_with_options(request, runtime)
+
+    async def list_alert_rules_async(
+        self,
+        request: dataworks_public_20240518_models.ListAlertRulesRequest,
+    ) -> dataworks_public_20240518_models.ListAlertRulesResponse:
+        """
+        @summary Queries a list of custom monitoring alert rule by page.
+        
+        @param request: ListAlertRulesRequest
+        @return: ListAlertRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_alert_rules_with_options_async(request, runtime)
+
+    def list_certificates_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListCertificatesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListCertificatesResponse:
+        """
+        @summary 查询认证文件列表
+        
+        @param request: ListCertificatesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListCertificatesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCertificates',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListCertificatesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListCertificatesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_certificates_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListCertificatesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListCertificatesResponse:
+        """
+        @summary 查询认证文件列表
+        
+        @param request: ListCertificatesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListCertificatesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCertificates',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListCertificatesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListCertificatesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_certificates(
+        self,
+        request: dataworks_public_20240518_models.ListCertificatesRequest,
+    ) -> dataworks_public_20240518_models.ListCertificatesResponse:
+        """
+        @summary 查询认证文件列表
+        
+        @param request: ListCertificatesRequest
+        @return: ListCertificatesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_certificates_with_options(request, runtime)
+
+    async def list_certificates_async(
+        self,
+        request: dataworks_public_20240518_models.ListCertificatesRequest,
+    ) -> dataworks_public_20240518_models.ListCertificatesResponse:
+        """
+        @summary 查询认证文件列表
+        
+        @param request: ListCertificatesRequest
+        @return: ListCertificatesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_certificates_with_options_async(request, runtime)
+
+    def list_dialarm_rules_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDIAlarmRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIAlarmRulesResponse:
+        """
+        @summary Views alert rules configured for a synchronization task.
+        
+        @param request: ListDIAlarmRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIAlarmRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIAlarmRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIAlarmRulesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIAlarmRulesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_dialarm_rules_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIAlarmRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIAlarmRulesResponse:
+        """
+        @summary Views alert rules configured for a synchronization task.
+        
+        @param request: ListDIAlarmRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIAlarmRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIAlarmRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIAlarmRulesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIAlarmRulesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_dialarm_rules(
+        self,
+        request: dataworks_public_20240518_models.ListDIAlarmRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDIAlarmRulesResponse:
+        """
+        @summary Views alert rules configured for a synchronization task.
+        
+        @param request: ListDIAlarmRulesRequest
+        @return: ListDIAlarmRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_dialarm_rules_with_options(request, runtime)
+
+    async def list_dialarm_rules_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIAlarmRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDIAlarmRulesResponse:
+        """
+        @summary Views alert rules configured for a synchronization task.
+        
+        @param request: ListDIAlarmRulesRequest
+        @return: ListDIAlarmRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_dialarm_rules_with_options_async(request, runtime)
+
+    def list_dijob_events_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobEventsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobEventsResponse:
+        """
+        @summary Queries events for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobEventsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobEventsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobEvents',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobEventsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobEventsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_dijob_events_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobEventsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobEventsResponse:
+        """
+        @summary Queries events for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobEventsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobEventsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobEvents',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobEventsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobEventsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_dijob_events(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobEventsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobEventsResponse:
+        """
+        @summary Queries events for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobEventsRequest
+        @return: ListDIJobEventsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_dijob_events_with_options(request, runtime)
+
+    async def list_dijob_events_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobEventsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobEventsResponse:
+        """
+        @summary Queries events for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobEventsRequest
+        @return: ListDIJobEventsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_dijob_events_with_options_async(request, runtime)
+
+    def list_dijob_metrics_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDIJobMetricsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobMetricsResponse:
+        """
+        @summary Queries metrics for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListDIJobMetricsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobMetricsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDIJobMetricsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.metric_name):
+            request.metric_name_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.metric_name, 'MetricName', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobMetrics',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobMetricsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobMetricsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_dijob_metrics_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDIJobMetricsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobMetricsResponse:
+        """
+        @summary Queries metrics for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListDIJobMetricsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobMetricsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDIJobMetricsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.metric_name):
+            request.metric_name_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.metric_name, 'MetricName', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobMetrics',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobMetricsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobMetricsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_dijob_metrics(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobMetricsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobMetricsResponse:
+        """
+        @summary Queries metrics for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobMetricsRequest
+        @return: ListDIJobMetricsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_dijob_metrics_with_options(request, runtime)
+
+    async def list_dijob_metrics_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobMetricsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobMetricsResponse:
+        """
+        @summary Queries metrics for a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobMetricsRequest
+        @return: ListDIJobMetricsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_dijob_metrics_with_options_async(request, runtime)
+
+    def list_dijob_run_details_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobRunDetailsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobRunDetailsResponse:
+        """
+        @summary Queries the running information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobRunDetailsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobRunDetailsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobRunDetails',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobRunDetailsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobRunDetailsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_dijob_run_details_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobRunDetailsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobRunDetailsResponse:
+        """
+        @summary Queries the running information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobRunDetailsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobRunDetailsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobRunDetails',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobRunDetailsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobRunDetailsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_dijob_run_details(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobRunDetailsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobRunDetailsResponse:
+        """
+        @summary Queries the running information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobRunDetailsRequest
+        @return: ListDIJobRunDetailsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_dijob_run_details_with_options(request, runtime)
+
+    async def list_dijob_run_details_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobRunDetailsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobRunDetailsResponse:
+        """
+        @summary Queries the running information about a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobRunDetailsRequest
+        @return: ListDIJobRunDetailsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_dijob_run_details_with_options_async(request, runtime)
+
+    def list_dijobs_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobsResponse:
+        """
+        @summary Queries a list of synchronization tasks.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_dijobs_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDIJobsResponse:
+        """
+        @summary Queries a list of synchronization tasks.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDIJobsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDIJobs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDIJobsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_dijobs(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobsResponse:
+        """
+        @summary Queries a list of synchronization tasks.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobsRequest
+        @return: ListDIJobsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_dijobs_with_options(request, runtime)
+
+    async def list_dijobs_async(
+        self,
+        request: dataworks_public_20240518_models.ListDIJobsRequest,
+    ) -> dataworks_public_20240518_models.ListDIJobsResponse:
+        """
+        @summary Queries a list of synchronization tasks.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDIJobsRequest
+        @return: ListDIJobsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_dijobs_with_options_async(request, runtime)
+
+    def list_data_asset_tags_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetTagsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataAssetTagsResponse:
+        """
+        @summary Queries a list of tags.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetTagsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataAssetTagsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataAssetTags',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetTagsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetTagsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_asset_tags_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetTagsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataAssetTagsResponse:
+        """
+        @summary Queries a list of tags.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetTagsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataAssetTagsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataAssetTags',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetTagsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetTagsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_asset_tags(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetTagsRequest,
+    ) -> dataworks_public_20240518_models.ListDataAssetTagsResponse:
+        """
+        @summary Queries a list of tags.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetTagsRequest
+        @return: ListDataAssetTagsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_asset_tags_with_options(request, runtime)
+
+    async def list_data_asset_tags_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetTagsRequest,
+    ) -> dataworks_public_20240518_models.ListDataAssetTagsResponse:
+        """
+        @summary Queries a list of tags.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetTagsRequest
+        @return: ListDataAssetTagsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_asset_tags_with_options_async(request, runtime)
+
+    def list_data_assets_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataAssetsResponse:
+        """
+        @summary Queries the information about DataWorks data assets to which tags are added by page.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: ListDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_assets_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataAssetsResponse:
+        """
+        @summary Queries the information about DataWorks data assets to which tags are added by page.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: ListDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataAssetsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_assets(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.ListDataAssetsResponse:
+        """
+        @summary Queries the information about DataWorks data assets to which tags are added by page.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetsRequest
+        @return: ListDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_assets_with_options(request, runtime)
+
+    async def list_data_assets_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.ListDataAssetsResponse:
+        """
+        @summary Queries the information about DataWorks data assets to which tags are added by page.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: ListDataAssetsRequest
+        @return: ListDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_assets_with_options_async(request, runtime)
+
+    def list_data_quality_evaluation_task_instances_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse:
+        """
+        @summary Queries a list of instances generated by a data quality monitoring task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityEvaluationTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityEvaluationTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_quality_evaluation_task_instances_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse:
+        """
+        @summary Queries a list of instances generated by a data quality monitoring task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityEvaluationTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityEvaluationTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_quality_evaluation_task_instances(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse:
+        """
+        @summary Queries a list of instances generated by a data quality monitoring task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTaskInstancesRequest
+        @return: ListDataQualityEvaluationTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_quality_evaluation_task_instances_with_options(request, runtime)
+
+    async def list_data_quality_evaluation_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTaskInstancesResponse:
+        """
+        @summary Queries a list of instances generated by a data quality monitoring task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTaskInstancesRequest
+        @return: ListDataQualityEvaluationTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_quality_evaluation_task_instances_with_options_async(request, runtime)
+
+    def list_data_quality_evaluation_tasks_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse:
+        """
+        @summary Queries a list of data quality monitoring tasks by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityEvaluationTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityEvaluationTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_quality_evaluation_tasks_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse:
+        """
+        @summary Queries a list of data quality monitoring tasks by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityEvaluationTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityEvaluationTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_quality_evaluation_tasks(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTasksRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse:
+        """
+        @summary Queries a list of data quality monitoring tasks by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTasksRequest
+        @return: ListDataQualityEvaluationTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_quality_evaluation_tasks_with_options(request, runtime)
+
+    async def list_data_quality_evaluation_tasks_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityEvaluationTasksRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityEvaluationTasksResponse:
+        """
+        @summary Queries a list of data quality monitoring tasks by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityEvaluationTasksRequest
+        @return: ListDataQualityEvaluationTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_quality_evaluation_tasks_with_options_async(request, runtime)
+
+    def list_data_quality_results_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityResultsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityResultsResponse:
+        """
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityResultsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityResultsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityResults',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityResultsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityResultsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_quality_results_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityResultsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityResultsResponse:
+        """
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityResultsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityResultsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityResults',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityResultsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityResultsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_quality_results(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityResultsRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityResultsResponse:
+        """
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityResultsRequest
+        @return: ListDataQualityResultsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_quality_results_with_options(request, runtime)
+
+    async def list_data_quality_results_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityResultsRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityResultsResponse:
+        """
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityResultsRequest
+        @return: ListDataQualityResultsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_quality_results_with_options_async(request, runtime)
+
+    def list_data_quality_rule_templates_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRuleTemplatesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse:
+        """
+        @summary Queries a list of data quality monitoring rule templates.
+        
+        @param request: ListDataQualityRuleTemplatesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityRuleTemplatesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityRuleTemplates',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_quality_rule_templates_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRuleTemplatesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse:
+        """
+        @summary Queries a list of data quality monitoring rule templates.
+        
+        @param request: ListDataQualityRuleTemplatesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityRuleTemplatesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityRuleTemplates',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_quality_rule_templates(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRuleTemplatesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse:
+        """
+        @summary Queries a list of data quality monitoring rule templates.
+        
+        @param request: ListDataQualityRuleTemplatesRequest
+        @return: ListDataQualityRuleTemplatesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_quality_rule_templates_with_options(request, runtime)
+
+    async def list_data_quality_rule_templates_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRuleTemplatesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityRuleTemplatesResponse:
+        """
+        @summary Queries a list of data quality monitoring rule templates.
+        
+        @param request: ListDataQualityRuleTemplatesRequest
+        @return: ListDataQualityRuleTemplatesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_quality_rule_templates_with_options_async(request, runtime)
+
+    def list_data_quality_rules_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityRulesResponse:
+        """
+        @summary Queries a list of data quality monitoring rules by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRulesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRulesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_quality_rules_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataQualityRulesResponse:
+        """
+        @summary Queries a list of data quality monitoring rules by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataQualityRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataQualityRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRulesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataQualityRulesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_quality_rules(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityRulesResponse:
+        """
+        @summary Queries a list of data quality monitoring rules by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityRulesRequest
+        @return: ListDataQualityRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_quality_rules_with_options(request, runtime)
+
+    async def list_data_quality_rules_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataQualityRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDataQualityRulesResponse:
+        """
+        @summary Queries a list of data quality monitoring rules by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDataQualityRulesRequest
+        @return: ListDataQualityRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_quality_rules_with_options_async(request, runtime)
+
+    def list_data_source_shared_rules_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourceSharedRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataSourceSharedRulesResponse:
+        """
+        @summary Queries a list of sharing rules of a data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to query the sharing rules of a data source that is associated with Workspace A, you must have the permissions to share the data source in Workspace A. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: ListDataSourceSharedRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataSourceSharedRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSourceSharedRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourceSharedRulesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourceSharedRulesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_source_shared_rules_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourceSharedRulesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataSourceSharedRulesResponse:
+        """
+        @summary Queries a list of sharing rules of a data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to query the sharing rules of a data source that is associated with Workspace A, you must have the permissions to share the data source in Workspace A. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: ListDataSourceSharedRulesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataSourceSharedRulesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSourceSharedRules',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourceSharedRulesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourceSharedRulesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_source_shared_rules(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourceSharedRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDataSourceSharedRulesResponse:
+        """
+        @summary Queries a list of sharing rules of a data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to query the sharing rules of a data source that is associated with Workspace A, you must have the permissions to share the data source in Workspace A. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: ListDataSourceSharedRulesRequest
+        @return: ListDataSourceSharedRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_source_shared_rules_with_options(request, runtime)
+
+    async def list_data_source_shared_rules_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourceSharedRulesRequest,
+    ) -> dataworks_public_20240518_models.ListDataSourceSharedRulesResponse:
+        """
+        @summary Queries a list of sharing rules of a data source.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  If you want to query the sharing rules of a data source that is associated with Workspace A, you must have the permissions to share the data source in Workspace A. You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, and Workspace Owner
+        
+        @param request: ListDataSourceSharedRulesRequest
+        @return: ListDataSourceSharedRulesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_source_shared_rules_with_options_async(request, runtime)
+
+    def list_data_sources_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDataSourcesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataSourcesResponse:
+        """
+        @summary Queries a list of data sources based on the business information of data sources.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deploy, Develop, Visitor, Workspace Owner, O\\&M, Model Designer, Security Administrator, Data Analyst, OpenPlatform Administrator, and Data Governance Administrator
+        
+        @param tmp_req: ListDataSourcesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataSourcesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDataSourcesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.types):
+            request.types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.types, 'Types', 'simple')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSources',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourcesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourcesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_data_sources_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListDataSourcesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDataSourcesResponse:
+        """
+        @summary Queries a list of data sources based on the business information of data sources.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deploy, Develop, Visitor, Workspace Owner, O\\&M, Model Designer, Security Administrator, Data Analyst, OpenPlatform Administrator, and Data Governance Administrator
+        
+        @param tmp_req: ListDataSourcesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDataSourcesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListDataSourcesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.types):
+            request.types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.types, 'Types', 'simple')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDataSources',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourcesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDataSourcesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_data_sources(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourcesRequest,
+    ) -> dataworks_public_20240518_models.ListDataSourcesResponse:
+        """
+        @summary Queries a list of data sources based on the business information of data sources.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deploy, Develop, Visitor, Workspace Owner, O\\&M, Model Designer, Security Administrator, Data Analyst, OpenPlatform Administrator, and Data Governance Administrator
+        
+        @param request: ListDataSourcesRequest
+        @return: ListDataSourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_data_sources_with_options(request, runtime)
+
+    async def list_data_sources_async(
+        self,
+        request: dataworks_public_20240518_models.ListDataSourcesRequest,
+    ) -> dataworks_public_20240518_models.ListDataSourcesResponse:
+        """
+        @summary Queries a list of data sources based on the business information of data sources.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Workspace Administrator, Deploy, Develop, Visitor, Workspace Owner, O\\&M, Model Designer, Security Administrator, Data Analyst, OpenPlatform Administrator, and Data Governance Administrator
+        
+        @param request: ListDataSourcesRequest
+        @return: ListDataSourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_data_sources_with_options_async(request, runtime)
+
+    def list_deployments_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDeploymentsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDeploymentsResponse:
+        """
+        @summary Queries a list of processes that are used to deploy or undeploy entities in DataStudio. You can also specify filter conditions to query specific processes.
+        
+        @param request: ListDeploymentsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDeploymentsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDeployments',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDeploymentsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDeploymentsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_deployments_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDeploymentsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDeploymentsResponse:
+        """
+        @summary Queries a list of processes that are used to deploy or undeploy entities in DataStudio. You can also specify filter conditions to query specific processes.
+        
+        @param request: ListDeploymentsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDeploymentsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDeployments',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDeploymentsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDeploymentsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_deployments(
+        self,
+        request: dataworks_public_20240518_models.ListDeploymentsRequest,
+    ) -> dataworks_public_20240518_models.ListDeploymentsResponse:
+        """
+        @summary Queries a list of processes that are used to deploy or undeploy entities in DataStudio. You can also specify filter conditions to query specific processes.
+        
+        @param request: ListDeploymentsRequest
+        @return: ListDeploymentsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_deployments_with_options(request, runtime)
+
+    async def list_deployments_async(
+        self,
+        request: dataworks_public_20240518_models.ListDeploymentsRequest,
+    ) -> dataworks_public_20240518_models.ListDeploymentsResponse:
+        """
+        @summary Queries a list of processes that are used to deploy or undeploy entities in DataStudio. You can also specify filter conditions to query specific processes.
+        
+        @param request: ListDeploymentsRequest
+        @return: ListDeploymentsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_deployments_with_options_async(request, runtime)
+
+    def list_downstream_task_instances_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of descendant instances of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDownstreamTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDownstreamTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDownstreamTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_downstream_task_instances_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of descendant instances of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDownstreamTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDownstreamTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDownstreamTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_downstream_task_instances(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of descendant instances of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDownstreamTaskInstancesRequest
+        @return: ListDownstreamTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_downstream_task_instances_with_options(request, runtime)
+
+    async def list_downstream_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListDownstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of descendant instances of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListDownstreamTaskInstancesRequest
+        @return: ListDownstreamTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_downstream_task_instances_with_options_async(request, runtime)
+
+    def list_downstream_tasks_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDownstreamTasksResponse:
+        """
+        @summary Queries a list of descendant tasks of a task by page.
+        
+        @param request: ListDownstreamTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDownstreamTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDownstreamTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTasksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTasksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_downstream_tasks_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListDownstreamTasksResponse:
+        """
+        @summary Queries a list of descendant tasks of a task by page.
+        
+        @param request: ListDownstreamTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListDownstreamTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDownstreamTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTasksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListDownstreamTasksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_downstream_tasks(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTasksRequest,
+    ) -> dataworks_public_20240518_models.ListDownstreamTasksResponse:
+        """
+        @summary Queries a list of descendant tasks of a task by page.
+        
+        @param request: ListDownstreamTasksRequest
+        @return: ListDownstreamTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_downstream_tasks_with_options(request, runtime)
+
+    async def list_downstream_tasks_async(
+        self,
+        request: dataworks_public_20240518_models.ListDownstreamTasksRequest,
+    ) -> dataworks_public_20240518_models.ListDownstreamTasksResponse:
+        """
+        @summary Queries a list of descendant tasks of a task by page.
+        
+        @param request: ListDownstreamTasksRequest
+        @return: ListDownstreamTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_downstream_tasks_with_options_async(request, runtime)
+
+    def list_functions_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListFunctionsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListFunctionsResponse:
+        """
+        @summary Queries a list of user-defined functions (UDFs) in DataStudio. You can also specify filter conditions to query specific UDFs.
+        
+        @param request: ListFunctionsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListFunctionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctions',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListFunctionsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListFunctionsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_functions_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListFunctionsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListFunctionsResponse:
+        """
+        @summary Queries a list of user-defined functions (UDFs) in DataStudio. You can also specify filter conditions to query specific UDFs.
+        
+        @param request: ListFunctionsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListFunctionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctions',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListFunctionsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListFunctionsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_functions(
+        self,
+        request: dataworks_public_20240518_models.ListFunctionsRequest,
+    ) -> dataworks_public_20240518_models.ListFunctionsResponse:
+        """
+        @summary Queries a list of user-defined functions (UDFs) in DataStudio. You can also specify filter conditions to query specific UDFs.
+        
+        @param request: ListFunctionsRequest
+        @return: ListFunctionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_functions_with_options(request, runtime)
+
+    async def list_functions_async(
+        self,
+        request: dataworks_public_20240518_models.ListFunctionsRequest,
+    ) -> dataworks_public_20240518_models.ListFunctionsResponse:
+        """
+        @summary Queries a list of user-defined functions (UDFs) in DataStudio. You can also specify filter conditions to query specific UDFs.
+        
+        @param request: ListFunctionsRequest
+        @return: ListFunctionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_functions_with_options_async(request, runtime)
+
+    def list_networks_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListNetworksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNetworksResponse:
+        """
+        @summary Queries a list of network resources of a serverless resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListNetworksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNetworksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNetworks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNetworksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNetworksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_networks_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListNetworksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNetworksResponse:
+        """
+        @summary Queries a list of network resources of a serverless resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListNetworksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNetworksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNetworks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNetworksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNetworksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_networks(
+        self,
+        request: dataworks_public_20240518_models.ListNetworksRequest,
+    ) -> dataworks_public_20240518_models.ListNetworksResponse:
+        """
+        @summary Queries a list of network resources of a serverless resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListNetworksRequest
+        @return: ListNetworksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_networks_with_options(request, runtime)
+
+    async def list_networks_async(
+        self,
+        request: dataworks_public_20240518_models.ListNetworksRequest,
+    ) -> dataworks_public_20240518_models.ListNetworksResponse:
+        """
+        @summary Queries a list of network resources of a serverless resource group.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListNetworksRequest
+        @return: ListNetworksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_networks_with_options_async(request, runtime)
+
+    def list_node_dependencies_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListNodeDependenciesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNodeDependenciesResponse:
+        """
+        @summary Queries a list of descendant nodes of a node in DataStudio.
+        
+        @param request: ListNodeDependenciesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNodeDependenciesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNodeDependencies',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodeDependenciesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodeDependenciesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_node_dependencies_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListNodeDependenciesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNodeDependenciesResponse:
+        """
+        @summary Queries a list of descendant nodes of a node in DataStudio.
+        
+        @param request: ListNodeDependenciesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNodeDependenciesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNodeDependencies',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodeDependenciesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodeDependenciesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_node_dependencies(
+        self,
+        request: dataworks_public_20240518_models.ListNodeDependenciesRequest,
+    ) -> dataworks_public_20240518_models.ListNodeDependenciesResponse:
+        """
+        @summary Queries a list of descendant nodes of a node in DataStudio.
+        
+        @param request: ListNodeDependenciesRequest
+        @return: ListNodeDependenciesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_node_dependencies_with_options(request, runtime)
+
+    async def list_node_dependencies_async(
+        self,
+        request: dataworks_public_20240518_models.ListNodeDependenciesRequest,
+    ) -> dataworks_public_20240518_models.ListNodeDependenciesResponse:
+        """
+        @summary Queries a list of descendant nodes of a node in DataStudio.
+        
+        @param request: ListNodeDependenciesRequest
+        @return: ListNodeDependenciesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_node_dependencies_with_options_async(request, runtime)
+
+    def list_nodes_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListNodesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNodesResponse:
+        """
+        @summary Queries a list of nodes in DataStudio. You can also specify filter conditions to query specific nodes.
+        
+        @param request: ListNodesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNodesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNodes',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_nodes_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListNodesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListNodesResponse:
+        """
+        @summary Queries a list of nodes in DataStudio. You can also specify filter conditions to query specific nodes.
+        
+        @param request: ListNodesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListNodesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListNodes',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListNodesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_nodes(
+        self,
+        request: dataworks_public_20240518_models.ListNodesRequest,
+    ) -> dataworks_public_20240518_models.ListNodesResponse:
+        """
+        @summary Queries a list of nodes in DataStudio. You can also specify filter conditions to query specific nodes.
+        
+        @param request: ListNodesRequest
+        @return: ListNodesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_nodes_with_options(request, runtime)
+
+    async def list_nodes_async(
+        self,
+        request: dataworks_public_20240518_models.ListNodesRequest,
+    ) -> dataworks_public_20240518_models.ListNodesResponse:
+        """
+        @summary Queries a list of nodes in DataStudio. You can also specify filter conditions to query specific nodes.
+        
+        @param request: ListNodesRequest
+        @return: ListNodesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_nodes_with_options_async(request, runtime)
+
+    def list_project_members_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectMembersRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectMembersResponse:
+        """
+        @summary Queries details about members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListProjectMembersRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectMembersResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectMembersShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        if not UtilClient.is_unset(tmp_req.user_ids):
+            request.user_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_ids, 'UserIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_ids_shrink):
+            body['UserIds'] = request.user_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectMembers',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectMembersResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectMembersResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_project_members_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectMembersRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectMembersResponse:
+        """
+        @summary Queries details about members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListProjectMembersRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectMembersResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectMembersShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        if not UtilClient.is_unset(tmp_req.user_ids):
+            request.user_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_ids, 'UserIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_ids_shrink):
+            body['UserIds'] = request.user_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectMembers',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectMembersResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectMembersResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_project_members(
+        self,
+        request: dataworks_public_20240518_models.ListProjectMembersRequest,
+    ) -> dataworks_public_20240518_models.ListProjectMembersResponse:
+        """
+        @summary Queries details about members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListProjectMembersRequest
+        @return: ListProjectMembersResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_project_members_with_options(request, runtime)
+
+    async def list_project_members_async(
+        self,
+        request: dataworks_public_20240518_models.ListProjectMembersRequest,
+    ) -> dataworks_public_20240518_models.ListProjectMembersResponse:
+        """
+        @summary Queries details about members in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListProjectMembersRequest
+        @return: ListProjectMembersResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_project_members_with_options_async(request, runtime)
+
+    def list_project_roles_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectRolesResponse:
+        """
+        @summary Queries the information about roles in a DataWorks workspace by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.codes):
+            request.codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.codes, 'Codes', 'json')
+        if not UtilClient.is_unset(tmp_req.names):
+            request.names_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.names, 'Names', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.codes_shrink):
+            body['Codes'] = request.codes_shrink
+        if not UtilClient.is_unset(request.names_shrink):
+            body['Names'] = request.names_shrink
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectRolesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectRolesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_project_roles_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectRolesResponse:
+        """
+        @summary Queries the information about roles in a DataWorks workspace by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.codes):
+            request.codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.codes, 'Codes', 'json')
+        if not UtilClient.is_unset(tmp_req.names):
+            request.names_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.names, 'Names', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.codes_shrink):
+            body['Codes'] = request.codes_shrink
+        if not UtilClient.is_unset(request.names_shrink):
+            body['Names'] = request.names_shrink
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectRolesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectRolesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_project_roles(
+        self,
+        request: dataworks_public_20240518_models.ListProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.ListProjectRolesResponse:
+        """
+        @summary Queries the information about roles in a DataWorks workspace by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListProjectRolesRequest
+        @return: ListProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_project_roles_with_options(request, runtime)
+
+    async def list_project_roles_async(
+        self,
+        request: dataworks_public_20240518_models.ListProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.ListProjectRolesResponse:
+        """
+        @summary Queries the information about roles in a DataWorks workspace by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListProjectRolesRequest
+        @return: ListProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_project_roles_with_options_async(request, runtime)
+
+    def list_projects_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectsResponse:
+        """
+        @summary Queries a list of DataWorks workspaces of the tenant to which your account belongs.
+        
+        @param tmp_req: ListProjectsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        if not UtilClient.is_unset(tmp_req.names):
+            request.names_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.names, 'Names', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.names_shrink):
+            body['Names'] = request.names_shrink
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjects',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_projects_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListProjectsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListProjectsResponse:
+        """
+        @summary Queries a list of DataWorks workspaces of the tenant to which your account belongs.
+        
+        @param tmp_req: ListProjectsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListProjectsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListProjectsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        if not UtilClient.is_unset(tmp_req.names):
+            request.names_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.names, 'Names', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.aliyun_resource_tags_shrink):
+            body['AliyunResourceTags'] = request.aliyun_resource_tags_shrink
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.names_shrink):
+            body['Names'] = request.names_shrink
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListProjects',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListProjectsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_projects(
+        self,
+        request: dataworks_public_20240518_models.ListProjectsRequest,
+    ) -> dataworks_public_20240518_models.ListProjectsResponse:
+        """
+        @summary Queries a list of DataWorks workspaces of the tenant to which your account belongs.
+        
+        @param request: ListProjectsRequest
+        @return: ListProjectsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_projects_with_options(request, runtime)
+
+    async def list_projects_async(
+        self,
+        request: dataworks_public_20240518_models.ListProjectsRequest,
+    ) -> dataworks_public_20240518_models.ListProjectsResponse:
+        """
+        @summary Queries a list of DataWorks workspaces of the tenant to which your account belongs.
+        
+        @param request: ListProjectsRequest
+        @return: ListProjectsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_projects_with_options_async(request, runtime)
+
+    def list_resource_groups_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListResourceGroupsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListResourceGroupsResponse:
+        """
+        @summary Queries a list of resource groups.
+        
+        @param tmp_req: ListResourceGroupsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListResourceGroupsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListResourceGroupsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_group_types):
+            request.resource_group_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_group_types, 'ResourceGroupTypes', 'json')
+        if not UtilClient.is_unset(tmp_req.statuses):
+            request.statuses_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.statuses, 'Statuses', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListResourceGroups',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourceGroupsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourceGroupsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_resource_groups_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListResourceGroupsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListResourceGroupsResponse:
+        """
+        @summary Queries a list of resource groups.
+        
+        @param tmp_req: ListResourceGroupsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListResourceGroupsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListResourceGroupsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.aliyun_resource_tags):
+            request.aliyun_resource_tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.aliyun_resource_tags, 'AliyunResourceTags', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_group_types):
+            request.resource_group_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_group_types, 'ResourceGroupTypes', 'json')
+        if not UtilClient.is_unset(tmp_req.statuses):
+            request.statuses_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.statuses, 'Statuses', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListResourceGroups',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourceGroupsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourceGroupsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_resource_groups(
+        self,
+        request: dataworks_public_20240518_models.ListResourceGroupsRequest,
+    ) -> dataworks_public_20240518_models.ListResourceGroupsResponse:
+        """
+        @summary Queries a list of resource groups.
+        
+        @param request: ListResourceGroupsRequest
+        @return: ListResourceGroupsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_resource_groups_with_options(request, runtime)
+
+    async def list_resource_groups_async(
+        self,
+        request: dataworks_public_20240518_models.ListResourceGroupsRequest,
+    ) -> dataworks_public_20240518_models.ListResourceGroupsResponse:
+        """
+        @summary Queries a list of resource groups.
+        
+        @param request: ListResourceGroupsRequest
+        @return: ListResourceGroupsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_resource_groups_with_options_async(request, runtime)
+
+    def list_resources_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListResourcesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListResourcesResponse:
+        """
+        @summary Queries a list of file resources in DataStudio. You can also specify filter conditions to query specific file resources.
+        
+        @param request: ListResourcesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListResourcesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListResources',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourcesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourcesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_resources_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListResourcesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListResourcesResponse:
+        """
+        @summary Queries a list of file resources in DataStudio. You can also specify filter conditions to query specific file resources.
+        
+        @param request: ListResourcesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListResourcesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListResources',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourcesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListResourcesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_resources(
+        self,
+        request: dataworks_public_20240518_models.ListResourcesRequest,
+    ) -> dataworks_public_20240518_models.ListResourcesResponse:
+        """
+        @summary Queries a list of file resources in DataStudio. You can also specify filter conditions to query specific file resources.
+        
+        @param request: ListResourcesRequest
+        @return: ListResourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_resources_with_options(request, runtime)
+
+    async def list_resources_async(
+        self,
+        request: dataworks_public_20240518_models.ListResourcesRequest,
+    ) -> dataworks_public_20240518_models.ListResourcesResponse:
+        """
+        @summary Queries a list of file resources in DataStudio. You can also specify filter conditions to query specific file resources.
+        
+        @param request: ListResourcesRequest
+        @return: ListResourcesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_resources_with_options_async(request, runtime)
+
+    def list_routes_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListRoutesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListRoutesResponse:
+        """
+        @summary Queries a list of routes of a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListRoutesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListRoutesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRoutes',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListRoutesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListRoutesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_routes_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListRoutesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListRoutesResponse:
+        """
+        @summary Queries a list of routes of a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListRoutesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListRoutesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRoutes',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListRoutesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListRoutesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_routes(
+        self,
+        request: dataworks_public_20240518_models.ListRoutesRequest,
+    ) -> dataworks_public_20240518_models.ListRoutesResponse:
+        """
+        @summary Queries a list of routes of a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListRoutesRequest
+        @return: ListRoutesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_routes_with_options(request, runtime)
+
+    async def list_routes_async(
+        self,
+        request: dataworks_public_20240518_models.ListRoutesRequest,
+    ) -> dataworks_public_20240518_models.ListRoutesResponse:
+        """
+        @summary Queries a list of routes of a network resource.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListRoutesRequest
+        @return: ListRoutesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_routes_with_options_async(request, runtime)
+
+    def list_task_instance_operation_logs_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstanceOperationLogsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskInstanceOperationLogsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskInstanceOperationLogsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTaskInstanceOperationLogs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_task_instance_operation_logs_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstanceOperationLogsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskInstanceOperationLogsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskInstanceOperationLogsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTaskInstanceOperationLogs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_task_instance_operation_logs(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstanceOperationLogsRequest,
+    ) -> dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskInstanceOperationLogsRequest
+        @return: ListTaskInstanceOperationLogsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_task_instance_operation_logs_with_options(request, runtime)
+
+    async def list_task_instance_operation_logs_async(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstanceOperationLogsRequest,
+    ) -> dataworks_public_20240518_models.ListTaskInstanceOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of an instance by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskInstanceOperationLogsRequest
+        @return: ListTaskInstanceOperationLogsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_task_instance_operation_logs_with_options_async(request, runtime)
+
+    def list_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskInstancesResponse:
+        """
+        @summary Queries a list of instances. You can also specify filter conditions to query specific instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource):
+            body['RuntimeResource'] = request.runtime_resource
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            body['TaskIds'] = request.task_ids_shrink
+        if not UtilClient.is_unset(request.task_name):
+            body['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.task_type):
+            body['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.trigger_recurrence):
+            body['TriggerRecurrence'] = request.trigger_recurrence
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        if not UtilClient.is_unset(request.workflow_instance_id):
+            body['WorkflowInstanceId'] = request.workflow_instance_id
+        if not UtilClient.is_unset(request.workflow_instance_type):
+            body['WorkflowInstanceType'] = request.workflow_instance_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskInstancesResponse:
+        """
+        @summary Queries a list of instances. You can also specify filter conditions to query specific instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.bizdate):
+            body['Bizdate'] = request.bizdate
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource):
+            body['RuntimeResource'] = request.runtime_resource
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            body['TaskIds'] = request.task_ids_shrink
+        if not UtilClient.is_unset(request.task_name):
+            body['TaskName'] = request.task_name
+        if not UtilClient.is_unset(request.task_type):
+            body['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.trigger_recurrence):
+            body['TriggerRecurrence'] = request.trigger_recurrence
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        if not UtilClient.is_unset(request.workflow_instance_id):
+            body['WorkflowInstanceId'] = request.workflow_instance_id
+        if not UtilClient.is_unset(request.workflow_instance_type):
+            body['WorkflowInstanceType'] = request.workflow_instance_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_task_instances(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListTaskInstancesResponse:
+        """
+        @summary Queries a list of instances. You can also specify filter conditions to query specific instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListTaskInstancesRequest
+        @return: ListTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_task_instances_with_options(request, runtime)
+
+    async def list_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ListTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListTaskInstancesResponse:
+        """
+        @summary Queries a list of instances. You can also specify filter conditions to query specific instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListTaskInstancesRequest
+        @return: ListTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_task_instances_with_options_async(request, runtime)
+
+    def list_task_operation_logs_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListTaskOperationLogsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskOperationLogsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskOperationLogsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTaskOperationLogs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskOperationLogsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskOperationLogsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_task_operation_logs_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListTaskOperationLogsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTaskOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskOperationLogsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTaskOperationLogsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTaskOperationLogs',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskOperationLogsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTaskOperationLogsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_task_operation_logs(
+        self,
+        request: dataworks_public_20240518_models.ListTaskOperationLogsRequest,
+    ) -> dataworks_public_20240518_models.ListTaskOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskOperationLogsRequest
+        @return: ListTaskOperationLogsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_task_operation_logs_with_options(request, runtime)
+
+    async def list_task_operation_logs_async(
+        self,
+        request: dataworks_public_20240518_models.ListTaskOperationLogsRequest,
+    ) -> dataworks_public_20240518_models.ListTaskOperationLogsResponse:
+        """
+        @summary Queries a list of operation logs of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        You can call this operation to query only the operation logs generated within the previous 31 days.
+        
+        @param request: ListTaskOperationLogsRequest
+        @return: ListTaskOperationLogsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_task_operation_logs_with_options_async(request, runtime)
+
+    def list_tasks_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTasksResponse:
+        """
+        @summary Queries a list of tasks by page. You can also specify filter conditions to query tasks.
+        
+        @param tmp_req: ListTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTasksResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListTasksShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource):
+            body['RuntimeResource'] = request.runtime_resource
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.task_type):
+            body['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.trigger_recurrence):
+            body['TriggerRecurrence'] = request.trigger_recurrence
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTasksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTasksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_tasks_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListTasksResponse:
+        """
+        @summary Queries a list of tasks by page. You can also specify filter conditions to query tasks.
+        
+        @param tmp_req: ListTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListTasksResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListTasksShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_env):
+            body['ProjectEnv'] = request.project_env
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_resource):
+            body['RuntimeResource'] = request.runtime_resource
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.task_type):
+            body['TaskType'] = request.task_type
+        if not UtilClient.is_unset(request.trigger_recurrence):
+            body['TriggerRecurrence'] = request.trigger_recurrence
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTasksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListTasksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_tasks(
+        self,
+        request: dataworks_public_20240518_models.ListTasksRequest,
+    ) -> dataworks_public_20240518_models.ListTasksResponse:
+        """
+        @summary Queries a list of tasks by page. You can also specify filter conditions to query tasks.
+        
+        @param request: ListTasksRequest
+        @return: ListTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_tasks_with_options(request, runtime)
+
+    async def list_tasks_async(
+        self,
+        request: dataworks_public_20240518_models.ListTasksRequest,
+    ) -> dataworks_public_20240518_models.ListTasksResponse:
+        """
+        @summary Queries a list of tasks by page. You can also specify filter conditions to query tasks.
+        
+        @param request: ListTasksRequest
+        @return: ListTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_tasks_with_options_async(request, runtime)
+
+    def list_upstream_task_instances_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of ancestor instances of an instance by page.
+        
+        @param request: ListUpstreamTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListUpstreamTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUpstreamTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_upstream_task_instances_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of ancestor instances of an instance by page.
+        
+        @param request: ListUpstreamTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListUpstreamTaskInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUpstreamTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_upstream_task_instances(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of ancestor instances of an instance by page.
+        
+        @param request: ListUpstreamTaskInstancesRequest
+        @return: ListUpstreamTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_upstream_task_instances_with_options(request, runtime)
+
+    async def list_upstream_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListUpstreamTaskInstancesResponse:
+        """
+        @summary Queries a list of ancestor instances of an instance by page.
+        
+        @param request: ListUpstreamTaskInstancesRequest
+        @return: ListUpstreamTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_upstream_task_instances_with_options_async(request, runtime)
+
+    def list_upstream_tasks_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListUpstreamTasksResponse:
+        """
+        @summary Queries a list of ancestor tasks of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListUpstreamTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListUpstreamTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUpstreamTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTasksResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTasksResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_upstream_tasks_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTasksRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListUpstreamTasksResponse:
+        """
+        @summary Queries a list of ancestor tasks of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListUpstreamTasksRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListUpstreamTasksResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUpstreamTasks',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTasksResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListUpstreamTasksResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_upstream_tasks(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTasksRequest,
+    ) -> dataworks_public_20240518_models.ListUpstreamTasksResponse:
+        """
+        @summary Queries a list of ancestor tasks of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListUpstreamTasksRequest
+        @return: ListUpstreamTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_upstream_tasks_with_options(request, runtime)
+
+    async def list_upstream_tasks_async(
+        self,
+        request: dataworks_public_20240518_models.ListUpstreamTasksRequest,
+    ) -> dataworks_public_20240518_models.ListUpstreamTasksResponse:
+        """
+        @summary Queries a list of ancestor tasks of a task by page.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListUpstreamTasksRequest
+        @return: ListUpstreamTasksResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_upstream_tasks_with_options_async(request, runtime)
+
+    def list_workflow_definitions_with_options(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowDefinitionsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowDefinitionsResponse:
+        """
+        @summary Queries a list of workflows in DataStudio. You can also specify filter conditions to query specific workflows.
+        
+        @param request: ListWorkflowDefinitionsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowDefinitionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflowDefinitions',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowDefinitionsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowDefinitionsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_workflow_definitions_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowDefinitionsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowDefinitionsResponse:
+        """
+        @summary Queries a list of workflows in DataStudio. You can also specify filter conditions to query specific workflows.
+        
+        @param request: ListWorkflowDefinitionsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowDefinitionsResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflowDefinitions',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowDefinitionsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowDefinitionsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_workflow_definitions(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowDefinitionsRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowDefinitionsResponse:
+        """
+        @summary Queries a list of workflows in DataStudio. You can also specify filter conditions to query specific workflows.
+        
+        @param request: ListWorkflowDefinitionsRequest
+        @return: ListWorkflowDefinitionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_workflow_definitions_with_options(request, runtime)
+
+    async def list_workflow_definitions_async(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowDefinitionsRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowDefinitionsResponse:
+        """
+        @summary Queries a list of workflows in DataStudio. You can also specify filter conditions to query specific workflows.
+        
+        @param request: ListWorkflowDefinitionsRequest
+        @return: ListWorkflowDefinitionsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_workflow_definitions_with_options_async(request, runtime)
+
+    def list_workflow_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowInstancesResponse:
+        """
+        @summary Queries a list of workflow instances by page. You can also specify filter conditions to query workflow instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_workflow_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowInstancesResponse:
+        """
+        @summary Queries a list of workflow instances by page. You can also specify filter conditions to query workflow instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.biz_date):
+            body['BizDate'] = request.biz_date
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.workflow_id):
+            body['WorkflowId'] = request.workflow_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_workflow_instances(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowInstancesResponse:
+        """
+        @summary Queries a list of workflow instances by page. You can also specify filter conditions to query workflow instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListWorkflowInstancesRequest
+        @return: ListWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_workflow_instances_with_options(request, runtime)
+
+    async def list_workflow_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowInstancesResponse:
+        """
+        @summary Queries a list of workflow instances by page. You can also specify filter conditions to query workflow instances.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListWorkflowInstancesRequest
+        @return: ListWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_workflow_instances_with_options_async(request, runtime)
+
+    def list_workflows_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListWorkflowsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowsResponse:
+        """
+        @summary Queries a list of workflows by page. You can also specify filter conditions to query workflows.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListWorkflowsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListWorkflowsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflows',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def list_workflows_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ListWorkflowsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ListWorkflowsResponse:
+        """
+        @summary Queries a list of workflows by page. You can also specify filter conditions to query workflows.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ListWorkflowsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ListWorkflowsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ListWorkflowsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.sort_by):
+            body['SortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.trigger_type):
+            body['TriggerType'] = request.trigger_type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ListWorkflows',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ListWorkflowsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def list_workflows(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowsRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowsResponse:
+        """
+        @summary Queries a list of workflows by page. You can also specify filter conditions to query workflows.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListWorkflowsRequest
+        @return: ListWorkflowsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.list_workflows_with_options(request, runtime)
+
+    async def list_workflows_async(
+        self,
+        request: dataworks_public_20240518_models.ListWorkflowsRequest,
+    ) -> dataworks_public_20240518_models.ListWorkflowsResponse:
+        """
+        @summary Queries a list of workflows by page. You can also specify filter conditions to query workflows.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ListWorkflowsRequest
+        @return: ListWorkflowsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.list_workflows_with_options_async(request, runtime)
+
+    def move_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.MoveFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveFunctionResponse:
+        """
+        @summary Moves a user-defined function (UDF) to a path in DataStudio.
+        
+        @param request: MoveFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def move_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.MoveFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveFunctionResponse:
+        """
+        @summary Moves a user-defined function (UDF) to a path in DataStudio.
+        
+        @param request: MoveFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def move_function(
+        self,
+        request: dataworks_public_20240518_models.MoveFunctionRequest,
+    ) -> dataworks_public_20240518_models.MoveFunctionResponse:
+        """
+        @summary Moves a user-defined function (UDF) to a path in DataStudio.
+        
+        @param request: MoveFunctionRequest
+        @return: MoveFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.move_function_with_options(request, runtime)
+
+    async def move_function_async(
+        self,
+        request: dataworks_public_20240518_models.MoveFunctionRequest,
+    ) -> dataworks_public_20240518_models.MoveFunctionResponse:
+        """
+        @summary Moves a user-defined function (UDF) to a path in DataStudio.
+        
+        @param request: MoveFunctionRequest
+        @return: MoveFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.move_function_with_options_async(request, runtime)
+
+    def move_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.MoveNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveNodeResponse:
+        """
+        @summary Moves a node to a path in DataStudio.
+        
+        @param request: MoveNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def move_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.MoveNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveNodeResponse:
+        """
+        @summary Moves a node to a path in DataStudio.
+        
+        @param request: MoveNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def move_node(
+        self,
+        request: dataworks_public_20240518_models.MoveNodeRequest,
+    ) -> dataworks_public_20240518_models.MoveNodeResponse:
+        """
+        @summary Moves a node to a path in DataStudio.
+        
+        @param request: MoveNodeRequest
+        @return: MoveNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.move_node_with_options(request, runtime)
+
+    async def move_node_async(
+        self,
+        request: dataworks_public_20240518_models.MoveNodeRequest,
+    ) -> dataworks_public_20240518_models.MoveNodeResponse:
+        """
+        @summary Moves a node to a path in DataStudio.
+        
+        @param request: MoveNodeRequest
+        @return: MoveNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.move_node_with_options_async(request, runtime)
+
+    def move_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.MoveResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveResourceResponse:
+        """
+        @summary Moves a file resource to a path in DataStudio.
+        
+        @param request: MoveResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def move_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.MoveResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveResourceResponse:
+        """
+        @summary Moves a file resource to a path in DataStudio.
+        
+        @param request: MoveResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def move_resource(
+        self,
+        request: dataworks_public_20240518_models.MoveResourceRequest,
+    ) -> dataworks_public_20240518_models.MoveResourceResponse:
+        """
+        @summary Moves a file resource to a path in DataStudio.
+        
+        @param request: MoveResourceRequest
+        @return: MoveResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.move_resource_with_options(request, runtime)
+
+    async def move_resource_async(
+        self,
+        request: dataworks_public_20240518_models.MoveResourceRequest,
+    ) -> dataworks_public_20240518_models.MoveResourceResponse:
+        """
+        @summary Moves a file resource to a path in DataStudio.
+        
+        @param request: MoveResourceRequest
+        @return: MoveResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.move_resource_with_options_async(request, runtime)
+
+    def move_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.MoveWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveWorkflowDefinitionResponse:
+        """
+        @summary Moves a workflow to a path in DataStudio.
+        
+        @param request: MoveWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def move_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.MoveWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.MoveWorkflowDefinitionResponse:
+        """
+        @summary Moves a workflow to a path in DataStudio.
+        
+        @param request: MoveWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: MoveWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.path):
+            body['Path'] = request.path
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MoveWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.MoveWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def move_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.MoveWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.MoveWorkflowDefinitionResponse:
+        """
+        @summary Moves a workflow to a path in DataStudio.
+        
+        @param request: MoveWorkflowDefinitionRequest
+        @return: MoveWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.move_workflow_definition_with_options(request, runtime)
+
+    async def move_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.MoveWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.MoveWorkflowDefinitionResponse:
+        """
+        @summary Moves a workflow to a path in DataStudio.
+        
+        @param request: MoveWorkflowDefinitionRequest
+        @return: MoveWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.move_workflow_definition_with_options_async(request, runtime)
+
+    def remove_task_instance_dependencies_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.RemoveTaskInstanceDependenciesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse:
+        """
+        @summary Removes multiple upstream dependencies of an instance at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RemoveTaskInstanceDependenciesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RemoveTaskInstanceDependenciesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RemoveTaskInstanceDependenciesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.upstream_task_instance_ids):
+            request.upstream_task_instance_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.upstream_task_instance_ids, 'UpstreamTaskInstanceIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.upstream_task_instance_ids_shrink):
+            body['UpstreamTaskInstanceIds'] = request.upstream_task_instance_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RemoveTaskInstanceDependencies',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def remove_task_instance_dependencies_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.RemoveTaskInstanceDependenciesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse:
+        """
+        @summary Removes multiple upstream dependencies of an instance at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RemoveTaskInstanceDependenciesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RemoveTaskInstanceDependenciesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RemoveTaskInstanceDependenciesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.upstream_task_instance_ids):
+            request.upstream_task_instance_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.upstream_task_instance_ids, 'UpstreamTaskInstanceIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.upstream_task_instance_ids_shrink):
+            body['UpstreamTaskInstanceIds'] = request.upstream_task_instance_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RemoveTaskInstanceDependencies',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def remove_task_instance_dependencies(
+        self,
+        request: dataworks_public_20240518_models.RemoveTaskInstanceDependenciesRequest,
+    ) -> dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse:
+        """
+        @summary Removes multiple upstream dependencies of an instance at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RemoveTaskInstanceDependenciesRequest
+        @return: RemoveTaskInstanceDependenciesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.remove_task_instance_dependencies_with_options(request, runtime)
+
+    async def remove_task_instance_dependencies_async(
+        self,
+        request: dataworks_public_20240518_models.RemoveTaskInstanceDependenciesRequest,
+    ) -> dataworks_public_20240518_models.RemoveTaskInstanceDependenciesResponse:
+        """
+        @summary Removes multiple upstream dependencies of an instance at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RemoveTaskInstanceDependenciesRequest
+        @return: RemoveTaskInstanceDependenciesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.remove_task_instance_dependencies_with_options_async(request, runtime)
+
+    def rename_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.RenameFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameFunctionResponse:
+        """
+        @summary Renames a user-defined function (UDF) in DataStudio.
+        
+        @param request: RenameFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def rename_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.RenameFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameFunctionResponse:
+        """
+        @summary Renames a user-defined function (UDF) in DataStudio.
+        
+        @param request: RenameFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def rename_function(
+        self,
+        request: dataworks_public_20240518_models.RenameFunctionRequest,
+    ) -> dataworks_public_20240518_models.RenameFunctionResponse:
+        """
+        @summary Renames a user-defined function (UDF) in DataStudio.
+        
+        @param request: RenameFunctionRequest
+        @return: RenameFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rename_function_with_options(request, runtime)
+
+    async def rename_function_async(
+        self,
+        request: dataworks_public_20240518_models.RenameFunctionRequest,
+    ) -> dataworks_public_20240518_models.RenameFunctionResponse:
+        """
+        @summary Renames a user-defined function (UDF) in DataStudio.
+        
+        @param request: RenameFunctionRequest
+        @return: RenameFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.rename_function_with_options_async(request, runtime)
+
+    def rename_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.RenameNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameNodeResponse:
+        """
+        @summary Renames a node in DataStudio.
+        
+        @param request: RenameNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def rename_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.RenameNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameNodeResponse:
+        """
+        @summary Renames a node in DataStudio.
+        
+        @param request: RenameNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def rename_node(
+        self,
+        request: dataworks_public_20240518_models.RenameNodeRequest,
+    ) -> dataworks_public_20240518_models.RenameNodeResponse:
+        """
+        @summary Renames a node in DataStudio.
+        
+        @param request: RenameNodeRequest
+        @return: RenameNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rename_node_with_options(request, runtime)
+
+    async def rename_node_async(
+        self,
+        request: dataworks_public_20240518_models.RenameNodeRequest,
+    ) -> dataworks_public_20240518_models.RenameNodeResponse:
+        """
+        @summary Renames a node in DataStudio.
+        
+        @param request: RenameNodeRequest
+        @return: RenameNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.rename_node_with_options_async(request, runtime)
+
+    def rename_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.RenameResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameResourceResponse:
+        """
+        @summary Renames a file resource in DataStudio.
+        
+        @param request: RenameResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def rename_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.RenameResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameResourceResponse:
+        """
+        @summary Renames a file resource in DataStudio.
+        
+        @param request: RenameResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RenameResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def rename_resource(
+        self,
+        request: dataworks_public_20240518_models.RenameResourceRequest,
+    ) -> dataworks_public_20240518_models.RenameResourceResponse:
+        """
+        @summary Renames a file resource in DataStudio.
+        
+        @param request: RenameResourceRequest
+        @return: RenameResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rename_resource_with_options(request, runtime)
+
+    async def rename_resource_async(
+        self,
+        request: dataworks_public_20240518_models.RenameResourceRequest,
+    ) -> dataworks_public_20240518_models.RenameResourceResponse:
+        """
+        @summary Renames a file resource in DataStudio.
+        
+        @param request: RenameResourceRequest
+        @return: RenameResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.rename_resource_with_options_async(request, runtime)
+
+    def rename_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.RenameWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameWorkflowDefinitionResponse:
+        """
+        @summary Renames a workflow in DataStudio.
+        
+        @param request: RenameWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenameWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def rename_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.RenameWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RenameWorkflowDefinitionResponse:
+        """
+        @summary Renames a workflow in DataStudio.
+        
+        @param request: RenameWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RenameWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenameWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RenameWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def rename_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.RenameWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.RenameWorkflowDefinitionResponse:
+        """
+        @summary Renames a workflow in DataStudio.
+        
+        @param request: RenameWorkflowDefinitionRequest
+        @return: RenameWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rename_workflow_definition_with_options(request, runtime)
+
+    async def rename_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.RenameWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.RenameWorkflowDefinitionResponse:
+        """
+        @summary Renames a workflow in DataStudio.
+        
+        @param request: RenameWorkflowDefinitionRequest
+        @return: RenameWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.rename_workflow_definition_with_options_async(request, runtime)
+
+    def rerun_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.RerunTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RerunTaskInstancesResponse:
+        """
+        @summary Reruns multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RerunTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RerunTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RerunTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RerunTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RerunTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RerunTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def rerun_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.RerunTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RerunTaskInstancesResponse:
+        """
+        @summary Reruns multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RerunTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RerunTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RerunTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RerunTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RerunTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RerunTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def rerun_task_instances(
+        self,
+        request: dataworks_public_20240518_models.RerunTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.RerunTaskInstancesResponse:
+        """
+        @summary Reruns multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RerunTaskInstancesRequest
+        @return: RerunTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.rerun_task_instances_with_options(request, runtime)
+
+    async def rerun_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.RerunTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.RerunTaskInstancesResponse:
+        """
+        @summary Reruns multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RerunTaskInstancesRequest
+        @return: RerunTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.rerun_task_instances_with_options_async(request, runtime)
+
+    def resume_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.ResumeTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ResumeTaskInstancesResponse:
+        """
+        @summary Resumes multiple suspended instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ResumeTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ResumeTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ResumeTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ResumeTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ResumeTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ResumeTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def resume_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.ResumeTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.ResumeTaskInstancesResponse:
+        """
+        @summary Resumes multiple suspended instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: ResumeTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: ResumeTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.ResumeTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ResumeTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ResumeTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.ResumeTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def resume_task_instances(
+        self,
+        request: dataworks_public_20240518_models.ResumeTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ResumeTaskInstancesResponse:
+        """
+        @summary Resumes multiple suspended instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ResumeTaskInstancesRequest
+        @return: ResumeTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.resume_task_instances_with_options(request, runtime)
+
+    async def resume_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.ResumeTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.ResumeTaskInstancesResponse:
+        """
+        @summary Resumes multiple suspended instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: ResumeTaskInstancesRequest
+        @return: ResumeTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.resume_task_instances_with_options_async(request, runtime)
+
+    def revoke_member_project_roles_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.RevokeMemberProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RevokeMemberProjectRolesResponse:
+        """
+        @summary Revokes roles that are assigned to a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RevokeMemberProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RevokeMemberProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RevokeMemberProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RevokeMemberProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RevokeMemberProjectRolesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RevokeMemberProjectRolesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def revoke_member_project_roles_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.RevokeMemberProjectRolesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.RevokeMemberProjectRolesResponse:
+        """
+        @summary Revokes roles that are assigned to a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: RevokeMemberProjectRolesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: RevokeMemberProjectRolesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.RevokeMemberProjectRolesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.role_codes):
+            request.role_codes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.role_codes, 'RoleCodes', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.role_codes_shrink):
+            body['RoleCodes'] = request.role_codes_shrink
+        if not UtilClient.is_unset(request.user_id):
+            body['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RevokeMemberProjectRoles',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RevokeMemberProjectRolesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.RevokeMemberProjectRolesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def revoke_member_project_roles(
+        self,
+        request: dataworks_public_20240518_models.RevokeMemberProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.RevokeMemberProjectRolesResponse:
+        """
+        @summary Revokes roles that are assigned to a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RevokeMemberProjectRolesRequest
+        @return: RevokeMemberProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.revoke_member_project_roles_with_options(request, runtime)
+
+    async def revoke_member_project_roles_async(
+        self,
+        request: dataworks_public_20240518_models.RevokeMemberProjectRolesRequest,
+    ) -> dataworks_public_20240518_models.RevokeMemberProjectRolesResponse:
+        """
+        @summary Revokes roles that are assigned to a member in a workspace.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: RevokeMemberProjectRolesRequest
+        @return: RevokeMemberProjectRolesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.revoke_member_project_roles_with_options_async(request, runtime)
+
+    def set_success_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.SetSuccessTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.SetSuccessTaskInstancesResponse:
+        """
+        @summary Sets the statuses of multiple instances to successful at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: SetSuccessTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: SetSuccessTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.SetSuccessTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetSuccessTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SetSuccessTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SetSuccessTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def set_success_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.SetSuccessTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.SetSuccessTaskInstancesResponse:
+        """
+        @summary Sets the statuses of multiple instances to successful at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: SetSuccessTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: SetSuccessTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.SetSuccessTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetSuccessTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SetSuccessTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SetSuccessTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def set_success_task_instances(
+        self,
+        request: dataworks_public_20240518_models.SetSuccessTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.SetSuccessTaskInstancesResponse:
+        """
+        @summary Sets the statuses of multiple instances to successful at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: SetSuccessTaskInstancesRequest
+        @return: SetSuccessTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.set_success_task_instances_with_options(request, runtime)
+
+    async def set_success_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.SetSuccessTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.SetSuccessTaskInstancesResponse:
+        """
+        @summary Sets the statuses of multiple instances to successful at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: SetSuccessTaskInstancesRequest
+        @return: SetSuccessTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.set_success_task_instances_with_options_async(request, runtime)
+
+    def start_dijob_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.StartDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StartDIJobResponse:
+        """
+        @summary Starts a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StartDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StartDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StartDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.realtime_start_settings):
+            request.realtime_start_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.realtime_start_settings, 'RealtimeStartSettings', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def start_dijob_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.StartDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StartDIJobResponse:
+        """
+        @summary Starts a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StartDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StartDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StartDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.realtime_start_settings):
+            request.realtime_start_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.realtime_start_settings, 'RealtimeStartSettings', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def start_dijob(
+        self,
+        request: dataworks_public_20240518_models.StartDIJobRequest,
+    ) -> dataworks_public_20240518_models.StartDIJobResponse:
+        """
+        @summary Starts a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StartDIJobRequest
+        @return: StartDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.start_dijob_with_options(request, runtime)
+
+    async def start_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.StartDIJobRequest,
+    ) -> dataworks_public_20240518_models.StartDIJobResponse:
+        """
+        @summary Starts a new-version synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StartDIJobRequest
+        @return: StartDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.start_dijob_with_options_async(request, runtime)
+
+    def start_workflow_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.StartWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StartWorkflowInstancesResponse:
+        """
+        @summary Starts multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StartWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StartWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StartWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StartWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartWorkflowInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartWorkflowInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def start_workflow_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.StartWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StartWorkflowInstancesResponse:
+        """
+        @summary Starts multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StartWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StartWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StartWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StartWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartWorkflowInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StartWorkflowInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def start_workflow_instances(
+        self,
+        request: dataworks_public_20240518_models.StartWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.StartWorkflowInstancesResponse:
+        """
+        @summary Starts multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StartWorkflowInstancesRequest
+        @return: StartWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.start_workflow_instances_with_options(request, runtime)
+
+    async def start_workflow_instances_async(
+        self,
+        request: dataworks_public_20240518_models.StartWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.StartWorkflowInstancesResponse:
+        """
+        @summary Starts multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StartWorkflowInstancesRequest
+        @return: StartWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.start_workflow_instances_with_options_async(request, runtime)
+
+    def stop_dijob_with_options(
+        self,
+        request: dataworks_public_20240518_models.StopDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopDIJobResponse:
+        """
+        @summary Stops a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def stop_dijob_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.StopDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopDIJobResponse:
+        """
+        @summary Stops a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopDIJobResponse
+        """
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def stop_dijob(
+        self,
+        request: dataworks_public_20240518_models.StopDIJobRequest,
+    ) -> dataworks_public_20240518_models.StopDIJobResponse:
+        """
+        @summary Stops a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopDIJobRequest
+        @return: StopDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.stop_dijob_with_options(request, runtime)
+
+    async def stop_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.StopDIJobRequest,
+    ) -> dataworks_public_20240518_models.StopDIJobResponse:
+        """
+        @summary Stops a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopDIJobRequest
+        @return: StopDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.stop_dijob_with_options_async(request, runtime)
+
+    def stop_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.StopTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopTaskInstancesResponse:
+        """
+        @summary Stops multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StopTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StopTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def stop_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.StopTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopTaskInstancesResponse:
+        """
+        @summary Stops multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StopTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StopTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def stop_task_instances(
+        self,
+        request: dataworks_public_20240518_models.StopTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.StopTaskInstancesResponse:
+        """
+        @summary Stops multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopTaskInstancesRequest
+        @return: StopTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.stop_task_instances_with_options(request, runtime)
+
+    async def stop_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.StopTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.StopTaskInstancesResponse:
+        """
+        @summary Stops multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopTaskInstancesRequest
+        @return: StopTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.stop_task_instances_with_options_async(request, runtime)
+
+    def stop_workflow_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.StopWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopWorkflowInstancesResponse:
+        """
+        @summary Stops multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StopWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StopWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopWorkflowInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopWorkflowInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def stop_workflow_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.StopWorkflowInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.StopWorkflowInstancesResponse:
+        """
+        @summary Stops multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: StopWorkflowInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: StopWorkflowInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.StopWorkflowInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='StopWorkflowInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopWorkflowInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.StopWorkflowInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def stop_workflow_instances(
+        self,
+        request: dataworks_public_20240518_models.StopWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.StopWorkflowInstancesResponse:
+        """
+        @summary Stops multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopWorkflowInstancesRequest
+        @return: StopWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.stop_workflow_instances_with_options(request, runtime)
+
+    async def stop_workflow_instances_async(
+        self,
+        request: dataworks_public_20240518_models.StopWorkflowInstancesRequest,
+    ) -> dataworks_public_20240518_models.StopWorkflowInstancesResponse:
+        """
+        @summary Stops multiple workflow instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: StopWorkflowInstancesRequest
+        @return: StopWorkflowInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.stop_workflow_instances_with_options_async(request, runtime)
+
+    def suspend_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.SuspendTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.SuspendTaskInstancesResponse:
+        """
+        @summary Suspends multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: SuspendTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: SuspendTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.SuspendTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SuspendTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SuspendTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SuspendTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def suspend_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.SuspendTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.SuspendTaskInstancesResponse:
+        """
+        @summary Suspends multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: SuspendTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: SuspendTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.SuspendTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.ids_shrink):
+            body['Ids'] = request.ids_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SuspendTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SuspendTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.SuspendTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def suspend_task_instances(
+        self,
+        request: dataworks_public_20240518_models.SuspendTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.SuspendTaskInstancesResponse:
+        """
+        @summary Suspends multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: SuspendTaskInstancesRequest
+        @return: SuspendTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.suspend_task_instances_with_options(request, runtime)
+
+    async def suspend_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.SuspendTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.SuspendTaskInstancesResponse:
+        """
+        @summary Suspends multiple instances at a time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: SuspendTaskInstancesRequest
+        @return: SuspendTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.suspend_task_instances_with_options_async(request, runtime)
+
+    def tag_data_assets_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.TagDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TagDataAssetsResponse:
+        """
+        @summary Adds tags to data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: TagDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TagDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.TagDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.auto_trace_enabled):
+            query['AutoTraceEnabled'] = request.auto_trace_enabled
+        if not UtilClient.is_unset(request.data_asset_ids_shrink):
+            query['DataAssetIds'] = request.data_asset_ids_shrink
+        if not UtilClient.is_unset(request.data_asset_type):
+            query['DataAssetType'] = request.data_asset_type
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TagDataAssetsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TagDataAssetsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def tag_data_assets_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.TagDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TagDataAssetsResponse:
+        """
+        @summary Adds tags to data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: TagDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TagDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.TagDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.auto_trace_enabled):
+            query['AutoTraceEnabled'] = request.auto_trace_enabled
+        if not UtilClient.is_unset(request.data_asset_ids_shrink):
+            query['DataAssetIds'] = request.data_asset_ids_shrink
+        if not UtilClient.is_unset(request.data_asset_type):
+            query['DataAssetType'] = request.data_asset_type
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TagDataAssetsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TagDataAssetsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def tag_data_assets(
+        self,
+        request: dataworks_public_20240518_models.TagDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.TagDataAssetsResponse:
+        """
+        @summary Adds tags to data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: TagDataAssetsRequest
+        @return: TagDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.tag_data_assets_with_options(request, runtime)
+
+    async def tag_data_assets_async(
+        self,
+        request: dataworks_public_20240518_models.TagDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.TagDataAssetsResponse:
+        """
+        @summary Adds tags to data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: TagDataAssetsRequest
+        @return: TagDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.tag_data_assets_with_options_async(request, runtime)
+
+    def test_data_source_connectivity_with_options(
+        self,
+        request: dataworks_public_20240518_models.TestDataSourceConnectivityRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TestDataSourceConnectivityResponse:
+        """
+        @summary 测试数据源在资源组上的连通性
+        
+        @param request: TestDataSourceConnectivityRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TestDataSourceConnectivityResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TestDataSourceConnectivity',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TestDataSourceConnectivityResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TestDataSourceConnectivityResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def test_data_source_connectivity_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.TestDataSourceConnectivityRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TestDataSourceConnectivityResponse:
+        """
+        @summary 测试数据源在资源组上的连通性
+        
+        @param request: TestDataSourceConnectivityRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TestDataSourceConnectivityResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_source_id):
+            query['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TestDataSourceConnectivity',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TestDataSourceConnectivityResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TestDataSourceConnectivityResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def test_data_source_connectivity(
+        self,
+        request: dataworks_public_20240518_models.TestDataSourceConnectivityRequest,
+    ) -> dataworks_public_20240518_models.TestDataSourceConnectivityResponse:
+        """
+        @summary 测试数据源在资源组上的连通性
+        
+        @param request: TestDataSourceConnectivityRequest
+        @return: TestDataSourceConnectivityResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.test_data_source_connectivity_with_options(request, runtime)
+
+    async def test_data_source_connectivity_async(
+        self,
+        request: dataworks_public_20240518_models.TestDataSourceConnectivityRequest,
+    ) -> dataworks_public_20240518_models.TestDataSourceConnectivityResponse:
+        """
+        @summary 测试数据源在资源组上的连通性
+        
+        @param request: TestDataSourceConnectivityRequest
+        @return: TestDataSourceConnectivityResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.test_data_source_connectivity_with_options_async(request, runtime)
+
+    def trigger_scheduler_task_instance_with_options(
+        self,
+        request: dataworks_public_20240518_models.TriggerSchedulerTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse:
+        """
+        @summary Triggers a task to run by using an HTTP Trigger node at a specified time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: TriggerSchedulerTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TriggerSchedulerTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        body = {}
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.trigger_time):
+            body['TriggerTime'] = request.trigger_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='TriggerSchedulerTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def trigger_scheduler_task_instance_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.TriggerSchedulerTaskInstanceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse:
+        """
+        @summary Triggers a task to run by using an HTTP Trigger node at a specified time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: TriggerSchedulerTaskInstanceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: TriggerSchedulerTaskInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        body = {}
+        if not UtilClient.is_unset(request.task_id):
+            body['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.trigger_time):
+            body['TriggerTime'] = request.trigger_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='TriggerSchedulerTaskInstance',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def trigger_scheduler_task_instance(
+        self,
+        request: dataworks_public_20240518_models.TriggerSchedulerTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse:
+        """
+        @summary Triggers a task to run by using an HTTP Trigger node at a specified time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: TriggerSchedulerTaskInstanceRequest
+        @return: TriggerSchedulerTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.trigger_scheduler_task_instance_with_options(request, runtime)
+
+    async def trigger_scheduler_task_instance_async(
+        self,
+        request: dataworks_public_20240518_models.TriggerSchedulerTaskInstanceRequest,
+    ) -> dataworks_public_20240518_models.TriggerSchedulerTaskInstanceResponse:
+        """
+        @summary Triggers a task to run by using an HTTP Trigger node at a specified time.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: TriggerSchedulerTaskInstanceRequest
+        @return: TriggerSchedulerTaskInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.trigger_scheduler_task_instance_with_options_async(request, runtime)
+
+    def un_tag_data_assets_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UnTagDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UnTagDataAssetsResponse:
+        """
+        @summary Removes tags from data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: UnTagDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UnTagDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UnTagDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.data_asset_ids_shrink):
+            query['DataAssetIds'] = request.data_asset_ids_shrink
+        if not UtilClient.is_unset(request.data_asset_type):
+            query['DataAssetType'] = request.data_asset_type
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnTagDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UnTagDataAssetsResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UnTagDataAssetsResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def un_tag_data_assets_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UnTagDataAssetsRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UnTagDataAssetsResponse:
+        """
+        @summary Removes tags from data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: UnTagDataAssetsRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UnTagDataAssetsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UnTagDataAssetsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_asset_ids):
+            request.data_asset_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_asset_ids, 'DataAssetIds', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.data_asset_ids_shrink):
+            query['DataAssetIds'] = request.data_asset_ids_shrink
+        if not UtilClient.is_unset(request.data_asset_type):
+            query['DataAssetType'] = request.data_asset_type
+        if not UtilClient.is_unset(request.env_type):
+            query['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnTagDataAssets',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UnTagDataAssetsResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UnTagDataAssetsResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def un_tag_data_assets(
+        self,
+        request: dataworks_public_20240518_models.UnTagDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.UnTagDataAssetsResponse:
+        """
+        @summary Removes tags from data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: UnTagDataAssetsRequest
+        @return: UnTagDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.un_tag_data_assets_with_options(request, runtime)
+
+    async def un_tag_data_assets_async(
+        self,
+        request: dataworks_public_20240518_models.UnTagDataAssetsRequest,
+    ) -> dataworks_public_20240518_models.UnTagDataAssetsResponse:
+        """
+        @summary Removes tags from data assets.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: UnTagDataAssetsRequest
+        @return: UnTagDataAssetsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.un_tag_data_assets_with_options_async(request, runtime)
+
+    def update_alert_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateAlertRuleResponse:
+        """
+        @summary Updates a custom alert monitoring rule.
+        
+        @param tmp_req: UpdateAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateAlertRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateAlertRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification):
+            request.notification_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification, 'Notification', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_condition):
+            request.trigger_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_condition, 'TriggerCondition', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.enabled):
+            query['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.notification_shrink):
+            query['Notification'] = request.notification_shrink
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.trigger_condition_shrink):
+            query['TriggerCondition'] = request.trigger_condition_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateAlertRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateAlertRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_alert_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateAlertRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateAlertRuleResponse:
+        """
+        @summary Updates a custom alert monitoring rule.
+        
+        @param tmp_req: UpdateAlertRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateAlertRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateAlertRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification):
+            request.notification_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification, 'Notification', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_condition):
+            request.trigger_condition_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_condition, 'TriggerCondition', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.enabled):
+            query['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.notification_shrink):
+            query['Notification'] = request.notification_shrink
+        if not UtilClient.is_unset(request.owner):
+            query['Owner'] = request.owner
+        if not UtilClient.is_unset(request.trigger_condition_shrink):
+            query['TriggerCondition'] = request.trigger_condition_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAlertRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateAlertRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateAlertRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_alert_rule(
+        self,
+        request: dataworks_public_20240518_models.UpdateAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateAlertRuleResponse:
+        """
+        @summary Updates a custom alert monitoring rule.
+        
+        @param request: UpdateAlertRuleRequest
+        @return: UpdateAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_alert_rule_with_options(request, runtime)
+
+    async def update_alert_rule_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateAlertRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateAlertRuleResponse:
+        """
+        @summary Updates a custom alert monitoring rule.
+        
+        @param request: UpdateAlertRuleRequest
+        @return: UpdateAlertRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_alert_rule_with_options_async(request, runtime)
+
+    def update_dialarm_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDIAlarmRuleResponse:
+        """
+        @summary Updates an alert rule configured for a synchronization task.
+        
+        @param tmp_req: UpdateDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDIAlarmRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification_settings):
+            request.notification_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification_settings, 'NotificationSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_conditions):
+            request.trigger_conditions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_conditions, 'TriggerConditions', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIAlarmRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIAlarmRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_dialarm_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDIAlarmRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDIAlarmRuleResponse:
+        """
+        @summary Updates an alert rule configured for a synchronization task.
+        
+        @param tmp_req: UpdateDIAlarmRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDIAlarmRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDIAlarmRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notification_settings):
+            request.notification_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notification_settings, 'NotificationSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger_conditions):
+            request.trigger_conditions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger_conditions, 'TriggerConditions', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDIAlarmRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIAlarmRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIAlarmRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_dialarm_rule(
+        self,
+        request: dataworks_public_20240518_models.UpdateDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateDIAlarmRuleResponse:
+        """
+        @summary Updates an alert rule configured for a synchronization task.
+        
+        @param request: UpdateDIAlarmRuleRequest
+        @return: UpdateDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_dialarm_rule_with_options(request, runtime)
+
+    async def update_dialarm_rule_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDIAlarmRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateDIAlarmRuleResponse:
+        """
+        @summary Updates an alert rule configured for a synchronization task.
+        
+        @param request: UpdateDIAlarmRuleRequest
+        @return: UpdateDIAlarmRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_dialarm_rule_with_options_async(request, runtime)
+
+    def update_dijob_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDIJobResponse:
+        """
+        @summary Updates a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.job_settings):
+            request.job_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_settings, 'JobSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_settings):
+            request.resource_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_settings, 'ResourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.table_mappings):
+            request.table_mappings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.table_mappings, 'TableMappings', 'json')
+        if not UtilClient.is_unset(tmp_req.transformation_rules):
+            request.transformation_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transformation_rules, 'TransformationRules', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIJobResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIJobResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_dijob_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDIJobRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDIJobResponse:
+        """
+        @summary Updates a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateDIJobRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDIJobResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDIJobShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.job_settings):
+            request.job_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.job_settings, 'JobSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.resource_settings):
+            request.resource_settings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_settings, 'ResourceSettings', 'json')
+        if not UtilClient.is_unset(tmp_req.table_mappings):
+            request.table_mappings_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.table_mappings, 'TableMappings', 'json')
+        if not UtilClient.is_unset(tmp_req.transformation_rules):
+            request.transformation_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.transformation_rules, 'TransformationRules', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDIJob',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIJobResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDIJobResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_dijob(
+        self,
+        request: dataworks_public_20240518_models.UpdateDIJobRequest,
+    ) -> dataworks_public_20240518_models.UpdateDIJobResponse:
+        """
+        @summary Updates a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateDIJobRequest
+        @return: UpdateDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_dijob_with_options(request, runtime)
+
+    async def update_dijob_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDIJobRequest,
+    ) -> dataworks_public_20240518_models.UpdateDIJobResponse:
+        """
+        @summary Updates a synchronization task.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateDIJobRequest
+        @return: UpdateDIJobResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_dijob_with_options_async(request, runtime)
+
+    def update_data_asset_tag_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataAssetTagResponse:
+        """
+        @summary Updates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: UpdateDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.managers):
+            request.managers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.managers, 'Managers', 'json')
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.managers_shrink):
+            query['Managers'] = request.managers_shrink
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataAssetTagResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataAssetTagResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_data_asset_tag_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataAssetTagRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataAssetTagResponse:
+        """
+        @summary Updates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param tmp_req: UpdateDataAssetTagRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataAssetTagResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataAssetTagShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.managers):
+            request.managers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.managers, 'Managers', 'json')
+        if not UtilClient.is_unset(tmp_req.values):
+            request.values_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.values, 'Values', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.managers_shrink):
+            query['Managers'] = request.managers_shrink
+        if not UtilClient.is_unset(request.values_shrink):
+            query['Values'] = request.values_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataAssetTag',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataAssetTagResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataAssetTagResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_data_asset_tag(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataAssetTagResponse:
+        """
+        @summary Updates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: UpdateDataAssetTagRequest
+        @return: UpdateDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_asset_tag_with_options(request, runtime)
+
+    async def update_data_asset_tag_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataAssetTagRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataAssetTagResponse:
+        """
+        @summary Updates a tag.
+        
+        @description This API operation is available only for DataWorks Enterprise Edition or a more advanced edition.
+        
+        @param request: UpdateDataAssetTagRequest
+        @return: UpdateDataAssetTagResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_data_asset_tag_with_options_async(request, runtime)
+
+    def update_data_quality_evaluation_task_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse:
+        """
+        @summary Updates a monitor.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param tmp_req: UpdateDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rules):
+            request.data_quality_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rules, 'DataQualityRules', 'json')
+        if not UtilClient.is_unset(tmp_req.hooks):
+            request.hooks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hooks, 'Hooks', 'json')
+        if not UtilClient.is_unset(tmp_req.notifications):
+            request.notifications_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notifications, 'Notifications', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_rules_shrink):
+            body['DataQualityRules'] = request.data_quality_rules_shrink
+        if not UtilClient.is_unset(request.data_source_id):
+            body['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.hooks_shrink):
+            body['Hooks'] = request.hooks_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.notifications_shrink):
+            body['Notifications'] = request.notifications_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_conf):
+            body['RuntimeConf'] = request.runtime_conf
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_data_quality_evaluation_task_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse:
+        """
+        @summary Updates a monitor.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param tmp_req: UpdateDataQualityEvaluationTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityEvaluationTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_quality_rules):
+            request.data_quality_rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_quality_rules, 'DataQualityRules', 'json')
+        if not UtilClient.is_unset(tmp_req.hooks):
+            request.hooks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.hooks, 'Hooks', 'json')
+        if not UtilClient.is_unset(tmp_req.notifications):
+            request.notifications_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notifications, 'Notifications', 'json')
+        if not UtilClient.is_unset(tmp_req.target):
+            request.target_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.target, 'Target', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.data_quality_rules_shrink):
+            body['DataQualityRules'] = request.data_quality_rules_shrink
+        if not UtilClient.is_unset(request.data_source_id):
+            body['DataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.hooks_shrink):
+            body['Hooks'] = request.hooks_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.notifications_shrink):
+            body['Notifications'] = request.notifications_shrink
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.runtime_conf):
+            body['RuntimeConf'] = request.runtime_conf
+        if not UtilClient.is_unset(request.target_shrink):
+            body['Target'] = request.target_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityEvaluationTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_data_quality_evaluation_task(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse:
+        """
+        @summary Updates a monitor.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param request: UpdateDataQualityEvaluationTaskRequest
+        @return: UpdateDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_quality_evaluation_task_with_options(request, runtime)
+
+    async def update_data_quality_evaluation_task_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityEvaluationTaskResponse:
+        """
+        @summary Updates a monitor.
+        
+        @description This API operation is supported in all DataWorks editions.
+        
+        @param request: UpdateDataQualityEvaluationTaskRequest
+        @return: UpdateDataQualityEvaluationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_data_quality_evaluation_task_with_options_async(request, runtime)
+
+    def update_data_quality_rule_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleResponse:
+        """
+        @summary Updates a data quality monitoring rule.
+        
+        @param tmp_req: UpdateDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.error_handlers):
+            request.error_handlers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.error_handlers, 'ErrorHandlers', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.enabled):
+            body['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.error_handlers_shrink):
+            body['ErrorHandlers'] = request.error_handlers_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.severity):
+            body['Severity'] = request.severity
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_data_quality_rule_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityRuleRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleResponse:
+        """
+        @summary Updates a data quality monitoring rule.
+        
+        @param tmp_req: UpdateDataQualityRuleRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityRuleResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityRuleShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.error_handlers):
+            request.error_handlers_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.error_handlers, 'ErrorHandlers', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.enabled):
+            body['Enabled'] = request.enabled
+        if not UtilClient.is_unset(request.error_handlers_shrink):
+            body['ErrorHandlers'] = request.error_handlers_shrink
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        if not UtilClient.is_unset(request.severity):
+            body['Severity'] = request.severity
+        if not UtilClient.is_unset(request.template_code):
+            body['TemplateCode'] = request.template_code
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityRule',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_data_quality_rule(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleResponse:
+        """
+        @summary Updates a data quality monitoring rule.
+        
+        @param request: UpdateDataQualityRuleRequest
+        @return: UpdateDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_quality_rule_with_options(request, runtime)
+
+    async def update_data_quality_rule_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityRuleRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleResponse:
+        """
+        @summary Updates a data quality monitoring rule.
+        
+        @param request: UpdateDataQualityRuleRequest
+        @return: UpdateDataQualityRuleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_data_quality_rule_with_options_async(request, runtime)
+
+    def update_data_quality_rule_template_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse:
+        """
+        @summary Updates a data quality monitoring rule template.
+        
+        @param tmp_req: UpdateDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityRuleTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.code):
+            body['Code'] = request.code
+        if not UtilClient.is_unset(request.directory_path):
+            body['DirectoryPath'] = request.directory_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_data_quality_rule_template_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateDataQualityRuleTemplateRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse:
+        """
+        @summary Updates a data quality monitoring rule template.
+        
+        @param tmp_req: UpdateDataQualityRuleTemplateRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataQualityRuleTemplateResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateDataQualityRuleTemplateShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.checking_config):
+            request.checking_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.checking_config, 'CheckingConfig', 'json')
+        if not UtilClient.is_unset(tmp_req.sampling_config):
+            request.sampling_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.sampling_config, 'SamplingConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        body = {}
+        if not UtilClient.is_unset(request.checking_config_shrink):
+            body['CheckingConfig'] = request.checking_config_shrink
+        if not UtilClient.is_unset(request.code):
+            body['Code'] = request.code
+        if not UtilClient.is_unset(request.directory_path):
+            body['DirectoryPath'] = request.directory_path
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.sampling_config_shrink):
+            body['SamplingConfig'] = request.sampling_config_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataQualityRuleTemplate',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_data_quality_rule_template(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse:
+        """
+        @summary Updates a data quality monitoring rule template.
+        
+        @param request: UpdateDataQualityRuleTemplateRequest
+        @return: UpdateDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_quality_rule_template_with_options(request, runtime)
+
+    async def update_data_quality_rule_template_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataQualityRuleTemplateRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataQualityRuleTemplateResponse:
+        """
+        @summary Updates a data quality monitoring rule template.
+        
+        @param request: UpdateDataQualityRuleTemplateRequest
+        @return: UpdateDataQualityRuleTemplateResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_data_quality_rule_template_with_options_async(request, runtime)
+
+    def update_data_source_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataSourceResponse:
+        """
+        @summary Modifies a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: UpdateDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_properties):
+            query['ConnectionProperties'] = request.connection_properties
+        if not UtilClient.is_unset(request.connection_properties_mode):
+            query['ConnectionPropertiesMode'] = request.connection_properties_mode
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataSourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataSourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_data_source_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataSourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateDataSourceResponse:
+        """
+        @summary Modifies a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: UpdateDataSourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateDataSourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_properties):
+            query['ConnectionProperties'] = request.connection_properties
+        if not UtilClient.is_unset(request.connection_properties_mode):
+            query['ConnectionPropertiesMode'] = request.connection_properties_mode
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateDataSource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataSourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateDataSourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_data_source(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataSourceRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataSourceResponse:
+        """
+        @summary Modifies a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: UpdateDataSourceRequest
+        @return: UpdateDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_data_source_with_options(request, runtime)
+
+    async def update_data_source_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateDataSourceRequest,
+    ) -> dataworks_public_20240518_models.UpdateDataSourceResponse:
+        """
+        @summary Modifies a data source by ID.
+        
+        @description 1.  This API operation is available for all DataWorks editions.
+        2.  You can call this operation only if you are assigned one of the following roles in DataWorks:
+        Tenant Owner, Tenant Administrator, Workspace Administrator, Workspace Owner, and O\\&M
+        
+        @param request: UpdateDataSourceRequest
+        @return: UpdateDataSourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_data_source_with_options_async(request, runtime)
+
+    def update_function_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateFunctionResponse:
+        """
+        @summary Updates the basic information about a user-defined function (UDF) in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateFunctionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateFunctionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_function_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateFunctionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateFunctionResponse:
+        """
+        @summary Updates the basic information about a user-defined function (UDF) in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateFunctionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateFunctionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateFunction',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateFunctionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateFunctionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_function(
+        self,
+        request: dataworks_public_20240518_models.UpdateFunctionRequest,
+    ) -> dataworks_public_20240518_models.UpdateFunctionResponse:
+        """
+        @summary Updates the basic information about a user-defined function (UDF) in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateFunctionRequest
+        @return: UpdateFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_function_with_options(request, runtime)
+
+    async def update_function_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateFunctionRequest,
+    ) -> dataworks_public_20240518_models.UpdateFunctionResponse:
+        """
+        @summary Updates the basic information about a user-defined function (UDF) in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateFunctionRequest
+        @return: UpdateFunctionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_function_with_options_async(request, runtime)
+
+    def update_node_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateNodeResponse:
+        """
+        @summary Updates the basic information about a node in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateNodeResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateNodeResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_node_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateNodeRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateNodeResponse:
+        """
+        @summary Updates the basic information about a node in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateNodeRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateNodeResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateNode',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateNodeResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateNodeResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_node(
+        self,
+        request: dataworks_public_20240518_models.UpdateNodeRequest,
+    ) -> dataworks_public_20240518_models.UpdateNodeResponse:
+        """
+        @summary Updates the basic information about a node in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateNodeRequest
+        @return: UpdateNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_node_with_options(request, runtime)
+
+    async def update_node_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateNodeRequest,
+    ) -> dataworks_public_20240518_models.UpdateNodeResponse:
+        """
+        @summary Updates the basic information about a node in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateNodeRequest
+        @return: UpdateNodeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_node_with_options_async(request, runtime)
+
+    def update_project_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateProjectResponse:
+        """
+        @summary Updates a DataWorks workspace.
+        
+        @param request: UpdateProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateProjectResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.display_name):
+            body['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateProjectResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateProjectResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_project_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateProjectRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateProjectResponse:
+        """
+        @summary Updates a DataWorks workspace.
+        
+        @param request: UpdateProjectRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateProjectResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.dev_environment_enabled):
+            body['DevEnvironmentEnabled'] = request.dev_environment_enabled
+        if not UtilClient.is_unset(request.dev_role_disabled):
+            body['DevRoleDisabled'] = request.dev_role_disabled
+        if not UtilClient.is_unset(request.display_name):
+            body['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.pai_task_enabled):
+            body['PaiTaskEnabled'] = request.pai_task_enabled
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateProject',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateProjectResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateProjectResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_project(
+        self,
+        request: dataworks_public_20240518_models.UpdateProjectRequest,
+    ) -> dataworks_public_20240518_models.UpdateProjectResponse:
+        """
+        @summary Updates a DataWorks workspace.
+        
+        @param request: UpdateProjectRequest
+        @return: UpdateProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_project_with_options(request, runtime)
+
+    async def update_project_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateProjectRequest,
+    ) -> dataworks_public_20240518_models.UpdateProjectResponse:
+        """
+        @summary Updates a DataWorks workspace.
+        
+        @param request: UpdateProjectRequest
+        @return: UpdateProjectResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_project_with_options_async(request, runtime)
+
+    def update_resource_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateResourceResponse:
+        """
+        @summary Updates the basic information about a file resource in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_resource_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateResourceResponse:
+        """
+        @summary Updates the basic information about a file resource in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateResourceRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateResourceResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateResource',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_resource(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceRequest,
+    ) -> dataworks_public_20240518_models.UpdateResourceResponse:
+        """
+        @summary Updates the basic information about a file resource in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateResourceRequest
+        @return: UpdateResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_resource_with_options(request, runtime)
+
+    async def update_resource_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceRequest,
+    ) -> dataworks_public_20240518_models.UpdateResourceResponse:
+        """
+        @summary Updates the basic information about a file resource in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @param request: UpdateResourceRequest
+        @return: UpdateResourceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_resource_with_options_async(request, runtime)
+
+    def update_resource_group_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateResourceGroupResponse:
+        """
+        @summary Updates basic information about a resource group.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: UpdateResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceGroupResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceGroupResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_resource_group_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceGroupRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateResourceGroupResponse:
+        """
+        @summary Updates basic information about a resource group.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: UpdateResourceGroupRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.aliyun_resource_group_id):
+            body['AliyunResourceGroupId'] = request.aliyun_resource_group_id
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.remark):
+            body['Remark'] = request.remark
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateResourceGroup',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceGroupResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateResourceGroupResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_resource_group(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.UpdateResourceGroupResponse:
+        """
+        @summary Updates basic information about a resource group.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: UpdateResourceGroupRequest
+        @return: UpdateResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_resource_group_with_options(request, runtime)
+
+    async def update_resource_group_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateResourceGroupRequest,
+    ) -> dataworks_public_20240518_models.UpdateResourceGroupResponse:
+        """
+        @summary Updates basic information about a resource group.
+        
+        @description You can use this API operation only in DataWorks Basic Edition or an advanced edition.
+        
+        @param request: UpdateResourceGroupRequest
+        @return: UpdateResourceGroupResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_resource_group_with_options_async(request, runtime)
+
+    def update_route_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateRouteResponse:
+        """
+        @summary Updates the information about a route.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.destination_cidr):
+            body['DestinationCidr'] = request.destination_cidr
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateRouteResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateRouteResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_route_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateRouteRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateRouteResponse:
+        """
+        @summary Updates the information about a route.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateRouteRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateRouteResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.destination_cidr):
+            body['DestinationCidr'] = request.destination_cidr
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRoute',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateRouteResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateRouteResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_route(
+        self,
+        request: dataworks_public_20240518_models.UpdateRouteRequest,
+    ) -> dataworks_public_20240518_models.UpdateRouteResponse:
+        """
+        @summary Updates the information about a route.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateRouteRequest
+        @return: UpdateRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_route_with_options(request, runtime)
+
+    async def update_route_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateRouteRequest,
+    ) -> dataworks_public_20240518_models.UpdateRouteResponse:
+        """
+        @summary Updates the information about a route.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateRouteRequest
+        @return: UpdateRouteResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_route_with_options_async(request, runtime)
+
+    def update_task_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateTaskResponse:
+        """
+        @summary Updates a specified task in full update mode.
+        
+        @param tmp_req: UpdateTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_source):
+            request.data_source_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_source, 'DataSource', 'json')
+        if not UtilClient.is_unset(tmp_req.dependencies):
+            request.dependencies_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dependencies, 'Dependencies', 'json')
+        if not UtilClient.is_unset(tmp_req.inputs):
+            request.inputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.inputs, 'Inputs', 'json')
+        if not UtilClient.is_unset(tmp_req.outputs):
+            request.outputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.outputs, 'Outputs', 'json')
+        if not UtilClient.is_unset(tmp_req.runtime_resource):
+            request.runtime_resource_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.runtime_resource, 'RuntimeResource', 'json')
+        if not UtilClient.is_unset(tmp_req.script):
+            request.script_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.script, 'Script', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.data_source_shrink):
+            body['DataSource'] = request.data_source_shrink
+        if not UtilClient.is_unset(request.dependencies_shrink):
+            body['Dependencies'] = request.dependencies_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.inputs_shrink):
+            body['Inputs'] = request.inputs_shrink
+        if not UtilClient.is_unset(request.instance_mode):
+            body['InstanceMode'] = request.instance_mode
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.outputs_shrink):
+            body['Outputs'] = request.outputs_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.rerun_interval):
+            body['RerunInterval'] = request.rerun_interval
+        if not UtilClient.is_unset(request.rerun_mode):
+            body['RerunMode'] = request.rerun_mode
+        if not UtilClient.is_unset(request.rerun_times):
+            body['RerunTimes'] = request.rerun_times
+        if not UtilClient.is_unset(request.runtime_resource_shrink):
+            body['RuntimeResource'] = request.runtime_resource_shrink
+        if not UtilClient.is_unset(request.script_shrink):
+            body['Script'] = request.script_shrink
+        if not UtilClient.is_unset(request.tags_shrink):
+            body['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.timeout):
+            body['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_task_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateTaskRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateTaskResponse:
+        """
+        @summary Updates a specified task in full update mode.
+        
+        @param tmp_req: UpdateTaskRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateTaskResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.data_source):
+            request.data_source_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.data_source, 'DataSource', 'json')
+        if not UtilClient.is_unset(tmp_req.dependencies):
+            request.dependencies_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dependencies, 'Dependencies', 'json')
+        if not UtilClient.is_unset(tmp_req.inputs):
+            request.inputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.inputs, 'Inputs', 'json')
+        if not UtilClient.is_unset(tmp_req.outputs):
+            request.outputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.outputs, 'Outputs', 'json')
+        if not UtilClient.is_unset(tmp_req.runtime_resource):
+            request.runtime_resource_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.runtime_resource, 'RuntimeResource', 'json')
+        if not UtilClient.is_unset(tmp_req.script):
+            request.script_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.script, 'Script', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.data_source_shrink):
+            body['DataSource'] = request.data_source_shrink
+        if not UtilClient.is_unset(request.dependencies_shrink):
+            body['Dependencies'] = request.dependencies_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.inputs_shrink):
+            body['Inputs'] = request.inputs_shrink
+        if not UtilClient.is_unset(request.instance_mode):
+            body['InstanceMode'] = request.instance_mode
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.outputs_shrink):
+            body['Outputs'] = request.outputs_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.rerun_interval):
+            body['RerunInterval'] = request.rerun_interval
+        if not UtilClient.is_unset(request.rerun_mode):
+            body['RerunMode'] = request.rerun_mode
+        if not UtilClient.is_unset(request.rerun_times):
+            body['RerunTimes'] = request.rerun_times
+        if not UtilClient.is_unset(request.runtime_resource_shrink):
+            body['RuntimeResource'] = request.runtime_resource_shrink
+        if not UtilClient.is_unset(request.script_shrink):
+            body['Script'] = request.script_shrink
+        if not UtilClient.is_unset(request.tags_shrink):
+            body['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.timeout):
+            body['Timeout'] = request.timeout
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTask',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_task(
+        self,
+        request: dataworks_public_20240518_models.UpdateTaskRequest,
+    ) -> dataworks_public_20240518_models.UpdateTaskResponse:
+        """
+        @summary Updates a specified task in full update mode.
+        
+        @param request: UpdateTaskRequest
+        @return: UpdateTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_task_with_options(request, runtime)
+
+    async def update_task_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateTaskRequest,
+    ) -> dataworks_public_20240518_models.UpdateTaskResponse:
+        """
+        @summary Updates a specified task in full update mode.
+        
+        @param request: UpdateTaskRequest
+        @return: UpdateTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_task_with_options_async(request, runtime)
+
+    def update_task_instances_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateTaskInstancesResponse:
+        """
+        @summary Modifies properties configured for multiple instances at a time. The properties include the priority, resource group for scheduling, and data source.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_instances):
+            request.task_instances_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_instances, 'TaskInstances', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.task_instances_shrink):
+            body['TaskInstances'] = request.task_instances_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskInstancesResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskInstancesResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_task_instances_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateTaskInstancesRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateTaskInstancesResponse:
+        """
+        @summary Modifies properties configured for multiple instances at a time. The properties include the priority, resource group for scheduling, and data source.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateTaskInstancesRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateTaskInstancesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateTaskInstancesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_instances):
+            request.task_instances_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_instances, 'TaskInstances', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.comment):
+            body['Comment'] = request.comment
+        if not UtilClient.is_unset(request.task_instances_shrink):
+            body['TaskInstances'] = request.task_instances_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTaskInstances',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskInstancesResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateTaskInstancesResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_task_instances(
+        self,
+        request: dataworks_public_20240518_models.UpdateTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.UpdateTaskInstancesResponse:
+        """
+        @summary Modifies properties configured for multiple instances at a time. The properties include the priority, resource group for scheduling, and data source.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateTaskInstancesRequest
+        @return: UpdateTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_task_instances_with_options(request, runtime)
+
+    async def update_task_instances_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateTaskInstancesRequest,
+    ) -> dataworks_public_20240518_models.UpdateTaskInstancesResponse:
+        """
+        @summary Modifies properties configured for multiple instances at a time. The properties include the priority, resource group for scheduling, and data source.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateTaskInstancesRequest
+        @return: UpdateTaskInstancesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_task_instances_with_options_async(request, runtime)
+
+    def update_workflow_with_options(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowResponse:
+        """
+        @summary Updates a specified workflow in full update mode.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateWorkflowResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateWorkflowShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dependencies):
+            request.dependencies_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dependencies, 'Dependencies', 'json')
+        if not UtilClient.is_unset(tmp_req.outputs):
+            request.outputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.outputs, 'Outputs', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.dependencies_shrink):
+            body['Dependencies'] = request.dependencies_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.outputs_shrink):
+            body['Outputs'] = request.outputs_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.parameters):
+            body['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.tags_shrink):
+            body['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_workflow_with_options_async(
+        self,
+        tmp_req: dataworks_public_20240518_models.UpdateWorkflowRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowResponse:
+        """
+        @summary Updates a specified workflow in full update mode.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param tmp_req: UpdateWorkflowRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateWorkflowResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = dataworks_public_20240518_models.UpdateWorkflowShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dependencies):
+            request.dependencies_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dependencies, 'Dependencies', 'json')
+        if not UtilClient.is_unset(tmp_req.outputs):
+            request.outputs_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.outputs, 'Outputs', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        if not UtilClient.is_unset(tmp_req.tasks):
+            request.tasks_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tasks, 'Tasks', 'json')
+        if not UtilClient.is_unset(tmp_req.trigger):
+            request.trigger_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.trigger, 'Trigger', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.client_unique_code):
+            body['ClientUniqueCode'] = request.client_unique_code
+        if not UtilClient.is_unset(request.dependencies_shrink):
+            body['Dependencies'] = request.dependencies_shrink
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.env_type):
+            body['EnvType'] = request.env_type
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.outputs_shrink):
+            body['Outputs'] = request.outputs_shrink
+        if not UtilClient.is_unset(request.owner):
+            body['Owner'] = request.owner
+        if not UtilClient.is_unset(request.parameters):
+            body['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.tags_shrink):
+            body['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.tasks_shrink):
+            body['Tasks'] = request.tasks_shrink
+        if not UtilClient.is_unset(request.trigger_shrink):
+            body['Trigger'] = request.trigger_shrink
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkflow',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_workflow(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowRequest,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowResponse:
+        """
+        @summary Updates a specified workflow in full update mode.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateWorkflowRequest
+        @return: UpdateWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_workflow_with_options(request, runtime)
+
+    async def update_workflow_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowRequest,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowResponse:
+        """
+        @summary Updates a specified workflow in full update mode.
+        
+        @description This API operation is available for all DataWorks editions.
+        
+        @param request: UpdateWorkflowRequest
+        @return: UpdateWorkflowResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_workflow_with_options_async(request, runtime)
+
+    def update_workflow_definition_with_options(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse:
+        """
+        @summary Updates the basic information about a workflow in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows in the FlowSpec filed, only the first workflow is created. Other specified workflows and the nodes in the workflows are ignored. You can call the UpdateNode operation to update a node.
+        
+        @param request: UpdateWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse(),
+                self.call_api(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse(),
+                self.execute(params, req, runtime)
+            )
+
+    async def update_workflow_definition_with_options_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowDefinitionRequest,
+        runtime: util_models.RuntimeOptions,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse:
+        """
+        @summary Updates the basic information about a workflow in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows in the FlowSpec filed, only the first workflow is created. Other specified workflows and the nodes in the workflows are ignored. You can call the UpdateNode operation to update a node.
+        
+        @param request: UpdateWorkflowDefinitionRequest
+        @param runtime: runtime options for this request RuntimeOptions
+        @return: UpdateWorkflowDefinitionResponse
+        """
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.spec):
+            body['Spec'] = request.spec
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkflowDefinition',
+            version='2024-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        if UtilClient.is_unset(self._signature_version) or not UtilClient.equal_string(self._signature_version, 'v4'):
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse(),
+                await self.call_api_async(params, req, runtime)
+            )
+        else:
+            return TeaCore.from_map(
+                dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse(),
+                await self.execute_async(params, req, runtime)
+            )
+
+    def update_workflow_definition(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse:
+        """
+        @summary Updates the basic information about a workflow in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows in the FlowSpec filed, only the first workflow is created. Other specified workflows and the nodes in the workflows are ignored. You can call the UpdateNode operation to update a node.
+        
+        @param request: UpdateWorkflowDefinitionRequest
+        @return: UpdateWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.update_workflow_definition_with_options(request, runtime)
+
+    async def update_workflow_definition_async(
+        self,
+        request: dataworks_public_20240518_models.UpdateWorkflowDefinitionRequest,
+    ) -> dataworks_public_20240518_models.UpdateWorkflowDefinitionResponse:
+        """
+        @summary Updates the basic information about a workflow in DataStudio. This API operation performs an incremental update. The update information is described by using FlowSpec.
+        
+        @description >  You cannot use this API operation to create multiple workflows at a time. If you specify multiple workflows in the FlowSpec filed, only the first workflow is created. Other specified workflows and the nodes in the workflows are ignored. You can call the UpdateNode operation to update a node.
+        
+        @param request: UpdateWorkflowDefinitionRequest
+        @return: UpdateWorkflowDefinitionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return await self.update_workflow_definition_with_options_async(request, runtime)
