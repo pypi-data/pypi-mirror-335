@@ -1,0 +1,145 @@
+Metadata-Version: 2.4
+Name: cuebiq-trino-mcp
+Version: 0.0.4
+Summary: A MCP server project
+Author-email: fbalicchia <fbalicchia@cuebiq.com>
+Requires-Python: >=3.10
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: mcp>=1.4.1
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: trino>=0.333.0
+Description-Content-Type: text/markdown
+
+# cuebiq-trino-mcp MCP server
+
+A MCP server project
+
+## Components
+
+### Resources
+
+The server implements a simple note storage system with:
+- Custom note:// URI scheme for accessing individual notes
+- Each note resource has a name, description and text/plain mimetype
+
+### Prompts
+
+The server provides a single prompt:
+- summarize-notes: Creates summaries of all stored notes
+  - Optional "style" argument to control detail level (brief/detailed)
+  - Generates prompt combining all current notes with style preference
+
+### Tools
+
+The server implements one tool:
+- add-note: Adds a new note to the server
+  - Takes "name" and "content" as required string arguments
+  - Updates server state and notifies clients of resource changes
+
+## Configuration
+
+[TODO: Add configuration details specific to your implementation]
+
+## Quickstart
+
+### Install
+
+#### Claude Desktop
+
+On MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
+
+<details>
+  <summary>Development/Unpublished Servers Configuration</summary>
+  ```
+{
+  "mcpServers": {
+    "cuebiq-trino-mcp": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "/Users/fbalicchia/paas/cuebiqbuddyai/mcp/cuebiq-trino-mcp",
+        "run",
+        "cuebiq-trino-mcp",
+        "--trino-host",
+        "<serveraddress>",
+        "--trino-port",
+        "443",
+        "--trino-http-scheme",
+        "https"
+      ]
+    }
+  }
+}
+  ```
+</details>
+
+<details>
+  <summary>Published Servers Configuration</summary>
+  ```
+{
+  "mcpServers": {
+    "cuebiq-trino-mcp": {
+      "command": "uvx",
+      "args":[
+        "cuebiq-trino-mcp",
+        "--trino-host",
+        "<serveraddress>",
+        "--trino-port",
+        "443",
+        "--trino-http-scheme",
+        "https"
+      ]
+    }
+  }
+}
+  ```
+</details>
+
+## Development
+
+
+Log Cloude
+
+```bash
+tail -n 20 -F ~/Library/Logs/Claude/mcp*.log
+```
+
+### Building and Publishing
+
+To prepare the package for distribution:
+
+1. Sync dependencies and update lockfile:
+```bash
+uv sync
+```
+
+2. Build package distributions:
+```bash
+uv build
+```
+
+This will create source and wheel distributions in the `dist/` directory.
+
+3. Publish to PyPI:
+```bash
+uv publish
+```
+
+Note: You'll need to set PyPI credentials via environment variables or command flags:
+- Token: `--token` or `UV_PUBLISH_TOKEN`
+- Or username/password: `--username`/`UV_PUBLISH_USERNAME` and `--password`/`UV_PUBLISH_PASSWORD`
+
+### Debugging
+
+Since MCP servers run over stdio, debugging can be challenging. For the best debugging
+experience, we strongly recommend using the [MCP Inspector](https://github.com/modelcontextprotocol/inspector).
+
+
+You can launch the MCP Inspector via [`npm`](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) with this command:
+
+```bash
+npx @modelcontextprotocol/inspector uv --directory /Users/fbalicchia/lab/mcp-experiments/cuebiq-trino-mcp run cuebiq-trino-mcp
+```
+
+
+Upon launching, the Inspector will display a URL that you can access in your browser to begin debugging.
