@@ -1,0 +1,26 @@
+[build-system]
+requires = [
+    "setuptools>=68.0.0",
+    "wheel>=0.41.2",
+    "Cython>=3.0.5",
+    "ninja>=1.11.1"
+]
+build-backend = "setuptools.build_meta"
+[project]
+name = "decentralized-ai"
+version = "1.0.0"  # REQUIRED FIELD
+description = "Decentralized AI Training Platform"
+authors = [{name = "Krishna Bajpai", email = "bajpaikrishna715@gmail.com"}]
+readme = "README.md"
+license = {text = "AGPL-3.0"}
+
+
+[tool.cibuildwheel]
+manylinux-x86_64-image = "manylinux_2_28"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "hypothesis[fuzzing]>=6.98.1",
+    "safety>=2.4.0b1"
+]
