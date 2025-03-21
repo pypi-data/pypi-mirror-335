@@ -1,0 +1,23 @@
+[project]
+name = "yamlio"
+version = "0.1.0"
+description = "Library for interacting with YAML files."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Melvin Quick", email = "melvinquick@proton.me" }]
+requires-python = ">=3.12"
+dependencies = ["pyyaml>=6.0.2"]
+
+[project.urls]
+repository = "https://codeberg.org/melvinquick/yamlio"
+issues = "https://codeberg.org/melvinquick/yamlio/issues"
+
+[project.scripts]
+yamlio = "yamlio:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["bandit>=1.8.3"]
