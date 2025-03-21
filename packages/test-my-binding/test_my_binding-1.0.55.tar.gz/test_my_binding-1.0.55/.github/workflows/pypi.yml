@@ -1,0 +1,146 @@
+name: pypi
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main  
+      - '*ci*'
+
+jobs:
+  build_wheels_3_9:
+    name: Build wheels for Python 3.9 on ${{ matrix.platform }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: manylinux
+            arch: x86_64
+
+          - os: macos-latest
+            platform: macOS
+            arch: x86_64
+
+          - os: macos-latest
+            platform: macOS
+            arch: arm64
+
+          - os: windows-latest
+            platform: Windows
+            arch: x86_64
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install cibuildwheel
+        run: pipx install cibuildwheel==2.23.1
+
+      - name: Build wheels
+        env:
+          CIBW_BUILD: "cp39-*"
+        run: cibuildwheel --output-dir wheelhouse .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-python39-${{ matrix.platform }}-${{ matrix.arch }}
+          path: wheelhouse/*.whl
+
+  build_wheels_3_10:
+    name: Build wheels for Python 3.10 on ${{ matrix.platform }}-${{ matrix.arch }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            platform: manylinux
+            arch: x86_64
+
+          - os: macos-latest
+            platform: macOS
+            arch: x86_64
+
+          - os: macos-latest
+            platform: macOS
+            arch: arm64
+
+          - os: windows-latest
+            platform: Windows
+            arch: x86_64
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install cibuildwheel
+        run: pipx install cibuildwheel==2.23.1
+
+      - name: Build wheels
+        env:
+          CIBW_BUILD: "cp310-*"
+        run: cibuildwheel --output-dir wheelhouse .
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wheels-python310-${{ matrix.platform }}-${{ matrix.arch }}
+          path: wheelhouse/*.whl
+
+  build_sdist:
+    name: Build source distribution
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build SDist
+        run: pipx run build --sdist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sdist
+          path: dist/*.tar.gz
+
+  publish:
+    name: Publish package to PyPI
+    needs: [build_wheels_3_9, build_wheels_3_10, build_sdist]
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/test_my_binding
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-python39-*
+          path: dist
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: wheels-python310-*
+          path: dist
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: sdist
+          path: dist
+
+      - name: Move all wheels to dist/
+        run: find dist -type f -name "*.whl" -exec mv {} dist/ \;
+
+      - name: List files to upload
+        run: ls -lh dist
+
+      - name: Install Twine
+        run: pip install twine
+
+      - name: Publish to PyPI
+        run: python -m twine upload dist/*.whl dist/*.tar.gz || echo "Some files may have already been uploaded."
