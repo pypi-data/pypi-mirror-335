@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: agi-core
+Version: 0.1.3
+Summary: AGI Core
+Author-email: Jean-Pierre Morard <focus@thalesgroup.com>
+Project-URL: Documentation, https://thalesgroup.github.io/agilab
+Project-URL: Source, https://github.com/ThalesGroup/agilab/tree/main/src/fwk/core
+Project-URL: Tracker, https://github.com/ThalesGroup/agilab/issue
+Keywords: jupyter,mlflow,paramiko,asyncio,dask,rapids,streamlit,distributed,cython,cluster,dataframe,dataset,loadbalancing,genai,copilot,agi,pycharm,datascience
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: ==3.12.*
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: dask[distributed]
+Requires-Dist: paramiko
+Requires-Dist: scp
+Requires-Dist: scikit-learn
+Requires-Dist: parso
+Requires-Dist: cython
+Requires-Dist: setuptools
+Requires-Dist: msgpack
+Requires-Dist: numba
+Requires-Dist: py7zr
+Requires-Dist: agi-env
+Requires-Dist: python-dotenv
+Provides-Extra: agi-worker
+Provides-Extra: agent-worker
+Provides-Extra: dag-worker
+Provides-Extra: data-worker
+Requires-Dist: polars; extra == "data-worker"
+Provides-Extra: managers
+Requires-Dist: jupyter; extra == "managers"
+Requires-Dist: mypy; extra == "managers"
+Requires-Dist: numba; extra == "managers"
+Requires-Dist: pydantic; extra == "managers"
+Requires-Dist: requests; extra == "managers"
+Requires-Dist: wheel; extra == "managers"
+Requires-Dist: polars; extra == "managers"
+Provides-Extra: workers
+Dynamic: license-file
+
+| [![PyPI version](https://img.shields.io/pypi/v/agi-core.svg)](https://pypi.org/project/agi-core) |
+
+
+AGI-CORE
+=========
+
+Agi is a framework to accelerate python code by using Dask, Cython and Processing Pools. See
+documentation_ for more information.
+
+
+LICENSE
+-------
+
+New BSD. See `License File <https://github.com/ThalesGroup/agilab/blob/main/LICENSE>`__.
+
+
+Installation
+-------
+pip install agi-core
+
+
+Execution
+---------
+Documentation is available at [documentation site](https://thalesgroup.github.io/agilab)
+
+
+support
+-------
+email: focus@thalesgroup.com
