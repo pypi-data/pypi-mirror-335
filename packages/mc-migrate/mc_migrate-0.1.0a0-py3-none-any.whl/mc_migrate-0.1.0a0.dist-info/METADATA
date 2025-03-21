@@ -1,0 +1,46 @@
+Metadata-Version: 2.3
+Name: mc-migrate
+Version: 0.1.0a0
+Summary: Minecraft Player Migrator
+License: ISC
+Keywords: Minecraft,MC,Player,Migrate,Migration,Migrator,UUID,PaperMC
+Author: lostyawolfer
+Author-email: lostyawolfer@gmail.com
+Requires-Python: >=3.13,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Games/Entertainment
+Classifier: Topic :: Utilities
+Requires-Dist: nbtlib (>=2.0.4,<3.0.0)
+Project-URL: Bug Tracker, https://github.com/lostyawolfer/mc-migrate/issues
+Project-URL: Documentation, https://github.com/lostyawolfer/mc-migrate?tab=readme-ov-file
+Project-URL: Homepage, https://github.com/lostyawolfer/mc-migrate
+Project-URL: Repository, https://github.com/lostyawolfer/mc-migrate
+Description-Content-Type: text/markdown
+
+## mc-migrate — minecraft player migrator
+ever owned an offline minecraft server and someone changed their name so they had to manually put all their items in a chest or whatever? now install this to fix all your problems! just go into your server folder and do `mc-migrate <\oldname> <\newname>`.
+
+### how to get it?
+```bash
+pipx install mc-migrate
+```
+or
+```bash
+pip install --user mc-migrate
+```
+
+### how to use?
+go to server's root folder (wherever the .jar and server.properties is) and run `mc-migrate <\oldname> <\newname>`
+
+for other uses see `mc-migrate --help`
+
+### license
+**ISC License**. See [LICENSE.ISC](LICENSE.ISC) for details.
+The author leaves right to change the license for further releases.
+
+
