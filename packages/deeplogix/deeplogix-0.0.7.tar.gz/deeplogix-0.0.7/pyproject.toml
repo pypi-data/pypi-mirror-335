@@ -1,0 +1,27 @@
+# https://packaging.python.org/en/latest/guides/writing-pyproject-toml
+[project]
+name = "deeplogix"
+description = "Deeplogix AI RPC"
+version = "0.0.7"
+requires-python = ">=3.8"
+dependencies = [
+    "urllib3>=2.3.0",
+    "websocket-client>=1.8.0",
+    "python-socketio>=5.12.1",
+    "transformers>=4.48.2",
+    "diffusers>=0.32.2",
+]
+authors = [
+    { name="Aleksandr Pristenskii", email="apristen@gmail.com" }
+]
+maintainers = [
+    { name="Aleksandr Pristenskii", email="apristen@gmail.com" }
+]
+keywords = ["Deeplogix", "AI", "RPC"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
