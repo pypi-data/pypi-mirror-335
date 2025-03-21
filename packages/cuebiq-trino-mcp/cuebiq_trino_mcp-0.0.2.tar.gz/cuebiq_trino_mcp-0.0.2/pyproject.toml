@@ -1,0 +1,24 @@
+[project]
+name = "cuebiq-trino-mcp"
+version = "0.0.2"
+description = "A MCP server project"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+ "dataclasses>=0.8",
+ "loguru>=0.7.3",
+ "mcp>=1.4.1",
+ "pydantic>=2.10.6",
+ "trino>=0.333.0",
+ "typing>=3.10.0.0",
+]
+[[project.authors]]
+name = "fbalicchia"
+email = "fbalicchia@cuebiq.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+cuebiq-trino-mcp = "cuebiq_trino_mcp:main"
