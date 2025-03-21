@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools", "wheel"]  # PEP 508 specifications.
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "SPrettify.__version__.__version__"}
+
+[tool.setuptools]
+packages = ['SPrettify']
+
+[project]
+name = "SPrettify"
+description = "A library that clumps up general useful use cases for string prettifying"
+authors = [{name = "Kinuseka", email = "support@kinuseka.us"}]
+readme = {file = 'README.md', content-type='text/markdown'}
+license = {file = 'LICENSE'}
+dynamic = ["version"]
+requires-python = ">=3.6"
+keywords = ["python", "strings"]
+classifiers = [
+        'Development Status :: 4 - Beta',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
+        'Operating System :: OS Independent',
+        'Operating System :: Microsoft :: Windows',
+        'Operating System :: POSIX :: Linux',
+        'Operating System :: MacOS',
+        'Intended Audience :: Developers',
+        'Topic :: Internet :: WWW/HTTP',
+        'Typing :: Typed'
+]
+
+
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/Kinuseka/SPrettify"
+
+
