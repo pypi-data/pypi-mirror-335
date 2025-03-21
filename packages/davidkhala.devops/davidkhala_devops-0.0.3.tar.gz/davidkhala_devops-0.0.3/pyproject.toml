@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "davidkhala.devops"
+version = "0.0.3"
+description = "@davidkhala/devops"
+authors = ["David Liu <david-khala@hotmail.com>"]
+readme = "README.md"
+packages = [{ include = "davidkhala" }]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+davidkhala-utils = "*"
+
+newrelic-telemetry-sdk = { version = "*", optional = true }
+logdna = { version = "*", optional = true }
+logtail-python = { version = "*", optional = true }
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+
+[tool.poetry.extras]
+new-relic = ["newrelic-telemetry-sdk"]
+mezmo = ['logdna']
+better-stack = ['logtail-python']
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
