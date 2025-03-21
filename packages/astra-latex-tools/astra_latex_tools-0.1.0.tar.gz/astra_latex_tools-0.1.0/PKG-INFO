@@ -1,0 +1,48 @@
+Metadata-Version: 2.3
+Name: astra-latex-tools
+Version: 0.1.0
+Summary: 
+Author: Astra42
+Author-email: enshov@mail.ru
+Requires-Python: >=3.10
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: click (>=8.1.8,<9.0.0)
+Description-Content-Type: text/markdown
+
+# Deep_Python
+Углубленный Python, весна 2025, ИТМО
+
+
+
+# HW2 🔮
+
+A Python library for generating LaTeX documents with tables and images.
+
+## Installation
+
+```bash
+pip install astra_latex_tools
+```
+
+## Usage
+
+```python
+from latex_generator import list_to_LaTex_table, add_image_to_latex
+
+data = [
+    ["Name", "Age", "City"],
+    ["Alice", 24, "New York"],
+    ["Bob", 30, "Los Angeles"],
+    ["Charlie", 22, "Chicago"]
+]
+# Add Table
+list_to_LaTex_table(data)
+
+# Add image
+add_image_to_latex("image.png")
+```
+
