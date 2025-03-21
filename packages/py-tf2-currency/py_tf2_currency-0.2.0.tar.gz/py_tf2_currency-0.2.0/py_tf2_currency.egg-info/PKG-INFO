@@ -1,0 +1,144 @@
+Metadata-Version: 2.1
+Name: py-tf2-currency
+Version: 0.2.0
+Summary: UNKNOWN
+Home-page: UNKNOWN
+Author: Sachin/Derpy
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+
+# py_tf2_currency
+
+A Python library for handling Team Fortress 2 currency calculations with support for keys and metal.
+
+## Overview
+
+This library provides a robust way to handle Team Fortress 2's virtual currency system, which consists of keys and metal. It allows for precise calculations, conversions, and comparisons between different currency amounts.
+
+Do note that this library is still in the testing phase and will require tweaks to improve accuracy and stability. Please feel free to raise issues or contribute to the project to help improve its functionality.
+
+## Features
+
+- Create currency objects with keys and metal values
+- Convert between different currency formats (keys, metal, scrap)
+- Perform arithmetic operations (add, remove) on currency values
+- Compare currency values (equal, bigger, smaller)
+- Handle currency conversions with proper rounding
+- Proper string representation of currency values
+
+## Installation
+
+```bash
+pip install py_tf2_currency
+```
+
+## Basic Usage
+
+```python
+from py_tf2_currency import Currency
+
+# Create a currency object
+currency = Currency({"keys": 2, "metal": 3.55})
+
+# Display the currency
+print(currency)  # Output: 2 keys, 3.55 metal
+
+# Check if currency is empty
+is_empty = currency.is_empty()
+print(is_empty)  # False
+
+# Convert to dictionary
+currency_dict = currency.to_dict()
+print(currency_dict) # {"keys": 2, "metal": 3.55}
+```
+
+## Currency Conversions
+
+```python
+from py_tf2_currency import Currency
+
+# Assuming 1 key = 60 refined metal (conversion rate)
+conversion_rate = 60
+
+# Convert from scrap to currency
+scrap_amount = 550  # scrap
+currency = Currency.from_scrap(scrap_amount, conversion_rate)
+print(currency) # 1 key 1.11 metal
+
+# Convert from keys to currency
+keys_amount = 2.5  # keys
+currency = Currency.from_keys(keys_amount, conversion_rate)
+print(currency) # 2 keys, 30.0 metal
+
+
+# Convert currency to scrap
+scrap_value = currency.to_scrap(conversion_rate)
+print(scrap_value)  # 1350 scrap
+
+# Convert currency to keys
+keys_value = currency.to_keys(conversion_rate)
+print(keys_value)  # 2.5 'keys'
+```
+
+## Currency Operations
+
+```python
+from py_tf2_currency import Currency
+
+# Create a currency object
+currency = Currency({"keys": 1, "metal": 5})
+
+# Add operations
+currency.add_keys(2, 60)  # Add 2 keys (conversion rate: 60 ref)
+currency.add_metal(
+    3.33, 60
+)  # Add 3.33 refined metal (conversion rate needed when keys are present)
+currency.add_scrap(9, 60)  # Add 9 scrap (conversion rate needed when keys are present)
+
+# Remove operations
+currency.remove_keys(1, 60)  # Remove 1 key
+currency.remove_metal(
+    2, 60
+)  # Remove 2 refined metal (conversion rate needed when keys are present)
+
+# Add/remove another currency object
+other_currency = {"keys": 0, "metal": 10}
+currency.add_currency(other_currency, 60)
+currency.remove_currency({"keys": 0, "metal": 5}, 60)
+```
+
+## Currency Comparisons
+
+```python
+from py_tf2_currency import Currency
+
+currency_a = Currency({"keys": 1, "metal": 10})
+currency_b = Currency({"keys": 1, "metal": 5})
+
+# Compare currencies
+is_equal = currency_a.is_equal(currency_b)  # False
+is_bigger = currency_a.is_bigger(currency_b)  # True
+is_smaller = currency_a.is_smaller(currency_b)  # False
+```
+
+## Error Handling
+
+The library includes a custom `CurrencyError` exception for handling currency-related errors:
+
+```python
+from py_tf2_currency import Currency, CurrencyError
+
+try:
+    # Attempting to convert keys to scrap without a conversion rate
+    currency = Currency({"keys": 1, "metal": 0})
+    scrap_value = currency.to_scrap()  # Will raise CurrencyError
+except CurrencyError as e:
+    print(f"Error: {e.message}")  # "Conversion value is required when keys are present."
+```
+
+## License
+
+This project is licensed under the MIT License.
+
+
