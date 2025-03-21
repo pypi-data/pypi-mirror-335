@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="multiworld"
+dynamic = ["version"]
+authors = [{ name="Multiworld Maintainers", email="multiworld-maintainers@cisco.com" }]
+description="This package is a python library to support multiple communication groups for pytorch's distribted package"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch == 2.4.0",
+]
+
+[Project.optional-dependencies]
+dev = [
+    "black",
+    "bumpver",
+    "isort",
+    "pip-tools",
+    "pytest",
+    "python-lsp-server",
+]
+
+[tool.setuptools]
+packages=["multiworld"]
+
+[tool.setuptools.package-data]
+"multiworld" = ["patch/*.patch", "init.txt"]
+
+[tool.setuptools.dynamic]
+version = {attr = "multiworld.__version__"}
