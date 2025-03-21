@@ -1,0 +1,56 @@
+Metadata-Version: 2.4
+Name: hebo-cli
+Version: 0.1.4
+Summary: CLI for Hebo
+Author-email: turisanapo <davide@hebo.ai>
+License: MIT
+Keywords: api,cli
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.8
+Requires-Dist: click>=8.1.8
+Requires-Dist: pyyaml>=6.0.2
+Requires-Dist: requests>=2.32.3
+Description-Content-Type: text/markdown
+
+# hebo-cli
+
+## Installation
+
+```
+pip install hebo-cli
+```
+
+## Usage
+
+### To configure your profile
+
+```
+hebo config
+```
+
+### To download remote knowledge and congiguration
+
+```
+hebo pull agent-name [-p profile-name]
+```
+
+### To update remote knowledge and configuration with local files
+
+```
+hebo push
+```
+
+## Contributing
+
+```
+uv sync
+source .venv/bin/activate
+```
