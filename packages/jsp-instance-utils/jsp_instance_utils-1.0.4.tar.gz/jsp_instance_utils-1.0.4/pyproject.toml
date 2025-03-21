@@ -1,0 +1,67 @@
+[build-system]
+requires = ["setuptools>=65.5.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jsp-instance-utils"
+version = "1.0.4"
+description = "A package containing benchmark instances for the Job Shop Scheduling Problem (JSP) scraped from various sources."
+readme = "README.md"
+authors = [{ name = "Alexander Nasuta", email = "alexander.nasuta@wzl-iqs.rwth-aachen.de" }]
+license = { text = "MIT", expression = "MIT" }
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = []
+dependencies = [
+    "requests",
+    "numpy",
+    "ortools",
+    "beautifulsoup4",
+    "jsp-vis",
+]
+requires-python = ">=3.11"
+
+[tool.setuptools]
+license-files = []
+
+
+[project.optional-dependencies]
+dev = [
+    "pip-tools",
+    "pytest",
+    "pytest-cov",
+    "tox",
+    "twine",
+    # for examples
+    "gym",
+    "gymnasium",
+    "JSSEnv",
+    "graph-jsp-env",
+    "graph-matrix-jsp-env",
+    # documentation
+    "sphinx",
+    "myst-parser", # .md support for sphinx
+    "sphinx-autobuild",
+    "nbsphinx", # for jupyter notebook support in sphinx
+    #
+    "furo", # cool theme
+    "twine",
+    "sphinx-copybutton", # for code copy buttons
+    "nbsphinx", # for jupyter notebook support in sphinx
+    "pandoc",
+    # for converting examples to notebooks
+    "jupytext",
+    "notebook",
+    "typing_extensions>=4.12.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/Alexander-Nasuta/jsp-instance-utils/"
+
+[tool.pytest.ini_options]
+addopts = "--cov=jsp_instance_utils -p no:warnings"
+testpaths = [
+    "tests",
+]
