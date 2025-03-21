@@ -1,0 +1,33 @@
+Metadata-Version: 2.4
+Name: youtube_sync
+Version: 1.0.38
+Summary: syncs youtube for offline play
+Home-page: https://github.com/zackees/youtube-sync
+Maintainer: Zachary Vorhies
+License: BSD 3-Clause License
+Keywords: template-python-cmd
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: filelock
+Requires-Dist: pytest-playwright
+Requires-Dist: beautifulsoup4>=4.13.3
+Requires-Dist: ytdlp-brighteon>=2023.10.3
+Requires-Dist: docker-run-cmd>=1.0.13
+Requires-Dist: Pillow
+Requires-Dist: certifi
+Requires-Dist: appdirs
+Requires-Dist: open-webdriver>=1.6.3
+Requires-Dist: pytz
+Requires-Dist: python-dateutil
+Requires-Dist: feedparser
+Requires-Dist: download
+Requires-Dist: static-ffmpeg>=2.12
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: maintainer
+
+# youtube-sync
+
+Syncs up your youtube or other channels data to the hard drive. A library.json file will be created to track which videos have already been found. It will download any missing files.
