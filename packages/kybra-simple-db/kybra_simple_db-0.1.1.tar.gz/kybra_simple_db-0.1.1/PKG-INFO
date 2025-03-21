@@ -1,0 +1,165 @@
+Metadata-Version: 2.4
+Name: kybra_simple_db
+Version: 0.1.1
+Summary: A lightweight key-value database written in Python, intended for use with Kybra on the Internet Computer (IC)
+Home-page: https://github.com/Batou125/kybra_simple_db
+Author: Kybra Team
+Author-email: Smart Social Contracts <smartsocialcontracts@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 Smart Social Contracts
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/smart-social-contracts/kybra_simple_db
+Project-URL: Repository, https://github.com/smart-social-contracts/kybra-simple-db.git
+Project-URL: Issues, https://github.com/smart-social-contracts/kybra-simple-db/issues
+Keywords: database,key-value,entity,relationship,audit
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Topic :: Database
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# Kybra Simple DB
+
+
+# TODO:
+review audit and test examples
+add coverage
+linting
+final cleaning
+    readme
+    remove printouts, TODO, etc.
+RELEASE!
+
+[![Test](https://github.com/Batou125/kybra_simple_db/actions/workflows/test.yml/badge.svg)](https://github.com/Batou125/kybra_simple_db/actions/workflows/test.yml)
+[![PyPI version](https://badge.fury.io/py/kybra-simple-db.svg)](https://badge.fury.io/py/kybra-simple-db)
+[![Python Versions](https://img.shields.io/pypi/pyversions/kybra-simple-db.svg)](https://pypi.org/project/kybra-simple-db/)
+[![Coverage](https://codecov.io/gh/Batou125/kybra_simple_db/branch/main/graph/badge.svg)](https://codecov.io/gh/Batou125/kybra_simple_db)
+[![License](https://img.shields.io/github/license/Batou125/kybra_simple_db.svg)](https://github.com/Batou125/kybra_simple_db/blob/main/LICENSE)
+
+A lightweight key-value database with entity relationships and audit logging capabilities, intended for small to medium-sized applications running on the Internet Computer using Kybra.
+
+## Quick Start
+
+### Basic Usage
+
+[Example 1](./tests/src/tests/test_1.py)
+
+```python
+
+# Step 1: Import Kybra and define storage
+from kybra import StableBTreeMap
+db_storage  = StableBTreeMap[str, str](memory_id=..., max_key_size=..., max_value_size=...)
+
+# Step 2: Import Kybra Simple DB and initialize database
+from kybra_simple_db import *
+Database(db_storage)
+
+# Step 3: Run your application using the database
+
+# TODO
+```
+
+### Installation
+
+On your Kybra project, copy the folder
+
+TODO: insert directory tree
+
+If not using Kybra, just:
+```
+pip install ...
+```
+
+## Features
+
+- Uses IC persistent storage (StableBTreeMap)when used on the Internet Computer, although it can be run outside IC using a custom storage object.
+- No need for calling ".save()". Just use the variables seamlessly (TODO: explain better)
+- Simple key-value storage with JSON serialization
+- Entity-relationship management
+- Audit logging of all operations
+- Pluggable storage backends
+- Type hints for better IDE support
+- Zero dependencies
+- Python 3.10.7 support
+- Timestamp and ownership tracking via mixins
+- System time management for testing and synchronization
+
+
+### Advance usage
+
+[Example 2](./tests/src/tests/test_2.py)
+
+```python
+TODO
+```
+
+
+### Running Tests
+
+To run the test suite:
+
+```bash
+pip install -r requirements-dev.txt
+python -m pytest -v
+python -m pylint kybra_simple_db tests
+```
+
+
+## Development
+
+```bash
+# Clone the repository
+git clone https://github.com/smart-social-contracts/kybra_simple_db.git
+cd kybra_simple_db
+
+# Recommended steps
+pip install pyenv virtualenv
+pyenv local 3.10.7
+python -m virtualenv venv
+source venv/bin/activate
+
+# Install development dependencies
+pip install -r requirements-dev.txt
+
+# Run tests
+cd tests && ./run_test.sh
+
+# Run linters
+black .
+isort .
+flake8 .
+mypy .
+```
+
+## License
+
+MIT
