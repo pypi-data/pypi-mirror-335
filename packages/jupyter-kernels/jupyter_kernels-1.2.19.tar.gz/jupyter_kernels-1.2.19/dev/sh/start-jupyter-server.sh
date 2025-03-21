@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Copyright (c) 2023-2024 Datalayer, Inc.
+#
+# Datalayer License
+
+
+echo -e "\x1b[34m\x1b[43mStarting Jupyter Server\x1b[0m"
+echo
+echo ✨ open http://localhost:8888/lab?token=60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6
+echo ✨ open http://localhost:8888/api/kernelspecs?token=60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6
+echo ✨ open http://localhost:8888/jupyter_kernels/config?token=60c1661cc408f978c309d04157af55c9588ff9557c9380e4fb50785750703da6
+echo
+
+export CURR_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+trap $CURR_DIR/kill.sh EXIT
+
+GP_USE_INCLUSTER_CONFIG=false \
+  jupyter server \
+  --config=${CURR_DIR}/../config/jupyter_server_config.py --autoreload

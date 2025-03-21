@@ -1,0 +1,29 @@
+# Copyright (c) 2023-2024 Datalayer, Inc.
+# Datalayer License
+
+package:
+  name: jupyter-kernels
+  version: "{{ JUPYTER_KERNELS_VERSION }}"
+
+source:
+  path: ../
+
+channels:
+  - datalayer
+
+build:
+  noarch: python
+  script: "{{ PYTHON }} -m pip install . -vv"
+
+requirements:
+  build:
+    - python
+    - hatch-jupyter-builder>=0.5
+    - hatch-nodejs-version
+    - hatchling
+  run:
+    - python
+
+test:
+  imports:
+    - jupyter_kernels
