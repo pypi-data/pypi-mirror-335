@@ -1,0 +1,162 @@
+Metadata-Version: 2.1
+Name: SafeRun
+Version: 1.0.0
+Summary: A highly secure sandbox for executing Python code in an isolated environment.
+Author: Mohammad Taha Gorji
+Author-email: MohammadTahaGorjiProfile@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+```markdown
+# SafeRun
+
+**SafeRun** is a highly secure sandbox library for executing Python code in an isolated environment. Designed to prevent potentially dangerous operations, SafeRun leverages advanced techniques such as AST analysis, resource limitations, chroot jail, privilege dropping, and (optionally) seccomp syscall filtering to offer robust protection while running user code.
+
+> **Note:**  
+> While SafeRun applies multiple layers of security to restrict malicious behavior, due to the dynamic nature of Python, no sandbox can be 100% foolproof. Use with caution in sensitive environments.
+
+---
+
+## Features
+
+- **Comprehensive AST Checks:**  
+  Analyzes the abstract syntax tree (AST) of the code to disallow dangerous constructs such as `import`, `eval`, `exec`, and access to dunder attributes.
+  
+- **Resource Limitations:**  
+  Uses Python's `resource` module to restrict CPU time and memory usage during code execution.
+
+- **Isolated Execution Environment:**  
+  Executes code in a separate process to prevent interference with the main application.
+
+- **Filesystem Isolation (chroot):**  
+  Optionally isolates the filesystem by changing the root directory to a secure, pre-configured directory.
+
+- **Privilege Dropping:**  
+  Reduces process privileges (typically to the `nobody` user) after chroot to minimize risk.
+
+- **Optional Seccomp Filtering:**  
+  If available, applies syscall filtering using the `seccomp` library to restrict system calls further.
+
+---
+
+## Installation
+
+SafeRun is available on PyPI and can be installed using pip:
+
+```bash
+pip install SafeRun
+```
+
+---
+
+## Usage
+
+SafeRun can be used in two ways:
+
+### 1. As a Command-Line Tool
+
+You can run SafeRun directly from the command line using the `-m` flag. For example, to securely execute a Python file `example.py`:
+
+```bash
+python -m SafeRun example.py --time 2 --memory 50 --chroot /tmp/sandbox_chroot
+```
+
+- `--time`: Maximum CPU time (in seconds) allowed for the execution.
+- `--memory`: Maximum memory (in MB) allowed.
+- `--chroot`: The chroot directory to isolate the file system (this directory must be pre-configured and secured).
+
+### 2. As an Importable Library
+
+You can also import and use SafeRun in your Python projects to programmatically execute code in a secure sandbox:
+
+```python
+from SafeRun import UltraSecureSandbox
+
+# Create an instance of the sandbox
+sandbox = UltraSecureSandbox(
+    time_limit=2,            # CPU time limit in seconds
+    memory_limit_mb=50,      # Memory limit in MB
+    chroot_dir="/tmp/sandbox_chroot"  # Chroot directory (must be pre-configured)
+)
+
+# Execute a Python file securely
+sandbox.execute_file("example.py")
+
+# Alternatively, execute code provided as a string:
+code = """
+print("Hello from within the sandbox!")
+for i in range(5):
+    print(i)
+"""
+sandbox.execute_code(code)
+```
+
+---
+
+## How It Works
+
+1. **AST Analysis:**  
+   Before executing any code, SafeRun parses the code into an AST and scans for prohibited constructs such as dangerous function calls (`eval`, `exec`, etc.) and import statements. If any are found, the execution is aborted.
+
+2. **Resource Limits:**  
+   Using the `resource` module, SafeRun sets strict limits on the amount of CPU time and memory the sandboxed process can use. This helps prevent denial-of-service attacks or accidental resource overuse.
+
+3. **Chroot and Privilege Dropping:**  
+   The sandboxed process is moved to a restricted filesystem environment using `chroot`, and its privileges are lowered (typically to the `nobody` user). This minimizes the potential impact of malicious code.
+
+4. **Optional Seccomp Filtering:**  
+   When the `seccomp` library is available, SafeRun further secures the process by only allowing a minimal set of system calls needed for execution. Any disallowed system call results in immediate termination.
+
+5. **Isolated Process Execution:**  
+   Code is executed in a separate process via Python's `multiprocessing` module, ensuring that any faults or crashes remain isolated from the main application.
+
+---
+
+## Example: Running Code with SafeRun
+
+**Command-Line Example:**
+
+Assume you have a Python file named `example.py`:
+
+```python
+# example.py
+print("This code is running inside a secure sandbox!")
+for i in range(3):
+    print("Iteration", i)
+```
+
+Run it securely:
+
+```bash
+python -m SafeRun example.py --time 2 --memory 50 --chroot /tmp/sandbox_chroot
+```
+
+**Programmatic Example:**
+
+```python
+from SafeRun import UltraSecureSandbox
+
+sandbox = UltraSecureSandbox(time_limit=2, memory_limit_mb=50, chroot_dir="/tmp/sandbox_chroot")
+sandbox.execute_file("example.py")
+```
+
+---
+
+## License
+
+SafeRun is licensed under the MIT License.
+
+---
+
+## Author
+
+**Mohammad Taha Gorji**
+
+---
+
+Enjoy using SafeRun to run your Python code securely!
+```
