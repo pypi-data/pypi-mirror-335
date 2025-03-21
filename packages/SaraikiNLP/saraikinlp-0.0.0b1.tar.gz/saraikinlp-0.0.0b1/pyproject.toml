@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "SaraikiNLP"
+version = "0.0.0b1"
+description = "SaraikiNLP: The NLP Framework for Saraiki language research"
+readme = "README.md"
+requires-python = ">=3.6"
+license = { text = "MIT License" }
+authors = [
+  { name = "Muhammad Muzamil", email = "muzamil.abdulsalam786@gmail.com" }
+]
+keywords = ["saraiki", "machine learning", "text pre-processing", "nlp", "low resource language", "pakistani languages", "nlp framework"]
+
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Education",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: Microsoft :: Windows",
+  "Operating System :: POSIX :: Linux",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: Text Processing :: Linguistic"
+]
+
+dependencies = []
+
+[tool.setuptools]
+packages = ["SaraikiNLP"]
+
+[tool.setuptools.package-dir]
+"" = "src"
