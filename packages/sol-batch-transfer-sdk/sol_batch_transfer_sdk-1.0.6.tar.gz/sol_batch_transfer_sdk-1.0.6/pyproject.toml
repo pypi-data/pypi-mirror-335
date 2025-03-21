@@ -1,0 +1,26 @@
+[project]
+name = "sol-batch-transfer-sdk"
+version = "1.0.6"
+description = ""
+authors = [
+    { name = "soldev", email = "888888888@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12"
+[tool.poetry.dependencies]
+pytoniq = "0.1.40"
+retrying = "1.3.4"
+solders = "0.23.0"
+solana = "0.36.1"
+setuptools = "75.1.0"
+cython = "3.0.12"
+
+[tool.poetry]
+packages = [
+    { include = "sol_batch_transfer_sdk", from = "src" },
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
