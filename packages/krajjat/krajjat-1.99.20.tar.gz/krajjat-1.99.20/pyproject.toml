@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "krajjat"
+version = "1.99.20"
+authors = [
+  {name="Romain Pastureau", email="r.pastureau@bcbl.eu"},
+]
+maintainers = [
+  {name = "Romain Pastureau", email = "r.pastureau@bcbl.eu"},
+]
+description = "Pre-processing, visualisation and analysis of motion capture data and speech"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "scipy >= 1.11.0",
+    "numpy >= 1.25.0",
+    "chardet >= 5.2.0",
+    "matplotlib >= 3.7",
+    "seaborn >= 0.12.21",
+    "opencv-python >= 4.8.0.76",
+    "openpyxl >= 3.1",
+    "pandas >= 2.1.0",
+    "pygame >= 2.5",
+    "find-delay >= 2.8",
+    "PyAudio >= 0.2.13",
+    "praat-parselmouth > 0.4",
+    "pytaglib >= 2.0.0"
+]
+
+[external]
+build-requires = [
+    "pkg:nuget/portaudio@0.19.1"
+]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["docs", "kinect_processing", "lund_processing", "test", "tests", "venv", ".venv", "pipeline.txt"]
+
+[project.urls]
+"Homepage" = "https://github.com/RomainPastureau/Krajjat"
+"Bug Tracker" = "https://github.com/RomainPastureau/Krajjat/issues"
+"Documentation" = "https://krajjat.readthedocs.io/en/latest/"
+"PyPI" = "https://pypi.org/project/krajjat/"
