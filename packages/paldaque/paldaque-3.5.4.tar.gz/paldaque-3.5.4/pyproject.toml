@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "paldaque"
+dynamic = ["version"]
+authors = [{name="The ARL Developers", email="stephan.balduin@offis.de"}]
+description = "PalDaQue, the command line query tool for palaestrAI databases"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "Natural Language :: English",
+    "Operating System :: POSIX :: Linux",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "click",
+    "palaestrai",
+    "sqlalchemy",
+    "pandas",
+]
+
+[project.optional-dependencies]
+dev = [
+    "black==22.3.0",
+    "build",
+    "coverage",
+    "setuptools",
+    "sphinx",
+    "twine",
+]
+
+[project.scripts]
+paldaque = "paldaque.cli:main"
+
+[project.urls]
+"Homepage" = "http://docs.palaestr.ai"
+
+[tool.setuptools.dynamic]
+version = {attr = "paldaque.__version__"}
+
+[tool.black]
+line-length = 79
