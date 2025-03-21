@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: deeplogix
+Version: 0.1.0
+Summary: Deeplogix AI RPC
+Author-email: Aleksandr Pristenskii <apristen@gmail.com>
+Maintainer-email: Aleksandr Pristenskii <apristen@gmail.com>
+License-Expression: MIT
+Keywords: Deeplogix,AI,RPC
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENCE
+Requires-Dist: urllib3>=2.3.0
+Requires-Dist: websocket-client>=1.8.0
+Requires-Dist: python-socketio>=5.12.1
+Requires-Dist: transformers>=4.48.2
+Requires-Dist: diffusers>=0.32.2
+Dynamic: license-file
+
+# Deeplogix AI RPC
+
+Deeplogix AI RPC is a Python module for seamlessly running remote private AI models from your Python code as if these models were installed locally.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) for install.
+
+Development version from TestPyPi:
+
+```bash
+pip install --index-url https://test.pypi.org/simple/ --extra-index-url https://pypi.org/simple deeplogix
+```
+
+Production production version from PyPi:
+
+```bash
+pip install deeplogix
+```
+
+## Usage
+
+```bash
+python -m deeplogix ./lib/python3.11/site-packages/deeplogix/examples/test-Transformers-LLM-AutoClasses.py
+```
+
+When you run Deeplogix module first time - it will ask you hostId and token, which could be obtained at [Deeplogix](https://www.deeplogix.io/) site after sign up.
+
+## License
+
+[MIT](https://choosealicense.com/licenses/mit/)
