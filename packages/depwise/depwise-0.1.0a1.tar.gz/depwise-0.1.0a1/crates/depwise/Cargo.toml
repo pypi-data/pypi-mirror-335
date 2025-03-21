@@ -1,0 +1,21 @@
+[package]
+name = "depwise"
+description = "A fast, comprehensive dependency analyzer for Python projects that detects unused, missing, and optional dependencies across multiple environments. Supports requirements.txt, conda, pyproject.toml, pixi, and setup.py without requiring installation. Features intelligent pattern detection for optional dependencies, synthetic fast-pass analysis, and validation against actual environments. Designed for pre-commit hooks and CI/CD pipelines."
+version.workspace = true
+edition.workspace = true
+homepage.workspace = true
+license.workspace = true
+readme.workspace = true
+repository.workspace = true
+authors.workspace = true
+
+[dependencies]
+thiserror = { workspace = true }
+toml = { workspace = true }
+pep508_rs = { workspace = true }
+depwise-analysis = { workspace = true }
+clap = { workspace = true, features = ["cargo", "derive", "help", "suggestions", "usage"] }
+anyhow = { workspace = true }
+
+[dev-dependencies]
+tempfile = { workspace = true }
