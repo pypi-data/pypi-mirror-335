@@ -1,0 +1,79 @@
+# Mesh SDK - Super Simple Guide
+
+## Talk to AI (Chat)
+```python
+import mesh
+
+# Ask a question
+response = mesh.chat("What is the capital of France?")
+print(response)
+
+# Chat with a specific model
+response = mesh.chat("Tell me a joke", model="gpt-4o")
+print(response)
+
+# Add an image
+response = mesh.chat("What's in this image?", images="photo.jpg")
+print(response)
+```
+
+## Get AI Completions
+```python
+import mesh
+
+# Complete text
+response = mesh.complete("Once upon a time")
+print(response)
+
+# With specific model
+response = mesh.complete("The recipe includes", model="claude-3-7-sonnet")
+print(response)
+```
+
+## Store and Get Keys
+```python
+import mesh
+
+# Save a key
+mesh.store_key("my_api_key", "sk-12345abcde")
+
+# Get a stored key
+my_key = mesh.get_key("my_api_key")
+
+# List all your keys
+all_keys = mesh.list_keys()
+print(all_keys)
+```
+
+## Common Models
+```python
+# OpenAI models
+mesh.chat("Hello") #default model is gpt-4o
+mesh.chat("Hello", model="gpt-4o")
+mesh.chat("Hello", model="gpt-4-turbo")
+
+# Anthropic models
+mesh.chat("Hello", "claude")
+mesh.chat("Hello", model="claude-3-7-sonnet")
+mesh.chat("Hello", model="claude-3-5-sonnet")
+`
+# Google models
+mesh.chat("Hello", "gemini")
+mesh.chat("Hello", model="gemini-2.0-pro")
+mesh.chat("Hello", model="gemini-2.0-flash")
+```
+
+## Vision Example
+```python
+# Simple vision query
+response = mesh.chat("What's in this picture?", images="cat.jpg")
+
+# Multiple images
+response = mesh.chat("Compare these two images", 
+                    images=["image1.jpg", "image2.jpg"])
+
+# With specific model
+response = mesh.chat("Describe this diagram", 
+                    images="diagram.png",
+                    model="gpt-4o")
+```
