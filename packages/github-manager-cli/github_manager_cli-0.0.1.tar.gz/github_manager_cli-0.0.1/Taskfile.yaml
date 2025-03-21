@@ -1,0 +1,151 @@
+# Taskfile.yml
+version: '3'
+
+vars:
+  PYTHON: python3
+  PYTEST_FLAGS: -v --cache-clear
+  COVERAGE_FLAGS: --cov=src --cov-report=term-missing --cov-report=html
+  LINT_FLAGS: --rcfile=.pylintrc
+  VENV_DIR: venv
+
+tasks:
+  install:
+    desc: Install project dependencies
+    cmds:
+      - pip install -r requirements.txt
+
+  install-dev:
+    desc: Install development dependencies
+    cmds:
+      - pip install -r requirements.txt
+      - pip install pytest pytest-cov pytest-watch pylint
+
+  lint:
+    desc: Run pylint on the project
+    cmds:
+      - python scripts/lint.py
+
+  test:
+    desc: Run tests
+    cmds:
+      - pytest {{.PYTEST_FLAGS}}
+
+  test-cov:
+    desc: Run tests with coverage
+    cmds:
+      - pytest {{.PYTEST_FLAGS}} {{.COVERAGE_FLAGS}}
+
+  test-watch:
+    desc: Run tests in watch mode
+    cmds:
+      - pytest-watch -- {{.PYTEST_FLAGS}}
+
+  clean:
+    desc: Clean up python cache and test coverage files
+    cmds:
+      - rm -rf .coverage htmlcov/
+      - find . -type d -name "__pycache__" -exec rm -r {} +
+      - find . -type f -name "*.pyc" -delete
+      - find . -type f -name "*.pyo" -delete
+      - find . -type f -name "*.pyd" -delete
+
+  create-repo:
+    desc: Create a new GitHub repository
+    cmds:
+      - '{{.PYTHON}} src/cli.py create --repo {{.REPO}} --description "{{.DESC}}"'
+    requires:
+      vars: [REPO, DESC]
+    silent: true
+
+  delete-repo:
+    desc: Delete a GitHub repository
+    cmds:
+      - '{{.PYTHON}} src/cli.py delete --repo {{.REPO}}'
+    requires:
+      vars: [REPO]
+    silent: true
+
+  list-issues:
+    desc: List issues for a repository
+    cmds:
+      - '{{.PYTHON}} src/cli.py issues --repo {{.REPO}}'
+    requires:
+      vars: [REPO]
+    silent: true
+
+  ci:
+    desc: Run all CI checks (lint and test)
+    cmds:
+      - task: lint
+      - task: test-cov
+
+  default:
+    desc: Display available tasks
+    cmds:
+      - task --list
+
+  setup:
+    desc: Initial project setup
+    cmds:
+      - task: install-dev
+      - |
+        if [ ! -f .env ]; then
+          echo "Creating .env file..."
+          echo "GITHUB_TOKEN=" > .env
+          echo "GITHUB_ORG=" >> .env
+          echo "DISCORD_WEBHOOK_URL=" >> .env
+        fi
+    silent: true
+
+  validate-env:
+    desc: Validate environment variables
+    internal: true
+    cmds:
+      - |
+        if [ -z "$GITHUB_TOKEN" ]; then
+          echo "Error: GITHUB_TOKEN is not set"
+          exit 1
+        fi
+        if [ -z "$GITHUB_ORG" ]; then
+          echo "Error: GITHUB_ORG is not set"
+          exit 1
+        fi
+
+  check-updates:
+    desc: Check for dependency updates
+    cmds:
+      - pip list --outdated
+
+  build:
+    desc: Build the project
+    deps: [validate-env]
+    cmds:
+      - task: clean
+      - task: install
+      - task: lint
+      - task: test
+
+  # This task is used to create a virtual environment for Fish shell.
+  # istall virtualfish first @https://github.com/justinmayer/virtualfish
+  # to use virtualfish see @https://virtualfish.readthedocs.io/en/latest/usage.html
+  create-venv:
+    desc: Create a virtual environment
+    cmds:
+      - vf new {{.VENV_DIR}}
+
+  activate-venv:
+    desc: Activate the virtual environment (for Fish shell)
+    cmds:
+      - vf activate {{.VENV_DIR}}
+    silent: true
+
+  deactivate-venv:
+    desc: Deactivate the virtual environment (for Fish shell)
+    cmds:
+      - vf deactivate
+    silent: true
+
+  remove-venv:
+    desc: Remove the virtual environment
+    cmds:
+      - vf remove {{.VENV_DIR}}

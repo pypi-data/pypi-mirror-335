@@ -1,0 +1,29 @@
+# Description: Dockerfile for the GitHub Manager application.
+
+# Base image
+FROM python:3.13-slim
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements first to leverage Docker cache
+COPY requirements/main.txt .
+
+# Install dependencies
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install -r requirements.txt
+
+# Copy the rest of the application
+COPY src/ ./src/
+COPY config/ ./config/
+
+# Create a non-root user for security
+RUN useradd -m githubmanager && \
+    chown -R githubmanager:githubmanager /app
+USER githubmanager
+
+# Set environment variables
+ENV PYTHONPATH=/app
+
+# Create entrypoint script
+ENTRYPOINT ["python", "src/cli.py"]

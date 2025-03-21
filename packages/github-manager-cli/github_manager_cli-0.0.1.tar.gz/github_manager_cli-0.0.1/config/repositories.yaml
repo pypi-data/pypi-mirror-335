@@ -1,0 +1,56 @@
+##
+# repositories.yaml
+# A map of repositories with the parameters.
+#
+# The extended list of parameters can be found at:
+# https://pygithub.readthedocs.io/en/stable/github_objects/Repository.html
+##
+---
+repositories:
+  repo1:
+    description: "This is an example repository"
+    homepage: "https://example.com"
+    private: true
+    has_issues: true
+    has_projects: false
+    has_wiki: true
+    # team_id: 123456
+    auto_init: true
+    gitignore_template: "Python"
+    license_template: "mit"
+    allow_squash_merge: true
+    allow_merge_commit: true
+    allow_rebase_merge: false
+    delete_branch_on_merge: true
+
+  repo2:
+    description: "This is an example repository"
+    homepage: "https://example.com"
+    private: false
+    has_issues: true
+    has_projects: false
+    has_wiki: true
+    # team_id: 123456
+    auto_init: true
+    gitignore_template: "Python"
+    license_template: "mit"
+    allow_squash_merge: true
+    allow_merge_commit: true
+    allow_rebase_merge: false
+    delete_branch_on_merge: true
+
+  repo3:
+    description: "This is an example repository"
+    homepage: "https://example.com"
+    private: true
+    has_issues: true
+    has_projects: false
+    has_wiki: true
+    # team_id: 123456
+    auto_init: true
+    gitignore_template: "Python"
+    license_template: "mit"
+    allow_squash_merge: true
+    allow_merge_commit: true
+    allow_rebase_merge: false
+    delete_branch_on_merge: true
