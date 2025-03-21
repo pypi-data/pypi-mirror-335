@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+"""Main entry point for QGit commands."""
+
+import sys
+import os
+from pathlib import Path
+
+# Get the absolute path to the qgit package directory
+package_dir = Path(__file__).parent.resolve()
+sys.path.insert(0, str(package_dir))
+
+# Add the virtual environment site-packages
+venv_site_packages = package_dir / ".venv" / "lib" / "python3.12" / "site-packages"
+if venv_site_packages.exists():
+    sys.path.insert(0, str(venv_site_packages))
+else:
+    # Fallback to user's site-packages
+    user_site_packages = Path.home() / "Library/Python/3.12/lib/python/site-packages"
+    if user_site_packages.exists():
+        sys.path.insert(0, str(user_site_packages))
+
+from qgits.cli import main
+
+if __name__ == "__main__":
+    sys.exit(main())
