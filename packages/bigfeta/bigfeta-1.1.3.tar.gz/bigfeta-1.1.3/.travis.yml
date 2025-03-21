@@ -1,0 +1,68 @@
+language: python
+dist: xenial
+python:
+# we don't actually use travis python versions, so match these to conda
+- '2.7'
+- '3.6'
+- '3.7'
+- '3.8'
+services:
+- docker
+addons:
+  apt:
+    packages:
+    - libblas-dev
+    - liblapack-dev
+    - libatlas-base-dev
+    - libopenblas-base
+    - libopenblas-dev
+    - build-essential
+    - libssl-dev
+    - uuid-dev
+    - libgpgme11-dev
+    - squashfs-tools
+    - libseccomp-dev
+    - wget
+    - pkg-config
+    - libopenmpi-dev
+install:
+# create and activate conda environment for testing
+- if [[ "$TRAVIS_PYTHON_VERSION" == "2.7" ]]; then
+    wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh;
+  else
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh;
+  fi
+- bash miniconda.sh -b -p $HOME/miniconda
+- source "$HOME/miniconda/etc/profile.d/conda.sh"
+- hash -r
+- conda config --set always_yes yes --set changeps1 no
+- conda update -q conda
+- conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION
+- conda activate test-environment
+
+- pip install codecov
+- pip install -r requirements.txt
+- pip install -r test_requirements.txt
+- conda install -c conda-forge petsc4py
+- mkdir -p \tmp\solver_output
+before_install:
+- docker-compose up -d
+- "/bin/bash .travis/singularity_setup.sh"
+env:
+  global:
+  - BIGFETA_OUTPUT_DIR=/tmp/solver_output
+  - RENDER_HOST=localhost
+  - RENDER_PORT=8080
+  - secure: Ui2hz09gJZNviW+qbTAHyTVlx8gd5kGGsYXrfpRmHdCR49zp+Tkv1LYwKrqLWGjQA3AMjAgdIGJgDpA+LT1w1KU3dL4J9JEXuBsVvhu4RkMvO+Oy2KhVrxGEeokNyyN5c4i8j8dHkEzwLEq/g2OYoHhqRpmuLl4et9D8X6vowy3+1hDf/ku/FXHHdcUti9WvyuqDQ+9Y3rcTgWFqC4CAQwXJHSSzfAduc3LYC9BsEAdRyxG8VmgnkIspmuQBVRBFLElVZX9UlLmR71fgOzTtVML06UKv2cm1JU0ylA6WC8pbJVOPDZ3OQLDOBOC99nEz8HUD2E7x4ixxlHx0AE1Qs/Dsb2d+JGwPoSi6JNobQGNIhmkrPf957g6MsMHgH23dNWUSpAkDx6OzCNPEqobP4T3JigWnHOLFwWxav49dsGWneLB9QHE1Landr1rlUegXiuXWm7T3z5hSjIfT6Bun7lQmd/7Qms8osKJz8LJJIvsV8tq5qWe21G8MCCIK/ypje0JJwBo7LiqFmpCbviIXcqngGvzHsww8yNFu4Wx7NYfoAcdCorbJmggk1caoX2SIs5HxLRgxfSQxGW+Ty1JhlliWT2kxfsM7tGfw/AcS9idFTCY160M3Y8tbdE2q9AITiqAB5vsBTy1pLM8MFlm2NrfoOYX1NhaUpaVdZh8qNH8=
+script:
+- sudo singularity build bigfeta/distributed/bin/petsc_solver.simf bigfeta/distributed/src/Singularity.petsc_solver
+- python setup.py test
+cache:
+  pip: true
+  directories:
+  - "$HOME/.m2"
+after_success:
+- codecov -t ${CODECOV_TOKEN}
+- BRANCHES_TO_MERGE_REGEX='develop' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=AllenInstitute/bigfeta
+  .travis/merge_script.sh
+after_failure: docker logs --tail 20 $(docker-compose ps -q renderservice)
