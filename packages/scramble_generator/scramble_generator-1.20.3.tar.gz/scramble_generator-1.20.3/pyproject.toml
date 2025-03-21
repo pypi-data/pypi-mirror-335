@@ -1,0 +1,23 @@
+[project]
+name = "scramble_generator"
+version = "1.20.3"
+description = "Python app for generating scrambles for twisty puzzles."
+readme = "src/scramble_generator/resources/PYPI_README.md"
+license = "MIT"
+authors = [{ name = "Melvin Quick", email = "melvinquick@proton.me" }]
+requires-python = ">=3.12"
+dependencies = ["pyside6>=6.8.2.1", "pyyaml>=6.0.2"]
+
+[project.urls]
+repository = "https://codeberg.org/melvinquick/scramble_generator"
+issues = "https://codeberg.org/melvinquick/scramble_generator/issues"
+
+[project.gui-scripts]
+scramble-generator = "scramble_generator.app:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = ["bandit>=1.8.3"]
