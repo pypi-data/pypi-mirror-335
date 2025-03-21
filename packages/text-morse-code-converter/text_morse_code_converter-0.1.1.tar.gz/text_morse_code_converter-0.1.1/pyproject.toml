@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "text-morse-code-converter"
+version = "0.1.1"
+description = "A simple Morse code converter"
+license = { file = "LICENSE" }
+readme = "README.md"
+authors = [{ name = "ByteBusters Team" }]
+requires-python = ">=3.9"
+
+dependencies = [
+    "sounddevice>=0.4.6",
+    "numpy>=2.2.4"
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+
