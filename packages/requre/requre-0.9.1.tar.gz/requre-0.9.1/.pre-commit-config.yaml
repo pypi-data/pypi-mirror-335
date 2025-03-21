@@ -1,0 +1,71 @@
+# HOWTO: https://pre-commit.com/#usage
+# pip3 install pre-commit
+# pre-commit install -t pre-commit -t pre-push
+
+repos:
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.19.1
+    hooks:
+      - id: pyupgrade
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        exclude: tests/data/.+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-merge-conflict
+      - id: check-yaml
+      - id: detect-private-key
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        exclude: examples
+        args:
+          - --max-line-length=100
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.14.1
+    hooks:
+      - id: mypy
+        exclude: examples
+        args: [--no-strict-optional, --ignore-missing-imports]
+        additional_dependencies: [types-click, types-requests, types-PyYAML]
+  - repo: https://github.com/packit/pre-commit-hooks
+    rev: v1.2.0
+    hooks:
+      - id: check-rebase
+        args:
+          - https://github.com/packit/requre.git
+        stages: [manual, pre-push]
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.31.1
+    hooks:
+      - id: check-github-workflows
+        args: ["--verbose"]
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.5.5
+    hooks:
+      - id: insert-license
+        files: \.py$
+        args:
+          - --license-filepath
+          - LICENSE_HEADER.txt
+          - --comment-style
+          - "#"
+  - repo: https://github.com/teemtee/tmt.git
+    rev: 1.41.0
+    hooks:
+      - id: tmt-lint
+        # Do not run in pre-commit.ci as it requires an internet access
+        # for verifying imported tmt plans
+        stages: [manual, pre-push]
