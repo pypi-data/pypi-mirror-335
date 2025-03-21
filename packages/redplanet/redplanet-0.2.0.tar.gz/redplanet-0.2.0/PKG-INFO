@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: redplanet
+Version: 0.2.0
+Summary: User-friendly accessors/calculations/plotting for various Mars datasets and derived geophysics quantities.
+Author-email: Zain Eris Kamal <zain.eris.kamal@rutgers.edu>
+License-Expression: MIT
+License-File: LICENSE
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Astronomy
+Requires-Python: <3.13,>=3.10
+Requires-Dist: cartopy>=0.24.1
+Requires-Dist: numpy>=2.1.1
+Requires-Dist: pandas>=2.2.2
+Requires-Dist: pyshtools>=4.13.1
+Requires-Dist: python-calamine>=0.3.1
+Requires-Dist: scipy>=1.14.1
+Requires-Dist: xarray>=2024.9.0
+Requires-Dist: xxhash>=3.5.0
+Provides-Extra: generate-datasets
+Requires-Dist: dask>=2024.9.0; extra == 'generate-datasets'
+Requires-Dist: rioxarray>=0.17.0; extra == 'generate-datasets'
+Requires-Dist: zarr>=2.18.3; extra == 'generate-datasets'
+Provides-Extra: interactive
+Requires-Dist: jupyter>=1.1.1; extra == 'interactive'
+Requires-Dist: matplotlib>=3.9.2; extra == 'interactive'
+Requires-Dist: plotly>=5.24.1; extra == 'interactive'
+Description-Content-Type: text/markdown
+
+RedPlanet is an open-source Python library for working with various Mars geophysical datasets. We aim to streamline data analysis/visualization workflows for beginners and experts alike, so you spend less time hunting/wrangling data and more time doing cool science! :)
+
+Start with our documentation: https://humboldt-penguin.github.io/redplanet/
+
+Huge thanks to my incredible advisor [Prof. Lujendra Ojha](https://www.lujendraojha.com/) for all his support, guidance, patience, and kindness over the past four years.
+
+&nbsp;
+
+---
+
+NOTE: I completely rewrote this project in 2024 September, erasing the entire git history and restarting from scratch. On PyPI, I deleted the only version which which was ever published (v1.0.0), so it's impossible to download now (as opposed to "yanking" which would allow for downloading if the exact version were accidentally requested). An archive of the old repo is available here: https://github.com/Humboldt-Penguin/redplanet_archive-240910
