@@ -1,0 +1,230 @@
+Metadata-Version: 2.4
+Name: tools4all
+Version: 0.1.3
+Summary: Function calling capabilities for LLMs that don't natively support them
+Home-page: https://github.com/alfredwallace7/tools4all
+Author: Alfred Wallace
+Author-email: Alfred Wallace <alfred.wallace@netcraft.fr>
+License: MIT
+Project-URL: Homepage, https://github.com/alfredwallace7/tools4all
+Project-URL: Issues, https://github.com/alfredwallace7/tools4all/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: ollama>=0.1.20
+Requires-Dist: pydantic>=2.5.0
+Requires-Dist: rich>=13.6.0
+Dynamic: author
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-python
+
+# Tools4All
+
+A Python library that adds function calling capabilities to LLMs that don't natively support them, with a focus on Ollama models.
+
+## 🎯 Goal
+
+Tools4All enables function calling for any LLM, even those that don't natively support tools or function calling. It works by:
+
+1. Injecting tool descriptions into the system prompt
+2. Parsing the LLM's response to extract tool calls
+3. Executing the tools and providing results back to the LLM
+4. Generating a final answer based on the tool results
+
+This approach allows you to use function calling with models like Gemma 3 (27B) through Ollama, even though they don't have native tool support.
+
+## 🚀 Features
+
+- **Universal Tool Support**: Add function calling to any LLM through Ollama
+- **Tool Registry**: Easy registration and management of tools
+- **Response Parsing**: Intelligent parsing of LLM responses to extract tool calls
+- **Final Answer Generation**: Avoid hallucinations by using actual tool results
+- **Flexible Model Configuration**: Works with any model available through Ollama
+
+## Usage
+
+```bash
+pip install tools4all
+```
+
+Use as you would use ollama python library
+
+## 📋 Development Installation
+
+```bash
+# Clone the repository
+git clone git@github.com:alfredwallace7/tools4all.git
+cd tools4all
+
+# Create a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## 📦 Dependencies
+
+- `ollama`: Python client for Ollama
+- `pydantic`: Data validation and settings management
+- `rich`: For pretty printing (optional)
+
+## 🔧 Usage
+
+### Basic Usage
+
+```python
+from tools4all import Tools4All, ToolRegistry
+
+# Create a tool registry
+registry = ToolRegistry()
+
+# Define and register a tool
+def get_weather(location):
+    # Your implementation here
+    return f"The weather in {location} is sunny."
+
+registry.register_tool(
+    "get_weather",
+    get_weather,
+    "Get the current weather",
+    {
+        "type": "object",
+        "properties": {
+            "location": {
+                "type": "string",
+                "description": "The city and state, e.g. San Francisco, CA"
+            }
+        },
+        "required": ["location"]
+    }
+)
+
+# Create a Tools4All client
+client = Tools4All(host='http://127.0.0.1:11434')
+
+# Process a user prompt
+prompt = "What's the weather like in San Francisco?"
+model = "gemma3:27b"  # or any other model available through Ollama
+
+client.process_prompt(prompt, registry, model)
+```
+
+### Creating Custom Tools
+
+You can create custom tools by defining functions and registering them with the ToolRegistry:
+
+```python
+def calculate_mortgage(principal, interest_rate, years):
+    monthly_rate = interest_rate / 100 / 12
+    months = years * 12
+    payment = principal * (monthly_rate * (1 + monthly_rate) ** months) / ((1 + monthly_rate) ** months - 1)
+    return f"Monthly payment: ${payment:.2f}"
+
+registry.register_tool(
+    "calculate_mortgage",
+    calculate_mortgage,
+    "Calculate monthly mortgage payment",
+    {
+        "type": "object",
+        "properties": {
+            "principal": {
+                "type": "number",
+                "description": "Loan amount in dollars"
+            },
+            "interest_rate": {
+                "type": "number",
+                "description": "Annual interest rate in percent"
+            },
+            "years": {
+                "type": "integer",
+                "description": "Loan term in years"
+            }
+        },
+        "required": ["principal", "interest_rate", "years"]
+    }
+)
+```
+
+## 🧩 Architecture
+
+Tools4All consists of several key components:
+
+1. **LLMResponseParser**: Parses LLM responses to extract code blocks, tool calls, and comments
+2. **ToolRegistry**: Manages tool registration and execution
+3. **Tools4All**: Main class that handles chat completions and adapts for models without native tool support
+4. **Process Prompt Function**: Orchestrates the entire workflow from user prompt to final answer
+
+## 🔄 Workflow
+
+1. User sends a prompt
+2. The prompt is sent to the LLM with tool descriptions
+3. The LLM's response is parsed to extract tool calls
+4. Tools are executed with the provided arguments
+5. Tool results are sent back to the LLM
+6. A final answer is generated based on the tool results
+
+## 📝 Example
+
+```
+User: What's the weather like in San Francisco, CA?
+
+Model: I'll check the weather for you.
+
+Tool Call: get_temperature(location="San Francisco, CA", format="fahrenheit")
+Tool Result: Current temperature in San Francisco, CA is 65°F
+
+Tool Call: get_humidity(location="San Francisco, CA")
+Tool Result: Current humidity in San Francisco, CA is 75%
+
+Final Answer:
+Based on the information I gathered:
+
+Current temperature in San Francisco, CA is 65°F
+Current humidity in San Francisco, CA is 75%
+
+This is the current weather information for your requested location.
+```
+
+## 🛠️ Advanced Configuration
+
+### Using Different Models
+
+You can specify which model to use when processing prompts:
+
+```python
+# Use Gemma 3 (27B)
+client.process_prompt(prompt, registry, model="gemma3:27b")
+
+# Use Qwen 2.5 (3B)
+client.process_prompt(prompt, registry, model="qwen2.5:3b")
+```
+
+### Custom Host
+
+You can specify a custom Ollama host:
+
+```python
+client = Tools4All(host='http://your-ollama-server:11434')
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgements
+
+- [Ollama](https://github.com/ollama/ollama) for providing the LLM backend
+- [Pydantic](https://github.com/pydantic/pydantic) for data validation
