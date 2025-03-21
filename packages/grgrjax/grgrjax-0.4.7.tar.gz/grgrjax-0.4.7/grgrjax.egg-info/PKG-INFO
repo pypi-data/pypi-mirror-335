@@ -1,0 +1,42 @@
+Metadata-Version: 2.2
+Name: grgrjax
+Version: 0.4.7
+Summary: Some generic tools for JAX
+Home-page: https://github.com/gboehl/grgrjax
+Author: Gregor Boehl
+Author-email: admin@gregorboehl.com
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+Requires-Dist: jax
+Requires-Dist: jaxlib
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+grgrjax
+=======
+
+This library provides some useful additional tools to `JAX <https://github.com/google/jax>`_, such as a `multivariate Newton method <https://en.wikipedia.org/wiki/Newton%27s_method#k_variables,_k_functions>`_, ``val_and_jacfwd`` or vectorized JVP and VJP functions.
+
+The module `documentation <https://grgrjax.readthedocs.io/en/stable/>`_ can be found on Readthedocs.
+
+Installation with ``pip``
+-----------------------------
+
+It's as simple as typing
+
+.. code-block:: bash
+
+   pip install grgrjax
+
+in the terminal (Unix/Mac) or the Anaconda Prompt (Win).
