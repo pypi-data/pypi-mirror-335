@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pybirthday"
+description = "A Python package that lets users generate festive birthday-themed visuals."
+version = "0.1.1"
+authors = [
+  { name="Shuyuan Yang", email="sy3644@nyu.edu" },
+  { name="Frank Fang", email="hf2371@nyu.edu" },
+  { name="Lauren Zhou", email="llz3185@nyu.edu" },
+  { name="Eric Xu", email="zx1244@nyu.edu" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-helloworld"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-helloworld.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-helloworld/issues"
+
+[project.scripts]
+pybirthday = "pybirthday.__main__:main"
