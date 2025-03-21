@@ -1,0 +1,1 @@
+target_sources(pylena_cxx PRIVATE scribo.cpp line_detector.cpp)
