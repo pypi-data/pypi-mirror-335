@@ -1,0 +1,100 @@
+Metadata-Version: 2.4
+Name: aqvisa
+Version: 0.0.2
+Summary: Acute VISA Library
+Author-email: "Acute Technology Inc." <sdk@acute.com.tw>, Eric Tsai <erictsai@acute.com.tw>
+License: BSD 2-Clause License
+        
+        Copyright (c) 2025, Acute Technology Inc.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        
+Project-URL: Homepage, https://github.com/acute-technology-inc/aqvisa-python
+Classifier: Development Status :: 4 - Beta
+Classifier: Topic :: Software Development
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+<h1 align=center>Acute VISA Python Package</h1>
+
+[![License](https://img.shields.io/badge/License-BSD_2--Clause-orange.svg)](https://opensource.org/licenses/BSD-2-Clause)
+[![PyPI](https://img.shields.io/pypi/v/aqvisa?label=pypi%20package)](https://pypi.org/project/aqvisa/)
+
+Acute VISA (AqVISA) offers an intuitive interface for seamless management of controlling our applications. This Python package providing higher level management to AqVISA library.
+
+- Acute official website: https://www.acute.com.tw/en/
+- Acute software download: https://www.acute.com.tw/en/install
+- Acute VISA SDK installer download: https://www.acute.com.tw/en/sdkDLL
+- Bug reports: https://github.com/acute-technology-inc/aqvisa-python/issues
+
+## Installation
+
+- Run the installer.
+
+    Please refer to the [installation page](https://www.acute.com.tw/en/sdkDLL) to download the installer.
+    
+    By default, the installer will install the dynamic library and the dependency libraries to the following directory:
+    ```
+    C:\Users\<username>\AppData\Local\Acute\SDK\AqVISA
+    ```
+    
+    The installer has an option to add the installation directory to the system PATH.
+    This is recommended for most users to locate the dynamic library easily.
+
+- Install the Python Package
+    
+    You can install aqvisa as a python package using a package manager called `pip`, which installs packages from the Python Packaging Index (PyPI).
+    
+    Type the following command in your terminal:
+    ```bash
+    pip install aqvisa
+    ```
+
+## Examples
+
+| **Use Case** | **Description** |
+| ------------ | --------------- |
+| [Basic Write / Read](https://github.com/acute-technology-inc/aqvisa-python/blob/main/examples/helloworld.py) | Demonstrates basic usage | 
+
+## FAQ
+
+### Library AqVISA64 not found
+
+If you encounter the following error:
+
+```
+FileNotFoundError: Library AqVISA64 not found
+```
+
+This means that the dynamic library is not installed. Please refer to the [installation page](https://www.acute.com.tw/en/sdkDLL) to download the installer.
