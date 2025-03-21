@@ -1,0 +1,61 @@
+{
+    "type": "OBJECT",
+    "properties": {
+        "bankAccount": {"type": "STRING"},
+        "contractNumber": {"type": "STRING"},
+        "currencyExchange": {
+            "type": "OBJECT",
+            "properties": {
+                "from": {"type": "STRING"},
+                "fxRate": {"type": "STRING"},
+                "to": {"type": "STRING"}
+            }
+        },
+        "documentType": {"type": "STRING"},
+        "dueDate": {"type": "STRING"},
+        "eta": {"type": "STRING"},
+        "etd": {"type": "STRING"},
+        "fortoEntity": {"type": "STRING"},
+        "hblNumber": {"type": "STRING"},
+        "currencyCode": {"type": "STRING"},
+        "grandTotal": {"type": "STRING"},
+        "vatAmount": {"type": "STRING"},
+        "vatApplicableAmount": {"type": "STRING"},
+        "vatPercentage": {"type": "STRING"},
+        "invoiceNumber": {"type": "STRING"},
+        "issueDate": {"type": "STRING"},
+        "lineItem": {
+            "type": "ARRAY",
+            "items": {
+                "type": "OBJECT",
+                "properties": {
+                    "uniqueId": {"type": "STRING"},
+                    "lineItemDescription": {"type": "STRING"},
+                    "totalAmount": {"type": "STRING"},
+                    "totalAmountCurrency": {"type": "STRING"},
+                    "totalAmountEuro": {"type": "STRING"},
+                    "quantity": {"type": "STRING"},
+                    "unitPrice": {"type": "STRING"},
+                    "unitPriceCurrency": {"type": "STRING"},
+                    "vatAmount": {"type": "STRING"},
+                    "vatPercentage": {"type": "STRING"},
+                    "containerNumber": {"type": "STRING"},
+                    "containerSize": {"type": "STRING"}
+                }
+            }
+        },
+        "mblNumber": {"type": "STRING"},
+        "partnerReference": {"type": "STRING"},
+        "paymentTerm": {"type": "STRING"},
+        "portOfDischarge": {"type": "STRING"},
+        "portOfLoading": {"type": "STRING"},
+        "recipientAddress": {"type": "STRING"},
+        "recipientName": {"type": "STRING"},
+        "serviceDate": {"type": "STRING"},
+        "vatId": {"type": "STRING"},
+        "vendorAddress": {"type": "STRING"},
+        "vendorName": {"type": "STRING"},
+        "reverseChargeSentence": {"type": "STRING"}
+    },
+    "required": []
+}
