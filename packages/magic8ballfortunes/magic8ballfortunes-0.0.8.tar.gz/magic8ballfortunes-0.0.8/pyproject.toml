@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "magic8ballfortunes"
+description = "An example of a package developed with pipenv, built with build using setuptools, uploaded to PyPI using twine, and distributed via pip."
+version = "0.0.8"
+authors = [
+  { name="Team Package" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "build"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-package"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-package.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-package/issues"
+
+[project.scripts]
+magic8ballfortunes = "magic8ballfortunes.__main__:main"
+
+[tool.setuptools.package-data]
+"magic8ballfortunes" = ["data.json"]
