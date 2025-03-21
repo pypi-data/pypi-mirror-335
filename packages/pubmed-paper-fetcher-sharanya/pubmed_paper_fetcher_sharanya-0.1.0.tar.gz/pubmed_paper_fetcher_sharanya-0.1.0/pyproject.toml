@@ -1,0 +1,22 @@
+
+[tool.poetry]
+name = "pubmed-paper-fetcher-sharanya"
+version = "0.1.0"
+description = "Fetch research papers from PubMed with company affiliations."
+authors = [ "Naga Sharanya kashanagasharanya@gmail.com"]
+packages = [
+    { include = "pubmed_fetcher", from = "src" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.32.3"
+pandas = "^2.2.3"
+lxml = "^5.3.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+
+[tool.poetry.scripts]
+get-papers-list = "pubmed_fetcher.main:main"
