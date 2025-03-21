@@ -1,0 +1,23 @@
+[project]
+name = "mcp-smarthub"
+version = "0.2.1"
+description = "MCP Server for SmartHub"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+authors = [
+    { name = "Block", email = "mbrown@block.xyz" }
+]
+dependencies = [
+    "mcp>=1.2.0"
+]
+
+[project.scripts]
+mcp-smarthub = "mcp_smarthub:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.urls]
+Homepage = "https://github.com/squareup/mcp-smarthub"
