@@ -1,0 +1,194 @@
+Metadata-Version: 2.4
+Name: hype-tools
+Version: 0.1.1
+Summary: A collection of tools for analyzing HYPe reads
+Author-email: Luisa Kalkert <luisa.kalkert@gmx.de>
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: click
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: tqdm
+Requires-Dist: biopython
+Requires-Dist: python-Levenshtein
+Requires-Dist: minineedle
+Requires-Dist: scipy
+Requires-Dist: statistics
+Dynamic: license-file
+
+# HYPeTools
+
+This is a collection of tools for analyzing HYPe sequences.
+
+Included tools:
+
+- Detection of HVDs and conserved regions
+- Generation of synthetic HYPe HVDs
+- Parsing of HVDs to motifs
+- Report generation for parsed reads
+- Filtering of parsed reads
+- Compaction of parsed reads
+
+Included data:
+- G. pallida HYP1 HVD markers
+- G. pallida HYP1 Motifs
+- G. pallida HYP1 Germline Sequences
+- Synthetic G. pallida HYP1 example HVDs
+
+## Tools
+
+### HVD detection
+
+This tool splits HYPe reads into HVDs (Hypervariable Domains) and conserved domains from FASTA files by identifying the positions of the 
+specified start and end markers. It can process either a single FASTA file or a directory of FASTA files. Per default, the tool will use the HVD markers from G. pallida HYP1.
+
+
+```bash
+ hypetools extract-hvds "path/to/folder/or/fasta/file.fasta" --hvd-markers "path/to/hvd/markers.fasta" --start-index 2 --end-index 5
+```
+
+
+### Synthetic data generation
+
+This tool can be used to generate synthetic HYPe sequences. You can use it to create a synthetic data set to mimick real observed reads.
+The synthetic data set contains reads from different categories, the user can specify the number of sequences to generate for each category.
+
+- real observed reads - these should be sampled from real data. Per default, the tool will use the real observed HYP1 reads from G. pallida.
+- hybrid reads - created by combining two real observed HYP1 reads
+- random motif-based reads - created by combining a random number of motifs. The motifs can be provided by the user. Per default, the tool will use the motifs from G. pallida. HYP1. Motifs should be provided in fasta format.
+- block-based reads - created by combining a random number of motifs, but following the block arrangement of real observed HYP1 reads. To use this, the user needs to provide a file containing the motifs in a fasta format. The fasta headers should contain the position of the motif in the HYP block.
+
+(Examples for the files the user can provide can be found in the HYPeTools/data folder.)
+
+The reads are created and then mutated, which means indels and SNPs are introduced.
+The mutation rate is on a per base pair basis. The rate is sampled from a normal distribution to resemble the mutation rate of real observed HYP1 reads.
+
+The synthetic data set also contains:
+- severely mutated sequences - sequences with a higher mutation rate
+- completely random sequences - created by randomly combining bases
+These are created as "negative controls", reads that can not be ambigously parsed.
+
+The length of the sequences are sampled from a normal distribution to resemble the length of real observed HYP1 reads.
+For the block-based and random motif-based sequences, this length is obtained by using the length of unique real obsereved HYP reads
+
+The user can provide files containing:
+- real observed HYP1 reads
+- motifs
+- short sections of conserved regions, these will be flanking the HVDs
+
+
+Additionaly, a file will be created containing information about the synthetic data set - what category the reads belong to, and the motifs used to create the reads, as well as the number of mutations in the reads. 
+
+The user can specify the number of reads to generate for each category.
+
+```bash
+hype-tools synth --n-real 100 --n-hybrid 200 --n-severe 100 --n-random-motif 10 --n-block 100 --n-full-random 100 --real-input real.fasta --motifs motifs.json --output output
+```
+of
+or specify the total number of reads to generate and the input file.
+
+```bash
+hype-tools synth --n 600 --real-input real.fasta --motifs motifs.json --output output
+```
+
+
+### HYPe Parsing
+
+This tool processes FASTA files by first detecting HVDs and then finding the motifs in the HVDs. The selection of possible motifs and HVD start and end markers can be provided by the user. This tool will output a table for each read containing the most likely sequence of motifs on a dna and protein level, their positions in the read and the quality of the parsing. If two or more motifs fit equally well, the tool will output all of them for one position.
+
+Quality measures: 
+- Excluded bases: Percentage of the read that is covered by the motifs
+- Per Motif Alignment Score: Normalized semiglobal alignment score of the motif in this position, 1 is a perfect match
+- Per Motif Quality Score: Alignment score of the best matching motif in this position, divided by the alignment score of the second best matching motif in this position. The quality score is between 1 and 2, 1 means no certainty, both the best and the second best matching motifs align equally well, 2 is high certainty. 
+- Per Read Alignment Score: Average alignment score of the motifs in the read
+
+
+```bash
+ hypetools replace-parser /path/to/folder/or/fasta/file.fasta --hvds-file /path/to/hvd/markers.fasta --motifs-file /path/to/motifs.json --start-index 3 --end-index 6 
+```
+
+The input can be a single fasta file or a directory containing multiple fasta files. 
+
+
+### Report Generation
+
+With this tool, the user will be able to generate a report about about a parser output. The report will contain information about the HVDs, the motifs, and the quality of the parsing.
+
+
+```bash
+hypetools generate-report path/to/your_replace_parse_results.txt 
+```
+
+
+### Compacted Parsed Reads 
+
+With this tool, the user is be able to generate a compacted version of the parsed reads file generated by the replace parser. This compacted version only contains the sequence header and the motifs, no quality information.
+
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt     
+```
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt --no-protein    
+```
+
+
+```bash
+hypetools compact-output path/to/your_replace_parse_results.txt --no-dna    
+```
+
+
+### Filter Parsed Reads
+
+With this tool, the user is able to filter the parsed reads based on the quality of the parsing. The user can filter based on the minimum alignment score, the excluded percentage, the quality score and the minimum average score.
+
+```bash
+hypetools filter-parsed /path/to/your_replace_parse_results.txt --min-align 0.8 --max-excl-pct 10.0 --min-qual 1.2 --min-avg-align 0.8
+```
+
+The user can filter for the following parameters:
+- Minimum alignment score (0-1) required for individual motifs
+- Minimum average alignment score (0-1) across all motifs in a read
+- Maximum percentage (0-100) of bases that can be excluded from motif matches
+- Minimum quality score (1-2) required for motif assignments
+
+Even if no parameters are provided, the tool will always filter out empty items. E.g. reads that do not have any motifs or reads where no HVD was found.
+
+##### Some suggested values:
+
+Perfectionist:
+- Maximum excluded percentage: 0.0
+- Minimum quality score: 1.2
+- Minimum average alignment score: 1.0
+- Minimum alignment score: 1.0
+
+High-quality:
+- Maximum excluded percentage: 4
+- Minimum quality score: 1.2
+- Minimum average alignment score: 0.8
+
+Medium-quality:
+- Maximum excluded percentage: 6
+- Minimum quality score: 1.2
+- Minimum average alignment score: 0.95
+
+Setting the minimum quality score to 1.2 will remove all reads with ambiguous motifs.
+
+
+## Example Data
+
+This package also includes data for G. pallida HYP1.
+
+-  Synthetically generated G. pallida HYP1 data 
+- G. pallida HY1 HVD markers
+- G. pallida HYP1 Motifs
+- G. pallida HYP1 Germline Sequences
+
+
+
+## Future Tools 
+
+### De-Novo Motif Detection
+
+With this tool, the user will be able to scan a fasta file containing HYPe reads for new, unknown motifs. 
