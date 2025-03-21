@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mkdocs_awesome_autolinks"
+authors = [
+    {name = "Johan Boer"}
+]
+description = "An MkDocs plugin for linking without specifying the full relative path and other features that ease using the file structure to generate navigation."
+readme = "README.md"
+requires-python = ">=3.7"
+keywords = ["mkdocs", "markdown", "awesome", "autolinks"]
+license = {text = "MIT"}
+classifiers = [
+    "Topic :: Documentation",
+    "Programming Language :: Python :: 3",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology"
+]
+dependencies = [
+    "mkdocs >= 1.4",
+]
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/Johan-EU/mkdocs-awesome-autolinks"
+
+[tool.setuptools]
+packages = ["mkdocs_awesome_autolinks"]
+
+[tool.setuptools_scm]
+
+[project.entry-points."mkdocs.plugins"]
+awesome-autolinks = "mkdocs_awesome_autolinks.plugin:AwesomeAutolinksPlugin"
+
