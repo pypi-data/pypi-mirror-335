@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: ai4climate
+Version: 0.0.2
+Summary: A Collection and Analysis of Machine Learning Tasks, Datasets and Testbeds for Tackling Climate Change.
+Author-email: Arsam Aryandoust <arsam@mit.edu>
+License: MIT License
+        
+        Copyright (c) 2025 Arsam Aryandoust
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Keywords: Artificial Intelligence,Climate Change,Machine Learning
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: numpy>=2.2.4
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: h5py>=3.13.0
+Requires-Dist: torch>=2.6.0
+
+# AI4Climate: Collection of Machine Learning Tasks and Datasets for Tackling Climate Change
+
+## Overview
+
+1. [Getting started](#getting-started)
+2. [Available datasets](#list-of-available-datasets)
+3. [Contributions](docs/contributions.md)
+
+
+## Getting started
+
+All datasets are provided on Hugging Face Hub and ready to be downloaded and 
+parsed into our standardized data format with training, validation and testing 
+splits using our `ai4climate` Python package. Install package:
+
+```bash
+pip install ai4climate
+```
+
+For example, load the "train_small_test_medium" task from the "OPFData" dataset:
+```Python
+from ai4climate import load
+
+dataset = load(
+    task_name='OPFData', 
+    subtask_name='train_small_test_medium',
+    root_path='~/AI4Climate/'
+)
+```
+
+## List of available datasets
+
+1. [OPFData](docs/opfdata.md)
+2. [PowerGraph](docs/powergraph.md)
+3. [SolarCube](docs/solarcube.md)
