@@ -1,0 +1,79 @@
+Metadata-Version: 2.2
+Name: gcp-lolo
+Version: 1.0.2
+Summary: A Python package for storing application logs in GCP Cloud Logging.
+Home-page: https://github.com/qurami/gcp-lolo
+Author: Gianfranco Reppucci, ufirst
+Author-email: gianfranco.reppucci@ufirst.com
+License: MIT
+Keywords: logging,GCP,Cloud Logging
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Logging
+Classifier: Topic :: Utilities
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: google-api-core==2.24.2
+Requires-Dist: google-auth==2.38.0
+Requires-Dist: google-cloud-core>=2.0.0
+Requires-Dist: google-cloud-logging>=3.0.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: summary
+
+# gcp-lolo
+
+GCP Cloud Logging Python logger
+
+The idea behind this package is to provide the simplest way to log messages to Google Cloud Logging, without having to worry about the details of setting up the Google Cloud Logging client and/or affecting the current application structure.
+
+## Installation
+
+```bash
+pip install gcp-lolo
+```
+
+## Usage
+
+### Prerequisites
+
+Be sure either one of the following environment variables is set
+
+- `GOOGLE_APPLICATION_CREDENTIALS`, pointing to the path of the GCP credentials JSON file
+- `GCP_CREDENTIALS_JSON`, a string containing the GCP credentials JSON file
+
+### Usage method #1
+
+```python
+from gcp_lolo import get_gcp_logger
+
+logger = get_gcp_logger('my-logger')
+
+logger.info('This is a test info message')
+logger.error('This is a test error message')
+```
+
+### Usage method #2
+
+This method will redirect all `print` and `raise` statements to the GCP logger, so that you can avoid the need to change your code to use the logger directly.
+
+```python
+from gcp_lolo import setup_gcp_logging
+
+
+setup_gcp_logging('my-logger')
+
+print('This is a test message')
+
+raise Exception('This is a test exception')
+```
