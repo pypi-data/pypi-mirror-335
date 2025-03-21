@@ -1,0 +1,57 @@
+repos:
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v5.0.0  # Use the ref you want to point at
+  hooks:
+  - id: trailing-whitespace
+  - id: check-added-large-files
+    args: ['--maxkb=3000']
+  - id: check-case-conflict
+  - id: check-executables-have-shebangs
+  - id: check-merge-conflict
+  - id: check-toml
+  - id: detect-private-key
+  - id: end-of-file-fixer
+  - id: name-tests-test
+    args: ['--pytest-test-first']
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.8.3
+  hooks:
+  # Run the linter.
+  - id: ruff
+    types_or: [ python, pyi ]
+    args: [ --select, "I,F401", --fix ]
+  # Run the formatter.
+  - id: ruff-format
+- repo: https://github.com/kynan/nbstripout
+  rev: 0.8.1
+  hooks:
+  - id: nbstripout
+    args:
+      [
+        "--extra-keys",
+        "metadata.interpreter metadata.kernelspec cell.metadata.pycharm",
+      ]
+- repo: local
+  hooks:
+  - id: rustfmt
+    name: rustfmt
+    entry: cargo fmt
+    language: rust
+    files: \.rs$
+    pass_filenames: false
+    args: ["--all"]
+  - id: test-py
+    name: test python
+    entry: uv run pytest tests
+    pass_filenames: false
+    require_serial: true
+    language: system
+    types_or: [python, pyi]
+  - id: test-rs
+    name: test rust
+    entry: cargo test
+    language: rust
+    files: (Cargo.(toml|lock)|\.rs$)
+    pass_filenames: false
+    args: ["--workspace"]
