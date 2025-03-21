@@ -1,0 +1,17 @@
+[package]
+name = "pyned2lla"
+version = "0.1.1"
+edition = "2021"
+authors = ["Andrew Straw <strawman@astraw.com>"]
+description = "NED (North East Down) to LLA (Latitude Longitude Altitude) conversion for Python"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/strawlab/pyned2lla"
+
+[lib]
+name = "pyned2lla"
+crate-type = ["cdylib"]
+
+[dependencies]
+coord_transforms = "1.4.0"
+pyo3 = "0.24.0"
