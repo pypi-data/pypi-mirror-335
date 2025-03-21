@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylatentsync"
+version = "1.0.0"
+description = "A python package for LatentSync"
+readme = "README.md"
+authors = [{ name = "Long Do", email = "dothanhlongtld@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["latentsync"]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+# List dependencies directly here instead of using dynamic
+dependencies = [
+    "diffusers==0.32.2",
+    "transformers==4.48.0",
+    "huggingface-hub==0.25.2",
+    "decord==0.6.0",
+    "accelerate==0.26.1",
+    "einops==0.7.0",
+    "omegaconf==2.3.0",
+    "opencv-python==4.9.0.80",
+    "mediapipe==0.10.11",
+    "python_speech_features==0.6",
+    "librosa==0.10.1",
+    "scenedetect==0.6.1",
+    "ffmpeg-python==0.2.0",
+    "lpips==0.1.4",
+    "face-alignment==1.4.1",
+    "gradio==5.12.0",
+    "numpy==1.26.4",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/dothanhlongtld/pylatentsync"
+"Bug Tracker" = "https://github.com/dothanhlongtld/pylatentsync/issues"
+
+[tool.setuptools]
+package-dir = { "pylatentsync" = "latentsync" }
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["latentsync*"]
