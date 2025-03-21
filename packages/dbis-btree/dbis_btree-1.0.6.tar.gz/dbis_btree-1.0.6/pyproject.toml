@@ -1,0 +1,64 @@
+[project]
+name = "dbis-btree"
+version = "1.0.6"
+description = "RWTH Aachen Computer Science i5/dbis assets for Lecture Datenbanken und Informationssysteme"
+authors = [
+	{ name = "DBIS i5 RWTH Aachen", email = "dbis-vl@dbis.rwth-aachen.de " },
+]
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.13",
+]
+dependencies = [
+	"numpy",
+	"graphviz",
+	"ipython",
+]
+[project.optional-dependencies]
+test = [
+  	"pytest",
+  	"pytest-cov",
+	"tox",
+    "black==23.12.1"
+]
+lint = [
+  	"ruff",
+]
+build = [
+    "twine==6.*",
+    "build==1.*"
+]
+
+[project.urls]
+"Homepage" = "https://git.rwth-aachen.de/i5/teaching/dbis/dbis-btree"
+
+[options]
+include_package_data = true
+exclude = ["examples"]
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+]
