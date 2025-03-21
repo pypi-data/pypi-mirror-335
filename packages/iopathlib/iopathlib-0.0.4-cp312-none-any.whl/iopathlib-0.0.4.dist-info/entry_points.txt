@@ -1,0 +1,7 @@
+[console_scripts]
+iopathlib = iopathlib.cli:cli.main
+
+[iopathlib]
+http = iopathlib.handlers.http:HTTPHandler
+onedrive = iopathlib.handlers.onedrive:OneDriveHandler
+wandb-artifact = iopathlib.handlers.wandb:WandBArtifactHandler
