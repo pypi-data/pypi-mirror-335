@@ -1,0 +1,17 @@
+NOTE
+====
+
+The "denodo" folder does not include a __init__.py in order not to define a module for it.
+
+This allows other denodo.x software packages to exist in the future without a sqlalchemy-only definition
+of this "denodo" module in "denodo-sqlalchemy" colliding with the "denodo." namespace of such other future
+software packages.
+
+Therefore, the way to import this dialect in python code (rarely needed) would be:
+
+   import denodo.sqlalchemy as denodo_sqlalchemy
+
+Instead of the following (which should fail):
+
+   import denodo
+
