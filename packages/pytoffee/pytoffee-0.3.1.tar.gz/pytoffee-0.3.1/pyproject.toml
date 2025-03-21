@@ -1,0 +1,46 @@
+[build-system]
+requires = [
+    "hatchling",
+    "hatch-vcs",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "pytoffee"
+description = "a framework for building hardware verification platform using software method"
+readme = "README.md"
+license = {file="LICENSE"}
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "License :: OSI Approved :: Mulan Permissive Software License v2 (MulanPSL-2.0)",
+]
+requires-python = ">=3.8"
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+    "sphinx-autodoc-typehints",
+    "myst-parser"
+]
+
+[project.urls]
+Homepage = "https://github.com/XS-MLVP/toffee"
+Source = "https://github.com/XS-MLVP/toffee"
+Tracker = "https://github.com/XS-MLVP/toffee/issues"
+
+[tool.hatch.build]
+packages = ["toffee"]
+
+[tool.hatch.build.targets.sdist]
+exclude = ["/.github"]
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "toffee/__version.py"
