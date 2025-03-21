@@ -1,0 +1,116 @@
+Metadata-Version: 2.4
+Name: DBTunnelBridge
+Version: 0.0.1
+Summary: A package for managing local and remote database connections with optional SSH tunneling.
+Project-URL: Homepage, https://github.com/kwilsonmg/DBTunnelBridge
+Project-URL: Repository, https://github.com/kwilsonmg/DBTunnelBridge
+Author: Kyle Wilson
+License-Expression: MIT
+License-File: LICENSE
+Requires-Python: >=3.11
+Requires-Dist: bcrypt>=4.3.0
+Requires-Dist: cffi>=1.17.1
+Requires-Dist: cryptography>=44.0.2
+Requires-Dist: paramiko>=3.5.1
+Requires-Dist: pycparser>=2.22
+Requires-Dist: pymysql>=1.1.1
+Requires-Dist: pynacl>=1.5.0
+Requires-Dist: sqlalchemy>=2.0.39
+Requires-Dist: sshtunnel>=0.4.0
+Requires-Dist: typing-extensions>=4.12.2
+Description-Content-Type: text/markdown
+
+# DBTunnelBridge
+
+DBTunnelBridge is a Python package that simplifies database connections with optional SSH tunneling support. It provides a clean, Pythonic interface for managing both local and remote database connections through SSH tunnels, with basic automatic resource management and environment variable integration.
+
+## Features
+
+- 🔌 Simple database connection management
+- 🔒 Secure SSH tunneling support
+- 🔑 Environment variable configuration
+- 🛠 SQLAlchemy integration
+- 📦 Context manager support for automatic resource cleanup
+- 🔄 Automatic port forwarding management
+
+## Installation
+
+```bash
+pip install dbtunnelbridge
+```
+
+## Quick Start
+
+### Basic Local Connection
+```python
+from dbtunnelbridge import create_db_connection
+# Create a direct database connection
+with create_db_connection(
+        db_user="your_user",
+        db_password="your_password",
+        db_host="localhost",
+        db_port=3306
+        ) as db:
+    session = db.get_session()
+    # Your database operations here
+```
+### Create a connection through SSH tunnel
+```python
+from dbtunnelbridge import create_db_connection
+
+with create_db_connection(
+    db_user="your_user",
+    db_password="your_password",
+    db_host="internal.database.host",
+    db_port=3306,
+    use_ssh_tunnel=True,
+    ssh_host="bastion.example.com",
+    ssh_username="ssh_user",
+    ssh_pkey="/path/to/private/key"
+) as db:
+    session = db.get_session()
+    # Your database operations here
+```
+
+
+## Environment Variables Support
+
+DBTunnelBridge supports configuration through environment variables:
+
+### Database Configuration
+- `DB_USER`: Database username
+- `DB_PASSWORD`: Database password
+- `DB_HOST`: Database host
+- `DB_PORT`: Database port
+
+### SSH Tunnel Configuration
+- `USE_SSH_TUNNEL`: Enable/disable SSH tunneling ('true'/'false')
+- `SSH_HOST`: SSH tunnel host
+- `SSH_USERNAME`: SSH username
+- `SSH_PKEY`: Path to SSH private key
+
+## Advanced Usage
+
+### Manual Resource Management
+```python
+db = create_db_connection(
+    db_user="your_user",
+    db_password="your_password",
+    db_host="localhost",
+    db_port=3306
+)
+try:
+    db.create_engine()
+    session = db.get_session()
+    # Your database operations here
+finally:
+    db.close_tunnel_if_needed()
+```
+
+## Requirements
+
+- Python 3.10+
+- SQLAlchemy
+- PyMySQL
+- sshtunnel
+- paramiko
