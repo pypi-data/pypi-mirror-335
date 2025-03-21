@@ -1,0 +1,65 @@
+Metadata-Version: 2.3
+Name: structura-py
+Version: 0.1.1
+Summary: A CLI for automated folder structure generation and dependency management for Python projects.
+Author: ShyamSundhar1411
+Author-email: clashwithchiefrpjyt@gmail.com
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: black (>=25.1.0,<26.0.0)
+Requires-Dist: flake8 (>=7.1.2,<8.0.0)
+Requires-Dist: inquirer (>=3.4.0,<4.0.0)
+Requires-Dist: inquirerpy (>=0.3.4,<0.4.0)
+Requires-Dist: isort (>=6.0.1,<7.0.0)
+Requires-Dist: mypy (>=1.15.0,<2.0.0)
+Requires-Dist: pre-commit (>=4.1.0,<5.0.0)
+Requires-Dist: pydantic (>=2.10.6,<3.0.0)
+Requires-Dist: pyyaml (>=6.0.2,<7.0.0)
+Requires-Dist: typer (>=0.15.2,<0.16.0)
+Description-Content-Type: text/markdown
+
+# Structura
+**Automated Folder Structure & Dependency Management for Python Projects**
+
+## Overview
+Structura is a project scaffolding tool that **automatically generates folder structures** (MVC, Hexagonal, MVCS) and **installs dependencies** with their required configurations for Python projects using the **Flask** or **FastAPI** framework.
+
+## Features
+✅ Supports multiple architectures: **MVC, MVCS, Hexagonal, etc.**
+✅ Auto-generates **folders & boilerplate files**
+✅ Installs dependencies
+✅ Configurable via **YAML files**
+✅ Flexible & extensible
+
+## Installation
+```bash
+pip install structura-py
+```
+
+## Usage
+### Initialize a new project
+```bash
+structura-py init myproject --framework flask
+```
+
+
+### Generate project files
+```bash
+structura-py init
+```
+
+## Folder Structure Example
+```
+```
+
+## Contributing
+1. Fork the repo
+2. Create a feature branch
+3. Open a PR
+
+## License
+MIT License
+
