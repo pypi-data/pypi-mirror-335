@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: dda
+Version: 0.7.0
+Summary: Tool for developing on the Datadog Agent platform
+Project-URL: Homepage, https://github.com/DataDog/datadog-agent-dev
+Project-URL: Documentation, https://datadoghq.dev/datadog-agent/setup/
+Author-email: "Datadog, Inc." <dev@datadoghq.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Keywords: agent,datadog
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Python: ~=3.12.0
+Requires-Dist: ada-url~=1.15.3
+Requires-Dist: click~=8.1
+Requires-Dist: datadog-api-client~=2.29.0
+Requires-Dist: dep-sync~=0.1
+Requires-Dist: find-exe~=0.1
+Requires-Dist: hvac~=2.3.0
+Requires-Dist: keyring~=25.6.0
+Requires-Dist: msgspec-click~=0.2
+Requires-Dist: msgspec~=0.18
+Requires-Dist: packaging
+Requires-Dist: platformdirs~=4.2
+Requires-Dist: rich-click~=1.8
+Requires-Dist: rich~=13.7
+Requires-Dist: tomlkit~=0.13
+Requires-Dist: typing-extensions>=4.6.0; python_version < '3.13'
+Requires-Dist: uv~=0.5.20
+Description-Content-Type: text/markdown
+
+# Datadog Agent platform developer tooling
+
+-----
+
+This is the main interface for developing on the Datadog Agent platform.
+
+## Installation
+
+```console
+pip install dda
+```
+
+See the [standard instructions](https://datadoghq.dev/datadog-agent/setup/#tooling) for more information.
+
+## License
+
+`dda` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
