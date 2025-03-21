@@ -1,0 +1,61 @@
+Metadata-Version: 2.1
+Name: mikrotools
+Version: 0.5.2
+Summary: Mikrotik tools
+Author-Email: Maksim Kachur <me@maksimkachur.ru>
+License: MIT
+Project-URL: Homepage, https://github.com/mcdebugger/mikrotools
+Project-URL: Issues, https://github.com/mcdebugger/mikrotools/issues
+Requires-Python: >=3.11
+Requires-Dist: click>=8.1.8
+Requires-Dist: packaging>=24.2
+Requires-Dist: paramiko>=3.4.0
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: PyYAML>=6.0.1
+Requires-Dist: rich>=13.9.4
+Description-Content-Type: text/markdown
+
+# mikrotools
+
+A set of tools to automate operation on Mikrotik devices
+
+## Tools
+
+- mikromanager
+
+## Installation
+
+Using pip:
+
+```
+pip install mikrotools
+```
+
+Using pipx:
+
+```
+pipx install mikrotools
+```
+
+## Usage
+
+### mikromanager
+mikromanager by default searches for settings.yaml in current working directory. You can specify path to config using -c option. Example settings file can be found at [settings.default.yaml](settings.default.yaml).
+
+For example to list hosts from hosts.txt file using config from my_settings.yaml use the following command:
+
+```
+mikromanager list -c my_settings.yaml -i hosts.txt
+```
+
+For further help use mikromanager with -h or --help flag.
+
+```
+mikromanager -h
+```
+
+or
+
+```
+mikromanager [command] -h
+```
