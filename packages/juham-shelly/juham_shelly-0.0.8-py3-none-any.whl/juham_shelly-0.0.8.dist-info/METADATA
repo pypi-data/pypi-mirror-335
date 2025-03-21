@@ -1,0 +1,100 @@
+Metadata-Version: 2.4
+Name: juham-shelly
+Version: 0.0.8
+Summary: Shelly IoT devices for JuhaM
+Author-email: J Meskanen <juham.api@gmail.com>
+Maintainer-email: "J. Meskanen" <juham.api@gmail.com>
+License: MIT License
+        ===========
+        
+        Copyright (c) 2024, Juha Meskanen
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        
+        
+Project-URL: Homepage, https://gitlab.com/juham/juham/juham-shelly
+Project-URL: Bug Reports, https://gitlab.com/juham/juham/juham-shelly
+Project-URL: Funding, https://meskanen.com
+Project-URL: Say Thanks!, http://meskanen.com
+Project-URL: Source, https://gitlab.com/juham/juham/juham-shelly
+Keywords: object-oriented,plugin,framework,shelly,home automation
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE.rst
+Requires-Dist: juham-core>=0.1.3
+Provides-Extra: dev
+Requires-Dist: check-manifest; extra == "dev"
+Dynamic: license-file
+
+Shelly IoT plugin plugin for Juham™
+===================================
+
+Description
+-----------
+
+**Note:** this module is under construction. Do not try to use it for anything serious at this stage.
+
+The plugin brings support of various Shelly devices into JuhaM:
+
+* Shelly1G3
+* Shelly Plus1
+* ShellyPro3
+* ShellyPro3Em energy meter
+* Shelly Motion sensor
+
+  
+All shelly devices interact with JuhaM via MQTT.
+
+.. image:: _static/images/shellyplus1_addon_ds18B20.png
+   :alt: Shellyplus1 with addon and DS18B20 temperature sensors
+   :width: 640px
+   :align: center  
+
+.. image:: _static/images/shellypro3em.png
+   :alt: Shelly Pro3EM powermeter
+   :width: 640px
+   :align: center  
+
+.. image:: _static/images/shellyplus1_addon.png
+   :alt: Shelly temperature and humidity sensors
+   :width: 640px
+   :align: center  
+
+
+
+Getting Started
+---------------
+
+### Installation
+
+1. Install 
+
+   .. code-block:: bash
+
+      pip install juham-shelly
+
+
+2. Configure
+
+To adjust update interval and other attributes edit `Shelly*.json` configuration files.
+
