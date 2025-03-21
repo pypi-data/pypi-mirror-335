@@ -1,0 +1,292 @@
+from http import HTTPStatus
+from typing import Any, Optional, Union
+
+import httpx
+
+from ...client import AuthenticatedClient, Client
+from ...types import Response
+from ... import errors
+
+from ...models.create_instance_from_launch_template import (
+    CreateInstanceFromLaunchTemplate,
+)
+from ...models.default_error import DefaultError
+
+
+def _get_kwargs(
+    *,
+    tag_specification_1_resource_type: Optional[str] = None,
+    tag_specification_1_tag_1_key: Optional[str] = None,
+    instance_name: str,
+    launch_template_id: str,
+    max_count: Optional[int] = None,
+    min_count: Optional[int] = None,
+) -> dict[str, Any]:
+    params: dict[str, Any] = {}
+
+    params["TagSpecification.1.ResourceType"] = tag_specification_1_resource_type
+
+    params["TagSpecification.1.Tag.1.Key"] = tag_specification_1_tag_1_key
+
+    params["InstanceName"] = instance_name
+
+    params["LaunchTemplateId"] = launch_template_id
+
+    params["MaxCount"] = max_count
+
+    params["MinCount"] = min_count
+
+    params = {k: v for k, v in params.items() if v is not None}
+
+    _kwargs: dict[str, Any] = {
+        "method": "get",
+        "url": "/instance/launch_using_launch_template",
+        "params": params,
+    }
+
+    return _kwargs
+
+
+def _parse_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Optional[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    if response.status_code == 200:
+        response_200 = []
+        _response_200 = response.json()
+        for response_200_item_data in _response_200:
+            response_200_item = CreateInstanceFromLaunchTemplate.from_dict(
+                response_200_item_data
+            )
+
+            response_200.append(response_200_item)
+
+        return response_200
+    if response.status_code == 400:
+        response_400 = DefaultError.from_dict(response.json())
+
+        return response_400
+    if response.status_code == 401:
+        response_401 = DefaultError.from_dict(response.json())
+
+        return response_401
+    if response.status_code == 403:
+        response_403 = DefaultError.from_dict(response.json())
+
+        return response_403
+    if response.status_code == 404:
+        response_404 = DefaultError.from_dict(response.json())
+
+        return response_404
+    if response.status_code == 405:
+        response_405 = DefaultError.from_dict(response.json())
+
+        return response_405
+    if response.status_code == 406:
+        response_406 = DefaultError.from_dict(response.json())
+
+        return response_406
+    if response.status_code == 409:
+        response_409 = DefaultError.from_dict(response.json())
+
+        return response_409
+    if response.status_code == 415:
+        response_415 = DefaultError.from_dict(response.json())
+
+        return response_415
+    if response.status_code == 500:
+        response_500 = DefaultError.from_dict(response.json())
+
+        return response_500
+    if response.status_code == 402:
+        response_402 = DefaultError.from_dict(response.json())
+
+        return response_402
+    if client.raise_on_unexpected_status:
+        raise errors.UnexpectedStatus(response.status_code, response.content)
+    else:
+        return None
+
+
+def _build_response(
+    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+) -> Response[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    return Response(
+        status_code=HTTPStatus(response.status_code),
+        content=response.content,
+        headers=response.headers,
+        parsed=_parse_response(client=client, response=response),
+    )
+
+
+def sync_detailed(
+    *,
+    client: Union[AuthenticatedClient, Client],
+    tag_specification_1_resource_type: Optional[str] = None,
+    tag_specification_1_tag_1_key: Optional[str] = None,
+    instance_name: str,
+    launch_template_id: str,
+    max_count: Optional[int] = None,
+    min_count: Optional[int] = None,
+) -> Response[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    """Create Instance from Launch Template
+
+     Creates a new instance from a launch template.
+
+    Args:
+        tag_specification_1_resource_type (Optional[str]): TagSpecification.1.ResourceType
+        tag_specification_1_tag_1_key (Optional[str]): TagSpecification.1.Tag.1.Key
+        instance_name (str): The name of the instance.
+        launch_template_id (str): The ID of the launch template.
+        max_count (Optional[int]): Max count
+        min_count (Optional[int]): Min count
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Union[DefaultError, list['CreateInstanceFromLaunchTemplate']]]
+    """
+
+    kwargs = _get_kwargs(
+        tag_specification_1_resource_type=tag_specification_1_resource_type,
+        tag_specification_1_tag_1_key=tag_specification_1_tag_1_key,
+        instance_name=instance_name,
+        launch_template_id=launch_template_id,
+        max_count=max_count,
+        min_count=min_count,
+    )
+
+    response = client.get_httpx_client().request(
+        **kwargs,
+    )
+
+    return _build_response(client=client, response=response)
+
+
+def sync(
+    *,
+    client: Union[AuthenticatedClient, Client],
+    tag_specification_1_resource_type: Optional[str] = None,
+    tag_specification_1_tag_1_key: Optional[str] = None,
+    instance_name: str,
+    launch_template_id: str,
+    max_count: Optional[int] = None,
+    min_count: Optional[int] = None,
+) -> Optional[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    """Create Instance from Launch Template
+
+     Creates a new instance from a launch template.
+
+    Args:
+        tag_specification_1_resource_type (Optional[str]): TagSpecification.1.ResourceType
+        tag_specification_1_tag_1_key (Optional[str]): TagSpecification.1.Tag.1.Key
+        instance_name (str): The name of the instance.
+        launch_template_id (str): The ID of the launch template.
+        max_count (Optional[int]): Max count
+        min_count (Optional[int]): Min count
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Union[DefaultError, list['CreateInstanceFromLaunchTemplate']]
+    """
+
+    return sync_detailed(
+        client=client,
+        tag_specification_1_resource_type=tag_specification_1_resource_type,
+        tag_specification_1_tag_1_key=tag_specification_1_tag_1_key,
+        instance_name=instance_name,
+        launch_template_id=launch_template_id,
+        max_count=max_count,
+        min_count=min_count,
+    ).parsed
+
+
+async def asyncio_detailed(
+    *,
+    client: Union[AuthenticatedClient, Client],
+    tag_specification_1_resource_type: Optional[str] = None,
+    tag_specification_1_tag_1_key: Optional[str] = None,
+    instance_name: str,
+    launch_template_id: str,
+    max_count: Optional[int] = None,
+    min_count: Optional[int] = None,
+) -> Response[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    """Create Instance from Launch Template
+
+     Creates a new instance from a launch template.
+
+    Args:
+        tag_specification_1_resource_type (Optional[str]): TagSpecification.1.ResourceType
+        tag_specification_1_tag_1_key (Optional[str]): TagSpecification.1.Tag.1.Key
+        instance_name (str): The name of the instance.
+        launch_template_id (str): The ID of the launch template.
+        max_count (Optional[int]): Max count
+        min_count (Optional[int]): Min count
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Response[Union[DefaultError, list['CreateInstanceFromLaunchTemplate']]]
+    """
+
+    kwargs = _get_kwargs(
+        tag_specification_1_resource_type=tag_specification_1_resource_type,
+        tag_specification_1_tag_1_key=tag_specification_1_tag_1_key,
+        instance_name=instance_name,
+        launch_template_id=launch_template_id,
+        max_count=max_count,
+        min_count=min_count,
+    )
+
+    response = await client.get_async_httpx_client().request(**kwargs)
+
+    return _build_response(client=client, response=response)
+
+
+async def asyncio(
+    *,
+    client: Union[AuthenticatedClient, Client],
+    tag_specification_1_resource_type: Optional[str] = None,
+    tag_specification_1_tag_1_key: Optional[str] = None,
+    instance_name: str,
+    launch_template_id: str,
+    max_count: Optional[int] = None,
+    min_count: Optional[int] = None,
+) -> Optional[Union[DefaultError, list["CreateInstanceFromLaunchTemplate"]]]:
+    """Create Instance from Launch Template
+
+     Creates a new instance from a launch template.
+
+    Args:
+        tag_specification_1_resource_type (Optional[str]): TagSpecification.1.ResourceType
+        tag_specification_1_tag_1_key (Optional[str]): TagSpecification.1.Tag.1.Key
+        instance_name (str): The name of the instance.
+        launch_template_id (str): The ID of the launch template.
+        max_count (Optional[int]): Max count
+        min_count (Optional[int]): Min count
+
+    Raises:
+        errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
+        httpx.TimeoutException: If the request takes longer than Client.timeout.
+
+    Returns:
+        Union[DefaultError, list['CreateInstanceFromLaunchTemplate']]
+    """
+
+    return (
+        await asyncio_detailed(
+            client=client,
+            tag_specification_1_resource_type=tag_specification_1_resource_type,
+            tag_specification_1_tag_1_key=tag_specification_1_tag_1_key,
+            instance_name=instance_name,
+            launch_template_id=launch_template_id,
+            max_count=max_count,
+            min_count=min_count,
+        )
+    ).parsed
