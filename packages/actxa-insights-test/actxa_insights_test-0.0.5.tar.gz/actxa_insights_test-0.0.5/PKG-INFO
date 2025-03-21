@@ -1,0 +1,205 @@
+Metadata-Version: 2.4
+Name: actxa_insights_test
+Version: 0.0.5
+Summary: SDK Python package for Actxa Insights
+Author: Actxa Insights
+Author-email: hadrian.gunawan@inphosoft.com
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Actxa Insights SDK Package 🏥📊
+
+
+**Actxa Insights SDK** is a lightweight and easy-to-use Python library for integrating health data, including:  
+✅ **Blood Glucose Monitoring** 🩸  
+✅ **VO₂ Max Estimation** 🏃‍♂️  
+✅ **Sleep Tracking** 💤  
+✅ **Heart Rate Analysis** ❤️  
+✅ **Stress & Recovery Tracking** 😌  
+
+Designed for **developers, health tech startups, and researchers**, this SDK simplifies API integration for **wearables, fitness apps, and health analytics platforms**.  
+
+
+## 🚀 **Features**  
+✔ **Unified API Interface** – Connect multiple health metrics with a single SDK.  
+✔ **Secure & Configurable** – Uses `.env` for environment-based API handling (dev, uat, staging, production).  
+✔ **Fast & Efficient** – Optimized for real-time and batch processing of health data.  
+✔ **Compatible with Popular APIs** – Works with health devices & cloud-based health platforms.  
+
+
+## 🔧 **Building the Package**
+If there are new code changes in SDK, you need to create new version, here are the steps:
+- in setup.py file, create new version
+- rename existing folder dist to dist_.[previous version]
+- do these commands in your terminal
+```sh
+python -m pip install --upgrade build twine
+python -m build
+twine upload dist/*
+```
+- it will show input text to input your pyPi API token
+
+
+## 📦 **Installation**  
+Install via `pip`:  
+```sh
+pip install actxa-insights-test
+```
+
+
+## 🛠 **Usage**
+In your python, write this code to use the Actxa Insights SDK
+```python
+from actxa_insights_test import predict_bgm_range_app
+
+response = predict_bgm_range_app(
+    env="dev",
+    application_id="186d1e95-4fbe-4f74-802d-8a52b4637aaa",
+    device_id="ec4a2e2a-51e9-4d9c-8ae6-b058a6975154",
+    serial_number="serial-number",
+    user_id=10015678,
+    req_body={
+        "start": "2024-09-12 09:53:22",
+        "end": "2024-09-12 09:58:33",
+        "fasting": True,
+        "within2HrsMeal": False,
+        "nBit": 23,
+        "ppgData": [
+            {
+                "ppg": [
+                    5956031,
+                    5949472,
+                    5942943,
+                    5938014,
+                    5934479,
+                    5931011,
+                    5926540,
+                    5923345,
+                    5927220,
+                    5932507,
+                    5939766,
+                    5941773,
+                    5937539,
+                    5931266,
+                    5930365,
+                    5934972,
+                    5939528,
+                    5942112,
+                    5942775,
+                    5942079,
+                    5941772,
+                    5943387,
+                    5946278,
+                    5948828,
+                    5950833,
+                    5952108,
+                    5953774,
+                    5955423,
+                    5956630,
+                    5955560,
+                    5952499,
+                    5948385,
+                    5943319,
+                    5938611,
+                    5934377,
+                    5931351,
+                    5930841,
+                    5932269,
+                    5933340,
+                    5934956,
+                    5934820,
+                    5933561,
+                    5933664,
+                    5935126,
+                    5936672,
+                    5937250,
+                    5936315,
+                    5935839,
+                    5936298,
+                    5937964,
+                ],
+                "timestamp": "01:44:46",
+            },
+            {
+                "ppg": [
+                    5956036,
+                    5949473,
+                    5942946,
+                    5938016,
+                    5934479,
+                    5931011,
+                    5926540,
+                    5923345,
+                    5927220,
+                    5932507,
+                    5939766,
+                    5941773,
+                    5937539,
+                    5931266,
+                    5930365,
+                    5934972,
+                    5939528,
+                    5942112,
+                    5942775,
+                    5942079,
+                    5941772,
+                    5943387,
+                    5946278,
+                    5948828,
+                    5950833,
+                    5952108,
+                    5953774,
+                    5955423,
+                    5956630,
+                    5955560,
+                    5952499,
+                    5948385,
+                    5943319,
+                    5938611,
+                    5934377,
+                    5931351,
+                    5930841,
+                    5932269,
+                    5933340,
+                    5934956,
+                    5934820,
+                    5933561,
+                    5933664,
+                    5935126,
+                    5936672,
+                    5937250,
+                    5936315,
+                    5935839,
+                    5936298,
+                    5937964,
+                ],
+                "timestamp": "01:44:46",
+            },
+        ],
+    },
+)
+print(response)
+```
+
+
+## ✅ **Success Response**
+If your request was successfull, then it will print out the response like this
+```json
+{
+    "data": {
+        "measurement_id": "e42d84d2-44f0-4f24-b8ac-b406d2d82c3d"
+    },
+    "status": {
+        "message": "Success",
+        "success": true
+    }
+}
+```
