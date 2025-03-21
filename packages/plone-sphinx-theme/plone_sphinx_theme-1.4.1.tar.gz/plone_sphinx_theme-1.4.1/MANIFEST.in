@@ -1,0 +1,18 @@
+graft docs
+graft scripts
+graft src/plone_sphinx_theme
+graft styles/config/vocabularies
+
+include *.lock
+include .readthedocs.yaml
+include .vale.ini
+include .vscode/settings.json
+include CHANGES.md
+include Makefile
+include package.json
+include requirements.txt requirements-dev.txt requirements-docs.txt
+include webpack.config.js
+
+prune news
+prune styles/Microsoft
+global-exclude *.pyc
