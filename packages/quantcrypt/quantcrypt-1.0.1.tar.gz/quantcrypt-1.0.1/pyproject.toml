@@ -1,0 +1,137 @@
+[project]
+name = "quantcrypt"
+version = "1.0.1"
+description = "Cross-platform Python library for Post-Quantum Cryptography using precompiled PQClean binaries"
+authors = [
+   { name = "Mattias Aabmets", email = "mattias.aabmets@gmail.com" }
+]
+license = "MIT"
+readme = "README.md"
+keywords = ["post-quantum", "crypto", "cryptography", "security", "pqclean"]
+classifiers = [
+   "Development Status :: 5 - Production/Stable",
+   "Intended Audience :: Developers",
+   "License :: OSI Approved :: MIT License",
+   "Natural Language :: English",
+   "Operating System :: MacOS",
+   "Operating System :: POSIX :: Linux",
+   "Operating System :: Microsoft :: Windows",
+   "Programming Language :: Python :: 3.10",
+   "Programming Language :: Python :: 3.11",
+   "Programming Language :: Python :: 3.12",
+   "Programming Language :: Python :: 3.13",
+   "Topic :: Security",
+   "Topic :: Security :: Cryptography",
+   "Topic :: Software Development",
+   "Topic :: Software Development :: Libraries"
+]
+requires-python = ">=3.10"
+dependencies = [
+   "argon2-cffi>=23.1.0",
+   "dotmap>=1.3.30",
+   "orjson>=3.10.0",
+   "pycryptodomex>=3.20.0",
+   "pydantic>=2.9.0",
+   "rich>=13.8.0",
+   "typer>=0.15.0",
+   "types-zxcvbn>=4.5.0",
+   "zxcvbn>=4.5.0",
+]
+
+[project.urls]
+"Repository" = "https://github.com/aabmets/quantcrypt"
+"Documentation" = "https://github.com/aabmets/quantcrypt/wiki"
+"Bug Tracker" = "https://github.com/aabmets/quantcrypt/issues"
+
+[project.scripts]
+qclib = "quantcrypt.internal.cli.main:app"
+
+[project.optional-dependencies]
+compiler = [
+    "cffi>=1.17.0",
+    "pyyaml>=6.0.1",
+    "requests>=2.31.0",
+    "setuptools>=70.0.0",
+]
+
+[dependency-groups]
+develop = [
+   "cffi>=1.17.0",
+   "coverage>=7.6.0",
+   "devtools-cli>=0.14.0",
+   "hatchling>=1.24.0",
+   "packaging>=24.2",
+   "pytest>=8.3.0",
+   "pytest-cov>=6.0.0",
+   "pytest-xdist>=3.6.1",
+   "pyyaml>=6.0.1",
+   "requests>=2.31.0",
+   "setuptools>=70.0.0",
+   "tomli>=2.1.1",
+]
+
+[tool.pytest.ini_options]
+console_output_style = "count"
+filterwarnings = ["ignore::DeprecationWarning"]
+testpaths = ["tests"]
+addopts = [
+   "--cov=quantcrypt",
+   "--cov-report=html",
+   "--no-cov-on-fail",
+   "--import-mode=append",
+   "--numprocesses=auto",
+   "--maxprocesses=8",
+   "--dist=worksteal"
+]
+pythonpath = [
+   ".",
+   "./quantcrypt",
+   "./quantcrypt/internal"
+]
+
+[tool.coverage.run]
+branch = true
+source = ["quantcrypt"]
+
+[tool.coverage.report]
+fail_under = 90
+skip_empty = true
+ignore_errors = true
+exclude_lines = [
+   "pragma: no cover",
+   "def __repr__",
+   "raise AssertionError",
+   "raise NotImplementedError",
+   "if __name__ == .__main__.:",
+   "@abstractmethod"
+]
+
+[tool.coverage.html]
+directory = ".htmlcov"
+
+[build-system]
+requires = ["hatchling", "packaging"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.sdist]
+include = ["quantcrypt", "scripts"]
+exclude = [
+   "quantcrypt/pqclean/common",
+   "quantcrypt/pqclean/crypto_kem",
+   "quantcrypt/pqclean/crypto_sign",
+]
+artifacts = [
+   "quantcrypt/internal/bin/*.so",
+   "quantcrypt/internal/bin/*.pyd"
+]
+
+[tool.hatch.build.targets.wheel]
+include = ["quantcrypt"]
+exclude = ["scripts"]
+artifacts = [
+   "quantcrypt/internal/bin/*.so",
+   "quantcrypt/internal/bin/*.pyd"
+]
+
+[tool.hatch.build.targets.wheel.hooks.custom]
+path = "scripts/build.py"
