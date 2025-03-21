@@ -1,0 +1,81 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    >
+
+  <browser:view
+      name="plone-frontpage-setup"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".admin.FrontPage"
+      permission="zope.Public"
+      />
+
+  <configure zcml:condition="not-installed plone.distribution">
+    <adapter factory=".admin.AppTraverser" />
+
+    <browser:page
+        name="plone-overview"
+        for="OFS.interfaces.IApplication"
+        class=".admin.Overview"
+        template="templates/plone-overview.pt"
+        permission="zope.Public"
+        />
+
+    <browser:page
+        name="plone-addsite"
+        for="OFS.interfaces.IApplication"
+        class=".admin.AddPloneSite"
+        template="templates/plone-addsite.pt"
+        permission="zope2.ViewManagementScreens"
+        />
+
+    <browser:page
+        name="plone-addsite"
+        for="OFS.Folder.Folder"
+        class=".admin.AddPloneSite"
+        template="templates/plone-addsite.pt"
+        permission="zope2.ViewManagementScreens"
+        />
+
+  </configure>
+
+  <browser:page
+      name="plone-upgrade"
+      for="plone.base.interfaces.IPloneSiteRoot"
+      class=".admin.Upgrade"
+      template="templates/plone-upgrade.pt"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="plone-root-login"
+      for="OFS.interfaces.IApplication"
+      class=".admin.RootLoginRedirect"
+      permission="cmf.ManagePortal"
+      />
+
+  <browser:page
+      name="plone-root-logout"
+      for="plone.base.interfaces.INavigationRoot"
+      class=".admin.RootLogout"
+      permission="zope.Public"
+      />
+
+  <browser:resource
+      name="plone-admin-ui.css"
+      file="static/plone-admin-ui.css"
+      />
+
+  <browser:resource
+      name="plone-admin-ui.js"
+      file="static/plone-admin-ui.js"
+      />
+
+  <browser:resource
+      name="jstz-1.0.4.min.js"
+      file="static/jstz-1.0.4.min.js"
+      />
+
+
+</configure>
