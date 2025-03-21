@@ -1,0 +1,33 @@
+[project]
+name = "ao_pyth"
+version = "0.1.4"
+license = {file = "LICENSE.txt"}
+dependencies = [
+    "requests",
+]
+authors = [
+  { name="AO Labs", email="eng@aolabs.ai" },
+  { name="Rafayel Latif", email="rafayel@aolabs.ai" },
+]
+description = "AI systems that learn like us, developed by aolabs.ai"
+readme = "README.md"
+requires-python = ">=3"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Artificial Life",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+]
+[build-system]
+requires = ["setuptools", "setuptools-scm"] # ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["ao_pyth"]
+
+[project.urls]
+"Homepage" = "https://www.aolabs.ai"
+"Bug Tracker" = "https://github.com/aolabsai/ao_python/issues"
