@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tree3"
+version = "0.1.2"
+description = "A command line utility to display and create directory structures"
+keywords = ["tree", "parsing", "python", "data structure"]
+readme = "README.md"
+authors = [
+    {name = "Amir Mazinani", email = "info.mazinani@gmail.com"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.6"
+
+[project.urls]
+"Homepage" = "https://github.com/amirmazinani/tree3"
+"Bug Tracker" = "https://github.com/amirmazinani/tree3/issues"
+
+[project.scripts]
+tree3 = "tree3.cli:main"
