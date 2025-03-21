@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Dogsheep Beta{% if q %}: {{ q }}{% endif %}{% endblock %}
+
+{% block content %}
+<style>
+.result {
+    padding: 1em 0;
+    border-bottom: 1px solid #666;
+}
+.result img {
+    max-width: 100%;
+}
+.facet h2 {
+    font-size: 1em;
+}
+.facet .x:link,
+.facet .x:visited,
+.facet .x:hover,
+.facet .x:focus,
+.facet .x:active {
+    text-decoration: none;
+}
+.facet .label {
+    word-wrap: break-word;
+}
+aside {
+    float: right;
+    width: 30%;
+}
+section.results {
+    margin-right: 30%;
+    padding-right: 2em;
+}
+pre, blockquote {
+    white-space: pre-wrap;
+}
+</style>
+<h1>Dogsheep Beta{% if q %}: {{ q }}{% endif %}</h1>
+
+<form action="/-/beta" method="get"><div>
+    <input type="search" name="q" value="{{ q }}" id="q">
+    {% if sorted_by != "relevance" %}
+        <input type="hidden" name="sort" value="{{ sorted_by }}">
+    {% endif %}
+    <input type="submit" value="Search">
+    {% for hidden in hiddens %}
+        <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">
+    {% endfor %}
+</div></form>
+
+<p>Got {{ intcomma(count) }} result{% if count != 1 %}s{% endif %}, sorted by
+    <strong>{{ sorted_by }}</strong> /
+    {% for other_sort_order in other_sort_orders %} 
+        <a href="{{ other_sort_order.url }}">{{ other_sort_order.label }}</a>{% if not loop.last %} / {% endif %}
+    {% endfor %}
+</p>
+
+<aside>
+{% if facets %}
+    {% for facet in facets %}
+        {% if facet.results %}
+            <div class="facet">
+                <h2>{{ facet.name }}</h2>
+                <ul>
+                {% for item in facet.results %}
+                    <li{% if item.selected %} class="selected"{% endif %}>
+                        {% if item.selected %}
+                            <span class="label">{{ item.label }}</span> <a href="{{ item.toggle_url }}" class="x">✖</a>
+                        {% else %}
+                        <a href="{{ item.toggle_url }}" class="label">{{ item.label }}</a>
+                        {% endif %}
+                        - <span class="count">{{ intcomma(item.count) }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</aside>
+
+<section class="results">
+{% for result in results %}
+    <div class="result" data-table-key="{{ result.type }}:{{ result.key }}">
+        {{ result.output|safe }}
+    </div>
+{% endfor %}
+</section>
+
+<script>
+/* If we find any data-map-latitude attrs, load Leaflet and turn those into maps */
+function loadLeaflet(callback) {
+    let loaded = [];
+    function hasLoaded() {
+        loaded.push(this);
+        if (loaded.length == 2) {
+            callback();
+        }
+    }
+    let stylesheet = document.createElement('link');
+    stylesheet.setAttribute('type', 'text/css');
+    stylesheet.setAttribute('rel', 'stylesheet');
+    stylesheet.setAttribute('href', 'https://unpkg.com/leaflet@1.5.1/dist/leaflet.css');
+    stylesheet.setAttribute('integrity', 'sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==');
+    stylesheet.setAttribute('crossorigin', 'anonymous');
+    stylesheet.onload = hasLoaded;
+    document.head.appendChild(stylesheet);
+    let script = document.createElement('script');
+    script.src = 'https://unpkg.com/leaflet@1.5.1/dist/leaflet.js';
+    script.setAttribute('integrity', 'sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==');
+    script.setAttribute('crossorigin', 'anonymous');
+    script.onload = stylesheet.onload = hasLoaded;
+    document.head.appendChild(script);
+};
+function loadMaps() {
+    const mapEls = document.querySelectorAll('[data-map-latitude]');
+    if (!mapEls.length) {
+        return;
+    }
+    loadLeaflet(() => {
+        console.log('leaded')
+        const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+        const tilesUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+        Array.from(mapEls).forEach((el) => {
+            el.style.display = 'block';
+            const latitude = el.getAttribute('data-map-latitude');
+            const longitude = el.getAttribute('data-map-longitude');
+            const zoom = el.getAttribute('data-map-zoom') || 12;
+            const latlng = L.latLng(latitude, longitude);
+            let map = L.map(el, {layers: [L.tileLayer(tilesUrl, {
+                maxZoom: 19,
+                detectRetina: true,
+                attribution: attribution
+            })]});
+            L.marker(latlng).addTo(map);
+            map.setView(latlng, zoom);
+            window.lastMap = map;
+            window.lastLatLng = latlng;
+        });
+    });
+}
+loadMaps();
+</script>
+{% endblock %}
