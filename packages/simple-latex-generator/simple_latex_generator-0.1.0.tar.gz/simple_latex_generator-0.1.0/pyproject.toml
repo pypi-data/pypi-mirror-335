@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple-latex-generator"
+version = "0.1.0"
+authors = [
+    {name = "Mikhail Nikolaev"},
+]
+description = "Генератор LaTeX-кода для таблиц и изображений"
+requires-python = ">=3.7"
+
+keywords = ["latex", "meme"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+
+[tool.setuptools]
+include-package-data = true
+packages = ["simple_latex_generator"]
+
+[tool.setuptools.package-data]
+simple_latex_generator = ["*.png"]
