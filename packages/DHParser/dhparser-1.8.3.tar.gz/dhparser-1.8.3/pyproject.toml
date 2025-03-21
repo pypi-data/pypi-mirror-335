@@ -1,0 +1,94 @@
+[tool.poetry]
+name = "DHParser"
+version = "1.8.3"  # make sure that this is the same as in DHParser/versionnumber.py !
+description = "Parser Generator and DSL-construction-kit"
+
+license = "Apache-2"
+
+authors = ["Eckhart Arnold <eckhart.arnold@posteo.de>"]
+
+readme = "README.md"
+
+include = ['CHANGES.txt', 'Introduction.md']
+
+repository = "https://gitlab.lrz.de/badw-it/DHParser"
+homepage = "https://gitlab.lrz.de/badw-it/DHParser"
+documentation = "https://dhparser.readthedocs.io/en/latest/"
+
+keywords = [
+    'parser',
+    'parser generator',
+    'domain specific languages',
+    'Digital Humanities',
+    'parsing expression grammar',
+    'formal grammar',
+    'EBNF', 'SXML', 'XML'
+]
+
+classifiers = [
+    'Development Status :: 5 - Production/Stable',
+    'Intended Audience :: Developers',
+    'Environment :: Console',
+    'License :: OSI Approved :: Apache Software License',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.7',
+    'Programming Language :: Python :: 3.8',
+    'Programming Language :: Python :: 3.9',
+    'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3.14',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Programming Language :: Python :: Implementation :: PyPy',
+    'Topic :: Text Processing :: Markup',
+    'Topic :: Software Development :: Code Generators',
+    'Topic :: Software Development :: Compilers'
+]
+
+packages = [
+    { include = "DHParser" }
+]
+
+
+# tool.setuptools_scm ?
+
+# build = "DHParser/scripts/dhparser_build_cython.py"
+
+# IN THE FUTURE, MAYBE:
+# [tool.poetry.build]
+# script = "DHParser/scripts/dhparser_build_cython.py"
+# generate-setup-file = false
+
+
+[tool.poetry.dependencies]
+python = "^3.7"
+regex = { version = "*", optional = true }
+# cython = { version = "^3.0", optional = true }
+
+
+[tool.poetry.group.test.dependencies]
+pytest = { version = ">=5.0", optional = true }
+
+
+[tool.poetry.group.doc.dependencies]
+sphinx = { version = ">=8.0", optional = true}
+
+
+[tool.poetry.scripts]
+dhparser = 'DHParser.scripts.dhparser:main'
+dhparser_build_cython = 'DHParser.scripts.dhparser_cythonize:main'
+dhparser_cythononize = 'DHParser.scripts.dhparser_cythonize:main'
+dhparser_cythonize_stringview = 'DHParser.scripts.dhparser_cythonize:main'
+xml_reflow = 'DHParser.scripts.XMLreflow:main'
+
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "setuptools", "wheel"]  # "Cython>=0.30"
+build-backend = "poetry.core.masonry.api"
+
+# to publish to pypi use commands:
+# $ poetry config pypi-token.pypi [DHPARSER PYPI-TOKEN]
+# $ poetry build
+# $ poetry publish
