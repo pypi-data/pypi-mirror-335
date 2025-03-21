@@ -1,0 +1,405 @@
+Metadata-Version: 2.4
+Name: edubotics-core
+Version: 0.1.8
+Summary: Core modules for edubotics-based LLM AI chatbots
+Home-page: https://github.com/edubotics-ai/edubot-core
+Author: Xavier Thomas, Farid Karimli, Tom Gardos
+License: MIT
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiofiles==23.2.1
+Requires-Dist: aiohappyeyeballs==2.4.0
+Requires-Dist: aiohttp==3.10.5
+Requires-Dist: aiosignal==1.3.1
+Requires-Dist: alembic==1.13.2
+Requires-Dist: altair==5.4.1
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.4.0
+Requires-Dist: appnope==0.1.4
+Requires-Dist: argon2-cffi==23.1.0
+Requires-Dist: argon2-cffi-bindings==21.2.0
+Requires-Dist: arrow==1.3.0
+Requires-Dist: asttokens==2.4.1
+Requires-Dist: async-lru==2.0.4
+Requires-Dist: asyncer==0.0.7
+Requires-Dist: attrs==24.2.0
+Requires-Dist: babel==2.16.0
+Requires-Dist: backports.tarfile==1.2.0
+Requires-Dist: bandit==1.7.9
+Requires-Dist: beautifulsoup4==4.12.3
+Requires-Dist: bidict==0.23.1
+Requires-Dist: bitarray==2.9.2
+Requires-Dist: black==24.8.0
+Requires-Dist: bleach==6.1.0
+Requires-Dist: blinker==1.8.2
+Requires-Dist: cachetools==5.5.0
+Requires-Dist: catalogue==2.0.10
+Requires-Dist: certifi==2024.7.4
+Requires-Dist: cffi==1.17.1
+Requires-Dist: chainlit==1.2.0
+Requires-Dist: chardet==5.2.0
+Requires-Dist: charset-normalizer==3.3.2
+Requires-Dist: chevron==0.14.0
+Requires-Dist: click==8.1.7
+Requires-Dist: colbert-ai==0.2.19
+Requires-Dist: comm==0.2.2
+Requires-Dist: contourpy==1.3.0
+Requires-Dist: cryptography==43.0.1
+Requires-Dist: cycler==0.12.1
+Requires-Dist: dataclasses-json==0.6.7
+Requires-Dist: datasets==2.21.0
+Requires-Dist: debugpy==1.8.5
+Requires-Dist: decorator==5.1.1
+Requires-Dist: defusedxml==0.7.1
+Requires-Dist: Deprecated==1.2.14
+Requires-Dist: dill==0.3.8
+Requires-Dist: dirtyjson==1.0.8
+Requires-Dist: diskcache==5.6.3
+Requires-Dist: distro==1.9.0
+Requires-Dist: docutils==0.21.2
+Requires-Dist: entrypoints==0.4
+Requires-Dist: executing==2.1.0
+Requires-Dist: faiss-cpu
+Requires-Dist: Faker==28.4.1
+Requires-Dist: fast-pytorch-kmeans==0.2.0.1
+Requires-Dist: fastapi==0.110.3
+Requires-Dist: fastjsonschema==2.20.0
+Requires-Dist: favicon==0.7.0
+Requires-Dist: filelock==3.16.0
+Requires-Dist: filetype==1.2.0
+Requires-Dist: flake8==7.1.1
+Requires-Dist: Flask==3.0.3
+Requires-Dist: fonttools==4.53.1
+Requires-Dist: fqdn==1.5.1
+Requires-Dist: frozenlist==1.4.1
+Requires-Dist: fsspec==2024.6.1
+Requires-Dist: git-python==1.0.3
+Requires-Dist: gitdb==4.0.11
+Requires-Dist: GitPython==3.1.43
+Requires-Dist: google-auth==2.34.0
+Requires-Dist: google-auth-oauthlib==1.2.1
+Requires-Dist: googleapis-common-protos==1.65.0
+Requires-Dist: greenlet==3.0.3
+Requires-Dist: grpcio==1.66.1
+Requires-Dist: h11==0.14.0
+Requires-Dist: htbuilder==0.6.2
+Requires-Dist: html2text==2024.2.26
+Requires-Dist: httpcore==1.0.5
+Requires-Dist: httpx==0.27.2
+Requires-Dist: huggingface-hub==0.24.6
+Requires-Dist: idna==3.8
+Requires-Dist: importlib_metadata==8.4.0
+Requires-Dist: ipykernel==6.29.5
+Requires-Dist: ipython==8.27.0
+Requires-Dist: ipywidgets==8.1.5
+Requires-Dist: isoduration==20.11.0
+Requires-Dist: itsdangerous==2.2.0
+Requires-Dist: jaraco.classes==3.4.0
+Requires-Dist: jaraco.context==6.0.1
+Requires-Dist: jaraco.functools==4.0.2
+Requires-Dist: jedi==0.19.1
+Requires-Dist: Jinja2==3.1.4
+Requires-Dist: jiter==0.5.0
+Requires-Dist: joblib==1.4.2
+Requires-Dist: json5==0.9.25
+Requires-Dist: jsonpatch==1.33
+Requires-Dist: jsonpointer==3.0.0
+Requires-Dist: jsonschema==4.23.0
+Requires-Dist: jsonschema-specifications==2023.12.1
+Requires-Dist: jupyter==1.1.1
+Requires-Dist: jupyter-console==6.6.3
+Requires-Dist: jupyter-events==0.10.0
+Requires-Dist: jupyter-lsp==2.2.5
+Requires-Dist: jupyter_client==8.6.2
+Requires-Dist: jupyter_core==5.7.2
+Requires-Dist: jupyter_server==2.14.2
+Requires-Dist: jupyter_server_terminals==0.5.3
+Requires-Dist: jupyterlab==4.2.5
+Requires-Dist: jupyterlab_pygments==0.3.0
+Requires-Dist: jupyterlab_server==2.27.3
+Requires-Dist: jupyterlab_widgets==3.0.13
+Requires-Dist: keyring==25.3.0
+Requires-Dist: kiwisolver==1.4.7
+Requires-Dist: langchain
+Requires-Dist: langchain-community
+Requires-Dist: langchain-core
+Requires-Dist: langchain-experimental
+Requires-Dist: langchain-openai
+Requires-Dist: langchain-text-splitters
+Requires-Dist: langsmith
+Requires-Dist: Lazify==0.4.0
+Requires-Dist: literalai==0.0.607
+Requires-Dist: llama-cloud==0.0.17
+Requires-Dist: llama-index==0.11.7
+Requires-Dist: llama-index-agent-openai==0.3.1
+Requires-Dist: llama-index-cli==0.3.0
+Requires-Dist: llama-index-core==0.11.7
+Requires-Dist: llama-index-embeddings-openai==0.2.4
+Requires-Dist: llama-index-indices-managed-llama-cloud==0.3.0
+Requires-Dist: llama-index-legacy==0.9.48.post3
+Requires-Dist: llama-index-llms-openai==0.2.3
+Requires-Dist: llama-index-multi-modal-llms-openai==0.2.0
+Requires-Dist: llama-index-program-openai==0.2.0
+Requires-Dist: llama-index-question-gen-openai==0.2.0
+Requires-Dist: llama-index-readers-file==0.2.1
+Requires-Dist: llama-index-readers-llama-parse==0.3.0
+Requires-Dist: llama-parse==0.5.2
+Requires-Dist: llama_cpp_python==0.2.90
+Requires-Dist: llvmlite==0.43.0
+Requires-Dist: lxml==5.3.0
+Requires-Dist: Mako==1.3.5
+Requires-Dist: Markdown==3.7
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: markdownlit==0.0.7
+Requires-Dist: MarkupSafe==2.1.5
+Requires-Dist: marshmallow==3.22.0
+Requires-Dist: matplotlib==3.9.2
+Requires-Dist: matplotlib-inline==0.1.7
+Requires-Dist: mccabe==0.7.0
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: mistune==3.0.2
+Requires-Dist: more-itertools==10.4.0
+Requires-Dist: mpmath==1.3.0
+Requires-Dist: multidict==6.0.5
+Requires-Dist: multiprocess==0.70.16
+Requires-Dist: munch==2.5.0
+Requires-Dist: mypy-extensions==1.0.0
+Requires-Dist: narwhals==1.6.4
+Requires-Dist: nbclient==0.10.0
+Requires-Dist: nbconvert==7.16.4
+Requires-Dist: nbformat==5.10.4
+Requires-Dist: nest-asyncio==1.6.0
+Requires-Dist: networkx==3.3
+Requires-Dist: nh3==0.2.18
+Requires-Dist: ninja==1.11.1.1
+Requires-Dist: nltk==3.9.1
+Requires-Dist: notebook==7.2.2
+Requires-Dist: notebook_shim==0.2.4
+Requires-Dist: numba==0.60.0
+Requires-Dist: numpy==1.26.4
+Requires-Dist: oauthlib==3.2.2
+Requires-Dist: onnx==1.16.2
+Requires-Dist: openai
+Requires-Dist: opentelemetry-api==1.27.0
+Requires-Dist: opentelemetry-exporter-otlp==1.27.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-common==1.27.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-grpc==1.27.0
+Requires-Dist: opentelemetry-exporter-otlp-proto-http==1.27.0
+Requires-Dist: opentelemetry-instrumentation==0.48b0
+Requires-Dist: opentelemetry-proto==1.27.0
+Requires-Dist: opentelemetry-sdk==1.27.0
+Requires-Dist: opentelemetry-semantic-conventions==0.48b0
+Requires-Dist: orjson==3.10.7
+Requires-Dist: overrides==7.7.0
+Requires-Dist: packaging==23.2
+Requires-Dist: pandas==2.2.2
+Requires-Dist: pandocfilters==1.5.1
+Requires-Dist: parso==0.8.4
+Requires-Dist: pathspec==0.12.1
+Requires-Dist: pbr==6.1.0
+Requires-Dist: pdf2image==1.17.0
+Requires-Dist: pexpect==4.9.0
+Requires-Dist: pillow==10.4.0
+Requires-Dist: pkginfo==1.10.0
+Requires-Dist: platformdirs==4.3.1
+Requires-Dist: plotly==5.24.0
+Requires-Dist: prometheus_client==0.20.0
+Requires-Dist: prompt_toolkit==3.0.47
+Requires-Dist: protobuf==4.25.4
+Requires-Dist: psutil==5.9.8
+Requires-Dist: ptyprocess==0.7.0
+Requires-Dist: pure_eval==0.2.3
+Requires-Dist: pyarrow==17.0.0
+Requires-Dist: pyasn1==0.6.0
+Requires-Dist: pyasn1_modules==0.4.0
+Requires-Dist: pycodestyle==2.12.1
+Requires-Dist: pycparser==2.22
+Requires-Dist: pydantic==2.9.1
+Requires-Dist: pydantic_core==2.23.3
+Requires-Dist: pydeck==0.9.1
+Requires-Dist: pyflakes==3.2.0
+Requires-Dist: Pygments==2.18.0
+Requires-Dist: PyJWT==2.9.0
+Requires-Dist: pymdown-extensions==10.9
+Requires-Dist: PyMuPDF==1.24.10
+Requires-Dist: PyMuPDFb==1.24.10
+Requires-Dist: pynndescent==0.5.13
+Requires-Dist: pynvml==11.5.3
+Requires-Dist: pyparsing==3.1.4
+Requires-Dist: pypdf==4.3.1
+Requires-Dist: PyPDF2==3.0.1
+Requires-Dist: pysrt==1.1.2
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: python-decouple==3.8
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: python-engineio==4.9.1
+Requires-Dist: python-json-logger==2.0.7
+Requires-Dist: python-multipart==0.0.9
+Requires-Dist: python-socketio==5.11.4
+Requires-Dist: pytz==2024.1
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: pyzmq==26.2.0
+Requires-Dist: RAGatouille==0.0.8.post4
+Requires-Dist: readme_renderer==44.0
+Requires-Dist: referencing==0.35.1
+Requires-Dist: regex==2024.7.24
+Requires-Dist: requests==2.32.3
+Requires-Dist: requests-oauthlib==2.0.0
+Requires-Dist: requests-toolbelt==1.0.0
+Requires-Dist: rfc3339-validator==0.1.4
+Requires-Dist: rfc3986==2.0.0
+Requires-Dist: rfc3986-validator==0.1.1
+Requires-Dist: rich==13.8.0
+Requires-Dist: rpds-py==0.20.0
+Requires-Dist: rsa==4.9
+Requires-Dist: safetensors==0.4.5
+Requires-Dist: scikit-learn==1.5.1
+Requires-Dist: scipy==1.14.1
+Requires-Dist: Send2Trash==1.8.3
+Requires-Dist: sentence-transformers==2.7.0
+Requires-Dist: simple-websocket==1.0.0
+Requires-Dist: six==1.16.0
+Requires-Dist: smmap==5.0.1
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: soupsieve==2.6
+Requires-Dist: SQLAlchemy==2.0.34
+Requires-Dist: srsly==2.4.8
+Requires-Dist: st-annotated-text==4.0.1
+Requires-Dist: st-theme==1.2.3
+Requires-Dist: stack-data==0.6.3
+Requires-Dist: starlette==0.37.2
+Requires-Dist: stevedore==5.3.0
+Requires-Dist: streamlit==1.38.0
+Requires-Dist: streamlit-aggrid==0.3.4
+Requires-Dist: streamlit-camera-input-live==0.2.0
+Requires-Dist: streamlit-card==1.0.2
+Requires-Dist: streamlit-embedcode==0.1.2
+Requires-Dist: streamlit-extras==0.4.7
+Requires-Dist: streamlit-faker==0.0.3
+Requires-Dist: streamlit-image-coordinates==0.1.9
+Requires-Dist: streamlit-keyup==0.2.4
+Requires-Dist: streamlit-pills==0.3.0
+Requires-Dist: streamlit-toggle-switch==1.0.2
+Requires-Dist: streamlit-vertical-slider==2.5.5
+Requires-Dist: striprtf==0.0.26
+Requires-Dist: sympy==1.13.2
+Requires-Dist: syncer==2.0.3
+Requires-Dist: tenacity==8.5.0
+Requires-Dist: terminado==0.18.1
+Requires-Dist: threadpoolctl==3.5.0
+Requires-Dist: tiktoken==0.7.0
+Requires-Dist: tinycss2==1.3.0
+Requires-Dist: tokenize-rt==6.0.0
+Requires-Dist: tokenizers==0.19.1
+Requires-Dist: toml==0.10.2
+Requires-Dist: tomli==2.0.1
+Requires-Dist: torch==2.4.1
+Requires-Dist: tornado==6.4.1
+Requires-Dist: tqdm==4.66.5
+Requires-Dist: traitlets==5.14.3
+Requires-Dist: transformers==4.44.2
+Requires-Dist: trulens==1.0.1
+Requires-Dist: trulens-core==1.0.1
+Requires-Dist: trulens-dashboard==1.0.1
+Requires-Dist: trulens-feedback==1.0.1
+Requires-Dist: trulens_eval==1.0.1
+Requires-Dist: twine==5.1.1
+Requires-Dist: types-python-dateutil==2.9.0.20240906
+Requires-Dist: typing-inspect==0.9.0
+Requires-Dist: typing_extensions==4.12.2
+Requires-Dist: tzdata==2024.1
+Requires-Dist: ujson==5.10.0
+Requires-Dist: umap-learn==0.5.6
+Requires-Dist: uptrace==1.26.0
+Requires-Dist: uri-template==1.3.0
+Requires-Dist: urllib3==2.2.2
+Requires-Dist: uvicorn==0.25.0
+Requires-Dist: validators==0.34.0
+Requires-Dist: voyager==2.0.9
+Requires-Dist: watchfiles==0.20.0
+Requires-Dist: wcwidth==0.2.13
+Requires-Dist: webcolors==24.8.0
+Requires-Dist: webencodings==0.5.1
+Requires-Dist: websocket-client==1.8.0
+Requires-Dist: websockets==13.0.1
+Requires-Dist: Werkzeug==3.0.4
+Requires-Dist: widgetsnbextension==4.0.13
+Requires-Dist: wrapt==1.16.0
+Requires-Dist: wsproto==1.2.0
+Requires-Dist: xxhash==3.5.0
+Requires-Dist: yarl==1.11.0
+Requires-Dist: zipp==3.20.1
+Dynamic: author
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+
+<p align="center">
+  <a href="http://docs.edubotics.ai/">
+    <img src="https://github.com/edubotics-ai/.github/blob/main/assets/images/edubot-mascot.png?raw=true" alt="edubotics-ai" width="10%" height="10%">
+  </a>
+</p>
+<p align="center">
+    <em>Edubotics AI - Empower Education with AI: Create Intelligent Chatbots Quickly and Efficiently</em>
+</p>
+<p align="center">
+    <a href="https://github.com/edubotics-ai/edubot-core">
+        <img src="https://img.shields.io/pypi/v/edubotics-core.svg" alt="PyPI">
+    </a>
+    <a href="https://github.com/edubotics-ai/edubot-core">
+        <img src="https://img.shields.io/github/stars/edubotics-ai/edubot-core.svg" alt="GitHub stars">
+    </a>
+    <a href="https://github.com/edubotics-ai/edubot-core">
+        <img src="https://img.shields.io/github/license/edubotics-ai/edubot-core.svg" alt="License">
+    </a>
+    <a href="https://pypi.org/project/edubotics-core">
+        <img src="https://img.shields.io/pypi/dm/edubotics-core.svg" alt="PyPI Downloads">
+    </a>
+    <a href="https://github.com/edubotics-ai/edubot-core/graphs/contributors">
+        <img src="https://img.shields.io/github/contributors/edubotics-ai/edubot-core.svg" alt="GitHub Contributors">
+    </a>
+  
+  <a href="https://discord.com/channels/1293271626036805653">
+    <img alt="Discord" src="https://img.shields.io/discord/1293271626036805653?style=flat&logo=discord&label=Discord">
+  </a>
+
+</p>
+
+## Welcome to edubotics-core by Edubotics AI! 👋
+
+**edubotics-core** is an open-source Python library that allows developers to build LLM-based chatbots efficiently. It provides a comprehensive set of core modules for vector storage, retrieval, processing, with more to come.
+
+## 🛠 Installation
+
+You can install edubotics-core using pip:
+
+```bash
+pip install edubotics-core
+```
+
+Full documentation can be found [here](http://docs.edubotics.ai/).
+
+## ✨ Key Features
+- Modular and Extensible: Easily create, modify, and extend to the core modules.
+
+
+## 📚 Applications
+
+To see the full extent of what edubotics-core can do, check out the app templates we have built:
+
+- [Edubotics AI Tutor](https://github.com/edubotics-ai/edubot-app): A Digital AI Teaching Assistant setup for the [DS598](https://dl4ds.github.io/sp2024/) course at Boston University.
+
+## 💁 Contributing
+
+We welcome contributions to edubotics-core! If you're interested in contributing, please check out our [contributing guidelines](CONTRIBUTING.md) for more details.
+
+## 📜 License
+
+edubotics-core is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
