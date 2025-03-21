@@ -1,0 +1,112 @@
+Metadata-Version: 2.1
+Name: pyasstosrt
+Version: 1.4.2
+Summary: Convert ASS subtitle to SRT format
+Keywords: ASS subtitle,SRT,Convert,subtitle,subtitles,Advanced SubStation Alpha,SubRip,conversion,subtitle conversion,caption,captions,batch conversion,video,media,CLI
+Author-Email: GitBib <me@bnff.website>
+License: Apache License, Version 2.0
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Project-URL: Homepage, https://github.com/GitBib/pyasstosrt
+Project-URL: Repository, https://github.com/GitBib/pyasstosrt
+Requires-Python: >=3.8
+Provides-Extra: cli
+Requires-Dist: typer>=0.15.2; extra == "cli"
+Description-Content-Type: text/markdown
+
+pyasstosrt
+=================================================================================================================================================================================
+
+[![Downloads](https://pepy.tech/badge/pyasstosrt)](https://pepy.tech/project/pyasstosrt) [![codecov](https://codecov.io/gh/GitBib/pyasstosrt/branch/master/graph/badge.svg?token=VGTJ3NYHOV)](https://codecov.io/gh/GitBib/pyasstosrt)
+
+**pyasstosrt** – this tool will help you convert Advanced SubStation Alpha (ASS/SSA) subtitle files to SubRip (SRT) files.
+
+Support for str path:
+```python
+from pyasstosrt import Subtitle
+
+sub = Subtitle('sub.ass')
+sub.export()
+```
+
+Support for all Path-like objects, instead of only pathlib's Path:
+
+```python
+from pathlib import Path
+
+from pyasstosrt import Subtitle
+
+path = Path('sub.ass')
+sub = Subtitle(path)
+sub.export()
+```
+
+You can get a sheet with dialogue by specifying output_dialogues.
+
+```python
+from pathlib import Path
+
+from pyasstosrt import Subtitle
+
+path = Path('sub.ass')
+sub = Subtitle(path)
+sub.export(output_dialogues=True)
+```
+
+If you want to remove effects from text, you can use the removing_effects.
+
+```python
+from pyasstosrt import Subtitle
+
+sub = Subtitle('sub.ass', removing_effects=True)
+sub.export()
+```
+
+You can enable the deletion of duplicate lines with the rearrangement of start and end times.
+
+```python
+from pyasstosrt import Subtitle
+
+sub = Subtitle('sub.ass', remove_duplicates=True)
+sub.export()
+```
+CLI
+------------
+```bash
+pyasstosrt export /Users/user/sub/sub.ass
+```
+
+**Optional** You can specify an export folder.
+```bash
+pyasstosrt export /Users/user/sub/sub.ass --output-dir /Users/user/sub/srt
+```
+
+**Optional** If you want to remove effects from text, you can use the --remove-effects flag.
+```bash
+pyasstosrt export /Users/user/sub/sub.ass --remove-effects --output-dir /Users/user/sub/srt
+```
+
+**Optional**  If you need to remove duplicates, you can use the --remove-duplicates flag.
+```bash
+pyasstosrt export /Users/user/sub/sub.ass --remove-duplicates
+```
+
+**Optional**  You can use the flags together --remove-duplicates --remove-effects
+```bash
+pyasstosrt export /Users/user/sub/sub.ass --remove-duplicates --remove-effects
+```
+Installation
+------------
+Most users will want to simply install the latest version, hosted on PyPI:
+
+    $ pip install 'pyasstosrt[cli]'
+
+If you just want to use it as a library and don't need the CLI, you can omit the `[cli]` extra.
