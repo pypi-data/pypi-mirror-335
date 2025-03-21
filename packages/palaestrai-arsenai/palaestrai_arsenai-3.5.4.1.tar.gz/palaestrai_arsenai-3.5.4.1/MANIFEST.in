@@ -1,0 +1,13 @@
+include VERSION
+include LICENSE
+include CHANGELOG
+include *.txt
+include *.cfg
+include *.ini
+include *.md
+include *.rst
+graft src
+graft tests
+recursive-include docs *
+global-exclude *.pyc
+global-exclude __pycache__

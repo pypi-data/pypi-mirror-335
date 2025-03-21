@@ -1,0 +1,72 @@
+Metadata-Version: 2.1
+Name: arsenai
+Version: 0.3.0
+Summary: Adversarial Resilience Learning Design of Experiments.
+Home-page: UNKNOWN
+Author: The ARL Developers
+Author-email: stephan.balduin@offis.de
+License: LGPL
+Platform: UNKNOWN
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)
+Classifier: Natural Language :: English
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Topic :: Scientific/Engineering
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.6.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Adversarial Resilience Learning --- Design of Experiments
+
+
+## Introduction
+
+(Coming soon ...)
+
+## Installation
+
+ArsenAI is written in Python. It provides a `setup.py` that installs
+the minimal set of packages to run arsenai. Use, preferable in a
+virtual environment:
+
+    $ ./setup.py install
+
+or, for development::
+
+    $ pip install -e .
+
+## Usage
+
+ArsenAI comes with an example experiment file. You find it in the folder 
+tests/fixtures/. 
+To use arsenAI, simply type
+
+```
+$ arsenai generate tests/fixtures/example_experiment.yml
+```
+
+An output folder will be created 
+(default: (current working directory)/_outputs)) and in that directory, 
+palaestrAI run files, which can be executed with 
+```
+$ palaestrai experiment-start _outputs/Dummy\ Experiment_run-0.yml
+```
+
+You can copy the example file and modify it to your needs.
+
+## Documentation
+
+(Coming soon ...)
+
+## Development
+
+(Coming soon ...)
+
+

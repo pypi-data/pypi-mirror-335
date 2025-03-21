@@ -1,0 +1,87 @@
+uid: TestCase01-SingleRun-0
+version: 3.4.1
+seed: 690800
+
+schedule:
+- phase_0:
+    phase_config: {episodes: 2, mode: train, worker: 1}
+    environments: 
+    - environment: 
+        name: my_only:Environment
+        uid: env1
+        params: {}
+    agents: 
+    - name: FirstAgent
+      brain:
+        name: first_agents:Brain
+        params: {}
+      muscle:
+        name: first_agents:Muscle
+        params: {}
+      objective:
+        name: first_agents:Objective
+        params: {}
+      sensors: [env1.v0, env1.v1, env1.v2, env1.v3]
+      actuators: [env1.q0, env1.q1, env1.q2, env1.q3, env1.q4]
+    - name: SecondAgent
+      brain:
+        name: second_agents:Brain
+        params: {}
+      muscle:
+        name: second_agents:Muscle
+        params: {}
+      objective:
+        name: second_agents:Objective
+        params: {}
+      sensors: [env1.v0, env1.v1, env1.v2, env1.v3]
+      actuators: [env1.q5, env1.q6, env1.q7, env1.q8]
+    simulation:
+      name: palaestrai.simulation:VanillaSimController
+      conditions:
+      - name: palaestrai.simulation:VanillaSimControllerTerminationCondition
+        params: {}
+- phase_1:
+    phase_config: {episodes: 1, mode: test, worker: 1}
+    environments: 
+    - environment: 
+        name: my_only:Environment
+        uid: env1
+        params: {}
+    agents: 
+    - name: FirstAgent
+      load: {base: ./custom, phase_name: phase_0}
+      brain:
+        name: first_agents:Brain
+        params: {}
+      muscle:
+        name: first_agents:Muscle
+        params: {}
+      objective:
+        name: first_agents:Objective
+        params: {}
+      sensors: [env1.v0, env1.v1, env1.v2, env1.v3]
+      actuators: [env1.q0, env1.q1, env1.q2, env1.q3, env1.q4]
+    - name: SecondAgent
+      load: {base: ./custom, phase_name: phase_0}
+      brain:
+        name: second_agents:Brain
+        params: {}
+      muscle:
+        name: second_agents:Muscle
+        params: {}
+      objective:
+        name: second_agents:Objective
+        params: {}
+      sensors: [env1.v0, env1.v1, env1.v2, env1.v3]
+      actuators: [env1.q5, env1.q6, env1.q7, env1.q8]
+    simulation:
+      name: palaestrai.simulation:VanillaSimController
+      conditions:
+      - name: palaestrai.simulation:VanillaSimControllerTerminationCondition
+        params: {}
+
+run_config:
+  condition:
+    name: palaestrai.experiment:VanillaRunGovernorTerminationCondition
+    params: {}
+

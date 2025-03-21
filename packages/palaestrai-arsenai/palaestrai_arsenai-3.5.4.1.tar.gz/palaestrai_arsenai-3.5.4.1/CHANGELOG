@@ -1,0 +1,84 @@
+# Changelog
+
+## Version 3.5.4 (2025-01-10)
+
+- [NEW] Load parameters of the agents can now be defined for specific phases
+
+## Version 0.3.4 (2022-09-15)
+
+* Fixed a application-breaking bug
+
+## Version 0.3.3 (2022-09-14)
+
+* Updated readme.
+
+## Version 0.3.2 (2022-09-13)
+
+* Updated the example experiment file
+* Updated the system test case
+* First pypi version
+
+## Version 0.3.1 (2022-08-25)
+
+* Changed syntax of magic command from `__req` to `$req`
+  * Individual values (for agents and environments) can be selected with `"$req(phase=0, index=0)"`
+
+## Version 0.3.0 (2022-08-24)
+
+* Changed the formatting/syntax of the experiment block
+  * Each environment defintion now consists of three parts:
+    - environment
+    - reward (optional)
+    - state_transformer (optional)
+
+## Version 0.2.3 (2022-06-09)
+
+* Added state transformer as environment configuration parameter
+
+## Version 0.2.2 (2022-01-18)
+
+* Bugfix: More configs were not inherited correctly.
+* Fixed the example experiment file. 
+
+## Version 0.2.1 (2021-12-17)
+
+* Bugfix: Configs in later phases were not inherited as expected.
+
+## Version 0.2.0 (2021-11-16)
+
+* Some API changes caused by the reward experiment.
+* Added gitlab-ci
+
+## Version 0.1.1 (2021-06-04)
+
+* Added documentation for more of the functions.
+* Refactored old generator test as test_designer
+* Updated README
+
+## Version 0.1.0 (2021-06-03)
+
+* Updated arsenAI to be compatible with palaestrAI version 3.2.0.
+* Included all the results from the experiment workshops done
+  by the ARL developers.
+  
+## Version 0.0.4 (2020-11-26)
+
+* Optimized sampling design 
+* Renamed to arsenAI
+
+## Version 0.0.3 (2020-09-24)
+
+* Created generator classes
+* Generator takes a cpsao and builds a couple of experiments
+* Each experiment is stored in a separate yaml file.
+
+## Version 0.0.2 (2020-09-23)
+
+* Added description classes for abstract ontology and agent
+* Added an example cpsao
+* Extended CLI to read a cpsao file
+
+## Version 0.0.1 (2020-09-23)
+
+* Initialized repository
+* Added projects skeletton

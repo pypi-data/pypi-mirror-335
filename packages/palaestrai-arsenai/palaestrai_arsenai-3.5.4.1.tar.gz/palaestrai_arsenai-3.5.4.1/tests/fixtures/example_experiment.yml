@@ -1,0 +1,158 @@
+%YAML 1.2
+# The example experiment file for arsenai. Uses only the dummy components of
+# palaestrai (DummyEnvironemnt, DummyBrain, DummyMuscle, DummyObjective).
+# It is inspired by Classic ARL, i.e., two agents each have an individual
+# training phase, followed by a joint training phase. Finally, there is one
+# test phase with both agents.
+# For the sake of the example, there are two more agents and one more 
+# environment, that will be selected by the DoE algorithm.
+
+---
+uid: "Dummy Experiment" # The user ID for the whole experiment.
+seed: 42 # Seed used to initialize the random number generator.
+version: 3.4.1 # Target palaestrAI version. Other versions might work.
+output: _outputs 
+  # (Optional) Path to specify where to save the run files.
+  # If no path is specified, files are save at {cwd}/_outputs.
+max_runs: 100 # Maximal number of experiment runs to generate.
+repetitions: 1  # How often each run will be repeated. Each repetition is a separate file
+definitions: # This section contains the definition of all components.
+  ###########################################
+  # The environment' section
+  environments: # All environments (and variations) that are used in this
+    # experiment
+    doe_env1: # This is a user-defined name for the first environment
+      # definition. Only valid during the DoE process.
+      environment:
+        uid: env1 # The environment uid that is used to assign sensors and actuators
+        name: palaestrai.environment.dummy_environment:DummyEnvironment
+        params: {}
+      reward:
+        name: palaestrai.environment.dummy_reward:DummyReward
+        params: {}
+      state_transformer:
+        name: ""
+        params: {}
+    doe_env2:
+      environment:
+        name: palaestrai.environment.dummy_environment:DummyEnvironment
+        uid: env2 
+        params: {}
+  agents: # All agents (and variations) that are used in this experiment.
+    dummy_attacker_1: # This is a user-defined name for the first agent definition.
+      # Only valid during the DoE process.
+      name: Sauron
+      brain:
+        name: palaestrai.agent.dummy_brain:DummyBrain
+        params: {}
+      muscle:
+        name: palaestrai.agent.dummy_muscle:DummyMuscle
+        params: {}
+      objective:
+        name: palaestrai.agent.dummy_objective:DummyObjective
+        params: {}
+    dummy_attacker_2: 
+      name: DarthVader
+      brain:
+        name: palaestrai.agent.dummy_brain:DummyBrain
+      muscle:
+        name: palaestrai.agent.dummy_muscle:DummyMuscle
+      objective:
+        name: palaestrai.agent.dummy_objective:DummyObjective
+    dummy_defender_1:
+      name: Gandalf
+      brain:
+        name: palaestrai.agent.dummy_brain:DummyBrain
+      muscle:
+        name: palaestrai.agent.dummy_muscle:DummyMuscle
+      objective:
+        name: palaestrai.agent.dummy_objective:DummyObjective
+    dummy_defender_2:
+      name: LukeSkywalker
+      brain:
+        name: palaestrai.agent.dummy_brain:DummyBrain
+      muscle:
+        name: palaestrai.agent.dummy_muscle:DummyMuscle
+      objective:
+        name: palaestrai.agent.dummy_objective:DummyObjective
+  sensors:
+    sensor_set_1: 
+      env1: [0, 1, 2, 3, 4]
+      env2: [0, 2, 4, 6, 8]
+    sensor_set_2: 
+      env1: [5, 6, 7, 8, 9]
+      env2: [1, 3, 5, 7, 9]
+  actuators:
+    actuator_set_1: 
+      env1: [0, 1, 2, 3, 4]
+      env2: [0, 2, 4, 6, 8]
+    actuator_set_2: 
+      env1: [5, 6, 7, 8, 9]
+      env2: [1, 3, 5, 7, 9]
+  simulation: # Definition of the used simulation controllers.
+    vanilla_sim: # User-defined name of one simulation controller.
+      name: palaestrai.simulation:VanillaSimController
+      conditions:
+        - name: palaestrai.simulation:VanillaSimControllerTerminationCondition
+          params: {}
+  phase_config: # Definition of phase configs.
+    short_training:
+      mode: train
+      worker: 1
+      episodes: 1
+    long_training:
+      mode: train
+      worker: 1
+      episodes: 10
+    no_training:
+      mode: test
+      worker: 1
+      episodes: 1
+  run_config: # No variations here, just the config
+    condition:
+      name: palaestrai.experiment:VanillaRunGovernorTerminationCondition
+      params: {}
+
+schedule: # Definition of the experiment run
+  - phase_0: # User-defined name of the first phase
+      environments: [[doe_env1], [doe_env2]] # This factor has two levels.
+      agents: [[dummy_attacker_1], [dummy_attacker_2]] 
+      simulation: [vanilla_sim]
+      phase_config: [short_training, long_training]
+      sensors:
+        dummy_attacker_1: [sensor_set_1]
+        dummy_attacker_2: [sensor_set_1]
+      actuators:
+        dummy_attacker_1: [actuator_set_1]
+        dummy_attacker_2: [actuator_set_1]
+  - phase_1:
+      # Explicitly use the environment from the first phase. This is also the 
+      # default value if no environments definition is given for phase_1.
+      environments: [["$req(phase=0, index=0"]]
+      agents: [[dummy_defender_1], [dummy_defender_2]]
+      sensors:
+        dummy_defender_1: [sensor_set_2]
+        dummy_defender_2: [sensor_set_2]
+      actuators:
+        dummy_defender_1: [actuator_set_1]
+        dummy_defender_2: [actuator_set_2]
+  - phase_2:
+      # Environment is implicitly set to use the environment definition from
+      # the previous step.
+      # The first agent is requested from the first phase and the second agent
+      # is from the second phase
+      agents: [["$req(phase=0, index=0)", "$req(phase=1, index=0)"]]
+      sensors:
+        dummy_attacker_1: [sensor_set_1]
+        dummy_attacker_2: [sensor_set_1]
+        dummy_defender_1: [sensor_set_2]
+        dummy_defender_2: [sensor_set_2]
+      actuators:
+        dummy_attacker_1: [actuator_set_1]
+        dummy_attacker_2: [actuator_set_1]
+        dummy_defender_1: [actuator_set_1]
+        dummy_defender_2: [actuator_set_2]
+  - phase_3:
+      # Only the phase config changes here. Everything else is taken from the
+      # previous phase
+      phase_config: [no_training]

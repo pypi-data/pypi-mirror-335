@@ -1,0 +1,90 @@
+%YAML 1.2
+# This file is used in a test case. None of the classes exist;
+# therefore, the resulting experiment run file cannot be executed with
+# palaestrai
+
+---
+uid: "TestCase01-SingleRun"
+seed: 0
+version: 3.4.1
+output: tmp
+repetitions: 1
+max_runs: 1
+definitions:
+  environments:
+    theonly_env:
+      environment:
+        name: my_only:Environment
+        uid: env1
+        params: {}
+  agents:
+    first_agent:
+      name: FirstAgent
+      load:
+        phase_0: {}
+        phase_1: {base: "./custom", phase_name: "phase_0"}
+      brain:
+        name: first_agents:Brain
+        params: {}
+      muscle:
+        name: first_agents:Muscle
+        params: {}
+      objective:
+        name: first_agents:Objective
+        params: {}
+    second_agent:
+      name: SecondAgent
+      load:
+        phase_0: {}
+        phase_1: {base: "./custom", phase_name: "phase_0"}
+      brain:
+        name: second_agents:Brain
+        params: {}
+      muscle:
+        name: second_agents:Muscle
+        params: {}
+      objective:
+        name: second_agents:Objective
+        params: {}
+  sensors:
+    all_sensors:
+      env1: [v0, v1, v2, v3]
+  actuators:
+    act_set_01:
+      env1: [q0, q1, q2, q3, q4]
+    act_set_02:
+      env1: [q5, q6, q7, q8]
+  simulation:
+    vanilla:
+      name: palaestrai.simulation:VanillaSimController
+      conditions:
+        - name: palaestrai.simulation:VanillaSimControllerTerminationCondition
+          params: {}
+  phase_config:
+    training:
+      mode: train
+      worker: 1
+      episodes: 2
+    test:
+      mode: test
+      worker: 1
+      episodes: 1
+  run_config:
+    condition:
+      name: palaestrai.experiment:VanillaRunGovernorTerminationCondition
+      params: {}
+
+schedule:
+  - phase_0:
+      environments: [theonly_env]
+      agents: [[first_agent, second_agent]]
+      simulation: [vanilla]
+      phase_config: [training]
+      sensors:
+        first_agent: [all_sensors]
+        second_agent: [all_sensors]
+      actuators:
+        first_agent: [act_set_01]
+        second_agent: [act_set_02]
+  - phase_1:
+     phase_config: [test]

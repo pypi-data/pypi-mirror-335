@@ -1,0 +1,200 @@
+%YAML 1.2
+# The reward experiment used for the reward comparison paper.
+
+---
+uid: "Reward-Experiment"
+seed: 42 # Seed used to initialize the random number generator.
+version: 3.3.0 # Target palaestrAI version. Other versions might work.
+output: runs
+repetitions: 2
+max_runs: 100
+definitions:
+  environments:
+    vc1_thayer2020:
+      name: &VoltageControlEnv voltage_control_env:VoltageControl
+      uid: &vc1uid vc1
+      params:
+        simbench_id: &sbid_1 1-LV-semiurb4--2-sw  # 1-LV-rural1--2-sw
+        scaling_gens: &sgen_scaling 3.0
+        scaling_loads: &load_scaling 3.0
+        use_timeseries: False
+        reward:
+          name: &thayer2020 rewards:RewardThayer2020
+          params: {}
+    vc1_diao2019:
+      name: *VoltageControlEnv
+      uid: *vc1uid
+      params:
+        simbench_id: *sbid_1
+        scaling_gens: *sgen_scaling
+        scaling_loads: *load_scaling
+        use_timeseries: False
+        reward:
+          name: &diao2019 rewards:RewardDiao2019
+          params: {}   
+    vc1_yang2019:
+      name: *VoltageControlEnv
+      uid: *vc1uid
+      params:
+        simbench_id: *sbid_1
+        scaling_gens: *sgen_scaling
+        scaling_loads: *load_scaling
+        use_timeseries: False
+        reward:
+          name: &yang2019 rewards:RewardYang2019
+          params: {}
+    vc1_zouh2020:
+      name: *VoltageControlEnv
+      uid: *vc1uid
+      params:
+        simbench_id: *sbid_1
+        scaling_gens: *sgen_scaling
+        scaling_loads: *load_scaling
+        use_timeseries: False
+        reward:
+          name: &zouh2020 rewards:RewardZouh2020OnlyVoltage
+          params: {}
+    vc1_li2019:
+      name: *VoltageControlEnv
+      uid: *vc1uid
+      params:
+        simbench_id: *sbid_1
+        scaling_gens: *sgen_scaling
+        scaling_loads: *load_scaling
+        use_timeseries: False
+        reward:
+          name: &li2019 rewards:RewardLi2019
+          params: {}
+    vc2:
+      name: *VoltageControlEnv
+      uid: &vc2uid vc2
+      params:
+        simbench_id: *sbid_1
+        scaling_gens: *sgen_scaling
+        scaling_loads: *load_scaling
+        use_timeseries: True
+        reward:
+          name: *yang2019
+          params: {}
+  agents: # All agents (and variations) that are used in this experiment.
+    ddpg_agent: # This is a user-defined name for the first agent definition.
+      # Only valid during the DoE process.
+      name: DDPGAgent
+      load: 
+        phase_0: {}
+        phase_1: {base: "./custom", phase_name: "phase_0"}
+        phase_2: {base: "./custom", phase_name: "phase_0"}
+      brain:
+        name: "harl.ddpg.brain:DDPGBrain"
+        params:
+          {
+            gamma: 0.99,
+            tau: 0.001,
+            batch_size: 8,
+            alpha: 0.0002,
+            beta: 0.001,
+            fc_dims: [200, 150, 100],
+            replay_size: 1000000,
+            store_path: "./custom"
+          }
+      muscle:
+        name: "harl.ddpg.muscle:DDPGMuscle"
+        params: {}
+      objective:
+        name: "harl.ddpg.objective:NoExtGridObjective"
+        params:
+          params:
+            is_defender: True
+    ppo_agent:
+      name: PPOAgent
+      load: 
+        phase_0: {}
+        phase_1: {base: "./custom", phase_name: "phase_0"}
+        phase_2: {base: "./custom", phase_name: "phase_0"}
+      brain:
+        name: 'harl.ppo.brain:PPOBrain'
+        params: {"store_path": "./custom"}
+      muscle:
+        name: 'harl.ppo.muscle:PPOMuscle'
+        params: {}
+      objective:
+        name: 'harl.ddpg.objective:NoExtGridObjective'
+        params:
+          params:
+            is_defender: True
+    td3_agent:
+      name: TD3Agent
+      load: 
+        phase_0: {}
+        phase_1: {base: "./custom", phase_name: "phase_0"}
+        phase_2: {base: "./custom", phase_name: "phase_0"}
+      brain:
+        name: 'harl.TD3.brain:TD3Brain'
+        params: { "store_path": "./custom" }
+      muscle:
+        name: 'harl.TD3.muscle:TD3Muscle'
+        params: {}
+      objective:
+        name: 'harl.ddpg.objective:NoExtGridObjective'
+        params:
+          params:
+            is_defender: True
+  sensors:
+    all_sensors:
+      vc1: &all_sensors [v0, v1, v2, v3, v4]  # example selection, but we will need ALL sensors
+      vc2: *all_sensors
+  actuators:
+    all_actuators:
+      vc1: &all_actuators [q0, q1, q2, q3, q4, q5]  # we will need ALL actuators
+      vc2: *all_actuators
+  simulation: # Definition of the used simulation controllers.
+    vanilla_sim: # User-defined name of one simulation controller.
+      name: palaestrai.simulation:VanillaSimController
+      conditions:
+        - name: palaestrai.simulation:VanillaSimControllerTerminationCondition
+          params: {}
+  phase_config: # Definition of phase configs.
+    training_phase_a:
+      mode: train
+      worker: 1
+      episodes: 10
+    test_phase_a:
+      mode: test
+      worker: 1
+      episodes: 10
+    test_phase_b:
+      mode: test
+      worker: 1
+      episodes: 10
+  run_config: # No variations here, just the config
+    condition:
+      name: palaestrai.experiment:VanillaRunGovernorTerminationCondition
+      params: {}
+
+schedule: # Definition of the experiment run
+  - phase_0: # User-defined name of the first phase
+      environments:
+        - [vc1_thayer2020]
+        - [vc1_diao2019]
+        - [vc1_yang2019]
+        - [vc1_zouh2020]
+        - [vc1_li2019]
+      agents:
+        - [ddpg_agent]
+        - [ppo_agent]
+        - [td3_agent]
+      simulation: [vanilla_sim]
+      phase_config: [training_phase_a]
+      sensors:
+        ddpg_agent: [all_sensors]
+        ppo_agent: [all_sensors]
+        td3_agent: [all_sensors]
+      actuators:
+        ddpg_agent: [all_actuators]
+        ppo_agent: [all_actuators]
+        td3_agent: [all_actuators]
+  - phase_1:
+      phase_config: [test_phase_a]
+  - phase_2:
+      environments: [[vc2]]
+      phase_config: [test_phase_b]

@@ -1,0 +1,54 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "palaestrai-arsenai"
+authors = [{name="The ARL Developers", email="stephan.balduin@offis.de"}]
+description = "Adversarial Resilience Learning Design of Experiments."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU Lesser General Public License v2 (LGPLv2)",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+dependencies = [
+    "click",
+    "numpy",
+    "pandas",
+    "doepy",
+    "ruamel.yaml",
+    "palaestrai~=3.5.0"
+]
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "twine",
+    "setuptools",
+    "black==22.3.0",
+    "build",
+]
+
+[project.urls]
+"Homepage" = "http://docs.palaestr.ai"
+"Bug Tracker" = "https://gitlab.com/arl2/palaestrai-arsenai/-/issues"
+
+[project.scripts]
+arsenai = "arsenai.cli.arsenai:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "arsenai.__version__"}
+
+[tool.black]
+line-length = 79
