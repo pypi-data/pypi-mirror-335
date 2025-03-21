@@ -1,0 +1,29 @@
+
+[:python_version < "3.11"]
+numpy>=1.21.6
+
+[:python_version >= "3.11"]
+numpy>=1.23.2
+
+[all]
+fastvector[dev,doc,test]
+
+[dev]
+black
+isort
+mypy
+pre-commit
+ruff
+
+[doc]
+mkdocs
+mkdocstrings
+mkdocstrings[python]
+mkdocs-material
+Pygments
+
+[test]
+pytest
+pytest-cov
+codecov
+pre-commit
