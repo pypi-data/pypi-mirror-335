@@ -1,0 +1,142 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": "string",
+            "default": "Migration",
+            "description": ""
+        },
+        "id": {
+            "type": "string",
+            "default": null,
+            "description": ""
+        },
+        "description": {
+            "type": "string",
+            "default": "Migration description",
+            "description": ""
+        },
+        "meta": {
+            "type": "object",
+            "properties": {
+                "nesting_level": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": ""
+                },
+                "pruning_level": {
+                    "type": "integer",
+                    "default": 0,
+                    "description": ""
+                },
+                "max_workers": {
+                    "type": "integer",
+                    "default": 5,
+                    "description": ""
+                },
+                "pruning_type": {
+                    "type": "string",
+                    "default": "link",
+                    "description": ""
+                },
+                "debug_mode": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": ""
+                },
+                "logging": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": ""
+                },
+                "analyze": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": ""
+                },
+                "last_update": {
+                    "type": "string",
+                    "format": "date-time",
+                    "default": "1970-01-01 00:00:00",
+                    "description": ""
+                }
+            }
+        },
+        "target_schemes": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": ""
+            }
+        },
+        "excluded": {
+            "type": "array",
+            "items": {
+                "type": "string",
+                "description": ""
+            }
+        },
+        "mapping": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": ["table", "query"],
+                        "description": ""
+                    },
+                    "object": {
+                        "type": "string",
+                        "description": ""
+                    },
+                    "step": {
+                        "type": "integer",
+                        "description": ""
+                    },
+                    "data": {
+                        "type": "object",
+                        "description": ""
+                    }
+                },
+                "required": ["type", "object", "step"]
+            }
+        },
+        "pruning": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "relationship": {
+                            "type": "string",
+                            "enum": ["one-to-one", "one-to-many", "many-to-one", "many-to-many"],
+                            "description": ""
+                        },
+                        "foreign_key": {
+                            "type": "string",
+                            "description": ""
+                        },
+                        "foreign_collection": {
+                            "type": "string",
+                            "description": ""
+                        },
+                        "foreign_primary_key": {
+                            "type": "string",
+                            "description": ""
+                        },
+                        "pruning_type": {
+                            "type": "string",
+                            "enum": ["link", "object"],
+                            "description": ""
+                        }
+                    },
+                    "required": ["relationship", "foreign_key", "foreign_collection", "foreign_primary_key", "pruning_type"]
+                }
+            }
+        }
+    },
+    "required": ["meta", "mapping"]
+}
