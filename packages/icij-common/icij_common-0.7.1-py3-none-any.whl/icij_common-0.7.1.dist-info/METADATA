@@ -1,0 +1,38 @@
+Metadata-Version: 2.4
+Name: icij-common
+Version: 0.7.1
+Summary: Common utils for ICIJ libs
+Project-URL: Repository, https://github.com/ICIJ/icij-python
+Project-URL: Issues, https://github.com/ICIJ/icij-python/issues
+Author-email: Clément Doumouro <cdoumouro@icij.org>, ICIJ <engineering@icij.org>
+Requires-Python: ~=3.10
+Requires-Dist: pydantic>=2.0
+Provides-Extra: elasticsearch
+Requires-Dist: elasticsearch[async]~=7.17.9; extra == 'elasticsearch'
+Requires-Dist: tenacity~=9.0; extra == 'elasticsearch'
+Provides-Extra: fastapi
+Requires-Dist: fastapi~=0.111; extra == 'fastapi'
+Provides-Extra: neo4j
+Requires-Dist: neo4j~=5.0; extra == 'neo4j'
+Requires-Dist: pydantic-settings~=2.8; extra == 'neo4j'
+Description-Content-Type: text/markdown
+
+[![Test for icij-common](https://github.com/ICIJ/icij-python/actions/workflows/tests-common.yml/badge.svg)](https://github.com/ICIJ/icij-python/actions/workflows/tests-common.yml)
+
+# Library for utilities commonly used in ICIJ's Python projects
+
+## [`neo4j`](https://neo4j.com/docs/api/python-driver/current/)
+
+- neo4j test utils (useful `pytest` fixtures)
+- lightweight migration lib
+- handles enterprise support and multiple neo4j DBs
+
+## `logging`
+
+## [`pydantic`](https://github.com/pydantic/pydantic)
+
+- ICIJ's Pydantic models
+
+## `tests`
+
+- common test utils and pytest fixtures
