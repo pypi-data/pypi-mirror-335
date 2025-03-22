@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "reflex-agent"
+version = "0.1.2a7"
+description = "A flexible agent framework."
+authors = ["Nikhil Rao <nikhil@reflex.dev>"]
+readme = "README.md"
+packages = [
+    { include = "flexai" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.pyright]
+exclude = ["tests"]
+
+
+[tool.poetry.group.dev.dependencies]
+anthropic = "^0.42.0"
+pytest = "^8.3.3"
+jiter = "^0.8.2"
+ruff = "^0.6.4"
+darglint = "^1.8.1"
+pre-commit = "^3.8.0"
+pyright = "^1.1.380"
+pytest-asyncio = "^0.24.0"
+openai = "^1.63.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
