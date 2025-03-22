@@ -1,0 +1,24 @@
+save:
+  dir: "/var/lib/moat/link/data"
+  name: "%Y-%m/%d-%H-%M.save"
+  interval: 1000
+
+timeout:
+  monitor: 0.5
+  refresh: 100
+  startup: 30
+standalone: true
+
+# the AsyncActor config for syncing servers
+ping:
+  cycle: 50
+  gap: 5
+
+# the server probing its client
+ping_timeout: 3
+
+ports:
+  main:
+    host: 127.0.0.1
+    port: 27587
+
