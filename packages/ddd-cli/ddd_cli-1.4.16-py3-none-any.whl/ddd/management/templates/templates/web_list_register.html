@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+List
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">List of</h1>
+
+    {% if messages %}
+        <div class="alert alert-success">
+            {% for message in messages %}
+                <div class="message">
+                {{message}}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+    {% endif %}
+    
+  
+        {% for [[ entity_name.lower() ]] in [[ entity_name.lower() ]]_list %}
+            <article class="article-item">
+
+                {% if [[ entity_name.lower() ]].image != 'null' and [[ entity_name.lower() ]].image.url|length >= 1 %}
+                    <div class="image">
+                        <img src="{{[[ entity_name.lower() ]].image.url}}" />
+                    </div>
+                {% endif %}
+                
+                <div class="data">
+                    <h2>{{[[ entity_name.lower() ]].title}}</h2>
+                    <span class="date">{{[[ entity_name.lower() ]].created_at}}</span>
+                    {% if [[ entity_name.lower() ]].public %}
+                        <strong>Published</strong>
+                    {% else %}
+                        <strong>Private</strong>
+                    {% endif %}
+                    <p>
+                        {{[[ entity_name.lower() ]].content}}
+                        <div class="row col-sm-12 btn-container d-flex justify-content-start width-sm-auto">
+                            <div class="col-sm-1">
+                                <a href="{% url '[[ entity_name.lower() ]]_edit'  id=[[ entity_name.lower() ]].id %}" class="btn btn-edit">Edit</a>
+                            </div>              
+                            <div class="col-sm-1">
+                                <a href="{% url '[[ entity_name.lower() ]]_edit_save'  id=[[ entity_name.lower() ]].id %}" class="btn btn-edit">Edit/Save</a>
+                            </div>                   
+                            <div class="col-sm-1">
+                                <a href="{% url '[[ entity_name.lower() ]]_detail'  id=[[ entity_name.lower() ]].id %}" class="btn btn-detail">View</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <a href="{% url '[[ entity_name.lower() ]]_delete'  id=[[ entity_name.lower() ]].id %}" class="btn btn-delete">Delete</a>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+                <div class="clearfix"></div>
+            </article>
+        {% endfor %}
+
+
+{% endblock %} 
