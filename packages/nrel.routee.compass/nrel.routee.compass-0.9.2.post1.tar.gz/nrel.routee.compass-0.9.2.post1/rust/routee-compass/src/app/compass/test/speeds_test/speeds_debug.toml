@@ -1,0 +1,37 @@
+[graph]
+edge_list_input_file = "routee-compass/src/app/compass/test/speeds_test/test_edges.csv"
+vertex_list_input_file = "routee-compass/src/app/compass/test/speeds_test/test_vertices.csv"
+verbose = true
+
+# [mapping]
+# type = "vertex"
+# # tolerance.distance = 30.0
+# # tolerance.unit = "meters"
+# # queries_without_destinations = false
+# # matching_type = ["vertex"]
+
+[traversal]
+type = "speed_table"
+speed_table_input_file = "routee-compass/src/app/compass/test/speeds_test/test_edge_speeds.csv"
+speed_unit = "kph"
+output_time_unit = "hours"
+
+[access]
+type = "no_access_model"
+
+[cost]
+cost_aggregation = "sum"
+[cost.weights]
+distance = 0
+time = 1
+[cost.vehicle_rates.time]
+type = "raw"
+[cost.vehicle_rates.distance]
+type = "raw"
+
+[plugin]
+input_plugins = []
+output_plugins = [
+    { type = "summary" },
+    { type = "traversal", route = "edge_id" },
+]
