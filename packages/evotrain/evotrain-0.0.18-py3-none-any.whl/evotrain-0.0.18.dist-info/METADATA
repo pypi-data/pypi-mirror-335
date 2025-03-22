@@ -1,0 +1,63 @@
+Metadata-Version: 2.4
+Name: evotrain
+Version: 0.0.18
+Summary: Evoland training workflows
+Author: Daniele Zanaga, Wanda De Keersmaecker, Yannis Kalfas
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: <=3.12,>=3.11
+Requires-Dist: climatic-regions>=0.0.4
+Requires-Dist: fastparquet>=2024.2.0
+Requires-Dist: joblib>=1.4.2
+Requires-Dist: lightning>=2.3.3
+Requires-Dist: loguru==0.7.2
+Requires-Dist: matplotlib>=3.7.5
+Requires-Dist: numpy<2.0.0
+Requires-Dist: pyarrow>=17.0.0
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: rasterio>=1.2.10
+Requires-Dist: rio-tiler>=7.2.2
+Requires-Dist: satio-pc>=0.0.9
+Requires-Dist: segmentation-models-pytorch>=0.3.3
+Requires-Dist: tensorboard>=2.14.0
+Requires-Dist: torch>=2.5.0
+Requires-Dist: torchvision>=0.20.0
+Requires-Dist: veg-workflows==0.2.0
+Requires-Dist: xarray>=1.2.10
+Provides-Extra: extra
+Requires-Dist: deepdiff>=8.3.0; extra == 'extra'
+Requires-Dist: ipython; extra == 'extra'
+Requires-Dist: rich>=13.9.4; extra == 'extra'
+Description-Content-Type: text/markdown
+
+# EvoTrain
+
+EvoTrain is a cutting-edge project focused on global land cover mapping, essential for understanding and managing Earth's resources. Building upon the success of ESA’s WorldCover, EvoTrain introduces the next-generation of global land cover products as part of the Copernicus Land Cover and Forest Monitoring service (LCFM).
+
+## EvoNet Algorithm
+
+At the core of EvoTrain is EvoNet, a novel algorithm that combines the strengths of convolutional neural networks (CNNs) and pixel-based classifiers into a unified framework. This innovative approach addresses long-standing challenges in land cover classification, such as spatial accuracy, generalization, and the integration of heterogeneous datasets.
+
+### Key Features of EvoNet:
+- **Dual Architecture**: Integrates a CNN-based spatial feature extractor with a multi-layer perceptron (MLP) pixel classifier.
+- **Enhanced Spatial Features**: Provides contextual information to improve pixel-level predictions.
+- **Efficiency**: Avoids inefficiencies of conventional approaches that rely on multiple regional models or exclusively use CNNs or pixel classifiers.
+
+## Evotrain Dataset
+
+Supporting EvoNet's performance is the Evotrain dataset, a newly developed global dataset designed for a wide range of remote sensing applications. The dataset features:
+- **Stratified Sampling**: Ensures balanced representation of all classes and landscapes globally.
+- **High-Quality Annotations**: Collected using a novel AI-assisted system, including mixed classes for accurate land cover fraction estimates at high resolution.
+
+## Open Source and Collaboration
+
+The EvoNet architecture, Evotrain dataset, and the supporting Python ecosystem will be open-sourced and publicly released to foster collaboration and drive advancements in the remote sensing community.
+
+## Advancements in Global Mapping
+
+EvoNet sets a new standard for global mapping, as demonstrated by the datasets produced under the LCFM service. Notably, LCM-10, the new global annual land cover map, surpasses WorldCover in accuracy and operational efficiency, addressing key algorithmic limitations.
+
+## Conclusion
+
+EvoTrain represents a significant advancement in global land cover mapping, with transformative potential for remote sensing applications. This project showcases EvoNet’s methodology, the development of the Evotrain dataset, and the resulting improvements in global land cover mapping.

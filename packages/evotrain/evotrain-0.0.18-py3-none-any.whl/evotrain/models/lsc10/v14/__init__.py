@@ -1,0 +1,26 @@
+DEFAULT_S2_BANDS = [
+    "B02",
+    "B03",
+    "B04",
+    "B08",
+    "B05",
+    "B06",
+    "B07",
+    "B8A",
+    "B11",
+    "B12",
+    "B01",
+    "B09",
+]
+
+DEFAULT_AUX_BANDS = ["cop-DEM-alt"]
+DEFAULT_BANDS = DEFAULT_S2_BANDS + DEFAULT_AUX_BANDS
+DEFAULT_HEAD_BANDS = ["latlon", "meteo", "doy"]
+
+# LSC_CORE_LABELS = [1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13]
+# LSC_PERSISTENT_LABELS = [1, 2, 5]
+# LSC_PERSISTENT_LABELS_WOCO = [10, 20, 50]
+# LSC_OCCLUSION_LABELS = [7, 11, 12, 13]
+# LSC_ECO_LABELS = [9, 4, 14]
+# LSC_ECO_LABELS_WOCO = [90, 95, 40]
+# NET_LABELS = LSC_CORE_LABELS + LSC_ECO_LABELS
