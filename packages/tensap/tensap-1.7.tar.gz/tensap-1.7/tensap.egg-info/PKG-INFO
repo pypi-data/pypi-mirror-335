@@ -1,0 +1,43 @@
+Metadata-Version: 2.1
+Name: tensap
+Version: 1.7
+Summary: Tensor Approximation Package: a Python package for the                  approximation of functions and tensors.
+Home-page: https://anthony-nouy.github.io/tensap/
+Author: Anthony Nouy, Erwan Grelier
+Author-email: anthony.nouy@ec-nantes.fr
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: COPYING
+License-File: COPYING.LESSER
+
+[![Build Status](https://github.com/anthony-nouy/tensap/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/anthony-nouy/tensap/actions/workflows/build.yml)
+[![codecov](https://codecov.io/gh/anthony-nouy/tensap/branch/master/graph/badge.svg)](https://codecov.io/gh/anthony-nouy/tensap)
+[![Doc](https://readthedocs.org/projects/spack/badge/?version=latest)](https://anthony-nouy.github.io/sphinx/tensap/master/)
+
+
+# tensap (Tensor Approximation Package)
+
+A Python package for the approximation of functions and tensors.
+
+tensap features low-rank tensors (including canonical, tensor-train and tree-based tensor formats or tree tensor networks), sparse tensors, polynomials, and allows the plug-in of other approximation tools. It provides different approximation methods based on interpolation, least-squares projection or statistical learning.
+
+See the tutorials folder and its subfolders for examples of use.
+
+Install from PyPi:
+
+```
+pip install tensap
+```
+
+
+Install from conda:
+
+```
+conda config --add channels conda-forge
+conda config --set channel_priority strict
+conda install tensap
+```
