@@ -1,0 +1,128 @@
+version: '3.8'
+
+services:
+  # Calculator Service
+  calculator:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"  # HTTP
+      - "8080:8080"  # WebSocket
+    volumes:
+      - ./calculator:/app/calculator
+    command: ["python", "-m", "pifunc", "run", "calculator/service.py"]
+    environment:
+      - PIFUNC_HTTP_PORT=8000
+      - PIFUNC_WS_PORT=8080
+    depends_on:
+      - mqtt-broker
+
+  # Math Service
+  math:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"  # HTTP
+      - "8081:8081"  # WebSocket
+      - "50051:50051"  # gRPC
+    volumes:
+      - ./math_service:/app/math_service
+    command: ["python", "-m", "pifunc", "run", "math_service/service.py"]
+    environment:
+      - PIFUNC_HTTP_PORT=8001
+      - PIFUNC_WS_PORT=8081
+      - PIFUNC_GRPC_PORT=50051
+    depends_on:
+      - mqtt-broker
+
+  # String Service
+  string:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8002"  # HTTP
+      - "8082:8082"  # WebSocket
+      - "50052:50052"  # gRPC
+    volumes:
+      - ./string_service:/app/string_service
+    command: ["python", "-m", "pifunc", "run", "string_service/service.py"]
+    environment:
+      - PIFUNC_HTTP_PORT=8002
+      - PIFUNC_WS_PORT=8082
+      - PIFUNC_GRPC_PORT=50052
+    depends_on:
+      - mqtt-broker
+
+  # Data Structures Service
+  data:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8003"  # HTTP
+      - "8083:8083"  # WebSocket
+      - "50053:50053"  # gRPC
+    volumes:
+      - ./data_service:/app/data_service
+    command: ["python", "-m", "pifunc", "run", "data_service/service.py"]
+    environment:
+      - PIFUNC_HTTP_PORT=8003
+      - PIFUNC_WS_PORT=8083
+      - PIFUNC_GRPC_PORT=50053
+    depends_on:
+      - mqtt-broker
+
+  # Shared MQTT Broker for all services
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"  # MQTT
+      - "9001:9001"  # MQTT over WebSocket
+
+  # Demo clients for each service
+  calculator-client:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ./calculator:/app/calculator
+    command: ["python", "-m", "pifunc", "run", "calculator/client.py"]
+    depends_on:
+      - calculator
+      - mqtt-broker
+
+  math-client:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ./math_service:/app/math_service
+    command: ["python", "-m", "pifunc", "run", "math_service/client.py"]
+    depends_on:
+      - math
+      - mqtt-broker
+
+  string-client:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ./string_service:/app/string_service
+    command: ["python", "-m", "pifunc", "run", "string_service/client.py"]
+    depends_on:
+      - string
+      - mqtt-broker
+
+  data-client:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ./data_service:/app/data_service
+    command: ["python", "-m", "pifunc", "run", "data_service/client.py"]
+    depends_on:
+      - data
+      - mqtt-broker
