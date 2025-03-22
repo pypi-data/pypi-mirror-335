@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "roon"
+version = "0.5.0"
+description = "A modern node based python editor and REPL for physics, education, and data analysis"
+readme = "README.md" 
+dependencies = ["pywebview"]
+authors = [
+    { name = "James Daniel Brandenburg" }
+]
+license = { text = "MIT" }  # Or your chosen license
+requires-python = ">=3.8"  # Specify supported Python versions
+
+[project.scripts]
+my-app = "app:full_setup"
+
+[tool.setuptools]
+include-package-data = true
+packages = ["roon"]
+
+[tool.setuptools.package-data]
+"roon" = ["static/*", "static/svelte/*", "static/svelte/build/*", "static/nodes/*" ]
