@@ -1,0 +1,102 @@
+Metadata-Version: 2.4
+Name: cosmology.api
+Version: 0.2.0
+Summary: Cosmology API standard
+Project-URL: homepage, https://cosmology.readthedocs.org/projects/api
+Project-URL: repository, https://github.com/cosmology-api/cosmology.api
+Project-URL: documentation, https://cosmology.readthedocs.org/projects/api
+Author-email: Nathaniel Starkman <n.starkman@mail.utoronto.ca>, Nicolas Tessore <n.tessore@ucl.ac.uk>
+Maintainer-email: Nathaniel Starkman <n.starkman@mail.utoronto.ca>, Nicolas Tessore <n.tessore@ucl.ac.uk>
+License: BSD 3-Clause License
+        
+        Copyright (c) 2022, Nathaniel Starkman and Nicolas Tessore
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        3. Neither the name of the copyright holder nor the names of its
+           contributors may be used to endorse or promote products derived from
+           this software without specific prior written permission.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+License-File: AUTHORS.rst
+License-File: LICENSE.txt
+Keywords: API,cosmology
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.9
+Provides-Extra: all
+Provides-Extra: docs
+Requires-Dist: furo; extra == 'docs'
+Requires-Dist: numpydoc; extra == 'docs'
+Requires-Dist: sphinx; extra == 'docs'
+Requires-Dist: sphinx-copybutton; extra == 'docs'
+Requires-Dist: sybil; extra == 'docs'
+Requires-Dist: tomli; extra == 'docs'
+Requires-Dist: typing-extensions; extra == 'docs'
+Provides-Extra: test
+Requires-Dist: coverage[toml]; extra == 'test'
+Requires-Dist: numpy>=1.21; extra == 'test'
+Requires-Dist: packaging; extra == 'test'
+Requires-Dist: pytest; extra == 'test'
+Requires-Dist: pytest-cov; extra == 'test'
+Requires-Dist: sybil; extra == 'test'
+Requires-Dist: typing-extensions; extra == 'test'
+Description-Content-Type: text/x-rst
+
+Cosmology API
+=============
+
+There are a lot of (Python) cosmology libraries out there, from big projects --
+including `Astropy <https://docs.astropy.org/en/stable/cosmology/index.html>`_,
+`CLASS <http://class-code.net>`_, and `CAMB
+<https://camb.readthedocs.io/en/latest/>`_ -- down to small personal scripts.
+These libraries perform many of the same tasks, but they all have different
+interfaces, and different ways of doing things. This makes it hard to switch
+between libraries, and nearly impossible to write code that works with multiple
+libraries.
+
+The Cosmology API for Python solves this problem, providing detailed interfaces
+for cosmology codes, from individual methods and functions up to fully-featured
+cosmology objects, even whole libraries. Best of all, using the Cosmology API
+does not require any run-time dependencies, even this library!
+
+With the Cosmology API you can **write code that works with anything that
+implements the API**, i.e many different cosmology libraries. We provide the
+easy-to-use, well-defined descriptions, you can build functions that work with
+any supporting library. For example
+
+.. skip: next
+.. code-block:: python
+
+   # No implementation, just a description of the interface!
+   from cosmology.api import StandardCosmology
+
+
+   def flat_angular_diameter_distance(
+       cosmo: StandardCosmology[Array, Array], z: Array
+   ) -> Array:
+       # Do some cosmology with any object that implements the API
+       if cosmo.Omega_k != 0:
+           raise ValueError("This function only works for flat cosmologies")
+       return cosmo.comoving_distance(z) / (1 + z)
