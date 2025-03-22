@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: aces-metric
+Version: 0.0.5
+Summary: ACES metric for evaluating automated audio captioning models based on the semantics of sounds
+Author-email: Gijs Wijngaard <hi@gijs.me>
+License: MIT License
+        
+        Copyright (c) 2023 Gijs Wijngaard
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: transformers
+Requires-Dist: numpy
+Requires-Dist: torch
+Requires-Dist: sentence_transformers
+Requires-Dist: tqdm
+Dynamic: license-file
+
+# ACES
+
+This is the repository of Audio Captioning Evaluation on Semantics of Sound (ACES). 
+
+Corresponding paper: [https://arxiv.org/abs/2403.18572](https://arxiv.org/abs/2403.18572).
+
+In here you will find the instructions how to train an ACES model and calculate statistics. 
+
+## Installation
+``` bash
+pip install aces-metric
+```
+## Usage
+The candidates can be a list, the references can be a list or a list of lists. 
+``` python
+from aces import get_aces_score
+candidates = ["a bunch of birds are singing"]
+references = ["birds are chirping and singing loudly in the forest"]
+score = get_aces_score(candidates, references, average=True)
+```
+
+### Semantics of sounds
+To get an output of classes of semantic groups from a caption:
+``` python
+from transformers import pipeline
+pipe = pipeline("token-classification", "gijs/aces-roberta-13", aggregation_strategy="simple")
+pipe("Bird chirps in the tree while a car hums")
+```
+
+## Evaluation
+All the code that is used to evaluate different models for the research paper can be found in the `evaluation` folder on the [github](https://github.com/GlJS/ACES). Particularly, the model evaluation can be found in `evaluation/eval.py`, and information about the FENSE experiment can be found in `evaluation/fense_experiment/main.py`. 
