@@ -1,0 +1,95 @@
+Metadata-Version: 2.4
+Name: goldie
+Version: 0.1.7
+Summary: A humble library greasing the gears of golden file tests
+Project-URL: Homepage, https://github.com/merschformann/goldie
+Project-URL: Repository, https://github.com/merschformann/goldie
+Author-email: Marius Merschformann <merschformann@proton.me>
+Maintainer-email: Marius Merschformann <merschformann@proton.me>
+License: MIT License
+        
+        Copyright (c) 2025 Marius Merschformann
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: golden file,integration test,test,testing
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.9
+Requires-Dist: jflat>=0.1.4
+Provides-Extra: dev
+Requires-Dist: ruff>=0.6.4; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# goldie
+
+A humble library greasing the gears of golden file tests.
+
+## Installation
+
+```bash
+pip install goldie
+```
+
+## Example
+
+This is an example of how to use `goldie` to test a script across multiple JSON files. The golden files will be used as a reference to compare the output of the script. Adding `GOLDIE_UPDATE=1` to the environment variables will update the golden files with the output of the script. Find the full example in the [`example`](example) directory.
+
+```python
+import unittest
+
+import goldie
+
+
+class TestExample(unittest.TestCase):
+    def test_script(self):
+        config = goldie.ConfigDirectoryTest(
+            # We want to test all JSON files in the data directory.
+            file_filter="data/*.json",
+            run_configuration=goldie.ConfigRun(
+                # We simply run the script in this directory.
+                cmd="python",
+                args=["script.py"],
+                # The script reads from stdin and writes to stdout.
+                input_mode=goldie.InputMode.STDIN,
+                output_mode=goldie.OutputMode.STDOUT,
+            ),
+            comparison_configuration=goldie.ConfigComparison(
+                # We want to leverage the JSON structure instead of comparing raw strings.
+                comparison_type=goldie.ComparisonType.JSON,
+                json_processing_config=goldie.ConfigProcessJson(
+                    replacements=[
+                        # We want to replace an unstable value with a stable one.
+                        goldie.JsonReplacement(path="random", value=3),
+                    ],
+                ),
+            ),
+        )
+        goldie.directory.run_unittest(self, config)
+
+
+if __name__ == "__main__":
+    unittest.main()
+```
