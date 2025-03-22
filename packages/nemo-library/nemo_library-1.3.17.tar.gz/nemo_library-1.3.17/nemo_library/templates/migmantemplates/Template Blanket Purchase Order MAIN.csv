@@ -1,0 +1,32 @@
+E_RA_Kopf.BelegNummer;E_RA_Kopf.Lieferant;E_RA_Kopf.BelegDatum;E_RA_Kopf.AuftragsArt;E_RA_Kopf.SBM_ProfitCenter_ID;E_RA_Kopf.Sachbearbeiter;E_RA_Kopf.Empfaenger;E_RA_Kopf.Wiedervorlage;E_RA_Kopf.VerteilerGruppe;E_RA_Kopf.Sprache;E_RA_Kopf.BelegInfo;E_RA_Kopf.Empfaenger_Telefon;E_RA_Kopf.Vertragsnummer;E_RA_Kopf.Vertragsdatum;E_RA_Kopf.gueltig_ab;E_RA_Kopf.gueltig_bis;E_RA_Kopf.Waehrung;E_RA_Kopf.Lieferhinweis;E_RA_Kopf.LieferBedingung;E_RA_Kopf.FormularNr;E_RA_Kopf.FormularAnzahl;E_RA_Kopf.Kopftext1;E_RA_Kopf.Kopftext2;E_RA_Kopf.Kopftext3;E_RA_Kopf.Kopftext4;E_RA_Kopf.Bemerkung1;E_RA_Kopf.Bemerkung2;E_RA_Kopf.Bemerkung3;S_BestellAdresse.BestellAdresse
+0;0;today;;;;;?;;D;;;;?;today;?;0;;0;0;1;;;;;;;;0
+Column;Column Name;Description / Remark;Location in proALPHA;Data Type;Format
+1;Belegnummer;Document Number;E_RA_Kopf.BelegNummer;INTEGER;zzzzzzz9;
+2;Lieferant;Supplier;E_RA_Kopf.Lieferant;INTEGER;zzzzzzzz;
+3;Belegdatum;Document Date;E_RA_Kopf.BelegDatum;DATE;99.99.9999;
+4;Auftragsart;Order Category;E_RA_Kopf.AuftragsArt;CHARACTER;x(2);
+5;Profitcenter;Profit Center;E_RA_Kopf.SBM_ProfitCenter_ID;CHARACTER;x(20);
+6;Sachbearbeiter;Specialist;E_RA_Kopf.Sachbearbeiter;CHARACTER;x(12);
+7;Empfänger;Recipient;E_RA_Kopf.Empfaenger;CHARACTER;x(120);
+8;Wiedervorlage;ToDo;E_RA_Kopf.Wiedervorlage;DATE;99.99.9999;
+9;Verteilergruppe;Work Group;E_RA_Kopf.VerteilerGruppe;CHARACTER;x(6);
+10;Sprache;Language;E_RA_Kopf.Sprache;CHARACTER;x(3);
+11;Bestellung;Purchase Order;E_RA_Kopf.BelegInfo;CHARACTER;x(40);
+12;Bearb Telefon;Telephone Recipient;E_RA_Kopf.Empfaenger_Telefon;CHARACTER;x(25);
+13;Vertragsnummer;Contract Number;E_RA_Kopf.Vertragsnummer;CHARACTER;x(20);
+14;Vertragsdatum;Contract Date;E_RA_Kopf.Vertragsdatum;DATE;99.99.9999;
+15;gültig ab;Valid From;E_RA_Kopf.gueltig_ab;DATE;99.99.9999;
+16;gültig bis;Valid Until;E_RA_Kopf.gueltig_bis;DATE;99.99.9999;
+17;Währung;Currency;E_RA_Kopf.Waehrung;INTEGER;zz9;
+18;Lieferhinweis;Shipping Instructions;E_RA_Kopf.Lieferhinweis;CHARACTER;x(40);
+19;Lieferbedingung;Terms of Delivery;E_RA_Kopf.LieferBedingung;INTEGER;zz9;
+20;Formularnummer;Form Number;E_RA_Kopf.FormularNr;INTEGER;z9;
+21;Anzahl Formulare;Number of Forms;E_RA_Kopf.FormularAnzahl;INTEGER;9;
+22;Kopftext1;Supplier-Specific Header Text1;E_RA_Kopf.Kopftext;CHARACTER;x(60);
+23;Kopftext2;Supplier-Specific Header Text2;E_RA_Kopf.Kopftext;CHARACTER;x(60);
+24;Kopftext3;Supplier-Specific Header Text3;E_RA_Kopf.Kopftext;CHARACTER;x(60);
+25;Kopftext4;Supplier-Specific Header Text4;E_RA_Kopf.Kopftext;CHARACTER;x(60);
+26;Bemerkung1;Remark1;E_RA_Kopf.Bemerkung;CHARACTER;x(60);
+27;Bemerkung2;Remark2;E_RA_Kopf.Bemerkung;CHARACTER;x(60);
+28;Bemerkung3;Remark3;E_RA_Kopf.Bemerkung;CHARACTER;x(60);
+29;Bestelladresse;Order-From Address;S_BestellAdresse.BestellAdresse;INTEGER;zz9;
