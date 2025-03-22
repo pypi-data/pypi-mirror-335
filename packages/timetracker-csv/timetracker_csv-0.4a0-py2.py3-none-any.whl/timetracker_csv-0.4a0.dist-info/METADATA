@@ -1,0 +1,134 @@
+Metadata-Version: 2.2
+Name: timetracker-csv
+Version: 0.4a0
+Summary: A lightweight, repo-based, command-line timetracker that stores data in csv files
+Home-page: http://github.com/dvklopfenstein/timetracking
+Author: DV Klopfenstein, PhD
+Author-email: dvklopfenstein@protonmail.com
+Project-URL: Homepage, https://github.com/dvklopfenstein/timetracker
+Project-URL: Issues, https://github.com/dvklopfenstein/timetracker/issues
+Keywords: linux,cli,productivity,csv,history,collaboration,time-tracker,timetracker,csv-reading,csv-export,timetracking
+Classifier: Programming Language :: Python
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Science/Research
+Classifier: Development Status :: 1 - Planning
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Office/Business :: Financial :: Spreadsheet
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: tomlkit
+Requires-Dist: pytimeparse2
+Requires-Dist: dateparser
+Requires-Dist: python-docx
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Timetracker-csv
+[![PyPI - Version](https://img.shields.io/pypi/v/timetracker-csv)](https://pypi.org/project/timetracker-csv)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14803225.svg)](https://doi.org/10.5281/zenodo.14803225)
+![GitHub License](https://img.shields.io/github/license/dvklopfenstein/timetracker)
+
+Claim your power. Track your time on your own terms.
+
+Track time spent on multiple projects,
+one repo at a time from the [CLI](https://blog.iron.io/pros-and-cons-of-a-command-line-interface)    
+
+Time is saved in
+[pandas](https://pandas.pydata.org/pandas-docs/stable/index.html)-friendly
+[csv](https://www.datarisy.com/blog/understanding-csv-files-use-cases-benefits-and-limitations) files
+
+<p align="center"><img src="https://github.com/dvklopfenstein/timetracker/raw/main/docs/images/stopwatch.png" alt="timetracker" width="750"/></p>
+
+* [Advantages](#advantages)
+* [Quickstart](#quickstart)
+* [Installation](#installation)
+* [Other time-trackers](#other-timetrackers)
+* [Documentation](docs/README.md)
+
+## Advantages
+* Freedom Software (aka open-source)
+* Quick to set up
+* Own your data
+* NO invasive tracking **ever** of (as is done by multitudinous other timetracking apps):
+  * keyboard and mouse activity
+  * currently active browser tab and its title and URL
+  * currently active application and the title of its window
+* Human-readable ASCII data stored in csv (comma-separated values) [plaintext](http://www.markwk.com/plain-text-life.html) files:
+  * Ready for [pandas](https://pandas.pydata.org/), a prevailing Python Data Analysis Library
+  * Editable using [many editors](https://survey.stackoverflow.co/2024/technology/#3-integrated-development-environment), including vim and Notepad++
+* Modify your data if you forget to log time
+* Quickly see the current task being recorded
+* Quickly see elapsed time spent on the current task
+* No clicking and clicking and clicking on a GUI
+* No required use of the internet or cloud-based services
+* Data supported for each time interval includes:
+  * A required free-form descriptive message
+  * An optional `activity` or `type`
+  * Any number of tags
+* Plans to support exporting data for import by external time-tracking viewers
+
+## Quickstart
+The `name` used by this time tracker is determined by the `USER` environmental variable by default.
+### 1) Initialize a timetracker project
+```
+$ trk init
+Initialized empty timetracker directory: /PROJDIR/.timetracker for name(dvk)
+```
+### 2) Start the timer
+```
+$ trk start
+Timetracker started Wed 03:19 PM: 2025-01-22 15:19:46.479951 for name(dvk)
+```
+### 3) Stop the timer
+```
+$ trk stop -m 'Accomplished the planned task'
+Elapsed H:M:S=0:01:36.981588 added to ./.timetracker/timetracker_dvk.csv
+```
+### 4) Reporting functions are coming...
+
+## Installation
+Install with [timetracker-csv](https://pypi.org/project/timetracker-csv/) pip:
+```
+$ pip install timetracker-csv
+```
+Or install from source:
+```
+$ git clone git@github.com:dvklopfenstein/timetracker.git
+$ cd timetracker
+$ pip install .
+```
+
+## Other timetrackers
+* 700+ stars [Bartib](https://github.com/nikolassv/bartib)
+* 740+ stars [timetrace](https://github.com/dominikbraun/timetrace)
+* 13k stars [ActivityWatch](https://github.com/ActivityWatch/activitywatch)
+* 85 stars [ti](https://github.com/richmeta/ti)
+* 44 stars [tim](https://github.com/MatthiasKauer/tim)
+* 6 stars [Jupyter timetracker](https://github.com/PrateekKumarPython/jupyter-timetracker) uses aTimeLogger csv format
+* https://atimelogger.pro/ csv files
+* [List of timetrackers in PyPi](https://pypi.org/search/?q=timetracker)
+* [web-based time tracking application](https://github.com/anuko/timetracker)
+* [Wage Labor record](https://pypi.org/project/wage-labor-record/):
+  * jupyter-timetracker - GUI too complex/too close to DB editing tools. No support for clients
+  * tim CLI only, no idle time detection but uses hledger as a backend!
+  * salary-timetracker CLI only, tracking bound to git repos, fixed hourly rate but hey it uses CSV files!
+  * ttrac CLI only, no idle time detection, no support for clients or tasks but uses JSON files!
+  * tickertock only with a StreamDeck, wants to use cloud service as backend but uses a hardware interface!
+  * mttt CLI only, no idle time detection but uses plain text files!
+  * tt-cli CLI only, no idle time detection, no support for clients
+  * timetracker CLI only, no idle time detection, no support for clients
+  * 1k stars [hamster comes pretty close but seems outdated/abandoned and a little bit too complex](https://github.com/projecthamster/hamster)
+
+[pages](http:/dvklopfenstein.github.io/timetracker)
+
+Copyright (C) 2025-present, DV Klopfenstein, PhD. All rights reserved
