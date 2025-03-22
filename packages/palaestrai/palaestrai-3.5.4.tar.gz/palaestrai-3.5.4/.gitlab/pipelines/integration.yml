@@ -1,0 +1,217 @@
+test-integration-container:
+  stage: integration
+  needs:
+    - pre-integration
+    - test-integration-pypi
+  image:
+    name: ${IMAGE_DEST}
+    entrypoint: [""]
+  timeout: 90 minutes
+  interruptible: true
+  services:
+    - name: timescale/timescaledb:latest-pg15
+      alias: db_timescale
+  variables:
+    RUNNER_SCRIPT_TIMEOUT: 80m
+  before_script:
+    - declare -p || true
+    - python3 --version
+  script:
+    - |
+      set -xv
+      psql -d "$POSTGRES_DB" -U "$POSTGRES_USER" -h "$POSTGRES_HOST"
+      python3 -m pip install -U jupyter numpydoc matplotlib sphinx-autoapi
+      tests/fixtures/run_robot.sh test_reports/integration tests/integration integration
+  artifacts:
+    paths:
+      - test_reports/integration/*
+      - _outputs/*
+      - palaestrai-runfiles/*
+    when: always
+  allow_failure: false
+  rules:
+    - !reference [build-palaestrai, rules]
+
+test-integration-src:
+  stage: integration
+  needs:
+    - pre-integration
+  image:
+    name: python:3.12
+    entrypoint: [""]
+  timeout: 90 minutes
+  interruptible: true
+  services:
+    - name: timescale/timescaledb:latest-pg15
+      alias: db_timescale
+  variables:
+    RUNNER_SCRIPT_TIMEOUT: 80m
+  before_script:
+    - declare -p || true
+    - python3 --version
+    - python3 -m pip install -U tox
+  script:
+    - |
+      set -xv
+      if [[ -n "${MERGE_REQUEST_TITLE}" && "${MERGE_REQUEST_TITLE}" =~ ^Draft:.* ]]; then
+        echo "MR is Draft, so skip integration by letting it fail, but allow failing for this pipeline job"
+        exit 1
+      else
+        apt-get clean
+        apt-get update -y
+        apt-get install -y --no-install-recommends build-essential libgraphviz-dev postgresql-client sqlite3
+        psql -d "$POSTGRES_DB" -U "$POSTGRES_USER" -h "$POSTGRES_HOST"
+        tox run --skip-pkg-install -x testenv.sitepackages=true -e integration-src
+      fi
+  artifacts:
+    paths:
+      - test_reports/integration-src/*
+      - _outputs/*
+      - palaestrai-runfiles/*
+    when: always
+  allow_failure: true
+  rules:
+    - if: '$CI_OPEN_MERGE_REQUESTS'
+      when: always
+      allow_failure: true
+    - !reference [build-palaestrai, rules]
+
+test-integration-pypi:
+  stage: integration
+  needs:
+    - pre-integration
+    - test-integration-src
+  image:
+    name: python:3.12
+    entrypoint: [""]
+  timeout: 90 minutes
+  interruptible: true
+  services:
+    - name: timescale/timescaledb:latest-pg15
+      alias: db_timescale
+  variables:
+    RUNNER_SCRIPT_TIMEOUT: 80m
+  before_script:
+    - declare -p || true
+    - python3 --version
+    - python3 -m pip install -U tox
+  script:
+    - |
+      set -xv
+      if [[ -n "${MERGE_REQUEST_TITLE}" && "${MERGE_REQUEST_TITLE}" =~ ^Draft:.* ]]; then
+        echo "MR is Draft, so skip integration by letting it fail, but allow failing for this pipeline job"
+        exit 1
+      else
+        apt-get clean
+        apt-get update -y
+        apt-get install -y --no-install-recommends build-essential libgraphviz-dev postgresql-client sqlite3
+        psql -d "$POSTGRES_DB" -U "$POSTGRES_USER" -h "$POSTGRES_HOST"
+        tox run --skip-pkg-install -x testenv.sitepackages=true -e integration-pypi
+      fi
+  artifacts:
+    paths:
+      - test_reports/integration-pypi/*
+      - _outputs/*
+      - palaestrai-runfiles/*
+    when: always
+  allow_failure: false
+  rules:
+    - if: '$CI_OPEN_MERGE_REQUESTS'
+      when: always
+      allow_failure: true
+    - !reference [build-palaestrai, rules]
+
+test-documentation:
+  stage: integration
+  needs:
+    - pre-integration
+  image:
+    name: ${IMAGE_DEST}
+    entrypoint: [""]
+  timeout: 90 minutes
+  interruptible: true
+  variables:
+    RUNNER_SCRIPT_TIMEOUT: 80m
+  before_script:
+    - python3 -m pip install -U tox
+  script:
+    # The docs_out has to be checked explicitly, to be sure if the docs were
+    # actually built. If there aren't artefacts the sphinx and thus the tox
+    # command does not fail, but the job should.
+    - |
+      set -xv
+      if [[ -n "${MERGE_REQUEST_TITLE}" && "${MERGE_REQUEST_TITLE}" =~ ^Draft:.* ]]; then
+        echo "MR is Draft, so skip documentation by letting it fail, but allow failing for this pipeline job"
+        exit 1
+      else
+        tox run -x testenv.sitepackages=true -e docs
+      fi
+      if [ ! -d ".tox/docs_out" ]; then exit 1; fi
+  artifacts:
+    paths:
+      - .tox/docs_out
+    when: always
+  rules:
+    - !reference [test-integration-src, rules]
+
+test-docker-integration:
+  stage: integration
+  needs:
+    - build-palaestrai
+  image:
+    name: ${IMAGE_DEST}
+    entrypoint: [""]
+  timeout: 30 minutes
+  interruptible: true
+  variables:
+    RUNNER_SCRIPT_TIMEOUT: 25m
+  services:
+    - name: timescale/timescaledb:latest-pg15
+      alias: db_timescale
+  before_script:
+    - >
+      echo "Integration stage before_script. Just to overwrite default one, 
+      because in the used prebuild docker image all dependencies are already 
+      installed."
+  script:
+    # 'set -xv' prints out each subcommand before running for better logging.
+    # start.sh NEEDS to be wrapped to bash shell, because it uses bash
+    # specifics but gitlab-runner shell identification script execs
+    # into /usr/bin/sh.
+    # The subsequent command to start.sh NEEDS to be wrapped with quotes
+    # because the script otherwise does not recognise them as arguments.
+    # The postgres env variables needs to be reset right before the
+    # change_store_uri.sh (and thus after the start.sh) because otherwise
+    # they are not propagated by 'bash -c' or 'exec' in start.sh
+    - >
+      set -xv &&
+      /bin/bash -c "
+        set -xv &&
+        /palaestrai/containers/start.sh
+          '/palaestrai/tests/fixtures/run_carl_with_pg.sh'
+      "
+  rules:
+    - !reference [build-palaestrai, rules]
+
+test-build-release:
+  stage: integration
+  # Global before_script is not needed for releasing
+  before_script:
+    - >
+      echo "Integration stage before_script. Just to overwrite default one, 
+      because python image is sufficient for building and releasing package."
+  needs:
+    - build-palaestrai
+    - mypy-black
+    - test-unit
+    - test-system
+    - test-integration-src
+  image: python:latest
+  script:
+    - BUILD_TYPE=dev ${CI_PROJECT_DIR}/build_whl.sh
+    # gitlab seem to not overwrite global by local job env vars ...
+    # and it does not work with before_script ...
+    # so need to set it directly for the cmd
+    - TWINE_REPOSITORY=testpypi TWINE_USERNAME=__token__ TWINE_PASSWORD=pypi-${TESTPYPI_TOKEN} python3 -m twine upload dist/* --verbose
+  rules:
+    - !reference [build-palaestrai, rules]

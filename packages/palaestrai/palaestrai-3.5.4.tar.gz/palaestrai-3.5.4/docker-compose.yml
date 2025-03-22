@@ -1,0 +1,69 @@
+version: "3.7"
+volumes:
+  #grafana-storage:
+  #grafana-provisioning:
+  #chronograf-storage:
+  #influxdb-storage:
+  timescale:
+
+services:
+#  grafana:
+  #    image: grafana/grafana:7.3.0
+  #    #user: "1000"
+  #    ports:
+  #      - 3000:3000
+  #    volumes:
+  #      - grafana-storage:/var/lib/grafana
+  #      - grafana-provisioning:/etc/grafana/provisioning
+  #    depends_on:
+  #      - influxdb
+  #    environment:
+  #      - GF_INSTALL_PLUGINS=jdbranham-diagram-panel
+  #      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+  #      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+  #
+  #  influxdb:
+  #    image: influxdb
+  #    ports:
+  #      - 8086:8086
+  #    volumes:
+  #      - influxdb-storage:/var/lib/influxdb
+  #    environment:
+  #      - INFLUXDB_DB=rettij
+  #      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+  #      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+  #
+  #  chronograf:
+  #      image: chronograf:latest
+  #      ports:
+  #        - '127.0.0.1:8888:8888'
+  #      volumes:
+  #        - chronograf-storage:/var/lib/chronograf
+  #      depends_on:
+  #        - influxdb
+  #      environment:
+  #        - INFLUXDB_URL=http://influxdb:8086
+  #        - INFLUXDB_USERNAME=${INFLUXDB_USERNAME}
+  #        - INFLUXDB_PASSWORD=${INFLUXDB_PASSWORD}
+
+  timescale:
+    image: timescale/timescaledb:latest-pg13
+    ports:
+      - 5432:5432
+    environment:
+      - TIMESCALEDB_TELEMETRY=off
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - timescale:/var/lib/postgresql
+    networks:
+      store:
+        ipv4_address: 172.28.1.10
+
+networks:
+  store:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.28.1.0/24

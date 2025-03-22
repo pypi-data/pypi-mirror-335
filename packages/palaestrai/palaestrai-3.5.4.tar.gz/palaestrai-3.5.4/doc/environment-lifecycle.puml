@@ -1,0 +1,28 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+SimulationController --> Environment: EnvironmentStartRequest
+Environment --> Environment: start_environment()
+Environment --> SimulationController: EnvironmentStartResponse
+
+loop Until EnvironmentUpdateResponse.is_terminal
+    SimulationController --> Muscle: AgentUpdateRequest
+    Muscle --> SimulationController: AgentUpdateResponse
+    SimulationController --> Environment: EnvironmentUpdateRequest
+    Environment --> Environment: update()
+    Environment --> SimulationController: EnvironmentUpdateResponse
+end
+
+alt Shutdown
+    SimulationController --> Environment: EnvironmentShutdownRequest
+    Environment --> Environment: shutdown()
+    Environment --> SimulationController: EnvironmentShutdownResponse
+else Reset
+    SimulationController --> Environment: EnvironmentResetRequest
+    Environment --> Environment: reset()
+    Environment --> SimulationController: EnvironmentResetResponse
+end
+
+@enduml

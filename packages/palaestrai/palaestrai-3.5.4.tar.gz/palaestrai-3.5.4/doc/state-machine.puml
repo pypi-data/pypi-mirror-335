@@ -1,0 +1,62 @@
+@startuml
+
+package palaestrai.util {
+    class StateMachine {
+        + current_state :State
+        + major_domo_client :palaestrai.core.MajorDomoClient = None
+        + major_domo_worker :palaestrai.core.MajorDomoWorker = None
+        + _transitions :Mapping[State, Mapping[Any, State]]
+        - _signals :signal.Signal [*]
+        - _inbox :Message [*]
+        - _outbox :multiprocessing.Task [*]
+        - _children :aiomultiprocess.Process [*]
+        - _signal_watcher :multiprocessing.Task
+        - _process_watchers :List[multiprocessing.Task]
+        --
+        + start_and_monitor_process(target :Callable, args :Any [*], kwargs :Dict ={}
+        + monitor_process(process: aiomultiprocess.Process)
+        + enqueue_request(request: Message)
+        + add_transitions(transitions :Sequence[Tuple[State, Event, State]])
+        + run(initial_state :State =None)
+    }
+
+    abstract class State {
+        State(parent :StateMachine)
+        __call__(event :Any) :Sequence[Union[Message, Message, aiomultiprocess.Process]]
+        {abstract} execute(event :Any) :Sequence[Union[Message, Message, aiomultiprocess.Process]]
+    }
+
+    abstract class ProcessEndedState {
+        + process_base_name :str
+    }
+}
+
+StateMachine -- State
+State <|-- ProcessEndedState
+
+note right of StateMachine::transitions
+    Maps the current state to any new event that leads to a follow-up state.
+    I.e., current state -> an event (message, dead child, ...) -> next state
+end note
+
+note right of StateMachine::add_transitions
+    Transitions are tuples of (Previous State, Event, Next State).
+    The previous state can be <i>None</i>, then we match any state.
+    This is useful for signals or dying processes.
+    An <i>event</i> is anything that we support, namely:
+    * The class of a message type
+    * An instance of a ProcessEndedState class: Here, we check the base
+       name to match the name of the ended process
+end note
+
+note right of State::__call__
+    Just a convenience wrapper around execute()
+end note
+
+note right of State::execute
+    The return type is a list of anything the StateMachine can take care of:
+    * A process is started (if not done so) and monitored
+    * A message whose class name ends with Request is sent via the client
+    * A message whose class name ends with Response is sent via the worker
+end note
+@enduml

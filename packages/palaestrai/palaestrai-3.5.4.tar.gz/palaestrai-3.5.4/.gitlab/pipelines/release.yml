@@ -1,0 +1,110 @@
+build-wheels:
+  stage: release
+  needs:
+    - build-palaestrai
+    - mypy-black
+    - test-unit
+    - test-system
+    - test-integration-container
+  image: python:latest
+  script:
+    - ${CI_PROJECT_DIR}/build_whl.sh
+  artifacts:
+    paths:
+      - dist/*
+    expire_in: 1 hour
+  rules:
+    # CI_COMMIT_REF_NAME is always set, either to the branch or tag
+    # So it will also be triggered on tag pipelines
+    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.\d+\.\d+-RELEASE/'
+
+release-pypi-gitlab:
+  stage: release
+  needs:
+    - build-wheels
+  # Global before_script is not needed for releasing
+  before_script:
+    - >
+      echo "Release stage before_script. Just to overwrite default one, 
+      because python image is sufficient for building and releasing package."
+  image: python:latest
+  script:
+    - python3 -m pip install -U twine
+    - TWINE_REPOSITORY_URL="${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/pypi" TWINE_USERNAME=gitlab-ci-token TWINE_PASSWORD=${CI_JOB_TOKEN} python3 -m twine upload dist/* --verbose --skip-existing
+  rules:
+    - !reference [build-wheels, rules]
+
+release-pypi-global:
+  stage: release
+  needs:
+    - build-wheels
+    - test-build-release
+  # Global before_script is not needed for releasing
+  before_script:
+    # Env vars are already set globally, no need for explicit overwriting
+    - >
+      echo "Release stage before_script. Just to overwrite default one, 
+      because python image is sufficient for building and releasing package."
+  image: python:latest
+  script:
+    - python3 -m pip install -U twine
+    - python3 -m twine upload dist/* --verbose --skip-existing
+  rules:
+    - !reference [build-wheels, rules]
+
+pages:
+  stage: release
+  needs:
+    - build-palaestrai
+    - mypy-black
+    - test-unit
+    - test-system
+    - test-integration-container
+    - test-documentation
+  image:
+    name: ${IMAGE_DEST}
+    entrypoint: [""]
+  before_script:
+    - python3 --version
+    - python3 -m pip install -U tox
+  script: |
+    tox run -x testenv.sitepackages=true -e docs
+    cp -R .tox/docs_out public
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - !reference [build-wheels, rules]
+
+release-container-dockerhub:
+  stage: release
+  needs:
+    - build-palaestrai
+    - mypy-black
+    - test-unit
+    - test-system
+    - test-integration-container
+    - test-docker-integration
+  tags:
+    - ci-test
+    - docker
+    - linux
+  image: docker:latest
+  services:
+    - docker:dind
+  inherit:
+    default: false
+  script: |
+    set -x
+    echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" --password-stdin "$CI_REGISTRY"
+    docker pull "${IMAGE_DEST}"
+    echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+    docker tag "${IMAGE_DEST}" "palaestrai/palaestrai:${IMAGE_TAG}"
+    docker push "palaestrai/palaestrai:${IMAGE_TAG}"
+    if [[ $CI_COMMIT_REF_NAME =~ ^[0-9]{1}.[0-9]{1}.[0-9]{1}-RELEASE$ ]]; then
+      docker tag "${IMAGE_DEST}" "palaestrai/palaestrai:latest"
+      docker push "palaestrai/palaestrai:latest"
+    fi
+  rules:
+    - !reference [build-palaestrai, rules]

@@ -1,0 +1,67 @@
+build-palaestrai:
+  stage: build
+  interruptible: true
+  rules:
+    # USE REF_NAME instead of TAG and BRANCH, because it is always set
+    - if: '$CI_COMMIT_REF_NAME == "master"'
+    - if: '$CI_COMMIT_REF_NAME == "development"'
+    - if: '$CI_COMMIT_REF_NAME == "cicd-playground"'
+    - if: '$CI_COMMIT_REF_NAME =~ /^\d+\.\d+\.\d+-RELEASE/'
+  inherit:
+    default: false
+  tags:
+    - linux
+    - docker
+    - docker-build
+  image:
+    name: gcr.io/kaniko-project/executor:v1.21.0-debug
+    entrypoint: [""]
+  script: |
+    mkdir -p /kaniko/.docker
+    echo "{\"auths\":{\"$CI_REGISTRY\":{\"auth\":\"$(echo -n ${CI_REGISTRY_USER}:${CI_REGISTRY_PASSWORD} | base64)\"}}}" > /kaniko/.docker/config.json
+    set -x
+    BUILD_TYPE=development
+    
+    if [[ $CI_COMMIT_REF_NAME =~ ^[0-9]{1}.[0-9]{1}.[0-9]{1}-RELEASE$ ]]; then
+      tag=$(echo ${CI_COMMIT_REF_NAME} | sed -e 's,\([[:digit:]]\+\.[[:digit:]]\+\.[[:digit:]]\+\)-RELEASE,v\1,')
+      IMAGE_TAG=${tag}
+      IMAGE_DEST="${CI_REGISTRY_IMAGE}:${IMAGE_TAG}"
+      /kaniko/executor \
+        --context "$CI_PROJECT_DIR" \
+        --dockerfile "${CI_PROJECT_DIR}/containers/palaestrai.Dockerfile" \
+        --build-arg BUILD_TYPE=master \
+        --skip-unused-stages \
+        --snapshot-mode=redo \
+        --destination "${IMAGE_DEST}"
+    else
+      if grep -q "AS[[:space:]]\+$CI_COMMIT_REF_NAME" "${CI_PROJECT_DIR}/containers/palaestrai.Dockerfile"; then
+          BUILD_TYPE="$CI_COMMIT_REF_NAME"
+      fi
+
+      # Use other branches (like cicd-playground) than development
+      # from the repo for installing palaestrAI[full-dev] from
+      DEV_BRANCH="${CI_COMMIT_REF_NAME}"
+
+      IMAGE_TAG="${CI_COMMIT_REF_NAME}"
+      IMAGE_DEST="${CI_REGISTRY_IMAGE}:${IMAGE_TAG}"
+      /kaniko/executor \
+        --context "$CI_PROJECT_DIR" \
+        --dockerfile "${CI_PROJECT_DIR}/containers/palaestrai.Dockerfile" \
+        --build-arg BUILD_TYPE="$BUILD_TYPE" \
+        --build-arg DEV_BRANCH="$DEV_BRANCH" \
+        --build-arg BUILD_BASE_TESTING="${CI_REGISTRY_IMAGE}:development" \
+        --skip-unused-stages \
+        --snapshot-mode=redo \
+        --destination "${IMAGE_DEST}"
+    fi
+    # Source: @VasekPurchart from
+    # https://gitlab.com/gitlab-org/gitlab-runner/-/issues/1448
+    # save the actual IMAGE_DEST and IMAGE_TAG based on the commit branch 
+    # ass result of the image build process to be able to use it
+    # as an image in later stages
+    echo "IMAGE_DEST=${IMAGE_DEST}" > image_envs.env
+    echo "IMAGE_TAG=${IMAGE_TAG}" >> image_envs.env
+    cat image_envs.env
+  artifacts:
+      reports:
+          dotenv: image_envs.env

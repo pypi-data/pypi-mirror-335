@@ -1,0 +1,90 @@
+default:
+  tags:
+    - ci-test
+    - docker
+    - linux
+  before_script:
+    - declare -p || true
+    - python3 --version
+    - python3 -m pip install -U virtualenv
+    - virtualenv venv
+    - source venv/bin/activate
+    - python3 -m pip install -U tox
+  image:
+    name: ${CI_REGISTRY_IMAGE}:development
+    # Source: https://docs.gitlab.com/runner/executors/docker.html#configure-a-docker-entrypoint
+    entrypoint: [""]
+
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+
+  PYTHONVERSION: "3.10"
+
+  # Postgres Variables
+  POSTGRES_HOST: "db_timescale"
+  POSTGRES_DB: "test_db"
+  POSTGRES_USER: "postgres"
+  POSTGRES_PASSWORD: "F14Tomcat"
+  POSTGRES_HOST_AUTH_METHOD: "trust"
+
+  # Change pip's cache directory to be inside the project directory since we can
+  # only cache local items.
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+  # Workaround to use HTTP1.1. for known bug that kaniko upload of large
+  # images > 5G takes very long with default HTTP/2
+  # Source: https://docs.gitlab.com/ee/user/packages/container_registry/troubleshoot_container_registry.html#slow-uploads-when-using-kaniko-to-push-large-images
+  # https://github.com/GoogleContainerTools/kaniko/issues/2751
+  GODEBUG: "http2client=0"
+
+  TWINE_NON_INTERACTIVE: 1
+
+  # Source: https://docs.gitlab.com/ee/ci/runners/configure_runners.html#set-script-and-after_script-timeouts
+  # This terminates long-running scripts.
+  # """
+  # This ensures artifacts and caches can still be uploaded
+  # before the job timeout is exceeded. The timeout values
+  # for script and after_script must be less than the job timeout.
+  # """
+  RUNNER_SCRIPT_TIMEOUT: 80m
+
+  # Default IMAGE_DEST
+  # It is overwritten in the dotenv
+  # This takes precedence over this global: https://docs.gitlab.com/ee/ci/variables/#cicd-variable-precedence
+  IMAGE_DEST: "${CI_REGISTRY_IMAGE}:development"
+
+cache:
+  # Pip's cache doesn't store the python packages
+  # https://pip.pypa.io/en/stable/topics/caching/
+  #
+  # If you want to also cache the installed packages, you have to install
+  # them in a virtualenv and cache it as well.
+  paths:
+    - .cache/pip
+
+stages:
+  - build
+  - test
+  - integration
+  - release
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH
+    - if: $CI_SCHEDULE
+
+include:
+  - local: .gitlab/pipelines/build.yml
+  - template: Code-Quality.gitlab-ci.yml
+  - local: .gitlab/pipelines/test.yml
+  - local: .gitlab/pipelines/integration.yml
+  - local: .gitlab/pipelines/release.yml
+
+code_quality:
+  stage: test
+  inherit:
+    default: false
+  artifacts:
+    paths: [ gl-code-quality-report.json ]

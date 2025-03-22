@@ -1,0 +1,38 @@
+@startuml
+
+class palaestrai.agent.Agent {
+
+}
+
+
+abstract class palaestrai.agent.Brain {
+    {abstract} + thinking(muscle_id : string, readings : palaestrai.Agent.SensorInforation[], actions : palaestrai.Agent.ActuatorInformation[], reward : float[], done : bool)
+}
+
+abstract class palaestrai.agent.Muscle {
+    uid : string
+    {abstract} + proposeActions(sensors : palaestrai.Agent.SensorInforation[], actuators_available : palaestrai.Agent.ActuatorInformation[]) : palaestrai.agent.ActuatorInformation[]
+    {abstract} + update(update)
+}
+
+class palaestrai.agent.SensorInformation {
+
+}
+
+class palaestrai.agent.ActuatorInformation {
+
+}
+
+abstract class palaestrai.environment.Environment {
+
+}
+
+palaestrai.agent.Agent "1" *-- "1" palaestrai.agent.Brain
+palaestrai.agent.Agent "1" *-- "*" palaestrai.agent.Muscle
+palaestrai.agent.Brain "1" .. "*" palaestrai.agent.Muscle
+palaestrai.agent.Brain "1" *-- "*" palaestrai.agent.SensorInformation
+palaestrai.agent.Brain "1" *-- "*" palaestrai.agent.ActuatorInformation
+palaestrai.agent.Muscle .. palaestrai.agent.SensorInformation
+palaestrai.agent.Muscle .. palaestrai.agent.ActuatorInformation
+palaestrai.agent.Muscle .. palaestrai.environment.Environment
+@enduml

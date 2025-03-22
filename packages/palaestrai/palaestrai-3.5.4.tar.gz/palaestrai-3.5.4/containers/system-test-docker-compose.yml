@@ -1,0 +1,116 @@
+version: "3.7"
+# Test types are unit, system, integration, full
+volumes:
+  timescale:
+  palaestrai:
+
+services:
+  palaestrai_unit_test:
+    profiles:
+      - "unit"
+    image: palaestrai-test:latest
+    build:
+      dockerfile: containers/palaestrai.Dockerfile
+      context: ../
+      args:
+        BUILD_TYPE: development
+    command: |
+      bash -c "tox -e unit-test"
+    environment:
+      POSTGRES_HOST: "db_timescale"
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "psi"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    networks:
+      - databases
+
+  palaestrai_system_test:
+    profiles:
+      - "system"
+    image: palaestrai-test:latest
+    build:
+      dockerfile: containers/palaestrai.Dockerfile
+      context: ../
+      args:
+        BUILD_TYPE: development
+    entrypoint: |
+      bash -c "tox -e system"
+    environment:
+      POSTGRES_HOST: "db_timescale"
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "psi"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    networks:
+      - databases
+    depends_on:
+      - db_timescale
+
+  palaestrai_integration_test:
+    profiles:
+      - "integration"
+    image: palaestrai-test:latest
+    build:
+      dockerfile: containers/palaestrai.Dockerfile
+      context: ../
+      args:
+        BUILD_TYPE: development
+    entrypoint: |
+      bash -c "tox -e integration"
+    environment:
+      POSTGRES_HOST: "db_timescale"
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "psi"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    networks:
+      - databases
+    depends_on:
+      - db_timescale
+
+  palaestrai_full_test:
+    profiles:
+      - "full"
+    image: palaestrai-test:latest
+    build:
+      dockerfile: containers/palaestrai.Dockerfile
+      context: ../
+      args:
+        BUILD_TYPE: development
+    command: |
+      bash -c "tox"
+    environment:
+      POSTGRES_HOST: "db_timescale"
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "psi"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    networks:
+      - databases
+    depends_on:
+      - db_timescale
+    volumes:
+      - ./test_reports:/palaestrai/test_reports
+
+  db_timescale:
+    profiles:
+      - "system"
+      - "full"
+    image: timescale/timescaledb:latest-pg14
+    ports:
+      - "5432:5432"
+    environment:
+      TIMESCALEDB_TELEMETRY: "off"
+      POSTGRES_HOST: "db_timescale"
+      POSTGRES_DB: "test_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "psi"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      - timescale:/var/lib/postgresql
+    networks:
+      - databases
+
+networks:
+  databases:

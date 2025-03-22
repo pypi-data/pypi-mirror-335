@@ -1,0 +1,101 @@
+mypy-black:
+  image: python:3.12
+  stage: test
+  needs: []
+  script:
+    - apt-get update -y
+    - apt-get install -y --no-install-recommends build-essential libgraphviz-dev
+    - python3 -m pip install tox
+    - tox -e black
+    - tox -e mypy
+  artifacts:
+    reports:
+      junit: test_reports/mypy/mypy.xml
+    when: always
+  interruptible: true
+
+test-unit:
+  stage: test
+  needs:
+    - mypy-black
+  image: python:3.12
+  script:
+    - apt-get update -y
+    - apt-get install -y --no-install-recommends build-essential libgraphviz-dev postgresql-client sqlite3
+    - python3 -m pip install tox
+    - tox -e unit-test
+  artifacts:
+    reports:
+      junit:
+        - test_reports/report.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: test_reports/coverage.xml
+    when: always
+  interruptible: true
+
+test-system:
+  stage: test
+  needs:
+    - mypy-black
+  image: python:3.12
+  services:
+    - name: timescale/timescaledb:latest-pg14
+      alias: db_timescale
+  script:
+    - apt-get update -y
+    - apt-get install -y --no-install-recommends build-essential libgraphviz-dev postgresql-client sqlite3
+    - python3 -m pip install tox
+    - psql -d "$POSTGRES_DB" -U "$POSTGRES_USER" -h "$POSTGRES_HOST"
+    - tox -e system
+  artifacts:
+    paths:
+      - test_reports/system/*
+      - tests/system/test_palaestrai_jupyter.html
+      - tests/system/*.db
+    when: always
+  interruptible: true
+
+pre-integration:
+  stage: test
+  image: python:3.12
+  script:
+    - |
+      set -xv
+      apt-get update -y
+      apt-get install -y --no-install-recommends jq curl
+      touch envs.env
+      # Check here (again cfg. to the rules), because otherwise is fails with not being able to extract the FIRST_MR_IID
+      # DO NOT fail if CI_OPEN_MERGE_REQUESTS is not set
+      if [ -n "${CI_OPEN_MERGE_REQUESTS}" ]; then
+        FIRST_MR_IID=$(echo $CI_OPEN_MERGE_REQUESTS | awk -F'[^0-9]+' '{ print $3 }')
+        echo "$FIRST_MR_IID"
+        if [ -n "${FIRST_MR_IID}" ]; then
+          curl --header "JOB-TOKEN:$CI_JOB_TOKEN" "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/merge_requests/${FIRST_MR_IID}" > mr_data.json
+          MERGE_REQUEST_TITLE=$(jq '{title} | .[]' mr_data.json)
+          if [ -n "${MERGE_REQUEST_TITLE}" ]; then      
+            echo "MERGE_REQUEST_TITLE=${MERGE_REQUEST_TITLE}" > envs.env
+            cat envs.env
+          else
+            echo "MR title could not be read out"
+            exit 1
+          fi
+        else
+          echo "MR internal id could not be read out"
+          exit 1
+        fi
+      fi
+      # Reset these IMAGE env vars, because they are not propagated to the
+      # test-integration job since it need this pre-integration job and thus the
+      # dotenv env vars are not passed from jobs before
+      echo "IMAGE_DEST=${IMAGE_DEST}" >> envs.env
+      echo "IMAGE_TAG=${IMAGE_TAG}" >> envs.env
+      cat envs.env
+  artifacts:
+      reports:
+          dotenv: envs.env
+  rules:
+    - if: "$CI_OPEN_MERGE_REQUESTS"
+    # The build-palaestrai rules are needed, because the jobs in the integration stage, depends on this one.
+    # If not present, the pipeline fails for master, development etc. branches.
+    - !reference [build-palaestrai, rules]
