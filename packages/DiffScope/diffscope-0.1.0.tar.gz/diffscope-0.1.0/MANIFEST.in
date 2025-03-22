@@ -1,0 +1,11 @@
+include LICENSE
+include README.md
+include requirements.txt
+include MANIFEST.in
+recursive-include examples *
+recursive-include docs *
+recursive-include src *.py
+prune tests
+prune .pytest_cache
+prune __pycache__
+global-exclude *.py[cod] __pycache__ *.so .DS_Store 
