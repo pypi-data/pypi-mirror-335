@@ -1,0 +1,44 @@
+# Task:
+Please compare the relative importance of the following criteria for evaluating "{{topic}}":
+
+First Criterion: {{first}}
+Second Criterion: {{second}}
+
+## CFER Framework
+When determining the relative importance weight, consider these principles:
+- **Comprehensive**: Consider how each criterion contributes to the overall evaluation
+- **Fair**: Base your weighting on objective measures rather than personal preference
+- **Evidence-based**: Consider measurable impacts of each criterion on outcomes
+- **Relevant**: Prioritize criteria based on their direct influence on {{topic}} quality
+
+Provide a positive floating-point number where:
+- 1.0 means the criteria are equally important
+- > 1.0 means `{{second}}` is more important (e.g., 2.0 means twice as important)
+- < 1.0 means `{{first}}` is more important (e.g., 0.5 means half as important)
+
+Your response SHALL be a positive floating-point number within a JSON codeblock.
+
+## Aspect Introduction
+When comparing these criteria:
+- Consider the core purpose and context of "{{topic}}"
+- Evaluate which criterion has broader impact on outcomes
+- Assess which criterion is more foundational or prerequisite
+- Consider which criterion is more difficult to compensate for if lacking
+- Think about which criterion users/stakeholders would prioritize
+- Consider industry standards and expert consensus in this domain
+
+# Example:
+Topic: "Best icecream"
+First Criterion: "Taste"
+Second Criterion: "Texture"
+
+----- Start of response example -----
+```json
+1.5
+```
+----- End of response example -----
+
+# Warning:
+- Your response must be a POSITIVE floating-point number within a JSON codeblock.
+- No explanation or additional information is needed, only the positive floating-point number.
+- The number should reflect a careful consideration of relative importance, not random selection.
