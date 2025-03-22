@@ -1,0 +1,102 @@
+Metadata-Version: 2.3
+Name: AutoCarver
+Version: 7.0.10
+Summary: Automatic Discretization of Features with Optimal Target Association
+License: MIT
+Author: Mario DEFRANCE
+Author-email: defrancemario@gmail.com
+Requires-Python: >=3.9,<3.13
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Provides-Extra: dev
+Provides-Extra: docs
+Provides-Extra: jupyter
+Provides-Extra: tests
+Requires-Dist: Flake8-pyproject (>=1.2.3,<2.0.0) ; extra == "tests"
+Requires-Dist: black (>=23.12.0,<24.0.0) ; extra == "tests"
+Requires-Dist: flake8 (>=6.1.0,<7.0.0) ; extra == "tests"
+Requires-Dist: icecream (>=2.1.3,<3.0.0) ; extra == "tests"
+Requires-Dist: ipykernel (>=6.27.1,<7.0.0) ; extra == "jupyter" or extra == "dev"
+Requires-Dist: ipython (>=8.18.1,<9.0.0) ; extra == "jupyter"
+Requires-Dist: ipywidgets (>=8.1.5,<9.0.0) ; extra == "dev"
+Requires-Dist: isort (>=5.13.2,<6.0.0) ; extra == "tests"
+Requires-Dist: jinja2 (>=3.1.5,<4.0.0) ; extra == "jupyter"
+Requires-Dist: matplotlib (>=3.8.2,<4.0.0) ; extra == "jupyter"
+Requires-Dist: nbsphinx (==0.9.6) ; extra == "docs"
+Requires-Dist: numpy (>=1.24.2,<2.1)
+Requires-Dist: pandas (>=2.1.4,<3.0.0)
+Requires-Dist: pylint (>=3.0.3,<4.0.0) ; extra == "tests"
+Requires-Dist: pypandoc (>=1.12,<2.0) ; extra == "docs"
+Requires-Dist: pytest (>=7.4.3,<8.0.0) ; extra == "tests"
+Requires-Dist: pytest-cov (>=4.1.0,<5.0.0) ; extra == "tests"
+Requires-Dist: scikit-learn (>=1.3.2,<2.0.0)
+Requires-Dist: scipy (>=1.11.4,<2.0.0)
+Requires-Dist: sphinx (==7.4.7) ; extra == "docs"
+Requires-Dist: sphinx-rtd-theme (==2.0.0) ; extra == "docs"
+Requires-Dist: statsmodels (>=0.13)
+Requires-Dist: toml (>=0.10.2,<0.11.0) ; extra == "docs"
+Requires-Dist: tqdm (>=4.66.1,<5.0.0)
+Requires-Dist: xgboost (>=2.1.3,<3.0.0) ; extra == "dev"
+Project-URL: docs, https://autocarver.readthedocs.io/en/latest/index.html
+Project-URL: repository, https://github.com/mdefrance/AutoCarver
+Description-Content-Type: text/markdown
+
+
+</p>
+<p align="center">
+    <img alt="AutoCarver Logo" src="https://raw.githubusercontent.com/mdefrance/AutoCarver/main/docs/source/artwork/auto_carver_symbol_small.png" width="25%">
+</p>
+
+
+</p>
+<p align="left">
+    <img alt="PyPI" src="https://img.shields.io/pypi/v/autocarver">
+    <img alt="PyPI - Python Version" src="https://img.shields.io/pypi/pyversions/autocarver">
+    <img alt="License" src="https://img.shields.io/github/license/mdefrance/autocarver">
+</p>
+
+
+# ReadTheDocs
+
+Check out the package documentation on [ReadTheDocs](https://autocarver.readthedocs.io/en/latest/index.html)!
+
+# Install
+
+**AutoCarver** can be installed from [PyPI](https://pypi.org/project/AutoCarver):
+
+<pre>
+pip install autocarver
+</pre>
+
+
+
+# Why AutoCarver?
+
+**AutoCarver** is a powerful Python package designed to address the fundamental question of *What's the best processing for my model's features?*
+
+It offers an automated and optimized approach to processing and engineering your data, resulting in improved model performance, enhanced explainability, and reduced feature dimensionality.
+As of today, this set of tools is available for binary classification and regression problems only.
+
+Key Features:
+
+1. **Data Processing and Engineering**: **AutoCarver** performs automatic bucketization and carving of a DataFrame's columns to maximize their correlation with a target variable. By leveraging advanced techniques, it optimizes the preprocessing steps for your data, leading to enhanced predictive accuracy.
+
+2. **Improved Model Explainability**: **AutoCarver** aids in understanding the relationship between the processed features and the target variable. By uncovering meaningful patterns and interactions, it provides valuable insights into the underlying data dynamics, enhancing the interpretability of your models.
+
+3. **Reduced Feature Dimensionality**: **AutoCarver** excels at reducing feature dimensionality, especially in scenarios involving one-hot encoding. It identifies and preserves only the most statistically relevant modalities, ensuring that your models focus on the most informative aspects of the data while eliminating noise and redundancy.
+
+4. **Statistical Accuracy and Relevance**: **AutoCarver** incorporates statistical techniques to ensure that the selected modalities have a sufficient number of observations, minimizing the risk of drawing conclusions based on insufficient data. This helps maintain the reliability and validity of your models.
+
+5. **Robustness Testing**: **AutoCarver** goes beyond feature processing by assessing the robustness of the selected modalities. It performs tests to evaluate the stability and consistency of the chosen features across different datasets or subsets, ensuring their reliability in various scenarios.
+
+**AutoCarver** is a valuable tool for data scientists and practitioners involved in binary classification or regression problems, such as credit scoring, fraud detection, and risk assessment. By leveraging its automated feature processing capabilities, you can unlock the full potential of your data, leading to more accurate predictions, improved model explainability, and better decision-making in your classification tasks.
+
+
