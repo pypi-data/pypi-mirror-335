@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: carlogtt_python_library
+Version: 1.2.0
+Summary: A Python package that provides some utility functions.
+Home-page: https://github.com/64rl0/CarlogttPythonLibrary.git
+Author: Carlo Gatti
+Author-email: Carlo Gatti <carlo.gatti@me.com>
+License: MIT
+Project-URL: Homepage, https://github.com/64rl0/CarlogttPythonLibrary.git
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: boto3
+Requires-Dist: cryptography
+Requires-Dist: mysql-connector-python
+Requires-Dist: redis
+Requires-Dist: requests
+Requires-Dist: selenium
+Requires-Dist: boto3-stubs
+Requires-Dist: mypy-boto3-cloudfront
+Requires-Dist: mypy-boto3-dynamodb==1.36.0
+Requires-Dist: mypy-boto3-ec2
+Requires-Dist: mypy-boto3-kms==1.36.0
+Requires-Dist: mypy-boto3-lambda
+Requires-Dist: mypy-boto3-s3
+Requires-Dist: mypy-boto3-secretsmanager==1.36.0
+Requires-Dist: types-requests
+Requires-Dist: types-redis
+Provides-Extra: prod
+Provides-Extra: dev
+Provides-Extra: test
+Dynamic: license-file
+
+# CarlogttPythonLibrary
+
+![Python Logo](https://www.python.org/static/community_logos/python-logo.png "Python Logo")
+
+CarlogttPythonLibrary is a collection of utility functions designed to simplify common tasks in Python.
+
+
+## Installation
+
+To clone the repository:
+
+```bash
+git clone https://github.com/64rl0/CarlogttPythonLibrary.git ./carlogtt_python_library
+cd carlogtt_python_library
+```
+
+To use the library:
+
+```bash
+pip install carlogtt-python-library
+```
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
