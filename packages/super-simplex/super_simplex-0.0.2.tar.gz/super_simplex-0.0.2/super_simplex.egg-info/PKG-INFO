@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: super_simplex
+Version: 0.0.2
+License: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+
+# Super Simplex
+
+## Description
+
+A Python conversion of OpenSimplex2S / SuperSimplex from KdotJPG's implementation.
+
+## Installation
+
+Use this command on your terminal: `pip install super-simplex`
+
+There are no dependencies required yet.
+
+## Usage
+
+For 2D noise:
+
+```python
+import super_simplex
+
+x, y = 0.1, 0.2
+seed = 314714837
+
+# For standard simplex lattice
+noise = super_simplex.noise_2d(x, y, seed)
+
+# For rotated simplex lattice
+noise = super_simplex.noise_2d_rotated(x, y, seed)
+```
+
+For 3D noise:
+
+```python
+import super_simplex
+
+x, y, z = 0.1, 0.2, 0.3
+seed = 314714837
+
+# Rotated simplex lattice, y as the vertical axis
+noise = super_simplex.noise_3d_xyz(x, y, z, seed)
+
+# Rotated simplex lattice, z as the vertical axis
+noise = super_simplex.noise_3d_xzy(x, z, y, seed)
+```
+
+For 4D noise:
+
+```python
+import super_simplex
+
+x, y, z, w = 0.1, 0.2, 0.3, 0.4
+seed = 314714837
+
+# Rotated simplex lattice, y as the vertical axis
+noise = super_simplex.noise_4d_xyzw(x, y, z, w, seed)
+
+# Rotated simplex lattice, z as the vertical axis
+noise = super_simplex.noise_4d_xzyw(x, z, y, w, seed)
+```
+
+## License
+
+CC0 1.0 Universal (CC0 1.0) Public Domain Dedication
+
+## Credits
+
+All credits go to KdotJPG for the original implementation.
