@@ -1,0 +1,304 @@
+{% extends "templates/page.html" %}
+
+{% block favicon %}
+<link rel="icon" href="{{ static_url('images/enverge-logo-only.svg') }}" type="image/svg+xml">
+{% endblock favicon %}
+
+{% block nav_bar_left_items %}
+    {{ super() }}
+    <li class="nav-item"><a class="nav-link" href="{{base_url}}change-password">Change Password</a></li>
+    {% if user.admin %}
+        <li class="nav-item"><a class="nav-link" href="{{base_url}}authorize">Authorize Users</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block stylesheet %}
+{{ super() }}
+<style>
+    /* Enverge theme styling with hardcoded variables */
+    :root {
+      /* Primary Colors */
+      --primary-green: #4AE290;
+      --primary-white: #FFFFFF;
+      --primary-dark: #121212;
+      
+      /* Background Colors */
+      --bg-dark: #121212;
+      --bg-card: #1E1E1E;
+      --bg-light: #2A2A2A;
+      
+      /* Text Colors */
+      --text-primary: #FFFFFF;
+      --text-secondary: #CCCCCC;
+      --text-muted: #999999;
+      
+      /* Accent Colors */
+      --accent-green: #4AE290;
+      --accent-gray: #666666;
+      --accent-light: #EEEEEE;
+      
+      /* Interactive States */
+      --button-primary: #4AE290;
+      --button-hover: #3BC77A;
+      --button-active: #2EAF65;
+      
+      /* UI Elements */
+      --border-light: #333333;
+      --shadow: rgba(0, 0, 0, 0.2);
+      --overlay: rgba(18, 18, 18, 0.8);
+      
+      /* Alert Colors */
+      --warning-bg: #3A3000;
+      --warning-border: #665E33;
+      --warning-text: #FFD966;
+    }
+
+    body {
+        background-color: var(--bg-dark);
+        color: var(--text-primary);
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    .navbar {
+        background-color: var(--bg-card) !important;
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .navbar-brand img {
+        filter: brightness(0.9);
+    }
+
+    .nav-link {
+        color: var(--text-primary) !important;
+    }
+
+    .nav-link:hover {
+        color: var(--accent-green) !important;
+    }
+
+    .dropdown-menu {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-light);
+    }
+
+    .dropdown-item {
+        color: var(--text-primary);
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--bg-light);
+        color: var(--accent-green);
+    }
+
+    .btn-outline-contrast {
+        color: var(--accent-green);
+        border-color: var(--accent-green);
+    }
+
+    .btn-outline-contrast:hover {
+        background-color: var(--accent-green);
+        color: var(--primary-dark);
+    }
+
+    .card, .panel {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-light);
+        border-radius: 8px;
+    }
+
+    .card-header, .panel-heading {
+        background-color: var(--bg-light);
+        border-bottom: 1px solid var(--border-light);
+        color: var(--text-primary);
+    }
+
+    .form-control {
+        background-color: var(--bg-dark);
+        border: 1px solid var(--border-light);
+        color: var(--text-primary);
+        border-radius: 4px;
+    }
+
+    .form-control:focus {
+        border-color: var(--accent-green);
+        box-shadow: 0 0 0 0.2rem rgba(74, 226, 144, 0.25);
+        background-color: var(--bg-dark);
+        color: var(--text-primary);
+    }
+
+    .btn-jupyter, .btn-primary {
+        background-color: var(--button-primary);
+        border-color: var(--button-primary);
+        color: var(--primary-dark);
+        font-weight: 600;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-jupyter:hover, .btn-primary:hover {
+        background-color: var(--button-hover);
+        border-color: var(--button-hover);
+        color: var(--primary-dark);
+    }
+
+    .btn-jupyter:active, .btn-primary:active {
+        background-color: var(--button-active);
+        border-color: var(--button-active);
+    }
+
+    .btn-jupyter:disabled {
+        background-color: var(--bg-light);
+        border-color: var(--border-light);
+        color: var(--text-muted);
+    }
+
+    a {
+        color: var(--accent-green);
+        text-decoration: none;
+        transition: color 0.2s ease;
+    }
+
+    a:hover {
+        color: var(--button-hover);
+        text-decoration: underline;
+    }
+
+    .table {
+        color: var(--text-primary);
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: var(--bg-light);
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: var(--bg-card);
+    }
+
+    .alert {
+        background-color: var(--bg-light);
+        border: 1px solid var(--border-light);
+        color: var(--text-primary);
+    }
+
+    .alert-danger {
+        background-color: #5e2929;
+        border-color: #7a3232;
+        color: #f5c2c7;
+    }
+
+    .alert-success {
+        background-color: #2d4821;
+        border-color: #3c5f2c;
+        color: #d1e7dd;
+    }
+
+    .alert-warning {
+        background-color: var(--warning-bg);
+        border-color: var(--warning-border);
+        color: var(--warning-text);
+    }
+
+    /* Insecure login warning styling */
+    #insecure-login-warning,
+    .insecure-login-warning,
+    p#insecure-login-warning {
+        background-color: var(--warning-bg) !important;
+        border: 1px solid var(--warning-border) !important;
+        color: var(--warning-text) !important;
+        padding: 10px !important;
+        margin-bottom: 15px !important;
+        border-radius: 4px !important;
+        font-weight: 500 !important;
+    }
+
+    .modal-content {
+        background-color: var(--bg-card);
+        border: 1px solid var(--border-light);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid var(--border-light);
+    }
+
+    .modal-footer {
+        border-top: 1px solid var(--border-light);
+    }
+
+    .btn-close {
+        filter: invert(1) grayscale(100%) brightness(200%);
+    }
+
+    code, pre {
+        background-color: var(--bg-dark);
+        color: var(--text-primary);
+        border: 1px solid var(--border-light);
+    }
+
+    hr {
+        border-top: 1px solid var(--border-light);
+    }
+
+    /* Login and signup form styles */
+    #login-main {
+        max-width: 400px;
+        margin: 50px auto;
+    }
+
+    /* More specific selectors to ensure override */
+    .auth-form-header,
+    #login-main .auth-form-header,
+    form .auth-form-header,
+    div.auth-form-header {
+        padding: 15px 20px;
+        color: var(--text-primary) !important;
+        background: var(--bg-light) !important;
+        background-color: var(--bg-light) !important;
+        font-size: 18px;
+        border-radius: 8px 8px 0 0;
+        border: 1px solid var(--border-light);
+        border-bottom: none;
+    }
+
+    .auth-form-body,
+    #login-main .auth-form-body,
+    form .auth-form-body {
+        padding: 20px;
+        border: 1px solid var(--border-light);
+        border-top: none;
+        border-radius: 0 0 8px 8px;
+        background-color: var(--bg-card) !important;
+        color: var(--text-primary);
+    }
+
+    label {
+        color: var(--text-primary);
+        font-weight: normal;
+    }
+
+    .input-group-addon {
+        background-color: var(--bg-light);
+        border: 1px solid var(--border-light);
+        color: var(--text-primary);
+    }
+
+    #eye {
+        background-color: transparent;
+        color: var(--text-primary);
+        cursor: pointer;
+    }
+
+    input[type="checkbox"] {
+        accent-color: var(--accent-green);
+    }
+
+    /* Fix for dark theme toggle button */
+    #dark-theme-toggle {
+        color: var(--text-primary);
+    }
+
+    #dark-theme-toggle:hover {
+        color: var(--accent-green);
+    }
+</style>
+{% endblock stylesheet %}
