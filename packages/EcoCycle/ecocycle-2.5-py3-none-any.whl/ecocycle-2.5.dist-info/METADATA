@@ -1,0 +1,142 @@
+Metadata-Version: 2.4
+Name: EcoCycle
+Version: 2.5
+Summary: Cycle into a greener tomorrow.
+Author: Shirish Pothi
+Author-email: shirish.pothi.27@gmail.com
+License: Apache 2.0
+Description-Content-Type: text/markdown
+License-File: LICENSE.md
+Requires-Dist: requests
+Requires-Dist: ipython
+Requires-Dist: colorama
+Requires-Dist: python-dotenv
+Requires-Dist: google-api-python-client
+Requires-Dist: google-auth-httplib2
+Requires-Dist: google-auth-oauthlib
+Requires-Dist: google-auth
+Requires-Dist: tqdm
+Requires-Dist: weatherapi
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: summary
+
+<p align="center">
+    <img src="Icons/EcoCycle_Logo_Rounded.png" width="300" />
+</p>
+
+<p align="center">
+    <a href="https://github.com/shirishpothi/ecocycle/raw/main/DMG%20Files/EcoCycle%20v2.5.dmg" download>
+        <img alt="Download Source Code" src="https://img.shields.io/badge/Download%20Source%20Code-243542?style=for-the-badge&logo=microsoftedge&logoColor=white">
+    </a>
+    <br>
+    <a href="https://colab.research.google.com/drive/1RzraMhybgZHFUTL3HoQrAXEwq6j6H-xs?usp=sharing">
+        <img alt="Try it out!" src="https://img.shields.io/badge/Try%20it%20out!-6A0DAD?style=for-the-badge&logo=google-colab&logoColor=white">
+    </a>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=shirish.pothi.27@gmail.com&su=Immediate%20GitHub%20Repo%20Feedback">
+        <img src="https://img.shields.io/badge/Contact-Email-red?style=for-the-badge&logo=gmail" alt="Contact The Developer">
+    </a>
+    <a href="https://docs.google.com/presentation/d/1V0sD7ZGWMJudS2l8zrOAOJ6m7OpsP_9EuI9vWEAfRe8/edit?usp=sharing">
+        <img alt="Context" src="https://img.shields.io/badge/Context-Google%20Slides-FFD500?style=for-the-badge&logo=google-slides&logoColor=yellow">
+    </a>
+</p>
+
+> [!WARNING]
+_**The software and files provided in this repository by Shirish Pothi and the EcoCycle team are provided "as is" and without warranties of any kind, express or implied. We disclaim all liability for any direct, indirect, incidental, special, or consequential damages arising out of the use or inability to use the software or any files in this repository. Use at your sole discretion and risk.**_
+
+
+# 📂 Directory
+
+
+### 📌 Quick Navigation  
+- [🏡 Home](#ecocycle---cycle-into-a-greener-tomorrow)  
+- [📜 About EcoCycle](#the-ecocycle-program)  
+- [🚀 Live Demo](https://colab.research.google.com/drive/1RzraMhybgZHFUTL3HoQrAXEwq6j6H-xs?usp=sharing)  
+- [📦 Pip Library Compatibility](#pip-library-compatibility)  
+- [📜 License](#ecocycles-use-of-the-apache-2-license)  
+- [📞 Contact](#contact-us)  
+
+---
+
+### 📁 EcoCycle Repo Structure  
+
+<details>
+  <summary><strong>Click to expand</strong> 📂</summary>
+
+- **📜 README.md** → Project overview & setup
+- **📜 Code of Conduct.md** → Customised version of Contributor Covenant Code of Conduct Template, tailored to EcoCycle
+- **📁 src/** → Source code  
+  - 📄 `main.py` → Core program logic  
+  - 📄 `admin.py` → Admin panel functionality  
+  - 📄 `user.py` → User profile management  
+- **📁 assets/** → Images & icons  
+  - 🖼️ `EcoCycle_Logo_Rounded.png` → Project logo  
+- **📁 docs/** → Documentation  
+  - 📄 `installation.md` → Setup guide  
+  - 📄 `features.md` → Feature explanations  
+- **📁 tests/** → Unit tests  
+
+</details>
+
+
+# _EcoCycle_ - Cycle Into A Greener Tomorrow
+
+Our program was originally developed for the Lenovo and Intel's EDUtech ASIA hackathon, under the sustainable campus theme.
+
+Through deliberation, we decided to create a functional program for proof of concept. Thus, the _EcoCycle_ program was born.
+
+# The _EcoCycle_ program: 
+- Uses user profiles for personalized stats
+- Has a password-protected admin page that displays a summary of total distance, total price, pedal point balance. 
+- Has a user summary page. 
+- Has a booking page allowing users to place orders for free rides. 
+- Displays the Carbon Dioxide offset by _EcoCycle_ and by each individual user. 
+- Displays the total calories burned for each journey. 
+- Follows proper procedure for scalability by ensuring all def functions have their relevant #explanations and names# allowing for mass scalability if needed.
+- Has the appropriate RESET protocols for use after debugging.
+
+> [!NOTE]
+> The following parts of the program were written collaboratively with the help of large language models:
+- Full Google Sheets integration with a concise graph displaying the effect of the distance on the CO2 footprint.
+- Weather forecast integration.
+- Travel time estimator with real-time traffic and weather conditions.
+
+
+# Pip Library Compatibility
+We are thrilled to announce that with _EcoCycle_ _Version 2.0_ , not only is this program available on the releases to download and run locally - it has just been added to the PyPI package installation library!
+
+**You can run it on your local machine with the following command: 
+    `pip install ecocycle`**
+
+This command will install all relevant dependencies that _EcoCycle_ needs to run optimally, saving clients valuable time when the program is first hosted.
+
+> [!TIP]
+> Should you want to uninstall the _ecocycle_ pip package at any time, run this command:
+>     `pip uninstall ecocycle`
+
+This command will uninstall **all** files that were installed by the installation command. 
+
+
+We suggest installing the _ecocycle_ package from the command line to streamline your experience and to ensure that all packages run from the program are automatically updated.
+
+We also strongly suggest all users use the latest version of _EcoCycle_ at all times as we update many file dependencies with each release for safety. 
+
+# _EcoCycle_'s use of the Apache 2 License: 
+At _EcoCycle_, we're not just building software; we're cultivating a regenerative ecosystem of technological solutions for a sustainable future. Our choice of the Apache 2.0 license wasn't a matter of convenience – it's core to our mission. We see the Apache 2.0 license not as a restriction, but as a powerful catalyst for collaborative growth.
+
+# Contact Us
+
+**There is 1 active developer on this project: Shirish Pothi**
+- His contact is: _shirish.pothi.27@nexus.edu.sg_
+- Alternatively, use [this link](https://mail.google.com/mail/?view=cm&fs=1&to=shirish.pothi.27@gmail.com&su=Immediate%20GitHub%20Repo%20Feedback) with a pre-written Gmail format to email him.
+
+[⬆ Back to Top](#readme)
+
+> The _EcoCycle_ team consists of: **Shirish Pothi, Ryan Eng, Ashlesha Sahoo and Rochelle Joseph** - _all from Nexus International School._
+> 
+
