@@ -1,0 +1,21 @@
+[project]
+name = "mcp-superiorapis"
+version = "0.2.1"
+description = "SuperiorAPIs MCP Server Tools"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiohttp",
+    "pydantic>=2.0,<3.0",
+    "fastmcp"
+]
+[[project.authors]]
+name = "marcus"
+email = "marcus@cteam.com.tw"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+mcp-superiorapis = "mcp_superiorapis:main"
