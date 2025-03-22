@@ -1,0 +1,10 @@
+[swh.cli.subcommands]
+swh.vault = swh.vault.cli
+
+[swh.vault.classes]
+memory = swh.vault.in_memory_backend:InMemoryVaultBackend
+postgresql = swh.vault.backend:VaultBackend
+remote = swh.vault.api.client:RemoteVaultClient
+
+[swh.workers]
+swh.vault = swh.vault:register_tasks

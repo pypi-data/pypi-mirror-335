@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: swh.vault
+Version: 2.0.0
+Summary: Software Heritage vault
+Author-email: Software Heritage developers <swh-devel@inria.fr>
+Project-URL: Homepage, https://gitlab.softwareheritage.org/swh/devel/swh-vault
+Project-URL: Bug Reports, https://gitlab.softwareheritage.org/swh/devel/swh-vault/-/issues
+Project-URL: Funding, https://www.softwareheritage.org/donate
+Project-URL: Documentation, https://docs.softwareheritage.org/devel/swh-vault/
+Project-URL: Source, https://gitlab.softwareheritage.org/swh/devel/swh-vault.git
+Classifier: Programming Language :: Python :: 3
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 5 - Production/Stable
+Requires-Python: >=3.10
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS
+Requires-Dist: click
+Requires-Dist: fastimport
+Requires-Dist: flask
+Requires-Dist: psycopg
+Requires-Dist: psycopg_pool
+Requires-Dist: python-dateutil
+Requires-Dist: sentry-sdk
+Requires-Dist: typing-extensions
+Requires-Dist: swh.core[db,http]>=4.0.0
+Requires-Dist: swh.model>=6.13.0
+Requires-Dist: swh.objstorage>=2.3.0
+Requires-Dist: swh.scheduler>=3.0.0
+Requires-Dist: swh.storage>=3.0.0
+Provides-Extra: graph
+Requires-Dist: swh.graph>=1; extra == "graph"
+Provides-Extra: testing
+Requires-Dist: attrs; extra == "testing"
+Requires-Dist: backports.entry_points_selectable; extra == "testing"
+Requires-Dist: celery-types; extra == "testing"
+Requires-Dist: dulwich>=0.18.7; extra == "testing"
+Requires-Dist: pytest>=8.1; extra == "testing"
+Requires-Dist: pytest-httpserver; extra == "testing"
+Requires-Dist: pytest-mock; extra == "testing"
+Requires-Dist: requests-mock; extra == "testing"
+Requires-Dist: swh.core[testing]>=4.0.0; extra == "testing"
+Requires-Dist: swh.loader.core; extra == "testing"
+Requires-Dist: swh.loader.git>=0.8; extra == "testing"
+Requires-Dist: swh.storage[testing]>=3.0.0; extra == "testing"
+Requires-Dist: types-click; extra == "testing"
+Requires-Dist: types-python-dateutil; extra == "testing"
+Requires-Dist: types-pyyaml; extra == "testing"
+Requires-Dist: types-requests; extra == "testing"
+Dynamic: license-file
+
+Software Heritage - Vault
+=========================
+
+User-facing service that allows to retrieve parts of the archive as
+self-contained bundles (e.g., individual releases, entire repository snapshots,
+etc.)
+The creation of a bundle is called "cooking" a bundle.
+
+Architecture
+------------
+
+The vault is made of two main parts:
+
+1. a stateful RPC server called the **backend**
+2. Celery tasks, called **cookers**
