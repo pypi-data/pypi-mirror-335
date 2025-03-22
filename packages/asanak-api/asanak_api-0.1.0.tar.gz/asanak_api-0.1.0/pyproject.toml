@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asanak-api"
+version = "0.1.0"
+description = "A Python API for Asanak"
+readme = "README.md"
+authors = [{ name = "Wahab Safi", email = "wahab.safi3@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = [
+    "requests>=2.32.3",
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]  
+include = ["asanak_api*"]  
