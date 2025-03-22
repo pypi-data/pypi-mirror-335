@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "niveda_agents"
+version = "0.1.5"
+description = "A powerful agentic framework for AI & database interactions."
+authors = [{name = "Sai Krishna Alle", email = "saikrishnaalle1@gmail.com"}]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+        "psycopg2",                # PostgreSQL integration
+        "pymongo",                 # MongoDB integration
+        "openai",                  # OpenAI/Groq API
+        "azure-ai-textanalytics",  # Azure OpenAI integration
+        "transformers",            # Hugging Face models
+        "fastapi",                 # API framework
+        "uvicorn",                 # ASGI server for FastAPI
+        "pytest",                  # Testing framework
+        "python-dotenv",           # Environment variables
+    ]
+
+[tool.setuptools]
+packages = ["niveda_agents", "niveda_agents.db", "niveda_agents.ai", "niveda_agents.utils"]
+
+[project.scripts]
+niveda_agents = "niveda_agents.cli:cli"
