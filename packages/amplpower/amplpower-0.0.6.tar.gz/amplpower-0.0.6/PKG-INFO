@@ -1,0 +1,106 @@
+Metadata-Version: 2.2
+Name: amplpower
+Version: 0.0.6
+Summary: AMPL package for power systems
+Home-page: https://github.com/salvapineda/amplpower
+Author: Salvador Pineda Morente
+Author-email: spineda@uma.es
+License: MIT
+Project-URL: Documentation, https://amplpower.readthedocs.io/
+Project-URL: Changelog, https://amplpower.readthedocs.io/en/latest/changelog.html
+Project-URL: Issue Tracker, https://github.com/salvapineda/amplpower/issues
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Operating System :: POSIX
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Classifier: Topic :: Utilities
+Requires-Python: >=3.9
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: amplpy>=0.14.0
+Requires-Dist: matpowercaseframes==1.1.2
+Requires-Dist: numpy>=2.2.3
+Requires-Dist: pandas>=2.2.3
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: license
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+========
+Overview
+========
+
+
+
+AMPL package for power systems
+
+* Free software: MIT license
+
+Installation
+============
+
+::
+
+    pip install amplpower
+
+You can also install the in-development version with::
+
+    pip install https://github.com/salvapineda/amplpower/archive/main.zip
+
+
+Documentation
+=============
+
+
+https://amplpower.readthedocs.io/
+
+
+Development
+===========
+
+To run all the tests run::
+
+    tox
+
+Note, to combine the coverage data from all the tox environments run:
+
+.. list-table::
+    :widths: 10 90
+    :stub-columns: 1
+
+    - - Windows
+      - ::
+
+            set PYTEST_ADDOPTS=--cov-append
+            tox
+
+    - - Other
+      - ::
+
+            PYTEST_ADDOPTS=--cov-append tox
+
+
+Changelog
+=========
+
+0.0.0 (2025-03-14)
+------------------
+
+* First release on PyPI.
