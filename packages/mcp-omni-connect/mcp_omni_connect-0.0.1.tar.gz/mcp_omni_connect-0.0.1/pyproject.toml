@@ -1,0 +1,48 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-omni-connect"
+version = "0.0.1"
+description = "Universal MCP Client with multi-transport support and LLM-powered tool routing"
+readme = "README.md"
+authors = [
+    { name = "Abiola Adeshina", email = "abioladedayo1993@gmail.com" }
+]
+license = { file = "LICENSE" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+]
+keywords = ["mcp", "ai", "llm", "cli", "smithery"]
+dependencies = [
+    "anyio>=4.2.0",
+    "httpx>=0.26.0",
+    "httpx-sse>=0.4.0",
+    "pydantic>=2.6.0",
+    "rich>=13.7.0",
+    "websockets>=12.0",
+]
+requires-python = ">=3.12"
+
+[project.urls]
+Homepage = "https://github.com/Abiorh001/mcp_omni_connect"
+Repository = "https://github.com/Abiorh001/mcp_omni_connect.git"
+Issues = "https://github.com/Abiorh001/mcp_omni_connect/issues"
+
+[project.scripts]
+mcpomni-connect = "mcp_omni_connect.main:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+[tool.hatch.build]
+include = [
+    "src/**/*.py",
+    "LICENSE",
+    "README.md"
+]
