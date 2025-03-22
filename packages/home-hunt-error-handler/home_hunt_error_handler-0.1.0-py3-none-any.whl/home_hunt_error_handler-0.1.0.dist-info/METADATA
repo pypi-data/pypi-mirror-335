@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: home_hunt_error_handler
+Version: 0.1.0
+Summary: A custom library for handling errors in real estate application Home Hunt.
+Home-page: https://github.com/nikhildhoke/home_hunt_error_handler
+Author: Nikhil Dhoke
+Author-email: nikhildhoke1995@example.com
+License: MIT
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: boto3
+Provides-Extra: dev
+Requires-Dist: check-manifest; extra == "dev"
+Provides-Extra: test
+Requires-Dist: coverage; extra == "test"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Home Hunt Error Handler
+
+The Home Hunt Error Handler is a Python library designed to handles error handling in real estate application Home Hunt, 
+This library also handles the Cognito and DynamoDB errors.
+This library provides error responses, validations, and AWS-specific error handling to enhance the backend processes of the Home Hunt application.
+
+## Features
+
+## Getting Started
+
+### Prerequisites
+
+Before installing the Home Hunt Error Handler, ensure you have Python 3.6 or later installed. This library also depends on `boto3`, the AWS SDK for Python.
+
+### Installation
+
+Install Home Hunt Error Handler using pip:
+
+```bash
+pip install home_hunt_error_handler
