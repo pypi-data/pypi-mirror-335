@@ -1,0 +1,19 @@
+[workspace]
+members = ["crates/arrow-message-python"]
+resolver = "2"
+
+[workspace.package]
+version = "0.1.0"
+description = "arrow-message implements a way to define structs according to the Arrow format"
+edition = "2024"
+documentation = "https://github.com/Hennzau/arrow-message"
+license = "Apache-2.0"
+repository = "https://github.com/Hennzau/arrow-message"
+
+[workspace.dependencies]
+arrow = "54"
+miette = "7.5"
+thiserror = "2"
+
+arrow-message = { version = "0.1.0", path = "crates/arrow-message" }
+arrow-message-derive = { version = "0.1.0", path = "crates/arrow-message-derive" }
