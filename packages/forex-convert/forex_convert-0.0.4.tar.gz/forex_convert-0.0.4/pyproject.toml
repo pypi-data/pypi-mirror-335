@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "forex-convert"
+version = "0.0.4"
+authors = [
+  { name="Oriol Carulla", email="04ocarulla@gmail.com" },
+]
+description = "forex-convert is a Python library designed to perform currency conversions easily and efficiently. It uses real-time data to provide up-to-date exchange rates, allowing developers to easily integrate currency conversion functions into their applications."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["forex_convert"]
+
+
+[project.urls]
+Homepage = "https://github.com/oriolcarulla/forex-convert"
+Repository = "https://github.com/oriolcarulla/forex-convert"
