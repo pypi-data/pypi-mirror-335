@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  math:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"  # HTTP
+      - "8081:8081"  # WebSocket
+      - "50051:50051"  # gRPC
+    volumes:
+      - ./:/app/math_service
+    command: ["python", "-m", "pifunc", "run", "math_service/service.py"]
+    environment:
+      - PIFUNC_HTTP_PORT=8001
+      - PIFUNC_WS_PORT=8081
+      - PIFUNC_GRPC_PORT=50051
+    depends_on:
+      - mqtt-broker
+
+  mqtt-broker:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"  # MQTT
+      - "9001:9001"  # MQTT over WebSocket
+
+  # Demo client that shows different protocol usage
+  demo-client:
+    build:
+      context: ../../..
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/app/math_service
+    command: ["python", "-m", "pifunc", "run", "math_service/client.py"]
+    depends_on:
+      - math
+      - mqtt-broker
