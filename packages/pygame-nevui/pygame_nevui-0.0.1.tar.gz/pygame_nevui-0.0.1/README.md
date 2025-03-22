@@ -1,0 +1,58 @@
+      
+# Pygame NevUI
+
+**Простой и удобный UI фреймворк для Pygame.**
+
+Этот модуль предоставляет набор готовых UI элементов для ваших игр и приложений на Pygame. Он разработан, чтобы быть легким в использовании и кастомизации, позволяя вам быстро создавать интерфейсы пользователя без необходимости писать все с нуля.
+
+## Установка
+
+Вы можете установить `pygame_nevui` с помощью pip:
+
+```bash
+pip install pygame_nevui
+```
+## Использование
+
+После установки вы можете импортировать модуль и использовать его UI элементы в своем коде Pygame.
+
+*Вот простой пример создания меню с кнопкой:*
+
+```python
+import pygame
+import pygame_nevui.ui as nv #Импортируем nevui
+
+pygame.init()
+mainstyle = nv.Theme.DARK
+
+screen = nv.Window((300,300),title="test") #Создаем главное окно
+
+button = nv.Button(lambda:print("Нажато"),"Нажми Меня!",(150,50),mainstyle) #Создаем кнопку
+menu = nv.Menu(screen,(300,300),mainstyle) #Создаем меню
+menu.layout = nv.Grid((300,300),3,3) #Делаем сетку основным макетом меню
+menu.layout.add_widget(button,2,2) #Добавляем кнопку в сетку
+running = True
+while running:
+    events = pygame.event.get()
+    screen.update(events) #обновляем окно
+    menu.update()
+    menu.draw()  #рисуем и обновляем меню
+    pygame.display.flip()
+
+pygame.quit()
+```
+
+В этом примере создается окно Pygame и кнопка с текстом "Нажми меня". При нажатии на кнопку в консоль выводится сообщение "Нажато".
+
+Больше примеров и документация в разработке. Следите за обновлениями!
+
+## Лицензия:
+
+Этот проект распространяется под лицензией MIT License. Подробности смотрите в файле LICENSE.
+
+## Автор:
+
+NIKITA - https://github.com/GolemBebrov/
+
+bebrovgolem@gmail.com
+

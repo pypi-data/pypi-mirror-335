@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "pygame_nevui"
+version = "0.0.1"
+description = "UI Library for Pygame"
+authors = ["NIKITA <bebrovgolem@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [{include = "pygame_nevui"}]
+
+[tool.poetry.dependencies]
+python = ">=3.6"
+pygame = ">=2.0.0"
+Pillow = "*"
+numpy = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
