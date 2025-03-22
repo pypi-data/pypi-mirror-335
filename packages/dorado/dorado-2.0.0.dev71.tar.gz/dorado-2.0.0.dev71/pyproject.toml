@@ -1,0 +1,46 @@
+[build-system]
+
+requires = ["setuptools",
+            "setuptools_scm",
+            "wheel",
+            "extension-helpers",
+            "oldest-supported-numpy",
+            "cython>=0.29.14"]
+
+build-backend = 'setuptools.build_meta'
+
+[project]
+name="dorado"
+readme="README.rst"
+keywords = ["astropy", "dorado", "observatory", "photometry", "image-processing"]
+authors = [
+  {name = "Joshua Parsons", email = "mucephie@my.yorku.ca"},
+
+]
+description = "Digitized Observatory Resources for Automated Data Operations"
+version = "2.0.0dev71"
+dependencies = [
+  "astropy",
+  "numpy",
+  "astroquery",
+  "matplotlib",
+  "ccdproc",
+  "photutils",
+  "astroalign",
+  "scipy",
+  "tqdm"
+]
+requires-python = ">=3.10"
+license = {file = "LICENSE.txt"}
+# license_file = licenses/LICENSE.rst
+
+[project.urls]
+Homepage = "https://gitlab.com/mucephie/dorado"
+Documentation = "https://dorado.readthedocs.io/"
+Repository = "https://gitlab.com/mucephie/dorado.git"
+Issues = "https://gitlab.com/mucephie/dorado/-/issues"
+Changelog = "https://gitlab.com/mucephie/dorado/-/blob/main/CHANGES.rst?ref_type=heads"
+
+
+
+
