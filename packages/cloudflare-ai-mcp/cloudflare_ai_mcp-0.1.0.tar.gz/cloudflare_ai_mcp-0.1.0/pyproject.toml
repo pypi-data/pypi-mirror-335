@@ -1,0 +1,38 @@
+[project]
+name = "cloudflare-ai-mcp"
+version = "0.1.0"
+description = "MCP Server for Cloudflare AI image generation"
+authors = [
+    {name = "ouraihub", email = "ouraihub@gmail.com"},
+]
+dependencies = [
+    "streamlit>=1.31.1",
+    "requests>=2.31.0",
+    "Pillow>=10.2.0",
+    "python-dotenv>=1.0.1",
+    "aiohttp>=3.9.3",
+    "uvicorn>=0.15.0",
+    "cloudflare>=2.8.15",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=6.0.0",
+    "black>=22.3.0",
+    "isort>=5.10.1",
+    "mypy>=0.982",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/cloudflare_ai"] 
