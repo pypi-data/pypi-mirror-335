@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=43.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "opd"
+description = "Original Programmer Daemon"
+version = "320"
+authors = [
+    {name = "Bart Thate", email = "bthate@dds.nl" },
+]
+readme = "README.rst"
+license = { text="Public Domain"}
+classifiers=[
+    'Development Status :: 3 - Alpha',
+    'License :: Public Domain',
+    'Operating System :: Unix',
+    'Programming Language :: Python',
+    'Topic :: Utilities'
+]
+
+
+[project.urls]
+"home" = "https://pypi.org/project/opd"
+"bugs" = "https://github.com/bthate/opd/issues"
+"source" = "https://github.com/bthate/opd"
+
+
+[tool.setuptools]
+script-files = [
+    "bin/opd",
+]
+packages = [
+   "opd",
+   "opd.modules"
+]
