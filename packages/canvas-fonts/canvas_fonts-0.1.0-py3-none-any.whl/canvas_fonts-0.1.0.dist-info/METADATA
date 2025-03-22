@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: canvas-fonts
+Version: 0.1.0
+Summary: A library providing 200+ fonts for canvas editors
+Project-URL: Homepage, https://github.com/aipresso/canvas_fonts
+Project-URL: Bug Tracker, https://github.com/aipresso/canvas_fonts/issues
+Author-email: Sumedh Patil <sumedh@aipresso.com>
+License: MIT License
+        
+        Copyright (c) 2025 Sumedh Patil, Aipresso Limited, UK.
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# canvas_fonts
+
+A Python library providing 200+ fonts for use in canvas editors like Fabric.js-based applications.
+
+## Installation
+
+```bash
+pip install canvas-fonts
+```
+
+## Usage
+
+```python
+from canvas_fonts import get_fonts, get_font_path
+
+# List all fonts
+fonts = get_fonts()
+print(fonts)
+
+# Get path to a font file
+path = get_font_path("Roboto")
+print(path)
+```
+
+## Adding Fonts
+
+1. Download 200+ TTF files from Google Fonts or FontSquirrel (e.g., "Roboto.ttf", "Lobster.ttf")
+2. Place them in `canvas_fonts/fonts/`
+3. Update `FONTS` in `data.py` with all font names, ensuring they match the TTF filenames (without spaces, e.g., "OpenSans" for "Open Sans")
+
+## License
+
+MIT License - See LICENSE file for details.
