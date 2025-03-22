@@ -1,0 +1,20 @@
+#!/bin/bash
+
+bin_name=$(basename "$0")
+# If I_MPI_OFI_INTERNAL is set to 0, then use the system OFI executable
+if [ "x$I_MPI_OFI_INTERNAL" = "x0" ]; then
+    current_script_dir=$(dirname "$(readlink -f "$0")")
+    # Iterate through directories in PATH to check if there is another OFI executable provided by system
+    for dir in $(echo $PATH | tr ':' '\n'); do
+        resolved_dir=$(readlink -f "$dir")
+        if [ -x "$resolved_dir/$bin_name" ]; then
+            resolved_bin=$(readlink -f "$resolved_dir/$bin_name")
+            if ! file "$resolved_bin" | grep -q "shell script"; then
+                exec "$resolved_bin" "$@"
+            fi
+        fi
+    done
+fi
+
+# If no ofi util executable is found, use one from IMPI package
+exec "$I_MPI_ROOT/opt/mpi/libfabric/bin/$bin_name" "$@"
