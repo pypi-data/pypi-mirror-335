@@ -1,0 +1,89 @@
+Metadata-Version: 2.4
+Name: iva-generator
+Version: 0.1.0
+Summary: AI Code Assistant
+Home-page: https://github.com/ItzCyzmiX/Iva
+Author: ItzCyzmiX
+Author-email: itzmedigamingx@gmail.com
+Project-URL: Bug Tracker, https://github.com/ItzCyzmiX/Iva/issues
+Project-URL: Documentation, https://github.com/ItzCyzmiX/Iva#readme
+Project-URL: Source Code, https://github.com/ItzCyzmiX/Iva
+Keywords: ai,code generator,assistant,development
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: langchain
+Requires-Dist: langchain-community
+Requires-Dist: langchain-groq
+Requires-Dist: python-dotenv
+Requires-Dist: pydantic
+Requires-Dist: rich
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 🤖 Iva - AI Code Assistant
+
+Iva is an intelligent code assistant that helps you generate file structures and code based on natural language descriptions.
+
+## Features
+
+- Generate code and project structures from natural language descriptions
+- Interactive CLI with rich formatting
+- Smart bug fixing capabilities
+- Project scaffolding
+- Cross-platform support
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/ItzCyzmiX/Iva.git
+cd Iva
+```
+
+2. Install the package:
+```bash
+pip install -e .
+```
+
+## Usage
+
+Run the assistant:
+```bash
+iva
+```
+
+Or import in your code:
+```python
+from iva_generator import AIFileGenerator
+
+generator = AIFileGenerator()
+generator.run("Create a Flask API")
+```
+
+## Requirements
+
+- Python 3.8+
+- Dependencies listed in requirements.txt
+
+## License
+
+MIT License
