@@ -1,0 +1,62 @@
+Metadata-Version: 2.1
+Name: artd-service
+Version: 1.0.8
+Summary: ArtD Service.
+Home-page: https://www.artd.com.co/
+Author: Jonathan Urzola
+Author-email: jonathan@artd.com.co
+License: BSD-3-Clause
+Platform: UNKNOWN
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: BSD License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+ArtD Service
+============
+ArtD Service.
+--------------
+1. Add to your INSTALLED_APPS setting like this:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        ...
+        'artd_modules',
+        'artd_service',
+    ]
+2. Run the migration commands:
+   
+.. code-block::
+    
+        python manage.py makemigrations
+        python manage.py migrate
+
+
+3. Run the seeder data:
+   
+.. code-block::
+
+        python manage.py create_countries
+        python manage.py create_colombian_regions
+        python manage.py create_colombian_cities
+        python manage.py create_taxes
+        python manage.py create_apps
+        python manage.py create_services
+        python manage.py insert_installed_apps_and_permissions
+
