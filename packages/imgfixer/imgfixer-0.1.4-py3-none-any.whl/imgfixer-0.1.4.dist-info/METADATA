@@ -1,0 +1,91 @@
+Metadata-Version: 2.1
+Name: imgfixer
+Version: 0.1.4
+Summary: ImgFixer is a tool for fixing image extensions in a directory.
+Keywords: image,fix,file extension,rename,automation
+Author-Email: Krishnakanth Allika <wheat-chop-octane@duck.com>
+Classifier: Development Status :: 4 - Beta
+Classifier: Topic :: Utilities
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Project-URL: Homepage, https://go.allika.eu.org/imgfixerhome
+Project-URL: Repository, https://go.allika.eu.org/imgfixerrepo
+Project-URL: Documentation, https://go.allika.eu.org/imgfixerdocs
+Requires-Python: <=3.14,>=3.9
+Requires-Dist: fastapi>=0.115.11
+Requires-Dist: filetype>=1.2.0
+Requires-Dist: jinja2>=3.1.6
+Requires-Dist: python-multipart>=0.0.20
+Requires-Dist: uvicorn>=0.34.0
+Description-Content-Type: text/markdown
+
+# ImgFixer Documentation
+
+## Overview
+ImgFixer is a lightweight FastAPI-based application that scans a given directory and corrects incorrect image file extensions. It determines the actual file type of images and renames them with the correct extension to ensure compatibility and consistency.
+
+## Purpose
+Many image files have incorrect or missing extensions, which can cause issues with software that relies on proper file formats. ImgFixer automates the process of verifying and correcting image file extensions, making file management more reliable and efficient.
+
+## Features
+- Detects image file formats using content-based identification (not just file extensions).
+- Automatically renames files with incorrect extensions to their correct format.
+- Provides a web interface for ease of use.
+- Supports popular image formats such as JPEG, PNG, and WebP.
+
+## Installation
+
+### Creating a Conda Virtual Environment (Recommended)
+Before installing ImgFixer, you can create and activate a conda virtual environment:
+
+```bash
+conda create -n imgfixer uv
+conda activate imgfixer
+```
+
+### Installing ImgFixer
+You can install ImgFixer using `uv` (recommended):
+
+```bash
+uv pip install imgfixer
+```
+
+Alternatively, you can install ImgFixer as a Python package using pip:
+
+```bash
+pip install imgfixer
+```
+
+## Usage
+
+### Running the Application
+You can run ImgFixer using the command line:
+
+```bash
+imgfixer
+```
+
+### Web Interface
+After running the application, open your browser and navigate to:
+
+```
+http://localhost:8083/
+```
+
+From the web interface:
+1. Enter the path of the directory containing images.
+2. Click submit to process the images.
+3. View the report of corrected file names.
+
+## License
+ImgFixer is licensed under the **GNU General Public License v3 (GPLv3)**.
+
+## Author
+**Krishnakanth Allika**  
+Email: wheat-chop-octane [at] duck [dot] com
+
