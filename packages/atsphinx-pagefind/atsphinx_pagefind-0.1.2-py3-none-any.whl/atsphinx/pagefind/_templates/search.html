@@ -1,0 +1,39 @@
+{%- extends "!search.html" %}
+
+{%- block scripts %}
+{{ super.super() }}
+{%- endblock %}
+
+{% block extrahead %}
+<meta name="robots"
+    content="noindex" />
+{{ super.super() }}
+{% endblock %}
+
+{% block searchtext %}{% endblock %}
+
+{% block searchbox %}
+<p>
+  {% trans %}Searching for multiple words only shows matches that contain
+  all words.{% endtrans %}
+</p>
+<div id="atsphinx-pagefind"></div>
+<link href="{{ pathto(pagefind.directory + '/pagefind-ui.css', 1) }}"
+    rel="stylesheet">
+<link href="{{ pathto('_static/atsphinx-pagefind/ui.css', 1) }}"
+    rel="stylesheet">
+<script src="{{ pathto(pagefind.directory + '/pagefind-ui.js', 1) }}"></script>
+
+<script>
+  window.addEventListener('DOMContentLoaded', (event) => {
+    const ui = new PagefindUI({element: "#atsphinx-pagefind", showSubResults: true});
+    const query = new URLSearchParams(window.location.search).get("q");
+    document
+      .querySelectorAll('input[name="q"]')
+      .forEach((el) => (el.value = query));
+    if (query) ui.triggerSearch(query);
+  });
+</script>
+{% endblock %}
+
+{% block searchresults %}{% endblock %}
