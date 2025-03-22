@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "snakecharmers"
+description = "A tiny, non-serious package"
+version = "0.1.1"
+authors = [
+  { name="Ray Ochotta", email="amo9758@nyu.edu" },
+  { name="Eli Sun", email="ys3967@nyu.edu" },
+  { name="Kurt Lukowitsch", email="kl3641@nyu.edu" },
+  { name="Samantha Lin", email="sal9791@nyu.edu" },
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["python", "package", "build", "tutorial"]
+requires-python = ">=3.7" 
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+"Homepage" = "https://github.com/software-students-spring2025/3-python-package-snake-charmers-on-a-plane/"
+"Repository" = "https://github.com/software-students-spring2025/3-python-package-snake-charmers-on-a-plane.git"
+"Bug Tracker" = "https://github.com/software-students-spring2025/3-python-package-snake-charmers-on-a-plane/issues"
+
+[project.scripts]
+snakecharmerpackage = "snakecharmerpackage.__main__:main"
