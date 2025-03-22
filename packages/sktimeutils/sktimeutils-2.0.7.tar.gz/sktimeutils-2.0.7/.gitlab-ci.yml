@@ -1,0 +1,84 @@
+image: continuumio/anaconda3
+stages:
+  - build_wheel
+  - test_and_docs
+  - deploy
+
+variables:
+  OUTPUT_DOC_DIR: /www/docs/sktimeutils/
+  OUTPUT_WHEEL_DIR: /www/wheels/
+
+# ---------------------------------------------------
+# Build skretrieval wheel on Linux
+# ---------------------------------------------------
+
+build_wheel_linux:
+  stage: build_wheel
+  tags:
+    - docker
+  script:
+    - conda init bash
+    - python setup.py bdist_wheel -d./wheelhouse/
+  artifacts:
+    paths:
+      - wheelhouse/
+    expire_in: 1 day
+
+# ---------------------------------------------------
+# Test sktimeutils code on Linux python 3.7
+# ---------------------------------------------------
+
+test-linux:
+  stage: test_and_docs
+  tags:
+  - docker
+  allow_failure: false
+  script:
+    - conda init bash
+    - conda env create --file env.yml python=3.11 -n builddocs  -q
+    - conda install make
+    - source activate builddocs
+    - ls -al ./wheelhouse
+    - pip install --no-index --find-links=wheelhouse/ sktimeutils
+    - pycodestyle sktimeutils
+    - cd docs
+    - make html
+    - cd ../
+    - python -m unittest discover -s ./sktimeutils -t ./
+  artifacts:
+    paths:
+      - docs/_build/
+    expire_in: 1 day
+
+# ---------------------------------------------------
+# Deploy HTML using the Gitlab Pages
+# ---------------------------------------------------
+
+pages:
+  stage: deploy
+  only:
+    - tags
+  tags:
+    - docker
+  script:
+    - mkdir -p public
+    - cp -r docs/_build/html/* public/
+  artifacts:
+    paths:
+      - public
+
+
+# ---------------------------------------------------
+# Deploy the wheels for tagged versions. Send it to the wheels folder
+# ---------------------------------------------------
+
+deploy-tagged:
+  stage: deploy
+  only:
+    - tags
+  tags:
+    - docker
+  script:
+    - OUTPUT_WHEEL_FOLDER=$OUTPUT_WHEEL_DIR
+    - mkdir -p "$OUTPUT_WHEEL_FOLDER"
+    - cp  wheelhouse/*.whl "$OUTPUT_WHEEL_FOLDER"

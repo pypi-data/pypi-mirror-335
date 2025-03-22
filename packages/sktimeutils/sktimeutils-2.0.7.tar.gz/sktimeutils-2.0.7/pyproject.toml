@@ -1,0 +1,35 @@
+# pyproject.toml
+[project]
+name = "sktimeutils"
+description="Array based, Universal Time conversion functions and classes  used by usask-arg software"
+dependencies = ["numpy", "jdcal", "astropy"]
+readme = "README.md"
+license = {text = "MIT"}
+authors=[{name='Nick Lloyd', email = "nick.lloyd@usask.ca"}]
+dynamic = ["version"]
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+
+[build-system]
+requires = ["setuptools>=64", "wheel", "setuptools-scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+# [tool.setuptools.package-data]
+# skoptics = ["ali_elements/data/*.txt", "ali_elements/data/*.nc", "ali_elements/data/*.xlsx", "common_elements/data/*.txt", "common_elements/data/*.nc", "common_elements/data/*.xlsx", "rtm/data/*.txt"]
+
+[tool.setuptools_scm]
+write_to = "src/sktimeutils/_version.py"
