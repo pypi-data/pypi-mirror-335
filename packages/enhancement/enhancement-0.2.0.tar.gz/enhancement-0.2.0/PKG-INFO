@@ -1,0 +1,94 @@
+Metadata-Version: 2.3
+Name: enhancement
+Version: 0.2.0
+Summary: A collection of Python enhancements for better development experience
+License: MIT
+Keywords: enhancement,utilities,development,tools
+Author: Harry Zhang
+Author-email: HarryZhang0415@gmail.com
+Requires-Python: >=3.11,<3.12
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Dist: exchange-calendars (>=4.10,<5.0)
+Requires-Dist: matplotlib (>=3.10.1,<4.0.0)
+Requires-Dist: networkx (>=3.4.2,<4.0.0)
+Project-URL: Documentation, https://github.com/HarryZhang0415/enhancement#readme
+Project-URL: Repository, https://github.com/HarryZhang0415/enhancement
+Description-Content-Type: text/markdown
+
+# Enhancement
+
+A collection of Python utilities and enhancements for better development experience.
+
+## Installation
+
+```bash
+pip install enhancement
+```
+
+## Features
+
+This package provides several utility modules to enhance your Python development experience:
+
+- `cache_result`: Caching utilities for function results
+- `iterable`: Enhanced iterable operations
+- `timeit`: Timing utilities for performance measurement
+- `ndict`: Enhanced dictionary operations
+- `singleton`: Singleton pattern implementation
+- `safe_get`: Safe attribute and item access utilities
+
+## Usage
+
+### Cache Result
+
+```python
+from enhancement.cache_result import cache_result
+
+@cache_result
+def expensive_computation(x):
+    # Result will be cached
+    return x ** 2
+```
+
+### Timing Utilities
+
+```python
+from enhancement.timeit import timeit
+
+@timeit
+def my_function():
+    # Function execution time will be measured
+    pass
+```
+
+### Safe Get
+
+```python
+from enhancement.safe_get import safe_get
+
+data = {"a": {"b": {"c": 1}}}
+value = safe_get(data, "a.b.c")  # Returns 1
+value = safe_get(data, "a.b.d")  # Returns None
+```
+
+## Requirements
+
+- Python 3.11+
+- exchange-calendars >= 4.10
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Author
+
+Harry Zhang (HarryZhang0415@gmail.com)
+
