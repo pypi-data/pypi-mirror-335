@@ -1,0 +1,88 @@
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+
+<script src="https://kit.fontawesome.com/2e8803d931.js" crossorigin="anonymous"></script>
+
+
+
+
+<ul class="breadcrumb {% if dark %}dark-breadcrumb{% endif %}">
+    <li>
+        <a class="link-breadcrumbs {% if dark %}white{% endif %}" href="/">
+            <i style="{% if dark %}color: #30BFBC;{% else %}color: #007D7A;{% endif %} font-size: 14px; margin-right: 10px;" class="fa-solid fa-house"></i>
+            <i class="fa-solid fa-chevron-right" style="{% if dark %}color: #30BFBC;{% else %}color: #007D7A;{% endif %} font-size: 14px; margin-left: 5px;"></i>
+        </a>
+    </li>
+    
+    {% for ancestor in ancestors %}
+        {% if not ancestor.is_root %}
+            <li>
+                <a class="link-breadcrumbs {% if dark %}white{% endif %}" href="{{ ancestor.url }}">
+                    {{ ancestor.title }}
+                    <i class="fa-solid fa-chevron-right" style="{% if dark %}color: #30BFBC;{% else %}color: #007D7A;{% endif %} font-size: 14px; margin-left: 5px;"></i>
+                </a>
+            </li>
+        {% endif %}
+    {% endfor %}
+    
+    <li class="text-local-breadcrumbs {% if dark %}white{% endif %}">{{ current_page.title }}</li>
+</ul>
+
+<style>
+.breadcrumb {
+    padding: 10px 16px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dark-breadcrumb {
+    background-color: #333840;
+}
+
+.text-local-breadcrumbs {
+    font-size: 14px;
+    font-weight: 700;
+    color: #333840;
+    text-decoration: underline;
+}
+
+.material-symbols-outlined {
+    color: #007D7A;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.link-breadcrumbs {
+    display: inline;
+    font-size: 14px;
+    color: #333840;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.white {
+    color: #EBEFF5;
+}
+
+.white:hover {
+    color: #EBEFF5;
+}
+
+.text-local-breadcrumbs.white {
+    color: #EBEFF5;
+}
+
+.material-symbols-outlined.white {
+    color: #30BFBC;
+}
+
+li a:hover {
+    color: #333840;
+    text-decoration: none;
+}
+</style>
