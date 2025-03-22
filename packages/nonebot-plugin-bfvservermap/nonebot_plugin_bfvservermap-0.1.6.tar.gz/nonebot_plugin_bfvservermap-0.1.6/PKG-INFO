@@ -1,0 +1,41 @@
+Metadata-Version: 2.3
+Name: nonebot-plugin-bfvservermap
+Version: 0.1.6
+Summary: A onebot plugin for querying bfv server maps
+License: MIT
+Author: llbuxudong 3513392931@qq.com
+Requires-Python: >=3.8,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: httpx (>=0.23.0,<0.24.0)
+Requires-Dist: nonebot-adapter-onebot (>=2.2.0,<3.0.0)
+Requires-Dist: nonebot-plugin-htmlrender (>=0.3.0.0,<0.4.0.0)
+Requires-Dist: nonebot2 (>=2.0.0rc2,<3.0.0)
+Description-Content-Type: text/markdown
+
+# nonebot-plugin-bfvservermap  
+一个基于nonebot2平台的用于查询服务器图池的插件
+需要安装[htmlreder](https://github.com/kexue-z/nonebot-plugin-htmlrender)渲染图片
+# 安装
+___
+
+nb-cli: (推荐)
+
+~~~
+nb plugin install nonebot-plugin-bfvservermap
+~~~
+pip: (需要在pyproject.toml手动导入)
+~~~
+pip install nonebot-plugin-bfvservermap
+~~~
+# 命令列表
+map= 服务器name
+
+
+
