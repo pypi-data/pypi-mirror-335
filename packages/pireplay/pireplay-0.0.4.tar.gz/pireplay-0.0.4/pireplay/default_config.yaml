@@ -1,0 +1,46 @@
+---
+# Default number of seconds to record on capture, as index in the list of options
+# (RPI in-memory circular buffer)
+# Options:
+#   0: 3 seconds
+#   1: 5 seconds
+#   2: 10 seconds
+#   3: 20 seconds
+#   4: 30 seconds
+#   5: 60 seconds
+capture_time_index: 1
+
+# Default resolution to use for the camera, as index in the list of options
+# Options:
+#   0: 2304 × 1296 30 FPS HDR
+#   1: 2304 × 1296 56 FPS
+#   2: 1536 × 864 120 FPS
+camera_resolution_index: 1
+
+# Number of replays to keep on disk (if full, oldest is deleted)
+# minimum 1, maximum 500 (check SD card storage)
+kept_replays: 20
+
+# Location where the replays are kept on disk (working directory for PiReplay)
+directory: "~/pireplay"
+
+# Name given to a new replay (without the file extension)
+# must be unique, or it will overwrite the same file with each new replay
+# support `strftime` strings, see https://strftime.org/ or `man strftime 3`
+replay_name: "%Y_%m_%d-%H:%M:%S"
+
+# Wi-Fi network interface
+network_interface: "wlan0"
+
+# Network configuration for the Wi-Fi configuration (optional)
+# Note: the Wi-Fi configuration takes precedence over the AP configuration.
+wifi_ssid: "my_wifi_ssid"
+wifi_password: "my_wifi_password"
+
+# Network configuration for the Access Point configuration (optional)
+ap_ssid_prefix: "PiReplay"
+ap_password: "pireplay42"
+
+# Could set to true when using a single PiReplay device (optional),
+# disables MAC address suffix on SSID
+ap_ssid_no_suffix: false
