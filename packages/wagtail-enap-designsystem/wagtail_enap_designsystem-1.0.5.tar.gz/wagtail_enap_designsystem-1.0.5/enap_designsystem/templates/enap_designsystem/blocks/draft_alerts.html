@@ -1,0 +1,148 @@
+{# templates/blocks/alert_block.html #}
+{% load wagtailcore_tags %}
+
+<div class="alert-component">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <style>
+        .alert-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .alert-modal-content {
+            background-color: white;
+            border-radius: 20px;
+            padding: 16px;
+            text-align: center;
+            position: relative;
+            max-width: 500px;
+            width: 90%;
+        }
+        
+        .alert-box {
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 22px;
+            flex-direction: column;
+        }
+        
+        /* Cores automáticas baseadas no tipo */
+        .alert-box.success {
+            background-color: #E3FAE8;
+        }
+        
+        .alert-box.error {
+            background-color: #FDE7EC;
+        }
+        
+        .alert-box.warning {
+            background-color: #FCF6DE;
+        }
+        
+        .alert-box.info {
+            background-color: #E6EFFA;
+        }
+        
+        .material-symbols-outlined {
+            font-size: 75px;
+        }
+        
+        /* Cores dos ícones baseadas no tipo */
+        .material-symbols-outlined.success {
+            color: #168821;
+        }
+        
+        .material-symbols-outlined.error {
+            color: #DF3E63;
+        }
+        
+        .material-symbols-outlined.warning {
+            color: #DEAE00;
+        }
+        
+        .material-symbols-outlined.info {
+            color: #155BCB;
+        }
+        
+        .alert-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007D7A;
+            color: white;
+            border-radius: 32px;
+            cursor: pointer;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .alert-button:hover {
+            background-color: #00796b;
+        }
+    </style>
+    
+    <div class="alert-modal" id="alert-modal-{{ id }}">
+        <div class="alert-modal-content">
+            <div class="alert-box {{ value.alert_type }}">
+                <!-- O ícone é determinado automaticamente pelo tipo de alerta -->
+                <span class="material-symbols-outlined {{ value.alert_type }}">
+                    {% if value.alert_type == 'success' %}
+                        check_circle
+                    {% elif value.alert_type == 'error' %}
+                        error
+                    {% elif value.alert_type == 'warning' %}
+                        warning
+                    {% else %}
+                        info
+                    {% endif %}
+                </span>
+                
+                {% if value.title %}
+                    <h3>{{ value.title }}</h3>
+                {% endif %}
+                
+                <div>{{ value.message|richtext }}</div>
+            </div>
+            
+            {% if value.button_text %}
+                <button class="alert-button" id="close-alert-{{ id }}">{{ value.button_text }}</button>
+            {% endif %}
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var alertModal = document.getElementById('alert-modal-{{ id }}');
+            
+            // Exibir o modal automaticamente
+            alertModal.style.display = 'flex';
+            
+            {% if value.button_text %}
+                // Configurar o evento para fechar o modal ao clicar no botão
+                document.getElementById('close-alert-{{ id }}').onclick = function() {
+                    alertModal.style.display = 'none';
+                };
+            {% endif %}
+            
+            // Fechar o modal ao clicar fora dele
+            alertModal.addEventListener('click', function(event) {
+                if (event.target === alertModal) {
+                    alertModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</div>
