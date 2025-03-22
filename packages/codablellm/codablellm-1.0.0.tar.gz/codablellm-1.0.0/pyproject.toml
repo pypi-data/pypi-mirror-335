@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codablellm"
+version = "1.0.0"
+authors = [{ name = "Dylan Manuel", email = "dylan.manuel@my.utsa.edu" }]
+description = "A framework for creating and curating high-quality code datasets tailored for large language models"
+readme = "README.md"
+requires-python = ">=3.8" # May be upper-bounded to 3.12 until https://github.com/capstone-engine/capstone/issues/2223 is fixed for Angr
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+]
+dependencies = ["GitPython>=3.1.43", "pandas>=2.2.3", "requests>=2.32.3", "tree-sitter>=0.23.2",
+  "tree-sitter-c>=0.23.2", "tiktoken>=0.8.0", "typer>=0.15.1"]
+
+[project.optional-dependencies]
+# Different dataset formats
+"excel" = ["openpyxl>=3.1.5"]
+"markdown" = ["tabulate>=0.9.0"]
+"xml" = ["lxml>=5.3.0"]
+# All optional dependencies
+"all" = ["openpyxl>=3.1.5", "tabulate>=0.9.0", "lxml>=5.3.0"]
+
+[project.scripts]
+codablellm = "codablellm.__main__:app"
+
+[project.urls]
+"Homepage" = "https://github.com/dmanuel64/codablellm"
+"Bug Tracker" = "https://github.com/dmanuel64/codablellm/issues"
+
+[tool.setuptools.package-data]
+"codablellm.resources.ghidra_scripts" = ["*.py"]
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+pythonpath = ["src"]
+testpaths = ["tests"]
