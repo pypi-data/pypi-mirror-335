@@ -1,0 +1,409 @@
+.TH htgettoken 1
+.SH NAME
+htgettoken \- get OIDC bearer tokens by interacting with Hashicorp vault
+
+.SH SYNOPSIS
+.B htgettoken
+.RI [ OPTION ]...
+
+.SH DESCRIPTION
+.B htgettoken
+gets OIDC bearer tokens by interacting with a Hashicorp vault server
+configured for retrieving and storing OIDC refresh tokens.  By default
+it attempts to authenticate first using kerberos if it is available,
+next tries using ssh-agent if it is available, and if neither 
+enables reading a bearer token then it uses OIDC authentication
+including directing users to their web browsers to complete the
+authentication.  If that authentication is successful,
+.B htgettoken
+accepts the refresh token (which is only usable with the client secret
+known only to vault) and stores it back into an oauth secrets path in
+vault.  It then reads back from the same secrets path to retrieve a
+bearer access token and stores that in a file.  A vault token is also
+stored in a file so authentication doesn't have to be redone every time.
+By default the vault token lasts a week.
+
+.SH OPTIONS
+.PP
+.TP
+.B \-\-version
+Show the program's version number and exit.
+.TP
+.BR \-h , \ \-\-help
+Show a help message and exit.
+.TP
+.BR \-v , \ \-\-verbose
+Show detailed progress reports instead of the default concise reports.
+Reports are sent to stdout unless
+.I \-\-vaulttokenfile
+is /dev/stdout or
+.I \-\-showbearerurl is enabled; in those cases reports are sent to stderr.
+.TP
+.BR \-d , \ \-\-debug
+Shows debug reports.  Implies
+.IR \-v .
+Be aware that this writes a lot of output.
+.TP
+.BR \-q , \ \-\-quiet
+Do not output any progress reports or error messages.
+.TP
+.BR \-s\ HostOrURL , \ \-\-optserver=HostOrURL
+The server host name or URL with default htgettoken options.  If it is
+just a host name, the URL read is
+.RS
+.RS
+https://hostname/htgettokenopts.txt
+.RE
+otherwise the whole URL is read.
+See also HTGETTOKENOPTS in the ENVIRONMENT section below.
+.RE
+.TP
+.BR \-a\ HostOrURL , \ \-\-vaultserver=HostOrURL
+The vault server name or URL.  If it is just a host name, the URL 
+read is
+.RS
+.RS
+https://hostname:8200
+.RE
+otherwise the whole URL is used.  This is the only required option.
+.RE
+.TP
+.BR \-\-vaultalias=HostOrURL
+The vault cluster name.  This is mainly useful for debugging,
+for example when multiple vault servers in a cluster are serving the
+same name and the address of a single server is supplied with
+.IR \-\-vaultserver .
+The
+.I \-\-vaultalias
+is then used when communicating with the name defined in the cluster,
+for example for kerberos.  Default is the same as
+.IR \-\-vaultserver .
+.TP
+.BR \-\-vaultcertname=Host
+The vault https certficate name.  This is mainly useful when testing
+and the name in the host certificate does not match the name used to
+access the server.  Default is the same as the host name part of
+.IR \-\-vaultserver .
+.TP
+.BR \-i\ issuername , \ \-\-issuer=issuername
+The name of the OIDC token issuer, as configured in the vault server. 
+The default issuer name is "default".
+.TP
+.BR \-r\ rolename , \ \-\-role=rolename
+The name of the issuer role, as configured in the vault server.  The
+default role name is "default".  Different roles for the same issuer
+map to different token scopes as configured in vault.
+.TP
+.BR \ \-\-nokerberos
+Do not attempt to use kerberos authentication.
+.TP
+.BR \-\-kerbpath=vaultpath
+The path in vault for kerberos authentication.  The default is
+.RS
+.RS
+auth/kerberos-%issuer_%role
+.RE
+.RE
+.TP
+.BR \-\-kerbprincipal=principal
+Principal to use for kerberos authentication.  The principal has to be
+among those cached on the current machine when a cache collection is
+available, for example when $KRB5CCNAME begins with "DIR:".  The default
+is the currently selected principal.  See the
+.B kswitch
+command and the "-l" option of the
+.B klist
+command for more information.
+.TP
+.BR \ \-\-nooidc
+Do not attempt to do OIDC authentication.
+.TP
+.BR \-\-oidcpath=vaultpath
+The path in vault for doing OIDC authentication.  The default is
+.RS
+.RS
+auth/oidc-%issuer/oidc
+.RE
+where %issuer is the value from the
+.I \-\-issuer
+option.
+.RE
+.TP
+.BR \ \-\-nossh
+Do not attempt to do ssh-agent authentication.
+.TP
+.BR \-\-sshpath=vaultpath
+The path in vault for doing ssh-agent authentication.  The default is
+.RS
+.RS
+auth/ssh
+.RE
+.RE
+.TP
+.BR \ \-\-registerssh
+Register all public keys available from
+.B ssh-agent
+with vault for future use.  This forces OIDC authentication even if a
+valid vault token is already available and does the normal OIDC flow and
+then registers the public keys before storing the vault token and access
+token.  Must be allowed in the configuration of the vault server in
+order to work.
+.TP
+.BR \-c\ path , \ \-\-configdir=path
+The path to a directory to save
+.B htgettoken
+configuration information.
+.TP
+.BR \-\-credkey=key
+The key to use in the vault secretpath (see next option) when accessing
+the bearer token.  Normally this is read from OIDC authentication and
+automatically stored in a file to be used by later invocations of
+.BR htgettoken .
+The name of the file that the key is stored in when 
+.I \-\-credkey
+is
+.B not
+specified on the command line is
+.RS
+.RS
+%configdir/credkey-%issuer-%role
+.RE
+where each of the % variables are replaced by the values of the
+corresponding options.
+.RE
+.TP
+.BR \-\-secretpath=vaultpath
+The path in vault for accessing the bearer token.  The default is
+.RS
+.RS
+secret/oauth-%issuer/creds/%credkey:%role
+.RE
+where each of the % variables are replaced by the values of the
+corresponding options.
+.RE
+.TP
+.B \-\-vaulttokenttl=time
+The time for vault tokens to live before they expire.  The time is a
+number followed by 's' for seconds, 'm' for minutes, 'h' for hours,
+or 'd' for days.  The maximum is determined by the vault configuration
+which is typically '28d'.  The default is '7d'.
+.TP
+.B \-\-vaulttokenminttl=time
+The minimum allowed time remaining in the lifetime of an existing vault
+token before it expires.  If there is not enough time remaining it will
+not be reused and a new one will be obtained instead.  The time is a
+number followed by 's' for seconds, 'm' for minutes, 'h' for hours,
+or 'd' for days.  Must be less than the value of
+.IR \-\-vaulttokenttl .
+The default is no minimum.
+.TP
+.BR \-\-vaulttokenfile=path
+The path to save vault tokens.  If the value of
+.I \-\-vaultokenttl
+is 1 million seconds or less (about 11.5 days), then the default is
+.RS
+.RS
+/tmp/vt_u%uid
+.RE
+otherwise it is /dev/stdout.  If the path contains %uid it is replaced
+with the current effective user id.  If the value of
+.I \-\-vaultokenttl
+is greater than 1 million seconds then the path is required to start
+with /dev/std or /dev/fd in order to adhere to IGTF security policies
+requiring user credentials that last longer than that to not be stored
+unencrypted.
+.RE
+.TP
+.B \-\-vaulttokeninfile=path
+The path to read vault tokens from.  Defaults to %vaulttokenfile which
+is replaced by the value of the
+.I \-\-vaulttokenfile
+option.  May contain %uid which is replaced with the current effective
+user id.  If the path starts with /dev/std or /dev/fd then the incoming
+vault token is exchanged for a new one with the requested ttl (or the
+time remaining on the incoming token if that is less).  In this way a
+script can request a long duration token, never store it on disk, and
+exchange it for a shorter duration token by calling htgettoken again.
+.TP
+.B \-\-showbearerurl
+Print the full vault API bearer token URL to stdout.  This is intended
+for easy use by a separate application that always has a valid vault
+token and only needs to be able to get new bearer tokens and doesn't
+need the rest of the 
+.B htgettoken
+functionality.
+.TP
+.B \-\-nobearertoken
+Skip getting a bearer token; only get a vault token.
+.TP
+.BR \-o\ path , \ \-\-out=path
+The path of the file used to store the bearer token on the local
+machine.  The default is $BEARER_TOKEN_FILE.  If that is not set
+but $XDG_RUNTIME_DIR is set, then the default is
+.RS
+.RS
+$XDG_RUNTIME_DIR/bt_u%uid
+.RE
+where %uid is the current effective user id.
+.br
+If $XDG_RUNTIME_DIR is also not set, then the default is
+.RS
+/tmp/bt_u%uid
+.RE
+.RE
+.TP
+.B \-\-minsecs=seconds
+The minimum number of seconds before a cached bearer token in vault
+expires in order to reuse it instead of fetching a new one.
+This feature is intended to reduce the load on token issuers while
+leaving enough time for a token to still be usable.
+The default is 60.
+.TP
+.B \-\-scopes=scopes
+A comma- or space-separated list of scopes to request for a bearer token.
+This should be a subset of the scopes that come by default in the token.
+It uses token exchange with the token issuer, and the result is not cached
+in vault; instead, vault exchanges the cached token for the new one.
+.TP
+.B \-\-audience=audience
+A comma- or space-separated list of more restricted audiences for the token.
+Like the
+.I \-\-scopes
+option, this uses token exchange with the token issuer.
+.TP
+.B \-\-cafile=file
+The path to a file containing a bundle of Certifying Authority (CA)
+certificates.
+These will be used to verify the validity of https connections.
+The default is
+.RS
+.RS
+/etc/pki/tls/cert.pem
+.RE
+or, if that doesn't exist, the default is
+.RS
+/etc/ssl/certs/ca-certificates.crt
+.RE
+.RE
+.TP
+.B \-\-capath=path
+The path to a directory containing Certifying Authority (CA) certificates.
+These will be used in addition to the 
+.I \-\-cafile
+certificates to verify the validity of https connections.
+The default is $X509_CERT_DIR if it is set, or otherwise the default is
+.RS
+.RS
+/etc/grid-security/certificates
+.RE
+.RE
+.TP
+.B \-\-web-open-command=command
+The command to run to open a web URL.  The default is no command if 
+$SSH_CLIENT is set, otherwise the default is 
+.BR xdg-open .
+If no command is defined then the user will be prompted to open the
+URL manually.  See also the BROWSER environment variable below.
+
+.SH "ENVIRONMENT"
+The following optional environment variables affect the operation of
+.BR htgettoken .
+.TP
+.B "BEARER_TOKEN_FILE"
+Default location for the bearer token on the local disk.
+For more details see the
+.I \-\-outfile
+option.
+.TP
+.B "BROWSER"
+Colon-separated list of web browsers that
+.B xdg-open
+will attempt to invoke if it is the selected web open command. 
+The default is no browser if the DISPLAY
+environment variable is not set; otherwise, the default is a list of
+common web browsers as defined by the xdg-open command, excluding
+those that are command-line only.
+.TP
+.B "HTGETTOKENOPTS"
+Default options.  These options override any conflicting options from
+the optserver, but are overridden by any conflicting options from the
+command line.
+.TP
+.B "KRB5CCNAME"
+Location of a kerberos 5 credentials (ticket) cache.
+.TP
+.B "SSH_AUTH_SOCK"
+If set, points to a socket that can be used to communicate with
+.BR ssh-agent .
+This is automatically created by 
+.B ssh-agent
+and can be automatically forwarded by
+.B ssh
+with a "ForwardAgent=yes" option.  To add a key to the agent use
+.BR ssh-add .
+.TP
+.B "SSH_CLIENT"
+If set, there is no default web open command.  If not set, the default
+web open command is 
+.BR xdg-open .
+.TP
+.B "XDG_RUNTIME_DIR"
+Default directory for the bearer token if $BEARER_TOKEN_FILE is not set.
+For more details see the
+.I \-\-outfile
+option.
+.TP
+.B "X509_CERT_DIR"
+Default directory for CA certificates.  See also the
+.I \-\-capath
+option.
+
+
+.SH EXAMPLES
+.PP
+To get a new access token for an issuer called "dune" from a vault
+server while showing all intermediate steps:
+.PP
+.RS
+.nf
+htgettoken -v -a htvault.example.com -i dune
+.fi
+.RE
+.PP
+To read default options from a server (which includes an issuer and
+vault server and possibly other options) while choosing the "prod"
+role:
+.PP
+.RS
+.nf
+htgettoken -s htduneopts.fnal.gov -r prod
+.fi
+.RE
+.PP
+To always have a default vault address:
+.PP
+.RS
+.nf
+export HTGETTOKENOPTS="-a htvault.example.com"
+.fi
+.RE
+
+.SH "EXIT VALUES"
+.TP
+.B 0
+Success
+.TP
+.B 1
+All fatal errors other than usage errors
+.TP
+.B 2
+Usage error
+
+.SH AUTHOR
+Dave Dykstra
+
+.SH COPYRIGHT
+Copyright \(co 2020 Fermi National Accelerator Laboratory
+
+.SH "SEE ALSO"
+htdecodetoken(1), htdestroytoken(1), httokensh(1)
