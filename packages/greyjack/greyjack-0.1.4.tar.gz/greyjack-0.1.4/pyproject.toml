@@ -1,0 +1,58 @@
+[build-system]
+requires = ["maturin>=1.8,<2.0"]
+build-backend = "maturin"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+
+[project]
+name = "greyjack"
+version = "0.1.4"
+requires-python = ">=3.9"
+dependencies = [
+	"dill",
+	"multiprocess",
+	"mypy",
+	"mypy-extensions",
+	"mypy-protobuf",
+	"numpy",
+	"pathos",
+	"polars",
+	"pyarrow",
+	"pyzmq",
+]
+authors = [
+  {name = "Egor Chnegov (CameleoGrey)", email = "cameleogrey@yandex.ru"},
+]
+maintainers = [
+  {name = "Egor Chnegov (CameleoGrey)", email = "cameleogrey@yandex.ru"},
+]
+description = "GreyJack Solver is a metaheuristic constraint solver for Python (current version) built on top of Polars. It empowers you to solve a wide range of constraint optimization problems, including continuous, integer, and mixed-integer challenges."
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["greyjack", "solver", "optimization", "polars", "metaheuristic", "genetic algorithm"]
+classifiers = [
+	'Intended Audience :: Science/Research',
+    'Intended Audience :: Developers',
+	"License :: OSI Approved :: MIT License",
+	"License :: OSI Approved :: Apache Software License",
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3',
+	'Programming Language :: Python :: 3.9',
+	'Programming Language :: Python :: 3.10',
+    'Programming Language :: Python :: 3.11',
+    'Programming Language :: Python :: 3.12',
+    'Programming Language :: Python :: 3.13',
+    'Programming Language :: Python :: 3 :: Only',
+    'Programming Language :: Python :: Implementation :: CPython',
+    'Topic :: Software Development',
+    'Topic :: Scientific/Engineering',
+    'Operating System :: Microsoft :: Windows',
+    'Operating System :: Unix',
+]
+
+[project.urls]
+Homepage = "https://github.com/CameleoGrey/greyjack-solver-python"
+Documentation = "https://github.com/CameleoGrey/greyjack-solver-python"
+Repository = "https://github.com/CameleoGrey/greyjack-solver-python.git"
+Issues = "https://github.com/CameleoGrey/greyjack-solver-python/issues"
