@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "level2-order-book"
+version = "0.1.1"
+description = "A package for making order book from level 2 market data"
+readme = "README.md"
+authors = [
+    {name = "JasonJiang0303", email = "chinese88+0303@2925.com"}
+]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "l2data-reader>=0.1.14"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/JasonJiang0303/level2-order-book"
+"Bug Tracker" = "https://github.com/JasonJiang0303/level2-order-book/issues"
