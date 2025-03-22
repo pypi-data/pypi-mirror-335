@@ -1,0 +1,16 @@
+function(enable_warnings TARGET)
+    if(MSVC)
+        target_compile_options(${TARGET} PRIVATE /W3)
+    else()
+        target_compile_options(${TARGET} PRIVATE -Wall -Wextra -Wsign-compare
+                               -Wconversion -Wno-sign-conversion -Wno-parentheses)
+    endif()
+
+    if(PB_WERROR)
+        if(MSVC)
+            target_compile_options(${TARGET} PRIVATE /WX)
+        else()
+            target_compile_options(${TARGET} PRIVATE -Werror)
+        endif()
+    endif()
+endfunction()
