@@ -1,0 +1,33 @@
+repos:
+- repo: local
+  hooks:
+    - id: ml2sql-init
+      name: Initialise ml2sql folder structure
+      entry: ml2sql init
+      language: system
+      pass_filenames: false
+      always_run: true
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  # Ruff version.
+  rev: v0.3.4
+  hooks:
+    # Run the linter.
+    - id: ruff
+    # Run the formatter.
+    - id: ruff-format
+- repo: local
+  hooks:
+    - id: pytest-check
+      name: pytest-check
+      entry: python -m "pytest"
+      language: system
+      pass_filenames: false
+      always_run: true
+- repo: local
+  hooks:
+    - id: ml2sql-init-cleanup
+      name: Clean up ml2sql folder structure
+      entry: rm -rf input/ trained_models/
+      language: system
+      pass_filenames: false
+      always_run: true
