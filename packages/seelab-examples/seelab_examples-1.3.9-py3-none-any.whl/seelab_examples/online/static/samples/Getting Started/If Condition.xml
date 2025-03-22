@@ -1,0 +1,61 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="LbE2%mV/CRs,w^fwYIZy">i</variable>
+  </variables>
+  <block type="controls_for" id="%7aIDz*cumO_}Bo4:I2O" x="18" y="43">
+    <field name="VAR" id="LbE2%mV/CRs,w^fwYIZy">i</field>
+    <value name="FROM">
+      <shadow type="math_number" id="N~TppY$wPAgqXgX(B60(">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <value name="TO">
+      <shadow type="math_number" id="o$/t(6GK+M1u+kuW6;UE">
+        <field name="NUM">5</field>
+      </shadow>
+    </value>
+    <value name="BY">
+      <shadow type="math_number" id=".bo-CwUmwL9DZEyax[Ag">
+        <field name="NUM">1</field>
+      </shadow>
+    </value>
+    <statement name="DO">
+      <block type="controls_if" id="-kZ@iHn#uZA5UJShK^%a">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="logic_compare" id="Pw-gY5[__uz;K0!o;oR`">
+            <field name="OP">LT</field>
+            <value name="A">
+              <block type="variables_get" id="B%c{z7u;6[t)8{tgb^.w">
+                <field name="VAR" id="LbE2%mV/CRs,w^fwYIZy">i</field>
+              </block>
+            </value>
+            <value name="B">
+              <block type="math_number" id="qo%HVv[|;.xPn1*Uer-;">
+                <field name="NUM">3</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="cs_print" id="zGyLeO(Nx)p+1,fL2_1K">
+            <value name="TEXT">
+              <shadow type="text" id="VkZEH*?Ys,aL9hvGYc|M">
+                <field name="TEXT">small</field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="cs_print" id="oqyR=(a;vD-tK-?dkJdK">
+            <value name="TEXT">
+              <shadow type="text" id="D/zAx!%aaVfiXoGgFay1">
+                <field name="TEXT">big </field>
+              </shadow>
+            </value>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+<description><![CDATA[<h2>&nbsp;Conditional operators</h2><p><br></p><p>Generally the program execution starts with the first block and then the subsequent blocks. </p><p><br></p><p>This order can be modified by Conditional execution block IF. </p><p><br></p><p>A logical expression is evaluated and the block is executed only if the result is True. </p><p><br></p><p>We put an&nbsp;<strong>IF&nbsp;</strong>condition inside a&nbsp;<strong>Repeat loop Block</strong>&nbsp;to print 'Small' when the loop index is less than 2. Else it prints 'Big'.</p><p><br></p><h2>Procedure </h2><p><br></p><ol><li>select the&nbsp;<strong>if-do block</strong>&nbsp;from the&nbsp;<strong>In/Out</strong>&nbsp;section.</li><li>Press the Gear button on the If-do block. </li><li>A popup box showing else and else if will appear.</li><li>Drag the else from the left side&nbsp;and fix it below the if on the right side. </li><li>Click the Gear button again to close the popup.</li></ol><p><br></p><p>We use the comparison operator to evaluate the If condition.</p>]]></description></xml>
