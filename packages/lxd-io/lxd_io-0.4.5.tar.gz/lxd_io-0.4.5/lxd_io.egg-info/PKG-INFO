@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: lxd_io
+Version: 0.4.5
+Summary: Read leveLXData datasets without boilerplate code
+Author-email: Lennart Vater <lennart.vater@rwth-aachen.de>
+Maintainer-email: Lennart Vater <lennart.vater@rwth-aachen.de>
+License: MIT
+Project-URL: Homepage, https://github.com/lenvt/lxd-io
+Project-URL: Issues, https://github.com/lenvt/lxd-io/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: loguru>=0.7.3
+Requires-Dist: matplotlib>=3.7.5
+Requires-Dist: numpy>=1.24.4
+Requires-Dist: pandas>=2.0.3
+
+# lxd-io
+
+Read [leveLXData](https://levelxdata.com/) datasets without boilerplate code.
+
+Supported datasets are
+* [exiD](https://www.exid-dataset.com/)
+* [highD](https://highd-dataset.com/)
+* [inD](https://www.ind-dataset.com/)
+* [rounD](https://www.round-dataset.com/)
+* [uniD](https://www.unid-dataset.com/)
+
+## Install
+
+Install with pip
+
+```bash
+python -m pip install lxd-io
+```
+
+## Use
+
+Check [the tutorial notebook](https://github.com/lenvt/lxd-io/blob/main/tutorial.ipynb) or the tests to see usage examples.
