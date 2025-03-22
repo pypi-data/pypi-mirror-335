@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PiFunc Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .calculator {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h2>PiFunc Calculator</h2>
+        <div class="input-group">
+            <label for="num1">First Number:</label>
+            <input type="number" id="num1" required>
+        </div>
+        <div class="input-group">
+            <label for="num2">Second Number:</label>
+            <input type="number" id="num2" required>
+        </div>
+        <div>
+            <button onclick="calculate('add')">Add</button>
+            <button onclick="calculate('subtract')">Subtract</button>
+            <button onclick="calculate('multiply')">Multiply</button>
+            <button onclick="calculate('divide')">Divide</button>
+        </div>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function calculate(operation) {
+            const num1 = parseFloat(document.getElementById('num1').value);
+            const num2 = parseFloat(document.getElementById('num2').value);
+            
+            if (isNaN(num1) || isNaN(num2)) {
+                document.getElementById('result').textContent = 'Please enter valid numbers';
+                return;
+            }
+
+            if (operation === 'divide' && num2 === 0) {
+                document.getElementById('result').textContent = 'Cannot divide by zero';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`/api/calculator/${operation}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ a: num1, b: num2 })
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Calculation failed');
+                }
+                
+                const data = await response.json();
+                document.getElementById('result').textContent = `Result: ${data.result || data}`;
+            } catch (error) {
+                document.getElementById('result').textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
