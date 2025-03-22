@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Femtum SDK</title>
+    <link rel="stylesheet" href="static/mystyles.css" />
+    <script src="static/fontawesome.js"></script>
+    <script src="static/lunr.js"></script>
+    <script src="static/theme.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <nav class="level pt-6 mb-5 pb-2 bottom-border">
+        <div class="level-left">
+          <p class="level-item has-text-centered is-size-3 has-text-weight-medium">
+            <a class="link is-info" href="index.html">
+              Femtum SDK
+            </a>
+          </p>
+        </div>
+
+        <div class="level-right">
+          
+          <form action="search.html" class="mr-2 has-text-centered">
+            <input type="text" name="query" class="input mr-3 navbar-search-query-input" placeholder="Search">
+            <input type="submit" class="button is-primary mr-5" value="Search" />
+          </form>
+          
+
+          <p class="level-item has-text-centered is-size-5">
+            <a href="https://github.com/Femtum/femtum" class="link is-info mr-5" target="_blank">
+              
+              <span class="icon">
+                <i class="fa-brands fa-github"></i>
+              </span>
+              
+              <span>Source</span>
+            </a>
+
+            <button class="theme-toggle" id="theme-toggle" title="Toggles light & dark" aria-label="auto" aria-live="polite" type="button">
+              <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                <mask class="moon" id="moon-mask">
+                  <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                  <circle cx="24" cy="10" r="6" fill="black" />
+                </mask>
+                <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)" fill="currentColor" />
+                <g class="sun-beams" stroke="currentColor">
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </g>
+              </svg>
+            </button>
+          </p>
+        </div>
+      </nav>
+    </div>
+
+    <div id="main-content" class="container mb-6">
+<script>
+    const searchDocuments =  {"Trimming": {"package": "Trimming", "url": "Trimming.html", "content": "Trimming\n\nTrimming\nCircuitService\n\nListByPage\n\nTrimming\nListByPageCircuitsRequest\nTrimming\nCircuitsPage\nFindById\n\nTrimming\nFindCircuitByIdRequest\nTrimming\nOptionalCircuit\nUpdate\n\nTrimming\nUpdateCircuitRequest\nTrimming\nCircuit\nDelete\n\nTrimming\nFindCircuitByIdRequest\nTrimming\nOptionalCircuit\nTrimming\nCircuit\nId\n\nCreatedAt\n\nUpdatedAt\n\nName\n\nTags\n\nDie\n\nReticle\n\nWafer\n\nTrimming\nUpdateCircuitRequest\nId\n\nName\n\nTrimming\nCircuitsFilterRequest\nName\n\nDieId\n\nTags\n\nTrimming\nListByPageCircuitsRequest\nPageNumber\n\nPageSize\n\nFilters\n\nTrimming\nCircuitsPage\nItems\n\nTotal\n\nIndex\n\nSize\n\nTrimming\nFindCircuitByIdRequest\nId\n\nTrimming\nOptionalCircuit\nCircuit\n\n"}};
+    const searchIndex = {"version": "2.3.9", "fields": ["content", "url"], "fieldVectors": [["content/Trimming", [0, 0.591, 1, 0.288, 2, 0.288, 3, 0.396, 4, 0.396, 5, 0.288, 6, 0.452, 7, 0.452, 8, 0.288, 9, 0.396, 10, 0.452, 11, 0.288, 12, 0.452, 13, 0.288, 14, 0.288, 15, 0.452, 16, 0.396, 17, 0.288, 18, 0.288, 19, 0.288, 20, 0.288, 21, 0.288, 22, 0.288, 23, 0.288, 24, 0.288, 25, 0.288, 26, 0.288, 27, 0.288, 28, 0.288]], ["url/Trimming", [29, 0.288]]], "invertedIndex": [["circuit", {"content": {"Trimming": {}}, "url": {}, "_index": 10}], ["circuitservic", {"content": {"Trimming": {}}, "url": {}, "_index": 1}], ["circuitsfilterrequest", {"content": {"Trimming": {}}, "url": {}, "_index": 20}], ["circuitspag", {"content": {"Trimming": {}}, "url": {}, "_index": 4}], ["createdat", {"content": {"Trimming": {}}, "url": {}, "_index": 13}], ["delet", {"content": {"Trimming": {}}, "url": {}, "_index": 11}], ["die", {"content": {"Trimming": {}}, "url": {}, "_index": 17}], ["dieid", {"content": {"Trimming": {}}, "url": {}, "_index": 21}], ["filter", {"content": {"Trimming": {}}, "url": {}, "_index": 24}], ["findbyid", {"content": {"Trimming": {}}, "url": {}, "_index": 5}], ["findcircuitbyidrequest", {"content": {"Trimming": {}}, "url": {}, "_index": 6}], ["id", {"content": {"Trimming": {}}, "url": {}, "_index": 12}], ["index", {"content": {"Trimming": {}}, "url": {}, "_index": 27}], ["item", {"content": {"Trimming": {}}, "url": {}, "_index": 25}], ["listbypag", {"content": {"Trimming": {}}, "url": {}, "_index": 2}], ["listbypagecircuitsrequest", {"content": {"Trimming": {}}, "url": {}, "_index": 3}], ["name", {"content": {"Trimming": {}}, "url": {}, "_index": 15}], ["optionalcircuit", {"content": {"Trimming": {}}, "url": {}, "_index": 7}], ["pagenumb", {"content": {"Trimming": {}}, "url": {}, "_index": 22}], ["pages", {"content": {"Trimming": {}}, "url": {}, "_index": 23}], ["reticl", {"content": {"Trimming": {}}, "url": {}, "_index": 18}], ["size", {"content": {"Trimming": {}}, "url": {}, "_index": 28}], ["tag", {"content": {"Trimming": {}}, "url": {}, "_index": 16}], ["total", {"content": {"Trimming": {}}, "url": {}, "_index": 26}], ["trim", {"content": {"Trimming": {}}, "url": {}, "_index": 0}], ["trimming.html", {"content": {}, "url": {"Trimming": {}}, "_index": 29}], ["updat", {"content": {"Trimming": {}}, "url": {}, "_index": 8}], ["updatecircuitrequest", {"content": {"Trimming": {}}, "url": {}, "_index": 9}], ["updatedat", {"content": {"Trimming": {}}, "url": {}, "_index": 14}], ["wafer", {"content": {"Trimming": {}}, "url": {}, "_index": 19}]], "pipeline": ["stemmer"]};
+
+    const idx = lunr.Index.load(searchIndex);
+
+    function displaySearchResults() {
+        const query = new URLSearchParams(window.location.search).get('query');
+
+        if (query) {
+            document.getElementById('mainInputQuery').value = query;
+
+            const results = idx.query(function (q) {
+              words = query.toLowerCase().split(" "); // toLowerCase() is needed to make the search case insensitive.
+              for (n in words) {
+                const word = words[n];
+
+                if (!word) {
+                  continue;
+                }
+
+                // look for an exact match and apply a large positive boost
+                q.term(word, { usePipeline: true, boost: 100 })
+
+                // look for terms that match the beginning of this queryTerm and apply a medium boost
+                q.term(word + "*", { usePipeline: false, boost: 10 })
+              }
+            });
+
+            const searchResults = document.getElementById('searchResults');
+
+            if (results.length > 0) {
+                let resultList = ''
+                for (const n in results) {
+                    // Use the unique ref from the results list to get the full item
+                    // so you can build its <li>
+                    const doc = searchDocuments[results[n].ref]
+                    resultList += '<h5 class="title is-5 mt-3"><a href="' + doc.url + '">' + doc.package + '</a></h5>'
+                    // Add a short clip of the content
+                    resultList += '<p>' + doc.content.substring(0, 150) + '...</p><hr />'
+                }
+                searchResults.innerHTML = resultList
+            } else {
+                searchResults.innerHTML = '<p>No search results.</p>';
+            }
+        }
+    }
+
+    window.addEventListener("load", displaySearchResults);
+</script>
+
+  <div>
+    <p class="block">
+      Enter a query to search this documentation.
+    </p>
+    <div class="field is-horizontal">
+      <form class="field-body">
+        <div class="field">
+          <p class="control is-expanded">
+            <input id="mainInputQuery" type="text" name="query" class="input" placeholder="Search query">
+          </p>
+        </div>
+        <div class="field">
+          <p class="control is-expanded">
+            <input type="submit" class="button is-primary" value="Search" />
+          </p>
+        </div>
+      </form>
+    </div>
+    <div class="block mt-6">
+      <div id="searchResults"></div>
+    </div>
+  </div>
+</div>
+
+    <footer class="footer">
+      <div class="content has-text-centered">
+        
+          <p>© 2025 Femtum. All rights reserved.</p>
+        
+        <p>Built with <strong><a href="https://github.com/markvincze/sabledocs" target="_blank">sabledocs</a></strong>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
