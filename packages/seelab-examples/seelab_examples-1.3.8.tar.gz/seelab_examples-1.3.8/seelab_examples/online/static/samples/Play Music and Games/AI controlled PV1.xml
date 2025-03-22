@@ -1,0 +1,72 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable id="JuU$9j:|)UX`JXPvQ.-p">dist</variable>
+  </variables>
+  <block type="add_mp_hands" id="r1*.n/D7?A?Cf=h4Z5x," x="27" y="182">
+    <next>
+      <block type="controls_whileUntil" id="XKLE)vz4PQ^Q*sHE(o/j">
+        <field name="MODE">WHILE</field>
+        <value name="BOOL">
+          <shadow type="logic_boolean" id="NbhoHWXL4Mve`1smrfzs">
+            <field name="BOOL">TRUE</field>
+          </shadow>
+        </value>
+        <statement name="DO">
+          <block type="variables_set" id="cV[fRhN-FyR_vH9BWnxt">
+            <field name="VAR" id="JuU$9j:|)UX`JXPvQ.-p">dist</field>
+            <value name="VALUE">
+              <block type="math_arithmetic" id="M-^GxYS.BZ$=hJ:dZF!O">
+                <field name="OP">MINUS</field>
+                <value name="A">
+                  <shadow type="math_number" id="F%0=bP!qk(hm#y6b1[KZ">
+                    <field name="NUM">1</field>
+                  </shadow>
+                  <block type="math_arithmetic" id="R!(U9=|YxiXasn;ueShK">
+                    <field name="OP">MULTIPLY</field>
+                    <value name="A">
+                      <shadow type="math_number" id="D_T#0Py*P}2$T}YWa57(">
+                        <field name="NUM">1</field>
+                      </shadow>
+                      <block type="ai_distance" id="g8tooCL|k_!mZw+mT^#p">
+                        <field name="finger_joint_1">4</field>
+                        <field name="finger_joint_2">8</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <shadow type="math_number" id="Kc.[3w#OXbGOu^KE8M_Y">
+                        <field name="NUM">10</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <shadow type="math_number" id="L0h!g?MlF{`@ah.1ymPT">
+                    <field name="NUM">5</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="set_voltage" id="kp/_IIDl|}62;lGk4A2N">
+                <field name="CHANNEL">PV1</field>
+                <value name="VOLTAGE">
+                  <block type="variables_get" id="v+,c`p`fAvvM+Sv,d)ss">
+                    <field name="VAR" id="JuU$9j:|)UX`JXPvQ.-p">dist</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="wait_seconds" id="]U(l#T!strKi;3(Q52k]">
+                    <field name="SECONDS">0.01</field>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </next>
+  </block>
+<description>
+<![CDATA[<h1>Control PV1 using distance between index finger and thumb</h1><p><br></p><p>The hand landmarker tracks your palm and sets PV1. Attach a small motor to PV1 and observe it spin based on the gap between the tip of the index and thumb.</p>]]>
+</description>
+</xml>
