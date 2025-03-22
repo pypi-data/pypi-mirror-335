@@ -1,0 +1,157 @@
+{
+    "editor.detectIndentation": false,
+    //
+    // Controls how the editor should render whitespace characters.
+    //  - none
+    //  - boundary: Render whitespace characters except for single spaces between words.
+    //  - selection: Render whitespace characters only on selected text.
+    //  - trailing: Render only trailing whitespace characters.
+    //  - all
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        88,
+    ],
+    "[restructuredtext]": {
+        "editor.tabSize": 2,
+        "editor.rulers": [
+            80,
+            88
+        ],
+    },
+    "[markdown]": {
+        "editor.tabSize": 2,
+        "editor.rulers": [
+            80,
+            88
+        ],
+    },
+    //
+    "esbonio.server.enabled": true,
+    // "esbonio.logging.level": "debug",
+    // "esbonio.logging.level": "error",
+    "esbonio.logging.level": "info",
+    "esbonio.sphinx.buildCommand": [
+        "sphinx-build",
+        "-M",
+        "html",
+        ".",
+        "_build"
+    ],
+    //
+    "evenBetterToml.semanticTokens": false,
+    //
+    "files.associations": {
+        "*.inc": "restructuredtext"
+    },
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    //
+    "github.copilot.editor.enableCodeActions": false,
+    //
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    //
+    "prettier.tabWidth": 4,
+    //
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.rulers": [
+            88
+        ],
+        //
+        // required for isort, see setting "isort.args"
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": "explicit",
+        },
+    },
+    //
+    "python.analysis.indexing": true,
+    "python.analysis.typeCheckingMode": "standard",
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.analysis.inlayHints.callArgumentNames": "off",
+    // "python.analysis.inlayHints.callArgumentNames": "partial",
+    "python.analysis.inlayHints.variableTypes": false,
+    // Error: basic info and errors
+    // Warning: = Error + warnings
+    // Information: = Warning + execution times and return info etc (Default)
+    // Trace: = Information + ?????
+    "python.analysis.logLevel": "Information",
+    //
+    // Pylance, None, Jedi (Jedi DOES NOT WORK)
+    "python.languageServer": "Pylance",
+    //
+    "python.testing.pytestEnabled": true,
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "python.terminal.activateEnvironment": false,
+    //
+    //
+    "rewrap.autoWrap.enabled": true,
+    // Puts a single space between comment character "//" and comment text
+    "rewrap.reformat": true,
+    //
+    "terminal.integrated.persistentSessionReviveProcess": "never",
+    //
+    "workbench.editor.editorActionsLocation": "titleBar",
+    //
+    "cSpell.words": [
+        "colorlog",
+        "cprint",
+        "excelformat",
+        "formatstr",
+        "foss",
+        "fstat",
+        "fstr",
+        "fstring",
+        "fstrs",
+        "gigui",
+        "gitinspect",
+        "Gitinspector",
+        "gitinspectorgui",
+        "glsl",
+        "hexsha",
+        "htmls",
+        "initargs",
+        "iscomments",
+        "jsonschema",
+        "jspx",
+        "levelname",
+        "levelno",
+        "Macbook",
+        "MEIPASS",
+        "Menlo",
+        "multicore",
+        "multirepos",
+        "nmsp",
+        "nofix",
+        "numstat",
+        "outbase",
+        "outfilestr",
+        "pathstr",
+        "platformdirs",
+        "prepostfix",
+        "PSGUI",
+        "pstat",
+        "pysimplegui",
+        "rlib",
+        "scrollregion",
+        "SGGUI",
+        "singlecore",
+        "subfolders",
+        "thead",
+        "tiphelp",
+        "titlebar",
+        "tooldef",
+        "typedefs",
+        "unicore",
+        "worktree",
+        "xlsxwriter"
+    ],
+    "github.copilot.chat.editor.temporalContext.enabled": true,
+    "github.copilot.chat.edits.temporalContext.enabled": true,
+}

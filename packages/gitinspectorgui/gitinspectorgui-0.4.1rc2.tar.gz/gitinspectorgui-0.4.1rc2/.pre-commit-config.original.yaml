@@ -1,0 +1,34 @@
+# Copy this file to the file .pre-commit-config.yaml, which is the config file for
+# pre-commit. The config file .pre-commit-config.yaml is in .gitignore, so that
+# temporary local changes do not affect the repository.
+
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+default_stages: [pre-commit, pre-push]
+exclude: .*html
+repos:
+    - repo: https://github.com/pre-commit/pre-commit-hooks
+      rev: v5.0.0
+      hooks:
+          - id: trailing-whitespace
+          - id: end-of-file-fixer
+            exclude: .*gitinspector.json # in tests/data folder
+          - id: check-added-large-files
+            exclude: '.*\.(png|icns)$'
+            # stages: [manual]
+    - repo: https://github.com/charliermarsh/ruff-pre-commit
+      rev: v0.9.7
+      hooks:
+          - id: ruff
+            language_version: python3.12
+            types: [python]
+            # stages: [manual]
+    - repo: local
+      hooks:
+          - id: pytest
+            name: pytest
+            entry: pytest
+            language: system
+            pass_filenames: false
+            always_run: true
+            stages: [manual]
