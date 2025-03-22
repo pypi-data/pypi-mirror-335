@@ -1,0 +1,1 @@
+from .cryptocipher import main
