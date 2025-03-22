@@ -1,0 +1,14 @@
+[project]
+name = "mcp-feishu-proj"
+version = "0.1.1"
+description = "基于MCP协议的飞书项目管理工具"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp[cli]>=1.4.1",
+    "python-dotenv>=1.0.1",
+    "requests>=2.32.3",
+]
+
+[project.scripts]
+mcp-feishu-proj = "mcp_server:main"
