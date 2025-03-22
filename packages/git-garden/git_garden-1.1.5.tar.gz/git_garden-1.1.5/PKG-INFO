@@ -1,0 +1,67 @@
+Metadata-Version: 2.4
+Name: git-garden
+Version: 1.1.5
+Summary: A simple Python git wrapper to help manage multi-project maintenance.
+Project-URL: Homepage, https://github.com/c0ff33-dev/git-garden
+Project-URL: Documentation, https://git-garden.readthedocs.io/latest/
+Project-URL: Repository, https://github.com/c0ff33-dev/git-garden.git
+Author: c0ff33-dev
+Keywords: git
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.10
+Requires-Dist: click
+Provides-Extra: dev
+Requires-Dist: mypy; extra == 'dev'
+Requires-Dist: pydoclint; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: pytest-cov; extra == 'dev'
+Requires-Dist: ruff; extra == 'dev'
+Requires-Dist: sphinx; extra == 'dev'
+Requires-Dist: sphinx-autodoc-typehints; extra == 'dev'
+Requires-Dist: tox; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# Git-Garden
+
+![Python](https://img.shields.io/pypi/pyversions/git-garden)
+[![PyPI](https://img.shields.io/pypi/v/git-garden.svg)](https://pypi.org/project/git-garden/)
+[![CI](https://img.shields.io/github/actions/workflow/status/c0ff33-dev/git-garden/ci.yml?branch=main)](https://github.com/c0ff33-dev/git-garden/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/readthedocs/git-garden)](https://git-garden.readthedocs.io/)
+[![Coverage](https://img.shields.io/coverallsCoverage/github/c0ff33-dev/git-garden?branch=main)](https://coveralls.io/github/c0ff33-dev/git-garden?branch=main)
+
+A simple Python git wrapper to help manage multi-project maintenance with automated fetching, pruning, fast-forwarding, deleting orphans and more!
+
+## Installation
+
+```
+pip install git-garden
+```
+
+## Common Use Cases
+
+```
+# run with defaults: fetch & prune, report on local branches status only
+# --dir is the root of the directories being walked for git repos
+# if --dir is not passed it will default to the current working directory
+git-garden --dir D:\dev
+
+# attempt to fast-forward main/master (or --root) if behind
+git-garden --ff
+
+# include or exclude directories matching a sub-string
+# i.e. for D:\dev\MyProject & D:\dev\MyOtherProject
+git-garden --include MyProject --include MyOtherProject
+git-garden --exclude MyProject --exclude MyOtherProject
+
+# attempt to delete orphaned local branches
+# (branches with remote tracking where remote no longer exists)
+git-garden --delete
+
+# see usage/syntax help
+git-garden --help
+```
