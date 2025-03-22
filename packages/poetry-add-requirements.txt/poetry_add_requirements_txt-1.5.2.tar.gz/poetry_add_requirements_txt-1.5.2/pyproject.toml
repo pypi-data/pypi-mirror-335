@@ -1,0 +1,36 @@
+[tool.poetry]
+name = "poetry-add-requirements.txt"
+version = "1.5.2"
+description = "Add dependencies specified in requirements.txt file(s) to your Poetry / UV project"
+authors = ["Xinyuan Chen <45612704+tddschn@users.noreply.github.com>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/tddschn/poetry-add-requirements.txt"
+repository = "https://github.com/tddschn/poetry-add-requirements.txt"
+classifiers = ["Topic :: Utilities"]
+keywords = ["poetry", "requirements.txt"]
+
+[tool.poetry.scripts]
+"poetry-add-requirements.txt" = "poetry_add_requirements_txt.cli:main"
+"poeareq" = "poetry_add_requirements_txt.cli:main"
+"uv-add-requirements.txt" = "poetry_add_requirements_txt.cli_uv:main"
+"uvareq" = "poetry_add_requirements_txt.cli_uv:main"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/tddschn/poetry-add-requirements.txt/issues"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <4.0"
+charset-normalizer = "^2.0.12"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+black = "^22.3.0"
+
+[tool.poetry.group.dev.dependencies]
+icecream = "^2.1.3"
+ipython = "^8.20.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
