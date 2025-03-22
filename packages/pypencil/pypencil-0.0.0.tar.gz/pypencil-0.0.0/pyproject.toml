@@ -1,0 +1,43 @@
+[build-system]
+requires = ['hatchling', "hatch-vcs", 'hatch-fancy-pypi-readme>=22.5.0']
+build-backend = 'hatchling.build'
+
+[project]
+name = "pypencil"
+version = "0.0.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+license-files = []
+keywords = []
+classifiers = []
+dependencies = []
+dynamic = []
+[[project.authors]]
+name = "Austin Yu"
+email = "yuxm.austin1023@gmail.com"
+
+[[project.maintainers]]
+name = "Austin Yu"
+email = "yuxm.austin1023@gmail.com"
+
+[dependency-groups]
+tests = [ "pytest",]
+static_checkers = [ "flake8", "mypy", "pyright", "pylint",]
+formatters = [ "ruff", "isort",]
+docs = [ "mkdocs",]
+
+[tool]
+
+[project.urls]
+homepage = "https://todo.com"
+source = "https://todo.com"
+download = "https://todo.com"
+changelog = "https://todo.com"
+releasenotes = "https://todo.com"
+documentation = "https://todo.com"
+issues = "https://todo.com"
+funding = "https://todo.com"
+
+[project.optional-dependencies]
