@@ -1,0 +1,126 @@
+Metadata-Version: 2.2
+Name: langtools-cli
+Version: 0.1.0b3
+Summary: A CLI tool for packaging and submitting Python files to feeds and Ray clusters.
+Author-email: MSAI Team <langtoolsdev@microsoft.com>
+License: MIT
+Project-URL: Homepage, https://github.com/ai-microsoft/langtools
+Project-URL: Issues, https://github.com/ai-microsoft/langtools/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: typer>=0.9.0
+Requires-Dist: rich>=13.0.0
+
+# LangTools CLI
+
+LangTools supports CLI to help submit jobs to Ray or other hosting platforms (To be supported).
+
+## Installation
+
+**Note:** This tool can only be used in **Linux** or **WSL** environments.
+
+You have two options to install LangTools:
+
+### Option 1: Use the Installation Script
+
+We provide a script to install LangTools and its prerequisites in one command. Run the following command in your terminal, go to langtools\packages\cli:
+
+```bash
+bash install_langtools.sh
+```
+After running the script, activate conda venv:
+```
+conda activate langtools-venv
+```
+
+### Option 2: Follow the Steps Manually
+
+1. Install Python version 3.8 to 3.11: These versions are required because Ray 2.10.0, a dependency of LangTools, supports only these Python versions. You can use Conda to create a Python environment if you do not want to change your local Python version.
+
+2. Install .NET runtime: The .NET runtime is required for the `keyring` package, which is used for secure storage and retrieval of credentials.
+   ```bash
+   wget https://packages.microsoft.com/config/ubuntu/22.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+   sudo dpkg -i packages-microsoft-prod.deb
+   rm packages-microsoft-prod.deb
+   sudo apt-get update && sudo apt-get install -y aspnetcore-runtime-9.0
+   ```
+
+3. Install `keyring` and `artifacts-keyring`: These Python packages are used for secure storage and retrieval of credentials, as well as for accessing private package feeds.
+   ```bash
+   pip install keyring artifacts-keyring
+   ```
+
+4. Install xdg utilities: These utilities are required for handling desktop integration tasks, such as opening URLs or files in the default application.
+   ```bash
+   sudo apt install xdg-utils
+   ```
+
+5. Install wslu (https://wslutiliti.es/wslu/install.html): This package provides a set of utilities to enhance the WSL (Windows Subsystem for Linux) experience, enabling better integration between Windows and Linux environments.
+   ```bash
+   sudo add-apt-repository ppa:wslutilities/wslu
+   sudo apt update
+   sudo apt install wslu
+   ```
+
+6. Install LangTools_CLI:
+   ```bash
+   pip install langtools_cli --extra-index-url=https://pkgs.dev.azure.com/msasg/WebXT/_packaging/Repo/pypi/simple/
+   ```
+
+## Usage
+
+LangTools provides two main commands:
+
+### 1. PackAndUpload
+
+This command packages a Python file and uploads it to a specified feed.
+
+```bash
+langtools PackAndUpload -file <file_path> -version <package_version> -feed <feed_url>
+```
+
+- `-file`: The Python file to package.
+- `-version`: The version of the package.
+- `-feed`: The feed URL to upload the package to.
+
+### 2. Deploy
+
+This command deploys a Python file to a Ray cluster.
+
+```bash
+langtools deploy -f <file_path> -c <ray_cluster_url> [-r <requirements_path>] [--feed <feed_url>] [--num-cpus <number_of_cpus>] [-t <type>] [-h <host_target>]
+```
+
+- `-f, --file`: The Python file to deploy. This should be the entry point file of your tool.
+- `-c, --cluster`: The URL of the Ray cluster where the job will be deployed.
+- `-r, --requirements`: (Optional) Path to a `requirements.txt` file for additional dependencies.
+- `--feed`: (Optional) Feed URL for additional dependencies. If not provided, a default feed URL will be used.
+- `--num-cpus`: (Optional) Number of CPUs to allocate for the entrypoint. Defaults to 1.
+- `-t, --type`: (Optional) Type of application to deploy. Defaults to `job`. Currently, only `job` type is supported.
+- `--target-host`: (Optional) Target platform for deployment. Defaults to `ray`. Currently, only the `ray` platform is supported.
+
+## Example
+
+```bash
+langtools PackAndUpload -file example.py -version 1.0.0 -feed https://example-feed-url.com
+langtools Submit -file example.py -cluster http://example-ray-cluster.com -requirements requirements.txt -feed https://example-feed-url.com -num_cpus 4
+```
+
+## Authentication Notes
+
+- The Ray worker in "default-prod" cluster is running with a PME managed identity:
+  - `client_id`: `506ba7c7-124d-41cf-bb1f-829fa84990ad`
+  - `object_id`: `c67f2f36-4de9-4f0b-997a-fa9cb9e8ddf4`
+- The managed identity (MI) already has access to Papyrus.
+- Use the AAD scope `api://56eb33f7-8aa4-47f6-b898-bd7ebb109bed/.default` for Papyrus authentication.
+
+## Additional Notes
+
+In your application, you can use different environment files to configure settings for local or Ray environments, such as `.local.env` and `.ray.env`. Similarly, you can use separate `requirements.txt` files for Ray, like `requirements_ray.txt`.
+
+## License
+
+This project is licensed under the MIT License.
