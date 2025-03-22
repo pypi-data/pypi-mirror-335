@@ -1,0 +1,144 @@
+STOP POISON LAW GENOCIDE
+========================
+
+
+**NAME**
+
+|
+| ``SPLG`` - **S** top **P** oison **L** aw **G** enocide
+|
+
+**SYNOPSIS**
+
+
+|
+| ``splg req``
+|
+
+**INSTALL**
+
+|
+| ``$ pipx install splg``
+| ``$ pipx ensurepath``
+|
+
+
+**DESCRIPTION**
+
+
+In 2018 i informed the king of the netherlands that what he calls
+medicine in his "care" laws are not medicine but poison. The king's
+(personal) kabinet wrote back that "the king took note of what i have
+written", namely proof that medicine he uses in "treatment" laws like
+Zyprexa, Haldol, Abilify and Clozapine aren't medicine but poison. 
+
+Poison that makes impotent, is both physical (contracted muscles) and
+mental (make people hallucinate) torture and kills members of the
+victim groups.
+
+Using poison makes the care laws used in the netherlands to provide
+care to elderly and handicapped, criminals and psychiatric patients
+not care laws but genocide laws with which the king is killing groups
+of the population by giving them poison instead of medicine in the
+"care" they are forced to undergo.
+
+I wrote the prosecutor asking for an arrest of the king (make him
+stop), the prosecutor decided to call it a "no basis to proceed",
+
+It requires a "basis to prosecute" of the prosecutor to get the king
+in his cell and his poison law genocide stopped.
+
+|
+
+**USAGE**
+
+|
+| ``$ splg req``
+|
+| **Information and Evidence Unit**
+| **Office of the Prosecutor**
+| **Post Office Box 19519**
+| **2500 CM The Hague**
+| **The Netherlands**
+|
+
+
+Hello Office of the Prosecutor, 
+
+i write you in the context of communications and claims under art.15 of
+the Rome Statute. i want to inform the prosecutor that the king of the
+netherlands and his government are commiting 3 of the 5 crimes defined
+in the Rome Statute.
+
+The dutch government has introduced three new forced care laws, the Wfz
+(wet forensische zorg) for criminals, the WvGGZ (Wet verplichte GGZ) for
+the disturbed and addicted and the Wzd (Wet zorg en dwang) for the
+handicapped.
+
+Both the chamber suggesting these laws to the king and the king himself
+have been informed about the fact the the substances administered under
+these laws are proven to be poison (1).
+
+There is proof the medication used in forced treatments in the
+netherlands are poison.
+
+1) haloperidol
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.000.142
+
+2) clozapine
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.024.831
+
+3) olanzapine
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.125.320
+
+4) aripriprazole
+
+https://echa.europa.eu/substance-information/-/substanceinfo/100.112.532
+
+
+With the mass scale torture with poison the king of the netherlands and
+his chamber:
+
+(1) kills
+(2) does grave bodily and mental harm
+(3) makes impotent
+
+on the following victim groups here in the Netherlands:
+
+(1) verslaafden (addicts)
+(2) bejaarden (elderly)
+(3) ggz patienten (psychiatric patients)
+(4) criminelen (criminials)
+(5) gehandicapten (handicapped)
+
+Since the members of the chamber and the king were aware that these
+medicine are poison at the time they voted for this law and the day the
+Wfz law took effect (1-1-2019), i ask the prosecutor to prosecute the
+king for making the commiting of the above mentioned crimes (killing,
+torture and impotent making) possible.
+
+|
+| ``$ splg slg``
+|
+| By law using poison destructing in whole or in part elderly handicapped criminals wicked, @KarimKhanQC reconsider OTP-CR-117/19 4 March 2019 http://bit.ly/gcid3
+|
+|
+| ``$ splg -c init=web``
+|
+| <starts a webserver on port 8000>
+|
+
+**AUTHOR**
+
+|
+| Bart Thate <``bthate@dds.nl``>
+|
+
+
+**COPYRIGHT**
+
+|
+| ``SPLG`` is Public Domain.
