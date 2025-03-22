@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "palma"
+version = "2025.1.5"
+description = ""
+authors = [{ name = 'Vincent Laurent', email = 'vincent.laurent@mews-labs.com' }]
+readme = "README.md"
+dynamic = ["dependencies", "optional-dependencies"]
+requires-python = '>=3.9'
+
+[tool.setuptools.packages.find]
+include = ["palma*"]
+
+[tool.setuptools.dynamic]
+dependencies = { file = ["requirements.txt"] }
+optional-dependencies.components = {file = ["requirements_components.txt"]}
+optional-dependencies.test = {file = ["tests/requirements.txt"]}
+optional-dependencies.doc = {file = ["docs/requirements.txt"]}
+
