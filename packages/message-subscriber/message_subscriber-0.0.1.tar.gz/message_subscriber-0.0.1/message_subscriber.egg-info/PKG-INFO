@@ -1,0 +1,65 @@
+Metadata-Version: 2.4
+Name: message_subscriber
+Version: 0.0.1
+Summary: Streamlit component that allows you to subscribe to messages
+Home-page: 
+Author: Qishi
+Author-email: hongfeizhan@qq.com
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: streamlit>=1.41.1
+Provides-Extra: devel
+Requires-Dist: wheel; extra == "devel"
+Requires-Dist: pytest==7.4.0; extra == "devel"
+Requires-Dist: playwright==1.48.0; extra == "devel"
+Requires-Dist: requests==2.31.0; extra == "devel"
+Requires-Dist: pytest-playwright-snapshot==1.0; extra == "devel"
+Requires-Dist: pytest-rerunfailures==12.0; extra == "devel"
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# MessageSubscriber
+
+## 概述
+`MessageSubscriber` 是一个用于处理消息订阅的组件。它允许应用程序接收和处理来自不同消息源的实时消息。
+
+## 功能
+- **实时消息接收**: 通过 WebSocket 或其他协议实时接收消息。
+- **消息处理**: 提供灵活的消息处理机制，可以根据消息类型执行不同的操作。
+- **错误处理**: 内置错误处理机制，确保在消息接收过程中出现问题时能够妥善处理。
+
+## 安装
+使用 npm 或 yarn 安装组件：
+```bash
+npm install message_subscriber
+# 或者
+yarn add message_subscriber
+```
+
+## 使用示例
+```javascript
+import MessageSubscriber from 'message_subscriber';
+
+const App = () => {
+    return (
+        <MessageSubscriber onMessage={(msg) => console.log(msg)} />
+    );
+};
+```
+
+## API
+### Props
+- `onMessage`: (function) 当接收到新消息时调用的回调函数。
+- `url`: (string) 消息源的 URL。
+
+## 贡献
+欢迎任何形式的贡献！请查看 [贡献指南](CONTRIBUTING.md) 以获取更多信息。
+
+## 许可证
+该项目遵循 MIT 许可证。有关详细信息，请参阅 [LICENSE](LICENSE) 文件。
