@@ -1,0 +1,333 @@
+#!/usr/bin/env python3
+
+# -------------------------------------- BASIC BONES MODULE
+from fire import Fire
+import datetime as dt
+
+# -------------------------------------- start for new greg
+import asyncio
+import threading
+import pandas as pd
+import numpy as np
+from code import InteractiveConsole
+import curses
+import sys
+import ROOT
+import time
+
+# ------completions
+import code
+import readline
+import rlcompleter
+
+# from rich.live import Live
+
+# ------------------------------------- LOCAL BASIC BONES MODULES
+from spesh.topbar import fg, bg, fx
+from spesh.version import __version__
+from spesh import topbar
+from spesh import config
+
+
+# Exit event
+exit_event = asyncio.Event()
+
+# Histogram initial view settings
+x_min = 0
+x_max = 32000
+max_zoom_limit = 100  # Minimum zoom limit
+
+
+# def display_info():
+#     with Live("Displaying at the top of the screen", refresh_per_second=1):
+#         while True:
+#             time.sleep(1)  # Update only the live content
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+
+# Function to update the histogram view in the canvas
+def update_view():
+    global x_min, x_max
+    x_min = max(0, x_min)
+    x_max = min(32000, x_max)
+    if (x_max - x_min) < max_zoom_limit:
+        x_min = x_max - max_zoom_limit
+        if x_min < 0:
+            x_min = 0
+            x_max = max_zoom_limit
+    if "histo" in globals():
+        histo.GetXaxis().SetRangeUser(x_min, x_max)
+    if "canvas" in globals():
+        canvas.Modified()
+        canvas.Update()
+    # ------- this is called in curses...... I can touch the console
+    config.TOP.update_element("time", str(dt.datetime.now())[:-4], bg.darkgreen + fg.white)
+    config.TOP.place()
+    #print("////", flush=True)
+
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+# Curses interface for histogram interaction
+def histogram_curses(screen):
+    """
+    operates limits for display .... calls update
+    """
+    global x_min, x_max
+    curses.curs_set(0)
+    screen.nodelay(True)
+    screen.timeout(100)
+
+    screen.addstr(2 , 0, f"Use arrow keys: UP/DOWN to zoom, LEFT/RIGHT to move. Press 'q' to quit. ")
+    update_view()
+
+    while True:
+        key = screen.getch()
+        if key == curses.KEY_UP:
+            if (x_max - x_min) > max_zoom_limit:
+                delta = (x_max - x_min) * 0.33 / 2
+                x_min += delta
+                x_max -= delta
+                update_view()
+        elif key == curses.KEY_DOWN:
+            delta = (x_max - x_min) * 0.5
+            x_min -= delta
+            x_max += delta
+            update_view()
+        elif key == curses.KEY_LEFT:
+            delta = (x_max - x_min) * 0.33
+            x_min -= delta
+            x_max -= delta
+            update_view()
+        elif key == curses.KEY_RIGHT:
+            delta = (x_max - x_min) * 0.33
+            x_min += delta
+            x_max += delta
+            update_view()
+        elif key == ord("q"):
+            config.TOP.update_element("time", f"---------", style=bg.red)
+            config.TOP.place()
+            break
+        elif key == -1:
+            time.sleep(0.5)
+            update_view()
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+def launch_curses_interface():
+    #print("i...  Hi, launching curses interface ... use arrows and 'q' to quit")
+    curses.wrapper(histogram_curses)
+    print('Exited histogram interface, back in the interactive shell. ".q" to quit ')
+    config.TOP.place()
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+
+# Exit handler
+async def exit_handler():
+    await exit_event.wait()
+    print("Cleaning up tasks...")
+    tasks = [t for t in asyncio.all_tasks() if not t.done()]
+    for task in tasks:
+        task.cancel()
+        try:
+            await task
+        except asyncio.CancelledError:
+            pass
+    loop.stop()
+    print("Event loop stopped.")
+
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+
+# Start an interactive shell
+#def start_shell(local_vars):
+def start_shell():
+    """
+
+    """
+    def custom_exit():
+        print("Exiting program...")
+        exit_event.set()
+        sys.exit(0)
+
+    def custom_help():
+        print("""
+.h ... help
+.q ... quit
+.r ... clear
+.v ... use curses interface
+""")
+
+    def clear_canvas():
+        if ROOT.gPad:
+            ROOT.gPad.Modified()
+            ROOT.gPad.Update()
+            print("Canvas cleared!")
+
+    def set_black():
+        #histo.SetLineColor(1)
+        if ROOT.gPad:
+            ROOT.gPad.Modified()
+            ROOT.gPad.Update()
+
+    def set_red():
+        #histo.SetLineColor(2)
+        if ROOT.gPad:
+            ROOT.gPad.Modified()
+            ROOT.gPad.Update()
+
+    # ******************************************
+    #
+    # ******************************************
+    #   x j k .... not used anywhere
+    class CustomConsole(code.InteractiveConsole):
+        def __init__(self, locals=None):
+            super().__init__(locals)
+            # Add a shorthand alias  **** IDKN if this is needed
+            self.locals["cl"] = clear_canvas
+            #self.locals["ex"] = custom_exit
+            self.locals[".q"] = custom_exit
+            self.locals[".h"] = custom_help
+            self.locals[".v"] = launch_curses_interface
+
+        def runsource(self, source, *args, **kwargs):
+            # Execute the alias like a function if "cl" is typed without parentheses
+            #if source.strip() == "cl":
+            #    clear_canvas()
+            #    return False  # Avoid further processing
+            if source.strip() == ".r":
+                clear_canvas()
+                return False  # Avoid further processing
+            if source.strip() == ".h":
+                custom_help()
+                return False  # Avoid further processing
+            #if source.strip() == "ex":
+            #    custom_exit()
+            #    return False  # Avoid further processing
+            if source.strip() == ".q":
+                custom_exit()
+                return False  # Avoid further processing
+            if source.strip() == ".v":
+                launch_curses_interface()
+                return False  # Avoid further processing
+            if source.strip() == ".1":
+                set_black()
+                return False  # Avoid further processing
+            if source.strip() == ".2":
+                set_red()
+                return False  # Avoid further processing
+            return super().runsource(source, *args, **kwargs)
+
+
+
+    vars = globals()
+    vars.update( locals()  )
+    vars.update({
+        "exit": custom_exit,
+        "quit": custom_exit
+    })
+
+
+    readline.set_completer(rlcompleter.Completer(vars).complete)
+    readline.parse_and_bind("tab: complete")
+
+    console = CustomConsole( vars ) # class CustomConsole(code.InteractiveConsole):
+    console.interact(
+        banner="",
+#        banner="Interactive shell started. Type '.v' - go to view interface; '.q' or 'exit()' to quit.",
+        exitmsg="Exiting shell.",
+    )
+
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+
+
+
+# Background task to simulate updates
+async def update_data():
+    # changes the data all the time
+    try:
+        while True:
+            # ##### YEEEESSS
+            #print("Updating histogram data in the background...")
+            # #for i in range(1, 32001):
+            # #    histo.SetBinContent(i, ROOT.gRandom.Gaus(100, 20))  # Periodic updates to histogram bins
+            # #if config.TOP is not None:
+
+
+            # HERE this is async ------  no printing on console ------------!!!!!!!!!!
+
+            if ROOT.gPad:
+                ROOT.gPad.Modified()
+                ROOT.gPad.Update()
+            await asyncio.sleep(2)  # Simulate updates every 5 seconds
+    except asyncio.CancelledError:
+        print("Background task canceled.")
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+
+
+
+# Main function
+# ============================================================
+#
+# ------------------------------------------------------------
+
+def main():
+    """
+    keep topbar definition and prepare loop
+    """
+    print("Hello, main entered")#MAIN", __version__)
+    print("Interactive shell started. Type '.v' - go to view interface (LIVE); '.q' or 'exit()' to quit.")
+    config.TOP = topbar.TopBar(1)
+    config.TOP.add_element("name", 1,5 + 12, f"SPESH  {__version__}" , bg.yellow + fg.black+ fx.bold)
+    config.TOP.add_element("time", -22,10 + 12, str(dt.datetime.now())[:-4], bg.darkgreen + fg.white)
+
+    #config.TOP.update_element("time", str(dt.datetime.now())[:-4] )
+    config.TOP.update_element("time",  f"===============", style=bg.red )
+    config.TOP.place()
+    time.sleep(0.2)
+
+    # -----------------------------------------------------------
+    global loop
+    loop = asyncio.get_event_loop()
+    loop.create_task(exit_handler())
+    threading.Thread(
+        target=start_shell,
+        args=( ),
+        daemon=True,
+    ).start()
+    try:
+        loop.run_until_complete(update_data())
+    except asyncio.CancelledError:
+        print("Main program canceled.")
+
+# ============================================================
+#
+# ------------------------------------------------------------
+
+if __name__ == "__main__":
+    Fire(main)
