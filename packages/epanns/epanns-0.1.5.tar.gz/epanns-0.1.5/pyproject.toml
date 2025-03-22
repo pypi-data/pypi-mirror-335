@@ -1,0 +1,33 @@
+[project]
+name = "epanns"
+description = "Categorise sounds within an audio file"
+authors = [
+    {name = "Chris Baume",email = "chris@bau.me"}
+]
+version = "0.1.5"
+requires-python = ">= 3.9"
+dependencies = [
+  "numpy<2",
+  "librosa>=0.8",
+  "torch<2",
+  "torchlibrosa",
+  "typer",
+  "platformdirs",
+  "matplotlib",
+  "requests"
+]
+license = "MIT"
+readme = "README.md"
+
+[project.entry-points."pipx.run"]
+epanns = "epanns.cli:app"
+
+[project.scripts]
+epanns = "epanns.cli:app"
+
+[tool.poetry]
+packages = [{include = "epanns", from = "src"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
