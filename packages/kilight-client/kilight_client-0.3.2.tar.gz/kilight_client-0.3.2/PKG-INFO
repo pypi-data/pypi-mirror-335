@@ -1,0 +1,35 @@
+Metadata-Version: 2.4
+Name: kilight-client
+Version: 0.3.2
+Summary: Client library for communicating with KiLight devices.
+Author-email: Patrick Lavigne <me@patrick.codes>
+Project-URL: repository, https://github.com/PMLavigne/kilight-client
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Classifier: Topic :: Home Automation
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Environment :: Console
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: protobuf<6,>=5.27.1
+Requires-Dist: zeroconf
+Provides-Extra: tests
+Requires-Dist: pytest; extra == "tests"
+Requires-Dist: pytest-asyncio; extra == "tests"
+Provides-Extra: release
+Requires-Dist: bump-my-version; extra == "release"
+Dynamic: license-file
+
+# kilight-client v0.3.2
+Python client library for communicating with KiLight devices.
+
+## What is this?
+KiLight is a family of open hardware RGB/CCT light controllers. This package probably is not useful to you unless you've built a KiLight device yourself. 
+
+This library is mostly meant for enabling other projects to talk to a KiLight, though it does come with a simple `kilight` command for testing and example purposes.
+
+## License
+
+&copy; 2025 Patrick Lavigne
+
+This project is licensed under the GNU General Public License v3. See the LICENSE file for full details.
