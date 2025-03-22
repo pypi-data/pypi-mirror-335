@@ -1,0 +1,20 @@
+[project]
+name = "minecraft_scrape_package"
+version = "0.0.1"
+authors = [
+  { name="Oleh Dzysiuk", email="olegdzisuk@gmail.com" },
+]
+description = "Package to scrape minecraft recipes to pandas dataframe."
+
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+license = {file = "LICENSE.txt"}
+dependencies = [
+    "requests>=2.32.3",
+    "beautifulsoup4>=4.12.3",
+    "pandas>=2.2.3"
+]
