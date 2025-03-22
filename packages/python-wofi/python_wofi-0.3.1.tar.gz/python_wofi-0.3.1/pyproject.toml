@@ -1,0 +1,21 @@
+[project]
+name = "python-wofi"
+version = "0.3.1"
+authors = [{ name = "Cristóbal Tapia Camú", email = "crtapia@gmail.com" }]
+description = "Create simple GUIs using the Wofi application"
+readme = "README.rst"
+license = { file = "LICENSE" }
+requires-python = ">=3.6"
+keywords = ["wofi"]
+dependencies = []
+
+[project.urls]
+homepage = "https://github.com/cristobaltapia/python-wofi"
+repository = "https://github.com/cristobaltapia/python-wofi"
+
+[build-system]
+requires = ["flit_core >= 3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.module]
+name = "wofi"
