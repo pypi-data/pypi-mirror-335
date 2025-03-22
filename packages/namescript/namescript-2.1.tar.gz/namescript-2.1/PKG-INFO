@@ -1,0 +1,210 @@
+Metadata-Version: 2.1
+Name: namescript
+Version: 2.1
+Summary: Bahasa pemrograman NameScript dengan sintaks Indonesia
+Home-page: https://akuzz.my.id/NameScript
+Author: AkzDev
+Author-email: akzdev.akuzz@gmail.com
+Maintainer: AkzDev
+Maintainer-email: akzdev.akuzz@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# NameScript (NS)
+
+Bahasa pemrograman sederhana dengan sintaks bahasa Indonesia untuk pemula hingga menengah.  
+NameScript ditranspilasi ke Python dan dirancang untuk memudahkan pembelajaran pemrograman.
+
+INFO YANKED:
+- 1.0rc1: Masalah pada Markdown karena tidak berjalan pada contoh kode
+
+INFO UPDATE:
+- DeepSyntax sudah ada
+
+![NameScript Logo](https://via.placeholder.com/150)  <!-- Ganti dengan logo Anda -->
+
+## Instalasi
+
+```bash
+pip install namescript
+```
+
+## Cara Menggunakan
+
+1. Jalankan File Langsung
+```bash
+ns jalankan program.ns
+```
+
+2. Konversi ke Python
+```bash
+ns ctp program.ns ke output.py
+```
+
+3. Cek Versi
+```bash
+ns versi
+```
+
+## Sintaks Dasar
+
+1. Variabel
+```python
+d_nama = "Budi"
+tampilkan "Halo," <d_nama>  // Output: Halo, Budi
+```
+
+2. Input Pengguna
+```python
+d_umur = masukan("Berapa umurmu? ")
+tampilkan "Umurmu:" <d_umur>
+```
+
+3. Percabangan
+```python
+jika <d_umur> > 17 {
+    tampilkan "Kamu sudah dewasa!"
+} lainnya {
+    tampilkan "Kamu masih di bawah umur!"
+}
+```
+
+4. Operator Matematika
+```python
+d_hasil = 10 <t> 5 <a> 2  // (10 + 5) * 2
+tampilkan "Hasil:" <d_hasil>  // Output: 30
+```
+
+5. Komentar
+```python
+// Ini adalah komentar
+```
+
+## Fitur Lanjutan (DeepSyntax)
+
+1. Fungsi
+```python
+fungsi sapa(nama) {
+    tampilkan "Halo," <d_nama>
+}
+
+sapa("Budi")  // Output: Halo, Budi
+```
+
+2. Perulangan
+```python
+ulangi i dalam 1..5 {
+    tampilkan "Iterasi ke-" <d_i>
+}
+```
+
+3. Error Handling
+```python
+coba {
+    d_file = buka("data.txt")
+} tangkap sebagai e {
+    tampilkan "Terjadi error:" <d_e>
+}
+```
+
+4. Operasi Logika
+```python
+jika <d_umur> > 17 <dan> <d_status> == "mahasiswa" {
+    tampilkan "Anda memenuhi syarat"
+}
+```
+
+5. Struktur Data
+```python
+d_angka = daftar(1, 2, 3, 4, 5)
+d_genap = [x untuk x dalam <d_angka> jika x % 2 == 0]
+```
+
+## Contoh Program
+
+`program.ns`
+```python
+fungsi hitung_umur(tahun_lahir) {
+    d_umur = 2024 <k> tahun_lahir
+    kembalikan <d_umur>
+}
+
+d_umur = hitung_umur(2000)
+tampilkan "Umurmu:" <d_umur>
+
+ulangi i dalam 1..5 {
+    tampilkan "Iterasi ke-" <d_i>
+}
+
+coba {
+    d_file = buka("data.txt")
+} tangkap sebagai e {
+    tampilkan "Error:" <d_e>
+}
+```
+
+Output:
+```bash
+Umurmu: 24
+Iterasi ke-1
+Iterasi ke-2
+Iterasi ke-3
+Iterasi ke-4
+Iterasi ke-5
+Error: [Errno 2] No such file or directory: 'data.txt'
+```
+
+## Perintah CLI
+
+| Perintah     | Deskripsi                    | Contoh                        |
+|--------------|------------------------------|-------------------------------|
+| ns jalankan  | Jalankan file .ns langsung   | ns jalankan program.ns        |
+| ns ctp       | Konversi file .ns ke .py     | ns ctp program.ns ke output.py|
+| ns versi     | Tampilkan versi NameScript   | ns versi                      |
+
+## Roadmap Pengembangan
+
+**TAHAP 1: BeginnerSyntax (✓ Selesai)**
+- Variabel, input/output
+- Percabangan (jika, lainnya)
+- Operator matematika (<t>, <k>, <a>, <b>)
+
+**TAHAP 2: DeepSyntax (✓ Selesai)**
+- Fungsi (fungsi, kembalikan)
+- Perulangan (ulangi)
+- Error handling (coba, tangkap)
+- Operasi logika (<dan>, <atau>, <tidak>)
+- Struktur data (daftar, kamus)
+
+**TAHAP 3: Integrasi Web (Dalam Pengembangan)**
+- Generator HTML/PHP
+- Dukungan sintaks web
+
+**TAHAP 4: Package Manager (Dalam Pengembangan)**
+- Sistem instalasi package
+- Dukungan modul eksternal
+
+## Berkontribusi
+
+1. Fork repositori
+2. Buat branch fitur (`git checkout -b fitur-baru`)
+3. Commit perubahan (`git commit -m 'Tambahkan fitur'`)
+4. Push ke branch (`git push origin fitur-baru`)
+5. Buat Pull Request
+
+## Lisensi
+
+MIT
+
+🛠 Status Proyek: TAHAP 2 (Tidak Stabil)  
+💡 Ide fitur? Buka Issue di GitHub!
+
+---
+
+Jika ingin fitur baru, Anda dapat menghubungi saya melalui WhatsApp:  
+[Wa](https://wa.me/6281288196028) atau [Wa ke2](https://wa.me/6285117111135)
