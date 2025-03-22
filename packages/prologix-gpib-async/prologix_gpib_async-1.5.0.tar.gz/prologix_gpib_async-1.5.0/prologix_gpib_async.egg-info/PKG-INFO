@@ -1,0 +1,178 @@
+Metadata-Version: 2.4
+Name: prologix-gpib-async
+Version: 1.5.0
+Summary: A Python AsyncIO library for the Prologix GPIB (Ethernet) adapter
+Author-email: Patrick Baus <patrick.baus@physik.tu-darmstadt.de>
+License: GNU General Public License v3 (GPLv3)
+Project-URL: Homepage, https://github.com/PatrickBaus/pyAsyncPrologixGpib
+Project-URL: Bug Tracker, https://github.com/PatrickBaus/pyAsyncPrologixGpib/issues
+Project-URL: Download, https://github.com/PatrickBaus/pyAsyncPrologixGpib/releases
+Keywords: Prologix,GPIB,API
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: Natural Language :: English
+Classifier: Topic :: Home Automation
+Classifier: Topic :: Scientific/Engineering
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: typing-extensions; python_version < "3.11"
+Provides-Extra: dev
+Requires-Dist: asyncio_mqtt; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: isort; extra == "dev"
+Requires-Dist: mypy; extra == "dev"
+Requires-Dist: pre-commit; extra == "dev"
+Requires-Dist: pylint; extra == "dev"
+Requires-Dist: simplejson; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Provides-Extra: test
+Requires-Dist: asyncio_mqtt; extra == "test"
+Requires-Dist: mypy; extra == "test"
+Requires-Dist: pylint; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: setuptools; extra == "test"
+Requires-Dist: simplejson; extra == "test"
+Dynamic: license-file
+
+[![pylint](../../actions/workflows/pylint.yml/badge.svg)](../../actions/workflows/pylint.yml)
+[![PyPI](https://img.shields.io/pypi/v/prologix-gpib-async)](https://pypi.org/project/prologix-gpib-async/)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/prologix-gpib-async)
+![PyPI - Status](https://img.shields.io/pypi/status/prologix-gpib-async)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](LICENSE)
+[![code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+# prologix_gpib_async
+Python3 AsyncIO Prologix GPIB Driver. This library requires Python
+[asyncio](https://docs.python.org/3/library/asyncio.html). In contrast to a synchronous implementation, this library
+makes it possible to control multiple GPIB controllers at once and work with large setups.
+
+The library is fully type-hinted.
+
+## Supported Hardware
+|Device|Supported|Tested|Comments|
+|--|--|--|--|
+|[GPIB-ETHERNET Controller 1.2](http://prologix.biz/gpib-ethernet-controller.html)|:heavy_check_mark:|:heavy_check_mark:|  |
+|[GPIB-USB Controller 6.0](http://prologix.biz/gpib-usb-controller.html)|:x:|:x:|Need hardware
+
+Tested using Linux, should work for Mac OSX, Windows and any OS with Python support.
+
+## Setup
+To install the library in a virtual environment (always use venvs with every project):
+
+```bash
+python3 -m venv env  # virtual environment, optional
+source env/bin/activate
+pip install prologix-gpib-async
+```
+
+## Usage
+This library makes use of asynchronous context managers to hide all connection related stuff and
+also handle cleanup. By the way: Context managers are great!
+
+Initialize the GPIB adapter
+```python
+from prologix_gpib_async import AsyncPrologixGpibEthernetController
+
+# Create a controller and talk to device address 22
+async with AsyncPrologixGpibEthernetController("127.0.0.1", pad=22) as gpib_device:
+    # Add your code here
+    ...
+```
+
+Sending a "my command" command to address 22 (as set up previously). Do note that strings have to be sent as bytes literals.
+```python
+await gpib_device.write(b"my command")
+```
+
+Reading data from address 22
+```python
+data = await gpib_device.read()
+```
+
+Example program, that queries the version string as can be found at [examples/example.py](examples/example.py)
+```python
+import asyncio
+
+# Devices
+from prologix_gpib_async import AsyncPrologixGpibEthernetController
+
+
+async def main():
+    try:
+        async with AsyncPrologixGpibEthernetController("127.0.0.1", pad=22) as gpib_device:
+            version = await gpib_device.version()
+            print("Controller version:", version)
+    except (ConnectionError, ConnectionRefusedError):
+        print("Could not connect to remote target. Is the device connected?")
+
+
+asyncio.run(main())
+```
+
+See [examples/](examples/) for more working examples.
+
+## Support for Multiple Devices
+The Prologix GPIB adapter supports talking to multiple devices, but there are (theoretical) hardware limits. The
+Prologix adapters do not have line drivers, so only a limited number of devices can be driven using one controller.
+
+On the software side, there is full support for multiple devices and the driver will switch between different addresses
+transparently. The driver internally manages the connection and keeps track of the GPIB controller state and manages the
+state for each gpib object. It is important, that the driver is the only client editing the state of the GPIB
+controller. Otherwise, the driver state and the controller state may get out of sync.
+
+> :warning: **Concurrency with multiple devices**: Note, that when using a single adapter to control multiple devices,
+> there is no concurrency on the GPIB bus. Whenever reading or writing to a remote device, the driver will lock the GPIB
+> controller to ensure that reading from a controller is synchronous. This means, there is **no** speed increase, when
+> making asynchronous reads from multiple devices on the bus. Using a GPIB Group Execute Trigger (GET) by invoking the
+> trigger() function, concurrent measurements can be triggered though. Some devices also allow asynchronous function
+> calls, that signal status updates via the srq register.
+
+Example:
+```python
+import asyncio
+
+# Devices
+from prologix_gpib_async import AsyncPrologixGpibEthernetController
+
+ip_address = "127.0.0.1"
+
+
+async def main():
+    """This example will print the IDs of the two different SCPI devices"""
+    try:
+        async with AsyncPrologixGpibEthernetController(
+            ip_address, pad=22
+        ) as gpib_device1, AsyncPrologixGpibEthernetController(ip_address, pad=10) as gpib_device2:
+            await gpib_device1.write(b"*IDN?")  # Automatically changes address to device 22
+            print(await gpib_device1.read())
+            await gpib_device2.write(b"*IDN?")  # Automatically changes address to device 10
+            print(await gpib_device2.read())
+    except (ConnectionError, ConnectionRefusedError):
+        print("Could not connect to remote target. Is the device connected?")
+
+
+asyncio.run(main())
+```
+
+## Versioning
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the
+[tags on this repository](../../tags).
+
+## Documentation
+I use the [Numpydoc](https://numpydoc.readthedocs.io/en/latest/format.html) style for documentation.
+
+## Authors
+* **Patrick Baus** - *Initial work* - [PatrickBaus](https://github.com/PatrickBaus)
+
+## License
+This project is licensed under the GPL v3 license - see the [LICENSE](LICENSE) file for details
