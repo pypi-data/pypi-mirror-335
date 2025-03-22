@@ -1,0 +1,34 @@
+Metadata-Version: 2.4
+Name: codablellm
+Version: 1.0.1
+Summary: A framework for creating and curating high-quality code datasets tailored for large language models
+Author-email: Dylan Manuel <dylan.manuel@my.utsa.edu>
+Project-URL: Homepage, https://github.com/dmanuel64/codablellm
+Project-URL: Bug Tracker, https://github.com/dmanuel64/codablellm/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: <3.14,>=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: GitPython>=3.1.43
+Requires-Dist: pandas>=2.2.3
+Requires-Dist: requests>=2.32.3
+Requires-Dist: tree-sitter>=0.23.2
+Requires-Dist: tree-sitter-c==0.23.4
+Requires-Dist: tiktoken>=0.8.0
+Requires-Dist: typer>=0.15.1
+Provides-Extra: excel
+Requires-Dist: openpyxl>=3.1.5; extra == "excel"
+Provides-Extra: markdown
+Requires-Dist: tabulate>=0.9.0; extra == "markdown"
+Provides-Extra: xml
+Requires-Dist: lxml>=5.3.0; extra == "xml"
+Provides-Extra: all
+Requires-Dist: openpyxl>=3.1.5; extra == "all"
+Requires-Dist: tabulate>=0.9.0; extra == "all"
+Requires-Dist: lxml>=5.3.0; extra == "all"
+Dynamic: license-file
+
+# codablellm
+A framework for creating and curating high-quality code datasets tailored for large language models  
