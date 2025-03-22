@@ -1,0 +1,9 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+message SystemTemperatures
+{
+    int32 driver = 1;
+    optional int32 powerSupply = 2;
+}

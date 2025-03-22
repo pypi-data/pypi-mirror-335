@@ -1,0 +1,76 @@
+[project]
+name = "kilight-client"
+version = "0.3.3"
+authors = [
+    {name = "Patrick Lavigne", email = "me@patrick.codes"},
+]
+description = "Client library for communicating with KiLight devices."
+requires-python = ">= 3.12"
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Topic :: Home Automation",
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console"
+]
+dependencies = [
+    "protobuf>=5.27.1,<6",
+    "zeroconf"
+]
+dynamic = ["readme"]
+
+[project.urls]
+repository = "https://github.com/PMLavigne/kilight-client"
+
+[project.optional-dependencies]
+tests = [
+    "pytest",
+    "pytest-asyncio"
+]
+release = [
+    "bump-my-version"
+]
+
+[project.scripts]
+kilight = "kilight.client.cli:entrypoint"
+
+[build-system]
+requires = [
+    "setuptools",
+    "setuptools-scm",
+    "grpcio-tools"
+]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = [".idea/*", "scripts/*", "tests/*", "*.proto"]
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[tool.setuptools.package-data]
+"kilight.client.cli" = ["src/kilight/client/cli/config/*.ini"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+log_cli = 1
+log_cli_level = "DEBUG"
+log_cli_format = "%(asctime)s.%(msecs)03d [%(levelname)8s] %(message)s"
+log_cli_date_format = "%Y-%m-%d %H:%M:%S"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.bumpversion]
+commit = true
+tag = false
+sign_tags = false
+tag_name = "v{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "README.md"
+search = "# kilight-client v{current_version}"
+replace = "# kilight-client v{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "src/kilight/client/__init__.py"
+search = "__version__ = \"{current_version}\""
+replace = "__version__ = \"{new_version}\""

@@ -1,0 +1,15 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+import "kilight/protocol/SystemState.proto";
+import "kilight/protocol/SystemInfo.proto";
+import "kilight/protocol/CommandResult.proto";
+
+message Response {
+    oneof response_type {
+        SystemState systemState = 1;
+        SystemInfo systemInfo = 2;
+        CommandResult commandResult = 3;
+    }
+}
