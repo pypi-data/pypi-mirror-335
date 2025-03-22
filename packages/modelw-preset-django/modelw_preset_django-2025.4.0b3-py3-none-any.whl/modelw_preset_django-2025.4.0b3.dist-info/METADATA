@@ -1,0 +1,62 @@
+Metadata-Version: 2.3
+Name: modelw-preset-django
+Version: 2025.4.0b3
+Summary: Model W preset for Django
+License: WTFPL
+Keywords: django,env,configuration
+Author: Rémy Sanchez
+Author-email: remy.sanchez@hyperthese.net
+Requires-Python: >=3.12,<3.13
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: Other/Proprietary License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Provides-Extra: celery
+Provides-Extra: channels
+Provides-Extra: health
+Provides-Extra: psycopg
+Provides-Extra: psycopg2
+Provides-Extra: storages
+Provides-Extra: wagtail
+Requires-Dist: boto3 (>=1.36,<1.37) ; extra == "wagtail" or extra == "storages"
+Requires-Dist: celery[redis,tblib] (>=5.4,<5.5) ; extra == "celery"
+Requires-Dist: channels (>=4.2,<4.3) ; extra == "channels"
+Requires-Dist: channels-redis (>=4.2,<4.3) ; extra == "channels"
+Requires-Dist: coloredlogs (>=15.0,<15.1)
+Requires-Dist: dj-database-url (>=2.3,<2.4)
+Requires-Dist: django-celery-results (>=2.5,<2.6) ; extra == "celery"
+Requires-Dist: django-health-check (>=3.18.0,<3.19.0) ; extra == "health"
+Requires-Dist: django-postgres-extra (>=2.0,<2.1)
+Requires-Dist: django-storages (>=1.14,<1.15) ; extra == "wagtail" or extra == "storages"
+Requires-Dist: django-wailer (>=1.0.0-beta.2,<1.1.0)
+Requires-Dist: django[argon2] (>=5.1,<5.2)
+Requires-Dist: djangorestframework (>=3.15,<3.16)
+Requires-Dist: djangorestframework-gis (>=1.1,<1.2)
+Requires-Dist: granian (>=1.7.6,<1.8.0)
+Requires-Dist: modelw-env-manager (>=1.0,<1.1)
+Requires-Dist: psutil (>=6.1.1,<7.0.0)
+Requires-Dist: psycopg (>=3.2,<3.3) ; extra == "psycopg"
+Requires-Dist: psycopg2 (>=2.9,<2.10) ; extra == "psycopg2"
+Requires-Dist: redis (>=5.2,<5.3)
+Requires-Dist: rich (>=13.9,<13.10)
+Requires-Dist: sentry-sdk (>=2.22,<2.23)
+Requires-Dist: setuptools
+Requires-Dist: wagtail (>=6.4,<6.5) ; extra == "wagtail"
+Requires-Dist: wand (>=0.6,<0.7) ; extra == "wagtail"
+Requires-Dist: whitenoise (>=6.9,<6.10)
+Project-URL: Homepage, https://github.com/ModelW/preset-django
+Project-URL: Repository, https://github.com/ModelW/preset-django
+Description-Content-Type: text/markdown
+
+# Model W &mdash; Django Preset
+
+This Django preset for Model W's Env Manager provides a basic Django
+configuration that is fit to work in PaaS platforms such as DigitalOcean's PaaS.
+
+## Documentation
+
+[✨ **Documentation is there** ✨](http://modelw-django-preset.rtfd.io/)
+
