@@ -1,0 +1,17 @@
+[package]
+name = "junction-typeinfo"
+version.workspace = true
+edition.workspace = true
+homepage.workspace = true
+repository.workspace = true
+license.workspace = true
+rust-version.workspace = true
+description = """
+reflection for junction API generation
+"""
+
+[dependencies]
+junction-typeinfo-derive = { workspace = true }
+
+[dev-dependencies]
+serde = { version = "1.0", features = ["derive"] }
