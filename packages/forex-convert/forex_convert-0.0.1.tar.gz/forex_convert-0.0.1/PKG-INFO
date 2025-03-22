@@ -1,0 +1,37 @@
+Metadata-Version: 2.4
+Name: forex-convert
+Version: 0.0.1
+Summary: forex-convert is a Python library designed to perform currency conversions easily and efficiently. It uses real-time data to provide up-to-date exchange rates, allowing developers to easily integrate currency conversion functions into their applications.
+Project-URL: Homepage, https://github.com/oriolcarulla/forex-convert
+Project-URL: Repository, https://github.com/oriolcarulla/forex-convert
+Author-email: Oriol Carulla <04ocarulla@gmail.com>
+License-Expression: MIT
+License-File: LICENSE.txt
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# forex-convert
+
+`forex-convert` is a Python library designed to perform currency conversions easily and efficiently. It uses real-time data to provide up-to-date exchange rates, allowing developers to easily integrate currency conversion functions into their applications..
+
+## Installation
+```python
+pip install forex-convert
+```
+
+## Uso
+
+```python
+from forex-convert import CurrencyRates
+
+c = CurrencyRates()
+
+converted = c.convert("usd", "eur", 10)
+print(converted)
+```
+
+## Repository
+
+[Forex-Convert Github](https://github.com/oriolcarulla/forex-convert)
