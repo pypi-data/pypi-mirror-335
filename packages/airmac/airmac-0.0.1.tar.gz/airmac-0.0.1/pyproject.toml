@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "airmac"
+version = "0.0.1"
+description = "A short description of the airmac package"
+readme = "README.md"
+authors = [
+    {name = "Cary Carter", email = "ccarterdev@gmail.com"},
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.6"
+dependencies = [
+    # List your dependencies here
+    "pyobjc<11"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/cc-d/airmac"
+"Bug Tracker" = "https://github.com/cc-d/airmac/issues"
+
+[tool.setuptools]
+packages = ["airmac"]
+
