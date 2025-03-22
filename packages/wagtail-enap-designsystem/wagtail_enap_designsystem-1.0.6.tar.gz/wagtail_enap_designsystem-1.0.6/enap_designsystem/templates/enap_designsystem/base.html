@@ -1,0 +1,33 @@
+{% extends "coderedcms/pages/base.html" %}
+{% load static wagtailuserbar %}
+{% load wagtailcore_tags %}
+
+
+{% block ada_skip %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <a class="visually-hidden-focusable" href="#content">Skip navigation</a>
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+
+<div id="content">
+  {% block content_body %}
+    <h1>Bem-vindo ao Enap Design System</h1>
+    {% for block in page.body %}
+      {% include_block block with settings=settings %}
+    {% endfor %}
+  {% endblock %}
+</div>
+
+{% block footer %}{% endblock %}
+
+{% block content_walls %}{% endblock %}
+{% block related_content %}{% endblock %}
+{% block index_content %}{% endblock %}
+{% block index_filters %}{% endblock %}
+
+
+{% block body_tracking_scripts %}
+  <!-- Google Analytics -->
+  <script>console.log("GA Tracking ativo");</script>
+{% endblock %}

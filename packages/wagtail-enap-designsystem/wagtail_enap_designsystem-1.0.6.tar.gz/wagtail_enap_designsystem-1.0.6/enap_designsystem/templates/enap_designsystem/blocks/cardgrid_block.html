@@ -1,0 +1,14 @@
+
+{% load wagtailcore_tags %}
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'enap_designsystem/blocks/draft_cards.css' %}">
+
+{% block content %}
+
+<div class="{{self.grid}}">
+    {% for block in self.content %}
+        {% include_block block %}
+    {% endfor %}
+</div>
+{% endblock %}

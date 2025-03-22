@@ -1,0 +1,280 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+<div class="custom-carousel" id="carousel-{{ id }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        .custom-carousel {
+            position: relative;
+            width: 100%;
+            max-height: 100vh;
+            overflow: hidden;
+        }
+        
+        .custom-carousel-slides {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+        }
+        
+        .custom-carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+            display: none;
+        }
+        
+        .custom-carousel-slide.is-active {
+            opacity: 1;
+            display: block;
+        }
+        
+        .custom-carousel-background {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+        }
+        
+        .custom-slide-content {
+            position: relative;
+            max-width: 1142px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin: auto;
+            height: 100%;
+            color: white;
+        }
+
+        .custom-slide-left-content {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            justify-content: center;
+            max-width: 40%;
+            gap: 20px;
+            padding-left: 115px;
+        }
+
+        .custom-slide-center-content {
+            display: flex;
+            flex-direction: column;
+            height: 60%;
+            justify-content: flex-end;
+            align-items: center;
+            text-align: center;
+            margin: auto;
+            max-width: 70%;
+            gap: 20px;
+        }
+
+        .custom-slide-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: #fff;
+            margin: 0;
+        }
+
+        .custom-slide-description {
+            font-size: 24px;
+            color: #fff;
+            margin: 0;
+        }
+
+        .custom-slide-graphic {
+            width: 63px;
+            height: 34px;
+            margin-bottom: 20px;
+        }
+
+        .custom-carousel-navigation {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 20;
+        }
+        
+        .custom-carousel-navigation-button {
+            color: #939393;
+            font-size: 32px;
+            cursor: pointer;
+            user-select: none;
+            padding: 10px;
+        }
+        
+        .custom-carousel-dots {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            z-index: 20;
+        }
+        
+        .custom-carousel-dot {
+            width: 40px;
+            height: 12px;
+            border-radius: 32px;
+            background: rgba(255,255,255,0.5);
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        .custom-carousel-dot.is-active {
+            width: 40px;
+            height: 12px;
+            border-radius: 32px;
+            background: white;
+            max-height: 12px;
+        }
+
+        /* Responsividade */
+        @media only screen and (max-width: 768px) {
+            .custom-slide-left-content {
+                max-width: 100%;
+                padding-left: 60px;
+            }
+            
+            .custom-slide-title {
+                font-size: 36px;
+            }
+
+            .custom-slide-description {
+                font-size: 20px; 
+            }
+        }
+
+        @media only screen and (max-width: 480px) {
+            .custom-slide-title {
+                font-size: 28px; 
+            }
+
+            .custom-slide-description {
+                font-size: 16px; 
+            }
+        }
+    </style>
+    
+    <div class="custom-carousel-slides" id="carousel-slides-{{ id }}">
+        {% for slide in value.slides %}
+            <div class="custom-carousel-slide {% if forloop.first %}is-active{% endif %}" data-slide-index="{{ forloop.counter0 }}">
+                {% image slide.background_image fill-1920x1080 as bg_img %}
+                <div class="custom-carousel-background" style="background-image: url('{{ bg_img.url }}');"></div>
+                
+                <div class="custom-slide-content">
+                    {% if slide.slide_type == 'title_center' %}
+                        <div class="custom-slide-center-content">
+                            {% if slide.title %}
+                                <h1 class="custom-slide-title">{{ slide.title }}</h1>
+                            {% endif %}
+                        </div>
+                    {% elif slide.slide_type == 'title_desc_left' %}
+                        <div class="custom-slide-left-content">
+                            {% if slide.grafismo %}
+                            <img src="{% static 'enap_designsystem/icons/grafismo.svg' %}" alt="Grafismo" class="grafismo">
+                            {% endif %}
+                            {% if slide.title %}
+                                <h1 class="custom-slide-title">{{ slide.title }}</h1>
+                            {% endif %}
+                            {% if slide.description %}
+                                <p class="custom-slide-description">{{ slide.description }}</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+    <div class="custom-carousel-navigation">
+        <a class="custom-carousel-navigation-button custom-carousel-prev" onclick="changeSlide('{{ id }}', -1)">
+            <i class="fa-solid fa-circle-chevron-left"></i>
+        </a>
+        <a class="custom-carousel-navigation-button custom-carousel-next" onclick="changeSlide('{{ id }}', 1)">
+            <i class="fa-solid fa-circle-chevron-right"></i>
+        </a>
+    </div>
+    
+    <div class="custom-carousel-dots">
+        {% for slide in value.slides %}
+            <span class="custom-carousel-dot {% if forloop.first %}is-active{% endif %}" 
+                  onclick="goToSlide('{{ id }}', {{ forloop.counter0 }})"></span>
+        {% endfor %}
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initCarousel('{{ id }}');
+        });
+
+        function initCarousel(carouselId) {
+            const container = document.getElementById(`carousel-slides-${carouselId}`);
+            const slides = container.querySelectorAll('.custom-carousel-slide');
+            const dots = document.querySelectorAll(`#carousel-${carouselId} .custom-carousel-dot`);
+            
+            console.log(`Inicializando carrossel ${carouselId}`);
+            console.log(`Número de slides: ${slides.length}`);
+            console.log(`Tipo do primeiro slide: ${slides[0].querySelector('.custom-slide-content').innerHTML}`);
+            
+            // Ensure first slide is visible
+            if (slides.length > 0) {
+                slides[0].classList.add('is-active');
+                slides[0].style.display = 'block';
+                
+                if (dots.length > 0) {
+                    dots[0].classList.add('is-active');
+                }
+            }
+        }
+
+        function changeSlide(carouselId, direction) {
+            const container = document.getElementById(`carousel-slides-${carouselId}`);
+            const slides = container.querySelectorAll('.custom-carousel-slide');
+            const dots = document.querySelectorAll(`#carousel-${carouselId} .custom-carousel-dot`);
+            
+            let currentIndex = Array.from(slides).findIndex(slide => slide.classList.contains('is-active'));
+            let newIndex = currentIndex + direction;
+            
+            // Circular navigation
+            if (newIndex >= slides.length) newIndex = 0;
+            if (newIndex < 0) newIndex = slides.length - 1;
+            
+            // Remove active from current slide and dot
+            slides[currentIndex].classList.remove('is-active');
+            slides[currentIndex].style.display = 'none';
+            dots[currentIndex].classList.remove('is-active');
+            
+            // Add active to new slide and dot
+            slides[newIndex].classList.add('is-active');
+            slides[newIndex].style.display = 'block';
+            dots[newIndex].classList.add('is-active');
+        }
+
+        function goToSlide(carouselId, index) {
+            const container = document.getElementById(`carousel-slides-${carouselId}`);
+            const slides = container.querySelectorAll('.custom-carousel-slide');
+            const dots = document.querySelectorAll(`#carousel-${carouselId} .custom-carousel-dot`);
+            
+            // Remove active from all slides and dots
+            slides.forEach(slide => {
+                slide.classList.remove('is-active');
+                slide.style.display = 'none';
+            });
+            dots.forEach(dot => dot.classList.remove('is-active'));
+            
+            // Add active to selected slide and dot
+            slides[index].classList.add('is-active');
+            slides[index].style.display = 'block';
+            dots[index].classList.add('is-active');
+        }
+    </script>
+</div>
