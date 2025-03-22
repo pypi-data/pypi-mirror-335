@@ -1,0 +1,206 @@
+from base64 import b64encode
+import json
+from logging import getLogger
+from pathlib import Path
+from typing import List, Union
+
+from wowool.diagnostic import DiagnosticType
+from wowool.document import Document
+
+from wowool.portal.client.error import ClientError
+from wowool.portal.client.httpcode import HttpCode
+from wowool.portal.client.portal import Portal, _PortalMixin
+
+logger = getLogger(__name__)
+
+
+APP_ID_WOWOOL_COMPILER = "wowool_compiler"
+
+
+def has_errors(document):
+    for _ in document.diagnostics(APP_ID_WOWOOL_COMPILER).filter(DiagnosticType.Error):
+        return True
+    return False
+
+
+class Compiler(_PortalMixin):
+    """
+    :class:`Compiler` is a class used to compile :ref:`Wowoolian <wowool>` source files
+    """
+
+    def __init__(
+        self,
+        domain: str,
+        language: str = "generic",
+        portal: Portal = None,
+        project_root=None,
+    ):
+        """
+        Initialize a Compiler instance
+
+        :param domain: Name of the domain
+        :type domain: ``str``
+        :param language: Language of the documents for which the domain is used
+        :type language: ``str``
+        :param portal: Connection to the Portal server
+
+        :return: An initialized compiler
+        :type portal: :class:`Compiler`
+        """
+        super(Compiler, self).__init__(portal)
+        self.domain = domain
+        self.language = language
+        self.output_file_name = None
+        self.st_mtime = 0
+        self.project_root = project_root
+
+    def __call__(
+        self,
+        files: list = None,
+        full: bool = False,
+        strict: bool = False,
+        **kwargs,
+    ) -> Union[Document, List[Document]]:
+        """
+        Functor to compile one or more Wowoolian source files. For example:
+
+        .. literalinclude:: init_compiler.py
+            :language: python
+
+        :param files: List of Wowoolian source files and ``.dom_info`` files
+        :type files: ``list[str]`` or ``list[Path]``
+        :param full: Rebuild everything
+        :type full: ``bool``
+        :param strict: Build in strict mode, restricting the use of wrong casing or accented characters within lexicons
+        :type scrict: ``bool``
+
+        :return: If the provided ``files`` argument is a ``list``, then a ``list`` of :class:`Document <wowool.document.Document>` instances is returned. Otherwise, if a single file is passed, then a single ``Document`` is returned
+        :rtype: ``Union[Document, List[Document]]``
+        """
+
+        # todo: need to remove this when incremental build is fixed.
+        full = True
+        if not self.domain:
+            raise ClientError("Domain name is required")
+
+        assert self.portal is not None, "Portal initialization failed"
+        data = {
+            "apiKey": self.portal.api_key,
+            "domain": self.domain,
+            "language": self.language,
+            "strict": strict,
+            "full": full,
+        }
+
+        if full:
+            self.st_mtime = 0
+
+        if self.project_root:
+            self.output_file_name = self.project_root / f"{self.domain}.dson"
+
+        _files = []
+        for fn in files:
+            fn = Path(fn)
+            if fn.is_dir():
+                if not self.output_file_name:
+                    self.output_file_name = fn / f"{self.domain}.dson"
+                _files.extend([Path(wfn) for wfn in fn.glob("*.wow")])
+                _files.extend([Path(wfn) for wfn in fn.glob("*.dom_info")])
+            elif fn.exists():
+                if not self.output_file_name:
+                    self.output_file_name = fn.parent / f"{self.domain}.dson"
+                _files.append(Path(fn))
+            else:
+                raise ClientError(f"Input file or folder {fn} does not exist")
+
+        if _files:
+            if self.output_file_name.exists():
+                if not full:
+                    self.st_mtime = self.output_file_name.stat().st_mtime
+
+            data["sources"] = []
+            collection = data["sources"]
+            for fn in _files:
+                with open(fn) as fh:
+                    st_mtime = fn.stat().st_mtime
+                    source = None
+                    if st_mtime > self.st_mtime:
+                        source = fh.read()
+                    if fn.suffix == ".wow":
+                        if source != None:
+                            datab64 = b64encode(source.encode()).decode("utf-8")
+                            collection.append({"id": str(fn), "base64": datab64})
+                        else:
+                            collection.append({"id": str(fn)})
+                    elif fn.suffix == ".dom_info":
+                        if source:
+                            data["info"] = json.loads(source)
+            logger.debug(f"POST /domain/build/ {data=}")
+
+            if len(data["sources"]) == 0:
+                raise ClientError(f"No wow source files to compile")
+
+            payload = self.portal._service.post(
+                url="/domain/build/",
+                status_code=HttpCode.Created,
+                data=data,
+                **kwargs,
+            )
+            logger.debug(f"{payload=}")
+
+            if not payload or "documents" not in payload or len(payload["documents"]) != 1:
+                raise AssertionError("Invalid response from the portal.")
+
+            compiler_result = [Document.from_json(document_json) for document_json in payload["documents"]][0]
+            if not has_errors(compiler_result):
+                # successfully compiled.
+                # create a timestamp.
+                with open(self.output_file_name, "w") as fh:
+                    json.dump(Document.to_json(compiler_result), fh)
+            return compiler_result
+
+        else:
+            raise ClientError("A list of files or a folder containing wow files is required")
+
+    def cleanup(self):
+        """
+        Remove any produced output files
+        """
+        if self.output_file_name and self.output_file_name.exists():
+            self.output_file_name.unlink()
+
+    def __eq__(self, other):
+        is_same_type = Compiler is type(other)
+        is_same_name = self.domain == other.domain
+        return is_same_type and is_same_name
+
+    def __repr__(self):
+        return f"""wowool.portal.client.compiler.Compiler(domain="{self.domain}")"""
+
+
+def compile(
+    domain: str, language: str = "generic", files: list = None, full=False, strict=False, portal: Portal = None, project_root=None, **kwargs
+) -> Union[Document, List[Document]]:
+    """
+    Compile a domain on the Portal. For example:
+
+    .. literalinclude:: init_compiler.py
+
+    :param domain: Name of the domain
+    :type domain: ``str``
+    :param language: Language for which the domain will be used
+    :type language: ``str``
+    :param portal: Connection to the Portal server
+    :type portal: :class:`Portal`
+    :param files: List of Wowoolian source files and ``.dom_info`` files
+    :type files: ``list[str]`` or ``list[Path]``
+    :param full: Rebuild everything
+    :type full: ``bool``
+    :param strict: Build in strict mode, restricting the use of wrong casing or accented characters within lexicons
+    :type scrict: ``bool``
+
+    :return: If the provided ``files`` argument is a ``list``, then a ``list`` of :class:`Document <wowool.document.Document>` instances is returned. Otherwise, if a single file is passed, then a single document is returned
+    :rtype: A :class:`Document` or a ``list`` of :class:`Document`
+    """
+    compiler = Compiler(domain, language, portal=portal, project_root=project_root)
+    return compiler(files, full=full, strict=strict, **kwargs)
