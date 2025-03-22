@@ -1,0 +1,94 @@
+Metadata-Version: 2.4
+Name: opsmate
+Version: 0.1.36a0
+Summary: opsmate is a SRE AI assistant
+Author-email: Jingkai <jingkai@hey.com>
+License: MIT License
+        
+        Copyright (c) 2025 Jingkai He
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Requires-Python: <3.13,>=3.12
+Requires-Dist: alembic<2.0.0,>=1.14.1
+Requires-Dist: click<9.0.0,>=8.1.7
+Requires-Dist: fastapi[standard]<1.0.0,>=0.115.5
+Requires-Dist: graphviz<1.0.0,>=0.20.3
+Requires-Dist: html2text==2024.2.26
+Requires-Dist: httpx<1.0.0,>=0.27.2
+Requires-Dist: instructor[anthropic]<2.0.0,>=1.7.6
+Requires-Dist: jinja2<4.0.0,>=3.1.6
+Requires-Dist: lancedb==0.20.0
+Requires-Dist: matplotlib<4.0.0,>=3.10.1
+Requires-Dist: opentelemetry-exporter-otlp>=1.31.0
+Requires-Dist: opentelemetry-instrumentation-anthropic>=0.38.12
+Requires-Dist: opentelemetry-instrumentation-openai>=0.38.12
+Requires-Dist: opentelemetry-instrumentation-sqlalchemy>=0.52b0
+Requires-Dist: opentelemetry-instrumentation-starlette>=0.52b0
+Requires-Dist: pandas<3.0.0,>=2.2.3
+Requires-Dist: plotext<6.0.0,>=5.3.2
+Requires-Dist: plotly<7.0.0,>=6.0.0
+Requires-Dist: pydantic-settings<3.0.0,>=2.6.1
+Requires-Dist: pydantic<3.0.0,>=2.8.2
+Requires-Dist: python-fasthtml<1.0.0,>=0.10.0
+Requires-Dist: pytz<2026.0,>=2025.1
+Requires-Dist: pyyaml<7.0.0,>=6.0.2
+Requires-Dist: rich<14.0.0,>=13.8.1
+Requires-Dist: sqlmodel<1.0.0,>=0.0.22
+Requires-Dist: structlog<25.0.0,>=24.4.0
+Provides-Extra: reranker-answerdotai
+Requires-Dist: rerankers[transformers]; extra == 'reranker-answerdotai'
+Provides-Extra: reranker-cohere
+Requires-Dist: cohere<6.0.0,>=5.14.0; extra == 'reranker-cohere'
+Provides-Extra: sentence-transformers
+Requires-Dist: sentence-transformers<4.0.0,>=3.4.1; extra == 'sentence-transformers'
+Description-Content-Type: text/markdown
+
+# OpsMate
+
+OpsMate is an SRE AI assistant that helps you manage production environment.
+
+## Getting Started
+
+To get started with OpsMate, you need to install the cli tool. You can do so by running the following command:
+
+```bash
+pipx install opsmate
+```
+
+Assuming you have OpenAI API key and you have set it in the environment variable `OPENAI_API_KEY`, you can now run the following command to start using OpsMate:
+
+```bash
+opsmate
+```
+
+This will start the OpsMate cli tool and you can start interacting with it.
+
+## Capabilities
+
+Here are some of the capabilities of OpsMate that we plan to support:
+
+- [ ] Producton issue troubleshooting and resolution.
+- [ ] Root cause analysis.
+- [ ] Performance analysis and improvement.
+- [ ] Observability and monitoring setup.
+- [ ] Capacity planning.
+- [ ] Callout assistance for on-call engineers.
+- [ ] Maintaining production environment using Infrastructure as Code.
+- [ ] Automation of routine tasks, such as create/fix CI/CD pipelines, perform backups, updates etc.
