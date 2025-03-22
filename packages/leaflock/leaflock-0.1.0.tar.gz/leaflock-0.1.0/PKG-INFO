@@ -1,0 +1,31 @@
+Metadata-Version: 2.4
+Name: leaflock
+Version: 0.1.0
+Summary: OELMs generative textbook definition.
+Project-URL: Homepage, https://github.com/kalendar/leaflock
+Project-URL: Issues, https://github.com/kalendar/leaflock/issues
+Author-email: David Wiley <david.wiley@gmail.com>, Joshua Maddy <joshuadcmaddy@gmail.com>
+License-Expression: AGPL-3.0-or-later
+License-File: LICENSE
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.13
+Requires-Dist: alembic>=1.15.1
+Requires-Dist: dotenv>=0.9.9
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: sqlalchemy>=2.0.39
+Description-Content-Type: text/markdown
+
+# leaflock
+OELMs generative textbook definition.
+
+## Current Definitions
+- ✅ SQLAlchemy (`/tables`)
+- ✅ Pydantic
+- ⬜ . . .
+
+## How are OELM Textbooks Stored?
+Textbooks are entries within an SQLite database. A textbook can be exported/imported as a single SQLite file.
+
+## Development
+Clone this repo and run `uv sync`.
