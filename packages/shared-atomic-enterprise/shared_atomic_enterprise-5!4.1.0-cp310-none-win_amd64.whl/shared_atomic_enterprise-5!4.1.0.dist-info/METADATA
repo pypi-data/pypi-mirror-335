@@ -1,0 +1,237 @@
+Metadata-Version: 2.1
+Name: shared_atomic_enterprise
+Version: 5!4.1.0
+Summary: Concurrent Python utils and data types
+Home-page: https://sharedatomic.top/
+Author: Xiquan Ren
+Author-email: xiquanren@yandex.com
+Requires-Python: >=3.7, <3.13
+Requires-Dist: urwid
+Requires-Dist: windows-curses ; platform_system == "Windows"
+
+This package provided a fast way to access those shared data types with atomic operations.
+can be used on
+
+ - x86_64 platforms:
+
+    - macOS Ventura and above,
+
+    - Microsoft Windows 10, Windows Server 2019 x64
+
+    - Centos/RHEL 8, 9 for all functions, Centos/RHEL7 for all other functions except shared_dict
+
+    - Suse Linux Enterprise Server 15 for all functions, Suse Linux Enterprise Server 12 for all other functions except shared_dict
+
+    - Ubuntu Linux 18, 20, 22, and 24
+
+    - Debian 10, 11, 12
+
+    - KylinOS V10
+
+    - UnionTechOS 20
+
+    - OpenEulerOS 20, 22
+
+    - BaiduLinux 3 for all functions, 2 for all other functions except shared_dict
+
+    - Alibaba Cloud Linux 3 for all functions, 2 for all other functions except shared_dict
+
+    - TencentOS 3 4 for all functions, 2 for all other functions except shared_dict
+
+
+ - aarch64 platforms:
+
+    - Centos/RHEL 8
+
+    - Ubuntu Linux 18(glibc updated to 2.28), 20, 22, and 24
+
+    - Debian 10, 11, 12
+
+    - KylinOS V10
+
+    - UnionTechOS 20
+
+    - OpenEulerOS 20, 22
+
+    - Huawei Cloud EulerOS 2
+
+    - Alibaba Cloud Linux 3
+
+ - loongarch64 platforms:
+
+    - Loongix 20
+
+
+This is copyright software, you should buy it at https://sharedatomic.top/enterprise/payment to get a licence to use it. For the price and details, please check
+https://sharedatomic.top/enterprise/payment.
+
+Included Datatypes
+
+ - atomic_int
+
+ - atomic_uint
+
+ - atomic_float
+
+ - atomic_bool
+
+ - atomic_bytearray
+
+ - atomic_shared_memory
+
+ - shared_dict
+
+LINUX/macOS
+
+ - CPython 3.7 - 3.12
+
+ - The package requires c library libgomp installed on the Linux platforms
+
+ - Python package urwid>=2.1.2 to activate the package
+
+Windows
+
+ - CPython 3.7 - 3.12
+
+ - Microsoft Visual C++ 2019 Redistributable(X64)
+
+ - windows-curses>=2.3.1 and urwid>=2.1.2 to activate the package on windows
+
+
+Installation
+
+To install shared-atomic-enterprise, use pip:
+
+The binary distribution of the software is compiled and delivered in epoch 5.
+    shared-atomic-enterprise == 5!4.1.0
+
+On Linux, you need assistance from the root user,
+
+    If you are a root user, it is ok, then only root can run this package.
+    If you are not root user, in the activation process you will need assistance from the root user.
+
+    cd (the directory where the package is installed )
+    chown root shared_atomic/atomic_python_suid
+    chmod u+s shared_atomic/atomic_python_suid
+
+    At the same time, please ensure the user who installed the package has the read access to shared_atomic/atomic_python_suid.
+
+    then the user who installed the package can run the package.
+
+For documentation, please go to:
+
+ https://sharedatomic.top/
+
+
+This package provided a fast way to access those shared data types with atomic operations.
+
+这是一个提供为共享数据类型提供原子访问的工具包。
+可以被用于：
+
+ - x86_64平台:
+
+    - macOS Ventura 及以上,
+
+    - Microsoft Windows 10, Windows Server 2019 x64
+
+    - Centos/RHEL 8, 9 可以运行全部功能, Centos/RHEL7 可以运行除共享字典之外的功能
+
+    - Suse Linux Enterprise Server 15 可以运行全部功能, Suse Linux Enterprise Server 12可以运行除共享字典之外的功能
+
+    - Ubuntu Linux 18, 20, 22和24
+
+    - Debian 10, 11, 12
+
+    - 麒麟 V10
+
+    - 统信 20
+
+    - OpenEulerOS 20, 22
+
+    - 百度Linux 3 可以运行全部功能, 2 可以运行除共享字典之外的功能
+
+    - 阿里巴巴云 Linux 3 可以运行全部功能, 2 可以运行除共享字典之外的功能
+
+    - 腾讯OS 3 4 可以运行全部功能, 2 可以运行除共享字典之外的功能
+
+
+ - aarch64 platforms:
+
+    - Centos/RHEL 8
+
+    - Ubuntu Linux 18(glibc 必须升级到2.28), 20, 22和24
+
+    - Debian 10, 11, 12
+
+    - 麒麟 V10
+
+    - 统信 20
+
+    - OpenEulerOS 20, 22
+
+    - 华为云 EulerOS 2
+
+    - 阿里巴巴云 Linux 3
+
+ - loongarch64 platforms:
+
+    - Loongix 20
+
+
+这是一个版权软件, 您应该在网站 https://sharedatomic.top/enterprise/payment 购买软件授权. 关于价格和更多详情，请访问
+https://sharedatomic.top/enterprise/payment.
+
+包含的数据类型：
+
+ - 原子整数
+
+ - 原子无符号整数
+
+ - 原子浮点数
+
+ - 原子布尔
+
+ - 原子字节数组
+
+ - 原子共享内存
+
+ - 共享字典
+
+LINUX/macOS
+
+ - CPython 3.7 - 3.12
+
+ - Linux平台需要C库 libgomp。
+
+ - 需要Python包 urwid>=2.1.2，用于产品激活。
+
+Windows
+
+ - CPython 3.7 - 3.12
+
+ - Microsoft Visual C++ 2019 运行时环境(X64)
+
+ - 需要Python包windows-curses>=2.3.1和urwid>=2.1.2，用于产品激活。
+
+安装说明
+
+安装 shared-atomic-enterprise, 使用 pip:
+
+软件的二进制包是在epoch 5上编译和发行的.
+    shared-atomic-enterprise == 5!4.1.0
+
+在Linux上, 需要root用户协助安装,
+
+    如果直接使用root用户安装，而且一直使用root运行，没有特别步骤。
+    如果想使用非root用户运行，在普通用户包装激活过程当中需要root用户协助。
+
+    cd (the directory where the package is installed )
+    chown root shared_atomic/atomic_python_suid
+    chmod u+s shared_atomic/atomic_python_suid
+
+    同时确保安装包的非root用户有读取该文件shared_atomic/atomic_python_suid的权限。
+    然后安装包的非root用户就可以使用该工具包。
+
+该包的全部说明, 请访问:
+
+ https://sharedatomic.top/
