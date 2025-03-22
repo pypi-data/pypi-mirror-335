@@ -1,0 +1,20 @@
+[project]
+name = "earthscale"
+version = "0.14.2"
+description = "Client for the Earthscale HTTP API"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click",
+    "pydantic>=2",
+    "pydantic-settings>=2",
+    "requests",
+    "supabase",
+]
+
+[project.scripts]
+earthscale = "earthscale.cli:cli"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
