@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "glucostats"
+version = "1.0.0"
+dependencies = [
+    "numpy==2.2.3",
+    "matplotlib>=3.8.0",
+    "pandas==2.2.3",
+    "neurokit2==0.2.10",
+    "seaborn==0.13.2",
+    "tqdm==4.67.1",
+    "scipy==1.15.2",
+    "colorlog==4.6.0"]
+
+requires-python = ">=3.10.12"
+
+authors = [
+  { name="David Chushig-Muzo", email="david.chushig@urjc.es" },
+    { name="Pablo Peiro-Corbacho", email="pablo.peiro@urjc.es" },
+    { name="Francisco J Lara-Abelenda", email="francisco.lara@urjc.es" },
+]
+description = "GlucoStats, an open-source, multi-processing Python package designed for the efficient computation and visualization of a comprehensive set of glucose metrics derived from continuous glucose monitoring (CGM) data"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+keywords = ["continuous glucose monitoring", "glucose", "feature extraction", "Python", "glucose data analysis",
+    "sliding time window", "Parallelization" , "Glucose visualization"]
+
+classifiers=[
+    'Intended Audience :: Science/Research',
+    'Topic :: Scientific/Engineering',
+    'Programming Language :: Python :: 3'
+]
+
+[project.urls]
+Documentation = "https://glucostats.readthedocs.io/en/latest/"
+Repository = "https://github.com/ai4healthurjc/GlucoStats"
