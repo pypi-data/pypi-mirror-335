@@ -1,0 +1,53 @@
+[tool.poetry]
+name = "brython-dev"
+version = "0.13.1"
+description = "Brython developer tools"
+authors = ["Lorenzo Garcia Calzadilla <lorenzogarciacalzadilla@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Bug Tracking",
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Utilities"
+]
+keywords = [
+    "brython",
+    "Development",
+    "Build Tools",
+    "Debuggers",
+    "Testing"
+]
+
+[tool.poetry.scripts]
+brython-dev = "brython_dev.__main__:cli"
+brython_dev = "brython_dev.__main__:cli"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+flask = "^3.1.0"
+brython = "^3.13.1"
+pyyaml = "^6.0.2"
+
+[tool.poetry.group.dev.dependencies]
+fossil-cli = "^4.5.2"
+changelog-cli = "^0.7.1"
+pytest-cov = "^6.0.0"
+pyflakes = "^3.2.0"
+isort = "^6.0.0"
+black = "^25.1.0"
+
+
+[[tool.poetry.source]]
+name = "private"
+url = "http://127.0.0.1:36628/simple"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
