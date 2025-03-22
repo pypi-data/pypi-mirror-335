@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "q2_label"
+version = "0.0.1"
+authors = [
+  { name="Q2label", email="q2label@hotmail.com" },
+]
+description = "A package to upload image directory"
+license = {file = "LICENSE"}
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "azure-core==1.32.0",
+    "azure-storage-blob==12.24.0",
+]
+
+[tool.setuptools]
+license-files = ["LICENSE"]
