@@ -1,0 +1,115 @@
+{
+    "general": {
+        "datasource": "CSV",
+        "chartsFolder": "Charts",
+        "showPlots": false,
+        "rawDataCSV": "workitems.csv",
+        "plotLabels": true,
+        "history": 90,
+        "today": null
+    },
+    "dataSources": [
+        {
+            "name": "azureDevOps",
+            "organizationUrl": "https://dev.azure.com/YourOrg",
+            "apiToken": "",
+            "itemQuery": "([System.WorkItemType] = \"User Story\" or [System.WorkItemType] = \"Bug\") AND [System.TeamProject] == \"Your Project\" AND [System.AreaPath] UNDER \"Team Project\\Team Name\"",
+            "estimationField": "Microsoft.VSTS.Scheduling.StoryPoints"
+        },
+        {
+            "name": "jira",
+            "url": "https://YourOrg.atlassian.net",
+            "username": "",
+            "apiToken": "",
+            "itemQuery": "issuetype in (\"Story\", \"Bug\") AND project = \"YourProject\" AND labels = \"YourTeamLabel\"",
+            "estimationField": "timetracking.originalEstimate",
+            "anonymizeLabel": false
+        },
+        {
+            "name": "csv",
+            "fileName": "ExampleFile.csv",
+            "delimiter": ";",
+            "startedDateColumn": "Activated Date",
+            "closedDateColumn": "Closed Date",
+            "startDateFormat": "%m/%d/%Y %I:%M:%S %p",
+            "closedDateFormat": "",
+            "estimationColumn": "Story Points",
+            "itemTitleColumn": "ID"
+        }
+    ],
+    "forecasts": [
+        {
+            "name": "Release 24.10",
+            "remainingBacklogQuery": "issuetype in (\"Story\", \"Bug\") AND project = \"YourProject\" AND status not in (\"Done\") AND fixVersion = \"Release 24.10\"",
+            "targetDate": "2024-10-31"
+        },
+        {
+            "name": "Sprint Forecast",
+            "targetDate": 14
+        }
+    ],
+    "charts": [
+        {
+            "type": "cycleTimeScatterPlot",
+            "chartName": "CycleTime.png",
+            "percentiles": [
+                50,
+                70,
+                85,
+                95
+            ],
+            "percentileColors": [
+                "red",
+                "orange",
+                "lightgreen",
+                "darkgreen"
+            ],
+            "trend_settings": [
+                70,
+                10,
+                "purple"
+            ]
+        },
+        {
+            "type": "workItemAgeScatterPlot",
+            "chartName": "WorkItemAge.png",
+            "xAxisLines": [
+                5,
+                10
+            ],
+            "xAxisLineColors": [
+                "orange",
+                "red"
+            ]
+        },
+        {
+            "type": "throughputRunChart",
+            "unit": "days",
+            "chartName": "Throughput.png"
+        },
+        {
+            "type": "workInProcessRunChart",
+            "chartName": "WorkInProcess.png"
+        },
+        {
+            "type": "startedVsFinishedChart",
+            "chartName": "StartedVsFinished.png",
+            "startedColor": "orange",
+            "closedColor": "green"
+        },
+        {
+            "type": "estimationVsCycleTime",
+            "chartName": "EstimationVsCycleTime.png",
+            "estimationUnit": "Story Points"
+        },
+        {
+            "type": "processBehaviourCharts",
+            "baselineStart": "2024-11-01",
+            "baselineEnd": "2024-11-30",
+            "throughputChartName": "Throughput_PBC.png",
+            "cycleTimeChartName": "CycleTime_PBC.png",
+            "wipChartName": "WorkInProgress_PBC.png",
+            "itemAgeChartName": "WorkItemAge_PBC.png"
+        }
+    ]
+}
