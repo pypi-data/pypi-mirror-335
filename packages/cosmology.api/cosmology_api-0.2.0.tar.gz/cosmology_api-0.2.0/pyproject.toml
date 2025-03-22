@@ -1,0 +1,180 @@
+[build-system]
+  requires = ["hatchling", "hatch-vcs"]
+  build-backend = "hatchling.build"
+
+
+[project]
+  name = "cosmology.api"
+  description = "Cosmology API standard"
+  readme = "README.rst"
+  requires-python = ">=3.9"
+  license = {file = "LICENSE.txt"}
+  keywords = ["cosmology", "API"]
+  authors = [
+    {name = "Nathaniel Starkman", email = "n.starkman@mail.utoronto.ca"},
+    {name = "Nicolas Tessore", email = "n.tessore@ucl.ac.uk"}
+  ]
+  maintainers = [
+    {name = "Nathaniel Starkman", email = "n.starkman@mail.utoronto.ca"},
+    {name = "Nicolas Tessore", email = "n.tessore@ucl.ac.uk"}
+  ]
+  classifiers = [
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+  ]
+  dependencies = [
+  ]
+  dynamic = ["version"]
+
+[project.optional-dependencies]
+  all = [
+  ]
+  test = [
+    "coverage[toml]",
+    "numpy>=1.21",
+    "packaging",
+    "pytest",
+    "pytest-cov",
+    "sybil",
+    "typing_extensions",
+  ]
+  docs = [
+    "furo",
+    "numpydoc",
+    "sphinx",
+    "sphinx-copybutton",
+    "sybil",
+    "tomli",
+    "typing_extensions",
+  ]
+
+[project.urls]
+  homepage = "https://cosmology.readthedocs.org/projects/api"
+  repository = "https://github.com/cosmology-api/cosmology.api"
+  documentation = "https://cosmology.readthedocs.org/projects/api"
+
+
+[tool.coverage.run]
+  omit = ["tests/*"]
+
+[tool.coverage.report]
+  exclude_lines = [
+    # Have to re-enable the standard pragma
+    # and branches that don't pertain to this version of Python
+    "pragma: no cover",
+    "pragma: py{ignore_python_version}",
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+    # Don't complain if non-runnable code isn't run
+    "if __name__ == .__main__.:",
+    # Don't complain about abstract methods, they aren't run:
+    '@(abc\.)?abstractmethod',
+    # Exclude type check blocks and Protocol contents, they aren't run:
+    "if TYPE_CHECKING:",
+    '\.\.\.',
+    # Don't complain about IPython completion helper
+    "def _ipython_key_completions_",
+  ]
+
+[tool.hatch]
+build.targets.sdist.exclude = [
+  ".*",
+  "conftest.py",
+  "docs/*",
+  "tests/*",
+]
+build.targets.wheel.packages = ["src/cosmology"]
+version.source = "vcs"
+
+[tool.mypy]
+  python_version = 3.9
+
+  namespace_packages = true
+  explicit_package_bases = true
+  mypy_path = "$MYPY_CONFIG_FILE_DIR/src"
+
+  strict = true
+  disallow_subclassing_any = false
+  disallow_untyped_defs = true
+  no_implicit_optional = true
+  warn_return_any = true
+  warn_redundant_casts = true
+  warn_unused_configs = true
+  warn_unreachable = true
+  exclude = '''(^|/)tests/|(^/)docs/|(^/)conftest\.py'''
+
+  [[tool.mypy.overrides]]
+    module = [
+      "tests/*",
+      "docs/*",
+    ]
+    ignore_errors = true
+
+  [[tool.mypy.overrides]]
+    module = [
+      "sybil.*",
+      "tomli.*",
+    ]
+    ignore_missing_imports = true
+
+
+[tool.pytest.ini_options]
+minversion = 7.0
+testpaths = [
+    "tests",
+    "src/cosmology",
+    "docs",
+]
+addopts = "-p no:doctest"
+markers = [
+    "incompatible_with_mypyc: run when testing mypyc compiled code",
+]
+filterwarnings = [
+    # tomlkit
+    "ignore:The config value",
+    # NumPy
+    "ignore:The numpy.array_api submodule is still experimental. See NEP 47.:UserWarning",
+]
+
+
+[tool.ruff]
+target-version = "py39"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "ARG001",  # Unused function argument
+  "ARG002",  # Unused method argument
+  "COM812",  # trailing-comma-missing
+  "D105",  # Missing docstring in magic method
+  "D107",  # Missing docstring in __init__
+  "D203",  # 1 blank line required before class docstring
+  "D213",  # Multi-line docstring summary should start at the second line
+  "D401",  # First line of docstring should be in imperative mood
+  "FBT003",  # Boolean positional value in function call
+  "FIX002",  # Line contains TODO,
+  "N802",  # Function name {name} should be lowercase
+  "PD",  # pandas-vet
+  "RUF022", # `__all__` is not sorted
+  "TD002",  # Missing author in TODO
+  "TD003",  # Missing issue link on the line following this TODO
+]
+
+[tool.ruff.lint.per-file-ignores]
+"src/cosmology/api/_array_api/*.py" = ["A002", "A003", "D212", "D205", "E501", "N801"]
+"docs/*.py" = ["INP001"]
+"tests/*.py" = [
+  "ANN",
+  "PLR0913",  # Too many arguments to function call
+  "TID252",
+]
+"test_*.py" = ["D", "N8", "S101"]
+
+[tool.ruff.lint.isort]
+forced-separate = ["tests"]
+required-imports = ["from __future__ import annotations"]
