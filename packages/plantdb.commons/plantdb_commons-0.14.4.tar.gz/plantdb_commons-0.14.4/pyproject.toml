@@ -1,0 +1,81 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plantdb.commons"
+version = "0.14.4"
+dependencies = [
+    "appdirs",
+    "colorlog",
+    "imagecodecs",
+    "imageio >=2.16.2",
+    "numpy",
+    "pillow",
+    "plyfile",
+    "toml",
+    "tqdm",
+]
+description = "Core shared library for the ROMI (Robotics for Microfarms) plant database ecosystem."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "GPL-3.0-or-later"
+authors = [
+    { name = "Peter Hanappe", email = "peter.hanappe@sony.com" },
+    { name = "Timothée Wintz", email = "timothee@timwin.fr" },
+    { name = "Nabil Ait Taleb", email = "mohamednabil.aittaleb@sony.com" },
+    { name = "Arthur Luciani", email = "arthur.luciani@ens-lyon.fr" },
+]
+maintainers = [
+    { name = "Jonathan Legrand", email = "jonathan.legrand@ens-lyon.fr" }
+]
+keywords = [
+    "Robotics for Microfarms",
+    "ROMI",
+    "Plant Phenotyping",
+    "Scientific Database",
+    "Data Management",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Operating System :: OS Independent",
+    "Natural Language :: English"
+]
+
+[project.urls]
+Homepage = "https://romi-project.eu/"
+Documentation = "https://docs.romi-project.eu/plant_imager/"
+Repository = "https://github.com/romi/plantdb"
+Issues = "https://github.com/romi/plantdb/issues"
+
+[project.scripts]
+fsdb_check = "plantdb.commons.cli.fsdb_check:main"
+fsdb_import_file = "plantdb.commons.cli.fsdb_import_file:main"
+fsdb_import_folder = "plantdb.commons.cli.fsdb_import_folder:main"
+fsdb_import_images = "plantdb.commons.cli.fsdb_import_images:main"
+fsdb_sync = "plantdb.commons.cli.fsdb_sync:main"
+shared_fsdb = "plantdb.commons.cli.shared_fsdb:main"
+
+[project.optional-dependencies]
+doc = [
+    "mkdocs",
+    "mkdocs-material",
+    "mkdocstrings[python]",
+    "pymdown-extensions",
+    "markdown-exec[ansi]",
+    "mkdocs-gen-files",
+    "mkdocs-literate-nav",
+    "mkdocs-section-index",
+]
+test = [
+    "nose2[coverage]",
+    "coverage[toml]",
+    "networkx",
+    "tifffile",
+    "open3d >=0.9.0.0",
+]
