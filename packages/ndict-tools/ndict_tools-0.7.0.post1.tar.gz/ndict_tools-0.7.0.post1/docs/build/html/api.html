@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>3. Package reference &mdash; Nested Dictionary Tools 0.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=282f96c0"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="2. Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Nested Dictionary Tools
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Content</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">1. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">2. Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">3. Package reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndict_tools.exception">3.1. Exceptions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.exception.StackedAttributeError"><code class="docutils literal notranslate"><span class="pre">StackedAttributeError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.exception.StackedDictionaryError"><code class="docutils literal notranslate"><span class="pre">StackedDictionaryError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.exception.StackedKeyError"><code class="docutils literal notranslate"><span class="pre">StackedKeyError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.exception.NestedDictionaryException"><code class="docutils literal notranslate"><span class="pre">NestedDictionaryException</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndict_tools.tools">3.2. Tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.tools.unpack_items"><code class="docutils literal notranslate"><span class="pre">unpack_items()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.tools.from_dict"><code class="docutils literal notranslate"><span class="pre">from_dict()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.tools._StackedDict"><code class="docutils literal notranslate"><span class="pre">_StackedDict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.indent"><code class="docutils literal notranslate"><span class="pre">_StackedDict.indent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.default_factory"><code class="docutils literal notranslate"><span class="pre">_StackedDict.default_factory</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__str__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__str__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__copy__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__copy__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__deepcopy__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__deepcopy__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__setitem__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__setitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__getitem__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__getitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.__delitem__"><code class="docutils literal notranslate"><span class="pre">_StackedDict.__delitem__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.unpacked_items"><code class="docutils literal notranslate"><span class="pre">_StackedDict.unpacked_items()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.unpacked_keys"><code class="docutils literal notranslate"><span class="pre">_StackedDict.unpacked_keys()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.unpacked_values"><code class="docutils literal notranslate"><span class="pre">_StackedDict.unpacked_values()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.pop"><code class="docutils literal notranslate"><span class="pre">_StackedDict.pop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.popitem"><code class="docutils literal notranslate"><span class="pre">_StackedDict.popitem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.to_dict"><code class="docutils literal notranslate"><span class="pre">_StackedDict.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.update"><code class="docutils literal notranslate"><span class="pre">_StackedDict.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.occurrences"><code class="docutils literal notranslate"><span class="pre">_StackedDict.occurrences()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.is_key"><code class="docutils literal notranslate"><span class="pre">_StackedDict.is_key()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.key_list"><code class="docutils literal notranslate"><span class="pre">_StackedDict.key_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.items_list"><code class="docutils literal notranslate"><span class="pre">_StackedDict.items_list()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">_StackedDict.to_dict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.height"><code class="docutils literal notranslate"><span class="pre">_StackedDict.height()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.size"><code class="docutils literal notranslate"><span class="pre">_StackedDict.size()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.leaves"><code class="docutils literal notranslate"><span class="pre">_StackedDict.leaves()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.is_balanced"><code class="docutils literal notranslate"><span class="pre">_StackedDict.is_balanced()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.tools._StackedDict.ancestors"><code class="docutils literal notranslate"><span class="pre">_StackedDict.ancestors()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#module-ndict_tools.core">3.3. Core</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ndict_tools.core.NestedDictionary"><code class="docutils literal notranslate"><span class="pre">NestedDictionary</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ndict_tools.core.NestedDictionary.__str__"><code class="docutils literal notranslate"><span class="pre">NestedDictionary.__str__()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Nested Dictionary Tools</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active"><span class="section-number">3. </span>Package reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="package-reference">
+<h1><span class="section-number">3. </span>Package reference<a class="headerlink" href="#package-reference" title="Link to this heading"></a></h1>
+<p>For greater convenience, the modules remain hidden inside the package. These modules are exposed for development
+purposes only.</p>
+<section id="module-ndict_tools.exception">
+<span id="exceptions"></span><h2><span class="section-number">3.1. </span>Exceptions<a class="headerlink" href="#module-ndict_tools.exception" title="Link to this heading"></a></h2>
+<p>This module provides specific exception classes for nested dictionaries.
+These exceptions extend the standard <strong>Exception</strong>, <strong>KeyError</strong> and <strong>AttributeError</strong> classes for future developments.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="ndict_tools.exception.StackedAttributeError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.exception.</span></span><span class="sig-name descname"><span class="pre">StackedAttributeError</span></span><a class="headerlink" href="#ndict_tools.exception.StackedAttributeError" title="Link to this definition"></a></dt>
+<dd><p>This exception is raised when a key is not compatible with stacked dictionary attributes.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ndict_tools.exception.StackedDictionaryError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.exception.</span></span><span class="sig-name descname"><span class="pre">StackedDictionaryError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.exception.StackedDictionaryError" title="Link to this definition"></a></dt>
+<dd><p>Exception raised when a stacked dictionary is invalid.</p>
+<p>StackedDictionaryError exception class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – a message describing the error.</p></li>
+<li><p><strong>error</strong> (<em>int</em>) – an integer describing the error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ndict_tools.exception.StackedKeyError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.exception.</span></span><span class="sig-name descname"><span class="pre">StackedKeyError</span></span><a class="headerlink" href="#ndict_tools.exception.StackedKeyError" title="Link to this definition"></a></dt>
+<dd><p>Exception raised when a key is not compatible with a stacked dictionary.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="ndict_tools.exception.NestedDictionaryException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.exception.</span></span><span class="sig-name descname"><span class="pre">NestedDictionaryException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.exception.NestedDictionaryException" title="Link to this definition"></a></dt>
+<dd><p>Raised when a nested dictionary is invalid.</p>
+<p>StackedDictionaryError exception class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>message</strong> (<em>str</em>) – a message describing the error.</p></li>
+<li><p><strong>error</strong> (<em>int</em>) – an integer describing the error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ndict_tools.tools">
+<span id="tools"></span><h2><span class="section-number">3.2. </span>Tools<a class="headerlink" href="#module-ndict_tools.tools" title="Link to this heading"></a></h2>
+<p>This module provides an intermediate technical class and tools for manipulating nested dictionaries.</p>
+<p>Although this module is hidden from the package’s external view, its contents are important. The <code class="docutils literal notranslate"><span class="pre">_StackedDict</span></code> object
+class orchestrates the basic attributes, functions and methods required to initialize and manage nested dictionaries.</p>
+<p>This class could have been eliminated in favor of building all methods and tools into the main module containing the
+<code class="docutils literal notranslate"><span class="pre">NestedDictionary</span></code> object class. However, this choice will enable us to build stacks of different dictionaries in the
+future, without necessarily using the properties specific to these dictionaries.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ndict_tools.tools.unpack_items">
+<span class="sig-prename descclassname"><span class="pre">ndict_tools.tools.</span></span><span class="sig-name descname"><span class="pre">unpack_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools.unpack_items" title="Link to this definition"></a></dt>
+<dd><p>This function de-stacks items from a nested dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dictionary</strong> (<em>dict</em>) – Dictionary to unpack.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator that yields items from a nested dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ndict_tools.tools.from_dict">
+<span class="sig-prename descclassname"><span class="pre">ndict_tools.tools.</span></span><span class="sig-name descname"><span class="pre">from_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools.from_dict" title="Link to this definition"></a></dt>
+<dd><p>This recursive function is used to transform a dictionary into a stacked dictionary.</p>
+<p>This function enhances and replaces the previous from_dict() function in core module of this package.
+It allows you to create an object subclasses of a _StackedDict with initialization options if requested and
+attributes to be set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<em>dict</em>) – dictionary to transform</p></li>
+<li><p><strong>class_name</strong> (<em>object</em>) – name of the class to return</p></li>
+<li><p><strong>class_options</strong> (<em>dict</em>) – <p>options to pass to the class or attributes of the class to be set</p>
+<ul>
+<li><p>init : parameters to initialize instances of the class, this should be from <code class="docutils literal notranslate"><span class="pre">__init__</span></code> function of the class</p></li>
+<li><p>attributes : attributes to set the class attributes</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>stacked dictionary or of subclasses of _StackedDict</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#ndict_tools.tools._StackedDict" title="ndict_tools.tools._StackedDict">_StackedDict</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.exception.StackedKeyError" title="ndict_tools.exception.StackedKeyError"><strong>StackedKeyError</strong></a> – if attribute called is not an attribute of the hierarchy of classes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.tools.</span></span><span class="sig-name descname"><span class="pre">_StackedDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict" title="Link to this definition"></a></dt>
+<dd><p>This class is an internal class for stacking nested dictionaries. This class is technical and is used to manage
+the processing of nested dictionaries. It inherits from defaultdict.</p>
+<p>At instantiation, it has two mandatory parameters for its creation:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>indent</strong>, which is used to format the object’s display.</p></li>
+<li><p><strong>default</strong>, which initializes the default_factory attribute of its parent class defaultdict.</p></li>
+</ul>
+</div></blockquote>
+<p>These parameters are passed using the kwargs dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>iterator</em>)</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>)</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.indent">
+<span class="sig-name descname"><span class="pre">indent</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#ndict_tools.tools._StackedDict.indent" title="Link to this definition"></a></dt>
+<dd><p>indent is used to print the dictionary with json indentation</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.default_factory">
+<span class="sig-name descname"><span class="pre">default_factory</span></span><a class="headerlink" href="#ndict_tools.tools._StackedDict.default_factory" title="Link to this definition"></a></dt>
+<dd><p>Factory for default value called by __missing__().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__str__" title="Link to this definition"></a></dt>
+<dd><p>Override __str__ to converts a nested dictionary to a string in json like format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>padding</strong> (<em>int</em>) – whitespace indentation of dictionary content</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a string in json like format</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__copy__">
+<span class="sig-name descname"><span class="pre">__copy__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__copy__" title="Link to this definition"></a></dt>
+<dd><p>Override __copy__ to create a shallow copy of a stacked dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a shallow copy of a stacked dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.tools._StackedDict" title="ndict_tools.tools._StackedDict">_StackedDict</a> or a subclass of <a class="reference internal" href="#ndict_tools.tools._StackedDict" title="ndict_tools.tools._StackedDict">_StackedDict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__deepcopy__">
+<span class="sig-name descname"><span class="pre">__deepcopy__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__deepcopy__" title="Link to this definition"></a></dt>
+<dd><p>Override __deepcopy__ to create a complete copy of a stacked dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a complete copy of a stacked dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.tools._StackedDict" title="ndict_tools.tools._StackedDict">_StackedDict</a> or a subclass of <a class="reference internal" href="#ndict_tools.tools._StackedDict" title="ndict_tools.tools._StackedDict">_StackedDict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__setitem__">
+<span class="sig-name descname"><span class="pre">__setitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__setitem__" title="Link to this definition"></a></dt>
+<dd><p>Override __setitem__ to handle hierarchical keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>object</em>) – key to set</p></li>
+<li><p><strong>value</strong> (<em>object</em>) – value to set</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if a nested list is found within the key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__getitem__">
+<span class="sig-name descname"><span class="pre">__getitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__getitem__" title="Link to this definition"></a></dt>
+<dd><p>Override __getitem__ to handle hierarchical keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>object</em>) – key to set</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>value</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>object</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>TypeError</strong> – if a nested list is found within the key</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.__delitem__">
+<span class="sig-name descname"><span class="pre">__delitem__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.__delitem__" title="Link to this definition"></a></dt>
+<dd><p>Override __delitem__ to handle hierarchical keys.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>object</em>) – key to set</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.unpacked_items">
+<span class="sig-name descname"><span class="pre">unpacked_items</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.unpacked_items" title="Link to this definition"></a></dt>
+<dd><p>This method de-stacks items from a nested dictionary. It calls internal unpack_items() function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generator that yields items from a nested dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.unpacked_keys">
+<span class="sig-name descname"><span class="pre">unpacked_keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.unpacked_keys" title="Link to this definition"></a></dt>
+<dd><p>This method de-stacks keys from a nested dictionary and return them as keys. It calls internal unpack_items()
+function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generator that yields keys from a nested dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.unpacked_values">
+<span class="sig-name descname"><span class="pre">unpacked_values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.unpacked_values" title="Link to this definition"></a></dt>
+<dd><p>This method de-stacks values from a nested dictionary and return them as values. It calls internal
+unpack_items() function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>generator that yields values from a nested dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>Generator</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.pop">
+<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.pop" title="Link to this definition"></a></dt>
+<dd><p>Removes the specified key (or hierarchical key) and returns its value.
+If the key does not exist, returns the default value if provided, or raises a KeyError.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>key</strong> (<em>Union</em><em>[</em><em>Any</em><em>, </em><em>List</em><em>[</em><em>Any</em><em>]</em><em>]</em>) – The key or hierarchical key to remove.</p></li>
+<li><p><strong>default</strong> (<em>Any</em>) – The value to return if the key does not exist.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The value associated with the removed key.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.exception.StackedKeyError" title="ndict_tools.exception.StackedKeyError"><strong>StackedKeyError</strong></a> – If the key does not exist and no default is provided.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.popitem">
+<span class="sig-name descname"><span class="pre">popitem</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.popitem" title="Link to this definition"></a></dt>
+<dd><p>Removes and returns the last item in the most deeply nested dictionary as a (path, value) pair.
+The path is represented as a list of keys leading to the value.
+If the dictionary is empty, raises a KeyError.</p>
+<p>The method follows a depth-first search (DFS) traversal to locate the last item,
+removing it from the nested structure before returning.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A tuple containing the hierarchical path (list of keys) and the value.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>IndexError</strong> – If the dictionary is empty.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.to_dict" title="Link to this definition"></a></dt>
+<dd><p>This method converts a nested dictionary to a classical dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.update" title="Link to this definition"></a></dt>
+<dd><p>Updates a stacked dictionary with key/value pairs from a dictionary or keyword arguments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dictionary</strong> (<em>dict</em>) – A dictionary with key/value pairs to update.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – Additional key/value pairs to update.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.occurrences">
+<span class="sig-name descname"><span class="pre">occurrences</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.occurrences" title="Link to this definition"></a></dt>
+<dd><p>Returns the Number of occurrences of a key in a stacked dictionary including 0 if the key is not a keys in a
+stacked dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Any</em>) – A possible key in a stacked dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of occurrences or 0</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.is_key">
+<span class="sig-name descname"><span class="pre">is_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.is_key" title="Link to this definition"></a></dt>
+<dd><p>Checks if a key exists at any level in the _StackedDict hierarchy using unpack_items().
+This works for both flat keys (e.g., 1) and hierarchical keys (e.g., [1, 2, 3]).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> – A key to check. Can be a single key or a part of a hierarchical path.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the key exists at any level, False otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.key_list">
+<span class="sig-name descname"><span class="pre">key_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.key_list" title="Link to this definition"></a></dt>
+<dd><p>returns the list of unpacked keys containing the key from the stacked dictionary. If the key is not in the
+dictionary, it raises StackedKeyError (not a key).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Any</em>) – a possible key in a stacked dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of unpacked keys containing the key from the stacked dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.exception.StackedKeyError" title="ndict_tools.exception.StackedKeyError"><strong>StackedKeyError</strong></a> – if a key is not in a stacked dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.items_list">
+<span class="sig-name descname"><span class="pre">items_list</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.items_list" title="Link to this definition"></a></dt>
+<dd><p>returns the list of unpacked items associated to the key from the stacked dictionary. If the key is not in the
+dictionary, it raises StackedKeyError (not a key).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>key</strong> (<em>Any</em>) – a possible key in a stacked dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of unpacked items associated the key from the stacked dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#ndict_tools.exception.StackedKeyError" title="ndict_tools.exception.StackedKeyError"><strong>StackedKeyError</strong></a> – if a key is not in a stacked dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
+<dd><p>This method converts a nested dictionary to a classical dictionary</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>a dictionary</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.height">
+<span class="sig-name descname"><span class="pre">height</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.height" title="Link to this definition"></a></dt>
+<dd><p>Computes the height of the _StackedDict, defined as the length of the longest path.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The height of the dictionary.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.size" title="Link to this definition"></a></dt>
+<dd><p>Computes the size of the _StackedDict, defined as the total number of keys (nodes) in the structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The total number of nodes in the dictionary.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.leaves">
+<span class="sig-name descname"><span class="pre">leaves</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.leaves" title="Link to this definition"></a></dt>
+<dd><p>Extracts the leaf nodes of the _StackedDict.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A list of leaf values.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.is_balanced">
+<span class="sig-name descname"><span class="pre">is_balanced</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.is_balanced" title="Link to this definition"></a></dt>
+<dd><p>Checks if the _StackedDict is balanced.
+A balanced dictionary is one where the height difference between any two subtrees is at most 1.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if balanced, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.tools._StackedDict.ancestors">
+<span class="sig-name descname"><span class="pre">ancestors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.tools._StackedDict.ancestors" title="Link to this definition"></a></dt>
+<dd><p>Finds the ancestors (keys) of a given value in the nested dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>Any</em>) – The value to search for in the nested dictionary.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A list of keys representing the path to the value.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Any]</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the value is not found in the dictionary.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-ndict_tools.core">
+<span id="core"></span><h2><span class="section-number">3.3. </span>Core<a class="headerlink" href="#module-ndict_tools.core" title="Link to this heading"></a></h2>
+<p>This module provides tools and class for creating nested dictionaries, since standard python does not have nested
+dictionaries.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ndict_tools.core.NestedDictionary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ndict_tools.core.</span></span><span class="sig-name descname"><span class="pre">NestedDictionary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.core.NestedDictionary" title="Link to this definition"></a></dt>
+<dd><p>Nested dictionary class.</p>
+<p>This class is designed as a stacked dictionary. It represents a nest of dictionaries, that is to say that each
+key is a value or a nested dictionary. And so on…</p>
+<p>This function initializes a nested dictionary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> (<em>Iterable</em>) – the first one of the list must be a dictionary to instantiate an object.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – <p>enrichments settings and</p>
+<ul>
+<li><p>indent : indentation of the printable nested dictionary (used by json.dumps() function)</p></li>
+<li><p>strict : strict mode (False by default) define default answer to unknown key</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p><code class="docutils literal notranslate"><span class="pre">NestedDictionary({'first':</span> <span class="pre">1,'second':</span> <span class="pre">{'1':</span> <span class="pre">&quot;2:1&quot;,</span> <span class="pre">'2':</span> <span class="pre">&quot;2:2&quot;,</span> <span class="pre">'3':</span> <span class="pre">&quot;3:2&quot;},</span> <span class="pre">'third':</span> <span class="pre">3,</span> <span class="pre">'fourth':</span> <span class="pre">4})</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">NestedDictionary(zip(['first','second',</span> <span class="pre">'third',</span> <span class="pre">'fourth'],</span>
+<span class="pre">[1,</span> <span class="pre">{'1':</span> <span class="pre">&quot;2:1&quot;,</span> <span class="pre">'2':</span> <span class="pre">&quot;2:2&quot;,</span> <span class="pre">'3':</span> <span class="pre">&quot;3:2&quot;},</span> <span class="pre">3,</span> <span class="pre">4]))</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">NestedDictionary([('first',</span> <span class="pre">1),</span> <span class="pre">('second',</span> <span class="pre">{'1':</span> <span class="pre">&quot;2:1&quot;,</span> <span class="pre">'2':</span> <span class="pre">&quot;2:2&quot;,</span> <span class="pre">'3':</span> <span class="pre">&quot;3:2&quot;}),</span>
+<span class="pre">('third',</span> <span class="pre">3),</span> <span class="pre">('fourth',</span> <span class="pre">4)])</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ndict_tools.core.NestedDictionary.__str__">
+<span class="sig-name descname"><span class="pre">__str__</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ndict_tools.core.NestedDictionary.__str__" title="Link to this definition"></a></dt>
+<dd><p>Override __str__ to converts a nested dictionary to a string in json like format</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>padding</strong> (<em>int</em>) – whitespace indentation of dictionary content</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>a string in json like format</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="2. Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, biface.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
