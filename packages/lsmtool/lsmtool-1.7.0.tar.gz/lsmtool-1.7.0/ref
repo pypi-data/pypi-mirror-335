@@ -1,0 +1,19 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.2.2, pluggy-1.5.0 -- /home/marcel/code/LSMTool/venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/marcel/code/LSMTool
+configfile: pyproject.toml
+collecting ... collected 19 items / 17 deselected / 2 selected
+
+tests/test_operations_lib.py::TestOperationsLib::test_apply_beam ==> radec_to_xyz(2.15374122751614 rad, 0.841552100711042 rad, 4929192878.008341)
+==> radec_to_xyz([123.88059 123.89412 122.69348 122.90518 122.77619 123.39956 123.40146
+ 122.17152 122.53688 122.06081 124.63557 123.69647 123.9332 ] deg, [49.07421 49.07765 48.64474 48.5257  48.32231 48.21748 48.16059 48.37424
+ 48.22773 47.87911 47.90614 47.60403 47.41109] deg, 4929192878.008341)
+PASSED
+tests/test_operations_lib.py::TestOperationsLib::test_apply_beam_invert ==> radec_to_xyz(2.15374122751614 rad, 0.841552100711042 rad, 4929192878.008341)
+==> radec_to_xyz([123.88059 123.89412 122.69348 122.90518 122.77619 123.39956 123.40146
+ 122.17152 122.53688 122.06081 124.63557 123.69647 123.9332 ] deg, [49.07421 49.07765 48.64474 48.5257  48.32231 48.21748 48.16059 48.37424
+ 48.22773 47.87911 47.90614 47.60403 47.41109] deg, 4929192878.008341)
+PASSED
+
+======================= 2 passed, 17 deselected in 1.24s =======================

@@ -1,0 +1,66 @@
+============================= test session starts ==============================
+platform linux -- Python 3.10.12, pytest-8.2.2, pluggy-1.5.0 -- /home/marcel/code/LSMTool/venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /home/marcel/code/LSMTool
+configfile: pyproject.toml
+collecting ... collected 19 items / 17 deselected / 2 selected
+
+tests/test_operations_lib.py::TestOperationsLib::test_apply_beam *** dir_pointing_xyz = <SkyCoord (ITRS: obstime=57050.843495466914, location=(5064892.526, 3826577.462, 461022.624) m): (x, y, z) [dimensionless]
+    (0.40832652, 0.5273454, 0.74510153)>
+*** dir_pointing_xyz = <SkyCoord (ITRS: obstime=57050.843495466914, location=(5064892.526, 3826577.462, 461022.624) m): (x, y, z) [dimensionless]
+    [(0.39708513, 0.52184403, 0.7549849 ),
+     (0.39693462, 0.52190187, 0.75502407),
+     (0.41130796, 0.5179062 , 0.75006595),
+     (0.41036254, 0.52064406, 0.74868708),
+     (0.41318389, 0.52179415, 0.74633099),
+     (0.40833238, 0.52733926, 0.74510266),
+     (0.40876917, 0.52793637, 0.74444003),
+     (0.41822901, 0.51687586, 0.746943  ),
+     (0.41612594, 0.52102228, 0.74523485),
+     (0.42329225, 0.52104626, 0.74117101),
+     (0.39929717, 0.53927263, 0.74144912),
+     (0.41044424, 0.53574013, 0.73791465),
+     (0.40973745, 0.53940479, 0.73563421)]>
+PASSED
+tests/test_operations_lib.py::TestOperationsLib::test_apply_beam_invert *** dir_pointing_xyz = <SkyCoord (ITRS: obstime=57050.843495466914, location=(5064892.526, 3826577.462, 461022.624) m): (x, y, z) [dimensionless]
+    (0.408327, 0.527345, 0.745102)>
+*** dir_pointing_xyz = <SkyCoord (ITRS: obstime=57050.843495466914, location=(5064892.526, 3826577.462, 461022.624) m): (x, y, z) [dimensionless]
+    [(0.397085, 0.521844, 0.754985), (0.396935, 0.521902, 0.755024),
+     (0.411308, 0.517906, 0.750066), (0.410363, 0.520644, 0.748687),
+     (0.413184, 0.521794, 0.746331), (0.408332, 0.527339, 0.745103),
+     (0.408769, 0.527936, 0.74444 ), (0.418229, 0.516876, 0.746943),
+     (0.416126, 0.521022, 0.745235), (0.423292, 0.521046, 0.741171),
+     (0.399297, 0.539273, 0.741449), (0.410444, 0.53574 , 0.737915),
+     (0.409737, 0.539405, 0.735634)]>
+FAILED
+
+=================================== FAILURES ===================================
+___________________ TestOperationsLib.test_apply_beam_invert ___________________
+
+self = <test_operations_lib.TestOperationsLib testMethod=test_apply_beam_invert>
+
+    def test_apply_beam_invert(self):
+        """
+        Test `apply_beam` function with inverted beam
+        """
+        outfile = str("test_apply_beam_invert.out")
+        reffile = str(self.resource_path / "test_apply_beam_invert.out")
+        result = apply_beam(
+            str(self.ms_path),
+            self.flux,
+            self.ra,
+            self.dec,
+            invert=True
+        )
+        numpy.set_printoptions(precision=6)
+        with open(outfile, "w") as f:
+            f.write(str(result))
+>       assert filecmp.cmp(reffile, outfile, shallow=False)
+E       AssertionError: assert False
+E        +  where False = <function cmp at 0x7fa589e7a320>('/home/marcel/code/LSMTool/tests/resources/test_apply_beam_invert.out', 'test_apply_beam_invert.out', shallow=False)
+E        +    where <function cmp at 0x7fa589e7a320> = filecmp.cmp
+
+tests/test_operations_lib.py:106: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_operations_lib.py::TestOperationsLib::test_apply_beam_invert
+================== 1 failed, 1 passed, 17 deselected in 1.22s ==================
