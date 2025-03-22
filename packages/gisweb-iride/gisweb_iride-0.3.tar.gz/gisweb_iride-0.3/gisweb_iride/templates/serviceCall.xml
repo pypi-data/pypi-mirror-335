@@ -1,0 +1,10 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:{{operazione}}>
+         <tem:ProtocolloInStr><![CDATA[{{content|safe}}]]></tem:ProtocolloInStr>
+         <tem:CodiceAmministrazione>{{codice_amministrazione}}</tem:CodiceAmministrazione>
+         <tem:CodiceAOO>{{codice_aoo}}</tem:CodiceAOO>
+      </tem:{{operazione}}>
+   </soapenv:Body>
+</soapenv:Envelope>
