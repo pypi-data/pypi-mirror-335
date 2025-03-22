@@ -1,0 +1,9 @@
+# Include the README and LICENSE files
+include README.md
+include LICENSE
+
+# Include all files in the data directory
+recursive-include data *
+
+# Exclude any compiled Python files
+exclude *.pyc
