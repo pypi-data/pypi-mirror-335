@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 引入 layui.css -->
+    {% block css %}
+    <link href="//unpkg.com/layui@2.9.25/dist/css/layui.css" rel="stylesheet">
+    {% endblock css %}
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+{% block body %}
+{% comment %} for normal.html {% endcomment %}
+    <div class="layui-layout layui-layout-admin">
+    {% block app %}
+    {% endblock app %}
+    </div>
+{% endblock body %}
+<!-- 引入 layui.js -->
+{% block js %}
+<script src="//unpkg.com/layui@2.9.25/dist/layui.js"></script>
+{% endblock js %}
+</body>
+</html>
