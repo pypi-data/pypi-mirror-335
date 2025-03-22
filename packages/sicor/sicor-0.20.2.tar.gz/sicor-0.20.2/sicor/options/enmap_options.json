@@ -1,0 +1,85 @@
+{
+    "sensor":{
+        "name": "EnMAP",
+        "resamp_alg": "nearest",
+        "fit": {
+            "idx": [14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31],
+            "snr": [322.94254006, 313.45752342, 313.32464722, 306.19455173, 281.35641378, 227.9759974, 157.22390595,
+                148.93620623, 154.40197388, 182.60431866, 232.89644996, 250.1244036, 252.2267179, 272.16592448,
+                299.71964816, 316.11909184, 326.33202741, 312.28461288]
+        }
+    },
+    "retrieval": {
+        "land_only": false,  /*if True, SICOR is applied to land surfaces only (this may result in edge effects, e.g.,
+                               at coastlines); otherwise, all image pixels (land + water) are processed; default:
+                               false*/
+        "fn_LUT": "",
+        "sol_model": "fontenla",  /*available solar models: 'fontenla' (Fontenla 2011) and 'new_kurucz' (Kurucz 2005),
+                                    whereupon 'fontenla' is the default setting and 'new_kurucz' should only be used in
+                                    case of simulated EnMAP data*/
+        "cpu": 32,
+        "disable_progressbars": false,
+        "segmentation": true,
+        "n_pca": 5,
+        "segs": 200,
+        "smoothing_sigma": 50,
+        "default_aot_value": 0.2,
+        "state_vector": {
+            "water_vapor": {
+                "prior_mean": 2.5,
+                "use_prior_mean": false,
+                "ll": 0.001,
+                "ul": 4.999,
+                "prior_sigma": 1e3
+            },
+            "intercept": {
+                "prior_mean": 0.3,
+                "use_prior_mean": false,
+                "ll": 0.001,
+                "ul": 0.999,
+                "prior_sigma": 1e3
+            },
+            "slope": {
+                "prior_mean": 0.0002,
+                "use_prior_mean": false,
+                "ll": -0.0004,
+                "ul": 0.0004,
+                "prior_sigma": 1e3
+            },
+            "liquid_water": {
+                "prior_mean": 0.02,
+                "use_prior_mean": false,
+                "ll": 0.001,
+                "ul": 0.499,
+                "prior_sigma": 1e3
+            },
+            "ice": {
+                "prior_mean": 0.02,
+                "use_prior_mean": false,
+                "ll": 0.001,
+                "ul": 0.499,
+                "prior_sigma": 1e3
+            }
+        },
+        "unknowns": {
+            "skyview": {
+                "sigma": 0.1
+            },
+            "water_vapor_absorption_coefficients": {
+                "sigma": 0.01
+            },
+            "liquid_water_absorption_coefficients": {
+                "sigma": 2.43e-07
+            },
+            "ice_absorption_coefficients": {
+                "sigma": 2.39e-07
+            }
+        },
+        "inversion": {
+            "gnform": "n",
+            "full": true,
+            "maxiter": 35,
+            "eps": 0.01
+        }
+    }
+}

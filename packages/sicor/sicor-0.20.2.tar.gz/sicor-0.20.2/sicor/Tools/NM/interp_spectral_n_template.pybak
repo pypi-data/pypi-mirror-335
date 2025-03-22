@@ -1,0 +1,331 @@
+# pragma: no cover
+# execute this as like to fuild full range of interpolation programs.
+# head -44 interp_spectral_n_template.py | python
+# or this to auto find the number of needed lines by token
+# bash -c 'head -$(grep -n "#EEooFF" interp_spectral_n_template.py | tail -1 | cut -f1 -d:) interp_spectral_n_template.py | python'
+
+if __name__ == "__main__":
+    print("Produce versions for n dimensions")
+    lib_cases = range(1,15)
+    def mk_python_routine(nn):
+        with open("./interp_spectral_n_template.py","r") as fl:
+            tmpl = fl.readlines()
+        with open("./interp_spectral_n_%i.py" % nn,"w") as fl:
+            for line in tmpl:
+                ln = line.split("|")
+                if line[0] =="|" and len(ln)==3:
+                    for ll in eval(ln[1]):
+                        fl.write(ll+"\n")
+                elif len(ln)==3:
+                    out = ln[0]+eval(ln[1])+ln[2]
+                    fl.write(out)
+                elif len(ln)==5:
+                    out = ln[0]+eval(ln[1])+ln[2]+eval(ln[3])+ln[4]
+                    fl.write(out)
+                else:
+                    fl.write(line)
+
+    for ii in lib_cases:
+        print("prepare:",ii)
+        nn = ii
+        mk_python_routine(ii)
+
+    print("Start Test")
+
+    import importlib
+    import numpy as np
+    from itertools import product
+    from scipy.interpolate import RegularGridInterpolator
+    from time import time
+
+
+    def test_pt(pt):
+        pt = np.array(pt)
+        t0 = time()
+        ff_erg = np.array([ff(np.hstack((pt,np.array([ss]))))[0] for ss in range(n_spectral)])
+        t1 = time()
+        ii_erg = ii(pt)[0]
+        t2 = time()
+
+        print("### timings: RG:%.4f,This:%.4f,RG/THIS:%.2f" % (t1-t0,t2-t1,(t1-t0)/(t2-t1)))
+        print("Test:",len(pt)*"%.2f," % tuple(pt))
+        print(ii_erg)
+        print(ff_erg)
+        print("Difference:",len(ii_erg)*"%.5f," % tuple(np.array(ii_erg)-np.array(ff_erg)))
+        if np.sum(ii_erg-ff_erg)>1e-5 or np.isnan(np.sum(ii_erg-ff_erg)):
+            print("Test Failed!")
+            raise ValueError()
+
+
+
+    n_spectral = 4
+    for n_interp in lib_cases:
+        intp = importlib.import_module("interp_spectral_n_%i" % n_interp)
+        print("Test dim: %i" % n_interp)
+        shape = n_interp*[2]+[n_spectral]
+        print("Test shape:",shape)
+        data = np.random.random_sample(np.prod(shape)).reshape(shape)
+        axes = [(lambda x:np.array([x[0],x[0]+x[1]]))(np.random.random(2)) for ii in range(n_interp)]
+        axes_low = np.array([ax[0] for ax in axes])
+        axes_high = np.array([ax[1] for ax in axes])
+        print("Random axes:",axes)
+        ii = intp.intp(data,axes=axes)
+        ff = RegularGridInterpolator(axes+[np.arange(n_spectral)], data)
+
+        print("###################")
+        print("Test random points.")
+        for _ in range(4):
+            pt = (axes_high-axes_low)*np.random.random_sample(n_interp)+axes_low
+            test_pt(pt)
+
+        print("######################")
+        print("Test all axes corners:")
+        for pt in product(*axes):
+            pt = np.array(pt)
+            test_pt(pt)
+
+    print("Completed Test without errors, go ahead and happy spectral interpolating.")
+
+
+
+#EEooFF
+
+################################################
+# real code starts here ########################
+################################################
+import numpy as np
+from numba import jit,int8,float32
+from cachetools import LRUCache
+from types import MethodType
+
+__author__ = "Niklas Bohn, Andre Hollstein"
+
+@jit(nopython=True)
+def int1d(nx,xx,yy,x):
+    """
+    nx: length of xx and yy vector
+    xx: indepent data
+    yy: dependent data
+    return: linearly interpolated point
+    """
+    if (x >= xx[0]) and (x <= xx[nx-1]):
+        in_range = 1
+    else:
+        in_range = 0
+
+    for ii in range(nx):
+        if x <= xx[ii]:
+            break
+    vv= xx[ii]-xx[ii-1]
+    return yy[ii-1]*(xx[ii]-x)/vv+yy[ii]*(x-xx[ii-1])/vv,(yy[ii]-yy[ii-1])/vv,in_range
+
+
+@jit(nopython=True)
+def sign(x):
+    if x>0.0:
+        return 1.0
+    else:
+        return -1.0
+
+
+@jit(nopython=True)
+def __dx__(pt,rt,mx):
+    """
+    pt: float index
+    rt: 1D numpy array of ints
+    returns in rt array, float and ceil of pt
+    """
+    rt[0] = np.floor(pt)
+    rt[1] = rt[0] + 1
+
+    if rt[1] == mx:
+        rt[0] -= 1
+        rt[1] -= 1
+
+
+@jit(nopython=True,locals={'vi':float32,
+                           |"".join(["'b%i':int8," % ii for ii in range(nn)])|
+                           |"".join(["'v%i':float32," % ii for ii in range(nn)])|})
+def __intp_spectral__(data,res,grad,ndim,
+                      |"".join(["p%i," % ii for ii in range(nn)])|
+                      |"".join(["d%i," % ii for ii in range(nn)])|):
+    """
+    3D interpolation, but easy to generalize to n dimentions
+    data: 1D+3D numpy array of arbitrary shape, first dimension is "spectral" and interpolation is carried over
+    res: 1D numpa vector with shape of spectral dimension
+    ndim: length of spectral dimension
+    p0-p3: float index at which is interpolated
+    d0-d2: 1D numpy array of shape 2, contain floor and ceil of p0-p3
+    returns interpolation point
+    """
+
+|[(ii+1)*"    "+"for i%i in d%i:" % (ii,ii) for ii in range(nn)]|
+
+|(nn+1)*"    "|vi = np.abs(|"".join(["(p%i-i%i)*" % (ii,ii) for ii in range(nn)])[:-1]|)
+
+|[(nn+1)*"    "+ ("v%i = sign(p%i-i%i)*np.abs(" % (jj,jj,jj)) + "".join(["(p%i-i%i)*" % (ii,ii) if ii != jj else "(1.0  )*" for ii in range(nn)])[:-1]+")" for jj in range(nn)]|
+# works only in numba since the integer conversion of the b is handled trough the interface block, without numbe, add int()'s here
+|[(nn+1)*"    "+ "b%i = i%i+sign(p%i-i%i)" % (ii,ii,ii,ii) for ii in range(nn)]|
+
+|[(nn+1)*"    "+"for ii in range(ndim): # when writing, numba didn't support array striding, meant is: res[:] += vi*data[:,b0,b1,b2]"]|
+
+|(nn+2)*"    "|dat = data[|"".join(["b%i," % ii for ii in range(nn)])[:-1]|,ii] # <- here decide weather spectral dimension is first or last
+|(nn+2)*"    "|res[ii] += vi*dat |"%s" % ""|
+
+|[(nn+2)*"    "+"grad[%i,ii] += v%i*dat" % (jj,jj) for jj in range(nn)]|
+
+
+@jit(nopython=True,locals={'vi':float32,
+                           |"".join(["'b%i':int8," % ii for ii in range(nn)])|
+                           |"".join(["'v%i':float32," % ii for ii in range(nn)])|})
+def __intp_spectral_no_jac__(data,res,ndim,
+                      |"".join(["p%i," % ii for ii in range(nn)])|
+                      |"".join(["d%i," % ii for ii in range(nn)])|):
+    """
+    3D interpolation, but easy to generalize to n dimentions
+    data: 1D+3D numpy array of arbitrary shape, first dimension is "spectral" and interpolation is carried over
+    res: 1D numpa vector with shape of spectral dimension
+    ndim: length of spectral dimension
+    p0-p3: float index at which is interpolated
+    d0-d2: 1D numpy array of shape 2, contain floor and ceil of p0-p3
+    returns interpolation point
+    """
+|[(ii+1)*"    "+"for i%i in d%i:" % (ii,ii) for ii in range(nn)]|
+
+|(nn+1)*"    "|vi = np.abs(|"".join(["(p%i-i%i)*" % (ii,ii) for ii in range(nn)])[:-1]|)
+
+# works only in numba since the integer conversion of the b is handled trough the interface block, without numbe, add int()'s here
+|[(nn+1)*"    "+ "b%i = i%i+sign(p%i-i%i)" % (ii,ii,ii,ii) for ii in range(nn)]|
+
+|[(nn+1)*"    "+"for ii in range(ndim): # when writing, numba didn't support array striding, meant is: res[:] += vi*data[:,b0,b1,b2]"]|
+
+|(nn+2)*"    "|dat = data[|"".join(["b%i," % ii for ii in range(nn)])[:-1]|,ii] # <- here decide weather spectral dimension is first or last
+|(nn+2)*"    "|res[ii] += vi*dat |"%s" % ""|
+
+
+# do not jit this!
+def __intp__(data,pt,dv,jacobean):
+    """
+    data: numpy array, here 3D, arbitrary shape
+    pt: 1D numpy array of shape (3), this is the wanted interpolation point
+    return: interpolated value
+    """
+|["    "+"d%i = np.zeros(2,dtype=int)" % ii for ii in range(nn)]|
+|["    "+"__dx__(pt[%i],d%i,data.shape[%i])" % (ii,ii,ii) for ii in range(nn)]|
+
+    ndim = len(data.shape)
+    ndim_spectral = data.shape[-1] # <- here decide weather spectral dimension is first or last
+
+    res = np.zeros(ndim_spectral)
+    if jacobean:
+        grad = np.zeros((|"%i" % nn|,ndim_spectral))
+        __intp_spectral__(data,res,grad,ndim_spectral,
+                       |"".join(["pt[%i]," %ii for ii in range(nn)])|
+                       |"".join(["d%i," %ii for ii in range(nn)])[:-1]|) # <- here decide weather spectral dimension is first or last
+
+|[2*"    "+"grad[%i,:] *= dv[%i]" % (ii,ii) for ii in range(nn)]|
+        return res,grad
+    else:
+        __intp_spectral_no_jac__(data,res,ndim_spectral,
+                       |"".join(["pt[%i]," %ii for ii in range(nn)])|
+                       |"".join(["d%i," %ii for ii in range(nn)])[:-1]|) # <- here decide weather spectral dimension is first or last
+        return res
+
+
+#class intp|"%i" % nn|_dx(object):
+class intp(object):
+    """
+    Wrapper class for 3D interpolation with intp |"%i" % nn| dimensions
+    """
+    def __init__(self,data,axes=None,jacobean=True,caching=True,maxsize=2000,hash_pattern="|nn*"%.2f,"|"):
+        """
+        data : data: numpy array, last dimension is spectral one, over which interpolation is beeing carried over
+        axes : list of 1D numpy arrays of shape data.shape(i), contaoning the scales for each dimension, not including values for the spectral dimension
+        maxsize: max number of cached results, both for Jacobean and non Jacobean caches
+        hash_pattern: string to convert py array/list to hash, e.g. n_dim"%.4f" % tuple(pt)
+        """
+        assert type(jacobean) == bool
+        assert type(caching) == bool
+        assert type(hash_pattern) == str
+        assert type(data) == np.ndarray
+        if axes is not None:
+            assert len(axes) == len(data.shape)-1
+            for axe in axes:
+                assert type(axe) == np.ndarray
+                assert len(axe.shape) == 1
+        # define base settings
+        self.n_dim=|"%i" % nn|
+        self.data = data
+        self.cache = None
+        self.__jacobean__ = None
+        self.__caching__ = None
+        self.hash_pattern = hash_pattern
+        # use separate caches for with and without Jacobean computations
+        self.cache_no_jac = LRUCache(maxsize=maxsize)
+        self.cache_jac = LRUCache(maxsize=maxsize)
+        # apply settings
+        self.settings(jacobean=jacobean,caching=caching)
+        # initialize axes
+        self.axes_y = [np.arange(ii) for ii in self.data.shape[:-1]] # excluding spectral dimension from axes, <- here decide weather spectral dimension is first or last
+        if axes is not None:
+            self.axes_x = axes
+        else:
+            self.axes_x = self.axes_y
+
+
+    def __call__(self,pt):
+        """ Implement callable protocoll"""
+        if self.__caching__:
+            return self.__call_from_cache__(pt)
+        else:
+            return self.__call_no_cache__(pt)
+
+
+    def __call_from_cache__(self,pt):
+        """ Before interpolation, check cache for result """
+        try:
+            return self.cache[self.__hash__(pt)]
+        except Exception as err:
+            res = self.interpolate(pt)
+            self.cache[self.__hash__(pt)] = res
+            return res
+
+
+    def __call_no_cache__(self,pt):
+        """ Don't check hash"""
+        return self.interpolate(pt)
+
+
+    def settings(self,jacobean,caching):
+        """ Consistently set values for jacobean and caching (separate for Jacobean)"""
+        assert type(jacobean) == bool
+        assert type(caching) == bool
+
+        self.__jacobean__ = jacobean
+        self.__caching__ = caching
+
+        if self.__caching__:
+            if self.__jacobean__:
+                self.cache = self.cache_jac
+            else:
+                self.cache = self.cache_no_jac
+
+
+    def __hash__(self,pt):
+        """ Hash function for pt array/list, used for caching """
+        return self.hash_pattern % tuple(pt)
+
+
+    def interpolate(self,pt):
+        """
+        point at which should be interpolated
+        pt: nump float array, interpolation point
+        return: interpolation point,gradient
+        """
+|[2*"    "+"p%i,d%i,r%i = int1d(self.data.shape[%i],self.axes_x[%i],self.axes_y[%i],pt[%i])" % (ii,ii,ii,ii,ii,ii,ii) for ii in range(nn)]|
+        # all ri must be one for pt to to be in the table
+        rr = |"".join(["r%i*" % ii for ii in range(nn)])[:-1]|
+        if (rr != 1):
+            raise ValueError("At least one dimension is out of bounds.")
+        else:
+            return __intp__(self.data,[|"".join(["p%i," % ii for ii in range(nn)])[:-1]|],[|"".join(["d%i," % ii for ii in range(nn)])[:-1]|],jacobean = self.__jacobean__)

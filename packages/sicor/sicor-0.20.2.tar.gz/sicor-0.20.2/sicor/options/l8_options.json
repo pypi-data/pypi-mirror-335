@@ -1,0 +1,223 @@
+{
+    "ram": {
+        "upper_limit": 20,
+        "unit": "GB"
+    },
+    "ozo_to_DU": 71524.3,
+    "ozone_fallback":500.0, /* in [DU] */
+    "dT/dh":-0.006,  /* in [K/m]*/
+    "S2Image": {
+        "sliceY": "slice(None, None, None)",
+        "sliceX": "slice(None, None, None)",
+        "unit": "reflectance"
+    },
+    "ECMWF": {
+        "total_AOT": "fc_total_AOT_550nm",
+        "path_db": "./",
+        "target_resolution": 30.0,
+        "max_delta_day": 10,
+        "variables_aerosol": [
+            "fc_total_AOT_550nm",
+            "fc_sulphate_AOT_550nm",
+            "fc_black_carbon_AOT_550nm",
+            "fc_dust_AOT_550nm",
+            "fc_organic_matter_AOT_550nm",
+            "fc_sea_salt_AOT_550nm"
+        ],
+        "variable_tcwv":"fc_TCWV",
+        "var2type": {
+            "fc_organic_matter_AOT_550nm": "aerosol_2",
+            "fc_sulphate_AOT_550nm": "aerosol_2",
+            "fc_sea_salt_AOT_550nm": "aerosol_1",
+            "fc_black_carbon_AOT_550nm": "aerosol_0",
+            "fc_dust_AOT_550nm": "aerosol_3"
+        }
+    },
+    "logger": {
+        "pprint": {
+            "indent": 3,
+            "compact": false,
+            "width": 100
+        },
+        "logg_options": true,
+        "datefmt": "%Y%m%d-%H:%M:%S",
+        "level": "INFO",
+        "format": "%(asctime)s:%(levelname)s::%(message)s",
+        "name": "SICOR"
+    },
+    "DEM": {
+        "fn": "/misc/gts2/backup/aux_data/dem/GLOBAL_SRTM_90m.h5",
+        "target_resolution": 30.0,
+        "return_zeros_if_missing": true
+    },
+    "RTFO": {
+        "aerosol_1": {
+            "flag": 10,
+            "table_path": "/table_aerosol/type_1",
+            "dim_scat": [
+                "tau_a"
+            ],
+            "atm_tables_fn": "linear_atm_functions_ncwv_5_npre_4_ncoz_2_ntmp_2_wvl_350.0_2550.0_1.00_pca.h5",
+            "atm_tables_size": 5342929157,
+            "dim_atm": [
+                "spr",
+                "coz",
+                "cwv",
+                "tmp"
+            ],
+            "only_toa": true
+        },
+        "aerosol_0": {
+            "flag": 10,
+            "table_path": "/table_aerosol/type_0",
+            "dim_scat": [
+                "tau_a"
+            ],
+            "atm_tables_fn": "linear_atm_functions_ncwv_5_npre_4_ncoz_2_ntmp_2_wvl_350.0_2550.0_1.00_pca.h5",
+            "atm_tables_size": 5342929157,
+            "dim_atm": [
+                "spr",
+                "coz",
+                "cwv",
+                "tmp"
+            ],
+            "only_toa": true
+        },
+        "cirrus": {
+            "flag": 20,
+            "table_path": "/table_cirrus",
+            "dim_scat": [
+                "tau_c",
+                "eff_rad_cirrus"
+            ],
+            "atm_tables_fn": "linear_atm_functions_ncwv_5_npre_4_ncoz_2_ntmp_2_wvl_350.0_2550.0_1.00_pca.h5",
+            "atm_tables_size": 5342929157,
+            "dim_atm": [
+                "spr",
+                "coz",
+                "cwv",
+                "tmp"
+            ],
+            "only_toa": true
+        },
+        "aerosol_2": {
+            "flag": 10,
+            "table_path": "/table_aerosol/type_2",
+            "dim_scat": [
+                "tau_a"
+            ],
+            "atm_tables_fn": "linear_atm_functions_ncwv_5_npre_4_ncoz_2_ntmp_2_wvl_350.0_2550.0_1.00_pca.h5",
+            "atm_tables_size": 5342929157,
+            "dim_atm": [
+                "spr",
+                "coz",
+                "cwv",
+                "tmp"
+            ],
+            "only_toa": true
+        },
+        "aerosol_3": {
+            "flag": 10,
+            "table_path": "/table_aerosol/type_3",
+            "dim_scat": [
+                "tau_a"
+            ],
+            "atm_tables_fn": "linear_atm_functions_ncwv_5_npre_4_ncoz_2_ntmp_2_wvl_350.0_2550.0_1.00_pca.h5",
+            "atm_tables_size": 5342929157,
+            "dim_atm": [
+                "spr",
+                "coz",
+                "cwv",
+                "tmp"
+            ],
+            "only_toa": true
+        }
+    },
+    "report": {
+        "reporting": false, /* either true or false */
+        "RGB": {
+            "output_size": 5490,
+            "hist_chop_off_fraction": 0.05,
+            "rgb_bands": ["B01", "B02", "B03"]
+        },
+        "HTML": false,
+        "figs": {
+            "DEM": {},
+            "RGB": {}
+        },
+        "figs_clouds": {
+            "DEM": {},
+            "RGB": {}
+        },
+        "report_path": "",
+        "JPG": true,
+        "dpi": 200,
+        "n_cols": 2
+    },
+    "cld_mask": {
+        "target_resolution": 30.0,
+        "nodata_value_mask":255,
+        "persistence_file": "cld_mask_S2_classi_20170412_v20170412_11:43:14.h5",
+        "persistence_file_size": 51152124,
+        "processing_tiles": 4,
+        "novelty_detector": "noclear_novelty_detector_channel2_difference9_0_index10_1_channel12_index1_8.retrain.pkl",
+        "novelty_detector_size": 495575,
+        "majority_mask_filter":[
+            {"block_replace": true,"block_replace_params": [[60,4]],"majority_width": 0},
+            {"block_replace": true,"block_replace_params": [[50,3]],"majority_width": 0},
+            {"block_replace": true,"block_replace_params": [[50, 10], [30, 10]],"majority_width": 10}
+        ]
+    },
+    "AC": {
+        "aerosol_type_estimation":"maximum_ECMWF_type", /*should be:maximum_ECMWF_type*/
+        "max_pixel_processing": 30140100,
+        "fill_nonclear_areas": false,
+        "dd_statistics":10,
+        "n_smpl": {
+            "spr": 3,
+            "cwv": 3,
+            "tau_a": 3,
+            "rho": 12
+        },
+        "min_clear_fraction": 0.1,
+        "labels_to_process": ["Clear", "Snow", "Water", "Shadow"],
+            /*Defines to which area labels AC is applied. Full list:
+            ["Clear", "Snow", "Water", "Shadow", "Cirrus", "Cloud"] => whole image is atmospherically corrected*/
+        "default_cwv_value": 20.0, /* in [mm] */
+        "default_aot_value": 0.1, /* dimensionless */
+        "default_aerosol_type": "aerosol_2", /* 'aerosol_0', 'aerosol_1', 'aerosol_2', 'aerosol_3', or 'cirrus' */
+        "override_aerosol_type": "auto",
+        "parameter_bounds": "image",
+        "n_cores": 1,
+        "bands": [
+            "B01",
+            "B02",
+            "B03",
+            "B04",
+            "B05",
+            "B06",
+            "B07"
+        ],
+        "target_resolution": 30.0
+    },
+    "water_vapor": {
+        "type":"ECMWF"
+    },
+    "SRF": "L8",
+    "uncertainties":{
+        "snr_model": 100.0,
+        "model_linear": [[1,1,1,1]],
+        "model_vars": ["tau","spr","cwv","I"],
+        "default_errors": {
+            "dspr": 0.5,
+            "dcwv": 1.0,
+            "dtau": 0.05},
+        "model_quadratic": [
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,0],
+            [0,0,0,1]
+            ]
+    },
+    "output": [{"type":"none"}]
+}
