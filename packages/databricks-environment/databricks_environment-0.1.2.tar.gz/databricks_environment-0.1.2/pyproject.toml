@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "databricks-environment"
+version = "0.1.2"
+description = "Databricks Environment for pyspark apps"
+authors = ["DataSentics Team"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "pyspark_environment.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.group.dev.dependencies]
+databricks-connect = "^13.1"
+poethepoet = "^0.20.0"
+black = ">=23.3,<25.0"
+
+[tool.poe.tasks]
+black = "black pyspark_environment.py"
+black-check = "black --check pyspark_environment.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
