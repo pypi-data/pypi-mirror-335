@@ -1,0 +1,96 @@
+[build-system]
+requires = [
+  "setuptools", 
+  "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "polymap"
+dynamic = ["version"]
+dependencies = [
+    "numpy",
+]
+
+description = "A library for polymap."
+readme = "README.md"
+license = {file = "LICENSE"}
+
+authors = [
+  {name = "Sameeul B Samee", email = "sameeul.samee@axleinfo.com"},
+]
+
+maintainers = [
+  {name = "Sameeul B Samee", email = "sameeul.samee@axleinfo.com"},
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+] 
+
+requires-python = ">=3.9"
+
+
+
+[project.urls]
+Documentation = "https://polymap.readthedocs.io/en/latest/"
+Repository = "https://github.com/PolusAI/polymap"
+
+
+[tool.setuptools.dynamic]
+version = {attr = "polymap.__version__"}
+
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+namespaces = false
+
+
+[tool.setuptools.package-data]
+"*" = [
+    "VERSION"
+]
+
+
+[tool.bumpversion]
+current_version = "0.0.1"
+commit = true
+tag = true
+commit_args = "--no-verify"
+parse = "(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)(\\-(?P<release>[a-z]+)(?P<build>\\d+))?"
+serialize = [
+    "{major}.{minor}.{patch}-{release}{build}",
+    "{major}.{minor}.{patch}"
+]
+
+[tool.bumpversion.parts.release]
+optional_value = "_"
+first_value = "dev"
+values = [
+    "dev",
+    "_"
+]
+
+[[tool.bumpversion.files]]
+filename = "src/polymap/VERSION"
+search = "{current_version}"
+replace = "{new_version}"
+
+[[tool.bumpversion.files]]
+filename = "README.md"
+search = "{current_version}"
+replace = "{new_version}"
+
+
+[tool.codespell]
+skip = "*.svg,*.html"
+ignore-words-list = "utput"
