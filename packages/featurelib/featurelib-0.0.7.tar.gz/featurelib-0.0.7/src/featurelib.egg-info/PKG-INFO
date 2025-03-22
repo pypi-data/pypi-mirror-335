@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: featurelib
+Version: 0.0.7
+Summary: Separate complicated functionality from your class
+Author-email: Soumyo Deep Gupta <deep.main.ac@gmail.com>
+Maintainer-email: Soumyo Deep Gupta <deep.main.ac@gmail.com>
+License-Expression: MIT
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+`featurelib` contains tools to divide and maintain large code bases while providing better readability and easy extensibility and maintainability.
+
+```python
+from featurelib import feature, endpoint
+
+class Logging(feature):
+    def log(self, msg: str) -> None:
+        # some logic here
+
+    def log_to_terminal(self, msg: str) -> None:
+        # some logic here
+
+
+class Printing(feature):
+    def print(self) -> None:
+        print(self)
+
+
+@endpoint
+class App(Logging, Printing):
+    def __init__(self) -> None:
+        self.log('__init__ method.')
+        self.print()
+```
