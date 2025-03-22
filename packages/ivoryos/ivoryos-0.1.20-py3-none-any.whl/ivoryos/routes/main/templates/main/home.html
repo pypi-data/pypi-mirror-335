@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}IvoryOS | Welcome {% endblock %}
+
+
+{% block body %}
+    <div class="p-4" >
+        <h1 style=" font-size: 3rem;font-weight: bold;color: #343a40;margin-bottom: 40px;">
+            Welcome
+        </h1>
+        <p>Version: {{ version }}</p>
+        <div class="row">
+            {% if enable_design %}
+                <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+                    <div class="card rounded shadow-sm flex-fill">
+                        <div class="card-body">
+                            <h5 class="card-title">Browse designs</h5>
+                            <p class="card-text">Browse all workflows saved in the database.</p>
+                            <a href="{{ url_for('database.load_from_database') }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+                    <div class="card rounded shadow-sm flex-fill">
+                        <div class="card-body">
+                            <h5 class="card-title">Edit designs</h5>
+                            <p class="card-text">Build your workflow from current deck functions.</p>
+                            <a href="{{ url_for('design.experiment_builder') }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+
+        <br><br><br>
+        {% if not off_line %}
+            <div class="row">
+                {% if enable_design %}
+                <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+                    <div class="card rounded shadow-sm flex-fill">
+                        <div class="card-body">
+                            <h5 class="card-title">Run experiment</h5>
+                            <p class="card-text">Execute workflows with repeat times or variable configs. </p>
+                            <a href="{{ url_for('design.experiment_run') }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+                    <div class="card rounded shadow-sm flex-fill">
+                        <div class="card-body">
+                            <h5 class="card-title">Control device</h5>
+                            <p class="card-text">Browse and control instruments of current platform</p>
+                            <a href="{{ url_for('control.deck_controllers') }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4 d-flex align-items-stretch">
+                    <div class="card rounded shadow-sm flex-fill">
+                        <div class="card-body">
+                            <h5 class="card-title">Connect new device</h5>
+                            <p class="card-text">Connect new hardware: for simple/temporary configurations.</p>
+                            <a href="{{ url_for('control.controllers_home') }}" class="stretched-link"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
