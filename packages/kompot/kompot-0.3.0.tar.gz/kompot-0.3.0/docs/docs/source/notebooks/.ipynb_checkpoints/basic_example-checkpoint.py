@@ -1,0 +1,248 @@
+#!/usr/bin/env python
+
+"""
+Basic example demonstrating how to use Kompot for differential abundance and expression analysis
+with both the original API and the new scverse-compatible AnnData API.
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+import umap
+import pandas as pd
+
+# Import Kompot
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import kompot
+
+# Set random seed for reproducibility
+np.random.seed(42)
+
+# Generate some sample data
+def generate_sample_data(n_cells=1000, n_genes=50, n_components=10):
+    """Generate sample data for demonstration."""
+    # Generate cell states in lower-dimensional space
+    X_condition1 = np.random.randn(n_cells, n_components)
+    X_condition2 = np.random.randn(n_cells, n_components) + 0.5  # Shift the second condition
+    
+    # Generate gene expression values
+    def generate_expression(X):
+        expression = np.zeros((X.shape[0], n_genes))
+        
+        # Basic expression patterns
+        for gene in range(n_genes):
+            # Each gene responds to a random subset of components
+            weights = np.random.randn(n_components) * (np.random.rand(n_components) > 0.7)
+            expression[:, gene] = np.dot(X, weights) + np.random.randn(X.shape[0]) * 0.2
+            
+        return expression
+    
+    y_condition1 = generate_expression(X_condition1)
+    y_condition2 = generate_expression(X_condition2)
+    
+    # Make some genes differentially expressed
+    diff_genes = np.random.choice(n_genes, size=int(n_genes * 0.2), replace=False)
+    for gene in diff_genes:
+        # Add an offset to make it differentially expressed
+        y_condition2[:, gene] += np.random.randn() * 2
+    
+    return X_condition1, y_condition1, X_condition2, y_condition2, diff_genes
+
+# Generate data
+print("Generating sample data...")
+X_condition1, y_condition1, X_condition2, y_condition2, diff_genes = generate_sample_data()
+
+# Combine data for visualization
+X_combined = np.vstack([X_condition1, X_condition2])
+condition_labels = np.array(['Condition1'] * len(X_condition1) + ['Condition2'] * len(X_condition2))
+
+# Create a UMAP embedding for visualization
+print("Creating UMAP embedding for visualization...")
+umap_reducer = umap.UMAP(n_components=2, random_state=42)
+X_umap = umap_reducer.fit_transform(X_combined)
+
+print("\n==========================================")
+print("PART 1: Using the original Kompot API")
+print("==========================================")
+
+# 1. Differential Abundance Analysis
+print("\n1. Running Differential Abundance Analysis...")
+# Method 1: Create estimators and fit them
+diff_abundance = kompot.DifferentialAbundance(n_landmarks=200)
+diff_abundance.fit(X_condition1, X_condition2)
+
+# Visualize log fold changes
+plt.figure(figsize=(10, 8))
+plt.scatter(
+    X_umap[:, 0], 
+    X_umap[:, 1], 
+    c=diff_abundance.log_fold_change,
+    cmap='RdBu_r',
+    alpha=0.7,
+    s=5
+)
+plt.colorbar(label='Log Fold Change (Density)')
+plt.title('Differential Abundance: Log Fold Change')
+plt.tight_layout()
+plt.savefig('diff_abundance_log_fold_change.png')
+
+# 2. Differential Expression Analysis
+print("\n2. Running Differential Expression Analysis...")
+
+# Using the density estimator from the previous step (most efficient)
+diff_expression = kompot.DifferentialExpression(
+    n_landmarks=200,
+    differential_abundance=diff_abundance  # Re-use the density estimator we already computed
+)
+diff_expression.fit(
+    X_condition1, y_condition1, 
+    X_condition2, y_condition2
+)
+
+# Visualize fold changes for a specific gene
+gene_idx = diff_genes[0]  # Pick the first differentially expressed gene
+plt.figure(figsize=(10, 8))
+plt.scatter(
+    X_umap[:, 0], 
+    X_umap[:, 1], 
+    c=diff_expression.fold_change[:, gene_idx],
+    cmap='RdBu_r',
+    alpha=0.7,
+    s=5
+)
+plt.colorbar(label='Log Fold Change (Gene Expression)')
+plt.title(f'Differential Expression: Log Fold Change for Gene {gene_idx}')
+plt.tight_layout()
+plt.savefig(f'diff_expression_gene_{gene_idx}_fold_change.png')
+
+# Visualize Mahalanobis distances
+plt.figure(figsize=(10, 6))
+top_gene_indices = np.argsort(diff_expression.mahalanobis_distances)[-20:]  # Top 20 genes
+sns.barplot(
+    x=top_gene_indices,
+    y=diff_expression.mahalanobis_distances[top_gene_indices],
+    palette='viridis'
+)
+plt.axhline(y=np.median(diff_expression.mahalanobis_distances), color='r', linestyle='--', label='Median')
+plt.xticks(rotation=45)
+plt.xlabel('Gene Index')
+plt.ylabel('Mahalanobis Distance')
+plt.title('Top 20 Genes by Mahalanobis Distance')
+plt.legend()
+plt.tight_layout()
+plt.savefig('top_genes_mahalanobis.png')
+
+print("\n==========================================")
+print("PART 2: Using the scverse-compatible AnnData API")
+print("==========================================")
+
+# Convert the data to AnnData format
+try:
+    import anndata
+    
+    # Create an AnnData object with all data
+    print("\nCreating AnnData object...")
+    # Create a combined expression matrix
+    y_combined = np.vstack([y_condition1, y_condition2])
+    
+    # Create gene names
+    gene_names = [f"gene_{i}" for i in range(y_combined.shape[1])]
+    
+    # Create metadata
+    obs = pd.DataFrame({
+        'condition': condition_labels,
+        'is_condition1': np.array([True] * len(X_condition1) + [False] * len(X_condition2)),
+        'is_condition2': np.array([False] * len(X_condition1) + [True] * len(X_condition2)),
+    })
+    
+    var = pd.DataFrame(index=gene_names)
+    var['is_diff_gene'] = [i in diff_genes for i in range(len(gene_names))]
+    
+    # Create the AnnData object
+    adata = anndata.AnnData(
+        X=y_combined,
+        obs=obs,
+        var=var
+    )
+    
+    # Add cell states to obsm
+    adata.obsm['X_pca'] = X_combined
+    adata.obsm['X_umap'] = X_umap
+    
+    # Run the complete analysis workflow
+    print("\n3. Running complete differential analysis with AnnData API...")
+    adata = kompot.run_differential_analysis(
+        adata, 
+        groupby='condition', 
+        condition1='Condition1', 
+        condition2='Condition2',
+        obsm_key='X_pca',
+        n_landmarks=200,
+        generate_html_report=True,
+        report_dir='kompot_report',
+        open_browser=False  # Set to False for headless environments
+    )
+    
+    # Compare the results between the original API and the AnnData API
+    print("\n4. Comparing results between original API and AnnData API...")
+    
+    # Get top genes from both approaches
+    top_genes_original = np.argsort(diff_expression.mahalanobis_distances)[-10:]
+    top_genes_anndata = adata.var.sort_values('kompot_de_mahalanobis', ascending=False).index[:10]
+    
+    print(f"Top 10 genes by original API: {top_genes_original}")
+    print(f"Top 10 genes by AnnData API: {[int(g.split('_')[1]) for g in top_genes_anndata]}")
+    
+    # Plot gene expression for a top differential gene
+    top_gene = top_genes_anndata[0]
+    top_gene_idx = int(top_gene.split('_')[1])
+    
+    # Compare the original and anndata results for this gene
+    plt.figure(figsize=(12, 6))
+    
+    # Original API result
+    plt.subplot(1, 2, 1)
+    plt.scatter(
+        X_umap[:, 0], 
+        X_umap[:, 1], 
+        c=diff_expression.fold_change[:, top_gene_idx],
+        cmap='RdBu_r',
+        alpha=0.7,
+        s=5
+    )
+    plt.colorbar(label='Log Fold Change')
+    plt.title(f'Original API: Log Fold Change for {top_gene}')
+    
+    # AnnData API result
+    plt.subplot(1, 2, 2)
+    plt.scatter(
+        X_umap[:, 0], 
+        X_umap[:, 1], 
+        c=adata.layers['kompot_de_fold_change'][:, top_gene_idx],
+        cmap='RdBu_r',
+        alpha=0.7,
+        s=5
+    )
+    plt.colorbar(label='Log Fold Change')
+    plt.title(f'AnnData API: Log Fold Change for {top_gene}')
+    
+    plt.tight_layout()
+    plt.savefig('comparison_anndata_api.png')
+    
+    print("\nAnnData API workflow complete. Results are stored in the AnnData object.")
+    print("Key results locations:")
+    print("  - Gene scores: adata.var['kompot_de_mahalanobis']")
+    print("  - Cell scores: adata.obs['kompot_da_log_fold_change']")
+    print("  - Imputed expression: adata.layers['kompot_de_condition1_imputed']")
+    print("  - Log fold changes: adata.layers['kompot_de_fold_change']")
+    print("  - Full models: adata.uns['kompot_da']['model'] and adata.uns['kompot_de']['model']")
+    
+    print("\nHTML report generated at: kompot_report/index.html")
+    
+except ImportError:
+    print("\nAnnData is not installed. Skipping the AnnData API example.")
+    print("To run the AnnData example, install anndata: pip install anndata")
+
+print("\nAnalysis complete. Visualizations saved to current directory.")
