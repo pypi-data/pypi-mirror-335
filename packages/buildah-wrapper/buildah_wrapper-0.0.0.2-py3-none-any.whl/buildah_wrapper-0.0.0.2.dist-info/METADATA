@@ -1,0 +1,97 @@
+Metadata-Version: 2.4
+Name: buildah-wrapper
+Version: 0.0.0.2
+Summary: EpicMorg: Buildah-Compose Wrapper - CLI wrapper for buildah build system
+Project-URL: Homepage, https://github.com/EpicMorg/buildah-wrapper
+Project-URL: Documentation, https://github.com/EpicMorg/buildah-wrapper/blob/master/README.md
+Project-URL: Repository, https://github.com/EpicMorg/buildah-wrapper.git
+Project-URL: Bug Tracker, https://github.com/EpicMorg/buildah-wrapper/issues
+Project-URL: Changelog, https://github.com/EpicMorg/buildah-wrapper/blob/master/CHANGELOG.md
+Author-email: EpicMorg <developer@epicm.org>
+Maintainer-email: EpicMorg <developer@epicm.org>
+License: MIT License
+        
+        Copyright (c) EpicMorg
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Keywords: build,buildah,docker
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: Unix
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.6
+Requires-Dist: python-dotenv
+Requires-Dist: pyyaml
+Description-Content-Type: text/markdown
+
+# [![Activity](https://img.shields.io/github/commit-activity/m/EpicMorg/buildah-wrapper?label=commits&style=flat-square)](https://github.com/EpicMorg/buildah-wrapper/commits) [![GitHub issues](https://img.shields.io/github/issues/EpicMorg/buildah-wrapper.svg?style=popout-square)](https://github.com/EpicMorg/buildah-wrapper/issues) [![GitHub forks](https://img.shields.io/github/forks/EpicMorg/buildah-wrapper.svg?style=popout-square)](https://github.com/EpicMorg/buildah-wrapper/network) [![GitHub stars](https://img.shields.io/github/stars/EpicMorg/buildah-wrapper.svg?style=popout-square)](https://github.com/EpicMorg/buildah-wrapper/stargazers)  [![Size](https://img.shields.io/github/repo-size/EpicMorg/buildah-wrapper?label=size&style=flat-square)](https://github.com/EpicMorg/buildah-wrapper/archive/master.zip) [![Release](https://img.shields.io/github/v/release/EpicMorg/buildah-wrapper?style=flat-square)](https://github.com/EpicMorg/buildah-wrapper/releases) [![GitHub license](https://img.shields.io/github/license/EpicMorg/buildah-wrapper.svg?style=popout-square)](LICENSE.md) [![Changelog](https://img.shields.io/badge/Changelog-yellow.svg?style=popout-square)](CHANGELOG.md) [![PyPI - Downloads](https://img.shields.io/pypi/dm/buildah-wrapper?style=flat-square)](https://pypi.org/project/buildah-wrapper/)
+
+## Description
+Python wrapper for run kaniko from shell with parameters from `docker-compose.yml` file.
+
+## Motivation
+1. You have Docker project thar contains:
+1.1 `docker-compose.yml` - as build manifest
+1.2 One or more `Dockerfile`s in project
+2. You want to automate builds with `kaniko` build system.
+3. `kaniko` dont support `docker-compose.yml` builds.
+
+## How to
+```
+pip install buildah-wrapper
+cd <...>/directory/contains/docker/and/docker-compose-file/
+buildah-wrapper
+```
+
+### Arguments (examples)
+* `--compose-file` - Path to docker-compose.yml file
+* `--version`, `-v` - Show script version
+* `--help`, `-h` - Show this help message and exit
+
+## Supported features (example):
+
+1. Single project in `docker-compose.yml`
+```
+services:
+  app:
+    image: "EpicMorg/buildah-wrapper:image"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+```
+
+2. Multiproject in `docker-compose.yml`
+
+```
+services:
+  app:
+    image: "EpicMorg/buildah-wrapper:image-jdk11"
+    build:
+      context: .
+  app-develop:
+    image: "EpicMorg/buildah-wrapper:image-develop-jdk11"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop
+  app-develop-17:
+    image: "epicmorg/astralinux:image-develop-jdk17"
+    build:
+      context: .
+      dockerfile: ./Dockerfile.develop-17
+```
