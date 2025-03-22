@@ -1,0 +1,20 @@
+[project]
+name = "bot_engine"
+version = "0.1.0"
+description = "The universal bot engine framework. Made on top of pytelegrambotapi"
+authors = [
+    {name = "Ca-tt",email = "damir96.lukyanenko@gmail.com"}
+]
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.12"
+dependencies = [
+    "python-dotenv (>=1.0.1,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0", "setuptools", "wheel"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.setuptools]
+packages = ["bot_engine"]
