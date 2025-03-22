@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "endplay"
+version = "0.5.12"
+description = "A suite of tools for generation and analysis of bridge deals"
+license = "MIT"
+authors = ["Dominic Price <dominicprice@outlook.com>"]
+readme = "README.md"
+packages = [{include = "endplay", from = "src"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Natural Language :: English",
+    "Topic :: Games/Entertainment",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+keywords = [
+    "bridge",
+    "cards",
+    "games",
+    "double dummy",
+    "dds",
+    "analysis",
+    "stats",
+    "deal",
+    "dealer"
+]
+include = [
+  { path = "libs", format = "sdist" }
+]
+
+[tool.poetry.urls]
+"Homepage" = "https://github.com/dominicprice/endplay"
+"Documentation" = "https://endplay.readthedocs.io"
+"Bug Tracker" = "https://github.com/dominicprice/endplay/issues"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+pyparsing = ">=3.0"
+tqdm = ">=4.65"
+numpy = ">=1.26"
+matplotlib = ">=3.0"
+more-itertools = ">=9.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.1.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+coverage = "^7.4.3"
+
+[tool.poetry.scripts]
+endplay-interact = "endplay.interact.__main__:main"
+endplay-dealer = "endplay.dealer.__main__:main"
+
+[tool.poetry.build]
+script = "build_ext.py"
+generate-setup-file = true
+
+[build-system]
+requires = [
+    "poetry-core",
+    "setuptools==70.3.0",
+    "cmake>=3.13"
+]
+build-backend = "poetry.core.masonry.api"
