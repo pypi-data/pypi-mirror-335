@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  default_turninator:
+    container_name: default_turninator  
+    build: .
+    ports:
+      - "5006:5006"
+
