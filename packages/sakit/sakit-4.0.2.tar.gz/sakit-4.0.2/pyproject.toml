@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "sakit" 
+version = "4.0.2"
+description = "Solana Agent Kit"
+authors = ["Bevan Hunt <bevan@bevanhunt.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/truemagic-coder/solana-agent-kit"
+keywords = ["ai", "openai", "ai agents", "agi"]
+classifiers = [
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+packages = [{ include = "sakit" }]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+requests = "^2.32.3"
+solana-agent = ">=17"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.plugins."solana_agent.plugins"]
+search_internet = "sakit.search_internet:get_plugin"
