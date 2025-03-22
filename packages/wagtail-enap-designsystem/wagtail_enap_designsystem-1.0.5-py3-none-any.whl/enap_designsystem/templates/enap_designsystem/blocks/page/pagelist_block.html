@@ -1,0 +1,438 @@
+{% extends "coderedcms/blocks/base_block.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% block block_render %}
+{% load static %}
+
+<script src="https://kit.fontawesome.com/2e8803d931.js" crossorigin="anonymous"></script>
+<section class="article-preview">
+    <div class="gradient-overlay right-gradient"></div>
+    
+    <div class="article-carousel-container" id="article-carousel-container">
+        <div class="article-carousel-items" id="article-carousel-items">
+            {% for page in pages %}
+            <div class="article-carousel-item">
+                <div class="article-carousel-item-content">
+                    <div class="article-carousel-image">
+                        {% if page.cover_image %}
+                        {% image page.cover_image fill-461x300 format-webp preserve-svg as card_img %}
+                        <a href="{% pageurl page %}" title="{{ page.title }}" class="image-link">
+                            <img class="article-img" src="{{ card_img.url }}" alt="{{ card_img.title }}">
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="article-carousel-content">
+                        <h3 class="article-title">
+                            <a class="article-title" href="{% pageurl page %}">{{ page.title }}</a>
+                        </h3>
+                        <p class="article-description">{{ page.body_preview }}</p>
+                        <a href="{% pageurl page %}" class="article-btn">Leia mais <i class="fa-solid fa-circle-chevron-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="article-carousel-item">
+                <p class="no-content">Nenhum conteúdo disponível.</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="article-carousel-indicators" id="article-carousel-indicators">
+            {% for page in pages %}
+            <button class="indicator" data-index="{{ forloop.counter0 }}"></button>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<style>
+    .article-preview {
+        text-align: center;
+        position: relative;
+        background-color: #012124;
+        padding: 60px 0;
+    }
+
+    .gradient-overlay {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: 10%;
+        z-index: 10;
+        pointer-events: none;
+    }
+    
+    .right-gradient {
+        right: 0;
+        background: linear-gradient(
+            to left, 
+            rgb(1, 33, 36) 0%,
+            rgba(1, 33, 36, 0.7) 50%,
+            rgba(1, 33, 36, 0) 100%
+        );
+    }
+    
+    
+
+    .article-carousel-container {
+        position: relative;
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
+        overflow: visible;
+        padding: 0 20px;
+    }
+
+    .article-carousel-items {
+        display: flex;
+        transition: transform 0.3s ease-in-out;
+        gap: 20px;
+        cursor: grab;
+        padding: 10px 0;
+        width: max-content;
+    }
+    
+    .article-carousel-items:active {
+        cursor: grabbing;
+    }
+
+    .article-carousel-item {
+        flex: 0 0 auto;
+        width: 390px;
+        max-width: 390px;
+    }
+
+    .article-carousel-item-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        height: 100%;
+        width: 100%;
+    }
+
+    .article-carousel-image {
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 16px;
+    }
+
+    .image-link {
+        display: block;
+        width: 100%;
+    }
+
+    .article-img {
+        width: 100%;
+        border-radius: 8px;
+        aspect-ratio: 461/300;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .image-link:hover .article-img {
+        transform: scale(1.05);
+    }
+
+    .article-title {
+        font-size: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        color: white;
+        text-align: left;
+        margin-top: 0;
+        margin-bottom: 12px;
+        line-height: 1.3;
+    }
+
+    .article-description {
+        color: #e0e0e0;
+        text-align: left;
+        margin: 0 0 16px 0;
+        font-size: 16px;
+        line-height: 1.5;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    .article-carousel-content {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .article-btn {
+        border: none;
+        color: #53DBD9;
+        text-align: left;
+        text-decoration: none;
+        font-size: 16px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.3s;
+    }
+    
+    .article-btn:hover {
+        color: #7ae4e2;
+    }
+    
+    .article-btn i {
+        transition: transform 0.2s;
+    }
+    
+    .article-btn:hover i {
+        transform: translateX(4px);
+    }
+
+    .article-carousel-indicators {
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 30px;
+        gap: 10px;
+    }
+
+    .indicator {
+        width: 67px;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.3);
+        border-radius: 32px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .indicator.active {
+        background-color: #AFBACC;
+    }
+    
+    .no-content {
+        color: white;
+        padding: 40px;
+        text-align: center;
+    }
+
+    /* Estilos Responsivos */
+    @media (max-width: 992px) {
+        .article-carousel-item {
+            width: 340px;
+            max-width: 340px;
+        }
+        .article-carousel-container {
+            padding: 0;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .article-preview {
+            padding: 40px 0;
+        }
+        
+        .article-carousel-item {
+            width: 260px;
+            max-width: 260px;
+        }
+        
+        .article-title {
+            font-size: 18px;
+        }
+        
+        .indicator {
+            width: 40px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .article-carousel-item {
+            width: 220px;
+            max-width: 220px;
+        }
+        
+        .article-description {
+            font-size: 14px;
+            -webkit-line-clamp: 2;
+        }
+        
+        .indicator {
+            width: 30px;
+            height: 6px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselContainer = document.getElementById('article-carousel-container');
+        const carousel = document.getElementById('article-carousel-items');
+        const items = carousel.querySelectorAll('.article-carousel-item');
+        const indicatorsContainer = document.getElementById('article-carousel-indicators');
+        let indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
+        
+        let currentIndex = 0;
+        let startX, moveX, initialPosition;
+        let isDragging = false;
+        
+        // Variáveis para calcular visibilidade e total de slides
+        const totalItems = items.length;
+        
+        // Função para atualizar a largura dos itens com base na janela
+        function updateItemWidth() {
+            if (window.innerWidth <= 480) {
+                return 220;
+            } else if (window.innerWidth <= 768) {
+                return 260;
+            } else if (window.innerWidth <= 992) {
+                return 340;
+            } else {
+                return 390;
+            }
+        }
+        
+        // Calcular o espaçamento entre itens
+        const itemsGap = 20;
+        
+        // Função para exibir o slide e atualizar indicadores
+        function showSlide(index) {
+            const itemWidth = updateItemWidth();
+            const maxIndex = Math.max(0, totalItems - 1);
+            
+            currentIndex = Math.max(0, Math.min(index, maxIndex));
+            const offset = currentIndex * (itemWidth + itemsGap);
+            carousel.style.transform = `translateX(-${offset}px)`;
+            
+            // Atualizar indicadores
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === currentIndex);
+            });
+        }
+        
+        // Configurar os indicadores
+        if (indicators.length === 0 && items.length > 0) {
+            // Limpa indicadores anteriores
+            indicatorsContainer.innerHTML = '';
+            
+            // Recria os indicadores
+            for (let i = 0; i < items.length; i++) {
+                const indicator = document.createElement('button');
+                indicator.classList.add('indicator');
+                indicator.setAttribute('data-index', i);
+                indicatorsContainer.appendChild(indicator);
+                
+                indicator.addEventListener('click', () => {
+                    currentIndex = i;
+                    showSlide(i);
+                });
+            }
+            
+            // Atualiza a lista de indicadores
+            indicators = Array.from(indicatorsContainer.querySelectorAll('.indicator'));
+        }
+        
+        // Garantir que todos os indicadores tenham eventos de clique
+        indicators.forEach((indicator, i) => {
+            indicator.addEventListener('click', () => {
+                currentIndex = i;
+                showSlide(i);
+            });
+        });
+        
+        // Definir o primeiro indicador como ativo
+        if (indicators.length > 0) {
+            indicators[0].classList.add('active');
+        }
+        
+        // Touch e arraste para mobile e desktop
+        carousel.addEventListener('touchstart', handleStart, { passive: true });
+        carousel.addEventListener('touchmove', handleMove, { passive: true });
+        carousel.addEventListener('touchend', handleEnd, { passive: true });
+        
+        // Mouse para desktop
+        carousel.addEventListener('mousedown', handleStart);
+        carousel.addEventListener('mousemove', handleMove);
+        carousel.addEventListener('mouseup', handleEnd);
+        carousel.addEventListener('mouseleave', handleEnd);
+        
+        function handleStart(e) {
+            isDragging = true;
+            startX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+            initialPosition = currentIndex * (updateItemWidth() + itemsGap);
+            
+            // Desativar transição durante o arrasto para melhor responsividade
+            carousel.style.transition = 'none';
+        }
+        
+        function handleMove(e) {
+            if (!isDragging) return;
+            
+            moveX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            const diff = moveX - startX;
+            
+            // Limitar o arrasto com efeito elástico
+            const itemWidth = updateItemWidth();
+            const maxIndex = totalItems - 1;
+            
+            if (currentIndex === 0 && diff > 50) {
+                carousel.style.transform = `translateX(${diff / 3 - initialPosition}px)`;
+            } else if (currentIndex >= maxIndex && diff < -50) {
+                carousel.style.transform = `translateX(${diff / 3 - initialPosition}px)`;
+            } else {
+                carousel.style.transform = `translateX(${diff - initialPosition}px)`;
+            }
+        }
+        
+        function handleEnd() {
+            if (!isDragging) return;
+            isDragging = false;
+            
+            // Restaurar transição
+            carousel.style.transition = 'transform 0.3s ease-in-out';
+            
+            const diff = moveX - startX;
+            const threshold = updateItemWidth() / 4; // 25% da largura do item para considerar swipe
+            
+            if (diff > threshold) {
+                showSlide(currentIndex - 1);
+            } else if (diff < -threshold) {
+                showSlide(currentIndex + 1);
+            } else {
+                showSlide(currentIndex);
+            }
+        }
+        
+        // Fix para links dentro do carrossel
+        const links = carousel.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (isDragging || (moveX && Math.abs(moveX - startX) > 10)) {
+                    e.preventDefault();
+                }
+            });
+        });
+        
+        // Atualizar as larguras dos itens
+        function updateItemWidths() {
+            const newWidth = updateItemWidth();
+            items.forEach(item => {
+                item.style.width = `${newWidth}px`;
+                item.style.maxWidth = `${newWidth}px`;
+            });
+        }
+        
+        // Inicializar o carrossel
+        updateItemWidths();
+        showSlide(currentIndex);
+        
+        // Ajustar o carrossel quando a janela é redimensionada
+        window.addEventListener('resize', function() {
+            // Pequeno delay para garantir que as dimensões estejam atualizadas
+            setTimeout(() => {
+                updateItemWidths();
+                showSlide(currentIndex);
+            }, 100);
+        });
+    });
+</script>
+{% endblock %}

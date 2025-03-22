@@ -1,0 +1,21 @@
+
+{% load wagtailcore_tags %}
+{% load static %}
+
+{% block content %}
+
+    <section class="section-card {{self.custom_class}}" {% if self.id_slug %}id="{{self.id_slug}}"{% endif %}>
+
+        
+        <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 26px;">
+        <h2 style="font-size: 40px; margin: 0;">{{self.title}}</h2>
+        {{self.subtitle}}
+        </div>
+        
+        {% for block in self.content %}
+            {% include_block block %}
+        {% endfor %}
+
+    </section>
+{% endblock %}
+
