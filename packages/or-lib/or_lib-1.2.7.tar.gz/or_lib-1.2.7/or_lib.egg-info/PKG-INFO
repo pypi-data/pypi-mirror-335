@@ -1,0 +1,218 @@
+Metadata-Version: 2.4
+Name: or_lib
+Version: 1.2.7
+Summary:    OptimisedRAG: Simple and Fast Retrieval-Augmented Generation a modified version of LightRAG
+Home-page: https://github.com/HKUDS/LightRAG
+Author: ZiruiGuo
+Project-URL: Documentation, https://github.com/HKUDS/LightRAG
+Project-URL: Source, https://github.com/HKUDS/LightRAG
+Project-URL: Tracker, https://github.com/HKUDS/LightRAG/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: accelerate==1.4.0
+Requires-Dist: aiofiles==24.1.0
+Requires-Dist: aiohappyeyeballs==2.5.0
+Requires-Dist: aiohttp==3.11.13
+Requires-Dist: aiosignal==1.3.2
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anytree==2.12.1
+Requires-Dist: ascii_colors==0.5.2
+Requires-Dist: async-timeout==5.0.1
+Requires-Dist: attrs==25.1.0
+Requires-Dist: autograd==1.7.0
+Requires-Dist: backports.tarfile==1.2.0
+Requires-Dist: beartype==0.18.5
+Requires-Dist: beautifulsoup4==4.13.3
+Requires-Dist: blinker==1.9.0
+Requires-Dist: build==1.2.2.post1
+Requires-Dist: certifi==2025.1.31
+Requires-Dist: charset-normalizer==3.4.1
+Requires-Dist: click==8.1.8
+Requires-Dist: configparser==7.1.0
+Requires-Dist: contourpy==1.3.1
+Requires-Dist: cycler==0.12.1
+Requires-Dist: deepsearch-glm==1.0.0
+Requires-Dist: dill==0.3.9
+Requires-Dist: docling==2.25.2
+Requires-Dist: docling-core==2.21.1
+Requires-Dist: docling-ibm-models==3.4.1
+Requires-Dist: docling-parse==3.4.0
+Requires-Dist: docutils==0.21.2
+Requires-Dist: easyocr==1.7.2
+Requires-Dist: et_xmlfile==2.0.0
+Requires-Dist: filelock==3.17.0
+Requires-Dist: filetype==1.2.0
+Requires-Dist: Flask==3.1.0
+Requires-Dist: fonttools==4.56.0
+Requires-Dist: forward==0.1.0
+Requires-Dist: frozenlist==1.5.0
+Requires-Dist: fsspec==2025.2.0
+Requires-Dist: gensim==4.3.3
+Requires-Dist: gepyto==0.10.1
+Requires-Dist: graspologic==3.4.1
+Requires-Dist: graspologic-native==1.2.3
+Requires-Dist: h5py==3.13.0
+Requires-Dist: huggingface-hub==0.29.2
+Requires-Dist: hyppo==0.4.0
+Requires-Dist: id==1.5.0
+Requires-Dist: idna==3.10
+Requires-Dist: imageio==2.37.0
+Requires-Dist: importlib_metadata==8.6.1
+Requires-Dist: itsdangerous==2.2.0
+Requires-Dist: jaraco.classes==3.4.0
+Requires-Dist: jaraco.context==6.0.1
+Requires-Dist: jaraco.functools==4.1.0
+Requires-Dist: Jinja2==3.1.6
+Requires-Dist: joblib==1.4.2
+Requires-Dist: jsonlines==3.1.0
+Requires-Dist: jsonref==1.1.0
+Requires-Dist: jsonschema==4.23.0
+Requires-Dist: jsonschema-specifications==2024.10.1
+Requires-Dist: keyring==25.6.0
+Requires-Dist: kiwisolver==1.4.8
+Requires-Dist: latex2mathml==3.77.0
+Requires-Dist: lazy_loader==0.4
+Requires-Dist: llvmlite==0.44.0
+Requires-Dist: lxml==5.3.1
+Requires-Dist: markdown-it-py==3.0.0
+Requires-Dist: marko==2.1.2
+Requires-Dist: MarkupSafe==3.0.2
+Requires-Dist: matplotlib==3.10.1
+Requires-Dist: mdurl==0.1.2
+Requires-Dist: more-itertools==10.6.0
+Requires-Dist: mpire==2.10.2
+Requires-Dist: mpmath==1.3.0
+Requires-Dist: multidict==6.1.0
+Requires-Dist: multiprocess==0.70.17
+Requires-Dist: networkx==3.4.2
+Requires-Dist: nh3==0.2.21
+Requires-Dist: ninja==1.11.1.3
+Requires-Dist: numba==0.61.0
+Requires-Dist: numpy==1.26.4
+Requires-Dist: opencv-python-headless==4.11.0.86
+Requires-Dist: openpyxl==3.1.5
+Requires-Dist: packaging==24.2
+Requires-Dist: pandas==2.2.3
+Requires-Dist: patsy==1.0.1
+Requires-Dist: pillow==11.1.0
+Requires-Dist: pipmaster==0.4.0
+Requires-Dist: POT==0.9.5
+Requires-Dist: propcache==0.3.0
+Requires-Dist: psutil==7.0.0
+Requires-Dist: pyclipper==1.3.0.post6
+Requires-Dist: pydantic==2.10.6
+Requires-Dist: pydantic-settings==2.8.1
+Requires-Dist: pydantic_core==2.27.2
+Requires-Dist: pyfaidx==0.8.1.3
+Requires-Dist: Pygments==2.19.1
+Requires-Dist: PyMySQL==1.1.1
+Requires-Dist: pynndescent==0.5.13
+Requires-Dist: pyparsing==3.2.1
+Requires-Dist: pypdfium2==4.30.1
+Requires-Dist: pyplink==1.3.7
+Requires-Dist: pyproject_hooks==1.2.0
+Requires-Dist: python-bidi==0.6.6
+Requires-Dist: python-dateutil==2.9.0.post0
+Requires-Dist: python-docx==1.1.2
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: python-pptx==1.0.2
+Requires-Dist: pytz==2025.1
+Requires-Dist: PyYAML==6.0.2
+Requires-Dist: readme_renderer==44.0
+Requires-Dist: referencing==0.36.2
+Requires-Dist: regex==2024.11.6
+Requires-Dist: requests==2.32.3
+Requires-Dist: requests-toolbelt==1.0.0
+Requires-Dist: rfc3986==2.0.0
+Requires-Dist: rich==13.9.4
+Requires-Dist: rpds-py==0.23.1
+Requires-Dist: rtree==1.4.0
+Requires-Dist: safetensors==0.5.3
+Requires-Dist: scikit-image==0.25.2
+Requires-Dist: scikit-learn==1.6.1
+Requires-Dist: scipy==1.12.0
+Requires-Dist: seaborn==0.13.2
+Requires-Dist: semchunk==2.2.2
+Requires-Dist: shapely==2.0.7
+Requires-Dist: shellingham==1.5.4
+Requires-Dist: six==1.17.0
+Requires-Dist: smart-open==7.1.0
+Requires-Dist: soupsieve==2.6
+Requires-Dist: SQLAlchemy==2.0.38
+Requires-Dist: statsmodels==0.14.4
+Requires-Dist: sympy==1.13.1
+Requires-Dist: tabulate==0.9.0
+Requires-Dist: tenacity==9.0.0
+Requires-Dist: threadpoolctl==3.5.0
+Requires-Dist: tifffile==2025.2.18
+Requires-Dist: tiktoken==0.9.0
+Requires-Dist: tokenizers==0.21.0
+Requires-Dist: tomli==2.2.1
+Requires-Dist: torch==2.6.0
+Requires-Dist: torchvision==0.21.0
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: transformers==4.49.0
+Requires-Dist: twine==6.1.0
+Requires-Dist: typer==0.12.5
+Requires-Dist: typing_extensions==4.12.2
+Requires-Dist: tzdata==2025.1
+Requires-Dist: umap-learn==0.5.7
+Requires-Dist: urllib3==2.3.0
+Requires-Dist: Werkzeug==3.1.3
+Requires-Dist: wrapt==1.17.2
+Requires-Dist: xlrd==2.0.1
+Requires-Dist: XlsxWriter==3.2.2
+Requires-Dist: xxhash==3.5.0
+Requires-Dist: yarl==1.18.3
+Requires-Dist: zipp==3.21.0
+Provides-Extra: api
+Requires-Dist: aiofiles; extra == "api"
+Requires-Dist: ascii_colors; extra == "api"
+Requires-Dist: asyncpg; extra == "api"
+Requires-Dist: distro; extra == "api"
+Requires-Dist: fastapi; extra == "api"
+Requires-Dist: graspologic>=3.4.1; extra == "api"
+Requires-Dist: httpcore; extra == "api"
+Requires-Dist: httpx; extra == "api"
+Requires-Dist: jiter; extra == "api"
+Requires-Dist: numpy; extra == "api"
+Requires-Dist: openai; extra == "api"
+Requires-Dist: passlib[bcrypt]; extra == "api"
+Requires-Dist: pipmaster; extra == "api"
+Requires-Dist: PyJWT; extra == "api"
+Requires-Dist: python-dotenv; extra == "api"
+Requires-Dist: python-jose[cryptography]; extra == "api"
+Requires-Dist: python-multipart; extra == "api"
+Requires-Dist: pytz; extra == "api"
+Requires-Dist: tenacity; extra == "api"
+Requires-Dist: tiktoken; extra == "api"
+Requires-Dist: uvicorn; extra == "api"
+Provides-Extra: tools
+Requires-Dist: imgui_bundle; extra == "tools"
+Requires-Dist: moderngl; extra == "tools"
+Requires-Dist: networkx; extra == "tools"
+Requires-Dist: numpy; extra == "tools"
+Requires-Dist: pyglm; extra == "tools"
+Requires-Dist: python-louvain; extra == "tools"
+Requires-Dist: scipy; extra == "tools"
+Requires-Dist: tk; extra == "tools"
+Dynamic: author
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: project-url
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+This is modified library of HKUDS/LightRAG libraray
