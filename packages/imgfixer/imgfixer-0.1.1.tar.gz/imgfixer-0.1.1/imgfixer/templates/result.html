@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImgFixer - Processing Results</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>ImgFixer - Processing Results</h2>
+        
+        <p>Total files: {{ total_files }}</p>
+        <p>Number of traversed files: {{ traversed_files }}</p>
+        <p>Number of renamed files: {{ renamed_files|length }}</p>
+        {% if error %}
+            <div class="error">
+                <p>Error: {{ error[0] }} - {{ error[1] }}</p>
+            </div>
+        {% endif %}
+        <h3>Renamed Files:</h3>
+        <ul>
+            {% for old_path, new_name in renamed_files %}
+                <li>{{ old_path }} → {{ new_name }}</li>
+            {% endfor %}
+        </ul>
+        <a href="/" class="button">Go Back</a>
+    </div>
+    <footer>
+        <p>Copyright (c) 2025 Krishnakanth Allika, wheat-chop-octane [at] duck [dot] com
+        Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</p>
+    </footer>
+</body>
+</html>
