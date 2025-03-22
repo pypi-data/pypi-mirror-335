@@ -1,0 +1,41 @@
+[project]
+name = "turbotape"
+version = "0.0.8"
+authors = [
+  { name="Uwe Kamper", email="me@uwekamper.de" },
+]
+description = "A utility package for using the public API of tapeapp.com with Python."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  'requests',
+  'python-dateutil',
+]
+
+[project.urls]
+Homepage = "https://github.com/uwekamper/turbotape"
+Issues = "https://github.com/uwekamper/turbotape/issues"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.poetry]
+name = "turbotape"
+version = "0.0.8"
+description = "A utility package for using the public API of tapeapp.com with Python."
+authors = ["Uwe Kamper <me@uwekamper.de>"]
+readme = "README.md"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.2"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.32.3"
+python-dateutil = "^2.9.0.post0"

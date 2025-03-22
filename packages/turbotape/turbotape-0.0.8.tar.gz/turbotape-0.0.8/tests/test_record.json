@@ -1,0 +1,591 @@
+{
+  "record_id": 111340631,
+  "app_record_id": 5,
+  "app_id": 48154,
+  "title": "UI bug on login screen (Sample)",
+  "created_on": "2024-11-07 13:06:50",
+  "created_on_utc": "2024-11-07 12:06:50",
+  "last_modified_on": "2024-12-15 16:02:08",
+  "last_modified_on_utc": "2024-12-15 15:02:08",
+  "deleted_on": null,
+  "deleted_on_utc": null,
+  "app": {
+    "app_id": 48154,
+    "icon": "check_circle",
+    "name": "Backlog",
+    "record_name": "Issue",
+    "workspace_id": 13988,
+    "workspace": {
+      "workspace_id": 13988,
+      "external_id": "zz-demo-agile-software-development",
+      "org_id": 2162,
+      "name": "zz Demo Agile Software Development"
+    },
+    "config": {
+      "name": "Backlog",
+      "icon": "check_circle",
+      "record_name": "Issue",
+      "workspace_id": 13988,
+      "workspace": {
+        "workspace_id": 13988,
+        "external_id": "zz-demo-agile-software-development",
+        "org_id": 2162,
+        "name": "zz Demo Agile Software Development"
+      }
+    }
+  },
+  "fields": [
+    {
+      "field_id": 483833,
+      "external_id": "title",
+      "label": "Title",
+      "type": "text",
+      "field_type": "single_text",
+      "config": {
+        "label": "Title",
+        "slug": "title",
+        "external_id": "title",
+        "show_description": false,
+        "required": true,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "formatted": false
+        }
+      },
+      "values": [
+        {
+          "value": "UI bug on login screen (Sample)"
+        }
+      ]
+    },
+    {
+      "field_id": 483835,
+      "external_id": "type",
+      "label": "Type",
+      "type": "category",
+      "field_type": "single_category",
+      "config": {
+        "label": "Type",
+        "slug": "type",
+        "external_id": "type",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "multiple": false,
+          "layout": "dropdown",
+          "options": [
+            {
+              "id": 428376,
+              "text": "Task 🔨",
+              "color": "0077DE"
+            },
+            {
+              "id": 428377,
+              "text": "User-Story 🧒",
+              "color": "6724DD"
+            },
+            {
+              "id": 428378,
+              "text": "Bug 🐞",
+              "color": "FE001A"
+            }
+          ]
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "id": 428378,
+            "text": "Bug 🐞",
+            "color": "FE001A"
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 483843,
+      "external_id": "status",
+      "label": "Status",
+      "type": "category",
+      "field_type": "status",
+      "config": {
+        "label": "Status",
+        "slug": "status",
+        "external_id": "status",
+        "show_description": false,
+        "required": true,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "multiple": false,
+          "layout": "inline",
+          "options": [
+            {
+              "id": 48992,
+              "text": "Not Started",
+              "color": "FE001A",
+              "means_completed": false
+            },
+            {
+              "id": 48994,
+              "text": "In Progress",
+              "color": "DEA700",
+              "means_completed": false
+            },
+            {
+              "id": 48993,
+              "text": "Complete",
+              "color": "00866A",
+              "means_completed": true
+            }
+          ]
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "id": 48994,
+            "text": "In Progress",
+            "color": "DEA700",
+            "means_completed": false
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 483845,
+      "external_id": "story_points",
+      "label": "Story points",
+      "type": "number",
+      "field_type": "number",
+      "config": {
+        "label": "Story points",
+        "slug": "story_points",
+        "external_id": "story_points",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": true,
+        "settings": {
+          "decimals": 0,
+          "unit_label": null,
+          "unit": null
+        }
+      },
+      "values": [
+        {
+          "value": 4,
+          "formatted": "4"
+        }
+      ]
+    },
+    {
+      "field_id": 483838,
+      "external_id": "sprint",
+      "label": "Sprint",
+      "type": "app",
+      "field_type": "multi_relation",
+      "config": {
+        "label": "Sprint",
+        "slug": "sprint",
+        "external_id": "sprint",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": true,
+        "settings": {
+          "multiple": true,
+          "referenced_apps": [
+            {
+              "app_id": 48155,
+              "app": {
+                "app_id": 48155,
+                "icon": "schedule",
+                "name": "Sprints",
+                "slug": "sprints",
+                "external_id": "sprints",
+                "record_name": "Sprint",
+                "item_name": "Sprint",
+                "workspace_id": 13988,
+                "config": {
+                  "name": "Sprints",
+                  "icon": "schedule",
+                  "record_name": "Sprint",
+                  "workspace_id": 13988
+                }
+              }
+            }
+          ]
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "title": "Sprint 2 (Sample)",
+            "app_id": 48155,
+            "record_id": 111340655,
+            "created_on": "2024-11-07 12:06:50",
+            "app": {
+              "app_id": 48155,
+              "icon": "schedule",
+              "name": "Sprints",
+              "slug": "sprints",
+              "external_id": "sprints",
+              "record_name": "Sprint",
+              "item_name": "Sprint",
+              "workspace_id": 13988,
+              "config": {
+                "name": "Sprints",
+                "icon": "schedule",
+                "record_name": "Sprint",
+                "workspace_id": 13988
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 483834,
+      "external_id": "description",
+      "label": "Description",
+      "type": "text",
+      "field_type": "multi_text",
+      "config": {
+        "label": "Description",
+        "slug": "description",
+        "external_id": "description",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "formatted": true
+        }
+      },
+      "values": [
+        {
+          "value": "<h1>Description Headline</h1><p>This is a descriptive text</p>",
+          "unformatted_value": "Description HeadlineThis is a descriptive text"
+        }
+      ]
+    },
+    {
+      "field_id": 483840,
+      "external_id": "sub_tasks",
+      "label": "Sub-Tasks",
+      "field_type": "checklist",
+      "type": "checklist",
+      "config": {
+        "label": "Sub-Tasks",
+        "slug": "sub_tasks",
+        "external_id": "sub_tasks",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "show_in_focus": true
+        }
+      },
+      "values": [
+        {
+          "id": 195438,
+          "assignee_user": null,
+          "assignee_user_id": null,
+          "description": "",
+          "completed": false,
+          "completed_at": null,
+          "title": "Provide mockups as reference",
+          "due_at": null,
+          "due_at_date": null,
+          "due_at_time": null,
+          "due_at_utc": null,
+          "due_at_date_utc": null,
+          "due_at_time_utc": null
+        },
+        {
+          "id": 195439,
+          "assignee_user": null,
+          "assignee_user_id": null,
+          "description": "",
+          "completed": false,
+          "completed_at": null,
+          "title": "Check why UI snapshots did not catch this bug on PR",
+          "due_at": null,
+          "due_at_date": null,
+          "due_at_time": null,
+          "due_at_utc": null,
+          "due_at_date_utc": null,
+          "due_at_time_utc": null
+        }
+      ]
+    },
+    {
+      "field_id": 483836,
+      "external_id": "attachments",
+      "label": "Attachments",
+      "type": "file",
+      "field_type": "multi_attachment",
+      "config": {
+        "label": "Attachments",
+        "slug": "attachments",
+        "external_id": "attachments",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "multiple": true
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "file_id": 4388,
+            "size": 66349,
+            "mimetype": "image/png",
+            "name": "login_ui_bug_screenshot.png",
+            "link": "https://s3.eu-central-1.amazonaws.com/tape-attachments/bcf3ccf1a24ca5c0da79fde10dac97?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=bed742cb92e722fe2759187615ffe4f3b0f27f8f85544f5c1e7140081e79d3ae&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22login_ui_bug_screenshot.png%22&response-content-type=charset%3Dutf-8",
+            "download_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/bcf3ccf1a24ca5c0da79fde10dac97?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=bed742cb92e722fe2759187615ffe4f3b0f27f8f85544f5c1e7140081e79d3ae&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22login_ui_bug_screenshot.png%22&response-content-type=charset%3Dutf-8",
+            "view_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/bcf3ccf1a24ca5c0da79fde10dac97?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=4664e755b24da49edb53e413247f962fd6483ccb72ea64c476d835d9f6a89682&X-Amz-SignedHeaders=host&response-content-type=image%2Fpng%3B%20charset%3Dutf-8",
+            "created_by": null,
+            "created_on": "2021-10-24 13:40:37"
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 518937,
+      "external_id": "screenshot",
+      "label": "Screenshot",
+      "type": "file",
+      "field_type": "multi_image",
+      "config": {
+        "label": "Screenshot",
+        "slug": "screenshot",
+        "external_id": "screenshot",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "multiple": true
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "file_id": 1653690,
+            "size": 23264,
+            "mimetype": "image/png",
+            "name": "Group 23.png",
+            "link": "https://s3.eu-central-1.amazonaws.com/tape-attachments/4fb1799ecb75a6684cb2af407790b3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=dd927040aa815d7369c5131fd5788259f4361d0f4bf973ca612a93ec1393715b&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22Group%2023.png%22&response-content-type=charset%3Dutf-8",
+            "download_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/4fb1799ecb75a6684cb2af407790b3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=dd927040aa815d7369c5131fd5788259f4361d0f4bf973ca612a93ec1393715b&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22Group%2023.png%22&response-content-type=charset%3Dutf-8",
+            "view_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/4fb1799ecb75a6684cb2af407790b3?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=0a0b53563313dd8875d1f6b59607a0306217ae6153906f47eb129df3a47c47ac&X-Amz-SignedHeaders=host&response-content-type=image%2Fpng%3B%20charset%3Dutf-8",
+            "created_by": null,
+            "created_on": "2024-12-15 15:00:43",
+            "thumbnail": "1275716"
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 518938,
+      "external_id": "logfiles",
+      "label": "Logfiles",
+      "type": "file",
+      "field_type": "multi_attachment",
+      "config": {
+        "label": "Logfiles",
+        "slug": "logfiles",
+        "external_id": "logfiles",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "multiple": true
+        }
+      },
+      "values": [
+        {
+          "value": {
+            "file_id": 1653691,
+            "size": 962,
+            "mimetype": "application/octet-stream",
+            "name": "test2.log",
+            "link": "https://s3.eu-central-1.amazonaws.com/tape-attachments/d20223049abfa4b1a712595dd3eca2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=3ee167c70d2403faecf9e2883fd7eb931a69c0ccdd2891562b98c3754703d792&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22test2.log%22&response-content-type=charset%3Dutf-8",
+            "download_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/d20223049abfa4b1a712595dd3eca2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=3ee167c70d2403faecf9e2883fd7eb931a69c0ccdd2891562b98c3754703d792&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22test2.log%22&response-content-type=charset%3Dutf-8",
+            "view_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/d20223049abfa4b1a712595dd3eca2?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=f7bf93aa6819ab89ada479b280177028bcb937fde1fa18bfa7b225c628d33125&X-Amz-SignedHeaders=host&response-content-type=application%2Foctet-stream%3B%20charset%3Dutf-8",
+            "created_by": null,
+            "created_on": "2024-12-15 15:02:08"
+          }
+        },
+        {
+          "value": {
+            "file_id": 1653692,
+            "size": 627,
+            "mimetype": "application/octet-stream",
+            "name": "test1.log",
+            "link": "https://s3.eu-central-1.amazonaws.com/tape-attachments/748d0536c6c4aeb4646f9979e74aff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=93dc55e03cd7b97e0d17c3fd24da5030c4f446d7be99b15186a49b0f782870b5&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22test1.log%22&response-content-type=charset%3Dutf-8",
+            "download_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/748d0536c6c4aeb4646f9979e74aff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=93dc55e03cd7b97e0d17c3fd24da5030c4f446d7be99b15186a49b0f782870b5&X-Amz-SignedHeaders=host&response-content-disposition=attachment%3Bfilename%3D%22test1.log%22&response-content-type=charset%3Dutf-8",
+            "view_url": "https://s3.eu-central-1.amazonaws.com/tape-attachments/748d0536c6c4aeb4646f9979e74aff?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVNOAIV5JPIBLTKIM%2F20241215%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20241215T150235Z&X-Amz-Expires=518400&X-Amz-Signature=bac6ff628281b77ba89f0cf31a0337d7f34ef4ffe8ab7c8a1558ea901d95b1fa&X-Amz-SignedHeaders=host&response-content-type=application%2Foctet-stream%3B%20charset%3Dutf-8",
+            "created_by": null,
+            "created_on": "2024-12-15 15:02:08"
+          }
+        }
+      ]
+    },
+    {
+      "field_id": 483844,
+      "external_id": "id",
+      "label": "ID",
+      "type": "unique_id",
+      "field_type": "unique_id",
+      "config": {
+        "label": "ID",
+        "slug": "id",
+        "external_id": "id",
+        "show_description": false,
+        "required": false,
+        "always_hidden": false,
+        "hidden_if_empty": false,
+        "settings": {
+          "prefix": "ISSUE-",
+          "min_digits": 1
+        }
+      },
+      "values": [
+        {
+          "value": 5,
+          "formatted": "ISSUE-5"
+        }
+      ]
+    }
+  ],
+  "created_by": {
+    "mail": [
+      "rico@diekollaborateure.com"
+    ],
+    "id": 188312,
+    "user_id": 188312,
+    "org_id": 2162,
+    "name": "Kollaborateur",
+    "type": "user",
+    "phone": "+491728844433",
+    "email": "rico@diekollaborateure.com"
+  },
+  "last_modified_by": {
+    "mail": [
+      "uwe@digitale-revoluzzer.de"
+    ],
+    "id": 189372,
+    "user_id": 189372,
+    "org_id": 2162,
+    "name": "Uwe Kamper",
+    "type": "user",
+    "email": "uwe@digitale-revoluzzer.de"
+  },
+  "revisions": [
+    {
+      "created_by": {
+        "id": 189372,
+        "mail": [
+          "uwe@digitale-revoluzzer.de"
+        ],
+        "user_id": 189372,
+        "name": "Uwe Kamper",
+        "org_id": 2162,
+        "type": "user"
+      },
+      "created_on": "2024-12-15 15:02:08",
+      "record_id": 111340631,
+      "revision": 3,
+      "type": "update"
+    },
+    {
+      "created_by": {
+        "id": 189372,
+        "mail": [
+          "uwe@digitale-revoluzzer.de"
+        ],
+        "user_id": 189372,
+        "name": "Uwe Kamper",
+        "org_id": 2162,
+        "type": "user"
+      },
+      "created_on": "2024-12-15 15:00:44",
+      "record_id": 111340631,
+      "revision": 2,
+      "type": "update"
+    },
+    {
+      "created_by": {
+        "id": 189372,
+        "mail": [
+          "uwe@digitale-revoluzzer.de"
+        ],
+        "user_id": 189372,
+        "name": "Uwe Kamper",
+        "org_id": 2162,
+        "type": "user"
+      },
+      "created_on": "2024-12-15 13:03:59",
+      "record_id": 111340631,
+      "revision": 1,
+      "type": "update"
+    },
+    {
+      "created_by": {
+        "id": 188312,
+        "mail": [
+          "rico@diekollaborateure.com"
+        ],
+        "user_id": 188312,
+        "name": "Kollaborateur",
+        "org_id": 2162,
+        "type": "user"
+      },
+      "created_on": "2024-11-07 12:06:50",
+      "record_id": 111340631,
+      "revision": 0,
+      "type": "creation"
+    }
+  ],
+  "current_revision": {
+    "created_by": {
+      "id": 189372,
+      "mail": [
+        "uwe@digitale-revoluzzer.de"
+      ],
+      "user_id": 189372,
+      "name": "Uwe Kamper",
+      "org_id": 2162,
+      "type": "user"
+    },
+    "created_on": "2024-12-15 15:02:08",
+    "record_id": 111340631,
+    "revision": 3,
+    "type": "update"
+  },
+  "initial_revision": {
+    "created_by": {
+      "id": 188312,
+      "mail": [
+        "rico@diekollaborateure.com"
+      ],
+      "user_id": 188312,
+      "name": "Kollaborateur",
+      "org_id": 2162,
+      "type": "user"
+    },
+    "created_on": "2024-11-07 12:06:50",
+    "record_id": 111340631,
+    "revision": 0,
+    "type": "creation"
+  }
+}
