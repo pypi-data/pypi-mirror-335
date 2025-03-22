@@ -1,0 +1,101 @@
+[project]
+name = "nequick"
+version = "0.1.0"
+description = "Package that wraps NeQuick in Python"
+authors = [
+  { name = "Miquel Garcia-Fernandez", email = "miquel.garcia.fernandez@upc.edu" }
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.9"
+
+dependencies = [
+    "numpy <2.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/mgfernan/NeQuickJRC"
+Source = "https://github.com/mgfernan/NeQuickJRC"
+Tracker = "https://github.com/mgfernan/NeQuickJRC/issues"
+
+[project.optional-dependencies]
+test = [
+  "coverage >= 7.6.11",
+  "pytest >= 8.3.4",
+  "pytest-env >= 1.1.5"
+]
+release = [
+  "python-semantic-release >= 9.4.0",
+]
+
+[project.scripts]
+nequick = "nequick.cli:main"
+
+[build-system]
+requires = ["setuptools>=61", "wheel", "setuptools-scm>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[[tool.setuptools.ext-modules]]
+name = "nequick._c_ext"
+sources = [
+    "nequick/_c_ext/src/mtable_init.c",
+    "lib/ITU_R_P_371_8.c",
+    "lib/NeQuickG_JRC.c",
+    "lib/NeQuickG_JRC_Gauss_Kronrod_integration.c",
+    "lib/NeQuickG_JRC_MODIP.c",
+    "lib/NeQuickG_JRC_MODIP_grid.c",
+    "lib/NeQuickG_JRC_TEC_integration.c",
+    "lib/NeQuickG_JRC_coordinates.c",
+    "lib/NeQuickG_JRC_electron_density.c",
+    "lib/NeQuickG_JRC_geometry.c",
+    "lib/NeQuickG_JRC_input_data.c",
+    "lib/NeQuickG_JRC_interpolate.c",
+    "lib/NeQuickG_JRC_iono_E_layer.c",
+    "lib/NeQuickG_JRC_iono_F1_layer.c",
+    "lib/NeQuickG_JRC_iono_F2_layer.c",
+    "lib/NeQuickG_JRC_iono_F2_layer_fourier_coefficients.c",
+    "lib/NeQuickG_JRC_iono_profile.c",
+    "lib/NeQuickG_JRC_math_utils.c",
+    "lib/NeQuickG_JRC_ray.c",
+    "lib/NeQuickG_JRC_ray_slant.c",
+    "lib/NeQuickG_JRC_ray_vertical.c",
+    "lib/NeQuickG_JRC_solar.c",
+    "lib/NeQuickG_JRC_solar_activity.c",
+    "lib/NeQuickG_JRC_time.c",
+    "lib/CCIR/NeQuickG_JRC_CCIR.c",
+    "lib/CCIR/NeQuickG_JRC_ccir11.c",
+    "lib/CCIR/NeQuickG_JRC_ccir12.c",
+    "lib/CCIR/NeQuickG_JRC_ccir13.c",
+    "lib/CCIR/NeQuickG_JRC_ccir14.c",
+    "lib/CCIR/NeQuickG_JRC_ccir15.c",
+    "lib/CCIR/NeQuickG_JRC_ccir16.c",
+    "lib/CCIR/NeQuickG_JRC_ccir17.c",
+    "lib/CCIR/NeQuickG_JRC_ccir18.c",
+    "lib/CCIR/NeQuickG_JRC_ccir19.c",
+    "lib/CCIR/NeQuickG_JRC_ccir20.c",
+    "lib/CCIR/NeQuickG_JRC_ccir21.c",
+    "lib/CCIR/NeQuickG_JRC_ccir22.c"
+]
+include-dirs = ["lib/include", "lib", "nequick", "nequick/_c_ext"]
+extra-compile-args = ["-DFTR_MODIP_CCIR_AS_CONSTANTS"]  # Hardcode the CCIR coefficients in the library
+
+[tool.setuptools.packages.find]
+include = ["nequick", "nequick.*"]
+
+[tool.semantic_release]
+version_variables = [
+    "nequick/__init__.py:__version__"
+]
+version_toml = [
+    "pyproject.toml:project.version"
+]
+tag_format = "{version}"
+
+[tool.semantic_release.branches.main]
+match = "(master)"
+
+[tool.semantic_release.changelog]
+exclude_commit_patterns = ["build", "ci", "chore", "test"]
+
+[tool.semantic_release.remote]
+type = "github"
