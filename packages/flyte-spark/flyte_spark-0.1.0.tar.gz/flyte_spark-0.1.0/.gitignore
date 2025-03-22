@@ -1,0 +1,70 @@
+# Core Python
+__pycache__/
+*.py[cod]
+.python-version  # Keep this file but ignore local pyenv versions
+.env
+.env.local
+
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Build/Install Artifacts
+build/
+dist/
+*.egg-info/
+*.so
+*.a
+*.egg
+
+# Data & Models
+/data/
+!/data/.gitkeep  # Keep directory structure
+/models/
+!/models/.gitkeep
+/logs/
+/checkpoints/
+local_data/
+
+# Experiment Tracking
+.wandb/
+mlruns/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Notebooks
+.ipynb_checkpoints/
+*.ipynb.metadata
+
+# OS Generated
+.DS_Store
+Thumbs.db
+
+# CUDA/Build Files
+*.fatbin
+*.cubin
+*.ptx
+*.hash
+
+# Training Artifacts
+*.log
+*.h5
+*.tflite
+*.onnx
+*.prototxt
+
+# Local Configs
+local_configs/
+experiments/
+
+# Ruff
+.ruff_cache/
+
+# Mypy
+.mypy_cache/
