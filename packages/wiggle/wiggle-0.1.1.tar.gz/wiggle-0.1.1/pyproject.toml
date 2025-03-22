@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=61.0", "setuptools_scm>=8"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wiggle"
+dynamic = ["version"]
+description = "Wiggle Plot for Seismic Data Section"
+readme = "README.md"
+authors = [
+    { name = "gatechzhu", email = "gatechzhu@gmail.com" }
+]
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "matplotlib"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+]
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
+explicit = true
+
+[tool.setuptools_scm]
+version_scheme = "guess-next-dev"   # Use guess-next-dev so that if you tag the commit as v0.1.1, it will compute v0.1.1 (or v0.1.1.devN if commits follow)
+local_scheme = "no-local-version"
+write_to = "src/wiggle/_version.py"
