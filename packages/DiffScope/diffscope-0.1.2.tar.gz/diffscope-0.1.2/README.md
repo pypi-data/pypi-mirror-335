@@ -1,0 +1,147 @@
+# DiffScope
+
+[![PyPI version](https://badge.fury.io/py/diffscope.svg)](https://badge.fury.io/py/diffscope)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
+Function-level git commit analysis tool. DiffScope helps you analyze Git commits to identify which functions were modified, added, or deleted.
+
+## Features
+
+- Analyze GitHub commits at both file and function levels
+- Identify exactly which functions were changed in each commit
+- Detect function changes including signature, body, and docstring changes
+- Supports multiple programming languages (Python, JavaScript, TypeScript, Java, C/C++, Go)
+- Simple Python API and command-line interface
+
+## Installation
+
+```bash
+pip install diffscope
+```
+
+## Quick Start
+
+### Command Line
+
+```bash
+# Basic analysis with text output
+diffscope https://github.com/owner/repo/commit/sha
+
+# JSON output format
+diffscope https://github.com/owner/repo/commit/sha --format json
+```
+
+### Python API
+
+The `analyze_commit()` function returns a `CommitAnalysisResult` object that contains all the analysis data:
+
+```python
+from diffscope import analyze_commit
+
+# Analyze a GitHub commit
+result = analyze_commit("https://github.com/owner/repo/commit/sha")
+# result is a CommitAnalysisResult object
+
+# Print file-level changes
+print(f"Files changed: {len(result.modified_files)}")
+for file in result.modified_files:
+    print(f"- {file.filename}: +{file.additions} -{file.deletions}")
+
+# Print function-level changes
+print(f"Functions changed: {len(result.modified_functions)}")
+for function in result.modified_functions:
+    print(f"- {function.name} in {function.file}: {function.change_type}")
+```
+
+## Data Models
+
+### CommitAnalysisResult
+
+```python
+class CommitAnalysisResult:
+    """Contains the results of analyzing a git commit."""
+```
+
+**Attributes:**
+- `owner` (str): Repository owner name
+- `repo` (str): Repository name
+- `commit_sha` (str): Full SHA of the analyzed commit
+- `repository_url` (str): URL to the repository
+- `commit_author` (str, optional): Author of the commit
+- `commit_date` (str, optional): Date of the commit
+- `commit_message` (str, optional): Full commit message
+- `modified_files` (List[ModifiedFile]): List of files changed in the commit
+- `modified_functions` (List[ModifiedFunction]): List of functions changed in the commit
+
+### ModifiedFile
+
+```python
+class ModifiedFile:
+    """Information about a modified file in a commit."""
+```
+
+**Attributes:**
+- `filename` (str): Path to the file
+- `status` (str): Status of the file - 'added', 'modified', 'removed', or 'renamed'
+- `additions` (int): Number of lines added
+- `deletions` (int): Number of lines deleted
+- `changes` (int): Total number of changes (additions + deletions)
+- `language` (str, optional): Programming language of the file (if detected)
+- `patch` (str, optional): Unified diff patch for the file (if available)
+- `previous_filename` (str, optional): Original path for renamed files
+
+### ModifiedFunction
+
+```python
+class ModifiedFunction:
+    """Information about a modified function in a commit."""
+```
+
+**Attributes:**
+- `name` (str): Function name
+- `file` (str): File containing the function
+- `type` (str): Type of the function ('function', 'method', etc.)
+- `change_type` (FunctionChangeType): Type of change - one of:
+  - `ADDED`: Function was added
+  - `MODIFIED`: Function was modified
+  - `REMOVED`: Function was deleted
+  - `RENAMED`: Function was renamed
+- `original_start` (int, optional): Start line in the old version
+- `original_end` (int, optional): End line in the old version
+- `new_start` (int, optional): Start line in the new version
+- `new_end` (int, optional): End line in the new version
+- `changes` (int): Number of lines changed
+- `diff` (str, optional): Function-specific diff
+- `original_name` (str, optional): Previous name for renamed functions
+- `original_content` (str, optional): Function content before changes
+- `new_content` (str, optional): Function content after changes
+
+## GitHub Authentication
+
+To avoid rate limits, set a GitHub token:
+
+```bash
+export GITHUB_TOKEN=your_token_here  # Linux/Mac
+$env:GITHUB_TOKEN="your_token_here"  # Windows PowerShell
+set GITHUB_TOKEN=your_token_here     # Windows CMD
+```
+
+## Example Use Cases
+
+- **Code Review**: Focus on specific function changes
+- **Documentation**: Track function-level changes in components
+- **Impact Analysis**: Understand the scope of changes
+- **Migration**: Analyze patterns across multiple commits
+
+## Documentation
+
+For more detailed information:
+
+- [API Reference](docs/api_reference.md)
+- [Implementation Details](docs/implementation_details.md)
+- [Testing Guide](docs/testing.md)
+- [Contributing Guidelines](docs/contributing.md)
+
+## License
+
+[Apache License 2.0](LICENSE)
