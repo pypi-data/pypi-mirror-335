@@ -1,0 +1,113 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "srswti-universal-five"
+version = "1.0.1"
+authors = [
+    {name = "SRSWTI - Knowledge and Inference Platform", email = "team@srswti.com"},
+]
+requires-python = ">=3.9"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research", 
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Intended Audience :: Education",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+    "Topic :: Text Processing :: General",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Natural Language :: English",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console", 
+]
+dependencies = [
+        "anthropic",
+        "cerebras_cloud_sdk",
+        "fastapi",
+        "gcloud",
+        "google-ai-generativelanguage",
+        "google-api-core",
+        "google-api-python-client",
+        "google-auth",
+        "google-auth-httplib2",
+        "google-cloud-speech",
+        "google-cloud-texttospeech",
+        "google-genai",
+        "google-generativeai",
+        "googleapis-common-protos",
+        "grpcio",
+        "httpx",
+        "jiter",
+        "lxml",
+        "nltk",
+        "oauth2client",
+        "openai",
+        "packaging",
+        "pillow",
+        "postgrest",
+        "PyAudio",
+        "pydantic",
+        "pydantic_core",
+        "pydub",
+        "pyinstaller",  
+        "python-dotenv",
+        "redis",
+        "regex",
+        "requests",
+        "starlette",
+        "supabase",
+        "tqdm",
+        "uvicorn",
+        # "webrtcvad",
+        "websockets",
+    ]
+
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "twine",
+    "black",
+    "flake8",
+    "isort",
+]
+docs = [
+    "sphinx",
+    "sphinx-rtd-theme",
+]
+all = [
+    "easyocr"
+]
+
+[project.urls]
+Homepage = "https://www.srswti.com/"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/srswti_universal_five", "src/srswti_universal_five.helpers"]
+
+[project.scripts]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple/"
+publish-url = "https://upload.pypi.org/legacy/"
+
+[[tool.uv.index]]
+name = "testpypi"
+url = "https://test.pypi.org/simple/"
+publish-url = "https://test.pypi.org/legacy/"
