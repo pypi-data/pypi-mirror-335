@@ -1,0 +1,200 @@
+body {
+    background: linear-gradient(to right, #1c596f, #022737, #030711);
+    padding-left: 1em;
+    color: white;
+    font-size: 18px;
+    font-family: AtkinsonHyperlegible sans-serif;
+    text-align: left;
+}
+input.hide[type=checkbox] {
+    display: none;
+}
+input[type=checkbox] {
+    align-self: stretch;
+}
+textarea {
+    resize: none;
+    margin-bottom: 10px;
+}
+#LicenseReader {
+    text-wrap-mode: nowrap;
+}
+.textarea {
+    display: block;
+    width: 98%;
+    max-height: 20lh;
+    max-width: 87ch;
+    overflow-y: auto;
+    resize: both;
+    min-height: 40px;
+    line-height: 20px;
+}
+.input,
+.textarea {
+  border: 1px solid #ccc;
+  background-color: #030711;
+  font-family: monospace;
+  font-size: 12px;
+  padding: 1px 6px;
+  resize: none;
+  white-space: pre-wrap;
+  scrollbar-color: white;
+  scrollbar-width: thin;
+}
+button, input {
+    transition: 0.2s; 
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1); 
+    border: 1px solid #ccc; 
+    border-radius: 3px;
+    font-family: monospace;
+    background-color: #030711;
+    color: white;
+}
+button { 
+    cursor: pointer;
+    background: #3498db; 
+    color: #fff;
+}
+.buttons {
+    text-align: center;
+}
+h1 {
+    text-align: center; 
+    text-shadow: -7px 10px 7px rgb(67 57 57 / 76%);
+}
+button:hover { background: #c9913d; }
+input:focus { outline: none; border-color: #3498db; }
+[id^=err-] {
+    display: none;
+    font-family: 'NotoSerifHK' serif;
+    white-space: nowrap;
+}
+select[id^=License] {
+    margin-bottom: 10px;
+}
+select.classifiers {
+    max-width: fit-content;
+    margin-bottom: 10px;
+}
+select {
+    min-width: 10rem;
+    background-color: #030711;
+    color: white;
+    scrollbar-color: white;
+    scrollbar-width: thin;
+}
+@media screen and (min-width: 800px) {
+    .row {
+        display: flex;
+    }
+    .row .column:not(:first-child) {
+        padding-left: 2rem;
+    }
+    input[type=text] {
+        width: 20rem;
+    }
+}
+select.editable {
+    margin-bottom: 10px;
+    min-width: 27.2rem;
+}
+input[type=text] {
+    margin-bottom: 10px;
+    max-height: fit-content;
+}
+progress {
+    display: none;
+}
+.wrap {
+    flex-wrap: wrap;
+}
+.row {
+    align-items: baseline;
+}
+.column {
+    flex: 50%;
+}
+.justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
+.row.justify-end > label {
+    padding-bottom: 3px;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* The Modal */
+.modal {
+    display: block;
+    position: fixed; /* Stay in place */
+    top: 0;
+    left: 0;
+    z-index: 1; /* Sit on top */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+}
+.modal-content {
+    margin: 15% auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    background: linear-gradient(to left, #507d91, #1c596f, #022737);
+    padding: 20px;
+    max-width: min(663px, 100%); /* Could be more or less, depending on screen size */
+}
+.modal-content>h3 {
+    display: contents;
+}
+.close {
+    float: right;
+    color: white;
+    font-weight: bold;
+    font-size: 28px;
+}
+.close:hover,
+.close:focus {
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+}
+/* Hidden by default but immediately shown by the backend */
+.hide:checked + .modal {
+    display: none;
+}
+/* Breadcrumb */
+.breadcrumb {
+    padding: 0 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+.breadcrumb menu {
+    display: flex;
+    flex-wrap: wrap;
+    white-space: nowrap;
+    align-items: end;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    cursor: default;
+}
+.breadcrumb menu > li {
+    cursor: pointer;
+}
+.breadcrumb li span {
+    cursor: default;
+    text-decoration: underline;
+}
+.breadcrumb menu:first-of-type > li+li::before {
+    display: inline;
+    content: "→";
+    padding: 8px;
+    cursor: default;
+}
+/* .hide:checked + .page {
+    display: none;
+} */
