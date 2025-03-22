@@ -1,0 +1,61 @@
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[project]
+name = "imgfixer"
+version = "0.1.2"
+description = "ImgFixer is a tool for fixing image extensions in a directory."
+author = "Krishnakanth Allika"
+authors = [
+    { name = "Krishnakanth Allika", email = "wheat-chop-octane@duck.com" },
+]
+requires-python = ">=3.9,<=3.14"
+readme = "README.md"
+keywords = [
+    "image",
+    "fix",
+    "file extension",
+    "rename",
+    "automation",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Topic :: Utilities",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "fastapi>=0.115.11",
+    "filetype>=1.2.0",
+    "jinja2>=3.1.6",
+    "python-multipart>=0.0.20",
+    "uvicorn>=0.34.0",
+]
+
+[project.license]
+text = "GNU General Public License v3 (GPLv3)"
+
+[project.urls]
+Homepage = "https://go.allika.eu.org/imgfixerhome"
+Repository = "https://go.allika.eu.org/imgfixerrepo"
+Documentation = "https://go.allika.eu.org/imgfixerdocs"
+
+[project.scripts]
+imgfixer = "imgfixer.main:run"
+
+[tool.uv]
+link-mode = "copy"
+
+[tool.setuptools.package-data]
+imgfixer = [
+    "templates/*",
+    "static/*",
+]
