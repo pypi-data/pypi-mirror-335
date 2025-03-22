@@ -1,0 +1,12 @@
+pydantic<3.0,>=2.7.4
+boto3<2.0,>=1.28.43
+aws-xray-sdk<3.0,>=2.14.0
+
+[:python_version < "3.8"]
+importlib-metadata
+
+[testing]
+setuptools
+pytest
+pytest-cov
+moto[dynamodb]==4.2.14
