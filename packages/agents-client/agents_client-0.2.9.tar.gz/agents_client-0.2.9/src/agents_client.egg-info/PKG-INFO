@@ -1,0 +1,285 @@
+Metadata-Version: 2.4
+Name: agents-client
+Version: 0.2.9
+Summary: A comprehensive client library and CLI for interacting with the Agents API
+Author-email: Levangie Laboratories <brayden@levangielaboratories.com>
+License: Apache Software License
+Project-URL: Homepage, https://github.com/Levangie-Laboratories/agents-client
+Project-URL: Documentation, https://api.levangielaboratories.com/docs
+Keywords: agents,api,client,chatbot,ai,cli
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: requests>=2.25.0
+Requires-Dist: websockets>=10.0
+Provides-Extra: cli
+Requires-Dist: typer>=0.4.0; extra == "cli"
+Requires-Dist: rich>=10.0.0; extra == "cli"
+Requires-Dist: configparser>=5.0.0; extra == "cli"
+Provides-Extra: dev
+Requires-Dist: pytest>=6.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.18.0; extra == "dev"
+Requires-Dist: black>=22.0.0; extra == "dev"
+Requires-Dist: isort>=5.0.0; extra == "dev"
+Requires-Dist: aiohttp>=3.8.0; extra == "dev"
+Requires-Dist: python-dotenv>=0.19.0; extra == "dev"
+Requires-Dist: pydantic>=1.8.0; extra == "dev"
+Dynamic: license-file
+
+# Agents Client
+
+A comprehensive package for interacting with the Agents API, providing both a Python client library and a command-line interface (CLI).
+
+## Components
+
+This package consists of two main components:
+
+1. **agent_client**: A Python client library providing a simple, OpenAI-like API for interacting with agents
+2. **agent_client_cli**: A command-line interface (CLI) for interacting with the Agents API
+
+## Installation
+
+### Basic Installation
+
+```bash
+pip install agents-client
+```
+
+### Installation with CLI Support
+
+```bash
+pip install "agents-client[cli]"
+```
+
+### Development Installation
+
+```bash
+pip install "agents-client[dev]"
+```
+
+## Client Library Usage
+
+### Quick Start
+
+```python
+from agent_client import Agent
+
+# Initialize the agent
+agent = Agent(
+    agent_id="your-agent-id",
+    api_key="your-api-key"
+)
+
+# Define a callback function for streaming responses
+def handle_response(response):
+    print(f"Received: {response.get('type')} - {response.get('message')}")
+
+# Start streaming responses in a background thread
+agent.start_streaming(handle_response)
+
+# Send a message to the agent
+response = agent.message("Hello, Agent!")
+print(f"Message sent! Response ID: {response.get('row_id')}")
+
+# Responses will be streamed to your callback function
+
+# When done, stop streaming
+agent.stop_streaming()
+```
+
+### Client Features
+
+#### Agent Class
+
+The `Agent` class provides a simple interface similar to OpenAI's API:
+
+```python
+# Initialize with required parameters
+agent = Agent(
+    agent_id="your-agent-id",
+    api_key="your-api-key",
+    base_url="http://localhost:6665",  # Optional
+    stream_callback=handle_response    # Optional, can be provided later
+)
+```
+
+#### Sending Messages
+
+```python
+# Send a simple text message
+agent.message("Hello, agent!")
+
+# Send a message with additional parameters
+agent.message("Process this data", 
+    priority="high", 
+    format="json"
+)
+```
+
+#### Streaming Responses
+
+```python
+# Define a callback to handle streaming responses
+def handle_response(response):
+    print(f"Received: {response}")
+
+# Start streaming with the callback
+agent.start_streaming(handle_response)
+
+# Or provide the callback during initialization
+agent = Agent(
+    agent_id="your-agent-id",
+    api_key="your-api-key",
+    stream_callback=handle_response
+)
+agent.start_streaming()
+
+# When done, stop streaming
+agent.stop_streaming()
+```
+
+#### File Upload
+
+```python
+# Upload a file to the agent
+with open("document.pdf", "rb") as file:
+    agent.upload_file("/destination/path.pdf", file)
+```
+
+## CLI Usage
+
+After installing with CLI support, you can use the `agents-cli` command:
+
+### Setup and Configuration
+
+```bash
+# Initial setup
+agents-cli setup
+
+# View or update configuration
+agents-cli config
+```
+
+### Managing Agents and API Keys
+
+```bash
+# List all your agents
+agents-cli agents
+
+# List your API keys
+agents-cli api-keys
+
+# Create a new API key
+agents-cli create-key --name "My New Key"
+
+# Show usage statistics
+agents-cli usage
+
+# Get detailed information about a specific agent
+agents-cli agent-info <agent_id>
+```
+
+### Interacting with Agents
+
+```bash
+# Send a message to an agent
+agents-cli send message '{"text":"Hello"}' --api-key mykey --agent-id myagent
+
+# Upload a file to an agent
+agents-cli upload /data/file.txt ./local.txt --api-key mykey --agent-id myagent
+
+# Connect to the WebSocket stream for an agent
+agents-cli stream --api-key mykey --agent-id myagent
+```
+
+## Examples
+
+See the `examples/` directory for complete usage examples for both the client library and CLI.
+
+## Legacy Functions
+
+For backward compatibility, the package also provides standalone functions:
+
+```python
+from agent_client import send_operation, upload_file
+
+# Send an operation
+send_operation("message", {"text": "Hello"}, "api-key", "agent-id")
+
+# Upload a file
+with open("file.txt", "rb") as f:
+    upload_file("api-key", "agent-id", "/path/to/store.txt", f)
+```
+
+## Development and Release
+
+The project includes a release script to automate versioning, building, and publishing to PyPI.
+
+### Release Script
+
+The `release.py` script automates:
+1. Version incrementing in pyproject.toml
+2. Running tests
+3. Package building
+4. PyPI uploading
+
+#### Basic Usage
+
+```bash
+# Make the script executable if needed
+chmod +x release.py
+
+# Run with default options (patch version increment)
+./release.py
+```
+
+This will:
+1. Increment the patch version (e.g., 0.2.0 → 0.2.1)
+2. Run tests to validate the package
+3. Build the package
+4. Upload to PyPI
+
+#### Command Line Options
+
+```bash
+# Show help message
+./release.py --help
+
+# Release a minor version (e.g., 0.2.0 → 0.3.0)
+./release.py --level minor
+
+# Release a major version (e.g., 0.2.0 → 1.0.0)
+./release.py --level major
+
+# Build without uploading to PyPI
+./release.py --build-only
+
+# Skip running tests (use with caution)
+./release.py --skip-tests
+```
+
+#### PyPI Authentication
+
+When uploading to PyPI, you'll be prompted for your PyPI credentials. To avoid this:
+
+1. Create a `.pypirc` file in your home directory:
+   ```
+   [pypi]
+   username = your_username
+   password = your_password
+   ```
+
+2. Secure the file: `chmod 600 ~/.pypirc`
+
+Alternatively, use API tokens for more secure authentication.
+
+## License
+
+Apache Software License
