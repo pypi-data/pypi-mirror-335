@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: glucostats
+Version: 1.0.0
+Summary: GlucoStats, an open-source, multi-processing Python package designed for the efficient computation and visualization of a comprehensive set of glucose metrics derived from continuous glucose monitoring (CGM) data
+Author-email: David Chushig-Muzo <david.chushig@urjc.es>, Pablo Peiro-Corbacho <pablo.peiro@urjc.es>, Francisco J Lara-Abelenda <francisco.lara@urjc.es>
+License: BSD 2-Clause License
+        
+        Copyright (c) 2025, Universidad Rey Juan Carlos
+        All rights reserved.
+        
+        Redistribution and use in source and binary forms, with or without
+        modification, are permitted provided that the following conditions are met:
+        
+        1. Redistributions of source code must retain the above copyright notice, this
+           list of conditions and the following disclaimer.
+        
+        2. Redistributions in binary form must reproduce the above copyright notice,
+           this list of conditions and the following disclaimer in the documentation
+           and/or other materials provided with the distribution.
+        
+        THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+        AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+        IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+        DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+        FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+        DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+        SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+        CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+        OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+        OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+Project-URL: Documentation, https://glucostats.readthedocs.io/en/latest/
+Project-URL: Repository, https://github.com/ai4healthurjc/GlucoStats
+Keywords: continuous glucose monitoring,glucose,feature extraction,Python,glucose data analysis,sliding time window,Parallelization,Glucose visualization
+Classifier: Intended Audience :: Science/Research
+Classifier: Topic :: Scientific/Engineering
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10.12
+Description-Content-Type: text/markdown
+License-File: LICENSE.txt
+Requires-Dist: numpy==2.2.3
+Requires-Dist: matplotlib>=3.8.0
+Requires-Dist: pandas==2.2.3
+Requires-Dist: neurokit2==0.2.10
+Requires-Dist: seaborn==0.13.2
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: scipy==1.15.2
+Requires-Dist: colorlog==4.6.0
+Dynamic: license-file
+
+Glucostats
+====
+## Description
+GlucoStats is a Python library that enables the extraction of a set of 59 statistics from Continuous Glucose Monitoring (CGM) devices
+, each intended to characterize glucose time series for in-depth study and analysis. These statistics are systematically categorized into 6 categories and further divided 
+into 16 subcategories, based on the nature of the statistics and the type of information they provide.The library also 
+integrates with Matplotlib and Seaborn for generating high-quality visualizations, enabling users to conduct comprehensive 
+visual analyses of glucose patterns with minimal effort. For users requiring high-performance processing, GlucoStats supports parallel 
+computation through Python's module threads. As a result, It provides a comprehensive toolset for analyzing CGM data,
+along with visualization tools designed to support either technical and non-technical users.
+
+The full documentation including tutorials and feature description is available at: https://glucostats.readthedocs.io/en/latest/
+
+## Installation and setup
+You can use pip :
+```console
+pip install glucostats
+```
+If you want to download the source code, you can clone it from the GitHub repository.
+```console
+git clone git@github.com:ai4healthurjc/GlucoStats.git 
+```
+If you install the library from GitHub, make sure to install the required Python dependencies by running:
+```console
+pip install -r requirements.txt 
+```
+
+
+
+
