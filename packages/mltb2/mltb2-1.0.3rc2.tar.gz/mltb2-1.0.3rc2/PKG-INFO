@@ -1,0 +1,108 @@
+Metadata-Version: 2.3
+Name: mltb2
+Version: 1.0.3rc2
+Summary: Machine Learning Toolbox 2
+Keywords: optuna,deep learning,ml,ai,machine learning,hyperparameter optimization,hyperparameter tuning,nlp,natural language processing,transformers,llm,large-language-models,openai,plot
+Author: PhilipMay
+Author-email: philip@may.la
+Requires-Python: >=3.9,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Natural Language :: German
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Classifier: Topic :: Scientific/Engineering :: Mathematics
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Provides-Extra: arangodb
+Provides-Extra: bs
+Provides-Extra: data
+Provides-Extra: fasttext
+Provides-Extra: files
+Provides-Extra: md
+Provides-Extra: openai
+Provides-Extra: optuna
+Provides-Extra: plot
+Provides-Extra: somajo
+Provides-Extra: somajo-transformers
+Provides-Extra: transformers
+Requires-Dist: SoMaJo (>=2.4.1) ; extra == "somajo" or extra == "somajo-transformers"
+Requires-Dist: azure-identity ; extra == "openai"
+Requires-Dist: beautifulsoup4 (<4.13) ; extra == "data" or extra == "bs"
+Requires-Dist: fasttext-wheel ; extra == "fasttext"
+Requires-Dist: joblib ; extra == "files" or extra == "data"
+Requires-Dist: jsonlines ; extra == "arangodb"
+Requires-Dist: markdownify ; extra == "bs"
+Requires-Dist: matplotlib ; extra == "plot"
+Requires-Dist: mdformat ; extra == "bs"
+Requires-Dist: numpy (>=1,<2)
+Requires-Dist: openai (>=1,<2) ; extra == "openai"
+Requires-Dist: optuna ; extra == "optuna"
+Requires-Dist: pandas ; extra == "data"
+Requires-Dist: platformdirs ; extra == "files" or extra == "fasttext" or extra == "data"
+Requires-Dist: python-arango ; extra == "arangodb"
+Requires-Dist: python-dotenv ; extra == "arangodb"
+Requires-Dist: pyyaml ; extra == "openai"
+Requires-Dist: safetensors (!=0.3.2) ; extra == "transformers" or extra == "md" or extra == "somajo-transformers"
+Requires-Dist: scikit-learn ; extra == "files" or extra == "fasttext" or extra == "data" or extra == "transformers" or extra == "md" or extra == "somajo-transformers"
+Requires-Dist: scipy
+Requires-Dist: tiktoken ; extra == "openai"
+Requires-Dist: torch (!=2.0.1,!=2.1.0,!=2.3.0) ; extra == "transformers" or extra == "md" or extra == "somajo-transformers"
+Requires-Dist: tqdm
+Requires-Dist: transformers ; extra == "transformers" or extra == "md" or extra == "somajo-transformers"
+Project-URL: Bug Tracker, https://github.com/telekom/mltb2/issues
+Project-URL: Documentation, https://telekom.github.io/mltb2/
+Project-URL: Homepage, https://github.com/telekom/mltb2
+Description-Content-Type: text/markdown
+
+# Machine Learning Toolbox 2 - MLTB2
+
+[![MIT License](https://img.shields.io/github/license/telekom/mltb2)](https://github.com/telekom/mltb2/blob/main/LICENSE)
+[![Python Version](https://img.shields.io/pypi/pyversions/mltb2)](https://www.python.org)
+[![pypi](https://img.shields.io/pypi/v/mltb2.svg)](https://pypi.python.org/pypi/mltb2)
+[![Poetry](https://img.shields.io/endpoint?url=https://python-poetry.org/badge/v0.json)](https://github.com/telekom/mltb2/blob/main/pyproject.toml)
+<br/>
+[![pytest](https://github.com/telekom/mltb2/actions/workflows/pytest.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/pytest.yml)
+[![Static Code Checks](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/static_checks.yml)
+[![Build & Deploy Doc](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml/badge.svg)](https://github.com/telekom/mltb2/actions/workflows/build_deploy_doc.yml)
+[![GitHub issues](https://img.shields.io/github/issues-raw/telekom/mltb2)](https://github.com/telekom/mltb2/issues)
+
+📦 A box full of machine learning tools. 📦
+
+- [Documentation Page](https://telekom.github.io/mltb2/)
+- [How to contribute](https://github.com/telekom/mltb2/blob/main/CONTRIBUTING.md)
+
+## Installation
+
+MLTB2 is available at [the Python Package Index (PyPI)](https://pypi.org/project/mltb2/).
+It can be installed with pip:
+
+```bash
+pip install mltb2
+```
+
+For many modules optional dependencies are necessary.
+Those optional dependencies must be installed when you want to use the module.
+To install those module specific dependencies see
+[the description of the individual modules](https://telekom.github.io/mltb2/api-reference.html).
+
+## Licensing
+
+Copyright (c) 2023-2024 [Philip May](https://philipmay.org)\
+Copyright (c) 2023-2024 [Philip May](https://philipmay.org), [Deutsche Telekom AG](https://www.telekom.de/)\
+Copyright (c) 2023-2024 Alaeddine Abdessalem, [Deutsche Telekom AG](https://www.telekom.de/)\
+Copyright (c) 2025 Sijun John Tu, [Deutsche Telekom AG](https://www.telekom.de/)
+
+Licensed under the **MIT License** (the "License"); you may not use this file except in compliance with the License.
+You may obtain a copy of the License by reviewing the file
+[LICENSE](https://github.com/telekom/mltb2/blob/main/LICENSE) in the repository.
+

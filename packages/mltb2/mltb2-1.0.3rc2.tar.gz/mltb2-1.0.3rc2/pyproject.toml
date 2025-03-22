@@ -1,0 +1,187 @@
+[tool.poetry]
+name = "mltb2"
+version = "1.0.3rc2"
+description = "Machine Learning Toolbox 2"
+authors = ["PhilipMay <philip@may.la>"]
+readme = "README.md"
+homepage = "https://github.com/telekom/mltb2"
+documentation = "https://telekom.github.io/mltb2/"
+include = ["LICENSE", "CONTRIBUTING.md", "Makefile"]
+keywords = [
+  "optuna",
+  "deep learning",
+  "ml",
+  "ai",
+  "machine learning",
+  "hyperparameter optimization",
+  "hyperparameter tuning",
+  "nlp",
+  "natural language processing",
+  "transformers",
+  "llm",
+  "large-language-models",
+  "openai",
+  "plot",
+]
+# all classifiers see https://pypi.org/classifiers/
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  # "Development Status :: 4 - Beta",
+  # "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: German",
+  "Natural Language :: English",
+  # "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Scientific/Engineering :: Mathematics",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Operating System :: OS Independent",
+]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+arango-col-backup = 'mltb2.arangodb:arango_collection_backup'
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/telekom/mltb2/issues"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+numpy = "^1"  # restriction by fasttext
+scipy = "*"
+tqdm = "*"
+platformdirs = {version = "*", optional = true}
+scikit-learn = {version = "*", optional = true}
+fasttext-wheel = {version = "*", optional = true}
+optuna = {version = "*", optional = true}
+matplotlib = {version = "*", optional = true}
+SoMaJo = {version = ">=2.4.1", optional = true}
+
+# some versions have poetry issues
+# 2.3.0 does not work with Intel Mac
+torch = {version = "!=2.0.1,!=2.1.0,!=2.3.0", optional = true}
+
+transformers = {version = "*", optional = true}
+tiktoken = {version = "*", optional = true}
+safetensors = {version = "!=0.3.2", optional = true}  # version 0.3.2 has poetry issues
+openai = {version = "^1", optional = true}
+pyyaml = {version = "*", optional = true}
+pandas = {version = "*", optional = true}
+beautifulsoup4 = {version = "<4.13", optional = true}
+joblib = {version = "*", optional = true}
+python-dotenv = {version = "*", optional = true}
+python-arango = {version = "*", optional = true}
+jsonlines = {version = "*", optional = true}
+markdownify = {version = "*", optional = true}
+mdformat = {version = "*", optional = true}
+azure-identity = {version = "*", optional = true}
+
+[tool.poetry.extras]
+files = ["platformdirs", "scikit-learn", "joblib"]
+fasttext = ["fasttext-wheel", "platformdirs", "scikit-learn"]
+data = ["platformdirs", "scikit-learn", "pandas", "beautifulsoup4", "joblib"]
+optuna = ["optuna"]
+plot = ["matplotlib"]
+somajo = ["SoMaJo"]
+transformers = ["scikit-learn", "torch", "transformers", "safetensors"]
+md = ["scikit-learn", "torch", "transformers", "safetensors"]
+somajo_transformers = ["SoMaJo", "scikit-learn", "torch", "transformers", "safetensors"]
+openai = ["tiktoken", "openai", "pyyaml", "azure-identity"]
+arangodb = ["python-dotenv", "python-arango", "jsonlines"]
+bs = ["beautifulsoup4", "markdownify", "mdformat"]
+
+[tool.poetry.group.lint.dependencies]
+black = "*"
+ruff = "*"
+mypy = "*"
+mdformat-gfm = "*"
+mdformat-frontmatter = "*"
+mdformat-footnote = "*"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-rerunfailures = "*"
+pytest-random-order = "*"
+hypothesis = "*"
+
+[tool.poetry.group.doc.dependencies]
+sphinx = "*"
+sphinx_rtd_theme = "*"
+sphinx_copybutton = "*"
+
+[tool.pytest.ini_options]
+addopts = "--random-order-bucket=global"
+
+[tool.black]
+line-length = 119
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 119
+target-version = "py39"
+
+
+[tool.ruff.lint]
+select = ["ALL"]
+fixable = ["I"]
+ignore = [
+  "DJ",  # flake8-django - https://docs.astral.sh/ruff/rules/#flake8-django-dj
+  "ERA",  # eradicate - https://docs.astral.sh/ruff/rules/#eradicate-era
+  "ANN",  # flake8-annotations - https://docs.astral.sh/ruff/rules/#flake8-annotations-ann
+  "FA",  # flake8-future-annotations - https://docs.astral.sh/ruff/rules/#flake8-future-annotations-fa
+  "EM",  # flake8-errmsg - https://docs.astral.sh/ruff/rules/#flake8-errmsg-em
+  "PTH",  # flake8-use-pathlib - https://docs.astral.sh/ruff/rules/#flake8-use-pathlib-pth
+  "FBT",  # flake8-boolean-trap - https://docs.astral.sh/ruff/rules/#flake8-boolean-trap-fbt
+  "TD", # flake8-todos - https://docs.astral.sh/ruff/rules/#flake8-todos-td
+  "SLF",  # flake8-self - https://docs.astral.sh/ruff/rules/#flake8-self-slf
+  "D107",  # Missing docstring in __init__
+  "D410",  # Missing blank line after section ("{name}")
+  "D411",  # Missing blank line before section ("{name}")
+  "PLR0913",  # Too many arguments to function call ({c_args} > {max_args})
+  "S106",  # Possible hardcoded password assigned to argument: "{}"
+  "COM812",  # Trailing comma missing
+  "S101",  # Use of `assert` detected
+  "PLR2004",  # Magic value used in comparison
+  "B011",  # Do not `assert False`
+  "RET505",  # Unnecessary `else` after `return` statement
+  "TRY003",  # Avoid specifying long messages outside the exception class
+  "RET504",  # Unnecessary assignment before `return` statement
+  "T201",  # `print` found
+  "RET507",  # Unnecessary `else` after `continue` statement
+  "PT015",  # Assertion always fails, replace with `pytest.fail()`
+  "UP015",  # Unnecessary open mode parameters
+  "FIX002",  # Line contains TODO, consider resolving the issue
+  "PT011",  # `pytest.raises(ValueError)` is too broad, set the `match` parameter or use a more specific exception
+  "PT001",  # Use `@pytest.fixture()` over `@pytest.fixture`
+  "RUF015",  # Prefer `next(iter(sentences))` over single element slice
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/test_*.py" = [
+  "D100",  # Missing docstring in public module
+  "D103",  # Missing docstring in public function
+  "PLR2004",  # Magic value used in comparison, consider replacing {value} with a constant variable
+  "S101",  # Use of assert detected
+  "N802",  # Function name should be lowercase
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.flake8-copyright]
+notice-rgx = "(# Copyright \\(c\\) \\d{4}.*\\n)+# This software is distributed under the terms of the MIT license\\n# which is available at https://opensource.org/licenses/MIT\\n\\n"
+
+[tool.mypy]
+ignore_missing_imports = true
+warn_unused_ignores = true
+enable_error_code=["ignore-without-code"]
