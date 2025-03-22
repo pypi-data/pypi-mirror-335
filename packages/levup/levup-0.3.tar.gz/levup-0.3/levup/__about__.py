@@ -1,0 +1,6 @@
+__version__ = '0.3'
+__author__ = 'Nasr'
+__author_email__ = 'nasr2python@gmail.com'
+__description__ = 'made-iraq Python implementation'
+__keywords__ = 'made-iraq'
+__url__ = 'https://t.me/NasrPy'
