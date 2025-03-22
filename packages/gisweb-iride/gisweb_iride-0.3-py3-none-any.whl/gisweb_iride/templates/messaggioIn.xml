@@ -1,0 +1,14 @@
+<messaggioIn>
+    <docId></docId>
+    <annoProt></annoProt>
+    <numProt></numProt>
+    <oggettoMail></oggettoMail>
+    <mittenteMail></mittenteMail>
+    <testoMail></testoMail>
+    <destinatariMail>
+        <tal:blockDestinatari tal:repeat="destinatario view/destinatari"><destinatarioMail tal:content="destinatario"></destinatarioMail></tal:blockDestinatari>
+    </destinatariMail>
+    <utente></utente>
+    <ruolo></ruolo>
+    <invioInteroperabile>N</invioInteroperabile>
+</messaggioIn>

@@ -1,0 +1,50 @@
+<ProtoIn>
+  <Data>{{Today}}</Data>
+  <Classifica>{{Classifica}}</Classifica>
+  <TipoDocumento>{{TipoDocumento}}</TipoDocumento>
+  <Oggetto>{{Oggetto}}</Oggetto>
+  <Origine>{{Flusso}}</Origine>
+  <MezzoInvio>{{MezzoInvio}}</MezzoInvio>
+  <InCaricoA>{{UO}}</InCaricoA>
+  {%- if Fascicolo %}
+  <AnnoPratica>{{Fascicolo.anno or ''}}</AnnoPratica>
+  <IdFascicolo>{{Fascicolo.numero or ''}}</IdFascicolo>
+  {%- endif %}
+  <LivelloRiservatezza>{{LivelloRiservatezza}}</LivelloRiservatezza>
+  <DataFineRiservatezza>{{DataFineRiservatezza}}</DataFineRiservatezza>
+  <MittenteInterno>{{MittenteInterno}}</MittenteInterno>
+  <MittentiDestinatari>{% for soggetto in Soggetti %}
+    <MittenteDestinatario>
+      {%- if soggetto.TipoSoggetto=='F' %}
+      <CognomeNome>{{soggetto.Cognome}}</CognomeNome>
+      <Nome>{{soggetto.Nome}}</Nome>
+      <TipoPersona>FI</TipoPersona>
+      {%- endif %}
+      {%- if soggetto.TipoSoggetto=='G' %}
+      <CognomeNome>{{soggetto.Denominazione}}</CognomeNome>
+      <TipoPersona>GI</TipoPersona>
+      {%- endif %}
+      <CodiceFiscale>{{soggetto.CodiceFiscale}}</CodiceFiscale>
+      {%- if soggetto.Principale %}
+      <TipoSogg>S</TipoSogg>
+      {%- endif %}
+      <Recapiti>
+        <Recapito>
+          <TipoRecapito>EMAIL</TipoRecapito>
+          <ValoreRecapito>{{soggetto.IndirizzoTelematico}}</ValoreRecapito>
+        </Recapito>
+      </Recapiti>
+    </MittenteDestinatario>{% endfor %}
+  </MittentiDestinatari>
+  <AggiornaAnagrafiche>N</AggiornaAnagrafiche>
+  <NumeroAllegati>{{totAllegati}}</NumeroAllegati>
+  <Allegati>{% for allegato in Allegati %}
+    <Allegato>
+      <TipoFile>{{allegato.ext}}</TipoFile>
+      <ContentType>{{allegato.mimetype}}</ContentType>
+      <Image xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">{{allegato.content}}</Image>
+      <Commento>{{allegato.descrizione}}</Commento>
+      <NomeAllegato>{{allegato.nome}}</NomeAllegato>
+    </Allegato>{% endfor %}
+  </Allegati>
+</ProtoIn>
