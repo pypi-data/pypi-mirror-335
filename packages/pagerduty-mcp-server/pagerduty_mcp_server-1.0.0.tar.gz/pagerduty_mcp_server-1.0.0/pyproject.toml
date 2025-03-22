@@ -1,0 +1,34 @@
+[project]
+name = "pagerduty_mcp_server"
+version = "1.0.0"
+description = "MCP server for LLM agents to interact with PagerDuty SaaS"
+readme = "README.md"
+requires-python = ">=3.13"
+license = "MIT"
+authors = [
+    { name = "Will Pfleger", email = "wpfleger@block.xyz" }
+]
+keywords = ["pagerduty", "mcp", "llm", "api", "server"]
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "mcp>=1.3.0",
+    "pagerduty>=1.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/wpfleger96/pagerduty-mcp-server"
+Repository = "https://github.com/wpfleger96/pagerduty-mcp-server.git"
+Documentation = "https://github.com/wpfleger96/pagerduty-mcp-server#readme"
+"Bug Tracker" = "https://github.com/wpfleger96/pagerduty-mcp-server/issues"
+Changelog = "https://github.com/wpfleger96/pagerduty-mcp-server/blob/main/CHANGELOG.md"
+
+[project.scripts]
+pagerduty-mcp-server = "pagerduty_mcp_server:main"
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
