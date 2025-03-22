@@ -1,0 +1,108 @@
+"""Test client for {{ config.project_name }} MCP server using SSE transport."""
+import asyncio
+import json
+from contextlib import AsyncExitStack
+from mcp import ClientSession
+from mcp.client.sse import sse_client
+from rich.console import Console
+from rich.panel import Panel
+from rich.json import JSON
+from rich.text import Text
+
+
+console = Console()
+
+def format_result(result, tool_name: str):
+    """Format a tool result for display."""
+    if result.isError:
+        return Panel(
+            Text(result.content[0].text, style="red"),
+            title=f"[red]Error in {tool_name}[/red]",
+            border_style="red"
+        )
+
+    # Parse the JSON string from the text content
+    try:
+        json_data = json.loads(result.content[0].text.replace("'", '"'))
+        return Panel(
+            JSON(json.dumps(json_data, indent=2)),
+            title=f"[green]{tool_name} Result[/green]",
+            border_style="green"
+        )
+    except json.JSONDecodeError:
+        return Panel(
+            Text(result.content[0].text),
+            title=f"[yellow]{tool_name} Result (Raw)[/yellow]",
+            border_style="yellow"
+        )
+
+
+async def main():
+    """Main entry point for the test client."""
+    console.print("[bold blue]Starting MCP test client for {{ config.project_name }} (SSE)...[/bold blue]")
+
+    server_url = "http://localhost:8080/sse"
+
+    async with AsyncExitStack() as exit_stack:
+        # Connect to the server using SSE
+        console.print(f"[bold]Connecting to SSE server at {server_url}...[/bold]")
+
+        # Store the context managers so they stay alive
+        streams_context = sse_client(url=server_url)
+        streams = await exit_stack.enter_async_context(streams_context)
+        read_stream, write_stream = streams
+
+        # Create and initialize the session
+        session = await exit_stack.enter_async_context(ClientSession(read_stream, write_stream))
+        await session.initialize()
+
+        # List available tools
+        response = await session.list_tools()
+        tools = response.tools
+        console.print(Panel(
+            "\n".join([f"• [cyan]{tool}[/cyan]" for tool in [t.name for t in tools]]),
+            title="[bold]Available Tools[/bold]",
+            border_style="blue"
+        ))
+
+        # Test cases for each tool
+        # Format: (tool_name, args_dict)
+        # Add new test cases here when adding new tools
+        test_cases = [
+            ("HelloWorld", {
+                "name": "World",
+                "language": "english"
+            }),
+            ("HelloWorld", {
+                "name": "Mundo",
+                "language": "spanish"
+            }),
+            ("HelloWorld", {
+                "name": "Test"  # Test default language
+            })
+        ]
+
+        # Run all test cases
+        for tool_name, args in test_cases:
+            console.print(f"\n[bold yellow]Testing {tool_name}...[/bold yellow]")
+            console.print(Panel(
+                JSON(json.dumps(args, indent=2)),
+                title="[bold]Input Arguments[/bold]",
+                border_style="yellow"
+            ))
+
+            try:
+                result = await session.call_tool(
+                    tool_name,
+                    {"args": args}
+                )
+                console.print(format_result(result, tool_name))
+            except Exception as e:
+                console.print(Panel(
+                    Text(str(e), style="red"),
+                    title="[red]Error[/red]",
+                    border_style="red"
+                ))
+
+if __name__ == "__main__":
+    asyncio.run(main())

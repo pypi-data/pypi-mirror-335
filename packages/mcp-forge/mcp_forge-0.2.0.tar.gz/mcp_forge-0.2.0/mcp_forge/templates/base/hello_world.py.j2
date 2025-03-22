@@ -1,0 +1,64 @@
+"""Hello World tool implementation."""
+from enum import Enum
+from typing import Optional
+from datetime import datetime
+
+from pydantic import Field
+
+from ..interfaces.tool import Tool, BaseToolInput, ToolResponse, ToolContent
+
+
+class Language(str, Enum):
+    """Supported languages for greeting."""
+    ENGLISH = "english"
+    SPANISH = "spanish"
+    FRENCH = "french"
+    GERMAN = "german"
+
+
+class HelloWorldInput(BaseToolInput):
+    """Input schema for the HelloWorld tool."""
+    name: str = Field(description="The name to greet")
+    language: Language = Field(
+        default=Language.ENGLISH,
+        description="The language to use for the greeting"
+    )
+
+
+class HelloWorldTool(Tool):
+    """A simple Hello World tool to demonstrate the MCP server functionality."""
+    name = "HelloWorld"
+    description = "A simple greeting tool that says hello to the provided name"
+    input_model = HelloWorldInput
+
+    async def execute(self, input_data: HelloWorldInput) -> ToolResponse:
+        """Execute the hello world tool."""
+        # Define greetings in different languages
+        greetings = {
+            Language.ENGLISH: "Hello",
+            Language.SPANISH: "Hola",
+            Language.FRENCH: "Bonjour",
+            Language.GERMAN: "Hallo"
+        }
+
+        # Get the appropriate greeting
+        greeting = greetings.get(input_data.language, greetings[Language.ENGLISH])
+
+        # Create the response message
+        message = f"{greeting}, {input_data.name}!"
+
+        # Prepare the response
+        response_content = {
+            "message": message,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        # Return the formatted response
+        return ToolResponse(
+            content=[
+                ToolContent(
+                    type="text",
+                    text=str(response_content)
+                )
+            ]
+        )

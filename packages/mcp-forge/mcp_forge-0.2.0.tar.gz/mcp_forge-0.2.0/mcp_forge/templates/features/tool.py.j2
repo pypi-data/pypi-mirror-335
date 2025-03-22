@@ -1,0 +1,44 @@
+"""{{ config.display_name }} tool implementation."""
+import json
+from datetime import datetime
+from typing import Optional
+
+from pydantic import Field
+
+from ..interfaces.tool import Tool, BaseToolInput, ToolResponse, ToolContent
+
+
+class {{ config.class_name }}Input(BaseToolInput):
+    """Input schema for the {{ config.display_name }} tool."""
+    # Define your input fields here
+    query_text: str = Field(description="Input text for the tool")
+    # Add more fields as needed, for example:
+    # option: Optional[str] = Field(description="An optional parameter", default="default value")
+
+
+class {{ config.class_name }}(Tool):
+    """Tool for {{ config.description }}."""
+    name = "{{ config.tool_name }}"
+    description = "{{ config.description }}"
+    input_model = {{ config.class_name }}Input
+
+    async def execute(self, input_data: {{ config.class_name }}Input) -> ToolResponse:
+        """Execute the tool with the given input."""
+        # TODO: Replace this default implementation with your tool's logic
+
+        # Example implementation
+        result = {
+            "status": "success",
+            "input_received": input_data.query_text,
+            "timestamp": datetime.now().isoformat()
+        }
+
+        # Return the formatted response
+        return ToolResponse(
+            content=[
+                ToolContent(
+                    type="text",
+                    text=json.dumps(result)
+                )
+            ]
+        )

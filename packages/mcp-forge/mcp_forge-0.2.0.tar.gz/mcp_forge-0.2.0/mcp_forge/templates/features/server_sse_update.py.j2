@@ -1,0 +1,13 @@
+"""{{ config.project_name }} MCP Server SSE implementation."""
+{% for import_line in import_lines %}
+{{ import_line }}
+{% endfor %}
+
+
+def get_available_tools() -> List[Tool]:
+    """Get list of all available tools."""
+    return [
+{% for tool in tools %}
+        {{ tool }}(),
+{% endfor %}
+    ]
