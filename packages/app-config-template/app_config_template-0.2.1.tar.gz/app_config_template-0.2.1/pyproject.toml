@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "app-config-template"
+version = "0.2.0001"
+description = "Configs and logs wrapper"
+authors = ["Vladimir Muzychenko <vladimir.muzychenko@gmail.com>"]
+readme = "README.md"
+packages = [{include = "app_template"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
