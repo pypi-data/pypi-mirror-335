@@ -1,0 +1,94 @@
+Metadata-Version: 2.4
+Name: wclip
+Version: 0.1.2
+Summary: A web-based clipboard sharing server
+Author: Webclipboard Contributors
+License: MIT
+Project-URL: Homepage, https://github.com/ifabos/webclipboard
+Project-URL: Bug Tracker, https://github.com/ifabos/webclipboard/issues
+Keywords: clipboard,web,server,utility
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyperclip>=1.8.0
+Dynamic: license-file
+Dynamic: requires-python
+
+# Webclipboard
+
+A simple web-based clipboard sharing server that allows you to access your clipboard content through a web interface.
+
+## Features
+
+- Web interface for viewing and modifying clipboard content
+- Secure authentication with randomly generated token
+- Easy to use API for clipboard operations
+- Cross-platform compatibility
+
+## Installation
+
+```bash
+pip install wclip
+```
+
+## Usage
+
+### Command Line
+
+Simply run the webclipboard command:
+
+```bash
+webclipboard
+```
+
+Or run as a module:
+
+```bash
+python -m webclipboard
+```
+
+### Options
+
+```
+webclipboard [--port PORT] [--no-browser]
+  --port PORT      Specify the port to run the server on (default: 8080)
+  --no-browser     Don't automatically open the browser
+  --help           Show this help message
+```
+
+### As a Library
+
+```python
+from webclipboard import start_server
+
+# Start with default settings
+start_server()
+
+# Or with custom settings
+start_server(port=9090, open_browser=False)
+```
+
+## Security
+
+- The server generates a random 8-character password on startup
+- Authentication uses username "clipboard" and the generated password
+- Only authenticated users can access clipboard data
+- Sessions are maintained using secure cookies
+
+## Requirements
+
+- Python 3.6+
+- pyperclip
+
+## License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
