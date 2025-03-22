@@ -1,0 +1,106 @@
+Metadata-Version: 2.4
+Name: llm-openai-plugin
+Version: 0.1
+Summary: LLM plugin for OpenAI
+Author: Simon Willison
+License: Apache-2.0
+Project-URL: Homepage, https://github.com/simonw/llm-openai-plugin
+Project-URL: Changelog, https://github.com/simonw/llm-openai-plugin/releases
+Project-URL: Issues, https://github.com/simonw/llm-openai-plugin/issues
+Project-URL: CI, https://github.com/simonw/llm-openai-plugin/actions
+Classifier: License :: OSI Approved :: Apache Software License
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: llm>=0.23
+Requires-Dist: openai>=1.67.0
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-asyncio; extra == "test"
+Requires-Dist: pytest-recording; extra == "test"
+Requires-Dist: syrupy; extra == "test"
+Requires-Dist: cogapp; extra == "test"
+Dynamic: license-file
+
+# llm-openai-plugin
+
+[![PyPI](https://img.shields.io/pypi/v/llm-openai-plugin.svg)](https://pypi.org/project/llm-openai-plugin/)
+[![Changelog](https://img.shields.io/github/v/release/simonw/llm-openai-plugin?include_prereleases&label=changelog)](https://github.com/simonw/llm-openai-plugin/releases)
+[![Tests](https://github.com/simonw/llm-openai-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/simonw/llm-openai-plugin/actions/workflows/test.yml)
+[![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/simonw/llm-openai-plugin/blob/main/LICENSE)
+
+[LLM](https://llm.datasette.io/) plugin for [OpenAI models](https://platform.openai.com/docs/models).
+
+This plugin **is a preview**. LLM currently ships with OpenAI models as part of its default collection, implemented using the [Chat Completions API](https://platform.openai.com/docs/guides/responses-vs-chat-completions).
+
+This plugin implements those same models using the new [Responses API](https://platform.openai.com/docs/api-reference/responses).
+
+Currently the only reason to use this plugin over the LLM defaults is to access [o1-pro](https://platform.openai.com/docs/models/o1-pro), which can only be used via the Responses API.
+
+## Installation
+
+Install this plugin in the same environment as [LLM](https://llm.datasette.io/).
+```bash
+llm install llm-openai-plugin
+```
+## Usage
+
+To run a prompt against `o1-pro` do this:
+
+```bash
+llm -m openai/o1-pro "Convince me that pelicans are the most noble of birds"
+```
+
+Run this to see a full list of models - they start with the `openai/` prefix:
+
+```bash
+llm models -q openai/
+```
+
+Here's the output of that command:
+
+<!-- [[[cog
+import cog
+from llm import cli
+from click.testing import CliRunner
+runner = CliRunner()
+result = runner.invoke(cli.cli, ["models", "-q", "openai/"])
+cog.out(
+    "```\n{}\n```".format(result.output.strip())
+)
+]]] -->
+```
+OpenAI: openai/gpt-4o
+OpenAI: openai/gpt-4o-mini
+OpenAI: openai/o3-mini
+OpenAI: openai/o1-mini
+OpenAI: openai/o1
+OpenAI: openai/o1-pro
+```
+<!-- [[[end]]] -->
+Add `--options` to see a full list of options that can be provided to each model.
+
+## Development
+
+To set up this plugin locally, first checkout the code. Then create a new virtual environment:
+```bash
+cd llm-openai-plugin
+python -m venv venv
+source venv/bin/activate
+```
+Now install the dependencies and test dependencies:
+```bash
+llm install -e '.[test]'
+```
+To run the tests:
+```bash
+python -m pytest
+```
+
+This project uses [pytest-recording](https://github.com/kiwicom/pytest-recording) to record OpenAI API responses for the tests, and [syrupy](https://github.com/syrupy-project/syrupy) to capture snapshots of their results.
+
+If you add a new test that calls the API you can capture the API response and snapshot like this:
+```bash
+PYTEST_OPENAI_API_KEY="$(llm keys get openai)" pytest --record-mode once --snapshot-update
+```
+Then review the new snapshots in `tests/__snapshots__/` to make sure they look correct.
