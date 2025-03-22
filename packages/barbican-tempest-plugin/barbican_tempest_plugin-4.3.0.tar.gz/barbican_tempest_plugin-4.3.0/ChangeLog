@@ -1,0 +1,233 @@
+CHANGES
+=======
+
+4.3.0
+-----
+
+* Update gate jobs as per the 2025.1 cycle testing runtime
+* Remove stable/2023.1 job from master gate
+* Support py3.12 and drop py3.8
+
+4.2.0
+-----
+
+* Add stable/2024.2 job
+
+4.1.0
+-----
+
+* Add stable/2024.1 jobs on master gate
+
+4.0.0
+-----
+
+* Update roles required for testing
+* Fix typo in branch name for 2023.2
+* Fix barbican\_tempest option group
+* Fix image\_signature\_verification group not register properly
+* Update stable branch testing
+
+3.1.0
+-----
+
+* Add secure RBAC jobs for stable branches
+* Use consistent naming for enforce\_scope option
+* Update python classifier in setup.cfg
+* Pause testing of multiple secret stores
+* Tests with signed volumes
+* Barbican tempest missing IDs
+* Support files removed for CONF.scenario.img\_dir option
+
+3.0.0
+-----
+
+* Pin barbican-tempest-plugin for jobs in EM
+* Remove Glance v1 APIs tests code
+* Add stable/2023.1 jobs on master gate
+
+2.1.0
+-----
+
+* Modify test\_get\_effective\_quota test
+* Enable test\_secret\_stores tests
+* Update rbac tests
+* Fix test\_secret\_stores tests
+* Migrate back to Launchpad
+* Add enable\_certificate\_validation config option
+* Set a default region for clients
+* Replace deprecated tenant\_id property
+
+2.0.0
+-----
+
+* Introduce a new test for "cve\_2022\_3100"
+* Update python testing as per zed cycle teting runtime
+* Add skip for api tests
+* Add stable/zed jobs on master gate
+* Pin stable branch jobs nodeset to Ubuntu Focal (20.04)
+* Add train, ussuri and victoria integration jobs
+
+1.7.0
+-----
+
+* Test secret access via ACL
+* Add versioned jobs
+* Add "member" role to tempest tests
+* Add RBAC tests for secret consumers
+* Add tests for secret consumers
+* The Python 3.6 and Python 3.7 Support has been dropped since zed
+* Remove setup\_clients method
+* Remove secgroups related methods
+* Remove nova\_volume\_attach & nova\_volume\_detach methods
+* Remove create\_floating\_ip & get\_server\_ip methods
+* Fix the import of NotFound exception
+* zuul: Declare queue at top level
+* Set minimal tempest version to 27.0.0
+* Update 'Maintained' stable branch jobs on master gate
+* Enable isolated networks in tempest.conf
+* Remove create\_volume & create\_volume\_type methods
+* Remove create\_timestamp & get\_timestamp methods
+* Remove get\_remote\_client method
+* Remove create\_server and rebuild\_server methods
+* Remove \_create\_port and create\_keypair methods
+
+1.6.0
+-----
+
+* Add stable/xena jobs on master gate
+* Update python testing classifier
+* Add secure-rbac test for Consumers
+* Temporarily delete two bad tests for consumers
+* Add secure-rbac test for Container ACL API
+* Add cross-project tests for Containers
+* Add secure-rbac tests for Secret ACL
+* Add secure-rbac tests for Secret Metadata
+
+1.5.0
+-----
+
+* Add secure-rbac tests for Quotas across projects
+* Enforce scope in RBAC testing
+* Add secure-rbac tests for Orders across projects
+* Refactor orders cleanup
+* Add secure-rbac test for Containers
+* Add secure-rbac test for Secrets across projects
+* Refactor secret cleanup
+* Let the orders complete before using them
+
+1.4.0
+-----
+
+* Don't use legacy exponent for RSA
+* Use the encryption provider constants (2)
+* Add stable/wallaby jobs on master gate
+* Add secure-rbac tests for TransportKeys API
+* Add secure-rbac tests for SecretStores API
+* Add secure-rbac tests for Quotas
+* Add secure-rbac tests for Orders
+* Add secure-rbac tests for Containers
+
+1.3.0
+-----
+
+* Add secure-rbac gate
+* Initial patch to add barbican rbac tests
+* Update TOX\_CONSTRAINTS\_FILE
+* Add skip for test\_encrypted\_cinder\_volumes\_cryptsetup
+* Remove old pep8 ignores that are no longer necessary
+
+1.2.1
+-----
+
+* [goal] Keep barbican-tempest-plugin stable jobs to bionic
+* Copy created image into all available glance stores
+* Fix test\_signed\_image\_upload\_boot\_failure skip method
+* fix urls in README
+* Update hacking for Python3
+
+1.2.0
+-----
+
+* Add py38 package metadata
+* Remove six
+* Remove a dummy test
+
+1.1.0
+-----
+
+* Fix setup.cfg keywords
+* bump py37 to py38 in tox.ini
+* Deprecate scenario.img\_dir option
+* Ceph Multibackend changes
+* [goal] Migrate testing to ubuntu focal
+* zuul: migrate and clean the tempest native jobs
+* Use the encryption provider constants
+
+1.0.0
+-----
+
+* Add certificate validation scenario tests
+* [ussuri][goal] Drop python 2.7 support and testing
+* Remove use of deprecated config options for volume API selection
+* Update the constraints url
+
+0.3.0
+-----
+
+* Remove oslosphinx
+* OpenDev Migration Patch
+* Add option to toggle validation of signed image
+* Remove Manager class
+
+0.2.0
+-----
+
+* import zuul job settings from project-config
+* Switch to stestr
+
+0.1.0
+-----
+
+* Remove volume v1 API service client usage
+* Added support of volume api\_v3 client
+* Use addCleanup to detach volume instead of explicit detach
+* Update the old doc links
+* Add six as requirement
+* Verify instance snapshots when using signed images
+* Updated from global requirements
+* Updated from global requirements
+* Revert "Remove duplicate configuration"
+* Address verifier DeprecationWarning
+* Validate instances are accessible before messing with their disks
+* Zuul: Remove project name
+* Remove duplicate configuration
+* Add connection test to help diagnose failure
+* Fixed \_log\_console\_output call on failure
+* Add .zuul.yaml
+* Replace deprecated function in tempest
+* Add ephemeral disk encryption scenario test
+* Replace the usage of 'manager' with 'os\_primary'
+* Fixes for py35
+* add deps for barbican-tempest-plugin
+* Fix tox command for running tests
+* Add volume encryption scenario tests
+* Add oslotest to test-requirements.txt
+* Switch to local copy of scenario test base class
+* Removes unnecessary utf-8 encoding
+* Add image signing scenario
+* Replaced python 3.4 to 3.5
+* Drop MANIFEST.in
+* Fix oslotest import error
+* Add idempotent\_id lines for tests
+* Remove tempest-lib from requirements.txt
+* Add pre\_test\_hook
+* Update the project README
+* Add a QuotaClient and quota API tests
+* Add an OrderClient and order API tests
+* Added Secret Metadata client and unit tests
+* Add a ConsumerClient and consumer API tests
+* Add a ContainerClient and container API tests
+* Fill in remaining Secrets API and tests
+* Register client and add first test
+* Add initial plugin structure
+* Added .gitreview
