@@ -1,0 +1,18 @@
+[project]
+name = "beancountswedbank"
+version = "1.0.1"
+readme = "README.md"
+description = "CSV importer script from Swedbank online banking for beancount"
+license = {text="MIT License"}
+authors = [
+    {name="R", email="contact+beancount-swedbank@vonshednob.cc"},
+]
+requires-python = ">=3.9"
+dependencies = ["beangulp>=0.2.0"]
+
+[project.urls]
+repository = "https://codeberg.org/vonshednob/beancount-swedbank-importer"
+issues = "https://codeberg.org/vonshednob/beancountswedbank/issues"
+
+[build-system]
+requires = ["setuptools", "wheel"]
