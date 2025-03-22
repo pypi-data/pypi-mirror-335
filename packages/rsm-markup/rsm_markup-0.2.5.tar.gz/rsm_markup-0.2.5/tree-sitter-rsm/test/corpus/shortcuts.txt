@@ -1,0 +1,568 @@
+================================================================================
+Inline math with shortcut
+================================================================================
+
+:manuscript:
+
+$X$.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (math)
+      (asis_text))
+    (text)))
+
+
+================================================================================
+Inline code with shortcut
+================================================================================
+
+:manuscript:
+
+`X`.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (code)
+      (asis_text))
+    (text)))
+
+
+================================================================================
+Code block with shortcut
+================================================================================
+
+:manuscript:
+
+```
+  comp = [abs(x) for x in range(10)]
+```
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (specialblock
+    tag: (codeblock)
+    (asis_text)))
+
+
+================================================================================
+Code block with shortcut and meta
+================================================================================
+
+:manuscript:
+
+```
+  :label: some-code
+  :types: python
+
+  comp = [abs(x) for x in range(10)]
+
+```
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (specialblock
+    tag: (codeblock)
+    meta: (blockmeta
+      (pair
+	(metakey_text (label))
+        (metaval_text))
+      (pair
+	(metakey_list (types))
+        (metaval_list
+	  (metaval_list_item))))
+    (asis_text)))
+
+
+================================================================================
+Math block with shortcut
+================================================================================
+
+:manuscript:
+
+$$
+  \int_a^bu\frac{d^2v}{dx^2}\,dx
+  =\left.u\frac{dv}{dx}\right|_a^b
+  -\int_a^b\frac{du}{dx}\frac{dv}{dx}\,dx.
+$$
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (mathblock
+    (asis_text)))
+
+
+================================================================================
+Math block with shortcut and meta
+================================================================================
+
+:manuscript:
+
+$$
+  :label: some-math
+  :types: foo
+
+  \int_a^bu\frac{d^2v}{dx^2}\,dx
+  =\left.u\frac{dv}{dx}\right|_a^b
+  -\int_a^b\frac{du}{dx}\frac{dv}{dx}\,dx.
+
+$$
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (mathblock
+    meta: (blockmeta
+      (pair
+	(metakey_text (label))
+        (metaval_text))
+      (pair
+	(metakey_list (types))
+        (metaval_list
+	  (metaval_list_item))))
+    (asis_text)))
+
+
+================================================================================
+Math inside claim with shortcut
+================================================================================
+
+:manuscript:
+
+:claim: $2+2=4$ ::.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (construct
+      tag: (claim)
+      (specialinline
+        tag: (math)
+        (asis_text)))
+    (text)))
+
+
+================================================================================
+Math inside claim with shortcut no space
+================================================================================
+
+:manuscript:
+
+:claim:$2+2=4$::.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (construct
+      tag: (claim)
+      (specialinline
+        tag: (math)
+        (asis_text)))
+    (text)))
+
+
+================================================================================
+Section with shortcut
+================================================================================
+
+:manuscript:
+
+# Title
+
+Foo.
+
+::
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (specialblock
+    tag: (section)
+    title: (text)
+    (paragraph
+      (text))))
+
+
+================================================================================
+Section with shortcut and meta
+================================================================================
+
+:manuscript:
+
+# Title
+  :label: sec
+  :nonum:
+
+Foo.
+
+::
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (specialblock
+    tag: (section)
+    title: (text)
+    meta: (blockmeta
+      (pair
+        (metakey_text (label))
+        (metaval_text))
+      (pair
+        (metakey_bool (nonum))))
+    (paragraph
+      (text))))
+
+
+================================================================================
+Subsection with shortcut
+================================================================================
+
+:manuscript:
+
+:section:
+
+## Title
+
+Foo.
+
+::
+
+::
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (block
+    tag: (section)
+    (specialblock
+      tag: (subsection)
+      title: (text)
+      (paragraph
+        (text)))))
+
+
+================================================================================
+Subsection with shortcut and meta
+================================================================================
+
+:manuscript:
+
+:section:
+
+## Title
+  :label: sub
+  :nonum:
+
+Foo.
+
+::
+
+::
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (block
+    tag: (section)
+    (specialblock
+      tag: (subsection)
+      title: (text)
+      meta: (blockmeta
+        (pair
+	  (metakey_text (label))
+          (metaval_text))
+        (pair
+	  (metakey_bool (nonum))))
+      (paragraph
+        (text)))))
+
+
+================================================================================
+Span strong with shortcut
+================================================================================
+
+:manuscript:
+
+*shortcut*.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (spanstrong)
+      (text))
+    (text)))
+
+
+================================================================================
+Span emphas with shortcut
+================================================================================
+
+:manuscript:
+
+/shortcut/.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (spanemphas)
+      (text))
+    (text)))
+
+
+================================================================================
+Span strong and emphas with shortcut
+================================================================================
+
+:manuscript:
+
+*/shortcut/*.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (spanstrong)
+      (specialinline
+      tag: (spanemphas)
+        (text)))
+    (text)))
+
+
+================================================================================
+Span strong and emphas with shortcut reversed
+================================================================================
+
+:manuscript:
+
+/*shortcut*/.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (specialinline
+      tag: (spanemphas)
+      (specialinline
+      tag: (spanstrong)
+        (text)))
+    (text)))
+
+
+================================================================================
+Strong half word with shortcut
+================================================================================
+
+:manuscript:
+
+Bo*ld*.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (text)
+    (specialinline
+      tag: (spanstrong)
+      (text))
+    (text)))
+
+
+================================================================================
+Turnstile
+================================================================================
+
+:manuscript:
+
+Foo :|-: bar::. Baz.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (text)
+    (construct
+      tag: (claim)
+      (text))
+    (text)))
+
+
+================================================================================
+Turnstile with math inside
+================================================================================
+
+:manuscript:
+
+Foo :|-: $2+2=4$::. Baz.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (text)
+    (construct
+      tag: (claim)
+      (specialinline
+        tag: (math)
+        (asis_text)))
+    (text)))
+
+
+================================================================================
+Paragraph starts with turnstile
+================================================================================
+
+:manuscript:
+
+:|-: A claim::.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (construct
+      tag: (claim)
+      (text))
+    (text)))
+
+
+================================================================================
+Turnstile unicode
+================================================================================
+
+:manuscript:
+
+Foo :⊢: bar::. Baz.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (text)
+    (construct
+      tag: (claim)
+      (text))
+    (text)))
+
+
+================================================================================
+Turnstile unicode with math inside
+================================================================================
+
+:manuscript:
+
+Foo :⊢: $2+2=4$::. Baz.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (text)
+    (construct
+      tag: (claim)
+      (specialinline
+        tag: (math)
+        (asis_text)))
+    (text)))
+
+
+================================================================================
+Paragraph starts with turnstile unicode
+================================================================================
+
+:manuscript:
+
+:⊢: A claim::.
+
+::
+
+--------------------------------------------------------------------------------
+
+(source_file
+  tag: (manuscript)
+  (paragraph
+    (construct
+      tag: (claim)
+      (text))
+    (text)))
