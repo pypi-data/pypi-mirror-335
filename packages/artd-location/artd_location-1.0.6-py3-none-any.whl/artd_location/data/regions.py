@@ -1,0 +1,140 @@
+"""
+ * Copyright (C) ArtD SAS - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ * Written by Jonathan Favian Urzola Maldonado <jonathan@artd.com.co>, 2023
+"""
+REGIONS = [
+    [
+        1,
+        "AMAZONAS",
+    ],
+    [
+        2,
+        "ANTIOQUIA",
+    ],
+    [
+        3,
+        "ARAUCA",
+    ],
+    [
+        4,
+        "ARCHIPIELAGO DE SAN ANDRES",
+    ],
+    [
+        5,
+        "ATLÁNTICO",
+    ],
+    [
+        6,
+        "BOGOTÁ D.C.",
+    ],
+    [
+        7,
+        "BOLIVAR",
+    ],
+    [
+        8,
+        "BOYACÁ",
+    ],
+    [
+        9,
+        "CALDAS",
+    ],
+    [
+        10,
+        "CAQUETA",
+    ],
+    [
+        11,
+        "CASANARE",
+    ],
+    [
+        12,
+        "CAUCA",
+    ],
+    [
+        13,
+        "CESAR",
+    ],
+    [
+        14,
+        "CHOCO",
+    ],
+    [
+        15,
+        "CORDOBA",
+    ],
+    [
+        16,
+        "CUNDINAMARCA",
+    ],
+    [
+        17,
+        "GUAINIA",
+    ],
+    [
+        18,
+        "GUAVIARE",
+    ],
+    [
+        19,
+        "HUILA",
+    ],
+    [
+        20,
+        "LA GUAJIRA",
+    ],
+    [
+        21,
+        "MAGDALENA",
+    ],
+    [
+        22,
+        "META",
+    ],
+    [
+        23,
+        "NARIÑO",
+    ],
+    [
+        24,
+        "NORTE DE SANTANDER",
+    ],
+    [
+        25,
+        "PUTUMAYO",
+    ],
+    [
+        26,
+        "QUINDIO",
+    ],
+    [
+        27,
+        "RISARALDA",
+    ],
+    [
+        28,
+        "SANTANDER",
+    ],
+    [
+        29,
+        "SUCRE",
+    ],
+    [
+        30,
+        "TOLIMA",
+    ],
+    [
+        31,
+        "VALLE DEL CAUCA",
+    ],
+    [
+        32,
+        "VAUPES",
+    ],
+    [
+        33,
+        "VICHADA",
+    ],
+]
