@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "local-pyspark-environment"
+version = "0.1.1"
+description = "Local pyspark environment"
+authors = ["DataSentics Team"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "pyspark_environment.py"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pyspark = "^3.5.3"
+delta-spark = "^3.3.0"
+pandas = "^2"
+ipykernel = "^6"
+ipywidgets = "^8"
+python-dotenv = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+poethepoet = "^0.33.1"
+
+[tool.poe.tasks]
+black = "black pyspark_environment.py"
+black-check = "black --check pyspark_environment.py"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
