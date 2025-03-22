@@ -1,0 +1,43 @@
+Installation
+============
+
+You can simply use pip:
+
+.. code-block:: shell
+
+   pip install phoneshift
+
+
+Phoneshift is a "connected module":
+First, you have to provide an API token in the environement variables that you obtain through `the phoneshift website <https://phoneshift.ing>`_, ex.:
+
+.. code-block:: shell
+
+   export PHONESHIFT_API_TOKEN=api_us6sc7lmd6preubeol4Sm95Yqe40wyhh
+
+Then, you can run some python code, ex.:
+
+.. code-block:: shell
+
+   python -c 'import phoneshift; print(phoneshift.__version__)'
+
+when loading the module with ``import phoneshift``, the API token will be checked through the network and thus validate your usage license.
+This validation happens when the module is loading, in the background, thus minimizing any delay before audio processing.
+
+.. note::
+
+   **No audio** stream will be passed to phoneshift servers. 100% of the processing is done locally on your machine.
+   Network connectivity is only used to validate the API token and send very light usage statistics that help setting priorities of phoneshift's development.
+
+Testing
+-------
+
+To verify that everything is setup properly, you can run the tests provided with the module:
+
+.. code-block:: shell
+
+   python -c 'import phoneshift.tests; phoneshift.tests.run()'
+
+This runs very simple regression tests and smoke tests.
+
+This command does *not* run regressions tests on audio processing, as they are too heavy to be shiped with the python module.
