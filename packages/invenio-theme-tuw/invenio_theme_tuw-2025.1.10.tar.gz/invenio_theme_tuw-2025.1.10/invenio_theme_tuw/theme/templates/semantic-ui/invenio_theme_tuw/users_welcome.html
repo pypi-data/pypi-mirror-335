@@ -1,0 +1,117 @@
+{# -*- coding: utf-8 -*-
+
+  Copyright (C) 2024 TU Wien.
+
+  Invenio Theme TUW is free software; you can redistribute it and/or modify it
+  under the terms of the MIT License; see LICENSE file for more details.
+#}
+
+{%- extends config.BASE_TEMPLATE %}
+
+{%- block page_body %}
+  {%- set user_name = user.user_profile.given_name or user.user_profile.full_name %}
+  <article id="welcome-text-container" class="ui container rel-mt-3">
+    <section class="mb-20">
+      <h1>Choosing a welcome text</h1>
+      <p>
+        Below are two welcome text variants that can be sent as a response to users requesting permissions to create uploads in the system.
+        They differ slightly in their wording and are geared towards researchers/employees vs. students (who generally aren't expected to stick around after finishing their studies).
+        The appropriate text should be selected based on the role of the requestor.
+      </p>
+      <p id="tiss-profile">
+        {%- if user.user_profile.tiss_id %}
+          <i class="info circle icon"></i>
+          <a href="https://tiss.tuwien.ac.at/person/{{ user.user_profile.tiss_id }}.html">TISS profile</a> for {{ user.user_profile.full_name }}.
+        {%- else %}
+          <i class="exclamation triangle icon"></i>
+          No TISS profile found for <em>{{ user.user_profile.full_name }}</em>! Potentially this is an external account.
+        {%- endif %}
+      </p>
+    </section>
+    <hr>
+
+    <section class="mt-20">
+      <h1>For researchers and employees...</h1>
+      <pre class="response text">
+Dear {{ user_name }},
+
+
+Thanks for your request, I've just granted you permission to create new record drafts and upload files!
+Due to the requirements of the Core Trust Seal that we are pursuing, we will need to review new records briefly before publication.
+Once the record is ready for review, you can request it via the "start publication process" button on the upload page.
+You can always track the status of your records in "My Dashboard": {{ url_for("invenio_app_rdm_users.uploads", _external=True) }}
+
+
+Please consider that publishing a record means that the set of files uploaded to that record cannot be modified anymore.
+This is because DOIs should always point to the same content over time, and changing the set of files would violate this property.
+Changing the metadata of a record will always be possible for the record's owner, since otherwise it wouldn't be possible to e.g. add new "related identifiers" (e.g. citations) as they come up later.
+
+However, in case the files need to be changed after the publication of the dataset (e.g. because a mistake was found in the files), you can always create a "new version" of the record.
+This new version will be a new record on its own (with a separate DOI), linked with the previous version(s) of the record in the system.
+To ensure that your files are preserved and accessible in the long term, we strongly recommend consulting our guide on file formats: {{ config.THEME_TUW_FILE_FORMATS_URL }}
+
+
+Speaking of keeping the datasets well-curated and up-to-date, we recognize that every journey, including university affiliations, will eventually end.
+This is relevant because, due to the nature of our system, access to it is strongly linked with university accounts.
+So even though we certainly hope the need will not arise too soon, it is still a good idea to think of succession plans eventually.
+As such, we would like to ask you if you are comfortable with granting us (i.e. the team at the Center for Research Data Management) permission to maintain and curate the metadata of your records in the future.
+Consent can be indicated directly in the system in the account settings: {{ url_for("invenio_config_tuw_settings.curation_settings_view", _external=True) }}
+
+{%+ if config.THEME_TUW_TEST_INSTANCE_URL +%}
+As a final note, if you just want to play around and familiarize yourself with the system or just need to deposit data as part of an exercise, we also offer a test system: {{ config.THEME_TUW_TEST_INSTANCE_URL }}
+This test system does not mint any live DOIs, and we reserve the right to arbitrarily clear its contents.
+Otherwise, the functionality is pretty much identical, so it's an ideal playground.
+{# note: the shape of this construct, including the {%+ ... +%} and this comment are relevant for the formatting #}
+{%+ endif +%}
+Cheers,
+{{ current_user.user_profile.given_name }}
+      </pre>
+    </section>
+    <hr>
+
+    <section class="mt-20">
+      <h1>For students...</h1>
+      <pre class="response text">
+Dear {{ user_name }},
+
+
+Thanks for your request, I've just granted you permission to create new record drafts and upload files!
+Due to the requirements of the Core Trust Seal that we are pursuing, we will need to review new records briefly before publication.
+Once the record is ready for review, you can request it via the "start publication process" button on the upload page.
+You can always track the status of your records in "My Dashboard": {{ url_for("invenio_app_rdm_users.uploads", _external=True) }}
+
+
+Please consider that publishing a record means that the set of files uploaded to that record cannot be modified anymore.
+This is because DOIs should always point to the same content over time, and changing the set of files would violate this property.
+Changing the metadata of a record will always be possible for the record's owner, since otherwise it wouldn't be possible to e.g. add new "related identifiers" (e.g. citations) as they come up later.
+
+However, in case the files need to be changed after the publication of the dataset (e.g. because a mistake was found in the files), you can always create a "new version" of the record.
+This new version will be a new record on its own (with a separate DOI), which will be linked with the previous version(s) of the record in the system.
+To ensure that your files are preserved and accessible in the long term, we strongly recommend consulting our guide on file formats: {{ config.THEME_TUW_FILE_FORMATS_URL }}
+
+
+Speaking of keeping the datasets well-curated and up-to-date, we recognize that every journey will eventually end  – including university affiliations, especially as a student.
+This is relevant because, due to the nature of our system, access to it is strongly linked with university accounts.
+As such, we would like to ask you if you are comfortable with granting us (i.e. the team at the Center for Research Data Management) permission to maintain and curate the metadata of your records in the future.
+Consent can be indicated directly in the system in the account settings: {{ url_for("invenio_config_tuw_settings.curation_settings_view", _external=True) }}
+
+{%+ if config.THEME_TUW_TEST_INSTANCE_URL +%}
+As a final note, if you just want to play around and familiarize yourself with the system or just need to deposit data as part of an exercise, we also offer a test system: {{ config.THEME_TUW_TEST_INSTANCE_URL }}
+This test system does not mint any live DOIs, and we reserve the right to arbitrarily clear its contents.
+Otherwise, the functionality is pretty much identical, so it's an ideal playground.
+{# note: the shape of this construct, including the {%+ ... +%} and this comment are relevant for the formatting #}
+{%+ endif +%}
+Cheers,
+{{ current_user.user_profile.given_name }}
+      </pre>
+    </section>
+
+    <hr>
+    <a class="ui button mt-20" href="{{ url_for('.list_user_info') }}">Back</a>
+  </article>
+{%- endblock page_body %}
+
+{%- block css %}
+  {{ super() }}
+  {{ webpack['invenio-theme-tuw-users-welcome.css'] }}
+{%- endblock css %}
