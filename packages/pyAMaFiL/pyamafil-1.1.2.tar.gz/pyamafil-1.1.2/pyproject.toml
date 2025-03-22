@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=65.4.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyAMaFiL"
+version = "1.1.2"
+readme = "README.md"
+
+dependencies = [
+    "numpy",
+    "scipy",
+    "sunpy",
+    'importlib-metadata; python_version>="3.10"',
+]
+
+description = "Library for reconstructing solar magnetic fields with NLFFF optimization approach"
+authors = [
+  {name = "Alexey G. Stupishin", email = "agstup@yandex.ru"}
+]
+maintainers = [
+  {name = "Alexey G. Stupishin", email = "agstup@yandex.ru"}
+]
+
+keywords = ["Sun", "magnetic fields", "NLFFF", "solar physics"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[project.urls]
+Issues = "https://github.com/Alexey-Stupishin/pyAMaFiL/issues"
+Repository = "https://github.com/Alexey-Stupishin/pyAMaFiL"
+
+[tool.cibuildwheel]
+skip = ["cp36*", "cp37*", "cp38*", "cp39*", "pp*", "*musl*"]
+build-frontend = "build"
+
+[[tool.cibuildwheel.overrides]]
+select = "cp*"
+manylinux-x86_64-image = "manylinux_2_28"
+manylinux-i686-image = "manylinux2014"
+
+#[[tool.cibuildwheel.overrides]]
+#select = "cp312*"
+#manylinux-x86_64-image = "manylinux_2_34"
+
+[tool.cibuildwheel.linux]
+repair-wheel-command = "auditwheel repair -w {dest_dir} {wheel}"
+
+[tool.cibuildwheel.macos]
+repair-wheel-command = "delocate-wheel --require-archs {delocate_archs} -w {dest_dir} -v {wheel}"
+
+[tool.cibuildwheel.windows]
