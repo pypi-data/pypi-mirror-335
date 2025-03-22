@@ -1,0 +1,50 @@
+Metadata-Version: 2.4
+Name: wetb
+Version: 0.1.28
+Summary: The Wind Energy Toolbox (or ```wetb```, pronounce as wee-tee-bee) is a collection of Python scripts that facilitate working with (potentially a lot) of HAWC2, HAWCStab2, FAST or other text input based simulation tools.
+Author: DTU Wind and Energy Systems
+License: wetb is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License (GPL, http://www.gnu.org/copyleft/gpl.html) as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.  wetb is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details http://www.gnu.org/licenses/  We encourage you to submit new code for possible inclusion in future versions of wetb.
+Project-URL: repository, https://gitlab.windenergy.dtu.dk/toolbox/WindEnergyToolbox
+Project-URL: documentation, https://toolbox.pages.windenergy.dtu.dk/WindEnergyToolbox/
+License-File: LICENSE.txt
+License-File: AUTHORS.rst
+Requires-Dist: certifi
+Requires-Dist: click
+Requires-Dist: Cython
+Requires-Dist: h5py
+Requires-Dist: Jinja2
+Requires-Dist: lxml
+Requires-Dist: matplotlib
+Requires-Dist: pillow
+Requires-Dist: mock
+Requires-Dist: numpy
+Requires-Dist: numba
+Requires-Dist: openpyxl
+Requires-Dist: pandas
+Requires-Dist: paramiko
+Requires-Dist: psutil
+Requires-Dist: pytest
+Requires-Dist: pytest-cov
+Requires-Dist: scipy
+Requires-Dist: sshtunnel
+Requires-Dist: tables
+Requires-Dist: tqdm
+Requires-Dist: xarray
+Requires-Dist: xlwt
+Requires-Dist: XlsxWriter
+Provides-Extra: prepost
+Requires-Dist: openpyxl; extra == "prepost"
+Requires-Dist: tables; extra == "prepost"
+Requires-Dist: xlwt; extra == "prepost"
+Requires-Dist: Cython; extra == "prepost"
+Provides-Extra: all
+Requires-Dist: openpyxl; extra == "all"
+Requires-Dist: tables; extra == "all"
+Requires-Dist: xlwt; extra == "all"
+Requires-Dist: Cython; extra == "all"
+Requires-Dist: paramiko; extra == "all"
+Requires-Dist: sshtunnel; extra == "all"
+Requires-Dist: pytest; extra == "all"
+Requires-Dist: mock; extra == "all"
+Requires-Dist: click; extra == "all"
+Dynamic: license-file
