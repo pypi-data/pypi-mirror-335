@@ -1,0 +1,154 @@
+CHANGES
+=======
+
+2.5.0
+-----
+
+* Update gate jobs as per the 2025.1 cycle testing runtime
+* Remove stable/2023.1 job from master gate
+* Support py3.12 and drop py3.8
+* Add stable/2024.2 jobs on master gate
+
+2.4.0
+-----
+
+* Replace deprecated admin\_manager
+* Replace usage of deprecated path for attr decorator
+* Update stable branch tests
+
+2.3.0
+-----
+
+* Update python classifier in setup.cfg
+
+2.2.0
+-----
+
+* Add stable/2023.1 jobs on master gate
+* Use py3 as the default runtime for tox
+* add list and get attributes api method for a physical card
+* add list device testcase by combine args
+
+2.1.0
+-----
+
+* add list devices filter testcase for non exist hostname
+* Add stable/zed jobs on master gate
+* Pin stable branch jobs nodeset to Ubuntu Focal (20.04)
+* create device profile name character is too long
+* create the accelerator request with special characters
+* Fix deprecated zuul queue syntax
+* Use TOX\_CONSTRAINTS\_FILE
+
+2.0.0
+-----
+
+* list devices by non exist vendor
+* list devices by non exist type
+* delete device profile name is null
+* create ARQ with non-exist device profile
+* add list devices filter by hostname
+* cyorg Word misspelling
+* add delete accelerator request by instance uuid
+* delete device profile by name
+* add delete multiple non\_existent device\_profile testcase
+* add list devices filter by vendor
+* create accelerator request with name null
+* modify testcase description
+* add list devices filter by type
+* Set minimal tempest version to 27.0.0
+* Update python testing as per zed cycle teting runtime
+* The Python 3.6 and Python 3.7 Support has been dropped since zed
+* Cap cyborg-tempest-plugin version for stable/ussuri|victoria
+* Update 'Maintained' stable branch jobs on master gate
+* setup\_clients cleanup
+* Remove \_create\_security\_group & \_create\_loginable\_secgroup\_rule
+* Remove create\_keypair & create\_server methods
+
+1.4.0
+-----
+
+* Add stable/xena jobs on master gate
+* create device profile name is null
+* add cyborg device negative test
+* modify testcase desc
+* Change the core team url
+* Fix features url
+* Updating python testing classifier as per Yoga testing runtime
+
+1.3.0
+-----
+
+* Add assertion information for batch delete device profile testcase
+* Add description check for device profile create
+* Fix broken testcase 'test\_create\_device\_profile\_server\_fault'
+* Revert "Skip the cases effected by sqlalchemy version update"
+* Skip the cases effected by sqlalchemy version update
+* Enable tls-proxy support in test jobs
+* Add skip\_checks
+* add delete accelerator request negative testcase
+* [ussuri][goal] Update contributor documentation
+* Add stable branch jobs on the plugins master gate
+* setup.cfg: Replace dashes with underscores
+* Use py3 as the default runtime for tox
+* Add device profiles test case for device\_profile APIs
+* Remove the device\_profile test case
+* Fix tempest for get device profile
+* Revert "Remove py37"
+
+1.2.0
+-----
+
+* Add doc/requirements
+* Remove py37
+* Remove unicode from code
+* Add the negative test for create dp with the same name
+* Add a new dp data for create profile
+* add api test lists and show details for deployables
+* add get one deployable method and negative test
+* add get accelerator request negative test
+* add delete device profile negative test
+* add test case for cyborg part
+* add device profile negative testcase
+* add accelerator request list get delete test method
+* move device profile data to cyborg\_data file
+* add create accelerator request api test
+* Bump py37 to py38 in tox.ini
+* Add cyborg get and delete device profile api tests
+* Add cyborg list device inteface method and api test
+* remove useless test files
+* Remove Six
+
+1.1.0
+-----
+
+* Optimize the create device profile interface
+* [goal] Fixing lower constraints for Ubuntu Focal
+* add delete multiple device profile by names api test
+* Switch to newer openstackdocstheme and reno versions
+* Fix hacking min version to 3.0.1
+* Add py38 package metadata
+
+1.0.0
+-----
+
+* Cleanup py27 support
+* Update to hacking 3.0
+* Remove py27 from tox env list
+* Make cyborg-tempest job voting
+* Fix a typo
+* Migrate cyborg-tempest job to py3 for Ussuri
+* Make cyborg-tempest job voting
+
+0.1.0
+-----
+
+* [train][goal] Define new 'cyborg-tempest-ipv6-only' job
+* End-to-end scenario test added
+* Fix the incorrect source code url in README
+* add zuul job to run cyborg tempest
+* Switch to the new canonical constraints URL on master
+* Enable plugin list feature and add gate job to merge patches
+* Add .gitreview file
+* init improvement
+* init cyborg-tempest-plugin
