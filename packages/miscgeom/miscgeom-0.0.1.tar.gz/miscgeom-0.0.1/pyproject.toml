@@ -1,0 +1,33 @@
+[build-system]
+build-backend = 'mesonpy'
+requires = [
+    'meson-python',
+    'numpy>=2.0.0'
+]
+
+[project]
+name = 'miscgeom'
+version = '0.0.1'
+description = 'Python library containing miscellaneous geometry computing routines.'
+readme = 'README.md'
+requires-python = '>=3.12'
+license = {file = 'LICENSE.txt'}
+authors = [
+    {name = 'Spencer Bertram', email = 'spenbert02@gmail.com'}
+]
+dependencies = [
+    'numpy>=2.0.0'
+]
+
+[project.optional-dependencies]
+dev = [
+    'fury',
+    'pytest'
+]
+
+[tool.cibuildwheel]
+build-verbosity = 1
+skip = "pp* *-musllinux*"
+before-build = "pip install numpy>=2.0.0 meson-python"
+test-command = "pytest {project}"
+test-requires = ["pytest"]
