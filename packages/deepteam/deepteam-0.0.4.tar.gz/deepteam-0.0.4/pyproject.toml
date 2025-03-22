@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "deepteam"
+version = "0.0.4"
+description = "The LLM Red Teaming Framework"
+authors = ["Jeffrey Ip <jeffreyip@confident-ai.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/confident-ai/deepteam"
+documentation = "https://docs.confident-ai.com"
+
+[tool.poetry.scripts]
+deepteam = 'deepteam.cli.main:app'
+
+[tool.poetry.plugins."pytest11"]
+plugins = "deepteam.plugins.plugin"
+
+[tool.poetry.dependencies]
+deepeval="*"
+python = ">=3.9,<3.14"
+requests = "^2.31.0"
+tqdm = "^4.66.1"
+tabulate = "^0.9.0"
+black = "*"
+openai = "*"
+aiohttp = "*"
+twine="5.1.1"
+grpcio="1.67.1"
+
+[tool.black]
+line-length = 80
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+addopts = "-m 'not skip_test'"
+markers = [
+    "skip_test: skip the test",
+]
