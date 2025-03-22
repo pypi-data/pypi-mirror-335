@@ -1,0 +1,23 @@
+Metadata-Version: 2.4
+Name: speex-py
+Version: 0.2.0
+Classifier: Programming Language :: Rust
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Programming Language :: Python :: Implementation :: PyPy
+Requires-Dist: maturin>=1.8.2
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+
+# Python Bindings to speexdsp using rust and maturin/pyo3
+
+install: `uv sync`
+
+test: `RUST_BACKTRACE=full uv run examples/basic_async.py` or whatever. This will also build the rust part if anything changed.
+
+
+## Publish
+
+If not installed, install `cargo install cargo-workspaces`
+
+On **main**, run `cargo ws version patch` / `cargo ws version minor` / `cargo ws version major` etc. based on what to bump
+-> this will update the Cargo.toml version, create a new git tag and push. The CI will publish commits with new tags to [pypi](https://pypi.org/project/speex-py/)
