@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "patchs_unsloth_llamacpp"
+version = "0.0.4"
+license = { file = "LICENSE" }
+keywords = ["ai", "llm", "unsloth", "llama"]
+authors = [
+  { name="Linze Liu", email="liuzhi1999@foxmail.com" }
+]
+description = "A patch to enable llama.cpp as acceleration backend on windows platform"
+readme = "README.md"
+requires-python = ">=3.9, <3.13"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent"
+]
+
+[project.urls]
+Homepage = "https://github.com/liuzhi19121999/patchs_unsloth_llamacpp"
+Issues = "https://github.com/liuzhi19121999/patchs_unsloth_llamacpp/issues"
