@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "vast_api"
+version = "1.0.0"
+description = "A Vast.ai API helper (fork with bug fixes)"
+authors = ["Andrew Healey <doolie.healey@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/andrew-healey/vast-ai-api"
+
+exclude = [
+    "src/vastaiapi/main.py"
+]
+
+[tool.poetry.dependencies]
+pandas = "^2.1.4"
+requests = "^2.31.0"
+paramiko = "^3.4.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
