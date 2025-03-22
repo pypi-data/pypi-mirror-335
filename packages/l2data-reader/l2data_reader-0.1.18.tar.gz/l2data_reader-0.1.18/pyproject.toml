@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "l2data-reader"
+version = "0.1.18"
+description = "A package for reading Level 2 market data"
+readme = "README.md"
+authors = [
+    {name = "JasonJiang0303", email = "chinese88+0303@2925.com"}
+]
+license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+requires-python = ">=3.7"
+dependencies = [
+    "protobuf>=3.12.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/JasonJiang0303/l2data-reader"
+"Bug Tracker" = "https://github.com/JasonJiang0303/l2data-reader/issues"
