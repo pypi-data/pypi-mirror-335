@@ -1,0 +1,22 @@
+# This file should be in the future instead of setup.py
+# https://python-poetry.org/docs/pyproject
+# https://stackoverflow.com/questions/78048223/adding-folder-with-data-with-pyproject-toml
+
+# This file is mandatory for the `poetry version patch`
+
+# It seems we need to copy this file also to serverless-com repo, as required by dialog-workflow-python-package
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+# TODO: Please update the name, similar to storage-local (suffix -local)
+name = "opensearch-local"
+# I believe we are still using the version from setup.py and not from here until Potery will work
+version = "0.0.4" # https://pypi.org/project/opensearch-local i.e. https://pypi.org/project/storage-local/
+description = "OpenSearch Local Python Package"
+readme = "README.md"
+authors = [
+    "Circlez.ai <info@circlez.ai>",
+]
