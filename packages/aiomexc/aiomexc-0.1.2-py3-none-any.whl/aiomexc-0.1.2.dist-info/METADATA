@@ -1,0 +1,47 @@
+Metadata-Version: 2.4
+Name: aiomexc
+Version: 0.1.2
+Summary: Asynchronous MEXC API wrapper
+Project-URL: Homepage, https://github.com/sheldygg/aiomexc
+Project-URL: Documentation, https://github.com/sheldygg/aiomexc
+Project-URL: Tracker, https://github.com/sheldygg/aiomexc/issues
+Project-URL: Source, https://github.com/sheldygg/aiomexc
+Author-email: Sheldy <chikibamtioma@gmail.com>
+Keywords: api,asyncio,client,mexc,wrapper
+Classifier: Environment :: Web Environment
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: Intended Audience :: System Administrators
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Topic :: Software Development :: Libraries :: Application Frameworks
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: Topic :: System :: Distributed Computing
+Classifier: Topic :: System :: Networking
+Classifier: Typing :: Typed
+Requires-Python: >=3.11
+Requires-Dist: adaptix~=3.0.0b9
+Requires-Dist: aiohttp~=3.11.13
+Requires-Dist: certifi>=2023.7.22
+Provides-Extra: ws
+Requires-Dist: pure-protobuf~=3.1.3; extra == 'ws'
+Description-Content-Type: text/markdown
+
+# Mexc API
+
+Pretty and fully asynchronous wrapper for <a href="https://mexcdevelop.github.io/apidocs/spot_v3_en">MEXC API</a>
+
+## TODO:
+ - Support all methods
+ - IDK :DDD
+
+> [!CAUTION]
+> This wrapper is currently being worked on, please note that the API may change in any version.
