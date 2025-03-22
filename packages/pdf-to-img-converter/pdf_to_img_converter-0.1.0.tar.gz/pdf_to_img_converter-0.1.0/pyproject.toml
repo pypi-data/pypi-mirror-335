@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf_to_img_converter"
+version = "0.1.0"
+description = "Uma biblioteca Python para converter arquivos PDF em imagens."
+readme = "README.md"
+authors = [{ name = "Roberto Lima", email = "robertolima.izphera@gmail.com" }]
+license = { text = "MIT" }
+dependencies = [
+    "pdf2image",
+    "requests",
+    "Pillow"
+]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://github.com/robertolima-dev/pdf_to_img_converter"
+Repository = "https://github.com/robertolima-dev/pdf_to_img_converter"
+Issues = "https://github.com/robertolima-dev/pdf_to_img_converter/issues"
