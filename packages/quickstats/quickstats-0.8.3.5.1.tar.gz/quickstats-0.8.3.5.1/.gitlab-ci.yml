@@ -1,0 +1,95 @@
+# Taken from https://hub.docker.com/r/rootproject/root
+image: rootproject/root:6.26.10-conda
+
+stages:
+  - run
+  - diff
+
+# Change pip's cache directory to be inside the project directory since we can
+# only cache local items.
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
+
+cache:
+  paths:
+    - .cache/pip
+
+before_script:
+  - set +e
+  - export PATH=${HOME}/.local/bin/:$PATH
+  - pip install --user .
+  - python -c 'import quickstats as q; print(q.__version__)'
+
+fit_bbyy:
+  stage: run
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SSL_NO_VERIFY: "true"
+    input: .ci/bbyy/bbyy.root
+    output: output_ci_bbyy/
+  script:
+    - mkdir -p $output && cd $output
+    - quickstats cls_limit       -i $CI_PROJECT_DIR/$input -p xsec_br --unblind
+    - quickstats likelihood_fit  -i $CI_PROJECT_DIR/$input --save-result fit_result.json
+    - quickstats likelihood_scan -i $CI_PROJECT_DIR/$input --param_expr "klambda=0_1_1"
+  artifacts:
+    paths:
+      - $output
+
+fit_bbtautau:
+  stage: run
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+    GIT_SSL_NO_VERIFY: "true"
+    input: .ci/bbtautau/bbtautau.root
+    output: output_ci_bbtautau/
+  script:
+    - mkdir -p $output && cd $output
+    - quickstats cls_limit       -i $CI_PROJECT_DIR/$input -p xsec_br --unblind
+    - quickstats likelihood_fit  -i $CI_PROJECT_DIR/$input --save-result fit_result.json
+    - quickstats likelihood_scan -i $CI_PROJECT_DIR/$input --param_expr "klambda=0_1_1"
+  artifacts:
+    paths:
+      - $output
+
+compare_bbyy:
+ before_script: []
+ needs:
+   - job: fit_bbyy
+ stage: diff
+ variables:
+   file1: fit_result.json
+   file2: limits.json
+   file3: limits_summary.json
+   file4: klambda.json
+ script:
+    - sed -i '/total_time/d' .ci/bbyy/$file1 output_ci_bbyy/$file1
+    - diff .ci/bbyy/$file1 output_ci_bbyy/$file1
+    - if [[ $? -ne 0 ]]; then echo "$file1 not equal"; exit 1; else echo "$file1 equal"; fi;
+    - diff .ci/bbyy/$file2 output_ci_bbyy/$file2
+    - if [[ $? -ne 0 ]]; then echo "$file2 not equal"; exit 2; else echo "$file2 equal"; fi;
+    - diff .ci/bbyy/$file3 output_ci_bbyy/$file3
+    - if [[ $? -ne 0 ]]; then echo "$file3 not equal"; exit 3; else echo "$file3 equal"; fi;
+    - diff .ci/bbyy/$file4 output_ci_bbyy/likelihood_scan//$file4
+    - if [[ $? -ne 0 ]]; then echo "$file4 not equal"; exit 4; else echo "$file4 equal"; fi;
+
+compare_bbtautau:
+ before_script: []
+ needs:
+   - job: fit_bbtautau
+ stage: diff
+ variables:
+   file1: fit_result.json
+   file2: limits.json
+   file3: limits_summary.json
+   file4: klambda.json
+ script:
+    - sed -i '/total_time/d' .ci/bbtautau/$file1 output_ci_bbtautau/$file1
+    - diff .ci/bbtautau/$file1 output_ci_bbtautau/$file1
+    - if [[ $? -ne 0 ]]; then echo "$file1 not equal"; exit 1; else echo "$file1 equal"; fi;
+    - diff .ci/bbtautau/$file2 output_ci_bbtautau/$file2
+    - if [[ $? -ne 0 ]]; then echo "$file2 not equal"; exit 2; else echo "$file2 equal"; fi;
+    - diff .ci/bbtautau/$file3 output_ci_bbtautau/$file3
+    - if [[ $? -ne 0 ]]; then echo "$file3 not equal"; exit 3; else echo "$file3 equal"; fi;
+    - diff .ci/bbtautau/$file4 output_ci_bbtautau/likelihood_scan//$file4
+    - if [[ $? -ne 0 ]]; then echo "$file4 not equal"; exit 4; else echo "$file4 equal"; fi;
