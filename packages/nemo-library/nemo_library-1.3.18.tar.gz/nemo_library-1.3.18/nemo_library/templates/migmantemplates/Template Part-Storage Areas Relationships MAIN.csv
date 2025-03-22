@@ -1,0 +1,22 @@
+MLM_StorPartData.Part;MLM_StorPartData.Storagearea;ML_Lagergruppe.lagergruppe;MLM_StorPartData.StorageInfo;MLM_StorPartData.OrderPoint;MLM_StorPartData.SafetyStock;MLM_StorPartData.MaximumOnHand;MLM_StorPartData.ReplenishLevel;MLM_StorPartData.CycleCountLevel;MLM_StorPartData.TriggerPoint;MLM_StorPartData.TransferQuantity;MLM_StorPartData.TargetOnHand;MLM_StorPartData.PostingLock;MLM_StorPartData.PermPhysicalInventory;MLM_StorPartData.WHTransferSuggestions;MLM_StorPartData.Archived;MLM_StorPartData.uCW_OrderPointCalculated;MLM_StorPartData.uCW_ReplenishLevelCalculated;MLM_StorPartData.uCW_CalculationDate
+;0;0;;0;0;0;0;0;0;0;0;no;yes;no;no;0;0;?
+Column;Column Name;Description / Remark;Location in proALPHA;Data Type;Format
+1;Teil;Part;MLM_StorPartData.Part;CHARACTER;x(20);
+2;Lagerort;Storage Area;MLM_StorPartData.Storagearea;INTEGER;zzzzzzz9;
+3;Dispobereich;MRP Area;ML_Lagergruppe.lagergruppe;INTEGER;zzzzzzz9;
+4;Lagerplatz;Storage Location;MLM_StorPartData.StorageInfo;CHARACTER;x(20);
+5;Meldebestand;Order Point;MLM_StorPartData.OrderPoint;DECIMAL;zzz,zzz,zz9.999;
+6;Sicherheitsbestand;Safety Stock;MLM_StorPartData.SafetyStock;DECIMAL;zzz,zzz,zz9.999;
+7;Maximalbestand;Maximum Stock;MLM_StorPartData.MaximumOnHand;DECIMAL;zzz,zzz,zz9.999;
+8;Auffüllbestand;Replenishment Level;MLM_StorPartData.ReplenishLevel;DECIMAL;zzz,zzz,zz9.999;
+9;InvMeldebestand;Physical Inventory Order Point;MLM_StorPartData.CycleCountLevel;DECIMAL;zzz,zzz,zz9.999;
+10;Auslösebestand;Trigger Point;MLM_StorPartData.TriggerPoint;DECIMAL;zzz,zzz,zz9.999;
+11;Umlagerungsmenge;Warehouse Transfer Quantity;MLM_StorPartData.TransferQuantity;DECIMAL;zzz,zzz,zz9.999;
+12;Vorratsbestand;Reserved Stock;MLM_StorPartData.TargetOnHand;DECIMAL;zzz,zzz,zz9.999;
+13;BuSp;Posting Block;MLM_StorPartData.PostingLock;LOGICAL;ja/nein;
+14;perm Inventur;Indicator Cycle Counting;MLM_StorPartData.PermPhysicalInventory;LOGICAL;ja/nein;
+15;Umlagerungsvorschl;Indicator Warehouse Transfer Suggestion;MLM_StorPartData.WHTransferSuggestions;LOGICAL;ja/nein;
+16;archiviert;Indicator Archived;MLM_StorPartData.Archived;LOGICAL;ja/nein;
+17;Meldebestand kalk;Order Point Calculated;MLM_StorPartData.uCW_OrderPointCalculated;DECIMAL;zzz,zzz,zz9.999;
+18;AuffüllBst kalk;Replenishment Level Calculated;MLM_StorPartData.uCW_ReplenishLevelCalculated;DECIMAL;zzz,zzz,zz9.999;
+19;KalkDatum;Costing Date;MLM_StorPartData.uCW_CalculationDate;DATE;99.99.9999;
