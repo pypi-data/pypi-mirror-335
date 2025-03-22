@@ -1,0 +1,127 @@
+CHANGES
+=======
+
+3.2.0
+-----
+
+* Remove stable/2023.1 job from master gate
+* Bump hacking to 7.0.x
+* Add stable/2024.2 jobs on master gate
+* Support py3.12 and drop py3.8
+
+3.1.0
+-----
+
+* Remove stable/zed job
+
+3.0.0
+-----
+
+* Add stable/2024.1 jobs on master gate
+
+2.9.0
+-----
+
+* Remove six
+* Update stable branch testing
+* Update python classifier in setup.cfg
+
+2.8.0
+-----
+
+* Add stable/2023.1 jobs on master gate
+* Cleanup py27 support
+
+2.7.1
+-----
+
+* Remove stable/wallaby job from master gate
+
+2.7.0
+-----
+
+* Add stable/zed jobs on master gate
+* Pin stable branch jobs nodeset to Ubuntu Focal (20.04)
+
+2.6.0
+-----
+
+* Remove stable/victoria job from master gate
+* [CI] Move queue setting to project level
+* Update 'Maintained' stable branch jobs on master gate
+
+2.5.0
+-----
+
+* Add stable/xena jobs on master gate
+* Update python testing classifier
+
+2.4.1
+-----
+
+
+2.4.0
+-----
+
+* [ussuri][goal] Update contributor documentation
+* Use TOX\_CONSTRAINTS\_FILE
+* setup.cfg: Replace dashes with underscores
+* Add victoria/wallaby stable branch jobs on master gate
+* Use py3 as the default runtime for tox
+
+2.3.0
+-----
+
+* Add doc/requirements
+* Use tempest's ServiceClients rather than Manager
+* Bump hacking max version to 3.0.1
+
+2.2.0
+-----
+
+* migrate testing to ubuntu focal
+* Add py38 package metadata
+* Add stable branch jobs on the plugins master gate
+* Remove .testr.conf
+
+2.0.0
+-----
+
+* More cleanup for py2 drop
+* [ussuri][goal] Drop python 2.7 support and testing
+* Split tests between the two current CloudKitty API versions
+* Update tempest jobs
+* Update the constraints url
+
+1.2.0
+-----
+
+* Modifying README for installation and test run information
+* Sync Sphinx requirement
+* Change openstack-dev to openstack-discuss in setup.cfg
+* Use opendev repository
+* OpenDev Migration Patch
+
+1.1.0
+-----
+
+* Added python3 voting tempest job
+* Fix the "serialize" method of the client in python3
+* Update home-page
+* Update hacking version to latest
+* Use updated hacking url link
+* Removed older version of python added 3.5
+* import zuul job settings from project-config
+* fix tox python3 overrides
+* Systematically skip test\_get\_rated\_tenants test
+
+1.0.0
+-----
+
+* Re-enable tests disabled by #560082
+* Update client and tests for services endpoints
+* Add a devstack check job
+* Ignore "Method not allowed" errors in resource cleanup functions
+* Correct rating API uri
+* Committing initial work
+* Added .gitreview
