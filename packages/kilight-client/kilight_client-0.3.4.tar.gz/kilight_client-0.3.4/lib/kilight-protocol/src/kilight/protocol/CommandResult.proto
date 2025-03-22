@@ -1,0 +1,12 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+message CommandResult
+{
+    enum Result {
+        OK = 0;
+        Error = 1;
+    }
+    Result result = 1;
+}
