@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "rbprof"
+version = "0.1.1"
+description = "Ransomware Framework A cybersecurity framework designed for behavioral profiling and analysis of ransomware. This tool helps security researchers and analysts understand ransomware behavior, detect anomalies, and develop mitigation strategies in a controlled environment."
+authors = ["Elton Tanaka Mukarati <eltontanakamukarati@gmail.com>"]
+license = "MIT"
+readme = ""
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^6.2.2"
+black = "^21.12b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
