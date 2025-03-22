@@ -1,0 +1,39 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lightcurvedb"
+version = "0.0.1a3"
+requires-python = ">=3.11"
+dependencies = [
+    "pydantic",
+    "pydantic-settings",
+    "sqlmodel",
+    "numpy",
+    "pydantic_numpy",
+    "psycopg_binary",
+    "asyncpg",
+    "sqlalchemy[asyncio]"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff",
+    "coverage",
+    "pytest-cov",
+    "pre-commit",
+]
+
+[project.scripts]
+lightcurvedb-ephemeral = "lightcurvedb.cli.ephemeral:main"
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.coverage.run]
+source = [
+    "lightcurvedb",
+]
