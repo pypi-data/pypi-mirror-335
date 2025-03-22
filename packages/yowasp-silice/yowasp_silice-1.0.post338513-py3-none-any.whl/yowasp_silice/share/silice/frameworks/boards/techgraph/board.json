@@ -1,0 +1,19 @@
+{
+  "name": "techgraph",
+  "variants": [
+    {
+      "name"      : "techgraph",
+      "framework" : "techgraph.v",
+      "pins"      : [
+        {"set"    : "basic"}
+      ],
+      "builders": [
+        {
+          "builder" : "shell",
+          "command" : "techgraph.sh",
+          "description": "Custom shell scripts using yosys and nextpnr"
+        }
+      ]
+    }
+  ]
+}

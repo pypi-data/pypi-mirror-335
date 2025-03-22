@@ -1,0 +1,49 @@
+{
+  "name": "icebreaker",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "icebreaker.v",
+      "pins"      : [
+        {"set"    : "basic", "define" : "BASIC=1"},
+        {"set"    : "buttons", "define" : "BUTTONS=1"},
+        {"set"    : "uart", "define" : "UART=1"},
+        {"set"    : "vga", "define" : "VGA=1"},
+        {"set"    : "oled", "define" : "OLED=1"},
+        {"set"    : "pmod", "define" : "PMOD=1"},
+        {"set"    : "pmod2", "define" : "PMOD2=1"},
+        {"set"    : "spiflash", "define" : "SPIFLASH=1"},
+        {"set"    : "qspiflash", "define" : "QSPIFLASH=1"},
+        {"set"    : "extras", "define" : "EXTRAS=1"},
+        {"set"    : "pmod_qqspi", "define" : "PMOD_QQSPI=1"},
+        {"set"    : "pmod_com_out", "define" : "PMOD_COM_OUT=1"},
+        {"set"    : "pmod_com_in", "define" : "PMOD_COM_IN=1"},
+        {"set"    : "pmod_dspi", "define" : "PMOD_DSPI=1"},
+        {"set"    : "parallel_screen", "define" : "PARALLEL_SCREEN=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "edalize",
+          "description": "Build using Edalize",
+          "tool": "icestorm",
+          "tool_options": [
+            {
+                "icepack_options": ["-s"],
+                "yosys_synth_options": ["-dsp","-abc9","-device u","-relut","-top top"],
+                "nextpnr_options": ["--up5k", "--freq 12", "--package sg48", "-r"],
+                "pnr": "next"
+            }
+          ],
+          "bitstream"  : "build.bin",
+          "constraints": [{"name": "icebreaker.pcf", "file_type": "PCF"}],
+          "program": [{"cmd" : "iceprog", "args" : "build.bin"}]
+        },
+        {
+          "builder" : "shell",
+          "command" : "icebreaker.sh",
+          "description": "Custom shell scripts using yosys and nextpnr"
+        }
+      ]
+    }
+  ]
+}

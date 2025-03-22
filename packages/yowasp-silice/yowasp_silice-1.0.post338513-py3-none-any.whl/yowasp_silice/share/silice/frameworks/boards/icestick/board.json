@@ -1,0 +1,47 @@
+{
+  "name": "icestick",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "icestick.v",
+      "pins"      : [
+        {"set"    : "basic"},
+        {"set"    : "vga",  "define" : "VGA=1"},
+        {"set"    : "oled", "define" : "OLED=1"},
+        {"set"    : "pmod", "define" : "PMOD=1"},
+        {"set"    : "pmod_out", "define" : "PMOD_OUT=1"},
+        {"set"    : "uart",   "define" : "UART=1"},
+				{"set"    : "spiflash", "define" : "SPIFLASH=1"},
+				{"set"    : "spiscreen_extra", "define" : "SPISCREEN_EXTRA=1"},
+        {"set"    : "pmod_qqspi", "define" : "PMOD_QQSPI=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "edalize",
+          "description": "Build using Edalize",
+          "tool": "icestorm",
+          "tool_options": [
+            {
+                "yosys_synth_options": ["-abc9","-relut","-top top"],
+                "nextpnr_options": ["--force", "--hx1k", "--freq 12", "--package tq144", "--timing-allow-fail"],
+                "pnr": "next"
+            }
+          ],
+          "bitstream"  : "build.bin",
+          "constraints": [{"name": "icestick.pcf", "file_type": "PCF"}],
+          "program": [{"cmd" : "iceprog", "args" : "build.bin"}]
+        },
+        {
+          "builder" : "shell",
+          "command" : "icestick.sh",
+          "description": "Custom shell scripts using yosys and nextpnr"
+        },
+        {
+          "builder" : "yowasp",
+          "command" : "icestick.py",
+          "description": "Custom python scripts using yowasp (needs yowasp-yosys and yowasp-nextpnr-ice40)"
+        }
+      ]
+    }
+  ]
+}

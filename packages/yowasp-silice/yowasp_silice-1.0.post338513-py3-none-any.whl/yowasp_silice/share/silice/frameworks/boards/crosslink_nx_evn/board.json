@@ -1,0 +1,33 @@
+{
+  "name": "crosslink_nx_evn",
+  "variants": [
+    {
+      "name": "configurable",
+      "framework" : "crosslink_nx_evn.v",
+      "pins": [
+        {"set"    : "basic"},
+        {"set"    : "vga",  "define" : "VGA=1"}
+      ],
+      "builders": [
+      {
+        "builder" : "edalize",
+        "description": "Build using Edalize",
+        "tool": "radiant",
+        "tool_options": [
+          {
+              "part": "LIFCL-40-9BG400C"
+          }
+        ],
+        "bitstream"  : "impl/build_impl.bit",
+        "constraints": [{"name": "crosslink_nx_evn.pdc", "file_type": "PDC"}],
+        "program": [{"cmd" : "openFPGALoader", "args" : "impl/build_impl.bit"}]
+      },
+      {
+        "builder" : "shell",
+        "command" : "crosslink_nx_evn.sh",
+        "description": "Custom shell scripts using lattice radiant"
+      }
+    ]
+  }
+  ]
+}

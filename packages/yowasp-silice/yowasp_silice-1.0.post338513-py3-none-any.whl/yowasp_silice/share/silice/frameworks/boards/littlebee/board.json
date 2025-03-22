@@ -1,0 +1,20 @@
+{
+  "name": "icebreaker",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "littlebee.v",
+      "pins"      : [
+        {"set"    : "basic"},
+        {"set"    : "buttons", "define" : "BUTTONS=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "shell",
+          "command" : "littlebee.sh",
+          "description": "Custom shell scripts using yosys and nextpnr"
+        }
+      ]
+    }
+  ]
+}

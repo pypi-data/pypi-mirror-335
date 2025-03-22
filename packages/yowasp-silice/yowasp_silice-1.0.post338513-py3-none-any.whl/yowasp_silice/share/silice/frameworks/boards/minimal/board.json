@@ -1,0 +1,20 @@
+{
+  "name": "minimal",
+  "variants": [
+    {
+      "name"      : "configurable",
+      "framework" : "minimal.v",
+      "pins"      : [
+        {"set"    : "basic"},
+        {"set"    : "vga", "define" : "VGA=1"}
+      ],
+      "builders": [
+        {
+          "builder" : "shell",
+          "command" : "minimal.sh",
+          "description": "Custom shell script"
+        }
+      ]
+    }
+  ]
+}
