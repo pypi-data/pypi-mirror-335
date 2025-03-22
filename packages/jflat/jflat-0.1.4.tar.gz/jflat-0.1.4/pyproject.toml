@@ -1,0 +1,65 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling >= 1.13.0"]
+
+[project]
+authors = [
+    { email = "merschformann@proton.me", name = "Marius Merschformann" }
+]
+classifiers = [
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13"
+]
+dependencies = []
+description = "A humble library for flattening Python dictionaries according to their JSON-path"
+dynamic = [
+    "version",
+]
+keywords = [
+    "json",
+    "json-path",
+    "flatten",
+    "dict",
+    "dictionary",
+    "nested",
+]
+license = { file = "LICENSE" }
+maintainers = [
+    { email = "merschformann@proton.me", name = "Marius Merschformann" }
+]
+name = "jflat"
+readme = "README.md"
+requires-python = ">=3.9"
+
+[project.urls]
+Homepage = "https://github.com/merschformann/jflat"
+Repository = "https://github.com/merschformann/jflat"
+
+[tool.hatch.version]
+path = "jflat/__about__.py"
+
+[project.optional-dependencies]
+dev = [
+    "ruff"
+]
+
+[tool.ruff]
+target-version = "py39"
+lint.select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+    "UP",  # pyupgrade
+]
+line-length = 120
+[tool.ruff.lint.mccabe]
+max-complexity = 30
