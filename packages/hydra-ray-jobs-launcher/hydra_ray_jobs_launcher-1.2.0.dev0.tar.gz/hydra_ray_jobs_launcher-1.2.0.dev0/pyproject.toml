@@ -1,0 +1,71 @@
+[build-system]
+requires = ["setuptools", "wheel", "read-version"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hydra-ray-jobs-launcher"
+dynamic = ["version"]
+description = "Hydra Ray Jobs Launcher plugin"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Sid Baskaran", email = "sidb@meta.com"}
+]
+dependencies = [
+    "hydra-core>=1.0.0",
+    "ray>=2.0.0",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+    "Development Status :: 4 - Beta",
+]
+
+[project.entry-points."hydra.launcher"]
+ray_jobs = "hydra_plugins.hydra_ray_jobs_launcher.ray_jobs_launcher:RayJobsLauncher"
+
+[tool.setuptools.dynamic]
+version = {attr = "hydra_plugins.hydra_ray_jobs_launcher.__version__"}
+
+[tool.towncrier]
+    package = "hydra_plugins.hydra_ray_jobs_launcher"
+    filename = "NEWS.md"
+    directory = "news/"
+    title_format = "{version} ({project_date})"
+    template = "../../news/_template.rst"
+    issue_format = "[#{issue}](https://github.com/facebookresearch/hydra/issues/{issue})"
+    start_string = "<!-- TOWNCRIER -->\n"
+
+  [[tool.towncrier.type]]
+  directory = "feature"
+  name = "Features"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "api_change"
+  name = "API Change (Renames, deprecations and removals)"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "bugfix"
+  name = "Bug Fixes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "config"
+  name = "Configuration structure changes"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "docs"
+  name = "Improved Documentation"
+  showcontent = true
+
+  [[tool.towncrier.type]]
+  directory = "maintenance"
+  name = "Maintenance Changes"
+  showcontent = true
