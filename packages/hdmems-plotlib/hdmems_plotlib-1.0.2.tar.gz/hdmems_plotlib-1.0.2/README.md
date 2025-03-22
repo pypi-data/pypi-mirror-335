@@ -1,0 +1,161 @@
+# hdmems_plotlib
+
+[![](https://img.shields.io/badge/PyPI-1.0.2-red.svg)](https://pypi.org/project/hdmems-plotlib/)
+![Python](https://img.shields.io/badge/Python-3-green.svg)
+
+一个简单易用的 Python 库，用于可视化由 hdfem 或 Ngspice 仿真器生成的 S/Y/Z 参数数据。
+
+## 目录
+
+- [安装](#安装)
+- [功能特点](#功能特点)
+- [快速开始](#快速开始)
+- [API参考](#api参考)
+- [示例](#示例)
+- [常见问题](#常见问题)
+
+## 安装
+
+### 依赖项
+
+- Python
+- NumPy
+- Matplotlib (用于绘图)
+
+### pip 安装
+
+```bash
+pip install hdmems-plotlib
+```
+
+### 源码安装
+
+```bash
+git clone
+cd hdmems_plotlib
+pip install -e .
+```
+
+## 功能特点
+
+- 读取和解析 hdfem 电磁仿真器的 S 参数数据
+- 读取和解析 Ngspice 仿真器的 S 参数数据
+- 在指定频率下查询 S 参数数据
+- 支持数据可视化 (通过Matplotlib)
+
+## 快速开始
+
+### 基本使用方法
+
+```python
+import hdmems_plotlib as pl
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 导入hdfem仿真数据
+port_number = 4
+hdfem_file = "path/to/your/hdfem_sweep.spar"
+hdfem_data = pl.import_em_spar(hdfem_file, port_number)
+
+# 获取频率列表和S21参数数据
+freq_list = hdfem_data["frequency_list"]
+s21_mag = hdfem_data["mag_list"][1, :]  # S21对应索引1
+s21_phase = hdfem_data["phase_list"][1, :]
+
+# 绘制S21幅度图
+plt.figure(figsize=(10, 6))
+plt.plot(freq_list/1000, 20*np.log10(s21_mag), 'b-')
+plt.xlabel('frequency (GHz)')
+plt.ylabel('|S21| Magnitude (dB)')
+plt.grid(True)
+plt.show()
+```
+
+## API参考
+
+### `import_em_spar(file_name, port_number)`
+
+从 hdfem 电磁仿真输出文件导入 S 参数数据。
+
+**参数:**
+- `file_name` (str): S 参数文件路径
+- `port_number` (int): 端口数量
+
+**返回:**
+- `dict`: 包含 frequency_list, mag_list 和 phase_list 的字典
+
+### `import_spice_spar(file_name, port_number)`
+
+从 Ngspice 仿真输出文件导入 S 参数数据。
+
+**参数:**
+- `file_name` (str): S 参数文件路径
+- `port_number` (int): 端口数量
+
+**返回:**
+- `dict`: 包含 frequency_list, mag_list 和 phase_list 的字典
+
+### `get_spar_at_freq(data, target_freq)`
+
+获取特定频率下的 S 参数值。
+
+**参数:**
+- `data` (dict): 包含 frequency_list, mag_list 和 phase_list 的数据字典
+- `target_freq` (float): 目标查询频率
+
+**返回:**
+- `tuple`: 在目标频率下的幅度和相位列表，如果未找到匹配频率则返回(None, None)
+
+## 示例
+
+库中包含以下示例脚本，位于`examples`目录：
+
+### 1. 绘制hdfem S21参数
+
+通过`plot_s21_hdfem.py`示例演示如何绘制 hdfem 仿真的 S21 参数数据。
+
+```python
+python examples/plot_s21_hdfem.py
+```
+
+### 2. 绘制Ngspice S21参数
+
+通过`plot_s21_spice.py`示例演示如何绘制 Ngspice 仿真的 S21 参数数据。
+
+```python
+python examples/plot_s21_spice.py
+```
+
+### 3. 对比分析
+
+通过`plot_s21_comparison.py`示例演示如何在同一图表中对比 hdfem 和 Ngspice 仿真的 S21 参数数据。
+
+```python
+python examples/plot_s21_comparison.py
+```
+
+## 常见问题
+
+**Q: 支持哪些文件格式?**
+
+A: 目前支持 hdfem 的 .spar 文件和 Ngspice 的 S 参数文本输出文件。
+
+**Q: 如何选择正确的端口号进行S参数提取?**
+
+A: 对于一个 4 端口网络，S 参数矩阵是 4×4 的。在 hdmems_plotlib 中，激励端口 1 时，S 参数的索引对应关系如下：
+- S11: mag_list[0, :]
+- S21: mag_list[1, :]
+- S31: mag_list[2, :]
+- S41: mag_list[3, :]
+
+**Q: 如何处理不同频率单位?**
+
+A: hdfem 通常使用 MHz 为单位，而 Ngspice 使用 Hz，绘图时需注意单位转换。示例中已展示如何处理单位转换。
+
+**Q: 读取文件时出现错误怎么办?**
+
+A: 确保文件路径正确，并且文件格式符合预期。hdfem 的 .spar 文件和 Ngspice 的 S 参数文本文件具有特定的格式。如果遇到问题，可以检查文件格式。
+
+## 许可证
+
+本项目采用 MIT 许可证 - 详情参见 [LICENSE](LICENSE) 文件
