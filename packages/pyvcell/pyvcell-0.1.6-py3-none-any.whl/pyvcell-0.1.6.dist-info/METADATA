@@ -1,0 +1,89 @@
+Metadata-Version: 2.1
+Name: pyvcell
+Version: 0.1.6
+Summary: This is the python wrapper for vcell modeling and simulation
+Home-page: https://github.com/virtualcell/pyvcell
+Author: Jim Schaff
+Author-email: schaff@uchc.edu
+Requires-Python: >=3.11,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: h5py (>=3.11.0,<4.0.0)
+Requires-Dist: imageio (>=2.37.0,<3.0.0)
+Requires-Dist: libvcell (>=0.0.8,<0.0.9)
+Requires-Dist: lxml (>=5.3.1,<6.0.0)
+Requires-Dist: matplotlib (>=3.10.0,<4.0.0)
+Requires-Dist: numexpr (>=2.10.0,<3.0.0)
+Requires-Dist: numpy (>=1.26.4,<2.0.0)
+Requires-Dist: orjson (>=3.10.3,<4.0.0)
+Requires-Dist: overrides (>=7.7.0,<8.0.0)
+Requires-Dist: pydantic (>=2.10.5,<3.0.0)
+Requires-Dist: python-dateutil (>=2.9.0.post0,<3.0.0)
+Requires-Dist: python-libsbml (>=5.20.4,<6.0.0)
+Requires-Dist: pyvcell-fvsolver (>=0.1.0,<0.2.0)
+Requires-Dist: pyvista (>=0.44.2,<0.45.0)
+Requires-Dist: requests (>=2.32.3,<3.0.0)
+Requires-Dist: requests-oauth2client (>=1.6.0,<2.0.0)
+Requires-Dist: tensorstore (>=0.1.72,<0.2.0)
+Requires-Dist: typer (>=0.12.3,<0.13.0)
+Requires-Dist: typing-extensions (>=4.12.2,<5.0.0)
+Requires-Dist: urllib3 (>=2.3.0,<3.0.0)
+Requires-Dist: vtk (>=9.3.1,<10.0.0)
+Requires-Dist: zarr (>=2.17.2,<3.0.0)
+Project-URL: Documentation, https://virtualcell.github.io/pyvcell/
+Project-URL: Repository, https://github.com/virtualcell/pyvcell
+Description-Content-Type: text/markdown
+
+# pyvcell
+
+[![Release](https://img.shields.io/github/v/release/virtualcell/pyvcell)](https://img.shields.io/github/v/release/virtualcell/pyvcell)
+[![Build status](https://img.shields.io/github/actions/workflow/status/virtualcell/pyvcell/main.yml?branch=main)](https://github.com/virtualcell/pyvcell/actions/workflows/main.yml?query=branch%3Amain)
+[![codecov](https://codecov.io/gh/virtualcell/pyvcell/branch/main/graph/badge.svg)](https://codecov.io/gh/virtualcell/pyvcell)
+[![Commit activity](https://img.shields.io/github/commit-activity/m/virtualcell/pyvcell)](https://img.shields.io/github/commit-activity/m/virtualcell/pyvcell)
+[![License](https://img.shields.io/github/license/virtualcell/pyvcell)](https://img.shields.io/github/license/virtualcell/pyvcell)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/101BPDYqu4_PupqmunT6Qhextks_VT-8X?usp=sharing)
+
+This is the python wrapper for vcell modeling and simulation
+
+- **Github repository**: <https://github.com/virtualcell/pyvcell/>
+- **Documentation** <https://virtualcell.github.io/pyvcell/>
+
+## Getting started with your project
+
+First, create a repository on GitHub with the same name as this project, and then run the following commands:
+
+```bash
+git init -b main
+git add .
+git commit -m "init commit"
+git remote add origin git@github.com:virtualcell/pyvcell.git
+git push -u origin main
+```
+
+Finally, install the environment and the pre-commit hooks with
+
+```bash
+make install
+```
+
+You are now ready to start development on your project!
+The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+
+To finalize the set-up for publishing to PyPi or Artifactory, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/publishing/#set-up-for-pypi).
+For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/mkdocs/#enabling-the-documentation-on-github).
+To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/codecov/).
+
+## Releasing a new version
+
+- Create an API Token on [Pypi](https://pypi.org/).
+- Add the API Token to your projects secrets with the name `PYPI_TOKEN` by visiting [this page](https://github.com/virtualcell/pyvcell/settings/secrets/actions/new).
+- Create a [new release](https://github.com/virtualcell/pyvcell/releases/new) on Github.
+- Create a new tag in the form `*.*.*`.
+
+For more details, see [here](https://fpgmaas.github.io/cookiecutter-poetry/features/cicd/#how-to-trigger-a-release).
+
+---
+
+Repository initiated with [fpgmaas/cookiecutter-poetry](https://github.com/fpgmaas/cookiecutter-poetry).
+
