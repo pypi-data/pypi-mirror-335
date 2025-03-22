@@ -1,0 +1,145 @@
+Metadata-Version: 2.1
+Name: namescript
+Version: 1.0.0
+Summary: Bahasa pemrograman NameScript dengan sintaks Indonesia
+Home-page: https://akuzz.my.id/NameScript
+Author: AkzDev
+Author-email: akzdev.akuzz@gmail.com
+Maintainer: AkzDev
+Maintainer-email: akzdev.akuzz@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# NameScript (NS)
+
+Bahasa pemrograman sederhana dengan sintaks bahasa Indonesia untuk pemula.  
+NameScript ditranspilasi ke Python dan mudah dipelajari!
+
+![NameScript Logo](https://via.placeholder.com/150)  <!-- Ganti dengan logo Anda -->
+
+## Instalasi
+
+```bash
+pip install namescript
+```
+
+## Cara Menggunakan
+
+1. Jalankan File Langsung
+```bash
+ns jalankan program.ns
+```
+
+2. Konversi ke Python
+```bash
+ns ctp program.ns ke output.py
+```
+
+3. Cek Versi
+```bash
+ns versi
+```
+
+## Sintaks Dasar
+
+1. Variabel
+```python
+d_nama = "Budi"
+tampilkan "Halo," <d_nama>  // Output: Halo, Budi
+```
+
+2. Input Pengguna
+```python
+d_umur = masukan("Berapa umurmu? ")
+tampilkan "Umurmu:" <d_umur>
+```
+
+3. Percabangan
+```python
+jika <d_umur> > 17 {
+    tampilkan "Kamu sudah dewasa!"
+} lainnya {
+    tampilkan "Kamu masih di bawah umur!"
+}
+```
+
+4. Operator Matematika
+```python
+d_hasil = 10 <t> 5 <a> 2  // (10 + 5) * 2
+tampilkan "Hasil:" <d_hasil>  // Output: 30
+```
+
+5. Komentar
+```python
+// Ini adalah komentar
+```
+
+## Contoh Program
+
+`program.ns`
+```python
+d_nama = masukan("Siapa namamu? ")
+tampilkan "Halo," <d_nama> "!"
+
+d_umur = masukan("Berapa umurmu? ")
+jika <d_umur> > 17 {
+    tampilkan "Kamu sudah dewasa!"
+} lainnya {
+    tampilkan "Kamu masih di bawah umur!"
+}
+```
+
+Output:
+```bash
+Siapa namamu? Andi
+Halo, Andi!
+Berapa umurmu? 20
+Kamu sudah dewasa!
+```
+
+## Perintah CLI
+
+| Perintah     | Deskripsi                    | Contoh                        |
+|--------------|------------------------------|-------------------------------|
+| ns jalankan  | Jalankan file .ns langsung   | ns jalankan program.ns        |
+| ns ctp       | Konversi file .ns ke .py     | ns ctp program.ns ke output.py|
+| ns versi     | Tampilkan versi NameScript   | ns versi                      |
+
+## Roadmap Pengembangan
+
+**TAHAP 1: BeginnerSyntax (✓ Selesai)**
+- Variabel, input/output
+- Percabangan (jika, lainnya)
+- Operator matematika (<t>, <k>, <a>, <b>)
+
+**TAHAP 2: DeepSyntax (Dalam Pengembangan)**
+- Fungsi (fungsi, kembalikan)
+- Perulangan (ulangi)
+- Error handling (coba, tangkap)
+
+**TAHAP 3: Integrasi Web**
+- Generator HTML/PHP
+- Dukungan sintaks web
+
+**TAHAP 4: Package Manager**
+- Sistem instalasi package
+- Dukungan modul eksternal
+
+## Berkontribusi
+
+1. Fork repositori
+2. Buat branch fitur (`git checkout -b fitur-baru`)
+3. Commit perubahan (`git commit -m 'Tambahkan fitur'`)
+4. Push ke branch (`git push origin fitur-baru`)
+5. Buat Pull Request
+
+## Lisensi
+
+MIT
+
+🛠 Status Proyek: TAHAP 1 (Stabil)
