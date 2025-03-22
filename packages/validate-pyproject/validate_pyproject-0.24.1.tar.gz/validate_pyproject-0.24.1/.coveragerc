@@ -1,0 +1,38 @@
+# .coveragerc to control coverage.py
+[run]
+branch = True
+source = validate_pyproject
+omit =
+    */validate_pyproject/__main__.py
+    */validate_pyproject/**/__main__.py
+    */validate_pyproject/_vendor/*
+
+[paths]
+source =
+    src/
+    */site-packages/
+
+[report]
+# Regexes for lines to exclude from consideration
+exclude_lines =
+    # Have to re-enable the standard pragma
+    # (exclude_also would be better, but not available on Python 3.6)
+    pragma: no cover
+
+    # Don't complain about missing debug-only code:
+    def __repr__
+
+    # Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+
+    # Don't complain if non-runnable code isn't run:
+    if 0:
+    if __name__ == .__main__.:
+
+    if TYPE_CHECKING:
+    if typing\.TYPE_CHECKING:
+    ^\s+\.\.\.$
+
+    # Support for Pyodide (WASM)
+    if sys\.platform == .emscripten. and .pyodide. in sys\.modules:

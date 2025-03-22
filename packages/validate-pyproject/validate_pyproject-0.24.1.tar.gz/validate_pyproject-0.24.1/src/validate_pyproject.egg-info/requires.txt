@@ -1,0 +1,11 @@
+fastjsonschema<=3,>=2.16.2
+
+[all]
+packaging>=24.2
+trove-classifiers>=2021.10.20
+
+[all:python_version < "3.11"]
+tomli>=1.2.1
+
+[store]
+validate-pyproject-schema-store
