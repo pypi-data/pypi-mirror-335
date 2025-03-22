@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mcp-superiorapis"
+version = "0.1.4"
+description = "MCP Server for SuperiorAPIs UVX platform"
+authors = [
+    { name="SuperiorAPIs", email="info@cteam.com.tw" }
+]
+requires-python = ">=3.8"
+dependencies = [
+    "aiohttp",
+    "pydantic>=2.0,<3.0",
+    "fastmcp"
+]
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["MCP", "SuperiorAPIs", "AI", "tool"]
+
+[project.urls]
+Homepage = "https://github.com/CTeaminfo/mcp_server"
+
+[tool.mcp]
+name = "SuperiorAPIs"
+
+[[tool.mcp.executable]]
+module = "mcp_server.main"
+
+[project.scripts]
+mcp-superiorapis = "mcp_server.main:main"
