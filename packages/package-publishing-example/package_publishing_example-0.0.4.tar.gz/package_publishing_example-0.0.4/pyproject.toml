@@ -1,0 +1,32 @@
+[project]
+name = "package-publishing-example"
+dynamic = ["version"]
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Rens Holmer", email = "8225367+holmrenser@users.noreply.github.com" },
+]
+requires-python = ">=3.10"
+dependencies = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.0",
+    "typer>=0.15.2",
+    "uv-dynamic-versioning>=0.6.0",
+]
+
+[project.scripts]
+ppe = "package_publishing_example.cli:cli"
+
+[build-system]
+requires = ["hatchling", "uv-dynamic-versioning"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "uv-dynamic-versioning"
+
+[tool.uv-dynamic-versioning]
+vcs = "git"
+style = "semver"
+
+[tool.pytest.ini_options]
+addopts = ["--import-mode=importlib"]
