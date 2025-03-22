@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: redshift_connector_bade
+Version: 0.1.0
+Summary: A simple connector for Amazon Redshift using JDBC
+Home-page: https://github.com/royhsu1012/redshift_connector
+Author: Hans, Roy
+Author-email: royhsu1012@hmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: jpype1
+Requires-Dist: jaydebeapi
+Requires-Dist: pandas
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Redshift Connector
+
+This package allows you to easily connect to Amazon Redshift using JDBC and execute SQL queries.
+
+## Prerequisites
+
+Before using the Redshift Connector, you need to download two required files:
+
+1. **Redshift JDBC Driver** (`redshift-jdbc42-2.1.0.32.jar`)
+2. **AWS SDK** (`aws-java-sdk-bundle-1.11.375.jar`)
+
+### **Download Instructions:**
+
+- **Redshift JDBC Driver:**  
+  Download the Redshift JDBC driver from the official AWS page:  
+  [Amazon Redshift JDBC Driver](https://docs.aws.amazon.com/redshift/latest/mgmt/jdbc20-download-driver.html)
+
+  After downloading, extract the contents and locate the `redshift-jdbc42-2.1.0.32.jar` file.
+
+- **AWS SDK:**  
+  Download the AWS SDK for Java from the following link:  
+  [AWS SDK for Java - Version 1.x](https://s3.amazonaws.com/redshift-downloads/drivers/jdbc/2.1.0.32/redshift-jdbc42-2.1.0.32.zip)
+
+  After downloading, extract the ZIP file and locate the `aws-java-sdk-bundle-1.11.375.jar` file.
+
+### **Setting Up the Files:**
+
+1. Download the above files and place them in a directory on your system (e.g., `C:\Users\redshift-jdbc42\`).
+   
+2. After downloading, use the file paths as input parameters when running the Redshift Connector.
+
+```python
+jdbc_driver_path = r"C:\Users\redshift-jdbc42\redshift-jdbc42-2.1.0.32.jar"
+aws_sdk_path = r"C:\Users\redshift-jdbc42\aws-java-sdk-bundle-1.11.375.jar"
