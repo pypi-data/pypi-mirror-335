@@ -1,0 +1,15 @@
+id = "gnome-terminal"
+url = "https://help.gnome.org/users/gnome-terminal/stable/adv-keyboard-shortcuts.html.en"
+include = ["cli"]
+
+[match]
+regex_wmclass = "gnome-terminal"
+regex_title = ".*"
+
+[section]
+
+[section.Tabs]
+"Shift + Ctrl + T" = "New Tab"
+"Shift + Ctrl + N" = "New Window"
+"Shift + Ctrl + W" = "Close Tab"
+"Shift + Ctrl + Q" = "Close Window"

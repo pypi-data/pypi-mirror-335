@@ -1,0 +1,44 @@
+name: "coverage.io"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    name: Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          sudo apt-get install \
+             libgirepository-2.0-dev \
+             libcairo2-dev \
+             python3-gi \
+             gobject-introspection \
+             libgtk-3-dev
+
+      - name: Install the project
+        run: uv sync --all-extras --dev
+
+      - name: Run pytest
+        run: uv run pytest
+
+      - name: Coveralls
+        run: uv run coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_TOKEN }}

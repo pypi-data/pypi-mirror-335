@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<interface>
+  <!-- interface-name window.ui -->
+  <requires lib="gtk" version="4.0" />
+  <requires lib="libadwaita" version="1.4" />
+  <template class="main_window" parent="GtkApplicationWindow">
+    <property name="height-request">300</property>
+    <property name="width-request">800</property>
+    <property
+      name="title" translatable="true">KeyHint</property>
+    <child>
+      <object class="AdwToastOverlay" id="overlay">
+        <child>
+          <object class="GtkBox" id="container">
+            <property name="orientation">1</property>
+            <child>
+              <object class="GtkRevealer" id="banner_window_calls">
+                <style>
+                  <class name="banner" />
+                </style>
+                <child>
+                  <object class="GtkBox">
+                    <property name="halign">center</property>
+                    <property name="margin-bottom">10</property>
+                    <property name="margin-end">5</property>
+                    <property name="margin-start">5</property>
+                    <property name="margin-top">10</property>
+                    <property name="orientation">horizontal</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">The Gnome Extension 'Window Calls' is required on Wayland!</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="margin-start">15</property>
+                        <property name="label">Gnome Extension Webpage</property>
+                        <property name="action-name">win.visit_window_calls</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkRevealer" id="banner_xprop">
+                <style>
+                  <class name="banner" />
+                </style>
+                <child>
+                  <object class="GtkBox">
+                    <property name="margin-bottom">10</property>
+                    <property name="margin-end">5</property>
+                    <property name="margin-start">5</property>
+                    <property name="margin-top">10</property>
+                    <property name="orientation">horizontal</property>
+                    <property name="halign">center</property>
+                    <child>
+                      <object class="GtkLabel">
+                        <property name="label">The tool 'xprop' is required on Xorg! Install the system package 'x11-utils' (Debian/Ubuntu) or 'xprop' (Arch/Fedora)!</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow" id="scrolled_window">
+                <property name="propagate-natural-height">true</property>
+                <child>
+                  <object class="GtkFlowBox" id="sheet_container_box">
+                    <property name="column-spacing">0</property>
+                    <property name="row-spacing">0</property>
+                    <property name="homogeneous">false</property>
+                    <property name="orientation">0</property>
+                    <property name="selection-mode">none</property>
+                    <property name="vexpand">true</property>
+                    <property name="can-focus">false</property>
+                    <property name="can-target">false</property>
+                    <property name="max-children-per-line">999</property>
+                    <style>
+                      <class name="sheet_container_box" />
+                    </style>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+
+</interface>
