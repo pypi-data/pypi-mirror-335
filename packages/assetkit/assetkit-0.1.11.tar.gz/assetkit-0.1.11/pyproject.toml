@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "assetkit"
+version = "0.1.11"
+description = "A Python toolkit for managing runtime asset packages"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "docdann", email = "docdann@proton.me"}]
+requires-python = ">=3.8"
+dependencies = []
+
+[project.scripts]
+assetkit = "assetkit.cli:main"
+
+[tool.setuptools.package-data]
+assetkit = ["resources/**/*"]
