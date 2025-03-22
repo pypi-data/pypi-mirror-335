@@ -1,0 +1,330 @@
+
+map "http://hl7.org/fhir/StructureMap/Helper4Bto5" -> tgt."Helper4Bto5"
+
+uses "http://hl7.org/fhir/4.3/StructureDefinition/BackboneElement" alias BackboneElementR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/BackboneElement" alias BackboneElementR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Element" alias ElementR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Element" alias ElementR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Flow" alias FlowR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Flow" alias FlowR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Identifier" alias IdentifierR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Identifier" alias IdentifierR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/ResourceContainer" alias ResourceContainerR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/ResourceContainer" alias ResourceContainerR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Meta" alias MetaR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Meta" alias MetaR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/ContactDetail" alias ContactDetailR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/ContactDetail" alias ContactDetailR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/ContactPoint" alias ContactPointR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/ContactPoint" alias ContactPointR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/ContactPointSystem" as source
+uses "http://hl7.org/fhir/4.3/StructureDefinition/UsageContext" alias UsageContextR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/UsageContext" alias UsageContextR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Extension" alias ExtensionR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Extension" alias ExtensionR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/CodeableConcept" alias CodeableConceptR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/CodeableConcept" alias CodeableConceptR5 as target
+uses "http://hl7.org/fhir/4.3/StructureDefinition/Coding" alias CodingR4B as source
+uses "http://hl7.org/fhir/StructureDefinition/Coding" alias CodingR5 as target
+
+// ================================================================================================
+// - FHIR Data Types -
+// ================================================================================================
+
+group Element(source src: ElementR4B, target tgt: ElementR5) {
+    src.id -> tgt.id;
+    src.extension -> tgt.extension;
+}
+
+group BackboneElement(source src: BackboneElementR4B, target tgt: BackboneElementR5) extends Element {
+    src.modifierExtension -> tgt.modifierExtension;
+}
+
+group Identifier(source src: IdentifierR4B, target tgt: IdentifierR5) extends Element <<type+>> {
+    src.use -> tgt.use;
+    src.type -> tgt.type;
+    src.system -> tgt.system;
+    src.value -> tgt.value;
+    src.period -> tgt.period;
+    src.assigner -> tgt.assigner;  
+}
+
+group Meta(source src: MetaR4B, target tgt: MetaR5) extends Element <<type+>> {
+    src.versionId -> tgt.versionId;
+    src.lastUpdated -> tgt.lastUpdated;
+    src.`source` -> tgt.`source`;
+    src.profile -> tgt.profile;
+    src.security -> tgt.security;
+    src.tag -> tgt.tag;
+}
+
+group ContactDetail(source src: ContactDetailR4B, target tgt: ContactDetailR5) extends Element <<type+>> {
+    src.name -> tgt.name;
+    src.telecom -> tgt.telecom;
+}
+
+group ContactPoint(source src: ContactPointR4B, target tgt: ContactPointR5) extends Element <<type+>> {
+    src.system -> tgt.system;
+    src.value -> tgt.value;
+    src.use -> tgt.use;
+    src.rank -> tgt.rank;
+    src.period -> tgt.period;
+}
+
+group UsageContext(source src: UsageContextR4B, target tgt: UsageContextR5) extends Element <<type+>> {
+    src.code -> tgt.code;
+    src.value : CodeableConcept -> tgt.value;
+    src.value : Quantity -> tgt.value;
+    src.value : Range -> tgt.value;
+    src.value : Reference -> tgt.value;
+}
+
+group Extension(source src: ExtensionR4B, target tgt: ExtensionR5) extends Element <<type+>> {
+    // TODO
+}
+
+group CodeableConcept(source src: CodeableConceptR4B, target tgt: CodeableConceptR5) extends Element <<type+>> {
+    src.coding -> tgt.coding;
+    src.text ->  tgt.text;
+}
+
+group Coding(source src: CodingR4B, target tgt: CodingR5) extends Element <<type+>> {
+    src.system -> tgt.system;
+    src.version -> tgt.version;
+    src.code -> tgt.code;
+    src.display -> tgt.display;
+    src.userSelected -> tgt.userSelected;
+}
+
+// TODO: add other data types, see: http://hl7.org/fhir/R4B/datatypes.html and http://hl7.org/fhir/datatypes.html
+
+
+// ================================================================================================
+// - MaLaC-HD specific -
+// ================================================================================================
+
+// Resource mappings for lists
+// ------------------------------------------------------------------------------------------------
+
+group ResourceContainer(source src: ResourceContainerR4B, target tgt: ResourceContainerR5) <<type+>> {
+    // TODO:
+    //  1) check which resources were changed/renamed, fix and mark them (like RequestGroup)
+    //  2) create appropriate mapping in separate file named *_r4b2r5.5.fhir.map (e.g., requestgroup_r4b2r5.5.fhir.map)
+    //  3) recompile using transformer script (malac/hd/core/fhir/r4/transformer/recompile.sh)
+    src.Account -> tgt.Account;
+    src.ActivityDefinition -> tgt.ActivityDefinition;
+    src.AdministrableProductDefinition -> tgt.AdministrableProductDefinition;
+    src.AdverseEvent -> tgt.AdverseEvent;
+    src.AllergyIntolerance -> tgt.AllergyIntolerance;
+    src.Appointment -> tgt.Appointment;
+    src.AppointmentResponse -> tgt.AppointmentResponse;
+    src.AuditEvent -> tgt.AuditEvent;
+    src.Basic -> tgt.Basic;
+    src.Binary -> tgt.Binary;
+    src.BiologicallyDerivedProduct -> tgt.BiologicallyDerivedProduct;
+    src.BodyStructure -> tgt.BodyStructure;
+    src.Bundle -> tgt.Bundle;
+    src.CapabilityStatement -> tgt.CapabilityStatement;
+    src.CarePlan -> tgt.CarePlan;
+    src.CareTeam -> tgt.CareTeam;
+    src.CatalogEntry -> tgt.CatalogEntry;
+    src.ChargeItem -> tgt.ChargeItem;
+    src.ChargeItemDefinition -> tgt.ChargeItemDefinition;
+    src.Citation -> tgt.Citation;
+    src.Claim -> tgt.Claim;
+    src.ClaimResponse -> tgt.ClaimResponse;
+    src.ClinicalImpression -> tgt.ClinicalImpression;
+    src.ClinicalUseDefinition -> tgt.ClinicalUseDefinition;
+    src.CodeSystem -> tgt.CodeSystem;
+    src.Communication -> tgt.Communication;
+    src.CommunicationRequest -> tgt.CommunicationRequest;
+    src.CompartmentDefinition -> tgt.CompartmentDefinition;
+    src.Composition -> tgt.Composition;
+    src.ConceptMap -> tgt.ConceptMap;
+    src.Condition -> tgt.Condition;
+    src.Consent -> tgt.Consent;
+    src.Contract -> tgt.Contract;
+    src.Coverage -> tgt.Coverage;
+    src.CoverageEligibilityRequest -> tgt.CoverageEligibilityRequest;
+    src.CoverageEligibilityResponse -> tgt.CoverageEligibilityResponse;
+    src.DetectedIssue -> tgt.DetectedIssue;
+    src.Device -> tgt.Device;
+    src.DeviceDefinition -> tgt.DeviceDefinition;
+    src.DeviceMetric -> tgt.DeviceMetric;
+    src.DeviceRequest -> tgt.DeviceRequest;
+    src.DeviceUseStatement -> tgt.DeviceUseStatement;
+    src.DiagnosticReport -> tgt.DiagnosticReport;
+    src.DocumentManifest -> tgt.DocumentManifest;
+    src.DocumentReference -> tgt.DocumentReference;
+    src.Encounter -> tgt.Encounter;
+    src.Endpoint -> tgt.Endpoint;
+    src.EnrollmentRequest -> tgt.EnrollmentRequest;
+    src.EnrollmentResponse -> tgt.EnrollmentResponse;
+    src.EpisodeOfCare -> tgt.EpisodeOfCare;
+    src.EventDefinition -> tgt.EventDefinition;
+    src.Evidence -> tgt.Evidence;
+    src.EvidenceReport -> tgt.EvidenceReport;
+    src.EvidenceVariable -> tgt.EvidenceVariable;
+    src.ExampleScenario -> tgt.ExampleScenario;
+    src.ExplanationOfBenefit -> tgt.ExplanationOfBenefit;
+    src.FamilyMemberHistory -> tgt.FamilyMemberHistory;
+    src.Flag -> tgt.Flag;
+    src.Goal -> tgt.Goal;
+    src.GraphDefinition -> tgt.GraphDefinition;
+    src.Group -> tgt.Group;
+    src.GuidanceResponse -> tgt.GuidanceResponse;
+    src.HealthcareService -> tgt.HealthcareService;
+    src.ImagingStudy -> tgt.ImagingStudy;
+    src.Immunization -> tgt.Immunization;
+    src.ImmunizationEvaluation -> tgt.ImmunizationEvaluation;
+    src.ImmunizationRecommendation -> tgt.ImmunizationRecommendation;
+    src.ImplementationGuide -> tgt.ImplementationGuide;
+    src.Ingredient -> tgt.Ingredient;
+    src.InsurancePlan -> tgt.InsurancePlan;
+    src.Invoice -> tgt.Invoice;
+    src.Library -> tgt.Library;
+    src.Linkage -> tgt.Linkage;
+    src.List -> tgt.List;
+    src.Location -> tgt.Location;
+    src.ManufacturedItemDefinition -> tgt.ManufacturedItemDefinition;
+    src.Measure -> tgt.Measure;
+    src.MeasureReport -> tgt.MeasureReport;
+    src.Media -> tgt.Media;
+    src.Medication -> tgt.Medication;
+    src.MedicationAdministration -> tgt.MedicationAdministration;
+    src.MedicationDispense -> tgt.MedicationDispense;
+    src.MedicationKnowledge -> tgt.MedicationKnowledge;
+    src.MedicationRequest -> tgt.MedicationRequest;
+    src.MedicationStatement -> tgt.MedicationStatement;
+    src.MedicinalProductDefinition -> tgt.MedicinalProductDefinition;
+    src.MessageDefinition -> tgt.MessageDefinition;
+    src.MessageHeader -> tgt.MessageHeader;
+    src.MolecularSequence -> tgt.MolecularSequence;
+    src.NamingSystem -> tgt.NamingSystem;
+    src.NutritionOrder -> tgt.NutritionOrder;
+    src.NutritionProduct -> tgt.NutritionProduct;
+    src.Observation -> tgt.Observation;
+    src.ObservationDefinition -> tgt.ObservationDefinition;
+    src.OperationDefinition -> tgt.OperationDefinition;
+    src.OperationOutcome -> tgt.OperationOutcome;
+    src.Organization -> tgt.Organization;
+    src.OrganizationAffiliation -> tgt.OrganizationAffiliation;
+    src.PackagedProductDefinition -> tgt.PackagedProductDefinition;
+    src.Patient -> tgt.Patient;
+    src.PaymentNotice -> tgt.PaymentNotice;
+    src.PaymentReconciliation -> tgt.PaymentReconciliation;
+    src.Person -> tgt.Person;
+    src.PlanDefinition -> tgt.PlanDefinition;
+    src.Practitioner -> tgt.Practitioner;
+    src.PractitionerRole -> tgt.PractitionerRole;
+    src.Procedure -> tgt.Procedure;
+    src.Provenance -> tgt.Provenance;
+    src.Questionnaire -> tgt.Questionnaire;
+    src.QuestionnaireResponse -> tgt.QuestionnaireResponse;
+    src.RegulatedAuthorization -> tgt.RegulatedAuthorization;
+    src.RelatedPerson -> tgt.RelatedPerson;
+    src.RequestGroup -> tgt.RequestOrchestration; // changed, TODO: resource FML
+    src.ResearchDefinition -> tgt.ResearchDefinition;
+    src.ResearchElementDefinition -> tgt.ResearchElementDefinition;
+    src.ResearchStudy -> tgt.ResearchStudy;
+    src.ResearchSubject -> tgt.ResearchSubject;
+    src.RiskAssessment -> tgt.RiskAssessment;
+    src.Schedule -> tgt.Schedule;
+    src.SearchParameter -> tgt.SearchParameter;
+    src.ServiceRequest -> tgt.ServiceRequest;
+    src.Slot -> tgt.Slot;
+    src.Specimen -> tgt.Specimen;
+    src.SpecimenDefinition -> tgt.SpecimenDefinition;
+    src.StructureDefinition -> tgt.StructureDefinition;
+    src.StructureMap -> tgt.StructureMap;
+    src.Subscription -> tgt.Subscription;
+    src.SubscriptionStatus -> tgt.SubscriptionStatus;
+    src.SubscriptionTopic -> tgt.SubscriptionTopic;
+    src.Substance -> tgt.Substance;
+    src.SubstanceDefinition -> tgt.SubstanceDefinition;
+    src.SupplyDelivery -> tgt.SupplyDelivery;
+    src.SupplyRequest -> tgt.SupplyRequest;
+    src.Task -> tgt.Task;
+    src.TerminologyCapabilities -> tgt.TerminologyCapabilities;
+    src.TestReport -> tgt.TestReport;
+    src.TestScript -> tgt.TestScript;
+    src.ValueSet -> tgt.ValueSet;
+    src.VerificationResult -> tgt.VerificationResult;
+    src.VisionPrescription -> tgt.VisionPrescription;
+    src.Parameters -> tgt.Parameters;
+}
+
+
+// Primitives
+// ------------------------------------------------------------------------------------------------
+
+group Uri(source src: uri, target tgt: uri) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group String(source src: string, target tgt: string) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Boolean(source src: boolean, target tgt: boolean) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group DateTime(source src: dateTime, target tgt: dateTime) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Markdown(source src: markdown, target tgt: markdown) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Canonical(source src: canonical, target tgt: canonical) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Id(source src: id, target tgt: id) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Code(source src: code, target tgt: code) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Instant(source src: instant, target tgt: instant) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+group Integer(source src: integer, target tgt: integer) <<type+>> {
+    src -> tgt.value = src.value;
+}
+
+// TODO: add other primitives
+
+
+// Primitives (changed)
+// ------------------------------------------------------------------------------------------------
+
+group StringToId(source src: string, target tgt: id) <<types>> {
+    src -> tgt.value = src.value;
+}
+
+
+// HTML handling
+// ------------------------------------------------------------------------------------------------
+
+group Flow(source src: FlowR4B, target tgt: FlowR5) {
+    // TODO
+}
+
+group Div(source src: div, target tgt: div) <<type+>> {
+    src ->  tgt = create('div') then Flow(src, tgt);
+}
+
+
+// Quirks
+// ------------------------------------------------------------------------------------------------
+
+// TODO: check why Code group is not used (super of ContactPointSystem)
+group ContactPointSystemToCode(source src: ContactPointSystem, target tgt: code) <<types>> {
+    src -> tgt.value = src.value;
+}
