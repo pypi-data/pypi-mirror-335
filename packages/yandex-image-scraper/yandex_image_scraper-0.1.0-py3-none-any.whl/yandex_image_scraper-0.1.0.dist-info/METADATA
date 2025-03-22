@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: yandex-image-scraper
+Version: 0.1.0
+Summary: A command-line tool to scrape and download images from Yandex search results
+Author-Email: Tadeas Fort <business@tadeasfort.com>
+License: GPL-3.0
+Requires-Python: >=3.8
+Requires-Dist: camoufox[geoip]==0.4.11
+Requires-Dist: playwright==1.51.0
+Requires-Dist: aiohttp>=3.11.14
+Requires-Dist: typer>=0.15.2
+Requires-Dist: prompt-toolkit>=3.0.50
+Description-Content-Type: text/markdown
+
+# Yandex Image Scraper
+
+A command-line tool to scrape and download images from Yandex search results.
+
+## Features
+- Search for images on Yandex
+- Scrape image URLs from search results
+- Scroll to load more images
+- Download images concurrently
+- Customize search parameters
+
+## Usage
+```bash
+# Basic usage
+yandex-image-scraper scrape
+
+# Follow the prompts to enter search query and other options
+```
+
+## Requirements
+- Python >= 3.8
+
+* License: GPL-3.0
