@@ -1,0 +1,129 @@
+version: '3.8'
+
+services:
+  data-structures-test:
+    image: python:3.9-slim
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: >
+      sh -c "pip install requests pytest && echo '
+      import requests
+      import json
+
+      def test_sort_list():
+          response = requests.post(\"http://data-structures:8000/api/list/sort\", 
+                               json={\"items\": [3, 1, 4, 1, 5]})
+          assert response.json() == [1, 1, 3, 4, 5]
+
+      def test_remove_duplicates():
+          response = requests.post(\"http://data-structures:8000/api/list/remove-duplicates\",
+                               json={\"items\": [1, 2, 2, 3, 3, 4]})
+          assert response.json() == [1, 2, 3, 4]
+
+      def test_merge_dicts():
+          response = requests.post(\"http://data-structures:8000/api/dict/merge\",
+                               json={\"dict1\": {\"a\": 1}, \"dict2\": {\"b\": 2}})
+          assert response.json() == {\"a\": 1, \"b\": 2}
+
+      print(\"Running data structures tests...\")
+      test_sort_list()
+      test_remove_duplicates()
+      test_merge_dicts()
+      print(\"Data structures tests passed!\")
+      ' | python"
+    depends_on:
+      - data-structures
+
+  math-functions-test:
+    image: python:3.9-slim
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: >
+      sh -c "pip install requests pytest && echo '
+      import requests
+
+      def test_factorial():
+          response = requests.post(\"http://math-functions:8000/api/math/factorial\",
+                               json={\"n\": 5})
+          assert response.json() == 120
+
+      def test_fibonacci():
+          response = requests.post(\"http://math-functions:8000/api/math/fibonacci\",
+                               json={\"n\": 7})
+          assert response.json() == 13
+
+      def test_is_prime():
+          response = requests.post(\"http://math-functions:8000/api/math/is-prime\",
+                               json={\"n\": 17})
+          assert response.json() == True
+
+      print(\"Running math functions tests...\")
+      test_factorial()
+      test_fibonacci()
+      test_is_prime()
+      print(\"Math functions tests passed!\")
+      ' | python"
+    depends_on:
+      - math-functions
+
+  string-functions-test:
+    image: python:3.9-slim
+    volumes:
+      - ./:/app
+    working_dir: /app
+    command: >
+      sh -c "pip install requests pytest && echo '
+      import requests
+
+      def test_reverse_string():
+          response = requests.post(\"http://string-functions:8000/api/string/reverse\",
+                               json={\"text\": \"hello\"})
+          assert response.json() == \"olleh\"
+
+      def test_count_words():
+          response = requests.post(\"http://string-functions:8000/api/string/count-words\",
+                               json={\"text\": \"hello world python\"})
+          assert response.json() == 3
+
+      def test_is_palindrome():
+          response = requests.post(\"http://string-functions:8000/api/string/is-palindrome\",
+                               json={\"text\": \"A man a plan a canal Panama\"})
+          assert response.json() == True
+
+      print(\"Running string functions tests...\")
+      test_reverse_string()
+      test_count_words()
+      test_is_palindrome()
+      print(\"String functions tests passed!\")
+      ' | python"
+    depends_on:
+      - string-functions
+
+  data-structures:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8000"
+    environment:
+      - SERVICE_FILE=protocol_data_structures.py
+
+  math-functions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8002:8000"
+    environment:
+      - SERVICE_FILE=protocol_math_functions.py
+
+  string-functions:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8003:8000"
+    environment:
+      - SERVICE_FILE=protocol_string_functions.py

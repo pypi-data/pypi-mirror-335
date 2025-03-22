@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIfunc - Protocol Interface Functions</title>
+    <style>
+        :root {
+            --primary-color: #4B0082;
+            --secondary-color: #1E90FF;
+            --dark-bg: #1E1E2E;
+            --light-bg: #f8f9fa;
+            --text-color: #333;
+            --light-text: #fff;
+            --code-bg: #f5f5f5;
+            --card-bg: white;
+            --shadow-color: rgba(0, 0, 0, 0.05);
+            --header-gradient-from: var(--primary-color);
+            --header-gradient-to: var(--dark-bg);
+            --example-bg-from: #f5f7fa;
+            --example-bg-to: #e4e8eb;
+            --alternate-bg: #f0f0f0;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #6A5ACD; /* Lighter indigo for dark mode */
+            --secondary-color: #38B6FF; /* Brighter blue for dark mode */
+            --dark-bg: #121212;
+            --light-bg: #1E1E2E;
+            --text-color: #E0E0E0;
+            --light-text: #fff;
+            --code-bg: #2D2D2D;
+            --card-bg: #252836;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --header-gradient-from: #121212;
+            --header-gradient-to: #252836;
+            --example-bg-from: #2A2A3A;
+            --example-bg-to: #252836;
+            --alternate-bg: #252836;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--header-gradient-from), var(--header-gradient-to));
+            color: var(--light-text);
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .theme-switch-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 48px;
+        }
+
+        .theme-switch input {
+            display: none;
+        }
+
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: .4s;
+            width: 16px;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--secondary-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+
+        .theme-icon {
+            margin-left: 10px;
+            color: var(--light-text);
+            font-size: 20px;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 150px;
+            height: 150px;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin: 10px 0;
+        }
+
+        h1 span.pi {
+            color: var(--primary-color);
+            background-color: white;
+            padding: 0 10px;
+            border-radius: 5px;
+        }
+
+        h1 span.func {
+            color: var(--secondary-color);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin: 20px 0;
+            color: var(--primary-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin: 15px 0;
+            color: var(--dark-bg);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 30px;
+        }
+
+        .motto {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn.primary {
+            background-color: var(--primary-color);
+        }
+
+        .btn.primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section.alternate {
+            background-color: var(--alternate-bg);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .feature-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .protocol-section {
+            text-align: center;
+        }
+
+        .protocol-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .protocol-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .protocol-icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        code {
+            display: block;
+            background-color: var(--code-bg);
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow-x: auto;
+            white-space: pre;
+            font-family: 'Consolas', 'Monaco', monospace;
+        }
+
+        .example-section {
+            background: linear-gradient(135deg, var(--example-bg-from), var(--example-bg-to));
+        }
+
+        .contrast-switch-container {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contrast-toggle {
+            margin-right: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .contrast-toggle:hover {
+            background-color: var(--secondary-color);
+        }
+
+        body.high-contrast {
+            --primary-color: #0000FF;
+            --secondary-color: #FF0000;
+            --text-color: #000000;
+            --light-bg: #FFFFFF;
+            --dark-bg: #000000;
+            --light-text: #FFFFFF;
+            --code-bg: #000000;
+            --card-bg: #FFFFFF;
+            --alternate-bg: #EEEEEE;
+        }
+
+        [data-theme="dark"].high-contrast {
+            --primary-color: #00FFFF;
+            --secondary-color: #FFFF00;
+            --text-color: #FFFFFF;
+            --light-bg: #000000;
+            --dark-bg: #000000;
+            --light-text: #FFFFFF;
+            --code-bg: #333333;
+            --card-bg: #333333;
+            --alternate-bg: #222222;
+        }
+
+        .high-contrast .feature-card,
+        .high-contrast .protocol-card {
+            border: 2px solid var(--primary-color);
+        }
+
+        .high-contrast code {
+            border: 2px solid var(--secondary-color);
+            color: var(--light-text);
+        }
+
+        footer {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            margin: 0 10px;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-grid, .protocol-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="theme-switch-container">
+            <label class="theme-switch" for="theme-checkbox">
+                <input type="checkbox" id="theme-checkbox" />
+                <span class="slider"></span>
+            </label>
+            <span class="theme-icon" id="theme-icon">🌙</span>
+        </div>
+
+        <div class="logo-container">
+            <svg class="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 300">
+              <circle cx="250" cy="120" r="80" fill="var(--primary-color)" />
+              <circle cx="250" cy="120" r="75" fill="var(--dark-bg)" />
+              <text x="250" y="150" font-family="Arial, sans-serif" font-size="100" font-weight="bold" fill="white" text-anchor="middle">π</text>
+              <circle cx="250" cy="120" r="90" fill="none" stroke="var(--primary-color)" stroke-width="5" />
+              <circle cx="250" cy="120" r="100" fill="none" stroke="var(--primary-color)" stroke-width="3" stroke-dasharray="5,3" />
+              <line x1="250" y1="20" x2="250" y2="0" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="330" y1="40" x2="350" y2="20" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="350" y1="120" x2="370" y2="120" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="330" y1="200" x2="350" y2="220" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="250" y1="220" x2="250" y2="240" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="170" y1="200" x2="150" y2="220" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="150" y1="120" x2="130" y2="120" stroke="var(--primary-color)" stroke-width="3" />
+              <line x1="170" y1="40" x2="150" y2="20" stroke="var(--primary-color)" stroke-width="3" />
+            </svg>
+        </div>
+        <h1><span class="pi">PI</span><span class="func">func</span></h1>
+        <p class="tagline">Protocol Interface Functions</p>
+        <p class="motto">One function, every protocol. Everywhere.</p>
+        <div>
+            <a href="#get-started" class="btn primary">Get Started</a>
+            <a href="https://github.com/pifunc/pifunc" class="btn">GitHub</a>
+        </div>
+
+        <div class="contrast-switch-container">
+            <button class="contrast-toggle" id="contrast-toggle">Toggle High Contrast</button>
+            <span>Accessibility Options</span>
+        </div>
+    </header>
+
+    <section>
+        <h2>What is PIfunc?</h2>
+        <p>PIfunc is a revolutionary framework that allows you to write your business logic once and expose it through multiple communication protocols without writing any additional code. With a single Python decorator, your functions become accessible via HTTP/REST, gRPC, MQTT, WebSocket, and GraphQL.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>Write Once, Run Anywhere</h3>
+                <p>Implement your logic once and expose it via multiple protocols simultaneously. No duplicate code, no inconsistencies.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Zero Boilerplate</h3>
+                <p>Forget about writing boilerplate code for different protocols. Add a single decorator and you're done.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Type Safety</h3>
+                <p>Leverage Python's type hints for automatic validation and conversion across all protocols.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="alternate protocol-section">
+        <h2>Supported Protocols</h2>
+        <p>PIfunc gives you the freedom to use the right protocol for each use case without changing your implementation.</p>
+
+        <div class="protocol-grid">
+            <div class="protocol-card">
+                <div class="protocol-icon">HTTP</div>
+                <h3>HTTP/REST</h3>
+                <p>Perfect for web clients and general API access</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">gRPC</div>
+                <h3>gRPC</h3>
+                <p>Ideal for high-performance microservices</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">MQTT</div>
+                <h3>MQTT</h3>
+                <p>Great for IoT devices and pub/sub patterns</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">WS</div>
+                <h3>WebSocket</h3>
+                <p>Real-time bidirectional communication</p>
+            </div>
+            <div class="protocol-card">
+                <div class="protocol-icon">GQL</div>
+                <h3>GraphQL</h3>
+                <p>Flexible queries with precise data retrieval</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="get-started" class="example-section">
+        <h2>Get Started in Minutes</h2>
+        <p>Installation is simple:</p>
+        <code>pip install pifunc</code>
+
+        <p>Create your first multi-protocol function:</p>
+        <code>from pifunc import service, run_services
+
+@service(
+    http={"path": "/api/calculator/add", "method": "POST"},
+    mqtt={"topic": "calculator/add"},
+    websocket={"event": "calculator.add"}
+)
+def add(a: int, b: int) -> int:
+    """Adds two numbers."""
+    return a + b
+
+if __name__ == "__main__":
+    run_services(
+        grpc={"port": 50051},
+        http={"port": 8080},
+        mqtt={"broker": "localhost", "port": 1883},
+        websocket={"port": 8081},
+        watch=True
+    )</code>
+
+        <p>Run your service:</p>
+        <code>python your_service.py</code>
+
+        <p>Now your 'add' function is simultaneously available through:</p>
+        <ul>
+            <li>HTTP: <code>POST http://localhost:8080/api/calculator/add</code> with body <code>{"a": 5, "b": 3}</code></li>
+            <li>gRPC: Call the method <code>add</code> with parameters <code>a=5, b=3</code></li>
+            <li>MQTT: Publish to topic <code>calculator/add</code> with payload <code>{"a": 5, "b": 3}</code></li>
+            <li>WebSocket: Send event <code>calculator.add</code> with data <code>{"a": 5, "b": 3}</code></li>
+            <li>... all from the same codebase!</li>
+        </ul>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <a href="https://github.com/pifunc/pifunc/blob/main/docs/quickstart.md" class="btn primary">Full Documentation</a>
+            <a href="https://github.com/pifunc/pifunc/blob/main/examples" class="btn">More Examples</a>
+        </div>
+    </section>
+
+    <section>
+        <h2>Why Developers Love PIfunc</h2>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>DRY Code</h3>
+                <p>Don't Repeat Yourself. Implement business logic once, not for each protocol.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Rapid Development</h3>
+                <p>Build and deploy faster with drastically reduced boilerplate code.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Consistent APIs</h3>
+                <p>Ensure consistency across all your endpoints and protocols.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Future Proof</h3>
+                <p>Add new protocols as they emerge without rewriting your services.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Hot Reload</h3>
+                <p>Change code and see updates immediately without restarting servers.</p>
+            </div>
+            <div class="feature-card">
+                <h3>Production Ready</h3>
+                <p>Built for real-world applications with monitoring and scaling in mind.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <h2><span class="pi" style="color: white;">PI</span><span class="func" style="color: #1E90FF;">func</span></h2>
+        <p>Protocol Interface Functions</p>
+        <p>One function, every protocol. Everywhere.</p>
+
+        <div class="social-links">
+            <a href="https://github.com/pifunc/pifunc">GitHub</a>
+            <a href="https://pifunc.com/docs">Documentation</a>
+            <a href="https://pifunc.com/community">Community</a>
+        </div>
+
+        <p>&copy; 2025 PIfunc - MIT License</p>
+    </footer>
+
+    <script>
+        // Dark mode toggle functionality
+        const themeToggle = document.getElementById('theme-checkbox');
+        const themeIcon = document.getElementById('theme-icon');
+
+        // Check for saved theme preference or use user's system preference
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && prefersDarkScheme.matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeToggle.checked = true;
+            themeIcon.textContent = '☀️';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeToggle.checked = false;
+            themeIcon.textContent = '🌙';
+        }
+
+        // Toggle theme when checkbox is clicked
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeIcon.textContent = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+                themeIcon.textContent = '🌙';
+            }
+        });
+
+        // High Contrast toggle functionality
+        const contrastToggle = document.getElementById('contrast-toggle');
+
+        // Check for saved contrast preference
+        if (localStorage.getItem('contrast') === 'high') {
+            document.body.classList.add('high-contrast');
+        }
+
+        // Toggle contrast when button is clicked
+        contrastToggle.addEventListener('click', function() {
+            if (document.body.classList.contains('high-contrast')) {
+                document.body.classList.remove('high-contrast');
+                localStorage.setItem('contrast', 'normal');
+                this.textContent = 'Toggle High Contrast';
+            } else {
+                document.body.classList.add('high-contrast');
+                localStorage.setItem('contrast', 'high');
+                this.textContent = 'Toggle Normal Contrast';
+            }
+        });
+
+        // Update contrast button text on load
+        if (document.body.classList.contains('high-contrast')) {
+            contrastToggle.textContent = 'Toggle Normal Contrast';
+        }
+
+        // Listen for system preference changes
+        prefersDarkScheme.addEventListener('change', function(e) {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeToggle.checked = true;
+                    themeIcon.textContent = '☀️';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    themeToggle.checked = false;
+                    themeIcon.textContent = '🌙';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
