@@ -1,0 +1,56 @@
+name: Upload Python Package
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+      - name: Install dependencies
+        run: |
+          make init
+      - name: Set up Node.js 14
+        uses: actions/setup-node@v4
+        with:
+          node-version: "14.x"
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+      - name: Compile frontend assets
+        run: |
+          npm run production
+      # here we run tests after having compiled the assets, because tests can use it
+      - name: Publish only packages passing test
+        run: |
+          make test
+      # we need to use --allow-empty when compiled assets don't change from one version to the next
+      - name: Bump version with compiled assets
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ github.event.release.tag_name }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -f src/exceptionite/templates/exceptionite.js
+          git add -f src/exceptionite/templates/exceptionite.css
+          git commit -m"Release $RELEASE_VERSION" --allow-empty
+      - name: Push compiled assets
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.event.release.target_commitish }}
+          # override the tag created by GitHub release, now this tag will contains the compiled assets
+          tags: true
+          force: true
+      - name: Publish package
+        env:
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        run: |
+          make publish
