@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/main.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/services.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="logo">CDC</div>
+        <h1>Our Services</h1>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
+            <li><a href="{{ url_for('services') }}">Services</a></li>
+            <li><a href="{{ url_for('contact_form') }}">Contact Form</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Services sections remain unchanged -->
+      <section>
+        <h2>Cloud Consulting</h2>
+        <p>
+          We offer cloud migration, strategy, and optimization tailored for your
+          business, enabling scalable and secure cloud solutions to drive
+          innovation.
+        </p>
+        <ul>
+          <li>Cloud Migration Planning & Execution</li>
+          <li>Multi-Cloud Strategy & Architecture</li>
+          <li>Cost Optimization & Management</li>
+          <li>Security & Compliance Audits</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>DevOps Solutions</h2>
+        <p>
+          From CI/CD pipelines to automated infrastructure, our DevOps services
+          improve software delivery, reliability, and efficiency.
+        </p>
+        <ul>
+          <li>CI/CD Pipeline Setup & Automation</li>
+          <li>Infrastructure as Code (IaC) Implementations</li>
+          <li>Monitoring & Logging with Modern Tools</li>
+          <li>Configuration Management (Ansible, Chef, Puppet)</li>
+        </ul>
+      </section>
+
+      <!-- Other sections remain unchanged -->
+    </main>
+
+    <footer>
+      <div class="contact-info">
+        <p>
+          Phone: 240 298 1823 | Email:
+          <a href="mailto:mmutagha@gmail.com"
+            >mmutagha@gmail.com | ngohbm@gmail.com</a
+          >
+        </p>
+      </div>
+      <p>&copy; 2024 Cloud & DevOps Consulting. All rights reserved.</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/service.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/services.js') }}"></script>
+  </body>
+</html>
