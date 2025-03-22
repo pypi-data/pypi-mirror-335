@@ -1,0 +1,59 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "ratisbona_fanedit"
+version = "0.0.1"
+authors = [
+  { name="Ulrich Schwenk", email="ulrich-schwenk@gmx.de" },
+]
+description = "An circular editor for microwave usb pov display fans."
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "click",
+    "PyQt6"
+]
+[project.scripts]
+ratisbona_fanedit= "ratisbona_fanedit.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pylint",
+    # Code style
+    "black[d]",
+    # Strict typing
+    "mypy",
+    # Test coverage
+    "coverage",
+    "build",
+    "poethepoet",
+    "twine",
+    "black"
+]
+
+[tool.poe.tasks]
+coverage = { help = "Run unit tests with coverage", shell = "coverage run -m unittest discover" }
+coverage-report = { help = "Generate coverage report", shell = "coverage html" }
+build-wheel = { help = "Build the wheel distribution", shell = "python -m build --wheel" }
+build = { help = "Build the wheel distribution", shell = "python -m build" }
+test-publish = { help = "Publish to TestPyPI", shell = "twine upload --verbose --repository testpypi dist/*" }
+publish = { help = "Publish to PyPI", shell = "twine upload dist/*" }
+blackd = { help = "Run black formatter daemon", shell = "blackd" }
+
+[project.urls]
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ratisbona_fanedit"]
+include = ["ratisbona_fanedit/resources/*"]
+
+
+[tool.hatch.metadata]
+allow-directories = ["ratisbona_fanedit/resources"]

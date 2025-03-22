@@ -1,0 +1,39 @@
+# Ratisbona Fanedit
+
+Ratisbona-Fanedit is a QT-based Editor that helps creating images that can be displayed
+on a persistence-of-vision led-display fan.
+
+This program creates 144x11 pixel bitmaps that the microwave-usb led-fan driver can
+upload to the persistence of view led-fans that are in the trade under serveral brandnames.
+
+The program outputs the image in a json format that can directly be used by the  
+
+## Project-structure, Installing Dependencies and PYTHONPATH configuration.
+
+This Project houses it's sources below the `src/{projectname}` directory. You have
+to have this directory in your module-searchpath to execute the project. It should also
+be present in the module-searchpath of your IDE.
+
+If using pycharm or any other Jetbrains-based IDE, use 
+`Settings->Project->Project Structure`
+to `mark as sourcefolder` the `src`-folder of this.
+
+The Project requirements, as well as the dev-requirements are intended to be listed in the 
+`pyproject.toml`-file (see there)
+
+By issuing:
+
+```shell
+pip install -e .
+```
+
+you add all the project dependencies as well as the projects sourcefolder to your 
+[hopefully virtual!] environment, relieving you of the burden of having to manually 
+installing anything or having to configure your python path by other means.
+
+Likewise you can install all the dev-dependencies by:
+
+```shell
+pip install -e .'[dev]'
+```
+
