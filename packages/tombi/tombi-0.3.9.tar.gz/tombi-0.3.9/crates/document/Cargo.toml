@@ -1,0 +1,30 @@
+[package]
+name = "document"
+version = "0.0.0"
+authors = { workspace = true }
+edition = { workspace = true }
+license = { workspace = true }
+readme = "README.md"
+
+[dependencies]
+ast = { workspace = true }
+chrono = { workspace = true }
+document-tree = { workspace = true }
+indexmap = { workspace = true }
+itertools = { workspace = true }
+serde = { workspace = true, optional = true }
+text = { workspace = true }
+thiserror = { workspace = true }
+toml-version = { workspace = true }
+tower-lsp = { workspace = true, optional = true }
+
+[dev-dependencies]
+parser = { workspace = true }
+pretty_assertions = { workspace = true }
+serde_json = { workspace = true }
+textwrap = { workspace = true }
+
+[features]
+default = ["serde"]
+lsp = ["dep:tower-lsp", "text/lsp"]
+serde = ["chrono/serde", "dep:serde", "indexmap/serde"]
