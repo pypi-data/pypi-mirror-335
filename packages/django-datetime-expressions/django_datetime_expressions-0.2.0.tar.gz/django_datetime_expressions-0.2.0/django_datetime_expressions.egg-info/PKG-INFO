@@ -1,0 +1,118 @@
+Metadata-Version: 2.4
+Name: django-datetime-expressions
+Version: 0.2.0
+Summary: Custom Django ORM expressions for datetime operations.
+Author-email: towan912 <me@towan.io>
+Maintainer-email: towan912 <me@towan.io>
+License: MIT License
+        
+        Copyright (c) 2023 Towa
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Bug Tracker, https://github.com/towan912/django-datetime-expressions/issues
+Project-URL: Homepage, https://github.com/towan912/django-datetime-expressions
+Keywords: django,datetime,expressions,orm
+Classifier: Development Status :: 4 - Beta
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Classifier: Framework :: Django :: 5.0
+Classifier: Framework :: Django :: 5.1
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django
+Requires-Dist: python-dateutil
+Requires-Dist: sqlparse
+Dynamic: license-file
+
+# django-datetime-expressions
+
+`django-datetime-expressions` provides custom expressions for Django ORM to simplify datetime operations. It allows relative additions and subtractions to datetime fields.
+
+**[日本語版 (Japanese Version)](README_JP.md)**
+
+## Features
+
+- Perform relative operations on datetime fields (e.g., add/subtract days, weeks, months, years)
+- Supports multiple database engines (MySQL, SQLite, Oracle)
+- Extract epoch time using `EXTRACT`
+
+## Installation
+
+```bash
+pip install django-datetime-expressions
+```
+
+## Usage
+
+Below is an example of using `RelativeDay` to manipulate dates.
+
+```python
+from datetime import datetime
+from django.db.models import F
+from datetime_expressions import RelativeDay
+
+# Example: Add 5 days to the current date
+queryset = MyModel.objects.annotate(new_date=RelativeDay(F('date_field'), 5))
+```
+
+### Supported Relative Operations
+
+| Class Name        | Description         | Unit       |
+|-------------------|---------------------|------------|
+| `RelativeDay`     | Add/Subtract days   | Days       |
+| `RelativeWeek`    | Add/Subtract weeks  | 7-day units|
+| `RelativeMonth`   | Add/Subtract months | Months     |
+| `RelativeYear`    | Add/Subtract years  | Years      |
+| `RelativeHour`    | Add/Subtract hours  | Hours      |
+| `RelativeMinute`  | Add/Subtract minutes| Minutes    |
+| `RelativeSecond`  | Add/Subtract seconds| Seconds    |
+
+### Extracting Epoch Time
+
+Use the `Epoch` class to extract epoch time (seconds since January 1, 1970) from a datetime field.
+
+```python
+from datetime_expressions import Epoch
+
+queryset = MyModel.objects.annotate(epoch_time=Epoch(F('date_field')))
+```
+
+## Supported Databases
+
+- MySQL
+- SQLite
+- Oracle
+
+## Contribution
+
+Bug reports and feature requests are welcome on [GitHub Issues](https://github.com/towan912/django-datetime-expressions/issues). Pull requests are also appreciated!
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

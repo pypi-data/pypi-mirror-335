@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-datetime-expressions"
+version = "0.2.0"
+description = "Custom Django ORM expressions for datetime operations."
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [{ name = "towan912", email = "me@towan.io" }]
+maintainers = [{ name = "towan912", email = "me@towan.io" }]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+keywords = ["django", "datetime", "expressions", "orm"]
+requires-python = ">=3.9"
+dependencies = ["Django", "python-dateutil", "sqlparse"]
+
+[project.urls]
+"Bug Tracker" = "https://github.com/towan912/django-datetime-expressions/issues"
+"Homepage" = "https://github.com/towan912/django-datetime-expressions"
+
+[tool.setuptools.packages.find]
+where = ["."]
