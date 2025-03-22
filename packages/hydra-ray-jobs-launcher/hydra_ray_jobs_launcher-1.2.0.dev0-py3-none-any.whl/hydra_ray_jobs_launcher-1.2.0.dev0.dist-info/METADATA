@@ -1,0 +1,27 @@
+Metadata-Version: 2.4
+Name: hydra-ray-jobs-launcher
+Version: 1.2.0.dev0
+Summary: Hydra Ray Jobs Launcher plugin
+Home-page: https://github.com/facebookresearch/hydra/
+Author: Sidharth Baskaran
+Author-email: Sid Baskaran <sidb@meta.com>
+License: MIT
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: hydra-core>=1.0.0
+Requires-Dist: ray>=2.0.0
+Dynamic: author
+Dynamic: home-page
+
+# Hydra Ray Jobs Launcher
+Provides a [Ray Jobs](https://docs.ray.io/en/latest/cluster/running-applications/job-submission/index.html) launcher for Hydra supporting distributed execution and job queuing.
+
+## Development
+
+Make sure you do **not** install the package in editable mode. This will cause Hydra to not be able to find the plugin.
