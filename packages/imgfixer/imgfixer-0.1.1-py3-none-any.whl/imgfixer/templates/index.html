@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImgFixer</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h2>ImgFixer</h2>
+        <p>ImgFixer is a tool designed to help you correct the file extensions of image files in a specified directory. It scans the directory for image files, checks their actual file types, and renames them with the correct file extensions if necessary.</p>
+        <form action="/process" method="post">
+            <div class="form-group">
+                <label for="directory">Enter the directory path where your image files are located:</label>
+                <input type="text" id="directory" name="directory" required>
+                <p></p>
+                <button>Process</button>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <p>Copyright (c) 2025 Krishnakanth Allika, wheat-chop-octane [at] duck [dot] com
+        Licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.</p>
+    </footer>
+</body>
+</html>
