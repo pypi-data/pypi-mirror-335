@@ -1,0 +1,69 @@
+Metadata-Version: 2.4
+Name: invenio-checks
+Version: 0.1.0
+Summary: Invenio module to automated curation checks on records.
+Home-page: https://github.com/inveniosoftware/invenio-checks
+Author: CERN
+Author-email: info@inveniosoftware.org
+License: MIT
+Keywords: invenio rdm checks
+Platform: any
+Classifier: Development Status :: 1 - Planning
+Requires-Python: >=3.9
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: invenio-base<3.0.0,>=2.0.0
+Requires-Dist: invenio-i18n<4.0.0,>=3.0.0
+Requires-Dist: invenio-communities<19.0.0,>=18.0.0
+Requires-Dist: invenio-drafts-resources<7.0.0,>=6.0.0
+Provides-Extra: tests
+Requires-Dist: invenio-app<3.0.0,>=2.0.0; extra == "tests"
+Requires-Dist: invenio-db[mysql,postgresql]<3.0.0,>=2.0.0; extra == "tests"
+Requires-Dist: pytest-invenio<4.0.0,>=3.0.0; extra == "tests"
+Requires-Dist: pytest-black>=0.4.0; extra == "tests"
+Requires-Dist: sphinx>=4.5.0; extra == "tests"
+Provides-Extra: opensearch1
+Requires-Dist: invenio-search[opensearch1]<4.0.0,>=3.0.0; extra == "opensearch1"
+Provides-Extra: opensearch2
+Requires-Dist: invenio-search[opensearch2]<4.0.0,>=3.0.0; extra == "opensearch2"
+Dynamic: license-file
+
+..
+    Copyright (C) 2025 CERN.
+
+    Invenio-Checks is free software; you can redistribute it and/or modify
+    it under the terms of the MIT License; see LICENSE file for more details.
+
+================
+ Invenio-Checks
+================
+
+.. image:: https://github.com/inveniosoftware/invenio-checks/workflows/CI/badge.svg
+        :target: https://github.com/inveniosoftware/invenio-checks/actions?query=workflow%3ACI
+
+.. image:: https://img.shields.io/github/tag/inveniosoftware/invenio-checks.svg
+        :target: https://github.com/inveniosoftware/invenio-checks/releases
+
+.. image:: https://img.shields.io/pypi/dm/invenio-checks.svg
+        :target: https://pypi.python.org/pypi/invenio-checks
+
+.. image:: https://img.shields.io/github/license/inveniosoftware/invenio-checks.svg
+        :target: https://github.com/inveniosoftware/invenio-checks/blob/master/LICENSE
+
+Invenio module to automated curation checks on records.
+
+Further documentation is available on
+https://invenio-checks.readthedocs.io/
+
+..
+    Copyright (C) 2025 CERN.
+
+    Invenio-Checks is free software; you can redistribute it and/or modify
+    it under the terms of the MIT License; see LICENSE file for more details.
+
+Changes
+=======
+
+Version 0.1.0 (2025-03-21)
+
+- Initial public release.
