@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "streamlit-pyvista"
+version = "0.0.20-pre"
+description = "A Streamlit component that allow support for new PyVista viewer backend: Trame."
+license = "GPL-3.0-or-later"
+homepage = "https://gitlab.com/groups/dcsm"
+repository = "https://gitlab.com/dcsm/streamlit-pyvista"
+authors = ["Maxime Rochat <rochat.max@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9.12"
+aiohttp = "^3.9.3"
+pyvista = "^0.44.2"
+vtk = "^9.3.1"
+streamlit = "^1.37.0"
+wslink = "<2"
+trame = "<3.6"
+trame-client = "^2.17.1"
+trame-plotly = "^3.1.0"
+trame-server = "^2.17.3"
+trame-vtk = "^2.8.13"
+trame-vuetify = "^2.7.2"
+protobuf="<=4.25.3"
+pytest = ">=7.2.1"
+requests = "^2.31.0"
+validators = "^0.34.0"
+Flask = "^3.0.3"
+APScheduler = "^3.10.4"
+flask-sock = "^0.7.0"
+websocket-client = "^1.8.0"
+tqdm = "^4.67.1"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.4.3"
+playwright = "^1.43.0"
+pytest-playwright = "^0.4.4"
+pixelmatch = "^0.3.0"
+
+[build-system]
+requires = ["poetry-core", "poetry-dynamic-versioning"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+style = "semver"
+
+[tool.poetry.scripts]
+streamlit-pyvista-proxy = "streamlit_pyvista.clients.cli:main"
+streamlit-pyvista = "streamlit_pyvista.clients.test_viewer:main"
