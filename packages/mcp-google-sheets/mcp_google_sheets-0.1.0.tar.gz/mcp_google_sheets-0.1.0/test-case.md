@@ -1,0 +1,20 @@
+```
+curl 'https://cms.gam3s.gg/graphql' \
+  -H 'accept: */*' \
+  -H 'accept-language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7,en-GB;q=0.6' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'dnt: 1' \
+  -H 'origin: https://gam3s.gg' \
+  -H 'pragma: no-cache' \
+  -H 'priority: u=1, i' \
+  -H 'referer: https://gam3s.gg/' \
+  -H 'sec-ch-ua: "Chromium";v="134", "Not:A-Brand";v="24", "Microsoft Edge";v="134"' \
+  -H 'sec-ch-ua-mobile: ?0' \
+  -H 'sec-ch-ua-platform: "Windows"' \
+  -H 'sec-fetch-dest: empty' \
+  -H 'sec-fetch-mode: cors' \
+  -H 'sec-fetch-site: same-site' \
+  -H 'user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 Edg/134.0.0.0' \
+  --data-raw $'{"operationName":"AllGames","variables":{"keywords":"","limit":1000,"sort":"updatedAt:desc","start":0},"query":"query AllGames($start: Int, $limit: Int, $chains: [String], $createdAt: DateTime, $freeToPlay: Boolean, $editorRating: Float, $userRating: Float, $status: [String], $keywords: String, $genres: [String\u0021], $platforms: [String\u0021], $sort: [String], $ids: [ID], $playableOnDesktop: Boolean) {\\n  games(\\n    pagination: {start: $start, limit: $limit}\\n    sort: $sort\\n    filters: {id: {in: $ids}, createdAt: {gte: $createdAt}, review: {rating: {gte: $editorRating}}, userReviewAverage: {gte: $userRating}, gameChains: {slug: {in: $chains}}, status: {slug: {in: $status}}, freeToPlay: {eq: $freeToPlay}, playableOnDesktop: {eq: $playableOnDesktop}, genres: {slug: {in: $genres}}, platforms: {platform: {slug: {in: $platforms}}}, or: [{tokens: {symbol: {containsi: $keywords}}}, {name: {containsi: $keywords}}, {shortDescription: {containsi: $keywords}}]}\\n  ) {\\n    meta {\\n      pagination {\\n        total\\n        page\\n        pageCount\\n        __typename\\n      }\\n      __typename\\n    }\\n    data {\\n      ...GameAttributes\\n      __typename\\n    }\\n    __typename\\n  }\\n}\\n\\nfragment GameAttributes on GameEntity {\\n  id\\n  attributes {\\n    name\\n    slug\\n    shortDescription\\n    playableOnDesktop\\n    cover {\\n      data {\\n        ...ImageAttributes\\n        __typename\\n      }\\n      __typename\\n    }\\n    logo {\\n      data {\\n        ...ImageAttributes\\n        __typename\\n      }\\n      __typename\\n    }\\n    status {\\n      data {\\n        attributes {\\n          slug\\n          label\\n          icon\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    releaseDate\\n    createdAt\\n    platforms {\\n      id\\n      platform {\\n        data {\\n          id\\n          attributes {\\n            label\\n            slug\\n            icon\\n            __typename\\n          }\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    cloudGamingRegions {\\n      id\\n      __typename\\n    }\\n    cta {\\n      label\\n      url\\n      __typename\\n    }\\n    review {\\n      data {\\n        attributes {\\n          rating\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    genres {\\n      data {\\n        attributes {\\n          label\\n          slug\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    tokens {\\n      id\\n      symbol\\n      icon {\\n        data {\\n          ...ImageAttributes\\n          __typename\\n        }\\n        __typename\\n      }\\n      __typename\\n    }\\n    __typename\\n  }\\n  __typename\\n}\\n\\nfragment ImageAttributes on UploadFileEntity {\\n  id\\n  attributes {\\n    name\\n    alternativeText\\n    width\\n    height\\n    url\\n    placeholder\\n    __typename\\n  }\\n  __typename\\n}\\n"}'
+  ```
