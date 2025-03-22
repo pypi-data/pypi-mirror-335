@@ -1,0 +1,251 @@
+- project-template:
+    name: neutron-tempest-plugin-jobs
+    check:
+      jobs:
+        - neutron-tempest-plugin-openvswitch
+        - neutron-tempest-plugin-ovn
+        - neutron-tempest-plugin-designate-scenario
+        - neutron-tempest-plugin-openvswitch-ubuntu-jammy:
+            # TODO(ralonsoh): LP#2101857
+              voting: false
+        - neutron-tempest-plugin-ovn-ubuntu-jammy:
+            # TODO(ralonsoh): LP#2101857
+            voting: false
+    gate:
+      jobs:
+        - neutron-tempest-plugin-openvswitch
+        - neutron-tempest-plugin-ovn
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario
+        - neutron-tempest-plugin-openvswitch-distributed-dhcp
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-distributed-dhcp
+        - neutron-tempest-plugin-ovn-enforce-scope-old-defaults
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid
+    periodic:
+      jobs:
+        - neutron-tempest-plugin-ovn-enforce-scope-old-defaults
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid
+
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-victoria
+    check:
+      jobs:
+        - neutron-tempest-plugin-api-victoria
+        - neutron-tempest-plugin-scenario-linuxbridge-victoria
+        - neutron-tempest-plugin-scenario-openvswitch-victoria
+        - neutron-tempest-plugin-scenario-openvswitch-iptables_hybrid-victoria
+        - neutron-tempest-plugin-scenario-ovn-victoria
+        - neutron-tempest-plugin-designate-scenario-victoria
+    gate:
+      jobs:
+        - neutron-tempest-plugin-api-victoria
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-victoria
+
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-wallaby
+    check:
+      jobs:
+        - neutron-tempest-plugin-api-wallaby
+        - neutron-tempest-plugin-scenario-linuxbridge-wallaby
+        - neutron-tempest-plugin-scenario-openvswitch-wallaby
+        - neutron-tempest-plugin-scenario-openvswitch-iptables_hybrid-wallaby
+        - neutron-tempest-plugin-scenario-ovn-wallaby
+        - neutron-tempest-plugin-designate-scenario-wallaby
+    gate:
+      jobs:
+        - neutron-tempest-plugin-api-wallaby
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-wallaby
+
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-xena
+    check:
+      jobs:
+        - neutron-tempest-plugin-api-xena
+        - neutron-tempest-plugin-scenario-linuxbridge-xena
+        - neutron-tempest-plugin-scenario-openvswitch-xena
+        - neutron-tempest-plugin-scenario-openvswitch-iptables_hybrid-xena
+        - neutron-tempest-plugin-scenario-ovn-xena
+        - neutron-tempest-plugin-designate-scenario-xena
+    gate:
+      jobs:
+        - neutron-tempest-plugin-api-xena
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-xena
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-yoga
+    check:
+      jobs:
+        - neutron-tempest-plugin-api-yoga
+        - neutron-tempest-plugin-scenario-linuxbridge-yoga
+        - neutron-tempest-plugin-scenario-openvswitch-yoga
+        - neutron-tempest-plugin-scenario-openvswitch-iptables_hybrid-yoga
+        - neutron-tempest-plugin-scenario-ovn-yoga
+        - neutron-tempest-plugin-designate-scenario-yoga
+    gate:
+      jobs:
+        - neutron-tempest-plugin-api-yoga
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-yoga
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-zed
+    check:
+      jobs:
+        - neutron-tempest-plugin-linuxbridge-zed
+        - neutron-tempest-plugin-openvswitch-zed
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-zed
+        - neutron-tempest-plugin-ovn-zed
+        - neutron-tempest-plugin-designate-scenario-zed
+    gate:
+      jobs:
+        - neutron-tempest-plugin-ovn-zed
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-zed
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-2023-1
+    check:
+      jobs:
+        - neutron-tempest-plugin-linuxbridge-2023-1
+        - neutron-tempest-plugin-openvswitch-2023-1
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-2023-1
+        - neutron-tempest-plugin-ovn-2023-1
+        - neutron-tempest-plugin-designate-scenario-2023-1
+    gate:
+      jobs:
+        - neutron-tempest-plugin-ovn-2023-1
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-dvr-multinode-scenario-2023-1
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-2023-2
+    check:
+      jobs:
+        - neutron-tempest-plugin-openvswitch-2023-2
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-2023-2
+        - neutron-tempest-plugin-ovn-2023-2
+        - neutron-tempest-plugin-designate-scenario-2023-2
+    gate:
+      jobs:
+        - neutron-tempest-plugin-ovn-2023-2
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-linuxbridge-2023-2
+        - neutron-tempest-plugin-dvr-multinode-scenario-2023-2
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-2024-1
+    check:
+      jobs:
+        - neutron-tempest-plugin-openvswitch-2024-1
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-2024-1
+        - neutron-tempest-plugin-ovn-2024-1
+        - neutron-tempest-plugin-designate-scenario-2024-1
+    gate:
+      jobs:
+        - neutron-tempest-plugin-ovn-2024-1
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-linuxbridge-2024-1
+        - neutron-tempest-plugin-dvr-multinode-scenario-2024-1
+
+- project-template:
+    name: neutron-tempest-plugin-jobs-2024-2
+    check:
+      jobs:
+        - neutron-tempest-plugin-openvswitch-2024-2
+        - neutron-tempest-plugin-openvswitch-iptables_hybrid-2024-2
+        - neutron-tempest-plugin-ovn-2024-2
+        - neutron-tempest-plugin-designate-scenario-2024-2
+    gate:
+      jobs:
+        - neutron-tempest-plugin-ovn-2024-2
+    #TODO(slaweq): Move neutron-tempest-plugin-dvr-multinode-scenario out of
+    #              the experimental queue when it will be more stable
+    experimental:
+      jobs:
+        - neutron-tempest-plugin-linuxbridge-2024-2
+        - neutron-tempest-plugin-dvr-multinode-scenario-2024-2
+
+- project:
+    templates:
+      - build-openstack-docs-pti
+      - neutron-tempest-plugin-jobs
+      - neutron-tempest-plugin-jobs-2023-2
+      - neutron-tempest-plugin-jobs-2024-1
+      - neutron-tempest-plugin-jobs-2024-2
+      - check-requirements
+      - tempest-plugin-jobs
+      - release-notes-jobs-python3
+    check:
+      jobs:
+        - neutron-tempest-plugin-sfc
+        - neutron-tempest-plugin-sfc-2023-2
+        - neutron-tempest-plugin-sfc-2024-1
+        - neutron-tempest-plugin-sfc-2024-2
+        - neutron-tempest-plugin-bgpvpn-bagpipe
+        - neutron-tempest-plugin-bgpvpn-bagpipe-2023-2
+        - neutron-tempest-plugin-bgpvpn-bagpipe-2024-1
+        - neutron-tempest-plugin-bgpvpn-bagpipe-2024-2
+        - neutron-tempest-plugin-dynamic-routing:
+            # TODO(ralonsoh): this job is temporarily disabled; it will be
+            # restored once [1] is merged. This patch has been successfully
+            # tested in [2]. This job is removed from the gate queue,
+            # thus **remember to restore it in this queue too**.
+            # [1]https://review.opendev.org/c/openstack/neutron/+/941202
+            # [2]https://review.opendev.org/c/openstack/neutron-tempest-plugin/+/940906
+            voting: false
+        - neutron-tempest-plugin-dynamic-routing-2023-2
+        - neutron-tempest-plugin-dynamic-routing-2024-1
+        - neutron-tempest-plugin-dynamic-routing-2024-2
+        - neutron-tempest-plugin-fwaas
+        - neutron-tempest-plugin-fwaas-2023-2
+        - neutron-tempest-plugin-fwaas-2024-1
+        - neutron-tempest-plugin-fwaas-2024-2
+        - neutron-tempest-plugin-vpnaas
+        - neutron-tempest-plugin-vpnaas-ovn
+        - neutron-tempest-plugin-vpnaas-2023-2
+        - neutron-tempest-plugin-vpnaas-2024-1
+        - neutron-tempest-plugin-vpnaas-2024-2
+        - neutron-tempest-plugin-tap-as-a-service
+        - neutron-tempest-plugin-tap-as-a-service-2023-2
+        - neutron-tempest-plugin-tap-as-a-service-2024-1
+        - neutron-tempest-plugin-tap-as-a-service-2024-2
+
+    gate:
+      jobs:
+        - neutron-tempest-plugin-sfc
+        - neutron-tempest-plugin-bgpvpn-bagpipe
+        - neutron-tempest-plugin-fwaas
+        - neutron-tempest-plugin-vpnaas-ovn
