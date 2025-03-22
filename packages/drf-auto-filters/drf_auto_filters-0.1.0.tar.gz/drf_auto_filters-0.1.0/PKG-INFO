@@ -1,0 +1,195 @@
+Metadata-Version: 2.1
+Name: drf-auto-filters
+Version: 0.1.0
+Summary: Automatic filter generation for Django Rest Framework based on model field types
+Author: Victoire HABAMUNGU
+Author-email: htvictoire@gmail.com
+License: MIT
+Project-URL: Documentation, https://github.com/htvictoire/drf-auto-filters
+Project-URL: Source, https://github.com/htvictoire/drf-auto-filters
+Project-URL: Tracker, https://github.com/htvictoire/drf-auto-filters/issues
+Classifier: Development Status :: 4 - Beta
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 3.2
+Classifier: Framework :: Django :: 4.0
+Classifier: Framework :: Django :: 4.1
+Classifier: Framework :: Django :: 4.2
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Internet :: WWW/HTTP
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django>=3.2
+Requires-Dist: djangorestframework>=3.12.0
+Requires-Dist: django-filter>=22.1
+Requires-Dist: drf-yasg>=1.20.0
+
+# DRF Auto Filters
+
+[![PyPI version](https://badge.fury.io/py/drf-auto-filters.svg)](https://badge.fury.io/py/drf-auto-filters)
+[![Tests](https://github.com/htvictoire/drf-auto-filters/workflows/Tests/badge.svg)](https://github.com/htvictoire/drf-auto-filters/actions?query=workflow%3ATests)
+[![codecov](https://codecov.io/gh/htvictoire/drf-auto-filters/branch/main/graph/badge.svg)](https://codecov.io/gh/htvictoire/drf-auto-filters)
+[![Python Versions](https://img.shields.io/pypi/pyversions/drf-auto-filters.svg)](https://pypi.python.org/pypi/drf-auto-filters/)
+[![Django Versions](https://img.shields.io/pypi/frameworkversions/django/drf-auto-filters)](https://pypi.python.org/pypi/drf-auto-filters/)
+
+## Overview
+
+DRF Auto Filters automatically generates and Integrate your swagger docs UI intelligent filter sets for Django REST Framework based on your model field types eliminating the need to manually create filter classes for each model.
+
+## Features
+
+- **Automatic Filter Generation**: Creates appropriate filters for each model field type without any manual configuration
+- **Field-Type Specific Filters**:
+  - Text fields: exact, case-insensitive, contains, starts with, ends with
+  - Numeric fields: exact, min, max
+  - Date/DateTime fields: exact, before, after
+  - Boolean fields: true/false
+  - Foreign keys: ID-based filtering
+  - Many-to-Many relationships: contains filtering
+- **DRF Integration**: Seamlessly works with Django REST Framework's filter backend system
+- **Swagger Documentation**: Automatic API documentation with drf-yasg integration
+- **Customizable**: Easily extendable to add custom filters or modify existing ones
+
+## Installation
+
+```bash
+pip install drf-auto-filters
+```
+
+Add to your `INSTALLED_APPS`:
+
+```python
+INSTALLED_APPS = [
+    # ...
+    'rest_framework',
+    'django_filters',
+    'drf_auto_filters',
+    # ...
+]
+```
+
+## Quick Start
+
+Simply add the `AutoFilterBackend` to your viewset:
+
+```python
+from rest_framework import viewsets
+from drf_auto_filters import AutoFilterBackend
+from .models import Book
+from .serializers import BookSerializer
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [AutoFilterBackend]
+```
+
+That's it! Your API now supports a wide range of filters automatically and a Swagger UI Integration (drf_yasg) 
+
+## Filter Examples
+
+Given a model like:
+
+```python
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    publication_date = models.DateField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    is_bestseller = models.BooleanField(default=False)
+    genres = models.ManyToManyField(Genre)
+```
+
+Your API will automatically support these filter queries:
+
+```
+# Text filters
+/api/books/?title_exact=Django Rest Framework
+/api/books/?title_iexact=django rest framework
+/api/books/?title_contains=Django
+/api/books/?title_partial=django
+/api/books/?title_startswith=dj
+/api/books/?title_endswith=framework
+
+# Numeric filters
+/api/books/?price_exact=19.99
+/api/books/?price_min=15.00
+/api/books/?price_max=25.00
+
+# Date filters
+/api/books/?publication_date_exact=2020-01-01
+/api/books/?publication_date_after=2020-01-01
+/api/books/?publication_date_before=2020-12-31
+
+# Boolean filters
+/api/books/?is_bestseller=true
+
+# Relationship filters
+/api/books/?author_id=1
+/api/books/?genres_contains=1,2,3
+```
+
+## Limiting Fields
+
+If you want to limit which fields get filters, add a `filter_set_fields` attribute to your view:
+
+```python
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [AutoFilterBackend]
+    filter_set_fields = ['title', 'price', 'publication_date']
+```
+
+## Custom Swagger Integration
+
+DRF Auto Filters integrates with drf-yasg to automatically document your filters:
+
+```python
+from drf_auto_filters import swagger_auto_schema_with_filters
+
+class BookViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    filter_backends = [AutoFilterBackend]
+    
+    @swagger_auto_schema_with_filters()
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
+```
+
+## Documentation
+
+For more detailed documentation, see:
+
+- [Installation Guide](docs/installation.md)
+- [Usage Examples](docs/usage.md)
+- [Extending the Library](docs/extending.md)
+
+## Requirements
+
+- Python (3.8, 3.9, 3.10, 3.11)
+- Django (3.2, 4.0, 4.1, 4.2)
+- Django REST Framework (3.12+)
+- django-filter (22.1+)
+- drf-yasg (1.20+) (optional, for Swagger integration)
+
+## Running Tests
+
+```bash
+pip install tox
+tox
+```
+
+## License
+
+MIT License - see the [LICENSE](LICENSE) file for details.
