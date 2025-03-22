@@ -1,0 +1,208 @@
+Metadata-Version: 2.1
+Name: UTN_FRA
+Version: 1.0.0.8
+Summary: Set de datos con informacion para trabajos y examenes
+Home-page: https://pypi.org/project/UTN-FRA/
+Author: Facundo Falcone
+Author-email: ffalcone@fra.utn.edu.ar
+Maintainer: Facundo Falcone
+Maintainer-email: ffalcone@fra.utn.edu.ar
+Keywords: UTN_FRA,UTN-FRA
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.11
+Description-Content-Type: text/markdown
+Requires-Dist: tabulate
+Requires-Dist: setuptools
+
+<table>
+    <tr>
+        <td align='center'>
+            <img alt="Logo UTN Large" src="https://github.com/caidevOficial/Logos/blob/master/Personales/Logo_Developer.png?raw=true" href="https://www.utnfravirtual.org.ar/" width="750px"/>
+        </td>
+    </tr>
+</table></br>
+
+### Set de datos con datasets de H&eacute;roes y Pok&eacute;mones :
+
+
+## ➡️ Para ejercitar:
+
+* [H&eacute;roes](#heroes)
+    - [Listas Paralelas](#-héroes--listas-paralelas)
+    - [Matrices](#-héroes--matrices)
+    - [Lista de diccionarios](#-héroes--lista-de-diccionarios)
+* [Pok&eacute;mons](#pokémons)
+    - [Listas paralelas](#-pokémons--listas-paralelas)
+    - [Matrices](#-pokémons--matrices)
+    - [Lista de diccionarios](#-pokémons--lista-de-diccionarios)
+* [Autos](#autos)
+    - [Listas paralelas](#-autos--listas-paralelas)
+    - [Matrices](#-autos---matrices)
+
+
+<br>
+
+Te proveemos un gran set de datos, en forma de listas paralelas, matrices y listas de diccionarios para que puedas realizar tus ejercicios.
+
+Para poder usarlos importalos en tus modulos
+segun los necesites.
+
+A partir de este punto, estas en condiciones de utilizar la lista, imprimirla, recorrerla o hacer lo que se te plazca
+
+
+Esta funcion puede usarse como auxiliar.
+
+```py
+# Esta funcion mostrara por consola el mensaje: "Presiona Enter para continuar...", al presionarla limpiara tu consola sin importar si tu SO es Windows o UNIX
+clear_console()
+```
+## H&eacute;roes
+
+## ⭐ H&eacute;roes | Listas paralelas
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_alturas_heroes_small, lista_apodos_heroes_small,
+    lista_generos_heroes_small, lista_identidades_heroes_small,
+    lista_nombres_heroes_small, lista_poder_heroes_small, 
+    clear_console
+)
+```
+
+### Podes usar un set de datos mucho mas grande importando:
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_alturas_heroes, lista_apodos_heroes, lista_generos_heroes,
+    lista_identidades_heroes, lista_nombres_heroes, lista_poder_heroes, 
+    clear_console
+)
+```
+
+## ⭐⭐ H&eacute;roes | Matrices
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    matriz_data_heroes_small, clear_console
+)
+from UTN_FRA.funciones.auxiliares import show_text_as_table
+```
+
+### Podes usar un set de datos mucho mas grande importando:
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    matriz_data_heroes, clear_console
+)
+from UTN_FRA.funciones.auxiliares import show_text_as_table
+```
+
+## ⭐⭐⭐ H&eacute;roes | Lista de diccionarios
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_diccionario_heroes_small, clear_console
+)
+```
+
+### Podes usar un set de datos mucho mas grande importando:
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_diccionario_heroes, clear_console
+)
+```
+
+## ⭐⭐⭐⭐ H&eacute;roes | Lista de diccionarios
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_diccionario_heroes_hard_small, clear_console
+)
+```
+
+### Podes usar un set de datos mucho mas grande importando:
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_diccionario_heroes_hard, clear_console
+)
+```
+
+# Pok&eacute;mons
+
+## ⭐ Pok&eacute;mons | Listas paralelas
+
+```py
+from UTN_FRA.datasets import (
+    lista_poke_ids, lista_poke_nombres, lista_poke_poderes,
+    lista_poke_tipos, lista_poke_condiciones, 
+    clear_console
+)
+```
+
+## ⭐⭐ Pok&eacute;mons | Matrices
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    matriz_pokemones, clear_console
+)
+from UTN_FRA.funciones.auxiliares import show_text_as_table
+```
+
+
+## ⭐⭐⭐ Pok&eacute;mons | Lista de diccionarios
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    lista_dict_pokemones, clear_console
+)
+```
+
+# Autos
+
+## ⭐ Autos | Listas paralelas
+
+```py
+from UTN_FRA.datasets import (
+    lista_autos_marcas, 
+    lista_autos_modelos, 
+    lista_autos_cantidades,
+    lista_autos_precios, 
+    lista_autos_ganancias,
+    clear_console
+)
+```
+
+## ⭐⭐ Autos - Matrices
+
+Para poder usarlos importa en tus modulos lo siguiente
+
+```py
+from UTN_FRA.datasets import (
+    matriz_concesionaria, clear_console
+)
+from UTN_FRA.funciones.auxiliares import show_text_as_table
+```
