@@ -1,0 +1,19 @@
+[project]
+name = "jclip"
+description = "clipboard copier for pentesting"
+version = "0.1.0"
+authors = [
+    { name = "Javen Beck", email = "javensbeck@gmail.com" }
+]
+
+dependencies = [
+    "typer",
+    "typing_extensions",
+	"pyperclip"
+]
+
+[project.entry-points."pipx.run"]
+jclip = "jclip.cli:app"
+
+[project.scripts]
+jclip = "jclip.cli:app"
