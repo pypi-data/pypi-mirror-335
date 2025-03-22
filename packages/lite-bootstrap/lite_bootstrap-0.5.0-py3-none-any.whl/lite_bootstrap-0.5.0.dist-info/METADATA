@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: lite-bootstrap
+Version: 0.5.0
+Summary: Lite package for bootstrapping new microservices
+Project-URL: repository, https://github.com/modern-python/lite-bootstrap
+Author-email: Artur Shiriev <me@shiriev.ru>
+License-Expression: MIT
+Keywords: bootstrap,error-tracing,fastapi,microservice,opentelemetry,python,sentry,structlog
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries
+Classifier: Typing :: Typed
+Requires-Python: <4,>=3.10
+Provides-Extra: fastapi
+Requires-Dist: fastapi; extra == 'fastapi'
+Provides-Extra: fastapi-all
+Requires-Dist: fastapi; extra == 'fastapi-all'
+Requires-Dist: opentelemetry-api; extra == 'fastapi-all'
+Requires-Dist: opentelemetry-exporter-otlp; extra == 'fastapi-all'
+Requires-Dist: opentelemetry-instrumentation; extra == 'fastapi-all'
+Requires-Dist: opentelemetry-instrumentation-fastapi; extra == 'fastapi-all'
+Requires-Dist: opentelemetry-sdk; extra == 'fastapi-all'
+Requires-Dist: sentry-sdk; extra == 'fastapi-all'
+Requires-Dist: structlog; extra == 'fastapi-all'
+Provides-Extra: fastapi-otl
+Requires-Dist: opentelemetry-instrumentation-fastapi; extra == 'fastapi-otl'
+Provides-Extra: litestar
+Requires-Dist: litestar>=2.9; extra == 'litestar'
+Provides-Extra: litestar-all
+Requires-Dist: litestar>=2.9; extra == 'litestar-all'
+Requires-Dist: opentelemetry-api; extra == 'litestar-all'
+Requires-Dist: opentelemetry-exporter-otlp; extra == 'litestar-all'
+Requires-Dist: opentelemetry-instrumentation; extra == 'litestar-all'
+Requires-Dist: opentelemetry-instrumentation-asgi>=0.46b0; extra == 'litestar-all'
+Requires-Dist: opentelemetry-sdk; extra == 'litestar-all'
+Requires-Dist: sentry-sdk; extra == 'litestar-all'
+Requires-Dist: structlog; extra == 'litestar-all'
+Provides-Extra: litestar-otl
+Requires-Dist: opentelemetry-instrumentation-asgi>=0.46b0; extra == 'litestar-otl'
+Provides-Extra: logging
+Requires-Dist: structlog; extra == 'logging'
+Provides-Extra: otl
+Requires-Dist: opentelemetry-api; extra == 'otl'
+Requires-Dist: opentelemetry-exporter-otlp; extra == 'otl'
+Requires-Dist: opentelemetry-instrumentation; extra == 'otl'
+Requires-Dist: opentelemetry-sdk; extra == 'otl'
+Provides-Extra: sentry
+Requires-Dist: sentry-sdk; extra == 'sentry'
+Description-Content-Type: text/markdown
+
+Lite-Bootstrap
+==
+[![Test Coverage](https://codecov.io/gh/modern-python/lite-bootstrap/branch/main/graph/badge.svg)](https://codecov.io/gh/modern-python/lite-bootstrap)
+[![MyPy Strict](https://img.shields.io/badge/mypy-strict-blue)](https://mypy.readthedocs.io/en/stable/getting_started.html#strict-mode-and-configuration)
+[![Supported versions](https://img.shields.io/pypi/pyversions/lite-bootstrap.svg)](https://pypi.python.org/pypi/lite-bootstrap)
+[![downloads](https://img.shields.io/pypi/dm/lite-bootstrap.svg)](https://pypistats.org/packages/lite-bootstrap)
+[![GitHub stars](https://img.shields.io/github/stars/modern-python/lite-bootstrap)](https://github.com/modern-python/lite-bootstrap/stargazers)
+
+This package helps to build new microservices
+
+## Quickstart:
+### Installation
+
+```shell
+$ pip install lite-bootstrap
+```
