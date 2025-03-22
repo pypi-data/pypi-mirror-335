@@ -1,0 +1,113 @@
+Metadata-Version: 2.4
+Name: techrec
+Version: 2.1.0
+Summary: A radio automation based on MPD
+Author-email: boyska <piuttosto@logorroici.org>
+License: AGPL-3.0-only
+Project-URL: Homepage, https://git.lattuga.net/techbloc/techrec
+Project-URL: Repository, https://git.lattuga.net/techbloc/techrec
+Project-URL: Issues, https://git.lattuga.net/techbloc/techrec/issues
+Keywords: music
+Classifier: License :: OSI Approved :: GNU Affero General Public License v3
+Classifier: Topic :: Multimedia :: Sound/Audio
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiofiles==24.1.*
+Requires-Dist: aiohttp==3.11.*
+Requires-Dist: anyio==3.6.2
+Requires-Dist: async-timeout==4.*
+Requires-Dist: attrs==22.2.0
+Requires-Dist: chardet==3.0.4
+Requires-Dist: click==7.1.2
+Requires-Dist: fastapi==0.115.*
+Requires-Dist: h11==0.11.0
+Requires-Dist: pydantic==2.10.*
+Requires-Dist: SQLAlchemy==1.4.25
+Requires-Dist: toml==0.10.*; python_version < "3.11"
+Requires-Dist: uvicorn==0.34.0
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-asyncio; extra == "dev"
+Requires-Dist: types-setuptools; extra == "dev"
+Requires-Dist: sqlalchemy-stubs; extra == "dev"
+Requires-Dist: types-aiofiles==24.1.*; extra == "dev"
+Dynamic: license-file
+
+TechRec
+=======
+
+A Python3 web application that assist radio speakers in recording their shows.
+Meant to be simple to install and to maintain.
+
+It basically takes a directory with the continuous recording and create new
+files "cutting/pasting" with ffmpeg.
+
+Features
+=========
+
+* little system dependencies: python3 and ffmpeg
+* The interface is extremely simple to use
+* Supports nested recording (ie: to record an interview inside of a whole
+  show)
+* There is no user system: any user opening the website will see the complete
+  status of the applications. There is, also, nothing stored in cookie or
+  similar mechanisms. This means that recording a session does not require a
+  browser to remain open, or any kind of persistence client-side: server-side
+  does it all. It also means that authorization must be done on another layer
+  (for example, your webserver could add a Basic Auth)
+
+How does it work
+================
+
+We suppose that you have a continous recording of your radio broadcasting.
+What techrec does is taking files from this directory and "cutting/pasting"
+parts of them. This can boil down to something like
+
+```sh
+ffmpeg -i concat:2014-20-01-00-00.mp3|2014-20-01-00-01.mp3 -acodec copy -ss 160 -t 1840 foo.mp3
+```
+
+This continous recording needs to be configured so that:
+ - It can be split in multiple directories, but the granularity of this must be below one directory per day.
+ - The filename must be fully informative, without looking at the parent directories.
+
+How to run
+===========
+
+```sh
+pip install .
+env TECHREC_CONFIG=yourconfig.toml techrec serve
+```
+
+
+Implementation details
+======================
+
+It is based on [fastapi](https://fastapi.tiangolo.com/), a really nice
+framework. Simple APIs are offered through it, and the static site uses them
+through JS.
+
+Jobs are not dispatched using stuff like celery, but just using
+[`BackgroundTasks`](https://fastapi.tiangolo.com/tutorial/background-tasks/),
+in order to keep the installation as simple as possible.
+
+The encoding part is delegated to `ffmpeg`, but the code is really modular so
+changing this is a breeze. To be quicker and avoid the quality issues related
+to reencoding, the codec "copy" is used: this means that input and output must
+have the same format.
+
+testing
+-----------
+
+```
+gitlab-runner exec docker test
+```
+
+(or, `pytest-3`, assuming you have a properly configured system)
+
+screenshots
+--------------
+
+See screenshots at
+[https://boyska.degenerazione.xyz/proj/techrec/](https://boyska.degenerazione.xyz/proj/techrec/)
