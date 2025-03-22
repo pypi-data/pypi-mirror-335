@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "universalizer"
+version = "0.0.12"
+description = "Provides functions for knowledge graph cleanup and identifier normalization."
+authors = ["caufieldjh <j.harry.caufield@gmail.com>"]
+license = "BSD-3"
+readme = "README.md"
+keywords = ["kg-hub", "knowledgegraphs", "ontology"]
+repository = "https://github.com/Knowledge-Graph-Hub/universalizer"
+include = [
+    "LICENSE",
+]
+classifiers = [
+    "Environment :: Console",
+    "Intended Audience :: Science/Research"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+click = "^8.1.3"
+kgx = ">=2.0.0"
+oaklib = ">=0.5.10"
+prefixmaps = ">=0.2.5"
+
+[tool.poetry.scripts]
+universalizer = "universalizer.cli:cli"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
