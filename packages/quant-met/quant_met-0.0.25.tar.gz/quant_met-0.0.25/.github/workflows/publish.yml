@@ -1,0 +1,28 @@
+# SPDX-FileCopyrightText: 2024 Tjark Sievers
+#
+# SPDX-License-Identifier: MIT
+
+name: Publish python package
+
+on:
+  push:
+    tags:
+      - "*.*.*"
+
+permissions:
+  pull-requests: write
+
+jobs:
+  tests:
+    uses: ./.github/workflows/integration_tests.yml
+  build:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+      - name: Build and publish to pypi
+        run: uv build && uv publish

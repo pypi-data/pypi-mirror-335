@@ -1,0 +1,40 @@
+# SPDX-FileCopyrightText: 2024 Tjark Sievers
+#
+# SPDX-License-Identifier: MIT
+
+name: Unit tests, linting and type checking
+
+on:
+  workflow_call:
+  pull_request:
+  push:
+    branches:
+      - 'main'
+
+permissions:
+  pull-requests: write
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          activate-environment: quant-met-dev
+          environment-file: environment.yml
+          python-version: 3.12
+          auto-activate-base: false
+      - run: git clone https://github.com/krivenko/edipack2triqs.git && cd edipack2triqs && pip install .
+      - run: pip install .
+      - name: Run test suite
+        run: tox -- --without-slow-integration
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
