@@ -1,0 +1,3 @@
+"""
+Resources for the Editor
+"""
