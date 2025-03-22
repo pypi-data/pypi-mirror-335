@@ -1,0 +1,49 @@
+{
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Invalid config entry provided. Got {config_entry}"
+        },
+        "unloaded_config_entry": {
+            "message": "Invalid config entry provided. {config_entry} is not loaded."
+        }
+    },
+    "services": {
+        "get_energy_return_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "The configuration entry to use for this action.",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "get_energy_usage_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "The configuration entry to use for this action.",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "get_gas_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "The configuration entry to use for this action.",
+                    "name": "Config entry"
+                },
+                "end": {
+                    "description": "Specifies the date and time until which to retrieve prices. Defaults to today if omitted.",
+                    "name": "End"
+                },
+                "incl_vat": {
+                    "description": "Whether the prices should include VAT.",
+                    "name": "VAT included"
+                },
+                "start": {
+                    "description": "Specifies the date and time from which to retrieve prices. Defaults to today if omitted.",
+                    "name": "Start"
+                }
+            },
+            "name": "Get gas prices"
+        }
+    }
+}

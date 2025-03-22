@@ -1,0 +1,31 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "error": {
+            "unique_id_exists": "Another config entry with this username already exist"
+        }
+    },
+    "entity": {
+        "select": {
+            "volume": {
+                "name": "Volume",
+                "state": {
+                    "high": "High",
+                    "low": "Low"
+                }
+            }
+        },
+        "switch": {
+            "autolock": {
+                "name": "Autolock"
+            }
+        }
+    },
+    "exceptions": {
+        "could_not_trigger_panic": {
+            "message": "Could not trigger panic button for entity ID {entity_id}: {error}"
+        }
+    }
+}

@@ -1,0 +1,252 @@
+{
+    "config": {
+        "step": {
+            "reauth_confirm": {
+                "data_description": {
+                    "client_id": "The ID of the API client created in the Viessmann developer portal.",
+                    "password": "The password to login to your ViCare account."
+                }
+            },
+            "user": {
+                "data_description": {
+                    "client_id": "The ID of the API client created in the Viessmann developer portal.",
+                    "heating_type": "Allows to overrule the device auto detection.",
+                    "password": "The password to login to your ViCare account.",
+                    "username": "The email address to login to your ViCare account."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "one_time_charge": {
+                "name": "One-time charge"
+            }
+        },
+        "fan": {
+            "ventilation": {
+                "name": "Ventilation",
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "permanent": "Permanent",
+                            "sensor_driven": "Sensor-driven",
+                            "sensor_override": "Schedule with sensor-override",
+                            "standard": "Minimal",
+                            "ventilation": "Schedule"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "comfort_cooling_temperature": {
+                "name": "Comfort cooling temperature"
+            },
+            "comfort_heating_temperature": {
+                "name": "Comfort heating temperature"
+            },
+            "dhw_hysteresis_switch_off": {
+                "name": "DHW hysteresis switch off"
+            },
+            "dhw_hysteresis_switch_on": {
+                "name": "DHW hysteresis switch on"
+            },
+            "dhw_secondary_temperature": {
+                "name": "DHW secondary temperature"
+            },
+            "dhw_temperature": {
+                "name": "DHW temperature"
+            },
+            "normal_cooling_temperature": {
+                "name": "Normal cooling temperature"
+            },
+            "normal_heating_temperature": {
+                "name": "Normal heating temperature"
+            },
+            "reduced_cooling_temperature": {
+                "name": "Reduced cooling temperature"
+            },
+            "reduced_heating_temperature": {
+                "name": "Reduced heating temperature"
+            }
+        },
+        "sensor": {
+            "buffer_bottom_temperature": {
+                "name": "Buffer bottom temperature"
+            },
+            "buffer_mid_bottom_temperature": {
+                "name": "Buffer mid bottom temperature"
+            },
+            "buffer_mid_top_temperature": {
+                "name": "Buffer mid top temperature"
+            },
+            "buffer_middle_temperature": {
+                "name": "Buffer middle temperature"
+            },
+            "dhw_storage_bottom_temperature": {
+                "name": "DHW storage bottom temperature"
+            },
+            "dhw_storage_temperature": {
+                "name": "DHW storage temperature"
+            },
+            "dhw_storage_top_temperature": {
+                "name": "DHW storage top temperature"
+            },
+            "energy_consumption_cooling_this_month": {
+                "name": "Cooling electricity consumption this month"
+            },
+            "energy_consumption_cooling_this_year": {
+                "name": "Cooling electricity consumption this year"
+            },
+            "energy_consumption_cooling_today": {
+                "name": "Cooling electricity consumption today"
+            },
+            "ess_discharge_this_month": {
+                "name": "Battery discharge this month"
+            },
+            "ess_discharge_this_week": {
+                "name": "Battery discharge this week"
+            },
+            "ess_discharge_this_year": {
+                "name": "Battery discharge this year"
+            },
+            "ess_discharge_today": {
+                "name": "Battery discharge today"
+            },
+            "ess_discharge_total": {
+                "name": "Battery discharge total"
+            },
+            "ess_power_current": {
+                "name": "Battery power"
+            },
+            "ess_state": {
+                "name": "Battery state",
+                "state": {
+                    "charge": "Charging",
+                    "discharge": "Discharging",
+                    "standby": "Standby"
+                }
+            },
+            "fuel_need": {
+                "name": "Fuel need"
+            },
+            "gas_consumption_fuelcell_this_month": {
+                "name": "Fuel cell gas consumption this month"
+            },
+            "gas_consumption_fuelcell_this_week": {
+                "name": "Fuel cell gas consumption this week"
+            },
+            "gas_consumption_fuelcell_this_year": {
+                "name": "Fuel cell gas consumption this year"
+            },
+            "gas_consumption_fuelcell_today": {
+                "name": "Fuel cell gas consumption today"
+            },
+            "gas_consumption_total_this_month": {
+                "name": "Gas consumption this month"
+            },
+            "gas_consumption_total_this_week": {
+                "name": "Gas consumption this week"
+            },
+            "gas_consumption_total_this_year": {
+                "name": "Gas consumption this year"
+            },
+            "gas_consumption_total_today": {
+                "name": "Gas consumption today"
+            },
+            "heating_rod_hours": {
+                "name": "Heating rod hours"
+            },
+            "heating_rod_starts": {
+                "name": "Heating rod starts"
+            },
+            "pcc_energy_consumption": {
+                "name": "Energy import from grid"
+            },
+            "pcc_energy_feed_in": {
+                "name": "Energy export to grid"
+            },
+            "pcc_transfer_power_exchange": {
+                "name": "Power exchange with grid"
+            },
+            "photovoltaic_energy_production_this_month": {
+                "name": "PV energy production this month"
+            },
+            "photovoltaic_energy_production_this_week": {
+                "name": "PV energy production this week"
+            },
+            "photovoltaic_energy_production_this_year": {
+                "name": "PV energy production this year"
+            },
+            "photovoltaic_energy_production_today": {
+                "name": "PV energy production today"
+            },
+            "photovoltaic_energy_production_total": {
+                "name": "PV energy production total"
+            },
+            "photovoltaic_power_production_current": {
+                "name": "PV power"
+            },
+            "photovoltaic_status": {
+                "name": "PV state",
+                "state": {
+                    "production": "Producing",
+                    "ready": "Standby"
+                }
+            },
+            "spf_dhw": {
+                "name": "Seasonal performance factor \u2014 domestic hot water"
+            },
+            "spf_heating": {
+                "name": "Seasonal performance factor \u2014 heating"
+            },
+            "spf_total": {
+                "name": "Seasonal performance factor"
+            },
+            "supply_pressure": {
+                "name": "Supply pressure"
+            },
+            "ventilation_level": {
+                "name": "Ventilation level",
+                "state": {
+                    "levelfour": "4",
+                    "levelone": "1",
+                    "levelthree": "3",
+                    "leveltwo": "2"
+                }
+            },
+            "ventilation_reason": {
+                "name": "Ventilation reason",
+                "state": {
+                    "forcedlevelfour": "Boost",
+                    "permanent": "Permanent",
+                    "schedule": "Schedule",
+                    "sensordriven": "Sensor-driven",
+                    "silent": "Silent"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "program_not_activated": {
+            "message": "Unable to activate ViCare programme {program}"
+        },
+        "program_not_deactivated": {
+            "message": "Unable to deactivate ViCare programme {program}"
+        },
+        "program_unknown": {
+            "message": "Cannot translate preset {preset} into a valid ViCare programme"
+        }
+    },
+    "services": {
+        "set_vicare_mode": {
+            "fields": {
+                "vicare_mode": {
+                    "name": "ViCare mode"
+                }
+            },
+            "name": "Set ViCare mode"
+        }
+    }
+}

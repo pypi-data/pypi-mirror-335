@@ -1,0 +1,37 @@
+{
+    "config": {
+        "step": {
+            "credentials": {
+                "description": "Found a Switcher device that requires a token\nEnter your username and token\nFor more information see https://www.home-assistant.io/integrations/switcher_kis/#prerequisites"
+            },
+            "reauth_confirm": {
+                "description": "Found a Switcher device that requires a token\nEnter your username and token\nFor more information see https://www.home-assistant.io/integrations/switcher_kis/#prerequisites"
+            }
+        }
+    },
+    "entity": {
+        "cover": {
+            "cover": {
+                "name": "Cover {cover_id}"
+            }
+        },
+        "light": {
+            "light": {
+                "name": "Light {light_id}"
+            }
+        },
+        "sensor": {
+            "temperature": {
+                "name": "Current temperature"
+            }
+        },
+        "switch": {
+            "child_lock": {
+                "name": "Child lock"
+            },
+            "multi_child_lock": {
+                "name": "Child lock {cover_id}"
+            }
+        }
+    }
+}

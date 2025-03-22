@@ -1,0 +1,71 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "path": "The RPC request target path. E.g. `/transmission/rpc`"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "active_torrents": {
+                "name": "Active torrents",
+                "unit_of_measurement": "torrents"
+            },
+            "completed_torrents": {
+                "name": "Completed torrents",
+                "unit_of_measurement": "torrents"
+            },
+            "download_speed": {
+                "name": "Download speed"
+            },
+            "paused_torrents": {
+                "name": "Paused torrents",
+                "unit_of_measurement": "torrents"
+            },
+            "started_torrents": {
+                "name": "Started torrents",
+                "unit_of_measurement": "torrents"
+            },
+            "total_torrents": {
+                "name": "Total torrents",
+                "unit_of_measurement": "torrents"
+            },
+            "transmission_status": {
+                "name": "Status"
+            },
+            "upload_speed": {
+                "name": "Upload speed"
+            }
+        }
+    },
+    "services": {
+        "add_torrent": {
+            "fields": {
+                "download_path": {
+                    "description": "Optional path to specify where the torrent should be downloaded. If not specified, the default download directory is used.",
+                    "name": "Download path"
+                }
+            }
+        },
+        "start_torrent": {
+            "fields": {
+                "id": {
+                    "name": "ID"
+                }
+            },
+            "name": "Start torrent"
+        },
+        "stop_torrent": {
+            "description": "Stops a torrent.",
+            "fields": {
+                "id": {
+                    "name": "ID"
+                }
+            },
+            "name": "Stop torrent"
+        }
+    }
+}

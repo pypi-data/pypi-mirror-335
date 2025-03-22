@@ -1,0 +1,304 @@
+{
+    "config": {
+        "abort": {
+            "addon_connection_failed": "Det gick inte att ansluta till till\u00e4gget {addon}. Kontrollera till\u00e4ggets status och f\u00f6rs\u00f6k igen senare.",
+            "addon_info_failed": "Det gick inte att h\u00e4mta information om till\u00e4gget {addon}.",
+            "addon_install_failed": "Det gick inte att installera till\u00e4gget {addon}.",
+            "addon_start_failed": "Det gick inte att starta till\u00e4gget {addon}.",
+            "already_configured": "Tj\u00e4nsten \u00e4r redan konfigurerad",
+            "reauth_successful": "\u00c5terautentisering lyckades",
+            "reconfigure_successful": "Omkonfigureringen lyckades",
+            "single_instance_allowed": "Redan konfigurerad. Endast en konfiguration m\u00f6jlig."
+        },
+        "error": {
+            "bad_birth": "Ogiltigt f\u00f6delse\u00e4mne",
+            "bad_certificate": "CA-certifikatet \u00e4r ogiltigt",
+            "bad_client_cert": "Ogiltigt klientcertifikat, se till att en giltig fil tillhandah\u00e5lls",
+            "bad_client_cert_key": "Klientcertifikatet och den privata nyckeln \u00e4r inte ett giltigt par",
+            "bad_client_key": "Ogiltig privat nyckel, se till att en PEM-kodad fil tillhandah\u00e5lls utan l\u00f6senord",
+            "bad_discovery_prefix": "Ogiltigt uppt\u00e4cktsprefix",
+            "bad_will": "Ogiltigt testamentes\u00e4mne",
+            "bad_ws_headers": "Ange giltiga HTTP-headers som ett JSON-objekt",
+            "cannot_connect": "Det gick inte att ansluta",
+            "invalid_auth": "Ogiltig autentisering",
+            "invalid_inclusion": "Klientcertifikatet och den privata nyckeln m\u00e5ste konfigureras tillsammans"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Avancerade alternativ",
+                    "broker": "Broker",
+                    "certificate": "Ladda upp anpassad CA-certifikatfil",
+                    "client_cert": "Ladda upp klientcertifikatfil",
+                    "client_id": "Klient-ID (l\u00e5t det vara tomt f\u00f6r att skapa ett slumpm\u00e4ssigt genererat ID)",
+                    "client_key": "Ladda upp privat nyckelfil",
+                    "keepalive": "Tiden mellan att skicka keep alive-meddelanden",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "protocol": "MQTT-protokoll",
+                    "set_ca_cert": "Validering av broker-certifikat",
+                    "set_client_cert": "Anv\u00e4nd ett klientcertifikat",
+                    "tls_insecure": "Ignorera validering av broker-certifikat",
+                    "transport": "MQTT-transport",
+                    "username": "Anv\u00e4ndarnamn",
+                    "ws_headers": "WebSocket-headers i JSON-format",
+                    "ws_path": "WebSocket-s\u00f6kv\u00e4g"
+                },
+                "data_description": {
+                    "advanced_options": "Aktivera och v\u00e4lj **N\u00e4sta** f\u00f6r att st\u00e4lla in avancerade alternativ.",
+                    "broker": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din MQTT-broker.",
+                    "certificate": "Den anpassade CA-certifikatfilen f\u00f6r att validera din MQTT-brokers certifikat.",
+                    "client_cert": "Klientcertifikatet f\u00f6r att autentisera mot din MQTT-broker.",
+                    "client_id": "Det unika ID:t f\u00f6r att identifiera Home Assistant MQTT-API:et som MQTT-klient. Vi rekommenderar att du l\u00e4mnar detta alternativ tomt.",
+                    "client_key": "Den privata nyckelfil som h\u00f6r till ditt klientcertifikat.",
+                    "keepalive": "Ett v\u00e4rde mindre \u00e4n 90 sekunder rekommenderas.",
+                    "password": "L\u00f6senordet f\u00f6r att logga in p\u00e5 din MQTT-broker.",
+                    "port": "Den port som din MQTT-broker lyssnar p\u00e5. Till exempel 1883.",
+                    "protocol": "Det MQTT-protokoll som din broker arbetar med. Till exempel 3.1.1.",
+                    "set_ca_cert": "V\u00e4lj **Auto** f\u00f6r automatisk CA-validering, eller **Anpassad** och v\u00e4lj **N\u00e4sta** f\u00f6r att ange ett anpassat CA-certifikat, f\u00f6r att m\u00f6jligg\u00f6ra validering av din MQTT-brokers certifikat.",
+                    "set_client_cert": "Aktivera och v\u00e4lj **N\u00e4sta** f\u00f6r att ange ett klientcertifikat och en privat nyckel f\u00f6r att autentisera mot din MQTT-broker.",
+                    "tls_insecure": "Alternativ f\u00f6r att ignorera validering av din MQTT-brokers certifikat.",
+                    "transport": "Den transport som ska anv\u00e4ndas f\u00f6r anslutningen till din MQTT-broker.",
+                    "username": "Anv\u00e4ndarnamnet f\u00f6r att logga in p\u00e5 din MQTT-broker.",
+                    "ws_headers": "De WebSocket-headers som ska skickas genom den WebSocket-baserade anslutningen till din MQTT-broker.",
+                    "ws_path": "WebSocket-s\u00f6kv\u00e4gen som ska anv\u00e4ndas f\u00f6r anslutningen till din MQTT-broker."
+                },
+                "description": "V\u00e4nligen ange anslutningsinformationen f\u00f6r din MQTT-broker."
+            },
+            "hassio_confirm": {
+                "description": "Vill du konfigurera Home Assistant att ansluta till den MQTT-broker som tillhandah\u00e5lls av till\u00e4gget {addon}?",
+                "title": "MQTT-broker via Home Assistant-till\u00e4gg"
+            },
+            "install_addon": {
+                "title": "Installerar till\u00e4gg"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "password": "L\u00f6senord",
+                    "username": "Anv\u00e4ndarnamn"
+                },
+                "data_description": {
+                    "password": "L\u00f6senordet f\u00f6r att logga in p\u00e5 din MQTT-broker.",
+                    "username": "Anv\u00e4ndarnamnet f\u00f6r att logga in p\u00e5 din MQTT-broker."
+                },
+                "description": "MQTT-brokern rapporterade ett autentiseringsfel. Bekr\u00e4fta brokerns korrekta anv\u00e4ndarnamn och l\u00f6senord.",
+                "title": "\u00c5terautentisering med MQTT-brokern kr\u00e4vs"
+            },
+            "start_addon": {
+                "title": "Startar till\u00e4gg"
+            },
+            "user": {
+                "description": "V\u00e4lj hur du vill ansluta till MQTT-brokern:",
+                "menu_options": {
+                    "addon": "Anv\u00e4nd det officiella till\u00e4gget {addon}.",
+                    "broker": "Ange anslutningsuppgifterna f\u00f6r MQTT-brokern manuellt"
+                }
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_subtype": {
+            "button_1": "F\u00f6rsta knappen",
+            "button_2": "Andra knappen",
+            "button_3": "Tredje knappen",
+            "button_4": "Fj\u00e4rde knappen",
+            "button_5": "Femte knappen",
+            "button_6": "Sj\u00e4tte knappen",
+            "turn_off": "St\u00e4ng av",
+            "turn_on": "Sl\u00e5 p\u00e5"
+        },
+        "trigger_type": {
+            "button_double_press": "\u201d{subtype}\u201d dubbelklickad",
+            "button_long_press": "\u201d{subtype}\u201d kontinuerligt tryckt",
+            "button_long_release": "\u201d{subtype}\u201d sl\u00e4ppt efter l\u00e5ng tryckning",
+            "button_quadruple_press": "\u201d{subtype}\u201d fyrdubbelt klickad",
+            "button_quintuple_press": "\u201d{subtype}\u201d femfaldigt klickad",
+            "button_short_press": "\u201d{subtype}\u201d tryckt",
+            "button_short_release": "\u201d{subtype}\u201d sl\u00e4ppt",
+            "button_triple_press": "\u201d{subtype}\u201d trippelklickad"
+        }
+    },
+    "exceptions": {
+        "addon_start_failed": {
+            "message": "Det gick inte att starta till\u00e4gget {addon} p\u00e5 r\u00e4tt s\u00e4tt."
+        },
+        "command_template_error": {
+            "message": "Tolkning av mall `{command_template}` f\u00f6r entitet `{entity_id}` misslyckades med fel: {error}."
+        },
+        "invalid_platform_config": {
+            "message": "Omladdning av YAML-konfiguration f\u00f6r manuellt konfigurerade MQTT-`{domain}`-objekt misslyckades. Se loggar f\u00f6r mer information."
+        },
+        "invalid_publish_topic": {
+            "message": "Kan inte publicera: \u00e4mnesmallen `{topic_template}` producerade ett ogiltigt \u00e4mne `{topic}` efter rendering ({error})"
+        },
+        "mqtt_broker_error": {
+            "message": "Det gick inte att prata med MQTT: {error_message}."
+        },
+        "mqtt_not_setup_cannot_publish": {
+            "message": "Kan inte publicera till \u00e4mne \"{topic}\", kontrollera att MQTT \u00e4r korrekt konfigurerat."
+        },
+        "mqtt_not_setup_cannot_subscribe": {
+            "message": "Kan inte prenumerera p\u00e5 \u00e4mnet \"{topic}\", kontrollera att MQTT \u00e4r korrekt konfigurerat."
+        },
+        "mqtt_not_setup_cannot_unsubscribe_twice": {
+            "message": "Det g\u00e5r inte att avsluta prenumerationen p\u00e5 \u00e4mnet \u201d{topic}\u201d tv\u00e5 g\u00e5nger."
+        },
+        "mqtt_topic_not_a_string": {
+            "message": "\u00c4mnet m\u00e5ste vara en str\u00e4ng! Fick: {topic}."
+        },
+        "mqtt_trigger_cannot_remove_twice": {
+            "message": "Det g\u00e5r inte att ta bort utl\u00f6saren tv\u00e5 g\u00e5nger."
+        }
+    },
+    "issues": {
+        "invalid_platform_config": {
+            "description": "Home Assistant uppt\u00e4ckte en ogiltig konfiguration f\u00f6r ett manuellt konfigurerat objekt.\n\nPlattformens dom\u00e4n: **{domain}**\nKonfigurationsfil: **{config_file}**\nN\u00e4ra rad: **{line}**\nHittad konfiguration:\n```yaml\n{config}\n```\nFel: **{error}**.\n\nSe till att konfigurationen \u00e4r giltig och [ladda om](/developer-tools/yaml) de manuellt konfigurerade MQTT-objekten eller starta om Home Assistant f\u00f6r att \u00e5tg\u00e4rda problemet.",
+            "title": "Ogiltig konfiguration hittades f\u00f6r MQTT-{domain}-objekt"
+        }
+    },
+    "options": {
+        "error": {
+            "bad_birth": "Ogiltigt f\u00f6delse\u00e4mne",
+            "bad_certificate": "CA-certifikatet \u00e4r ogiltigt",
+            "bad_client_cert": "Ogiltigt klientcertifikat, se till att en giltig fil tillhandah\u00e5lls",
+            "bad_client_cert_key": "Klientcertifikatet och den privata nyckeln \u00e4r inte ett giltigt par",
+            "bad_client_key": "Ogiltig privat nyckel, se till att en PEM-kodad fil tillhandah\u00e5lls utan l\u00f6senord",
+            "bad_discovery_prefix": "Ogiltigt uppt\u00e4cktsprefix",
+            "bad_will": "Ogiltigt testamentes\u00e4mne",
+            "bad_ws_headers": "Ange giltiga HTTP-headers som ett JSON-objekt",
+            "cannot_connect": "Det gick inte att ansluta",
+            "invalid_inclusion": "Klientcertifikatet och den privata nyckeln m\u00e5ste konfigureras tillsammans"
+        },
+        "step": {
+            "broker": {
+                "data": {
+                    "advanced_options": "Avancerade alternativ",
+                    "broker": "Broker",
+                    "certificate": "Ladda upp anpassad CA-certifikatfil",
+                    "client_cert": "Ladda upp klientcertifikatfil",
+                    "client_id": "Klient-ID (l\u00e5t det vara tomt f\u00f6r att skapa ett slumpm\u00e4ssigt genererat ID)",
+                    "client_key": "Ladda upp privat nyckelfil",
+                    "keepalive": "Tiden mellan att skicka keep alive-meddelanden",
+                    "password": "L\u00f6senord",
+                    "port": "Port",
+                    "protocol": "MQTT-protokoll",
+                    "set_ca_cert": "Validering av broker-certifikat",
+                    "set_client_cert": "Anv\u00e4nd ett klientcertifikat",
+                    "tls_insecure": "Ignorera validering av broker-certifikat",
+                    "transport": "MQTT-transport",
+                    "username": "Anv\u00e4ndarnamn",
+                    "ws_headers": "WebSocket-headers i JSON-format",
+                    "ws_path": "WebSocket-s\u00f6kv\u00e4g"
+                },
+                "data_description": {
+                    "advanced_options": "Aktivera och v\u00e4lj **N\u00e4sta** f\u00f6r att st\u00e4lla in avancerade alternativ.",
+                    "broker": "V\u00e4rdnamnet eller IP-adressen f\u00f6r din MQTT-broker.",
+                    "certificate": "Den anpassade CA-certifikatfilen f\u00f6r att validera din MQTT-brokers certifikat.",
+                    "client_cert": "Klientcertifikatet f\u00f6r att autentisera mot din MQTT-broker.",
+                    "client_id": "Det unika ID:t f\u00f6r att identifiera Home Assistant MQTT-API:et som MQTT-klient. Vi rekommenderar att du l\u00e4mnar detta alternativ tomt.",
+                    "client_key": "Den privata nyckelfil som h\u00f6r till ditt klientcertifikat.",
+                    "keepalive": "Ett v\u00e4rde mindre \u00e4n 90 sekunder rekommenderas.",
+                    "password": "L\u00f6senordet f\u00f6r att logga in p\u00e5 din MQTT-broker.",
+                    "port": "Den port som din MQTT-broker lyssnar p\u00e5. Till exempel 1883.",
+                    "protocol": "Det MQTT-protokoll som din broker arbetar med. Till exempel 3.1.1.",
+                    "set_ca_cert": "V\u00e4lj **Auto** f\u00f6r automatisk CA-validering, eller **Anpassad** och v\u00e4lj **N\u00e4sta** f\u00f6r att ange ett anpassat CA-certifikat, f\u00f6r att m\u00f6jligg\u00f6ra validering av din MQTT-brokers certifikat.",
+                    "set_client_cert": "Aktivera och v\u00e4lj **N\u00e4sta** f\u00f6r att ange ett klientcertifikat och en privat nyckel f\u00f6r att autentisera mot din MQTT-broker.",
+                    "tls_insecure": "Alternativ f\u00f6r att ignorera validering av din MQTT-brokers certifikat.",
+                    "transport": "Den transport som ska anv\u00e4ndas f\u00f6r anslutningen till din MQTT-broker.",
+                    "username": "Anv\u00e4ndarnamnet f\u00f6r att logga in p\u00e5 din MQTT-broker.",
+                    "ws_headers": "De WebSocket-headers som ska skickas genom den WebSocket-baserade anslutningen till din MQTT-broker.",
+                    "ws_path": "WebSocket-s\u00f6kv\u00e4gen som ska anv\u00e4ndas f\u00f6r anslutningen till din MQTT-broker."
+                },
+                "description": "V\u00e4nligen ange anslutningsinformationen f\u00f6r din MQTT-broker.",
+                "title": "Broker-alternativ"
+            },
+            "options": {
+                "data": {
+                    "birth_enable": "Aktivera f\u00f6delsemeddelande",
+                    "birth_payload": "Nyttolast f\u00f6r f\u00f6delsemeddelande",
+                    "birth_qos": "QoS f\u00f6r f\u00f6delsemeddelande",
+                    "birth_retain": "Beh\u00e5ll f\u00f6delsemeddelande",
+                    "birth_topic": "\u00c4mne f\u00f6r f\u00f6delsemeddelande",
+                    "discovery": "Aktivera uppt\u00e4ckt",
+                    "discovery_prefix": "Prefix f\u00f6r uppt\u00e4ckt",
+                    "will_enable": "Aktivera testamentesmeddelande",
+                    "will_payload": "Nyttolast f\u00f6r testamentesmeddelande",
+                    "will_qos": "QoS f\u00f6r testamentesmeddelande",
+                    "will_retain": "Beh\u00e5ll testamentesmeddelande",
+                    "will_topic": "\u00c4mne f\u00f6r testamentesmeddelande"
+                },
+                "data_description": {
+                    "birth_enable": "Om satt s\u00e5 kommer Home Assistant att publicera ett onlinemeddelande till din MQTT-broker n\u00e4r MQTT \u00e4r redo.",
+                    "birth_payload": "F\u00f6delsemeddelandet som publiceras n\u00e4r MQTT \u00e4r redo och ansluten.",
+                    "birth_qos": "QoS (quality of service) f\u00f6r f\u00f6delsemeddelandet som publiceras n\u00e4r MQTT \u00e4r redo och ansluten",
+                    "birth_retain": "Om satt s\u00e5 kommer din MQTT-broker att beh\u00e5lla f\u00f6delsemeddelandet som publiceras av Home Assistant.",
+                    "birth_topic": "Det MQTT-\u00e4mne d\u00e4r Home Assistant kommer att publicera ett f\u00f6delsemeddelande.",
+                    "discovery": "Alternativ f\u00f6r att aktivera automatisk MQTT-uppt\u00e4ckt.",
+                    "discovery_prefix": "Prefixet f\u00f6r konfigurations\u00e4mnen som MQTT-integrationen kommer att prenumerera p\u00e5.",
+                    "will_enable": "Om satt s\u00e5 kommer Home Assistant att be din broker att publicera ett testamentesmeddelande n\u00e4r MQTT stoppas eller n\u00e4r den tappar anslutningen till din broker.",
+                    "will_payload": "Testamentesmeddelandet som publiceras n\u00e4r MQTT-integrationen stoppas eller n\u00e4r anslutningen bryts.",
+                    "will_qos": "QoS (quality of service) f\u00f6r testamentesmeddelandet som publiceras av din MQTT-broker.",
+                    "will_retain": "N\u00e4r inst\u00e4llningen \u00e4r aktiv kommer din MQTT-broker att beh\u00e5lla testamentesmeddelandet.",
+                    "will_topic": "Det MQTT-\u00e4mne som din MQTT-broker kommer att publicera ett testamentesmeddelande till."
+                },
+                "description": "Uppt\u00e4ckt \u2013 Om uppt\u00e4ckt \u00e4r aktiverat (rekommenderas), s\u00e5 kommer Home Assistant automatiskt att uppt\u00e4cka enheter och entiteter som publicerar sin konfiguration p\u00e5 MQTT-brokern. \nOm uppt\u00e4ckt \u00e4r inaktiverad m\u00e5ste all konfiguration g\u00f6ras manuellt.\nF\u00f6delsemeddelande \u2013 F\u00f6delsemeddelandet kommer att skickas varje g\u00e5ng Home Assistant (\u00e5ter)ansluter till MQTT-brokern.\nTestamentesmeddelande \u2013 Testamentesmeddelandet kommer att skickas varje g\u00e5ng Home Assistant f\u00f6rlorar sin anslutning till brokern, b\u00e5de i h\u00e4ndelse av en ren (t.ex. Home Assistant st\u00e4nger ner) och i h\u00e4ndelse av en oren (t.ex. Home Assistant kraschar eller f\u00f6rlorar sin n\u00e4tverksanslutning) fr\u00e5nkoppling.",
+                "title": "MQTT-alternativ"
+            }
+        }
+    },
+    "selector": {
+        "set_ca_cert": {
+            "options": {
+                "auto": "Auto",
+                "custom": "Anpassad",
+                "off": "Av"
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Skriver alla meddelanden fr\u00e5n ett specifikt \u00e4mne till filen \"mqtt_dump.txt\" i din konfigurationsmapp.",
+            "fields": {
+                "duration": {
+                    "description": "Hur l\u00e4nge vi ska lyssna efter meddelanden, angivet i sekunder.",
+                    "name": "Varaktighet"
+                },
+                "topic": {
+                    "description": "\u00c4mne att lyssna p\u00e5.",
+                    "name": "\u00c4mne"
+                }
+            },
+            "name": "Exportera"
+        },
+        "publish": {
+            "description": "Publicerar ett meddelande till ett MQTT-\u00e4mne.",
+            "fields": {
+                "evaluate_payload": {
+                    "description": "Om 'nyttolast' \u00e4r en Python byte-literal, utv\u00e4rdera byte-literal och publicera r\u00e5data.",
+                    "name": "Utv\u00e4rdera nyttolast"
+                },
+                "payload": {
+                    "description": "Nyttolasten som ska publiceras. Publicerar ett tomt meddelande om ingen anges.",
+                    "name": "Nyttolast"
+                },
+                "qos": {
+                    "description": "Quality of Service att anv\u00e4nda. 0: H\u00f6gst en g\u00e5ng. 1: Minst en g\u00e5ng. 2: Exakt en g\u00e5ng.",
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "Om meddelandet ska ha beh\u00e5ll-flaggan inst\u00e4lld. Om satt s\u00e5 lagrar brokern det senaste meddelandet p\u00e5 ett \u00e4mne.",
+                    "name": "Beh\u00e5ll"
+                },
+                "topic": {
+                    "description": "\u00c4mne att publicera till.",
+                    "name": "\u00c4mne"
+                }
+            },
+            "name": "Publicera"
+        },
+        "reload": {
+            "description": "Laddar om MQTT-entiteter fr\u00e5n YAML-konfigurationen.",
+            "name": "Ladda om"
+        }
+    }
+}

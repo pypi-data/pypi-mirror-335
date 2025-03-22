@@ -1,0 +1,47 @@
+{
+    "device_automation": {
+        "extra_fields": {
+            "above": "Above",
+            "below": "Below",
+            "for": "Duration",
+            "humidity": "Humidity",
+            "mode": "Mode"
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Provided humidity {humidity} is not valid. Accepted range is {min_humidity} to {max_humidity}."
+        }
+    },
+    "services": {
+        "set_humidity": {
+            "description": "Sets the target humidity.",
+            "fields": {
+                "humidity": {
+                    "description": "Target humidity.",
+                    "name": "Humidity"
+                }
+            },
+            "name": "Set humidity"
+        },
+        "set_mode": {
+            "description": "Sets the humidifier operation mode.",
+            "fields": {
+                "mode": {
+                    "name": "Mode"
+                }
+            },
+            "name": "Set mode"
+        },
+        "toggle": {
+            "description": "Toggles the humidifier on/off.",
+            "name": "Toggle"
+        },
+        "turn_off": {
+            "description": "Turns the humidifier off."
+        },
+        "turn_on": {
+            "description": "Turns the humidifier on."
+        }
+    }
+}

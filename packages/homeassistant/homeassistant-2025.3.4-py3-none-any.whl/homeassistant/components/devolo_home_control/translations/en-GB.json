@@ -1,0 +1,33 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "password": "Password of your mydevolo account.",
+                    "username": "Email address you used to register the central unit at mydevolo."
+                }
+            },
+            "zeroconf_confirm": {
+                "data_description": {
+                    "password": "Password of your mydevolo account.",
+                    "username": "Email address you used to register the central unit at mydevolo."
+                }
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "button": {
+                "name": "Button {key}"
+            },
+            "overload": {
+                "name": "Overload"
+            }
+        },
+        "sensor": {
+            "brightness": {
+                "name": "Brightness"
+            }
+        }
+    }
+}

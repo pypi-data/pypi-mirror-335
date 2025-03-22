@@ -1,0 +1,48 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Konto ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "invalid_auth": "Ung\u00fcltige Authentifizierung",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "account_name": "Kontoname",
+                    "container_name": "Containername",
+                    "storage_account_key": "Schl\u00fcssel des Storage-Kontos"
+                },
+                "data_description": {
+                    "account_name": "Name des Storage-Kontos",
+                    "container_name": "Name des zu verwendenden Storage-Containers (wird erstellt, falls er noch nicht existiert)",
+                    "storage_account_key": "Zugriffsschl\u00fcssel des Storage-Kontos f\u00fcr die Autorisierung"
+                },
+                "description": "Richte ein Azure (Blob) Storage-Konto ein, das f\u00fcr Backups verwendet werden soll.",
+                "title": "Azure Storage-Konto hinzuf\u00fcgen"
+            }
+        }
+    },
+    "exceptions": {
+        "account_not_found": {
+            "message": "Storage-Konto {account_name} nicht gefunden"
+        },
+        "cannot_connect": {
+            "message": "Verbindung zum Speicherkonto {account_name} kann nicht hergestellt werden"
+        },
+        "container_not_found": {
+            "message": "Speichercontainer {container_name} nicht gefunden"
+        },
+        "invalid_auth": {
+            "message": "Authentifizierung f\u00fcr Speicherkonto {account_name} fehlgeschlagen"
+        }
+    },
+    "issues": {
+        "container_not_found": {
+            "description": "Der Storage-Container {container_name} wurde im Storage-Konto nicht gefunden. Bitte stelle ihn manuell wieder her und behebe dann dieses Problem.",
+            "title": "Storage-Container nicht gefunden"
+        }
+    }
+}

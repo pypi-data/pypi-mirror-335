@@ -1,0 +1,53 @@
+{
+    "config": {
+        "abort": {
+            "authorize_url_timeout": "Timeout generating authorise URL.",
+            "oauth_unauthorized": "OAuth authorisation error while obtaining access token.",
+            "user_rejected_authorize": "Account linking rejected: {error}"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "vacation_end_date": {
+                "name": "Holiday end date"
+            }
+        }
+    },
+    "services": {
+        "set_vacation": {
+            "description": "Sets holiday responder settings for Google Mail.",
+            "fields": {
+                "enabled": {
+                    "description": "Turn this off to end holiday responses."
+                },
+                "end": {
+                    "description": "Last day of the holiday.",
+                    "name": "End"
+                },
+                "message": {
+                    "description": "Body of the email.",
+                    "name": "Message"
+                },
+                "plain_text": {
+                    "description": "Choose to send message in plain text or HTML.",
+                    "name": "Plain text"
+                },
+                "restrict_contacts": {
+                    "description": "Restrict automatic reply to contacts.",
+                    "name": "Restrict to contacts"
+                },
+                "restrict_domain": {
+                    "name": "Restrict to domain"
+                },
+                "start": {
+                    "description": "First day of the holiday."
+                },
+                "title": {
+                    "description": "The subject for the email.",
+                    "name": "Title"
+                }
+            },
+            "name": "Set holiday"
+        }
+    }
+}

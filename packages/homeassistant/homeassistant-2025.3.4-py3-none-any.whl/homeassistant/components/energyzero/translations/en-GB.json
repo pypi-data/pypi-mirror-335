@@ -1,0 +1,28 @@
+{
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Invalid config entry provided. Got {config_entry}"
+        },
+        "unloaded_config_entry": {
+            "message": "Invalid config entry provided. {config_entry} is not loaded."
+        }
+    },
+    "services": {
+        "get_energy_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry to use for this action.",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "get_gas_prices": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry to use for this action.",
+                    "name": "Config entry"
+                }
+            }
+        }
+    }
+}

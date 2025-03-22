@@ -1,0 +1,116 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Naprava je \u017ee konfigurirana",
+            "already_in_progress": "Konfiguracijski postopek je \u017ee v teku",
+            "mqtt_missing_api": "V lastnostih MQTT manjkajo vrata API-ja.",
+            "mqtt_missing_ip": "V lastnostih MQTT manjka naslov IP.",
+            "mqtt_missing_mac": "V lastnostih MQTT manjka naslov MAC.",
+            "mqtt_missing_payload": "Manjka tovor MQQT.",
+            "reauth_successful": "Ponovna avtentikacija je bila uspe\u0161na",
+            "service_received": "Akcija prejeta"
+        },
+        "error": {
+            "connection_error": "Ne morem se povezati z ESP. Poskrbite, da va\u0161a datoteka YAML vsebuje vrstico \"api:\".",
+            "invalid_auth": "Neveljavna avtentikacija",
+            "invalid_psk": "Klju\u010d za \u0161ifriranje transporta ni veljaven. Prepri\u010dajte se, da se ujema s tem, kar imate v svoji konfiguraciji",
+            "resolve_error": "Naslova ESP ni mogo\u010de razre\u0161iti. \u010ce se ta napaka ponovi, nastavite stati\u010dni naslov IP"
+        },
+        "flow_title": "{name}",
+        "step": {
+            "authenticate": {
+                "data": {
+                    "password": "Geslo"
+                },
+                "description": "Vnesite geslo, ki ste ga nastavili v konfiguraciji za {name}."
+            },
+            "discovery_confirm": {
+                "description": "\u017delite dodati ESPHome vozli\u0161\u010de ` {name} ` v Home Assistant?",
+                "title": "Odkrita ESPHome vozli\u0161\u010da"
+            },
+            "encryption_key": {
+                "data": {
+                    "noise_psk": "\u0160ifrirni klju\u010d"
+                },
+                "description": "Vnesite \u0161ifrirni klju\u010d za {name}. Najdete ga na nadzorni plo\u0161\u010di ESPHome ali v konfiguraciji va\u0161e naprave."
+            },
+            "reauth_confirm": {
+                "data": {
+                    "noise_psk": "\u0160ifrirni klju\u010d"
+                },
+                "description": "Naprava ESPHome {name} je omogo\u010dila \u0161ifriranje prenosa ali spremenila \u0161ifrirni klju\u010d. Vnesite posodobljen klju\u010d. Najdete ga na nadzorni plo\u0161\u010di ESPHome ali v konfiguraciji va\u0161e naprave."
+            },
+            "user": {
+                "data": {
+                    "host": "Gostitelj",
+                    "port": "Vrata"
+                },
+                "description": "Prosimo, vnesite nastavitve povezave va\u0161ega vozli\u0161\u010da [ESPHome]({esphome_url})."
+            }
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Asisten\u010dni satelit"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Tiho"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "pipeline": {
+                "name": "Pomo\u010dnik",
+                "state": {
+                    "preferred": "Prednostno"
+                }
+            },
+            "vad_sensitivity": {
+                "name": "Zaznavanje govora je kon\u010dano",
+                "state": {
+                    "aggressive": "Agresivno",
+                    "default": "Privzeto",
+                    "relaxed": "Spro\u0161\u010deno"
+                }
+            },
+            "wake_word": {
+                "name": "Beseda za bujenje",
+                "state": {
+                    "okay_nabu": "Okay Nabu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "api_password_deprecated": {
+            "description": "Geslo API za ESPHome je zastarelo in namesto tega je priporo\u010dljiva uporaba \u0161ifrirnega klju\u010da API.\n\nOdstranite geslo za API in dodajte \u0161ifrirni klju\u010d va\u0161i napravi ESPHome, da odpravite to te\u017eavo.",
+            "title": "Geslo API zastarelo na {name}"
+        },
+        "ble_firmware_outdated": {
+            "description": "Za izbolj\u0161anje zanesljivosti in zmogljivosti Bluetooth zelo priporo\u010damo, da {name} posodobite z ESPHome {version} ali novej\u0161o. Pri posodabljanju naprave iz razli\u010dic ESPHome pred 2022.12.0 je priporo\u010dljivo, da uporabite serijski kabel namesto posodobitve po zraku, da izkoristite novo particijsko shemo.",
+            "title": "Posodobite {name} z ESPHome {version} ali novej\u0161o"
+        },
+        "service_calls_not_allowed": {
+            "description": "Naprava ESPHome je posku\u0161ala izvesti akcijo Home Assistanta, vendar ta funkcija ni omogo\u010dena.\n\n\u010ce zaupate tej napravi in ji \u017eelite dovoliti izvajanje akcij Home Assistanta, lahko to funkcijo omogo\u010dite v toku mo\u017enosti.",
+            "title": "{name} nima dovoljenja za izvajanje akcij Home Assistanta"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_service_calls": "Dovolite napravi, da izvaja akcije Home Assistanta.",
+                    "subscribe_logs": "Naro\u010dite se na dnevnike iz naprave. Ko je omogo\u010deno, bo naprava po\u0161iljala dnevnike Home Assistantu in si jih lahko ogledate na plo\u0161\u010di dnevnikov."
+                }
+            }
+        }
+    }
+}

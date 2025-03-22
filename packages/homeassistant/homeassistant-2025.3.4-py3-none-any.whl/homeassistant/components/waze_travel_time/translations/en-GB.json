@@ -1,0 +1,48 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        }
+    },
+    "services": {
+        "get_travel_times": {
+            "description": "Retrieves route alternatives and travel times between two locations.",
+            "fields": {
+                "avoid_ferries": {
+                    "description": "Whether to avoid ferries."
+                },
+                "avoid_subscription_roads": {
+                    "description": "Whether to avoid subscription roads."
+                },
+                "avoid_toll_roads": {
+                    "description": "Whether to avoid toll roads."
+                },
+                "destination": {
+                    "description": "The destination of the route."
+                },
+                "excl_filter": {
+                    "description": "Exact street name which must NOT be part of the selected route."
+                },
+                "incl_filter": {
+                    "description": "Exact street name which must be part of the selected route."
+                },
+                "origin": {
+                    "description": "The origin of the route."
+                },
+                "realtime": {
+                    "description": "Use real-time or statistical data."
+                },
+                "region": {
+                    "description": "The region. Controls which Waze server is used."
+                },
+                "units": {
+                    "description": "Which unit system to use."
+                },
+                "vehicle_type": {
+                    "description": "Which vehicle to use."
+                }
+            },
+            "name": "Get travel times"
+        }
+    }
+}

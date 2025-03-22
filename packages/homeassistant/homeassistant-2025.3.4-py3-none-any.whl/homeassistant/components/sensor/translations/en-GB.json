@@ -1,0 +1,58 @@
+{
+    "device_automation": {
+        "condition_type": {
+            "is_area": "Current {entity_name} area",
+            "is_blood_glucose_concentration": "Current {entity_name} blood glucose concentration",
+            "is_conductivity": "Current {entity_name} conductivity",
+            "is_energy_distance": "Current {entity_name} energy per distance",
+            "is_ph": "Current {entity_name} pH level",
+            "is_volume_flow_rate": "Current {entity_name} volume flow rate",
+            "is_wind_direction": "Current {entity_name} wind direction"
+        },
+        "extra_fields": {
+            "above": "Above",
+            "below": "Below",
+            "for": "Duration"
+        },
+        "trigger_type": {
+            "area": "{entity_name} area changes",
+            "blood_glucose_concentration": "{entity_name} blood glucose concentration changes",
+            "conductivity": "{entity_name} conductivity changes",
+            "energy_distance": "{entity_name} energy per distance changes",
+            "ph": "{entity_name} pH level changes",
+            "volume_flow_rate": "{entity_name} volume flow rate changes",
+            "wind_direction": "{entity_name} wind direction changes"
+        }
+    },
+    "entity_component": {
+        "area": {
+            "name": "Area"
+        },
+        "blood_glucose_concentration": {
+            "name": "Blood glucose concentration"
+        },
+        "conductivity": {
+            "name": "Conductivity"
+        },
+        "energy_distance": {
+            "name": "Energy per distance"
+        },
+        "ph": {
+            "name": "pH"
+        },
+        "volume_flow_rate": {
+            "name": "Volume flow rate"
+        },
+        "wind_direction": {
+            "name": "Wind direction"
+        }
+    },
+    "issues": {
+        "state_class_removed": {
+            "title": "{statistic_id} no longer has a state class"
+        },
+        "units_changed": {
+            "title": "The unit of {statistic_id} has changed"
+        }
+    }
+}

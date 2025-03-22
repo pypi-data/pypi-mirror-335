@@ -1,0 +1,22 @@
+{
+    "selector": {
+        "nws_forecast_type": {
+            "options": {
+                "hourly": "Hourly",
+                "twice_daily": "Twice daily"
+            }
+        }
+    },
+    "services": {
+        "get_forecasts_extra": {
+            "description": "Retrieves extra data for weather forecasts.",
+            "fields": {
+                "type": {
+                    "description": "The scope of the weather forecast.",
+                    "name": "Forecast type"
+                }
+            },
+            "name": "Get extra forecasts data"
+        }
+    }
+}

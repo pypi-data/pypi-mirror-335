@@ -1,0 +1,77 @@
+{
+    "config": {
+        "step": {
+            "network": {
+                "data": {
+                    "tls": "Use TLS (secure connection)"
+                },
+                "data_description": {
+                    "host": "The IP address or hostname of the Velbus interface.",
+                    "password": "The password of the Velbus interface, this is only needed if the interface is password protected.",
+                    "port": "The port number of the Velbus interface.",
+                    "tls": "Enable this if you use a secure connection to your Velbus interface, like a Signum."
+                },
+                "description": "TCP/IP configuration, in case you use a Signum, VelServ, velbus-tcp or any other Velbus to TCP/IP interface.",
+                "title": "TCP/IP configuration"
+            },
+            "usbselect": {
+                "data_description": {
+                    "port": "Select the serial port for your Velbus USB interface."
+                },
+                "description": "Select the serial port for your Velbus USB interface.",
+                "title": "USB configuration"
+            }
+        }
+    },
+    "exceptions": {
+        "integration_not_found": {
+            "message": "Integration \"{target}\" not found in registry."
+        },
+        "invalid_hvac_mode": {
+            "message": "Climate mode {hvac_mode} is not supported."
+        },
+        "not_loaded": {
+            "message": "{target} is not loaded."
+        }
+    },
+    "issues": {
+        "deprecated_interface_parameter": {
+            "description": "The 'interface' parameter in the Velbus actions is deprecated. The 'config_entry' parameter should be used going forward.\n\nPlease adjust your automations or scripts to fix this issue.",
+            "title": "Deprecated 'interface' parameter"
+        }
+    },
+    "services": {
+        "clear_cache": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry of the Velbus integration",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "scan": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry of the Velbus integration",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "set_memo_text": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry of the Velbus integration",
+                    "name": "Config entry"
+                }
+            }
+        },
+        "sync_clock": {
+            "fields": {
+                "config_entry": {
+                    "description": "The config entry of the Velbus integration",
+                    "name": "Config entry"
+                }
+            }
+        }
+    }
+}

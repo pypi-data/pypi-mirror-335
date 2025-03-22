@@ -1,0 +1,25 @@
+{
+    "entity": {
+        "event": {
+            "touch": {
+                "name": "Touch gesture",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "swipe_down": "Swipe down",
+                            "swipe_left": "Swipe left",
+                            "swipe_right": "Swipe right",
+                            "swipe_up": "Swipe up"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "issues": {
+        "deprecated_device_trigger": {
+            "description": "The Nanoleaf device trigger is deprecated and will be removed in a future release. You can now use the gesture event entity to build automations.",
+            "title": "Nanoleaf device trigger is deprecated"
+        }
+    }
+}

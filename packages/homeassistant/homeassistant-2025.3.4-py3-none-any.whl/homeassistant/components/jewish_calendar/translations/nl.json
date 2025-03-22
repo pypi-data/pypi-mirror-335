@@ -1,0 +1,54 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "reconfigure_successful": "Herconfiguratie was succesvol"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "diaspora": "Buiten Isra\u00ebl?",
+                    "elevation": "Hoogte",
+                    "language": "Taal voor feestdagen en data",
+                    "location": "Locatie",
+                    "name": "Naam",
+                    "time_zone": "Tijdzone"
+                },
+                "data_description": {
+                    "time_zone": "Als je een locatie opgeeft, moet je de tijdzone opgeven voor de juiste berekeningen van de kalendertijden"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "hebrew_date": {
+                "state_attributes": {
+                    "hebrew_day": {
+                        "name": "Hebreeuwse Dag"
+                    },
+                    "hebrew_month_name": {
+                        "name": "Hebreeuwse maandnaam"
+                    },
+                    "hebrew_year": {
+                        "name": "Hebreeuws jaar"
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "candle_lighting_minutes_before_sunset": "Minuten voor zonsondergang voor het aansteken van kaarsen",
+                    "havdalah_minutes_after_sunset": "Minuten na zonsondergang voor Havdalah"
+                },
+                "data_description": {
+                    "candle_lighting_minutes_before_sunset": "Standaard staat deze op 18 minuten. In Isra\u00ebl wil je waarschijnlijk 20/30/40 gebruiken, afhankelijk van je locatie. Buiten Isra\u00ebl wil je waarschijnlijk 18/24 gebruiken."
+                },
+                "title": "Opties configureren voor Joodse Kalender"
+            }
+        }
+    }
+}

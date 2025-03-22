@@ -1,0 +1,30 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "connection_type": "Connection type"
+                }
+            }
+        }
+    },
+    "selector": {
+        "connection_type": {
+            "options": {
+                "http": "HTTP",
+                "serial": "Serial"
+            }
+        }
+    },
+    "services": {
+        "select_cmode": {
+            "description": "Selects colour mode of Epson projector.",
+            "fields": {
+                "cmode": {
+                    "name": "Colour mode"
+                }
+            },
+            "name": "Select colour mode"
+        }
+    }
+}

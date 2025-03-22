@@ -1,0 +1,361 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "is_water_box_attached": {
+                "name": "Mop attached"
+            },
+            "is_water_box_carriage_attached": {
+                "name": "Mop attached"
+            },
+            "is_water_shortage": {
+                "name": "Water shortage"
+            },
+            "no_water": {
+                "name": "Water tank empty"
+            },
+            "powersupply_attached": {
+                "name": "Power supply"
+            },
+            "ptc_status": {
+                "name": "Auxiliary heat status"
+            },
+            "water_tank_detached": {
+                "name": "Water tank"
+            }
+        },
+        "button": {
+            "reset_dust_filter": {
+                "name": "Reset dust filter"
+            },
+            "reset_upper_filter": {
+                "name": "Reset upper filter"
+            },
+            "reset_vacuum_filter": {
+                "name": "Reset filter"
+            },
+            "reset_vacuum_main_brush": {
+                "name": "Reset main brush"
+            },
+            "reset_vacuum_sensor_dirty": {
+                "name": "Reset sensor dirty"
+            },
+            "reset_vacuum_side_brush": {
+                "name": "Reset side brush"
+            }
+        },
+        "fan": {
+            "generic_fan": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "nature": "Nature",
+                            "normal": "Normal"
+                        }
+                    }
+                }
+            }
+        },
+        "number": {
+            "angle": {
+                "name": "Oscillation angle"
+            },
+            "delay_off_countdown": {
+                "name": "Delay off countdown"
+            },
+            "fan_level": {
+                "name": "Fan level"
+            },
+            "favorite_level": {
+                "name": "Favourite level"
+            },
+            "favorite_rpm": {
+                "name": "Favourite motor speed"
+            },
+            "led_brightness": {
+                "name": "LED brightness"
+            },
+            "led_brightness_level": {
+                "name": "LED brightness"
+            },
+            "motor_speed": {
+                "name": "Motor speed"
+            },
+            "volume": {
+                "name": "Volume"
+            }
+        },
+        "select": {
+            "airpurifier_mode": {
+                "state": {
+                    "favorite": "Favourite"
+                }
+            }
+        },
+        "sensor": {
+            "actual_speed": {
+                "name": "Actual speed"
+            },
+            "air_quality": {
+                "name": "Air quality"
+            },
+            "air_quality_index": {
+                "name": "Air quality index"
+            },
+            "area": {
+                "name": "Last clean area"
+            },
+            "clean_area": {
+                "name": "Current clean area"
+            },
+            "clean_time": {
+                "name": "Current clean duration"
+            },
+            "control_speed": {
+                "name": "Control speed"
+            },
+            "count": {
+                "name": "Total clean count"
+            },
+            "dnd_end": {
+                "name": "DnD end"
+            },
+            "dnd_start": {
+                "name": "DnD start"
+            },
+            "duration": {
+                "name": "Last clean duration"
+            },
+            "dust_collection_count": {
+                "name": "Total dust collection count"
+            },
+            "dust_filter_life_remaining": {
+                "name": "Dust filter life remaining"
+            },
+            "dust_filter_life_remaining_days": {
+                "name": "Dust filter lifetime remaining days"
+            },
+            "favorite_speed": {
+                "name": "Favourite speed"
+            },
+            "filter_hours_used": {
+                "name": "Filter use"
+            },
+            "filter_left": {
+                "name": "Filter remaining"
+            },
+            "filter_left_time": {
+                "name": "Filter lifetime remaining"
+            },
+            "filter_life_remaining": {
+                "name": "Filter life remaining"
+            },
+            "last_clean_end": {
+                "name": "Last clean end"
+            },
+            "last_clean_start": {
+                "name": "Last clean start"
+            },
+            "load_power": {
+                "name": "Load power"
+            },
+            "main_brush_left": {
+                "name": "Main brush remaining"
+            },
+            "motor2_speed": {
+                "name": "Second motor speed"
+            },
+            "motor_speed": {
+                "name": "Motor speed"
+            },
+            "purify_volume": {
+                "name": "Purify volume"
+            },
+            "sensor_dirty_left": {
+                "name": "Sensor dirty remaining"
+            },
+            "side_brush_left": {
+                "name": "Side brush remaining"
+            },
+            "total_area": {
+                "name": "Total clean area"
+            },
+            "total_duration": {
+                "name": "Total duration"
+            },
+            "tvoc": {
+                "name": "TVOC"
+            },
+            "upper_filter_life_remaining": {
+                "name": "Upper filter life remaining"
+            },
+            "upper_filter_life_remaining_days": {
+                "name": "Upper filter lifetime remaining days"
+            },
+            "use_time": {
+                "name": "Use time"
+            },
+            "water_level": {
+                "name": "Water level"
+            }
+        },
+        "switch": {
+            "anion": {
+                "name": "Ioniser"
+            },
+            "auto_detect": {
+                "name": "Auto detect"
+            },
+            "buzzer": {
+                "name": "Buzzer"
+            },
+            "child_lock": {
+                "name": "Child lock"
+            },
+            "clean_mode": {
+                "name": "Clean mode"
+            },
+            "display": {
+                "name": "Display"
+            },
+            "dry": {
+                "name": "Dry mode"
+            },
+            "ionizer": {
+                "name": "Ioniser"
+            },
+            "learn_mode": {
+                "name": "Learn mode"
+            },
+            "led": {
+                "name": "LED"
+            },
+            "ptc": {
+                "name": "Auxiliary heat"
+            }
+        }
+    },
+    "services": {
+        "light_reminder_off": {
+            "description": "Disables the eye fatigue reminder/notification (EYECARE SMART LAMP 2 ONLY).",
+            "fields": {
+                "entity_id": {
+                    "description": "Name of the entity to act on.",
+                    "name": "Entity ID"
+                }
+            },
+            "name": "Light reminder off"
+        },
+        "light_reminder_on": {
+            "description": "Enables the eye fatigue reminder/notification (EYECARE SMART LAMP 2 ONLY).",
+            "fields": {
+                "entity_id": {
+                    "description": "Name of the entity to act on.",
+                    "name": "Entity ID"
+                }
+            },
+            "name": "Light reminder on"
+        },
+        "light_set_delayed_turn_off": {
+            "fields": {
+                "entity_id": {
+                    "description": "Name of the light entity.",
+                    "name": "Entity ID"
+                },
+                "time_period": {
+                    "name": "Time period"
+                }
+            },
+            "name": "Light set delayed turn off"
+        },
+        "light_set_scene": {
+            "description": "Sets a fixed scene.",
+            "fields": {
+                "entity_id": {
+                    "description": "Name of the light entity.",
+                    "name": "Entity ID"
+                },
+                "scene": {
+                    "description": "Number of the fixed scene.",
+                    "name": "Scene"
+                }
+            },
+            "name": "Light set scene"
+        },
+        "remote_learn_command": {
+            "fields": {
+                "slot": {
+                    "description": "Define the slot used to save the IR command.",
+                    "name": "Slot"
+                },
+                "timeout": {
+                    "name": "Timeout"
+                }
+            },
+            "name": "Remote learn command"
+        },
+        "remote_set_led_off": {
+            "name": "Remote set LED off"
+        },
+        "remote_set_led_on": {
+            "name": "Remote set LED on"
+        },
+        "vacuum_clean_zone": {
+            "name": "Vacuum clean zone"
+        },
+        "vacuum_goto": {
+            "fields": {
+                "x_coord": {
+                    "description": "X-coordinate.",
+                    "name": "X coordinate"
+                },
+                "y_coord": {
+                    "description": "Y-coordinate.",
+                    "name": "Y coordinate"
+                }
+            },
+            "name": "Vacuum go to"
+        },
+        "vacuum_remote_control_move": {
+            "fields": {
+                "duration": {
+                    "description": "Duration of the movement.",
+                    "name": "Duration"
+                },
+                "rotation": {
+                    "description": "Rotation, between -179 degrees and 179 degrees.",
+                    "name": "Rotation"
+                },
+                "velocity": {
+                    "description": "Speed.",
+                    "name": "Velocity"
+                }
+            },
+            "name": "Vacuum remote control move"
+        },
+        "vacuum_remote_control_move_step": {
+            "description": "Remote controls the vacuum cleaner, only makes one move and then stops.",
+            "fields": {
+                "duration": {
+                    "description": "Duration of the movement.",
+                    "name": "Duration"
+                },
+                "rotation": {
+                    "description": "Rotation.",
+                    "name": "Rotation"
+                },
+                "velocity": {
+                    "description": "Speed.",
+                    "name": "Velocity"
+                }
+            },
+            "name": "Vacuum remote control move step"
+        },
+        "vacuum_remote_control_start": {
+            "name": "Vacuum remote control start"
+        },
+        "vacuum_remote_control_stop": {
+            "description": "Stops remote control mode of the vacuum cleaner.",
+            "name": "Vacuum remote control stop"
+        }
+    }
+}

@@ -1,0 +1,394 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven",
+            "authorize_url_timeout": "\u010casov\u00fd limit ov\u011b\u0159ovac\u00ed URL vypr\u0161el.",
+            "cloud_not_enabled": "Ujist\u011bte se, \u017ee spou\u0161t\u00edte Home Assistanta s povolen\u00fdm \"{default_config}\" v configuration.yaml.",
+            "missing_configuration": "Komponenta nen\u00ed nastavena. Postupujte podle dokumentace.",
+            "missing_scopes": "Ov\u011b\u0159en\u00ed se nezda\u0159ilo. Ujist\u011bte se, \u017ee jste ud\u011blili v\u0161echna po\u017eadovan\u00e1 opr\u00e1vn\u011bn\u00ed.",
+            "no_url_available": "Nen\u00ed k dispozici \u017e\u00e1dn\u00e1 URL. Informace o t\u00e9to chyb\u011b naleznete [v sekci n\u00e1pov\u011bdy]({docs_url})",
+            "oauth_error": "P\u0159ijata neplatn\u00e1 data tokenu.",
+            "oauth_failed": "Chyba p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "oauth_timeout": "P\u0159i \u0159e\u0161en\u00ed tokenu OAuth vypr\u0161el \u010dasov\u00fd limit.",
+            "oauth_unauthorized": "Chyba autorizace OAuth p\u0159i z\u00edsk\u00e1v\u00e1n\u00ed p\u0159\u00edstupov\u00e9ho tokenu.",
+            "reauth_account_mismatch": "Ov\u011b\u0159en\u00fd \u00fa\u010det neodpov\u00edd\u00e1 \u00fa\u010dtu, kter\u00fd m\u00e1 b\u00fdt znovu ov\u011b\u0159en. P\u0159ihlaste se pomoc\u00ed spr\u00e1vn\u00e9ho \u00fa\u010dtu a vyberte spr\u00e1vn\u00e9 um\u00edst\u011bn\u00ed.",
+            "reauth_location_mismatch": "Ov\u011b\u0159en\u00e9 um\u00edst\u011bn\u00ed neodpov\u00edd\u00e1 um\u00edst\u011bn\u00ed, kter\u00e9 m\u00e1 b\u00fdt znovu ov\u011b\u0159eno. P\u0159ihlaste se pomoc\u00ed spr\u00e1vn\u00e9ho \u00fa\u010dtu a vyberte spr\u00e1vn\u00e9 um\u00edst\u011bn\u00ed.",
+            "reauth_successful": "Op\u011btovn\u00e9 ov\u011b\u0159en\u00ed bylo \u00fasp\u011b\u0161n\u00e9"
+        },
+        "error": {
+            "already_configured": "\u00da\u010det je ji\u017e nastaven"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "Vybrat metodu ov\u011b\u0159en\u00ed"
+            },
+            "reauth_confirm": {
+                "description": "Integrace SmartThings pot\u0159ebuje znovu ov\u011b\u0159it v\u00e1\u0161 \u00fa\u010det",
+                "title": "Platnost ov\u011b\u0159en\u00ed pro {name} vypr\u0161ela"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "acceleration": {
+                "name": "Zrychlen\u00ed"
+            },
+            "filter_status": {
+                "name": "Stav filtru"
+            },
+            "valve": {
+                "name": "Ventil"
+            }
+        },
+        "sensor": {
+            "air_conditioner_mode": {
+                "name": "Re\u017eim klimatizace"
+            },
+            "air_quality": {
+                "name": "Kvalita vzduchu"
+            },
+            "alarm": {
+                "name": "Alarm",
+                "state": {
+                    "both": "Stroboskop a sir\u00e9na",
+                    "off": "Vypnuto",
+                    "siren": "Sir\u00e9na",
+                    "strobe": "Stroboskop"
+                }
+            },
+            "audio_volume": {
+                "name": "Hlasitost"
+            },
+            "body_mass_index": {
+                "name": "Index t\u011blesn\u00e9 hmotnosti"
+            },
+            "body_weight": {
+                "name": "T\u011blesn\u00e1 hmotnost"
+            },
+            "carbon_monoxide_detector": {
+                "name": "Detektor oxidu uhelnat\u00e9ho",
+                "state": {
+                    "clear": "V po\u0159\u00e1dku",
+                    "detected": "Detekov\u00e1no",
+                    "tested": "Testov\u00e1no"
+                }
+            },
+            "completion_time": {
+                "name": "\u010cas dokon\u010den\u00ed"
+            },
+            "dishwasher_job_state": {
+                "name": "Stav pr\u00e1ce",
+                "state": {
+                    "air_wash": "Myt\u00ed vzduchem",
+                    "cooling": "Chlazen\u00ed",
+                    "drying": "Su\u0161en\u00ed",
+                    "finish": "Dokon\u010dit",
+                    "pre_drain": "P\u0159edem vypustit",
+                    "pre_wash": "P\u0159edmyt\u00ed",
+                    "rinse": "Oplach",
+                    "spin": "Rozto\u010den\u00ed",
+                    "wash": "Myt\u00ed",
+                    "wrinkle_prevent": "Prevence poma\u010dk\u00e1n\u00ed"
+                }
+            },
+            "dishwasher_machine_state": {
+                "name": "Stav stroje",
+                "state": {
+                    "pause": "Pozastaveno",
+                    "run": "B\u011b\u017e\u00ed",
+                    "stop": "Zastaveno"
+                }
+            },
+            "dryer_job_state": {
+                "name": "Stav pr\u00e1ce",
+                "state": {
+                    "ai_drying": "AI su\u0161en\u00ed",
+                    "continuous_dehumidifying": "Pr\u016fb\u011b\u017en\u00e9 odvlh\u010dov\u00e1n\u00ed",
+                    "cooling": "Chlazen\u00ed",
+                    "dehumidifying": "Odvlh\u010dov\u00e1n\u00ed",
+                    "delay_wash": "Zpo\u017ed\u011bn\u00e9 pran\u00ed",
+                    "drying": "Su\u0161en\u00ed",
+                    "finished": "Dokon\u010deno",
+                    "freeze_protection": "Ochrana proti zamrznut\u00ed",
+                    "internal_care": "Vnit\u0159n\u00ed p\u00e9\u010de",
+                    "none": "\u017d\u00e1dn\u00e9",
+                    "refreshing": "Osv\u011b\u017eov\u00e1n\u00ed",
+                    "sanitizing": "Dezinfekce",
+                    "thawing_frozen_inside": "Rozmrazov\u00e1n\u00ed zmrzl\u00e9ho vnit\u0159ku",
+                    "weight_sensing": "V\u00e1\u017een\u00ed",
+                    "wrinkle_prevent": "Prevence poma\u010dk\u00e1n\u00ed"
+                }
+            },
+            "dryer_machine_state": {
+                "name": "Stav stroje",
+                "state": {
+                    "pause": "Pozastaveno",
+                    "run": "B\u011b\u017e\u00ed",
+                    "stop": "Zastaveno"
+                }
+            },
+            "dryer_mode": {
+                "name": "Re\u017eim su\u0161i\u010dky"
+            },
+            "energy_difference": {
+                "name": "Energetick\u00fd rozd\u00edl"
+            },
+            "energy_saved": {
+                "name": "\u00daspora energie"
+            },
+            "equivalent_carbon_dioxide": {
+                "name": "Ekvivalentn\u00ed oxid uhli\u010dit\u00fd"
+            },
+            "formaldehyde": {
+                "name": "Formaldehyd"
+            },
+            "gas_meter": {
+                "name": "Plynom\u011br"
+            },
+            "gas_meter_calorific": {
+                "name": "V\u00fdh\u0159evnost plynom\u011bru"
+            },
+            "gas_meter_time": {
+                "name": "\u010cas plynom\u011bru"
+            },
+            "infrared_level": {
+                "name": "\u00darove\u0148 infra\u010derven\u00e9ho z\u00e1\u0159en\u00ed"
+            },
+            "lighting_mode": {
+                "name": "Re\u017eim sv\u011btla aktivity"
+            },
+            "link_quality": {
+                "name": "Kvalita p\u0159ipojen\u00ed"
+            },
+            "media_input_source": {
+                "name": "Vstupn\u00ed zdroj m\u00e9di\u00ed",
+                "state": {
+                    "am": "DOP.",
+                    "analog1": "Analogov\u00fd 1",
+                    "analog2": "Analogov\u00fd 2",
+                    "analog3": "Analogov\u00fd 3",
+                    "aux": "AUX",
+                    "bluetooth": "Bluetooth",
+                    "cd": "CD",
+                    "coaxial": "Koaxi\u00e1ln\u00ed",
+                    "digital": "Digit\u00e1ln\u00ed",
+                    "digitaltv": "Digit\u00e1ln\u00ed TV",
+                    "fm": "FM",
+                    "hdmi": "HDMI",
+                    "hdmi1": "HDMI 1",
+                    "hdmi2": "HDMI 2",
+                    "hdmi3": "HDMI 3",
+                    "hdmi4": "HDMI 4",
+                    "hdmi5": "HDMI 5",
+                    "hdmi6": "HDMI 6",
+                    "melon": "Meloun",
+                    "network": "S\u00ed\u0165",
+                    "optical": "Optick\u00e1",
+                    "phono": "Gramofon",
+                    "usb": "USB",
+                    "wifi": "Wi-Fi",
+                    "youtube": "YouTube"
+                }
+            },
+            "media_playback_repeat": {
+                "name": "Opakov\u00e1n\u00ed p\u0159ehr\u00e1v\u00e1n\u00ed m\u00e9di\u00ed"
+            },
+            "media_playback_shuffle": {
+                "name": "N\u00e1hodn\u00e9 p\u0159ehr\u00e1v\u00e1n\u00ed m\u00e9di\u00ed"
+            },
+            "media_playback_status": {
+                "name": "Stav p\u0159ehr\u00e1v\u00e1n\u00ed m\u00e9di\u00ed"
+            },
+            "odor_sensor": {
+                "name": "Senzor z\u00e1pachu"
+            },
+            "oven_job_state": {
+                "name": "Stav pr\u00e1ce",
+                "state": {
+                    "cleaning": "\u010ci\u0161t\u011bn\u00ed",
+                    "cooking": "Va\u0159en\u00ed",
+                    "cooling": "Chlazen\u00ed",
+                    "defrosting": "Rozmrazov\u00e1n\u00ed",
+                    "draining": "Vypou\u0161t\u011bn\u00ed",
+                    "fast_preheat": "Rychl\u00fd p\u0159edeh\u0159ev",
+                    "finished": "Dokon\u010deno",
+                    "preheat": "P\u0159edeh\u0159ev",
+                    "ready": "P\u0159ipraveno",
+                    "rinsing": "Oplachov\u00e1n\u00ed",
+                    "scheduled_end": "Pl\u00e1novan\u00fd konec",
+                    "scheduled_start": "Pl\u00e1novan\u00fd za\u010d\u00e1tek",
+                    "searing": "Op\u00e9k\u00e1n\u00ed",
+                    "sensing": "Sn\u00edm\u00e1n\u00ed",
+                    "stone_heating": "Vyt\u00e1p\u011bn\u00ed kamenem",
+                    "time_hold_preheat": "P\u0159edeh\u0159ev s \u010dasovou rezervou",
+                    "warming": "Zah\u0159\u00edv\u00e1n\u00ed"
+                }
+            },
+            "oven_machine_state": {
+                "name": "Stav stroje",
+                "state": {
+                    "paused": "Pozastaveno",
+                    "ready": "P\u0159ipraveno",
+                    "running": "B\u011b\u017e\u00ed"
+                }
+            },
+            "oven_mode": {
+                "name": "Re\u017eim trouby",
+                "state": {
+                    "bake": "Pe\u010den\u00ed",
+                    "bottom_heat": "Spodn\u00ed oh\u0159ev",
+                    "broil": "Grilov\u00e1n\u00ed",
+                    "convection_bake": "Konvek\u010dn\u00ed pe\u010den\u00ed",
+                    "convection_broil": "Konvek\u010dn\u00ed grilov\u00e1n\u00ed",
+                    "convection_roast": "Konvek\u010dn\u00ed pra\u017een\u00ed",
+                    "conventional": "Konven\u010dn\u00ed",
+                    "defrosting": "Rozmrazov\u00e1n\u00ed",
+                    "dehydrate": "Odvodn\u011bn\u00ed",
+                    "descale": "Odv\u00e1pn\u011bn\u00ed",
+                    "grill": "Gril",
+                    "heating": "Zah\u0159\u00edv\u00e1n\u00ed",
+                    "microwave": "Mikrovlnn\u00e1 trouba",
+                    "microwave_plus_convection": "Mikrovlnn\u00e1 trouba plus konvekce",
+                    "microwave_plus_grill": "Mikrovlnn\u00e1 trouba plus gril",
+                    "microwave_plus_hot_blast": "Mikrovlnn\u00e1 trouba plus hork\u00fd proud",
+                    "microwave_plus_hot_blast_2": "Mikrovlnn\u00e1 trouba plus hork\u00fd proud 2",
+                    "others": "Ostatn\u00ed",
+                    "proof": "D\u016fkaz",
+                    "rinse": "Oplach",
+                    "slim_middle": "Slim middle",
+                    "slim_strong": "Slim strong",
+                    "slow_cook": "Pomal\u00e9 va\u0159en\u00ed",
+                    "steam_bake": "Pe\u010den\u00ed v p\u00e1\u0159e",
+                    "steam_bottom_heat_plus_convection": "Spodn\u00ed oh\u0159ev p\u00e1ry plus konvekce",
+                    "steam_cook": "Va\u0159en\u00ed v p\u00e1\u0159e",
+                    "steam_roast": "Pe\u010den\u00ed v p\u00e1\u0159e",
+                    "strong_steam": "Siln\u00e1 p\u00e1ra",
+                    "warming": "Zah\u0159\u00edv\u00e1n\u00ed"
+                }
+            },
+            "oven_setpoint": {
+                "name": "Nastaven\u00fd bod"
+            },
+            "power_energy": {
+                "name": "Energie"
+            },
+            "power_source": {
+                "name": "Zdroj nap\u00e1jen\u00ed"
+            },
+            "refrigeration_setpoint": {
+                "name": "Nastaven\u00fd bod"
+            },
+            "robot_cleaner_cleaning_mode": {
+                "name": "Re\u017eim \u00faklidu",
+                "state": {
+                    "auto": "Auto",
+                    "manual": "Ru\u010dn\u011b",
+                    "map": "Mapa",
+                    "part": "\u010c\u00e1ste\u010dn\u011b",
+                    "repeat": "Opakov\u00e1n\u00ed",
+                    "stop": "Zastavit"
+                }
+            },
+            "robot_cleaner_movement": {
+                "name": "Pohyb",
+                "state": {
+                    "after": "Po",
+                    "alarm": "Alarm",
+                    "charging": "Nab\u00edjen\u00ed",
+                    "cleaning": "\u00daklid",
+                    "homing": "J\u00edzda dom\u016f",
+                    "idle": "Ne\u010dinn\u00fd",
+                    "off": "Vypnuto",
+                    "pause": "Pozastaveno",
+                    "point": "Bod",
+                    "reserve": "Rezerva"
+                }
+            },
+            "robot_cleaner_turbo_mode": {
+                "name": "Re\u017eim Turbo",
+                "state": {
+                    "extra_silence": "Extra tich\u00fd",
+                    "off": "Vypnuto",
+                    "on": "Zapnuto",
+                    "silence": "Tich\u00e9"
+                }
+            },
+            "smoke_detector": {
+                "name": "Detektor kou\u0159e",
+                "state": {
+                    "clear": "V po\u0159\u00e1dku",
+                    "detected": "Detekov\u00e1no",
+                    "tested": "Testov\u00e1no"
+                }
+            },
+            "thermostat_cooling_setpoint": {
+                "name": "Nastaven\u00e1 hodnota chlazen\u00ed"
+            },
+            "thermostat_fan_mode": {
+                "name": "Re\u017eim ventil\u00e1toru"
+            },
+            "thermostat_heating_setpoint": {
+                "name": "Nastaven\u00e1 hodnota vyt\u00e1p\u011bn\u00ed"
+            },
+            "thermostat_mode": {
+                "name": "Re\u017eim"
+            },
+            "thermostat_operating_state": {
+                "name": "Provozn\u00ed stav"
+            },
+            "thermostat_setpoint": {
+                "name": "Nastaven\u00fd bod"
+            },
+            "tv_channel": {
+                "name": "TV kan\u00e1l"
+            },
+            "tv_channel_name": {
+                "name": "N\u00e1zev TV kan\u00e1lu"
+            },
+            "uv_index": {
+                "name": "UV index"
+            },
+            "washer_job_state": {
+                "name": "Stav pr\u00e1ce",
+                "state": {
+                    "ai_rinse": "AI oplach",
+                    "ai_spin": "AI spin",
+                    "ai_wash": "AI pran\u00ed",
+                    "air_wash": "Myt\u00ed vzduchem",
+                    "cooling": "Chlazen\u00ed",
+                    "delay_wash": "Zpo\u017ed\u011bn\u00e9 pran\u00ed",
+                    "drying": "Su\u0161en\u00ed",
+                    "finish": "Dokon\u010dit",
+                    "freeze_protection": "Ochrana proti zamrznut\u00ed",
+                    "none": "\u017d\u00e1dn\u00e9",
+                    "pre_wash": "P\u0159edmyt\u00ed",
+                    "rinse": "Oplach",
+                    "spin": "Rozto\u010den\u00ed",
+                    "wash": "Myt\u00ed",
+                    "weight_sensing": "V\u00e1\u017een\u00ed",
+                    "wrinkle_prevent": "Prevence poma\u010dk\u00e1n\u00ed"
+                }
+            },
+            "washer_machine_state": {
+                "name": "Stav stroje",
+                "state": {
+                    "pause": "Pozastaveno",
+                    "run": "B\u011b\u017e\u00ed",
+                    "stop": "Zastaveno"
+                }
+            },
+            "washer_mode": {
+                "name": "Re\u017eim pra\u010dky"
+            },
+            "x_coordinate": {
+                "name": "Sou\u0159adnice X"
+            },
+            "y_coordinate": {
+                "name": "Sou\u0159adnice Y"
+            },
+            "z_coordinate": {
+                "name": "Sou\u0159adnice Z"
+            }
+        }
+    }
+}

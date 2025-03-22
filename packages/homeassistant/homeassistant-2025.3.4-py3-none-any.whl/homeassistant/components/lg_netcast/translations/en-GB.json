@@ -1,0 +1,21 @@
+{
+    "config": {
+        "step": {
+            "authorize": {
+                "description": "Enter the Pairing Key displayed on the TV",
+                "title": "Authorise LG Netcast TV"
+            },
+            "user": {
+                "data_description": {
+                    "host": "The hostname or IP address of the LG Netcast TV to control."
+                },
+                "description": "Ensure that your TV is turned on before trying to set it up.\nIf you leave the host empty, discovery will be used to find devices."
+            }
+        }
+    },
+    "device_automation": {
+        "trigger_type": {
+            "lg_netcast.turn_on": "Device is requested to turn on"
+        }
+    }
+}

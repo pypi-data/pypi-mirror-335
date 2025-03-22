@@ -1,0 +1,32 @@
+{
+    "exceptions": {
+        "project_invalid": {
+            "message": "Invalid project name \"{project}\""
+        },
+        "section_invalid": {
+            "message": "Project \"{project}\" has no section \"{section}\""
+        }
+    },
+    "services": {
+        "new_task": {
+            "description": "Creates a new task and add it to a project.",
+            "fields": {
+                "assignee": {
+                    "name": "Assignee"
+                },
+                "content": {
+                    "description": "The name of the task.",
+                    "name": "Content"
+                },
+                "description": {
+                    "description": "A description for the task.",
+                    "name": "Description"
+                },
+                "section": {
+                    "description": "The name of a section within the project to add the task to.",
+                    "name": "Section"
+                }
+            }
+        }
+    }
+}

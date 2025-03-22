@@ -1,0 +1,96 @@
+{
+    "device_automation": {
+        "action_type": {
+            "arm_vacation": "Arm {entity_name} holiday"
+        },
+        "condition_type": {
+            "is_armed_vacation": "{entity_name} is armed holiday"
+        },
+        "extra_fields": {
+            "code": "Code",
+            "for": "Duration"
+        },
+        "trigger_type": {
+            "armed_vacation": "{entity_name} armed holiday"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state": {
+                "armed_vacation": "Armed holiday"
+            }
+        }
+    },
+    "exceptions": {
+        "code_arm_required": {
+            "message": "Arming requires a code but none was given for {entity_id}."
+        }
+    },
+    "services": {
+        "alarm_arm_away": {
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Arm away"
+        },
+        "alarm_arm_custom_bypass": {
+            "description": "Arms the alarm while allowing to bypass a custom area.",
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Arm with custom bypass"
+        },
+        "alarm_arm_home": {
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Arm home"
+        },
+        "alarm_arm_night": {
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Arm night"
+        },
+        "alarm_arm_vacation": {
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Arm holiday mode"
+        },
+        "alarm_disarm": {
+            "description": "Disarms the alarm.",
+            "fields": {
+                "code": {
+                    "description": "Code to disarm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Disarm"
+        },
+        "alarm_trigger": {
+            "fields": {
+                "code": {
+                    "description": "Code to arm the alarm.",
+                    "name": "Code"
+                }
+            },
+            "name": "Trigger"
+        }
+    }
+}

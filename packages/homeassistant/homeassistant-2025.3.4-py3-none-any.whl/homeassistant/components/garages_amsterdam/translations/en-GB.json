@@ -1,0 +1,33 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "garage_name": "The name of the garage you want to monitor."
+                },
+                "description": "Select a garage from the list"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "state": {
+                "name": "State"
+            }
+        },
+        "sensor": {
+            "free_space_long": {
+                "unit_of_measurement": "cars"
+            },
+            "free_space_short": {
+                "unit_of_measurement": "cars"
+            },
+            "long_capacity": {
+                "unit_of_measurement": "cars"
+            },
+            "short_capacity": {
+                "unit_of_measurement": "cars"
+            }
+        }
+    }
+}

@@ -1,0 +1,117 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "error": {
+            "password_missing": "Password is missing",
+            "username_missing": "Username is missing"
+        },
+        "step": {
+            "confirm_discovery": {
+                "description": "Do you want to add your HEOS devices to Home Assistant?",
+                "title": "Discovered HEOS System"
+            },
+            "reauth_confirm": {
+                "data_description": {
+                    "password": "The password to your HEOS Account.",
+                    "username": "The username or email address of your HEOS Account."
+                },
+                "description": "Please update your HEOS Account credentials. Alternatively, you can clear the credentials if you do not want the integration to access favourites, playlists, and streaming services.",
+                "title": "Reauthenticate HEOS"
+            },
+            "reconfigure": {
+                "description": "Change the host name or IP address of the HEOS-capable product used to access your HEOS System.",
+                "title": "Reconfigure HEOS"
+            }
+        }
+    },
+    "exceptions": {
+        "action_error": {
+            "message": "Unable to {action}: {error}"
+        },
+        "entity_not_found": {
+            "message": "Entity {entity_id} was not found"
+        },
+        "entity_not_grouped": {
+            "message": "Entity {entity_id} is not joined to a group"
+        },
+        "integration_not_loaded": {
+            "message": "The HEOS integration is not loaded"
+        },
+        "not_heos_media_player": {
+            "message": "Entity {entity_id} is not a HEOS media player entity"
+        },
+        "sign_in_auth_error": {
+            "message": "Failed to sign in: Invalid username and/or password"
+        },
+        "sign_in_error": {
+            "message": "Unable to sign in: {error}"
+        },
+        "sign_out_error": {
+            "message": "Unable to sign out: {error}"
+        },
+        "unable_to_connect": {
+            "message": "Unable to connect to {host}"
+        },
+        "unable_to_get_players": {
+            "message": "Unexpected error retrieving players"
+        },
+        "unknown_source": {
+            "message": "Unknown source: {source}"
+        }
+    },
+    "issues": {
+        "sign_in_out_deprecated": {
+            "description": "Actions 'heos.sign_in' and 'heos.sign_out' are deprecated and will be removed in the 2025.8.0 release. Enter your HEOS Account credentials in the configuration options and the integration will manage authentication automatically.",
+            "title": "HEOS Actions Deprecated"
+        }
+    },
+    "options": {
+        "error": {
+            "password_missing": "Password is missing",
+            "username_missing": "Username is missing"
+        },
+        "step": {
+            "init": {
+                "data_description": {
+                    "password": "The password to your HEOS Account.",
+                    "username": "The username or email address of your HEOS Account."
+                },
+                "description": "You can sign-in to your HEOS Account to access favourites, streaming services, and other features. Clearing the credentials will sign-out of your account.",
+                "title": "HEOS Options"
+            }
+        }
+    },
+    "services": {
+        "group_volume_down": {
+            "description": "Turns down the group volume.",
+            "name": "Turn down group volume"
+        },
+        "group_volume_set": {
+            "description": "Sets the group's volume while preserving member volume ratios.",
+            "fields": {
+                "volume_level": {
+                    "description": "The volume. 0 is inaudible, 1 is the maximum volume.",
+                    "name": "Level"
+                }
+            },
+            "name": "Set group volume"
+        },
+        "group_volume_up": {
+            "description": "Turns up the group volume.",
+            "name": "Turn up group volume"
+        },
+        "sign_in": {
+            "fields": {
+                "username": {
+                    "description": "The username or email of the HEOS account."
+                }
+            },
+            "name": "Sign in"
+        },
+        "sign_out": {
+            "name": "Sign out"
+        }
+    }
+}

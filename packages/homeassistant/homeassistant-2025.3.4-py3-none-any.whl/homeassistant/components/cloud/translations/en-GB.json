@@ -1,0 +1,35 @@
+{
+    "exceptions": {
+        "backup_size_too_large": {
+            "message": "The backup size of {size}GB is too large to be uploaded to Home Assistant Cloud."
+        }
+    },
+    "issues": {
+        "deprecated_gender": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "The `{deprecated_option}` option for text-to-speech in the {integration_name} integration is deprecated and will be removed.\nPlease update your automations and scripts to replace the `{deprecated_option}` option with an option for a supported `{replacement_option}` instead.",
+                        "title": "A deprecated voice was used"
+                    }
+                }
+            },
+            "title": "The {deprecated_option} text-to-speech option is deprecated"
+        },
+        "deprecated_tts_platform_config": {
+            "description": "The whole `platform: cloud` entry under the `tts:` section in configuration.yaml is deprecated and should be removed. You can use the UI to change settings for the Cloud text-to-speech platform. Please adjust your configuration.yaml and restart Home Assistant to fix this issue.",
+            "title": "The Cloud text-to-speech platform configuration is deprecated"
+        },
+        "deprecated_voice": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "The `{deprecated_voice}`voice is deprecated and will be removed.\nPlease update your automations and scripts to replace the `{deprecated_voice}` with another voice like e.g. `{replacement_voice}`.",
+                        "title": "A deprecated voice was used"
+                    }
+                }
+            },
+            "title": "A deprecated voice was used"
+        }
+    }
+}

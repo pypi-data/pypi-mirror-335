@@ -1,0 +1,41 @@
+{
+    "config": {
+        "abort": {
+            "another_device": "Re-configuration was unsuccessful, the IP address/hostname of another Shelly device was used.",
+            "ipv6_not_supported": "IPv6 is not supported.",
+            "mac_address_mismatch": "The MAC address of the device does not match the one in the configuration, please reboot the device and try again.",
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "error": {
+            "custom_port_not_supported": "Gen1 device does not support custom port.",
+            "mac_address_mismatch": "The MAC address of the device does not match the one in the configuration, please reboot the device and try again."
+        },
+        "step": {
+            "reconfigure": {
+                "data_description": {
+                    "port": "The TCP port of the Shelly device to connect to (Gen2+)."
+                },
+                "description": "Update configuration for {device_name}.\n\nBefore setup, battery-powered devices must be woken up, you can now wake the device up using a button on it."
+            },
+            "user": {
+                "data_description": {
+                    "port": "The TCP port of the Shelly device to connect to (Gen2+)."
+                }
+            }
+        }
+    },
+    "issues": {
+        "device_not_calibrated": {
+            "description": "Shelly device {device_name} with IP address {ip_address} requires calibration. To calibrate the device, it must be rebooted after proper installation on the valve. You can reboot the device in its web panel, go to 'Settings' > 'Device Reboot'.",
+            "title": "Shelly device {device_name} is not calibrated"
+        },
+        "push_update_failure": {
+            "description": "Home Assistant is not receiving push updates from the Shelly device {device_name} with IP address {ip_address}. Check the CoIoT configuration in the web panel of the device and your network configuration.",
+            "title": "Shelly device {device_name} push update failure"
+        },
+        "unsupported_firmware": {
+            "description": "Your Shelly device {device_name} with IP address {ip_address} is running an unsupported firmware. Please update the firmware.\n\nIf the device does not offer an update, check internet connectivity (gateway, DNS, time) and restart the device.",
+            "title": "Unsupported firmware for device {device_name}"
+        }
+    }
+}

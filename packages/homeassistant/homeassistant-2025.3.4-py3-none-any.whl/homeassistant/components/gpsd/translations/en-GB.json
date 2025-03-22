@@ -1,0 +1,43 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data_description": {
+                    "host": "The hostname or IP address of GPSD."
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "climb": {
+                "name": "Climb"
+            },
+            "mode": {
+                "state": {
+                    "2d_fix": "2D Fix",
+                    "3d_fix": "3D Fix"
+                },
+                "state_attributes": {
+                    "climb": {
+                        "name": "Climb"
+                    },
+                    "gps_time": {
+                        "name": "Time"
+                    }
+                }
+            },
+            "time": {
+                "name": "Time"
+            },
+            "total_satellites": {
+                "name": "Total satellites",
+                "unit_of_measurement": "satellites"
+            },
+            "used_satellites": {
+                "name": "Used satellites",
+                "unit_of_measurement": "satellites"
+            }
+        }
+    }
+}

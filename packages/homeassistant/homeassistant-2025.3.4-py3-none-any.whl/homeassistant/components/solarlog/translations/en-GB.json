@@ -1,0 +1,61 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "step": {
+            "password": {
+                "data_description": {
+                    "password": "The password for the general user of your Solar-Log device."
+                },
+                "title": "Define your Solar-Log connection"
+            },
+            "reauth_confirm": {
+                "data": {
+                    "has_password": "I have the password for the Solar-Log user account."
+                },
+                "data_description": {
+                    "has_password": "The password is required, if the open JSON-API is deactivated or if you would like to access additional data provided by your Solar-Log device.",
+                    "password": "The password for the general user of your Solar-Log device."
+                },
+                "description": "Update your credentials for Solar-Log device"
+            },
+            "reconfigure": {
+                "data": {
+                    "has_password": "I have the password for the Solar-Log user account."
+                },
+                "data_description": {
+                    "has_password": "The password is required, if the open JSON-API is deactivated or if you would like to access additional data provided by your Solar-Log device.",
+                    "password": "The password for the general user of your Solar-Log device."
+                },
+                "title": "Configure SolarLog"
+            },
+            "user": {
+                "data": {
+                    "has_password": "I have the password for the Solar-Log user account."
+                },
+                "data_description": {
+                    "has_password": "The password is required, if the open JSON-API is deactivated or if you would like to access additional data provided by your Solar-Log device."
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "self_consumption_year": {
+                "name": "Self-consumption year"
+            }
+        }
+    },
+    "exceptions": {
+        "auth_failed": {
+            "message": "Error while logging in to the API."
+        },
+        "config_entry_not_ready": {
+            "message": "Error while loading the config entry."
+        },
+        "update_error": {
+            "message": "Error while updating data from the API."
+        }
+    }
+}

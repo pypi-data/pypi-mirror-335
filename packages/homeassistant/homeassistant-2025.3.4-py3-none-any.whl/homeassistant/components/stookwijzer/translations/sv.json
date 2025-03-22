@@ -1,0 +1,40 @@
+{
+    "config": {
+        "error": {
+            "unknown": "Ov\u00e4ntat fel"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "location": "Plats"
+                },
+                "data_description": {
+                    "location": "Anv\u00e4nd kartan f\u00f6r att ange platsen f\u00f6r Stookwijzer."
+                },
+                "description": "V\u00e4lj den plats du vill ta emot Stookwijzer-information f\u00f6r."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "advice": {
+                "name": "Kod f\u00f6r r\u00e5dgivning",
+                "state": {
+                    "code_orange": "Orange",
+                    "code_red": "R\u00f6d",
+                    "code_yellow": "Gul"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "no_data_received": {
+            "message": "Inga uppgifter mottagna fr\u00e5n Stookwijzer."
+        }
+    },
+    "issues": {
+        "location_migration_failed": {
+            "title": "Migreringen av din plats misslyckades"
+        }
+    }
+}

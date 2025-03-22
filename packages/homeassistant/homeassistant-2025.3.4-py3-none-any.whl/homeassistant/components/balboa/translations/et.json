@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Seade on juba h\u00e4\u00e4lestatud"
+        },
+        "error": {
+            "cannot_connect": "\u00dchendamine nurjus",
+            "unknown": "Ootamatu t\u00f5rge"
+        },
+        "flow_title": "{model}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Kas soovid luua spaa asukohas {host}?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Balboa Spa WiFi-seadme hostinimi v\u00f5i IP-aadress. N\u00e4iteks 192.168.1.58."
+                },
+                "description": "\u00dchenduse loomine Balboa WiFi-seadmega"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "circ_pump": {
+                "name": "Tsirkulatsioonipump"
+            },
+            "filter_1": {
+                "name": "Filtri ts\u00fckkel 1"
+            },
+            "filter_2": {
+                "name": "Filtri ts\u00fckkel 2"
+            }
+        },
+        "climate": {
+            "balboa": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "ready": "Valmis",
+                            "ready_in_rest": "Valmis puhkepausil",
+                            "rest": "Puhkepausil"
+                        }
+                    }
+                }
+            }
+        },
+        "fan": {
+            "pump": {
+                "name": "Pump {index}"
+            }
+        },
+        "light": {
+            "light_of_n": {
+                "name": "Valgus {index}"
+            },
+            "only_light": {
+                "name": "Valgus"
+            }
+        },
+        "select": {
+            "temperature_range": {
+                "name": "Temperatuurivahemik",
+                "state": {
+                    "high": "K\u00f5rge",
+                    "low": "Madal"
+                }
+            }
+        },
+        "switch": {
+            "filter_cycle_2_enabled": {
+                "name": "Filtrits\u00fckkel 2 on lubatud"
+            }
+        },
+        "time": {
+            "filter_cycle_end": {
+                "name": "Filtrits\u00fckli {index} l\u00f5pp"
+            },
+            "filter_cycle_start": {
+                "name": "Filtrits\u00fckli {index} algus"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sync_time": "Hoia oma Balboa Spa kliendi aeg Home Assistantiga s\u00fcnkroonis"
+                }
+            }
+        }
+    }
+}

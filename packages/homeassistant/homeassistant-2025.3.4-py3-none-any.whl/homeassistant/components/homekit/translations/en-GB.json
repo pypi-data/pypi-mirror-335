@@ -1,0 +1,24 @@
+{
+    "options": {
+        "step": {
+            "advanced": {
+                "description": "Programmable switches are created for each selected device. When a device trigger fires, HomeKit can be configured to run an automation or scene."
+            },
+            "exclude": {
+                "description": "All \u201c{domains}\u201d entities will be included except for the excluded entities and categorised entities."
+            },
+            "include": {
+                "description": "Select entities from each domain in \u201c{domains}\u201d. The include will cover the entire domain if you do not select any entities for a given domain."
+            }
+        }
+    },
+    "services": {
+        "reload": {
+            "name": "Reload"
+        },
+        "reset_accessory": {
+            "description": "Resets a HomeKit accessory.",
+            "name": "Reset accessory"
+        }
+    }
+}

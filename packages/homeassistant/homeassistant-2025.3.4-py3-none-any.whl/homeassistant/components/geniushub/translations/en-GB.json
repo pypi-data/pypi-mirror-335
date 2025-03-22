@@ -1,0 +1,37 @@
+{
+    "config": {
+        "step": {
+            "cloud_api": {
+                "title": "Genius Hub cloud configuration"
+            },
+            "local_api": {
+                "title": "Genius Hub local configuration"
+            },
+            "user": {
+                "menu_options": {
+                    "cloud_api": "Cloud: API token",
+                    "local_api": "Local: IP address and user credentials"
+                },
+                "title": "Genius Hub configuration"
+            }
+        }
+    },
+    "services": {
+        "set_switch_override": {
+            "description": "Overrides switch for a given duration.",
+            "fields": {
+                "duration": {
+                    "name": "Duration"
+                }
+            },
+            "name": "Set switch override"
+        },
+        "set_zone_mode": {
+            "fields": {
+                "entity_id": {
+                    "name": "Entity"
+                }
+            }
+        }
+    }
+}

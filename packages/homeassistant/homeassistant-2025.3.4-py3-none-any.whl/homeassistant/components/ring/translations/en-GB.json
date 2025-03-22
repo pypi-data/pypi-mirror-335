@@ -1,0 +1,108 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "step": {
+            "2fa": {
+                "data_description": {
+                    "2fa": "Account verification code via the method selected in your Ring account settings."
+                }
+            },
+            "reauth_confirm": {
+                "data_description": {
+                    "password": "Your Ring account password."
+                }
+            },
+            "reconfigure": {
+                "data_description": {
+                    "password": "Your Ring account password."
+                },
+                "description": "Will create a new Authorised Device for {username} at ring.com",
+                "title": "Reconfigure Ring integration"
+            },
+            "user": {
+                "data_description": {
+                    "password": "Your Ring account password.",
+                    "username": "Your Ring account username."
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "open_door": {
+                "name": "Open door"
+            }
+        },
+        "camera": {
+            "last_recording": {
+                "name": "Last recording"
+            },
+            "live_view": {
+                "name": "Live view"
+            }
+        },
+        "event": {
+            "ding": {
+                "name": "Ding"
+            },
+            "intercom_unlock": {
+                "name": "Intercom unlock"
+            }
+        },
+        "number": {
+            "doorbell_volume": {
+                "name": "Doorbell volume"
+            },
+            "mic_volume": {
+                "name": "Mic volume"
+            },
+            "voice_volume": {
+                "name": "Voice volume"
+            },
+            "volume": {
+                "name": "Volume"
+            }
+        },
+        "sensor": {
+            "doorbell_volume": {
+                "name": "Doorbell volume"
+            },
+            "mic_volume": {
+                "name": "Mic volume"
+            },
+            "voice_volume": {
+                "name": "Voice volume"
+            }
+        },
+        "switch": {
+            "in_home_chime": {
+                "name": "In-home chime"
+            },
+            "motion_detection": {
+                "name": "Motion detection"
+            }
+        }
+    },
+    "exceptions": {
+        "api_authentication": {
+            "message": "Authentication error communicating with Ring API"
+        },
+        "api_error": {
+            "message": "Error communicating with Ring API"
+        },
+        "api_timeout": {
+            "message": "Timeout communicating with Ring API"
+        },
+        "sdp_m_line_index_required": {
+            "message": "Error negotiating stream for {device}"
+        }
+    },
+    "issues": {
+        "deprecated_entity": {
+            "description": "We detected that entity `{entity}` is being used in `{info}`\n\nWe have created a new `{new_platform}` entity and you should migrate `{info}` to use this new entity.\n\nWhen you are done migrating `{info}` and are ready to have the deprecated `{entity}` entity removed, disable the entity and restart Home Assistant.",
+            "title": "Detected deprecated {platform} entity usage"
+        }
+    }
+}

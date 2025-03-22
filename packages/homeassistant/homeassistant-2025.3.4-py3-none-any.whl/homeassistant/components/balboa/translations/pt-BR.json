@@ -1,0 +1,68 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Dispositivo j\u00e1 est\u00e1 configurado"
+        },
+        "error": {
+            "cannot_connect": "Falha ao conectar",
+            "unknown": "Erro inesperado"
+        },
+        "flow_title": "{model}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Voc\u00ea quer configurar o spa em {host}?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "description": "Conecte-se ao dispositivo Wi-Fi Balboa"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "balboa": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "ready": "Pronto",
+                            "ready_in_rest": "Pronto em repouso",
+                            "rest": "Descanso"
+                        }
+                    }
+                }
+            }
+        },
+        "light": {
+            "light_of_n": {
+                "name": "Luz {index}"
+            },
+            "only_light": {
+                "name": "Luz"
+            }
+        },
+        "switch": {
+            "filter_cycle_2_enabled": {
+                "name": "Ciclo de filtro 2 habilitado"
+            }
+        },
+        "time": {
+            "filter_cycle_end": {
+                "name": "Fim do ciclo de filtragem {index}"
+            },
+            "filter_cycle_start": {
+                "name": "In\u00edcio do ciclo do filtro {index}"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sync_time": "Mantenha o hor\u00e1rio do seu cliente Balboa Spa sincronizado com o Home Assistant"
+                }
+            }
+        }
+    }
+}

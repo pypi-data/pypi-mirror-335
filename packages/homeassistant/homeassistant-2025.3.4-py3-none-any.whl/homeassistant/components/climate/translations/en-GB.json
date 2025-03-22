@@ -1,0 +1,84 @@
+{
+    "device_automation": {
+        "extra_fields": {
+            "above": "Above",
+            "below": "Below",
+            "for": "Duration",
+            "hvac_mode": "HVAC mode",
+            "preset_mode": "Preset mode",
+            "to": "To"
+        }
+    },
+    "entity_component": {
+        "_": {
+            "state_attributes": {
+                "hvac_action": {
+                    "state": {
+                        "defrosting": "Defrosting"
+                    }
+                },
+                "swing_horizontal_mode": {
+                    "name": "Horizontal swing mode"
+                },
+                "swing_horizontal_modes": {
+                    "name": "Horizontal swing modes"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "humidity_out_of_range": {
+            "message": "Provided humidity {humidity} is not valid. Accepted range is {min_humidity} to {max_humidity}."
+        },
+        "low_temp_higher_than_high_temp": {
+            "message": "Target temperature low can not be higher than Target temperature high."
+        },
+        "missing_target_temperature_entity_feature": {
+            "message": "Set temperature action was used with the target temperature parameter but the entity does not support it."
+        },
+        "missing_target_temperature_range_entity_feature": {
+            "message": "Set temperature action was used with the target temperature low/high parameter but the entity does not support it."
+        },
+        "not_valid_fan_mode": {
+            "message": "Fan mode {mode} is not valid. Valid fan modes are: {modes}."
+        },
+        "not_valid_horizontal_swing_mode": {
+            "message": "Horizontal swing mode {mode} is not valid. Valid horizontal swing modes are: {modes}."
+        },
+        "not_valid_preset_mode": {
+            "message": "Preset mode {mode} is not valid. Valid preset modes are: {modes}."
+        },
+        "not_valid_swing_mode": {
+            "message": "Swing mode {mode} is not valid. Valid swing modes are: {modes}."
+        },
+        "temp_out_of_range": {
+            "message": "Provided temperature {check_temp} is not valid. Accepted range is {min_temp} to {max_temp}."
+        }
+    },
+    "issues": {
+        "deprecated_climate_aux_no_url": {
+            "description": "The custom integration `{platform}` implements the `is_aux_heat` property or uses the auxiliary heater methods in a subclass of ClimateEntity.\n\nPlease report it to the author of the {platform} integration.\n\nOnce an updated version of `{platform}` is available, install it and restart Home Assistant to fix this issue.",
+            "title": "The {platform} custom integration is using deprecated climate auxiliary heater"
+        },
+        "deprecated_climate_aux_url_custom": {
+            "description": "The custom integration `{platform}` implements the `is_aux_heat` property or uses the auxiliary heater methods in a subclass of ClimateEntity.\n\nPlease create a bug report at {issue_tracker}.\n\nOnce an updated version of `{platform}` is available, install it and restart Home Assistant to fix this issue.",
+            "title": "The {platform} custom integration is using deprecated climate auxiliary heater"
+        }
+    },
+    "services": {
+        "set_swing_horizontal_mode": {
+            "description": "Sets horizontal swing operation mode.",
+            "fields": {
+                "swing_horizontal_mode": {
+                    "description": "Horizontal swing operation mode.",
+                    "name": "Horizontal swing mode"
+                }
+            },
+            "name": "Set horizontal swing mode"
+        },
+        "toggle": {
+            "description": "Toggles climate device, from on to off, or off to on.",
+            "name": "Toggle"
+        }
+    }
+}

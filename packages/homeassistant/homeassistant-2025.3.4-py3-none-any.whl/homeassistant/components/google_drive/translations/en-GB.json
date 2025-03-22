@@ -1,0 +1,27 @@
+{
+    "application_credentials": {
+        "description": "Follow the [instructions]({more_info_url}) to configure the Cloud Console:\n\n1. Go to the [OAuth consent screen]({oauth_consent_url}) and configure\n1. Go to [Credentials]({oauth_creds_url}) and select **Create Credentials**.\n1. From the drop-down list select **OAuth client ID**.\n1. Select **Web application** for the Application Type.\n1. Add `{redirect_url}` under *Authorised redirect URI*."
+    },
+    "config": {
+        "abort": {
+            "access_not_configured": "Unable to access the Google Drive API:\n\n{message}",
+            "already_configured": "Account is already configured",
+            "authorize_url_timeout": "Timeout generating authorise URL.",
+            "create_folder_failure": "Error while creating Google Drive folder:\n\n{message}",
+            "oauth_unauthorized": "OAuth authorisation error while obtaining access token.",
+            "user_rejected_authorize": "Account linking rejected: {error}",
+            "wrong_account": "Wrong account: Please authenticate with {email}."
+        },
+        "create_entry": {
+            "default": "Using [{folder_name}]({url}) folder. Feel free to rename it in Google Drive as you wish."
+        },
+        "step": {
+            "auth": {
+                "title": "Link Google Account"
+            },
+            "reauth_confirm": {
+                "description": "The Google Drive integration needs to re-authenticate your account"
+            }
+        }
+    }
+}

@@ -1,0 +1,68 @@
+{
+    "config": {
+        "step": {
+            "2fa": {
+                "data": {
+                    "pin": "Two-factor code"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "wifi_strength": {
+                "name": "Wi-Fi signal strength"
+            }
+        }
+    },
+    "exceptions": {
+        "failed_arm": {
+            "message": "Blink failed to arm camera."
+        },
+        "failed_arm_motion": {
+            "message": "Blink failed to arm camera motion detection."
+        },
+        "failed_clip": {
+            "message": "Blink failed to record a clip."
+        },
+        "failed_disarm": {
+            "message": "Blink failed to disarm camera."
+        },
+        "failed_disarm_motion": {
+            "message": "Blink failed to disarm camera motion detection."
+        },
+        "failed_snap": {
+            "message": "Blink failed to snap a picture."
+        },
+        "integration_not_found": {
+            "message": "Integration \"{target}\" not found in registry."
+        }
+    },
+    "issues": {
+        "service_deprecation": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Blink update service is deprecated and will be removed.\nPlease update your automations and scripts to use `Home Assistant Core Integration: Update entity`.",
+                        "title": "Blink update service is being removed"
+                    }
+                }
+            },
+            "title": "Blink update service is being removed"
+        }
+    },
+    "services": {
+        "record": {
+            "description": "Requests camera to record a clip.",
+            "name": "Record"
+        },
+        "send_pin": {
+            "fields": {
+                "config_entry_id": {
+                    "description": "The Blink Integration ID.",
+                    "name": "Integration ID"
+                }
+            }
+        }
+    }
+}

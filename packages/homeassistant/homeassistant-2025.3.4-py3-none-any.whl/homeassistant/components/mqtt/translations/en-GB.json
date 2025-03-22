@@ -1,0 +1,108 @@
+{
+    "config": {
+        "abort": {
+            "addon_connection_failed": "Failed to connect to the {addon} add-on. Check the add-on status and try again later.",
+            "addon_info_failed": "Failed get info for the {addon} add-on.",
+            "addon_install_failed": "Failed to install the {addon} add-on.",
+            "addon_start_failed": "Failed to start the {addon} add-on.",
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "step": {
+            "broker": {
+                "data_description": {
+                    "keepalive": "A value less than 90 seconds is advised."
+                }
+            },
+            "install_addon": {
+                "title": "Installing add-on"
+            },
+            "reauth_confirm": {
+                "description": "The MQTT broker reported an authentication error. Please confirm the brokers correct username and password.",
+                "title": "Re-authentication required with the MQTT broker"
+            },
+            "start_addon": {
+                "title": "Starting add-on"
+            },
+            "user": {
+                "description": "Please choose how you want to connect to the MQTT broker:",
+                "menu_options": {
+                    "addon": "Use the official {addon} add-on.",
+                    "broker": "Manually enter the MQTT broker connection details"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "addon_start_failed": {
+            "message": "Failed to correctly start {addon} add-on."
+        },
+        "command_template_error": {
+            "message": "Parsing template `{command_template}` for entity `{entity_id}` failed with error: {error}."
+        },
+        "invalid_publish_topic": {
+            "message": "Unable to publish: topic template `{topic_template}` produced an invalid topic `{topic}` after rendering ({error})"
+        },
+        "mqtt_broker_error": {
+            "message": "Error talking to MQTT: {error_message}."
+        },
+        "mqtt_not_setup_cannot_unsubscribe_twice": {
+            "message": "Cannot unsubscribe topic \"{topic}\" twice."
+        },
+        "mqtt_topic_not_a_string": {
+            "message": "Topic needs to be a string! Got: {topic}."
+        },
+        "mqtt_trigger_cannot_remove_twice": {
+            "message": "Can't remove trigger twice."
+        }
+    },
+    "options": {
+        "step": {
+            "broker": {
+                "data_description": {
+                    "keepalive": "A value less than 90 seconds is advised."
+                }
+            }
+        }
+    },
+    "services": {
+        "dump": {
+            "description": "Writes all messages on a specific topic into the `mqtt_dump.txt` file in your configuration folder.",
+            "fields": {
+                "duration": {
+                    "description": "How long we should listen for messages in seconds.",
+                    "name": "Duration"
+                },
+                "topic": {
+                    "description": "Topic to listen to."
+                }
+            },
+            "name": "Export"
+        },
+        "publish": {
+            "description": "Publishes a message to an MQTT topic.",
+            "fields": {
+                "evaluate_payload": {
+                    "name": "Evaluate payload"
+                },
+                "payload": {
+                    "name": "Payload"
+                },
+                "qos": {
+                    "name": "QoS"
+                },
+                "retain": {
+                    "description": "If the message should have the retain flag set. If set, the broker stores the most recent message on a topic.",
+                    "name": "Retain"
+                },
+                "topic": {
+                    "description": "Topic to publish to."
+                }
+            },
+            "name": "Publish"
+        },
+        "reload": {
+            "description": "Reloads MQTT entities from the YAML-configuration.",
+            "name": "Reload"
+        }
+    }
+}
