@@ -1,0 +1,78 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "microwave_usb_fan_fork"
+version = "0.0.1"
+authors = [
+  { name="Fergus Symon", email="45412+fergofrog@users.noreply.github.com" },
+  { name="Ulrich Schwenk", email="ulrich-schwenk@gmx.de" }
+]
+maintainers = [
+  { name="Ulrich Schwenk", email="ulrich-schwenk@gmx.de" }
+]
+description = "Rebranded UF-211-06RGB USB fans by USTAR (Ruishengda) protocol implementation"
+readme = "README.md"
+requires-python = ">=3.10"
+classifiers = [
+      'Development Status :: 5 - Production/Stable',
+      'Intended Audience :: Information Technology',
+      'License :: OSI Approved :: MIT License',
+      'Operating System :: MacOS',
+      'Operating System :: Microsoft :: Windows',
+      'Operating System :: POSIX :: BSD',
+      'Operating System :: POSIX :: Linux',
+      'Programming Language :: Python :: 3.12',
+      'Programming Language :: Python :: 3.11',
+      'Programming Language :: Python :: 3.10',
+      'Topic :: System :: Hardware',
+      'Topic :: System :: Hardware :: Hardware Drivers',
+      'Topic :: Communications',
+      'Topic :: Software Development :: Libraries :: Python Modules'
+]
+dependencies = [
+    "click",
+    "pillow",
+    "hidapi",
+    "pyusb>=1.2.1"
+]
+[project.scripts]
+microwave_usb_fan_fork= "microwave_usb_fan_fork.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pylint",
+    # Code style
+    "black[d]",
+    # Strict typing
+    "mypy",
+    # Test coverage
+    "coverage",
+    "build",
+    "poethepoet",
+    "twine",
+    "black"
+]
+
+[tool.poe.tasks]
+coverage = { help = "Run unit tests with coverage", shell = "coverage run -m unittest discover tests" }
+coverage-report = { help = "Generate coverage report", shell = "coverage html" }
+build-wheel = { help = "Build the wheel distribution", shell = "python -m build --wheel" }
+build = { help = "Build the wheel distribution", shell = "python -m build" }
+test-publish = { help = "Publish to TestPyPI", shell = "twine upload --verbose --repository testpypi dist/*" }
+publish = { help = "Publish to PyPI", shell = "twine upload dist/*" }
+blackd = { help = "Run black formatter daemon", shell = "blackd" }
+
+[project.urls]
+"Homepage" = "https://sourceforge.net/p/ratisbona-fan-fork"
+"Bug Tracker" = "https://sourceforge.net/p/ratisbona-fan-fork"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/microwave_usb_fan_fork"]
+include = ["microwave_usb_fan_fork/resources/*", "microwave_usb_fan_fork/fonts/*"]
+
+
+[tool.hatch.metadata]
+allow-directories = ["microwave_usb_fan_fork/resources", "microwave_usb_fan_fork/fonts/"]
