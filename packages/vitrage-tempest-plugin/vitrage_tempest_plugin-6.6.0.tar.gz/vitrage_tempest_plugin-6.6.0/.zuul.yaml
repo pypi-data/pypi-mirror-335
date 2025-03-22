@@ -1,0 +1,265 @@
+- project:
+    queue: vitrage
+    templates:
+      - check-requirements
+      - tempest-plugin-jobs
+      - publish-openstack-docs-pti
+    check:
+      jobs:
+        - vitrage-tempest-plugin-api
+        - vitrage-tempest-plugin-datasources
+    gate:
+      jobs:
+        - vitrage-tempest-plugin-api
+        - vitrage-tempest-plugin-datasources
+
+- job:
+    name: vitrage-tempest-plugin-base
+    parent: devstack-tempest
+    pre-run: playbooks/pre.yaml
+    timeout: 7800
+    required-projects: &base_required_projects
+      - opendev.org/openstack/aodh
+      - opendev.org/openstack/mistral
+      - opendev.org/openstack/python-vitrageclient
+      - opendev.org/openstack/vitrage
+      - opendev.org/openstack/vitrage-tempest-plugin
+      - opendev.org/openstack/ceilometer
+      - opendev.org/openstack/heat
+    irrelevant-files: &base_irrelevant_files
+      - ^.*\.rst$
+      - ^doc/.*$
+      - ^releasenotes/.*$
+    vars: &base_vars
+      # Default swap size got shrinked to 1 GB, it's way too small for us.
+      configure_swap_size: 8192
+      devstack_local_conf:
+        post-config:
+          $NOVA_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+            notifications:
+              versioned_notifications_topics: 'versioned_notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $NEUTRON_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $CINDER_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $AODH_CONF:
+            oslo_messaging_notifications:
+              topics: 'notifications,vitrage_notifications'
+              driver: messagingv2
+          $VITRAGE_CONF:
+            DEFAULT:
+              notifiers: 'mistral,nova,webhook'
+            datasources:
+              snapshots_interval: 120
+        test-config:
+          $TEMPEST_CONFIG:
+            service_available:
+              vitrage: True
+            root_cause_analysis_service:
+              zabbix_alarms_per_host: 2
+              instances_per_host: 2
+              snapshots_interval: 120
+      tox_envlist: all
+      tempest_concurrency: 1
+      tempest_test_regex: topology|test_rca|test_alarms|test_resources|test_template|test_webhook|test_service
+      tempest_exclude_regex: tempest\.api
+      tempest_plugins:
+        - vitrage-tempest-plugin
+      devstack_localrc:
+        VITRAGE_COORDINATION_URL: memcached://127.0.0.1:11211
+        VITRAGE_USE_STATIC: 1
+        VITRAGE_USE_DOCTOR: 1
+        VITRAGE_USE_PROMETHEUS: 1
+      devstack_services:
+        etcd3: false
+        s-account: false
+        s-container: false
+        s-object: false
+        s-proxy: false
+        tls-proxy: false
+      devstack_plugins:
+        aodh: https://opendev.org/openstack/aodh
+        vitrage: https://opendev.org/openstack/vitrage
+
+
+- job:
+    name: vitrage-tempest-plugin-api
+    parent: vitrage-tempest-plugin-base
+
+- job:
+    name:  vitrage-tempest-plugin-api-ipv6-only
+    parent: devstack-tempest-ipv6
+    pre-run: playbooks/pre.yaml
+    timeout: 7800
+    required-projects: *base_required_projects
+    irrelevant-files: *base_irrelevant_files
+    vars: *base_vars
+
+- job:
+    name: vitrage-tempest-plugin-datasources
+    parent: vitrage-tempest-plugin-base
+    # TODO(gmann): As per the 2025.1 testing runtime, we
+    # need to run at least one job on jammy. This job can
+    # be moved to Ubuntu Noble in the next cycle(2025.2)
+    nodeset: openstack-single-node-jammy
+    vars:
+      devstack_local_conf:
+        post-config:
+          $NOVA_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+            notifications:
+              versioned_notifications_topics: 'versioned_notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $NEUTRON_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $CINDER_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $HEAT_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+              policy_file: /etc/heat/policy.yaml
+          $AODH_CONF:
+            oslo_messaging_notifications:
+              topics: 'notifications,vitrage_notifications'
+              driver: messagingv2
+          $VITRAGE_CONF:
+            DEFAULT:
+              notifiers: 'mistral,nova,webhook'
+            datasources:
+              snapshots_interval: 120
+        test-config:
+          $TEMPEST_CONFIG:
+            service_available:
+              vitrage: True
+            root_cause_analysis_service:
+              zabbix_alarms_per_host: 2
+              instances_per_host: 2
+              snapshots_interval: 120
+      tempest_test_regex: datasources|test_events|notifiers|e2e|database
+      devstack_plugins:
+        heat: https://opendev.org/openstack/heat
+        aodh: https://opendev.org/openstack/aodh
+        mistral: https://opendev.org/openstack/mistral
+        vitrage: https://opendev.org/openstack/vitrage
+        ceilometer: https://opendev.org/openstack/ceilometer
+
+
+- job:
+    name: vitrage-tempest-plugin-mock
+    parent: devstack-tempest
+    timeout: 7800
+    required-projects:
+      - opendev.org/openstack/python-vitrageclient
+      - opendev.org/openstack/vitrage
+      - opendev.org/openstack/vitrage-tempest-plugin
+    irrelevant-files: *base_irrelevant_files
+    vars:
+      # Default swap size got shrinked to 1 GB, it's way too small for us.
+      configure_swap_size: 8192
+      devstack_local_conf:
+        post-config:
+          $NOVA_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+            notifications:
+              versioned_notifications_topics: 'versioned_notifications,vitrage_notifications'
+              notification_driver: messagingv2
+              notification_format: both
+          $CINDER_CONF:
+            DEFAULT:
+              notification_topics: 'notifications,vitrage_notifications'
+              notification_driver: messagingv2
+          $VITRAGE_CONF:
+            DEFAULT:
+              verbose: true
+              debug: false
+              notifiers: 'nova,webhook'
+              rpc_response_timeout: 300
+            datasources:
+              types: 'doctor,mock_graph_datasource'
+              path: 'vitrage.datasources,vitrage.tests.mocks'
+              snapshots_interval: 60
+            mock_graph_datasource:
+              networks: 100
+              zones_per_cluster: 4
+              hosts_per_zone: 16
+              zabbix_alarms_per_host: 8
+              instances_per_host: 50
+              ports_per_instance: 3
+              volumes_per_instance: 2
+              vitrage_alarms_per_instance: 0
+              tripleo_controllers: 3
+              zabbix_alarms_per_controller: 1
+        test-config:
+          $TEMPEST_CONFIG:
+            service_available:
+              vitrage: True
+            root_cause_analysis_service:
+              zabbix_alarms_per_host: 8
+              instances_per_host: 50
+              snapshots_interval: 60
+      tox_envlist: all
+      tempest_concurrency: 1
+      tempest_test_regex: mock_datasource
+      tempest_plugins:
+        - vitrage-tempest-plugin
+      devstack_services:
+        s-account: false
+        s-container: false
+        s-object: false
+        s-proxy: false
+        tls-proxy: false
+      devstack_plugins:
+        vitrage: https://opendev.org/openstack/vitrage
+
+- job:
+    name: vitrage-tempest-plugin-api-zed
+    parent: vitrage-tempest-plugin-api
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/zed
+
+- job:
+    name: vitrage-tempest-plugin-datasources-zed
+    parent: vitrage-tempest-plugin-datasources
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/zed
+
+- job:
+    name: vitrage-tempest-plugin-api-yoga
+    parent: vitrage-tempest-plugin-api
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/yoga
+
+- job:
+    name: vitrage-tempest-plugin-datasources-yoga
+    parent: vitrage-tempest-plugin-datasources
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/yoga
+
+- job:
+    name: vitrage-tempest-plugin-api-xena
+    parent: vitrage-tempest-plugin-api
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/xena
+
+- job:
+    name: vitrage-tempest-plugin-datasources-xena
+    parent: vitrage-tempest-plugin-datasources
+    nodeset: openstack-single-node-focal
+    override-checkout: stable/xena

@@ -1,0 +1,417 @@
+CHANGES
+=======
+
+6.6.0
+-----
+
+* Update gate jobs as per the 2025.1 cycle testing runtime
+* Support py3.12 and drop py3.8
+
+6.5.0
+-----
+
+* Drop unnecessary 'x' bit from doc config file
+
+6.4.0
+-----
+
+* Revert "Temporary disable  checks to solve circular dependency"
+* Ensure that private networks are also accounted
+* Temporary disable  checks to solve circular dependency
+
+6.3.0
+-----
+
+* Replace etcd with memcached for coordination in tempest jobs
+
+6.2.0
+-----
+
+* Add stable/zed jobs on master gate
+
+6.1.0
+-----
+
+* Pin stable branch jobs nodeset to Ubuntu Focal (20.04)
+
+6.0.0
+-----
+
+* add yoga remove victoria
+* Remove leftover of ceilometer-api support
+* move queue to project level
+
+5.5.0
+-----
+
+* make it voting again
+* ignore a gnocchi test that sometime fails
+* Remove ceilometer client, not used anymore
+* Updating python testing classifier as per Yoga testing runtime
+* recreate the assertItemsEqual
+* Changed minversion in tox to 3.18.0
+
+5.4.0
+-----
+
+* Replace deprecated UPPER\_CONSTRAINTS\_FILE variable
+* setup.cfg: Replace dashes with underscores
+* Use py3 as the default runtime for tox
+
+5.3.0
+-----
+
+* Switch to new rolevar for run-temepst role
+* Run the tests on stable/victoria as well, remove stein
+* Skip mistral tests for now
+* make ussri voting again
+* Revert "remove py37"
+* gnocchi was fixed install ceilometer again
+* skip template add fails sporadically need to investigate
+* Add doc/requirements
+* remove py37
+* add requirements to doc
+* Remove unicode  from tempest
+
+5.2.0
+-----
+
+* drop testing for gnocchi until they fix the dependency problem
+
+5.1.0
+-----
+
+* fix swap size
+* Remove six
+* Add idea into .gitignore
+* Don't use test gnocchi its not stable
+* Do not check created\_at attribute in test\_service\_list test
+* [goal] migrate the stable jobs to Bionic and master one to Focal
+* remove settings don't need it
+* Native Zuul v3
+* [goal] Migrate vitrage-tempest-plugin jobs to focal
+
+5.0.0
+-----
+
+* Use vars() more readable then \_\_dict\_\_
+* Switch to newer openstackdocstheme and reno versions
+* Add py38 package metadata
+* Fix hacking min version to 3.0.1
+* add tests in gate in for datasources
+* Calculate the number of resources based on number of networks
+* Add stable branch jobs on the plugins master gate
+
+4.0.0
+-----
+
+* Update docs building
+* hacking 3 is good only for python3
+* Update hacking for Python3
+* More cleanup for py2 drop
+* Update json module to jsonutils
+* Add logging and use smallest image to create a vm
+* Drop python 2.7 support and testing
+* Use only py3 as base
+* Use only py3 as base
+
+3.0.0
+-----
+
+* Add tests to check delete and show with names
+* cap sphinx and networkx
+* Replace git.openstack.org URLs with opendev.org URLs
+* OpenDev Migration Patch
+* Support python 3.6 and 3.7
+* Test for (not) showing a DELETED template
+* Always use a public network
+
+2.2.1
+-----
+
+* Fix the tempest that checks executing Mistral twice
+* Added a test for calling execute\_mistral more than once
+
+2.2.0
+-----
+
+* Tests for add & validate template with params that have default values
+* small refactoring
+* Add tempest tests for adding a template by a yaml string
+* small refactoring on graph creation and checks
+
+2.1.0
+-----
+
+* Removing dependency of vitrage
+* use the right graph compare
+* add super call for tearDownClass
+* Use an environment variable for stack user
+* remove unused module
+* some cleaning
+* use vitrage\_client attribute where possible
+* use teardown where possible
+* fix conf
+* Fix typo in .stestr.conf
+* Should not be a list
+* remove handle exception
+* trying to remove vitrage dependency
+* Test template v3 with parameters
+* add new constants
+* Finally remove vitrage.conf usage
+* Do not use OpenStack services clients from Vitrage
+* Do not use keystoneclient from Vitrage
+* Use admin credentials for vitrageclient from tempest.conf
+* Use Tempest config for user sessions
+* Use Tempest config
+* removed skipped tests
+
+2.0.0
+-----
+
+* Test template v3 causing\_alarm
+* Do not use VitrageError exception
+* Do not use vitrage.utils.file module
+* fix asserts
+* Test templates with parameters
+* add a new service list api tests
+* Tempest fix
+* Update hacking version
+* Tempest tests for v3 template
+* Updated prometheus datasource tempest to support working with config file
+* add pre\_test\_hook file
+* Update the bugs link to storyboard
+* tempest for resource api changes
+* Delete unused code
+* Add constants for datasources
+* fix mock tempest
+* Tempest - increase failover timeout
+* get the image for heat from glance
+* Verify consistent timestamp format
+* update cirros image
+* Remove the static physical datasource
+* Change openstack-dev to openstack-discuss
+* Template add tempest stability
+* Add Python 3.6 classifier to setup.cfg
+* Add python 3.6 unit test job
+* remove the skip test of gnocchi
+* temporarily skip test
+* Gnocchi resource list returns empty - add a sleep before it
+* Added a warning if failed to delete instance
+* Do not use constants from vitrage
+* Removed older version of python added 3.5
+* Using storyboard to collect project bugs
+* fix bug link in readme
+* Added missing python-vitrageclient dependency
+
+1.1.0
+-----
+
+* switch documentation job to new PTI
+* import zuul job settings from project-config
+* Tempest fix - always load database snapshot
+* add all tenants to get rca
+* remove tests using template dir /etc/vitrage/templates
+* tempest fix for history
+* tempest for prometheus datasource
+* should use networkx 2
+* reduce api tests runtime
+* support networkx 2.1
+* add gnocchi to tempest clients and new aodh alarm type tests
+* fast failover tempest
+* Add a tempest test for the --all-tenants bug
+* Added a debug message to help fix a tempest failure
+* Fixed a bug that occasionally causes the tempest tests to fail
+* Add release notes link to README
+* fix tox python3 overrides
+* Add a new tempest job with a mock datasource
+* tempest stability
+* tempest - add retries to vm creation
+* drop the alarm at the end of the test
+* do reset state if failed to detached
+* use small instances as possible
+* Added tests for multi tenancy
+* sometimes gethostbyname fails
+* sort the test list before printing
+* Updated from global requirements
+* Updated from global requirements
+* Updated from global requirements
+* Updated from global requirements
+* enable persistency tests
+* Update the old links in CONTRIBUTING.rst
+
+1.0.0
+-----
+
+* Rename vitrage\_tempest\_plugin to vitrage-tempest-plugin in setup.cfg
+* Updated from global requirements
+* make test more readable
+* update home-page url
+* move post test script
+* Renamed vitrage\_tempest\_tests to vitrage\_tempest\_plugin
+* don't log to stderr http logs
+* project id is not sent in webhook
+* update time stamp duplicates
+* fix py3
+* Fix test\_e2e\_webhook test
+* fix py3
+* make tests error messages better
+* Fix documentation build
+* Updated from global requirements
+* fix deduced alarm test and add test to check correct payload filter
+* Updated from global requirements
+* add some utility asserts
+* rename tests
+* fix test to match updated webhoook filter
+* Add related templates to tests in order to remove legacy templates dir
+* disable persistency tests
+* use py35 not py34
+* disable dsvm jobs
+* sync tempest
+* Updated from global requirements
+* sync tempest
+* sync vitrage tempest
+* sync vitrage tempest
+* suppress ResourceWarning: unclosed socket
+* add logging
+* add vitrage dsvm jobs
+* sync tempest tests
+* Sync tempest changes for template functions
+* add logging
+* add some logging remove pypy from tox
+* remove python client from requirements
+* Added devstack plugin for vitrage-tempest-plugin
+* sync tempest tests
+* remove vitrage from requirements
+* sync tempest tests
+* Fixed typo in package name
+* Sync tempest changes made in https://review.openstack.org/#/c/529332
+* sync tempest tests
+* dont fail test on rollback just print error
+* fix requirements
+* test
+* update requirements
+* update requirements
+* update requirements
+* Fixed README links
+* Code sync for support json field in db
+* Apply cookiecutter to newly split project vitrage-tempest-plugin
+* be more verbose when test fails
+* remove redundant code
+* tempest utility function
+* more tempest refactoring
+* remove neutron.port not related to instances
+* add tempest tests
+* Vitrage Persistor Service
+* Tempest tests fix
+* new e2e tempest to check actions
+* fix py charm warnings and doc
+* Rewrite Aodh datasource
+* Tempest refactoring
+* support nested stack in heat
+* fix tempest cli test
+* Moving vitrage\_id logic to transformer
+* Tempest test for Vitrage integration with Mistral
+* make tempest work under py3
+* fix import error
+* Doc Migration: move the developer guide documents under the "contributor" folder
+* Fixed order of arguments in assertEqual
+* Separation of Evaluator and InitializationStatus from ConsistencyEnforcer
+* add some logs
+* create collector service
+* event tempst test changes
+* Replacing hardcoded values with constants
+* Vertex Properties refactoring
+* performance improvement in the processor. Use set instead of using list
+* gate fix - extract images list from glance instead of nova
+* Fixed the name of group options in get\_opts\_lists
+* Fix Doctor test
+* Vitrage ID and vertex id will be standard openstack uuid from now on - fixed
+* add resource show API
+* implement the resource list API
+* Pass option list instead of group name
+* fix the type of \`all\_tenants\`
+* add some delay between post and get
+* reformat the event time to return unicode string
+* reformat the event time
+* make test event work
+* fix for running nosetests locally on devstack
+* fix the vitrage id in test
+* fix the TestEvent test
+* fix the TestEvent test
+* Remove unused logging import
+* fix heat test
+* fix the client attribute for alarms
+* fix the client attribute for alarms
+* decouple test events from its base class
+* use 'true' and 'false' instead of magic num
+* not condition
+* Allow interchangeable graph class for the entity graph. Graph driver class is a configurable entry point using stevedore, can be changed in entry\_points.txt and vitrage.conf. NetworkX graph - classes encapsulation, can now easily be replaced
+* Support post event API
+* more tempests changes
+* fix tempests in gate
+* Transformers refactoring
+* Tempests fix
+* Tempsets exception raise change
+* heat tempest fix
+* add prints for exceptions
+* Replaced e.message with str(e)
+* change constants names
+* rename internal vitrage properties
+* skip heat tempest temporary
+* Multi tenancy for topology, alarms and rca apis
+* Stop adding ServiceAvailable group option
+* rename vitrage engine to vitrage service
+* make the os clients dynamiclly imported
+* add new datasource documentation
+* Enable heat tempests
+* skip heat tempest
+* heat tempests
+* change api syntax for alarms list
+* Add new Tempest for datasources in the gate
+* Datasource tempests changes
+* tempests changes
+* add tempest tests for template list/validate/show api's
+* add neutron test and fix bug 1593447: vitrage topology show doesn't show all the graph for type graph
+* a depth in \`get topology show\` API can only be used if there is a root
+* Neutron Network and Port Notifier support
+* tests optimizations - add assert validations
+* Added Template&Confs to Tempest Env
+* add set state test and aodh notifier test
+* Graph-type tree without a filter
+* Rearrange state\_manager
+* rca
+* tempest cli configuration
+* add self.assertIsNotNone(api\_graph) in test\_topology tests
+* get topology with wrong filter returns 404
+* tempest changes
+* tempest configuration
+* tempest configuration
+* tempest configuration
+* tempest configuration
+* tempest configuration
+* Tempest Fix for Gate
+* get topology API don't handle the parameter depth
+* tempests changes
+* alarms and templates
+* support py3
+* remove misc intellij warnings
+* Bug fixes + aodh tempest
+* Cosmetic changes
+* tempest for datasources
+* change normalized state to normalized value
+* topology tempest
+* rename refactor - replace 'synchronizer' and 'plugin' to 'datasource' and 'driver'
+* topology tempests
+* change hierarchy
+* add alarms & change tempest folder hierarchy
+* fix runners & new topology tests
+* fix misc intellij inspection warnings
+* fix misc intellij inspection warnings
+* fix inheritance
+* fix method call
+* state normalization support implementation
+* get\_topology validation & run\_vitrage\_tempest.sh
+* consistency initializing process implements: blueprint entity-graph-consistency-validator
+* run\_vitrage & stop\_vitrage & get\_topology
+* init vitrage tempest plugin
