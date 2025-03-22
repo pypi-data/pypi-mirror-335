@@ -1,0 +1,7 @@
+[intake.drivers]
+tiffslide=tiffslide_xarray.intake:TiffSlideSource
+tiffslide_glob=tiffslide_xarray.intake:TiffSlideGlob
+
+[xarray.backends]
+tiffslide=tiffslide_xarray:TiffBackendEntrypoint
+
