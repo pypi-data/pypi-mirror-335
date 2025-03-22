@@ -1,0 +1,175 @@
+**NAME**
+
+
+``botl`` - BOTL
+
+
+**SYNOPSIS**
+
+
+|
+| ``botl <cmd> [key=val] [key==val]``
+| ``botl -cviw``
+| ``botl -d`` 
+| ``botl -s``
+|
+
+**DESCRIPTION**
+
+
+``BOTL`` has all you need to program a unix cli program, such as disk
+perisistence for configuration files, event handler to handle the
+client/server connection, deferred exception handling to not crash
+on an error, etc.
+
+``BOTL`` contains all the python3 code to program objects in a functional
+way. It provides a base Object class that has only dunder methods, all
+methods are factored out into functions with the objects as the first
+argument. It is called Object Programming (OP), OOP without the
+oriented.
+
+``BOTL`` allows for easy json save//load to/from disk of objects. It
+provides an "clean namespace" Object class that only has dunder
+methods, so the namespace is not cluttered with method names. This
+makes storing and reading to/from json possible.
+
+``BOTL`` is a demo bot, it can connect to IRC, fetch and display RSS
+feeds, take todo notes, keep a shopping list and log text. You can
+also copy/paste the service file and run it under systemd for 24/7
+presence in a IRC channel.
+
+``BOTL`` is Public Domain.
+
+
+**INSTALL**
+
+
+installation is done with pipx
+
+|
+| ``$ pipx install botl``
+| ``$ pipx ensurepath``
+|
+| <new terminal>
+|
+| ``$ bot srv > botl.service``
+| ``$ sudo mv botl.service /etc/systemd/system/``
+| ``$ sudo systemctl enable botl --now``
+|
+| joins ``#botl`` on localhost
+|
+
+
+**USAGE**
+
+
+use ``botl`` to control the program, default it does nothing
+
+|
+| ``$ botl``
+| ``$``
+|
+
+see list of commands
+
+|
+| ``$ botl cmd``
+| ``cfg,cmd,dne,dpl,err,exp,imp,log,mod,mre,nme,``
+| ``now,pwd,rem,req,res,rss,srv,syn,tdo,thr,upt``
+|
+
+start daemon
+
+|
+| ``$ botl -d``
+| ``$``
+|
+
+start service
+
+|
+| ``$ botl``
+| ``<runs until ctrl-c>``
+|
+
+
+**COMMANDS**
+
+
+here is a list of available commands
+
+|
+| ``cfg`` - irc configuration
+| ``cmd`` - commands
+| ``dpl`` - sets display items
+| ``err`` - show errors
+| ``exp`` - export opml (stdout)
+| ``imp`` - import opml
+| ``log`` - log text
+| ``mre`` - display cached output
+| ``now`` - show genocide stats
+| ``pwd`` - sasl nickserv name/pass
+| ``rem`` - removes a rss feed
+| ``res`` - restore deleted feeds
+| ``req`` - reconsider
+| ``rss`` - add a feed
+| ``syn`` - sync rss feeds
+| ``tdo`` - add todo item
+| ``thr`` - show running threads
+| ``upt`` - show uptime
+|
+
+**CONFIGURATION**
+
+
+irc
+
+|
+| ``$ botl cfg server=<server>``
+| ``$ botl cfg channel=<channel>``
+| ``$ botl cfg nick=<nick>``
+|
+
+sasl
+
+|
+| ``$ botl pwd <nsvnick> <nspass>``
+| ``$ botl cfg password=<frompwd>``
+|
+
+rss
+
+|
+| ``$ botl rss <url>``
+| ``$ botl dpl <url> <item1,item2>``
+| ``$ botl rem <url>``
+| ``$ botl nme <url> <name>``
+|
+
+opml
+
+|
+| ``$ botl exp``
+| ``$ botl imp <filename>``
+|
+
+
+**FILES**
+
+|
+| ``~/.botl``
+| ``~/.local/bin/botl``
+| ``~/.local/pipx/venvs/botl/*``
+|
+
+**AUTHOR**
+
+|
+| ``Bart Thate`` <``bthate@dds.nl``>
+|
+
+**COPYRIGHT**
+
+|
+| ``BOTL`` is Public Domain.
+|
