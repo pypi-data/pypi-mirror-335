@@ -1,0 +1,53 @@
+[project]
+name = "cross_ml"
+version = "2.0.0"
+description = "A comprehensive library for automatic feature engineering in machine learning"
+authors = [{ name = "Andres Di Giovanni", email = "andresdigiovanni@gmail.com" }]
+readme = "README.md"
+license = "MIT"
+homepage = "https://github.com/andresdigiovanni/cross"
+repository = "https://github.com/andresdigiovanni/cross"
+keywords = ["machine learning", "data preprocessing", "feature engineering", "scikit-learn", "data processing", "automl"]
+requires-python = ">=3.11"
+
+dependencies = [
+    "scikit-learn>=1.5.0",
+    "pandas>=2.2.2",
+    "matplotlib>=3.9.0",
+    "category-encoders>=2.6.3",
+    "tqdm>=4.66.5",
+]
+
+[dependency-groups]
+dev-dependencies = [
+    "pytest>=7.2.0",
+    "ipykernel>=6.29.5",
+]
+commits = [
+    "pre-commit>=4.1.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["cross"]
+
+[tool.black]
+line-length = 88
+include = '\\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+  | docs
+)/
+'''
