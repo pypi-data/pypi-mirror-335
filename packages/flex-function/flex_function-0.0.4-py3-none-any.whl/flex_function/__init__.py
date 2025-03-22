@@ -1,0 +1,1 @@
+from .gen_function import GenFunction
