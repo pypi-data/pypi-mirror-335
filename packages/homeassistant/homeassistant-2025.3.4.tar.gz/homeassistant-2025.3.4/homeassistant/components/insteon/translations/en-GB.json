@@ -1,0 +1,91 @@
+{
+    "services": {
+        "add_all_link": {
+            "fields": {
+                "group": {
+                    "description": "All-Link group number.",
+                    "name": "Group"
+                }
+            }
+        },
+        "add_default_links": {
+            "description": "Adds the default links between the device and the Insteon Modem (IM).",
+            "fields": {
+                "entity_id": {
+                    "name": "Entity"
+                }
+            },
+            "name": "Add default links"
+        },
+        "delete_all_link": {
+            "fields": {
+                "group": {
+                    "description": "All-Link group number.",
+                    "name": "Group"
+                }
+            }
+        },
+        "load_all_link_database": {
+            "fields": {
+                "reload": {
+                    "name": "Reload"
+                }
+            }
+        },
+        "print_all_link_database": {
+            "fields": {
+                "entity_id": {
+                    "description": "Name of the device to print.",
+                    "name": "Entity"
+                }
+            }
+        },
+        "scene_off": {
+            "description": "Triggers an INSTEON scene to turn OFF.",
+            "fields": {
+                "group": {
+                    "description": "INSTEON group or scene number.",
+                    "name": "Group"
+                }
+            },
+            "name": "Scene off"
+        },
+        "scene_on": {
+            "description": "Triggers an INSTEON scene to turn ON.",
+            "fields": {
+                "group": {
+                    "description": "INSTEON group or scene number.",
+                    "name": "Group"
+                }
+            },
+            "name": "Scene on"
+        },
+        "x10_all_lights_off": {
+            "fields": {
+                "housecode": {
+                    "description": "X10 house code.",
+                    "name": "Housecode"
+                }
+            },
+            "name": "X10 all lights off"
+        },
+        "x10_all_lights_on": {
+            "fields": {
+                "housecode": {
+                    "description": "X10 house code.",
+                    "name": "Housecode"
+                }
+            },
+            "name": "X10 all lights on"
+        },
+        "x10_all_units_off": {
+            "fields": {
+                "housecode": {
+                    "description": "X10 house code.",
+                    "name": "Housecode"
+                }
+            },
+            "name": "X10 all units off"
+        }
+    }
+}

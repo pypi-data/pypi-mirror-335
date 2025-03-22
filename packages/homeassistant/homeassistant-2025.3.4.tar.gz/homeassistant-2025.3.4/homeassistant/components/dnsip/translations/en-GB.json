@@ -1,0 +1,39 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "data": {
+                    "port": "Port for IPV4 lookup",
+                    "port_ipv6": "Port for IPV6 lookup"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "dnsip": {
+                "state_attributes": {
+                    "ip_addresses": {
+                        "name": "IP addresses"
+                    },
+                    "querytype": {
+                        "name": "Query type"
+                    },
+                    "resolver": {
+                        "name": "Resolver"
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "port": "Port for IPV4 lookup",
+                    "port_ipv6": "Port for IPV6 lookup"
+                }
+            }
+        }
+    }
+}

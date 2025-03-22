@@ -1,0 +1,57 @@
+{
+    "config": {
+        "abort": {
+            "mqtt_missing_api": "Missing API port in MQTT properties.",
+            "mqtt_missing_ip": "Missing IP address in MQTT properties.",
+            "mqtt_missing_mac": "Missing MAC address in MQTT properties.",
+            "mqtt_missing_payload": "Missing MQTT Payload."
+        }
+    },
+    "entity": {
+        "assist_satellite": {
+            "assist_satellite": {
+                "name": "Assist satellite"
+            }
+        },
+        "climate": {
+            "climate": {
+                "state_attributes": {
+                    "fan_mode": {
+                        "state": {
+                            "quiet": "Quiet"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "wake_word": {
+                "name": "Wake word",
+                "state": {
+                    "okay_nabu": "Okay Nabu"
+                }
+            }
+        }
+    },
+    "issues": {
+        "assist_in_progress_deprecated": {
+            "fix_flow": {
+                "step": {
+                    "confirm_disable_entity": {
+                        "description": "The {integration_name} in progress binary sensor `{entity_id}` is deprecated.\n\nMigrate your configuration to use the corresponding `{assist_satellite_domain}` entity and then click SUBMIT to disable the in progress binary sensor and fix this issue."
+                    }
+                }
+            },
+            "title": "{integration_name} in progress binary sensors are deprecated"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "subscribe_logs": "Subscribe to logs from the device. When enabled, the device will send logs to Home Assistant and you can view them in the logs panel."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,121 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "El dispositivo ya est\u00e1 configurado",
+            "reauth_successful": "La autenticaci\u00f3n se volvi\u00f3 a realizar correctamente",
+            "reconfigure_successful": "Se volvi\u00f3 a configurar correctamente"
+        },
+        "error": {
+            "cannot_connect": "No se pudo conectar",
+            "invalid_auth": "Autenticaci\u00f3n no v\u00e1lida",
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Contrase\u00f1a",
+                    "username": "Nombre de usuario"
+                },
+                "data_description": {
+                    "password": "La contrase\u00f1a asociada con la cuenta pyLoad.",
+                    "username": "El nombre de usuario utilizado para acceder a la instancia de pyLoad."
+                },
+                "title": "Autenticaci\u00f3n caducada para {name}"
+            },
+            "reconfigure": {
+                "data": {
+                    "host": "Host",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "ssl": "Utiliza un certificado SSL",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP del dispositivo que ejecuta tu instancia de pyLoad.",
+                    "password": "La contrase\u00f1a asociada con la cuenta pyLoad.",
+                    "port": "pyLoad utiliza el puerto 8000 por defecto.",
+                    "ssl": "Si est\u00e1 habilitado, la conexi\u00f3n a la instancia de pyLoad utilizar\u00e1 HTTPS.",
+                    "username": "El nombre de usuario utilizado para acceder a la instancia de pyLoad.",
+                    "verify_ssl": "Si se marca, se validar\u00e1 el certificado SSL para garantizar una conexi\u00f3n segura."
+                }
+            },
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "password": "Contrase\u00f1a",
+                    "port": "Puerto",
+                    "ssl": "Utiliza un certificado SSL",
+                    "username": "Nombre de usuario",
+                    "verify_ssl": "Verificar el certificado SSL"
+                },
+                "data_description": {
+                    "host": "El nombre de host o la direcci\u00f3n IP del dispositivo que ejecuta tu instancia de pyLoad.",
+                    "password": "La contrase\u00f1a asociada con la cuenta pyLoad.",
+                    "port": "pyLoad utiliza el puerto 8000 por defecto.",
+                    "ssl": "Si est\u00e1 habilitado, la conexi\u00f3n a la instancia de pyLoad utilizar\u00e1 HTTPS.",
+                    "username": "El nombre de usuario utilizado para acceder a la instancia de pyLoad.",
+                    "verify_ssl": "Si se marca, se validar\u00e1 el certificado SSL para garantizar una conexi\u00f3n segura."
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "abort_downloads": {
+                "name": "Abortar todas las descargas en curso"
+            },
+            "delete_finished": {
+                "name": "Eliminar archivos/paquetes terminados"
+            },
+            "restart": {
+                "name": "Reiniciar el n\u00facleo de pyload"
+            },
+            "restart_failed": {
+                "name": "Reiniciar todos los archivos fallidos"
+            }
+        },
+        "sensor": {
+            "active": {
+                "name": "Descargas activas"
+            },
+            "free_space": {
+                "name": "Espacio libre"
+            },
+            "queue": {
+                "name": "Descargas en cola"
+            },
+            "speed": {
+                "name": "Velocidad"
+            },
+            "total": {
+                "name": "Descargas totales"
+            }
+        },
+        "switch": {
+            "download": {
+                "name": "Pausa/Reanudar cola"
+            },
+            "reconnect": {
+                "name": "Reconexi\u00f3n autom\u00e1tica"
+            }
+        }
+    },
+    "exceptions": {
+        "service_call_auth_exception": {
+            "message": "No se pudo enviar el comando a pyLoad debido a un error de autenticaci\u00f3n, int\u00e9ntalo de nuevo m\u00e1s tarde"
+        },
+        "service_call_exception": {
+            "message": "No se pudo enviar el comando a pyLoad debido a un error de conexi\u00f3n, int\u00e9ntalo de nuevo m\u00e1s tarde"
+        },
+        "setup_authentication_exception": {
+            "message": "Error de autenticaci\u00f3n para {username}, verifica tus credenciales de inicio de sesi\u00f3n"
+        },
+        "setup_parse_exception": {
+            "message": "No se pueden analizar los datos de la API de pyLoad"
+        },
+        "setup_request_exception": {
+            "message": "No se puede conectar ni recuperar datos de la API de pyLoad"
+        }
+    }
+}

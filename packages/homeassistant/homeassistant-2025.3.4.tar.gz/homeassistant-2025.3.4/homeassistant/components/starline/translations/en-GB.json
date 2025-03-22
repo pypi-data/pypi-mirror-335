@@ -1,0 +1,111 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "alarm": {
+                "name": "Alarm"
+            },
+            "autostart": {
+                "name": "Autostart"
+            },
+            "doors": {
+                "name": "Doors"
+            },
+            "hand_brake": {
+                "name": "Hand brake"
+            },
+            "hood": {
+                "name": "Bonnet"
+            },
+            "ignition": {
+                "name": "Ignition"
+            },
+            "neutral": {
+                "name": "Programmable neutral"
+            },
+            "trunk": {
+                "name": "Trunk"
+            }
+        },
+        "button": {
+            "flex": {
+                "name": "Flex logic {num}"
+            },
+            "panic": {
+                "name": "Panic mode"
+            }
+        },
+        "device_tracker": {
+            "location": {
+                "name": "Location"
+            }
+        },
+        "lock": {
+            "security": {
+                "name": "Security"
+            }
+        },
+        "sensor": {
+            "balance": {
+                "name": "Balance"
+            },
+            "engine_temperature": {
+                "name": "Engine temperature"
+            },
+            "errors": {
+                "name": "OBD errors"
+            },
+            "fuel": {
+                "name": "Fuel volume"
+            },
+            "gps_count": {
+                "name": "GPS satellites"
+            },
+            "gsm_signal": {
+                "name": "GSM signal"
+            },
+            "interior_temperature": {
+                "name": "Interior temperature"
+            },
+            "mileage": {
+                "name": "Mileage"
+            }
+        },
+        "switch": {
+            "additional_channel": {
+                "name": "Additional channel"
+            },
+            "engine": {
+                "name": "Engine"
+            },
+            "service_mode": {
+                "name": "Service mode"
+            },
+            "webasto": {
+                "name": "Webasto"
+            }
+        }
+    },
+    "services": {
+        "set_scan_interval": {
+            "fields": {
+                "scan_interval": {
+                    "description": "Update frequency.",
+                    "name": "Scan interval"
+                }
+            },
+            "name": "Set scan interval"
+        },
+        "set_scan_obd_interval": {
+            "fields": {
+                "scan_interval": {
+                    "description": "Update frequency.",
+                    "name": "Scan interval"
+                }
+            },
+            "name": "Set scan OBD interval"
+        },
+        "update_state": {
+            "name": "Update state"
+        }
+    }
+}

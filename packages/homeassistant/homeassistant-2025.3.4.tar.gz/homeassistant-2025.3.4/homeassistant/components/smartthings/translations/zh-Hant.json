@@ -1,0 +1,394 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "\u5e33\u865f\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210",
+            "authorize_url_timeout": "\u7522\u751f\u8a8d\u8b49 URL \u6642\u903e\u6642\u3002",
+            "cloud_not_enabled": "\u8acb\u78ba\u8a8d\u65bc configuration.yaml \u4e2d\u958b\u555f ` {default_config} ` \u4ee5\u57f7\u884c Home Assistant\u3002",
+            "missing_configuration": "\u5143\u4ef6\u5c1a\u672a\u8a2d\u7f6e\uff0c\u8acb\u53c3\u95b1\u6587\u4ef6\u8aaa\u660e\u3002",
+            "missing_scopes": "\u8a8d\u8b49\u5931\u6557\u3002\u8acb\u78ba\u5b9a\u6388\u4e88\u6240\u6709\u5fc5\u8981\u7684\u6b0a\u9650\u3002",
+            "no_url_available": "\u6c92\u6709\u53ef\u7528\u7684\u7db2\u5740\u3002\u95dc\u65bc\u6b64\u932f\u8aa4\u66f4\u8a73\u7d30\u8a0a\u606f\uff0c[\u9ede\u9078\u5354\u52a9\u7ae0\u7bc0]({docs_url})",
+            "oauth_error": "\u6536\u5230\u7121\u6548\u7684\u6b0a\u6756\u8cc7\u6599\u3002",
+            "oauth_failed": "\u53d6\u5f97\u5b58\u53d6\u6b0a\u6756\u6642\u51fa\u73fe\u932f\u8aa4\u3002",
+            "oauth_timeout": "\u89e3\u6790 OAuth \u6b0a\u6756\u903e\u6642\u3002",
+            "oauth_unauthorized": "\u53d6\u5f97\u5b58\u53d6\u6b0a\u6756\u6642 OAuth \u6388\u6b0a\u932f\u8aa4\u3002",
+            "reauth_account_mismatch": "\u5df2\u8a8d\u8b49\u7684\u5e33\u865f\u8207\u9700\u8981\u91cd\u65b0\u8a8d\u8b49\u7684\u5e33\u865f\u4e0d\u7b26\u5408\u3002\u8acb\u4f7f\u7528\u6b63\u78ba\u7684\u5e33\u865f\u767b\u5165\u4e26\u9078\u64c7\u6b63\u78ba\u7684\u4f4d\u7f6e\u3002",
+            "reauth_location_mismatch": "\u5df2\u8a8d\u8b49\u7684\u4f4d\u7f6e\u8207\u9700\u8981\u91cd\u65b0\u8a8d\u8b49\u7684\u4f4d\u7f6e\u4e0d\u7b26\u5408\u3002\u8acb\u4f7f\u7528\u6b63\u78ba\u7684\u5e33\u865f\u767b\u5165\u4e26\u9078\u64c7\u6b63\u78ba\u4f4d\u7f6e\u3002",
+            "reauth_successful": "\u91cd\u65b0\u8a8d\u8b49\u6210\u529f"
+        },
+        "error": {
+            "already_configured": "\u5e33\u865f\u5df2\u7d93\u8a2d\u5b9a\u5b8c\u6210"
+        },
+        "step": {
+            "pick_implementation": {
+                "title": "\u9078\u64c7\u9a57\u8b49\u6a21\u5f0f"
+            },
+            "reauth_confirm": {
+                "description": "SmartThings \u6574\u5408\u9700\u8981\u91cd\u65b0\u8a8d\u8b49\u60a8\u7684\u5e33\u865f",
+                "title": "{name} \u8a8d\u8b49\u5df2\u904e\u671f"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "acceleration": {
+                "name": "\u52a0\u901f"
+            },
+            "filter_status": {
+                "name": "\u6ffe\u82af\u72c0\u614b"
+            },
+            "valve": {
+                "name": "\u95a5\u9580"
+            }
+        },
+        "sensor": {
+            "air_conditioner_mode": {
+                "name": "\u7a7a\u8abf\u6a21\u5f0f"
+            },
+            "air_quality": {
+                "name": "\u7a7a\u6c23\u8cea\u91cf"
+            },
+            "alarm": {
+                "name": "\u8b66\u5831",
+                "state": {
+                    "both": "\u9583\u5149\u8207\u8b66\u5831",
+                    "off": "\u95dc\u9589",
+                    "siren": "\u8b66\u5831",
+                    "strobe": "\u9583\u5149"
+                }
+            },
+            "audio_volume": {
+                "name": "\u97f3\u91cf"
+            },
+            "body_mass_index": {
+                "name": "\u9ad4\u91cd\u6307\u6578"
+            },
+            "body_weight": {
+                "name": "\u9ad4\u91cd"
+            },
+            "carbon_monoxide_detector": {
+                "name": "\u4e00\u6c27\u5316\u78b3\u5075\u6e2c\u5668",
+                "state": {
+                    "clear": "\u6e05\u6de8",
+                    "detected": "\u5df2\u5075\u6e2c",
+                    "tested": "\u5df2\u6e2c\u8a66"
+                }
+            },
+            "completion_time": {
+                "name": "\u5b8c\u6210\u6642\u9593"
+            },
+            "dishwasher_job_state": {
+                "name": "\u5de5\u4f5c\u72c0\u614b",
+                "state": {
+                    "air_wash": "\u71b1\u98a8\u6e05\u65b0",
+                    "cooling": "\u51b7\u537b",
+                    "drying": "\u70d8\u4e7e",
+                    "finish": "\u5b8c\u6210",
+                    "pre_drain": "\u9810\u6392",
+                    "pre_wash": "\u9810\u6d17",
+                    "rinse": "\u6c96\u6d17",
+                    "spin": "\u812b\u6c34",
+                    "wash": "\u6d17\u6ecc",
+                    "wrinkle_prevent": "\u9632\u76ba"
+                }
+            },
+            "dishwasher_machine_state": {
+                "name": "\u6a5f\u5668\u72c0\u614b",
+                "state": {
+                    "pause": "\u5df2\u66ab\u505c",
+                    "run": "\u57f7\u884c\u4e2d",
+                    "stop": "\u5df2\u505c\u6b62"
+                }
+            },
+            "dryer_job_state": {
+                "name": "\u5de5\u4f5c\u72c0\u614b",
+                "state": {
+                    "ai_drying": "AI \u70d8\u4e7e",
+                    "continuous_dehumidifying": "\u6301\u7e8c\u9664\u6fd5",
+                    "cooling": "\u51b7\u537b",
+                    "dehumidifying": "\u9664\u6fd5",
+                    "delay_wash": "\u5ef6\u9072\u6e05\u6d17",
+                    "drying": "\u70d8\u4e7e",
+                    "finished": "\u5b8c\u6210",
+                    "freeze_protection": "\u9632\u51cd\u4fdd\u8b77",
+                    "internal_care": "\u5167\u90e8\u8b77\u7406",
+                    "none": "\u7121",
+                    "refreshing": "\u91cd\u65b0\u6574\u7406",
+                    "sanitizing": "\u6d88\u6bd2",
+                    "thawing_frozen_inside": "\u5728\u5167\u90e8\u89e3\u51cd",
+                    "weight_sensing": "\u91cd\u91cf\u611f\u6e2c",
+                    "wrinkle_prevent": "\u9632\u76ba"
+                }
+            },
+            "dryer_machine_state": {
+                "name": "\u6a5f\u5668\u72c0\u614b",
+                "state": {
+                    "pause": "\u5df2\u66ab\u505c",
+                    "run": "\u57f7\u884c\u4e2d",
+                    "stop": "\u5df2\u505c\u6b62"
+                }
+            },
+            "dryer_mode": {
+                "name": "\u70d8\u4e7e\u6a5f\u6a21\u5f0f"
+            },
+            "energy_difference": {
+                "name": "\u80fd\u6e90\u5dee"
+            },
+            "energy_saved": {
+                "name": "\u7bc0\u7701\u80fd\u6e90"
+            },
+            "equivalent_carbon_dioxide": {
+                "name": "\u4e8c\u6c27\u5316\u78b3\u7576\u91cf"
+            },
+            "formaldehyde": {
+                "name": "\u7532\u919b"
+            },
+            "gas_meter": {
+                "name": "\u74e6\u65af\u8868"
+            },
+            "gas_meter_calorific": {
+                "name": "\u74e6\u65af\u8868\u71b1\u503c"
+            },
+            "gas_meter_time": {
+                "name": "\u74e6\u65af\u8868\u6642\u9593"
+            },
+            "infrared_level": {
+                "name": "\u7d05\u5916\u7dda\u7b49\u7d1a"
+            },
+            "lighting_mode": {
+                "name": "\u6d3b\u52d5\u7167\u660e\u6a21\u5f0f"
+            },
+            "link_quality": {
+                "name": "\u9023\u7dda\u54c1\u8cea"
+            },
+            "media_input_source": {
+                "name": "\u5a92\u9ad4\u8f38\u5165\u4f86\u6e90",
+                "state": {
+                    "am": "AM",
+                    "analog1": "\u985e\u6bd4 1",
+                    "analog2": "\u985e\u6bd4 2",
+                    "analog3": "\u985e\u6bd4 3",
+                    "aux": "AUX",
+                    "bluetooth": "\u85cd\u7259",
+                    "cd": "CD",
+                    "coaxial": "\u540c\u8ef8",
+                    "digital": "\u6578\u4f4d",
+                    "digitaltv": "\u6578\u4f4d\u96fb\u8996",
+                    "fm": "FM",
+                    "hdmi": "HDMI",
+                    "hdmi1": "HDMI 1",
+                    "hdmi2": "HDMI 2",
+                    "hdmi3": "HDMI 3",
+                    "hdmi4": "HDMI 4",
+                    "hdmi5": "HDMI 5",
+                    "hdmi6": "HDMI 6",
+                    "melon": "Melon",
+                    "network": "\u7db2\u8def",
+                    "optical": "\u5149\u7e96",
+                    "phono": "\u64f4\u5927\u6a5f",
+                    "usb": "USB",
+                    "wifi": "Wi-Fi",
+                    "youtube": "YouTube"
+                }
+            },
+            "media_playback_repeat": {
+                "name": "\u5a92\u9ad4\u64ad\u653e\u91cd\u8907"
+            },
+            "media_playback_shuffle": {
+                "name": "\u5a92\u9ad4\u64ad\u653e\u96a8\u6a5f"
+            },
+            "media_playback_status": {
+                "name": "\u5a92\u9ad4\u64ad\u653e\u72c0\u614b"
+            },
+            "odor_sensor": {
+                "name": "\u6c23\u5473\u611f\u6e2c\u5668"
+            },
+            "oven_job_state": {
+                "name": "\u5de5\u4f5c\u72c0\u614b",
+                "state": {
+                    "cleaning": "\u6e05\u6d17\u4e2d",
+                    "cooking": "\u70f9\u996a",
+                    "cooling": "\u51b7\u537b",
+                    "defrosting": "\u9664\u971c",
+                    "draining": "\u6392\u6c34",
+                    "fast_preheat": "\u5feb\u901f\u9810\u71b1",
+                    "finished": "\u5b8c\u6210",
+                    "preheat": "\u9810\u71b1",
+                    "ready": "\u5c31\u7dd2",
+                    "rinsing": "\u6c96\u6d17",
+                    "scheduled_end": "\u6392\u7a0b\u7d50\u675f",
+                    "scheduled_start": "\u6392\u7a0b\u958b\u59cb",
+                    "searing": "\u707c\u71b1",
+                    "sensing": "\u611f\u77e5",
+                    "stone_heating": "\u77f3\u6750\u52a0\u71b1",
+                    "time_hold_preheat": "\u6642\u9593\u4fdd\u6301\u9810\u71b1",
+                    "warming": "\u52a0\u6eab\u4e2d"
+                }
+            },
+            "oven_machine_state": {
+                "name": "\u6a5f\u5668\u72c0\u614b",
+                "state": {
+                    "paused": "\u5df2\u66ab\u505c",
+                    "ready": "\u5c31\u7dd2",
+                    "running": "\u57f7\u884c\u4e2d"
+                }
+            },
+            "oven_mode": {
+                "name": "\u70e4\u7bb1\u6a21\u5f0f",
+                "state": {
+                    "bake": "\u70d8\u7119",
+                    "bottom_heat": "\u5e95\u90e8\u52a0\u71b1",
+                    "broil": "\u4e0a\u70e4",
+                    "convection_bake": "\u5c0d\u6d41\u70d8\u7119",
+                    "convection_broil": "\u5c0d\u6d41\u71d2\u70e4",
+                    "convection_roast": "\u5c0d\u6d41\u70d8\u70e4",
+                    "conventional": "\u50b3\u7d71",
+                    "defrosting": "\u9664\u971c",
+                    "dehydrate": "\u812b\u6c34",
+                    "descale": "\u9664\u57a2",
+                    "grill": "\u7099\u70e4",
+                    "heating": "\u52a0\u71b1",
+                    "microwave": "\u5fae\u6ce2",
+                    "microwave_plus_convection": "\u5fae\u6ce2\u52a0\u5c0d\u6d41",
+                    "microwave_plus_grill": "\u5fae\u6ce2\u52a0\u70e4",
+                    "microwave_plus_hot_blast": "\u5fae\u6ce2\u52a0\u71b1\u98a8",
+                    "microwave_plus_hot_blast_2": "\u5fae\u6ce2\u52a0\u71b1\u98a8 2",
+                    "others": "\u5176\u4ed6",
+                    "proof": "Proof \u52a0\u71b1",
+                    "rinse": "\u6c96\u6d17",
+                    "slim_middle": "\u5fae\u4e2d",
+                    "slim_strong": "\u5fae\u5f37",
+                    "slow_cook": "\u6162\u716e",
+                    "steam_bake": "\u84b8\u7119",
+                    "steam_bottom_heat_plus_convection": "\u84b8\u6c23\u5e95\u90e8\u52a0\u71b1\u52a0\u5c0d\u6d41",
+                    "steam_cook": "\u84b8\u716e",
+                    "steam_roast": "\u84b8\u70e4",
+                    "strong_steam": "\u5f37\u84b8\u6c7d",
+                    "warming": "\u52a0\u6eab\u4e2d"
+                }
+            },
+            "oven_setpoint": {
+                "name": "\u8a2d\u5b9a\u9ede"
+            },
+            "power_energy": {
+                "name": "\u96fb\u529b\u80fd\u6e90"
+            },
+            "power_source": {
+                "name": "\u96fb\u529b\u4f86\u6e90"
+            },
+            "refrigeration_setpoint": {
+                "name": "\u8a2d\u5b9a\u9ede"
+            },
+            "robot_cleaner_cleaning_mode": {
+                "name": "\u6e05\u6383\u6a21\u5f0f",
+                "state": {
+                    "auto": "\u81ea\u52d5",
+                    "manual": "\u624b\u52d5",
+                    "map": "\u5730\u5716",
+                    "part": "\u90e8\u5206",
+                    "repeat": "\u91cd\u8907",
+                    "stop": "\u505c\u6b62"
+                }
+            },
+            "robot_cleaner_movement": {
+                "name": "\u52d5\u4f5c",
+                "state": {
+                    "after": "\u7d50\u675f\u65bc",
+                    "alarm": "\u8b66\u5831",
+                    "charging": "\u5145\u96fb\u4e2d",
+                    "cleaning": "\u6e05\u6383\u4e2d",
+                    "homing": "\u8fd4\u56de\u5145\u96fb\u7ad9",
+                    "idle": "\u5f85\u547d",
+                    "off": "\u95dc\u9589",
+                    "pause": "\u5df2\u66ab\u505c",
+                    "point": "\u5b9a\u9ede",
+                    "reserve": "\u9810\u7559"
+                }
+            },
+            "robot_cleaner_turbo_mode": {
+                "name": "\u5168\u901f\u6a21\u5f0f",
+                "state": {
+                    "extra_silence": "\u6975\u975c\u97f3",
+                    "off": "\u95dc\u9589",
+                    "on": "\u958b\u555f",
+                    "silence": "\u975c\u97f3"
+                }
+            },
+            "smoke_detector": {
+                "name": "\u7159\u9727\u5075\u6e2c\u5668",
+                "state": {
+                    "clear": "\u6e05\u6de8",
+                    "detected": "\u5df2\u5075\u6e2c",
+                    "tested": "\u5df2\u6e2c\u8a66"
+                }
+            },
+            "thermostat_cooling_setpoint": {
+                "name": "\u51b7\u537b\u8a2d\u5b9a\u9ede"
+            },
+            "thermostat_fan_mode": {
+                "name": "\u98a8\u901f\u6a21\u5f0f"
+            },
+            "thermostat_heating_setpoint": {
+                "name": "\u52a0\u71b1\u8a2d\u5b9a\u9ede"
+            },
+            "thermostat_mode": {
+                "name": "\u6a21\u5f0f"
+            },
+            "thermostat_operating_state": {
+                "name": "\u64cd\u4f5c\u72c0\u614b"
+            },
+            "thermostat_setpoint": {
+                "name": "\u8a2d\u5b9a\u9ede"
+            },
+            "tv_channel": {
+                "name": "\u96fb\u8996\u983b\u9053"
+            },
+            "tv_channel_name": {
+                "name": "\u96fb\u8996\u983b\u9053\u540d\u7a31"
+            },
+            "uv_index": {
+                "name": "\u7d2b\u5916\u7dda\u6307\u6578"
+            },
+            "washer_job_state": {
+                "name": "\u5de5\u4f5c\u72c0\u614b",
+                "state": {
+                    "ai_rinse": "AI \u6c96\u6d17",
+                    "ai_spin": "AI \u812b\u6c34",
+                    "ai_wash": "AI \u6e05\u6d17",
+                    "air_wash": "\u71b1\u98a8\u6e05\u65b0",
+                    "cooling": "\u51b7\u537b",
+                    "delay_wash": "\u5ef6\u9072\u6e05\u6d17",
+                    "drying": "\u70d8\u4e7e",
+                    "finish": "\u5b8c\u6210",
+                    "freeze_protection": "\u9632\u51cd\u4fdd\u8b77",
+                    "none": "\u7121",
+                    "pre_wash": "\u9810\u6d17",
+                    "rinse": "\u6c96\u6d17",
+                    "spin": "\u812b\u6c34",
+                    "wash": "\u6d17\u6ecc",
+                    "weight_sensing": "\u91cd\u91cf\u611f\u6e2c",
+                    "wrinkle_prevent": "\u9632\u76ba"
+                }
+            },
+            "washer_machine_state": {
+                "name": "\u6a5f\u5668\u72c0\u614b",
+                "state": {
+                    "pause": "\u5df2\u66ab\u505c",
+                    "run": "\u57f7\u884c\u4e2d",
+                    "stop": "\u5df2\u505c\u6b62"
+                }
+            },
+            "washer_mode": {
+                "name": "\u6e05\u6d17\u6a21\u5f0f"
+            },
+            "x_coordinate": {
+                "name": "X \u5ea7\u6a19"
+            },
+            "y_coordinate": {
+                "name": "Y \u5ea7\u6a19"
+            },
+            "z_coordinate": {
+                "name": "Z \u5ea7\u6a19"
+            }
+        }
+    }
+}

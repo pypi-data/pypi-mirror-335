@@ -1,0 +1,48 @@
+{
+    "entity_component": {
+        "_": {
+            "name": "Assisti satelliit",
+            "state": {
+                "idle": "Ootel",
+                "listening": "Kuulamine",
+                "processing": "T\u00f6\u00f6tlemine",
+                "responding": "Vastamine"
+            }
+        }
+    },
+    "services": {
+        "announce": {
+            "description": "Lubab satelliidil teatada s\u00f5numi.",
+            "fields": {
+                "media_id": {
+                    "description": "K\u00f5nes\u00fcnteesi kasutamise asemel teatava meedia ID.",
+                    "name": "Meedia ID"
+                },
+                "message": {
+                    "description": "S\u00f5num mida kuulutada.",
+                    "name": "S\u00f5num"
+                }
+            },
+            "name": "Teavita"
+        },
+        "start_conversation": {
+            "description": "Alustab vestlust kaask\u00f5larilt.",
+            "fields": {
+                "extra_system_prompt": {
+                    "description": "Anna tehisintellektile p\u00e4ringu kohta taustteavet.",
+                    "name": "T\u00e4iendav s\u00fcsteemiviip"
+                },
+                "start_media_id": {
+                    "description": "Meedia ID, millega alustada, selle asemel, et kasutada tekstist-k\u00f5neks.",
+                    "name": "Meedia ID"
+                },
+                "start_message": {
+                    "description": "S\u00f5num millega alustada.",
+                    "name": "S\u00f5num"
+                }
+            },
+            "name": "Alusta vestlust"
+        }
+    },
+    "title": "Assisti satelliit"
+}

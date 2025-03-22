@@ -1,0 +1,184 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        }
+    },
+    "entity": {
+        "climate": {
+            "climate_device": {
+                "state_attributes": {
+                    "swing_horizontal_mode": {
+                        "state": {
+                            "fixedcenter": "Fixed centre",
+                            "fixedcenterleft": "Fixed centre left",
+                            "fixedcenterright": "Fixed centre right",
+                            "rangecenter": "Range centre"
+                        }
+                    }
+                }
+            }
+        },
+        "select": {
+            "horizontalswing": {
+                "state": {
+                    "fixedcenter": "Fixed centre",
+                    "fixedcenterleft": "Fixed centre left",
+                    "fixedcenterright": "Fixed centre right",
+                    "rangecenter": "Range centre"
+                }
+            }
+        },
+        "sensor": {
+            "climate_react_high": {
+                "state_attributes": {
+                    "fanlevel": {
+                        "state": {
+                            "medium_high": "Medium high",
+                            "quiet": "Quiet"
+                        }
+                    },
+                    "horizontalswing": {
+                        "name": "Horizontal swing",
+                        "state": {
+                            "fixedcenter": "Fixed centre",
+                            "fixedcenterleft": "Fixed centre left",
+                            "fixedcenterright": "Fixed centre right",
+                            "rangecenter": "Range centre"
+                        }
+                    },
+                    "mode": {
+                        "name": "Mode"
+                    },
+                    "swing": {
+                        "state": {
+                            "fixedbottom": "Fixed bottom",
+                            "fixedmiddle": "Fixed middle",
+                            "fixedmiddlebottom": "Fixed middle bottom",
+                            "fixedmiddletop": "Fixed middle top",
+                            "fixedtop": "Fixed top",
+                            "horizontal": "Horizontal",
+                            "rangebottom": "Range bottom",
+                            "rangefull": "Range full",
+                            "rangemiddle": "Range middle",
+                            "rangetop": "Range top"
+                        }
+                    },
+                    "temperatureunit": {
+                        "name": "Temperature unit",
+                        "state": {
+                            "c": "Celsius",
+                            "f": "Fahrenheit"
+                        }
+                    }
+                }
+            },
+            "climate_react_low": {
+                "state_attributes": {
+                    "fanlevel": {
+                        "state": {
+                            "medium_high": "Medium high",
+                            "quiet": "Quiet"
+                        }
+                    },
+                    "horizontalswing": {
+                        "name": "Horizontal swing",
+                        "state": {
+                            "fixedcenter": "Fixed centre",
+                            "fixedcenterleft": "Fixed centre left",
+                            "fixedcenterright": "Fixed centre right",
+                            "rangecenter": "Range centre"
+                        }
+                    },
+                    "mode": {
+                        "name": "Mode"
+                    },
+                    "swing": {
+                        "state": {
+                            "fixedbottom": "Fixed bottom",
+                            "fixedmiddle": "Fixed middle",
+                            "fixedmiddlebottom": "Fixed middle bottom",
+                            "fixedmiddletop": "Fixed middle top",
+                            "fixedtop": "Fixed top",
+                            "horizontal": "Horizontal",
+                            "rangebottom": "Range bottom",
+                            "rangefull": "Range full",
+                            "rangemiddle": "Range middle",
+                            "rangetop": "Range top"
+                        }
+                    },
+                    "temperatureunit": {
+                        "name": "Temperature unit",
+                        "state": {
+                            "c": "Celsius",
+                            "f": "Fahrenheit"
+                        }
+                    }
+                }
+            },
+            "pm25_pure": {
+                "name": "Pure AQI",
+                "state": {
+                    "bad": "Bad",
+                    "good": "Good",
+                    "moderate": "Moderate"
+                }
+            }
+        },
+        "switch": {
+            "climate_react_switch": {
+                "state_attributes": {
+                    "type": {
+                        "name": "Type",
+                        "state": {
+                            "feelslike": "Feels like"
+                        }
+                    }
+                }
+            },
+            "timer_on_switch": {
+                "state_attributes": {
+                    "id": {
+                        "name": "ID"
+                    },
+                    "turn_on": {
+                        "name": "Turns on"
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "auth_error": {
+            "message": "Authentication failed, please update your API key"
+        },
+        "horizontal_swing_not_supported": {
+            "message": "Climate horizontal swing mode {horizontal_swing_mode} is not supported by the integration, please open an issue"
+        },
+        "mode_not_exist": {
+            "message": "The entity does not support the chosen mode"
+        },
+        "update_error": {
+            "message": "There was an error updating from the Sensibo API with the error: {error}"
+        }
+    },
+    "issues": {
+        "deprecated_entity_horizontalswing": {
+            "description": "The Sensibo entity `{entity}` is deprecated and will be removed in a future release.\nPlease update your automations and scripts to use the `horizontal_swing` attribute part of the `climate` entity instead.\n, Disable the `{entity}` and reload the config entry or restart Home Assistant to fix this issue.",
+            "title": "The Sensibo {name} entity is deprecated"
+        }
+    },
+    "selector": {
+        "smart_type": {
+            "options": {
+                "feelslike": "Feels like"
+            }
+        }
+    },
+    "services": {
+        "get_device_capabilities": {
+            "description": "Retrieves the device capabilities for a specific device according to API requirements.",
+            "name": "Get device mode capabilities"
+        }
+    }
+}

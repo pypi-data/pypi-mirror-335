@@ -1,0 +1,20 @@
+{
+    "entity": {
+        "select": {
+            "hub_mode": {
+                "name": "Mode",
+                "state": {
+                    "auto": "Automatic",
+                    "manual": "Manual",
+                    "planning": "Planning"
+                }
+            }
+        }
+    },
+    "issues": {
+        "duplicate_config": {
+            "description": "The Flipr integration has been updated to work account based rather than device based. This means that if you have 2 devices, you only need one configuration. For every account you have, please delete all but one configuration and restart Home Assistant for it to set up the devices linked to your account.",
+            "title": "Multiple flipr configurations with the same account"
+        }
+    }
+}

@@ -1,0 +1,39 @@
+{
+    "config": {
+        "step": {
+            "site": {
+                "data": {
+                    "site": "Site ID"
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "device_state": {
+                "state": {
+                    "adopting": "Adopting",
+                    "adoption_failed": "Adoption failed",
+                    "deleting": "Deleting",
+                    "firmware_mismatch": "Firmware mismatch",
+                    "heartbeat_missed": "Heartbeat missed",
+                    "inform_error": "Inform error",
+                    "isolated": "Isolated",
+                    "pending": "Pending",
+                    "provisioning": "Provisioning",
+                    "upgrading": "Upgrading"
+                }
+            }
+        }
+    },
+    "services": {
+        "reconnect_client": {
+            "description": "Tries to get wireless client to reconnect to UniFi Network.",
+            "name": "Reconnect wireless client"
+        },
+        "remove_clients": {
+            "description": "Cleans up clients that has only been associated with the controller for a short period of time.",
+            "name": "Remove clients from the UniFi Network"
+        }
+    }
+}

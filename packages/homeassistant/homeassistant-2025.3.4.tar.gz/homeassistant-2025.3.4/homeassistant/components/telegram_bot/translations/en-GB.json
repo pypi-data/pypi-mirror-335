@@ -1,0 +1,235 @@
+{
+    "issues": {
+        "proxy_params_auth_deprecation": {
+            "description": "Authentication details for the proxy configured in the {telegram_bot} integration should be moved into the {proxy_url} instead. Please update your configuration and restart Home Assistant to fix this issue.\n\nThe {proxy_params} config key will be removed in a future release.",
+            "title": "{telegram_bot}: Proxy authentication should be moved to the URL"
+        },
+        "proxy_params_deprecation": {
+            "description": "The {proxy_params} config key for the {telegram_bot} integration will be removed in a future release.\n\nAuthentication can now be provided through the {proxy_url} key.\n\nThe underlying library has changed to {httpx} which is incompatible with previous parameters. If you still need this functionality for other options, please leave a comment on the 'learn more' link.\n\nPlease update your configuration to remove the {proxy_params} key and restart Home Assistant to fix this issue.",
+            "title": "{telegram_bot}: Proxy params option will be removed"
+        }
+    },
+    "services": {
+        "edit_message": {
+            "fields": {
+                "message": {
+                    "description": "Message body of the notification.",
+                    "name": "Message"
+                },
+                "message_id": {
+                    "name": "Message ID"
+                },
+                "title": {
+                    "name": "Title"
+                }
+            },
+            "name": "Edit message"
+        },
+        "edit_replymarkup": {
+            "fields": {
+                "message_id": {
+                    "description": "ID of the message to edit.",
+                    "name": "Message ID"
+                }
+            },
+            "name": "Edit reply markup"
+        },
+        "send_animation": {
+            "fields": {
+                "authentication": {
+                    "description": "Define which authentication method to use. Set to `digest` to use HTTP digest authentication, or `bearer_token` for OAuth 2.0 bearer token authentication. Defaults to `basic`.",
+                    "name": "Authentication method"
+                },
+                "caption": {
+                    "description": "The title of the animation.",
+                    "name": "Caption"
+                },
+                "file": {
+                    "description": "Local path to a GIF or H.264/MPEG-4 AVC video without sound.",
+                    "name": "File"
+                },
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                }
+            }
+        },
+        "send_document": {
+            "fields": {
+                "keyboard": {
+                    "description": "List of rows of commands, comma-separated, to make a custom keyboard."
+                },
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                },
+                "password": {
+                    "description": "Password (or bearer token) for a URL which require HTTP authentication."
+                },
+                "target": {
+                    "description": "An array of pre-authorised chat_ids to send the document to. If not present, first allowed chat_id is the default.",
+                    "name": "Target"
+                },
+                "url": {
+                    "description": "Remote path to a document."
+                },
+                "username": {
+                    "description": "Username for a URL which require HTTP authentication."
+                },
+                "verify_ssl": {
+                    "description": "Enable or disable SSL certificate verification. Set to false if you're downloading the file from a URL and you don't want to validate the SSL certificate of the server.",
+                    "name": "Verify SSL"
+                }
+            },
+            "name": "Send document"
+        },
+        "send_location": {
+            "description": "Sends a location.",
+            "fields": {
+                "keyboard": {
+                    "description": "List of rows of commands, comma-separated, to make a custom keyboard."
+                },
+                "latitude": {
+                    "description": "The latitude to send."
+                },
+                "longitude": {
+                    "description": "The longitude to send."
+                },
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                }
+            }
+        },
+        "send_message": {
+            "fields": {
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                }
+            }
+        },
+        "send_photo": {
+            "fields": {
+                "authentication": {
+                    "description": "Define which authentication method to use. Set to `digest` to use HTTP digest authentication, or `bearer_token` for OAuth 2.0 bearer token authentication. Defaults to `basic`.",
+                    "name": "Authentication method"
+                },
+                "caption": {
+                    "description": "The title of the image.",
+                    "name": "Caption"
+                },
+                "file": {
+                    "description": "Local path to an image.",
+                    "name": "File"
+                },
+                "keyboard": {
+                    "description": "List of rows of commands, comma-separated, to make a custom keyboard."
+                },
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                },
+                "password": {
+                    "description": "Password (or bearer token) for a URL which require HTTP authentication."
+                },
+                "target": {
+                    "name": "Target"
+                },
+                "url": {
+                    "description": "Remote path to an image."
+                },
+                "username": {
+                    "description": "Username for a URL which require HTTP authentication."
+                },
+                "verify_ssl": {
+                    "name": "Verify SSL"
+                }
+            },
+            "name": "Send photo"
+        },
+        "send_poll": {
+            "description": "Sends a poll.",
+            "fields": {
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                }
+            }
+        },
+        "send_sticker": {
+            "fields": {
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                },
+                "sticker_id": {
+                    "description": "ID of a sticker that exists on telegram servers.",
+                    "name": "Sticker ID"
+                },
+                "target": {
+                    "description": "An array of pre-authorised chat_ids to send the document to. If not present, first allowed chat_id is the default.",
+                    "name": "Target"
+                },
+                "url": {
+                    "description": "Remote path to a static .webp or animated .tgs sticker."
+                },
+                "username": {
+                    "description": "Username for a URL which require HTTP authentication."
+                },
+                "verify_ssl": {
+                    "description": "Enable or disable SSL certificate verification. Set to false if you're downloading the file from a URL and you don't want to validate the SSL certificate of the server.",
+                    "name": "Verify SSL"
+                }
+            },
+            "name": "Send sticker"
+        },
+        "send_video": {
+            "description": "Sends a video.",
+            "fields": {
+                "authentication": {
+                    "description": "Define which authentication method to use. Set to `digest` to use HTTP digest authentication, or `bearer_token` for OAuth 2.0 bearer token authentication. Defaults to `basic`.",
+                    "name": "Authentication method"
+                },
+                "caption": {
+                    "description": "The title of the video.",
+                    "name": "Caption"
+                },
+                "file": {
+                    "description": "Local path to a video.",
+                    "name": "File"
+                },
+                "keyboard": {
+                    "description": "List of rows of commands, comma-separated, to make a custom keyboard."
+                },
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                }
+            }
+        },
+        "send_voice": {
+            "fields": {
+                "message_thread_id": {
+                    "description": "Unique identifier for the target message thread (topic) of the forum; for forum supergroups only.",
+                    "name": "Message thread ID"
+                },
+                "target": {
+                    "description": "An array of pre-authorised chat_ids to send the document to. If not present, first allowed chat_id is the default.",
+                    "name": "Target"
+                },
+                "url": {
+                    "description": "Remote path to a voice message."
+                },
+                "username": {
+                    "description": "Username for a URL which require HTTP authentication."
+                },
+                "verify_ssl": {
+                    "description": "Enable or disable SSL certificate verification. Set to false if you're downloading the file from a URL and you don't want to validate the SSL certificate of the server.",
+                    "name": "Verify SSL"
+                }
+            },
+            "name": "Send voice"
+        }
+    }
+}

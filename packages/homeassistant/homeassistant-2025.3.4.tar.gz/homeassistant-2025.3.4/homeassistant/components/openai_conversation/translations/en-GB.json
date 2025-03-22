@@ -1,0 +1,50 @@
+{
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Invalid config entry provided. Got {config_entry}"
+        }
+    },
+    "options": {
+        "error": {
+            "model_not_supported": "This model is not supported, please select a different model"
+        },
+        "step": {
+            "init": {
+                "data": {
+                    "llm_hass_api": "Control Home Assistant",
+                    "reasoning_effort": "Reasoning effort",
+                    "recommended": "Recommended model settings"
+                },
+                "data_description": {
+                    "prompt": "Instruct how the LLM should respond. This can be a template.",
+                    "reasoning_effort": "How many reasoning tokens the model should generate before creating a response to the prompt (for certain reasoning models)"
+                }
+            }
+        }
+    },
+    "selector": {
+        "reasoning_effort": {
+            "options": {
+                "high": "High",
+                "low": "Low",
+                "medium": "Medium"
+            }
+        }
+    },
+    "services": {
+        "generate_image": {
+            "fields": {
+                "prompt": {
+                    "description": "The text to turn into an image",
+                    "example": "A photo of a dog",
+                    "name": "Prompt"
+                },
+                "size": {
+                    "description": "The size of the image to generate",
+                    "name": "Size"
+                }
+            },
+            "name": "Generate image"
+        }
+    }
+}

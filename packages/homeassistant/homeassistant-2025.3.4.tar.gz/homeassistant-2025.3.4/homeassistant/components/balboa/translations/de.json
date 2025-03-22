@@ -1,0 +1,96 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Ger\u00e4t ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung fehlgeschlagen",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "flow_title": "{model}",
+        "step": {
+            "confirm_discovery": {
+                "description": "M\u00f6chtest du das Spa bei {host} einrichten?"
+            },
+            "user": {
+                "data": {
+                    "host": "Host"
+                },
+                "data_description": {
+                    "host": "Hostname oder IP-Adresse deines Balboa Spa WLAN-Ger\u00e4ts. Beispiel: 192.168.1.58."
+                },
+                "description": "Mit dem Balboa WLAN-Ger\u00e4t verbinden"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "circ_pump": {
+                "name": "Umw\u00e4lzpumpe"
+            },
+            "filter_1": {
+                "name": "Filterzyklus 1"
+            },
+            "filter_2": {
+                "name": "Filterzyklus 2"
+            }
+        },
+        "climate": {
+            "balboa": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "ready": "Bereit",
+                            "ready_in_rest": "Bereit in Ruhe",
+                            "rest": "Ruhend"
+                        }
+                    }
+                }
+            }
+        },
+        "fan": {
+            "pump": {
+                "name": "Pumpe {index}"
+            }
+        },
+        "light": {
+            "light_of_n": {
+                "name": "Leuchte {index}"
+            },
+            "only_light": {
+                "name": "Leuchte"
+            }
+        },
+        "select": {
+            "temperature_range": {
+                "name": "Temperaturbereich",
+                "state": {
+                    "high": "Hoch",
+                    "low": "Niedrig"
+                }
+            }
+        },
+        "switch": {
+            "filter_cycle_2_enabled": {
+                "name": "Filterzyklus 2 aktiviert"
+            }
+        },
+        "time": {
+            "filter_cycle_end": {
+                "name": "Filterzyklus {index} Ende"
+            },
+            "filter_cycle_start": {
+                "name": "Filterzyklus {index} Start"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sync_time": "Die Uhrzeit deines Balboa Spa mit Home Assistant synchronisieren"
+                }
+            }
+        }
+    }
+}

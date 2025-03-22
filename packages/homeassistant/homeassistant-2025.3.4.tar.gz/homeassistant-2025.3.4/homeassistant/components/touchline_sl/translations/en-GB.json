@@ -1,0 +1,24 @@
+{
+    "config": {
+        "flow_title": "Touchline SL Setup Flow",
+        "step": {
+            "user": {
+                "description": "Your credentials for the Roth Touchline SL mobile app/web service",
+                "title": "Login to Touchline SL"
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "zone": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "constant_temperature": "Constant temperature"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

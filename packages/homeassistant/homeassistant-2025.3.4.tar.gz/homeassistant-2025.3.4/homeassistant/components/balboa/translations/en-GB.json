@@ -1,0 +1,56 @@
+{
+    "config": {
+        "flow_title": "{model}",
+        "step": {
+            "confirm_discovery": {
+                "description": "Do you want to set up the spa at {host}?"
+            }
+        }
+    },
+    "entity": {
+        "fan": {
+            "pump": {
+                "name": "Pump {index}"
+            }
+        },
+        "light": {
+            "light_of_n": {
+                "name": "Light {index}"
+            },
+            "only_light": {
+                "name": "Light"
+            }
+        },
+        "select": {
+            "temperature_range": {
+                "name": "Temperature range",
+                "state": {
+                    "high": "High",
+                    "low": "Low"
+                }
+            }
+        },
+        "switch": {
+            "filter_cycle_2_enabled": {
+                "name": "Filter cycle 2 enabled"
+            }
+        },
+        "time": {
+            "filter_cycle_end": {
+                "name": "Filter cycle {index} end"
+            },
+            "filter_cycle_start": {
+                "name": "Filter cycle {index} start"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "sync_time": "Keep your Balboa spa's time synchronised with Home Assistant"
+                }
+            }
+        }
+    }
+}

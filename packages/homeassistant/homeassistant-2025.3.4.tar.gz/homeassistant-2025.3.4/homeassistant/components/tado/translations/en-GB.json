@@ -1,0 +1,122 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "step": {
+            "reconfigure": {
+                "data_description": {
+                    "password": "Enter the (new) password for Tado."
+                },
+                "description": "Reconfigure the entry for your account: `{username}`.",
+                "title": "Reconfigure your Tado"
+            }
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_state": {
+                "name": "Connection state"
+            },
+            "early_start": {
+                "name": "Early start"
+            },
+            "overlay": {
+                "name": "Overlay"
+            }
+        },
+        "sensor": {
+            "ac": {
+                "name": "AC"
+            },
+            "automatic_geofencing": {
+                "name": "Automatic geofencing"
+            },
+            "geofencing_mode": {
+                "name": "Geofencing mode"
+            },
+            "heating": {
+                "name": "Heating"
+            },
+            "outdoor_temperature": {
+                "name": "Outdoor temperature"
+            },
+            "solar_percentage": {
+                "name": "Solar percentage"
+            },
+            "tado_mode": {
+                "name": "Tado mode"
+            },
+            "weather_condition": {
+                "name": "Weather condition"
+            }
+        },
+        "switch": {
+            "child_lock": {
+                "name": "Child lock"
+            }
+        }
+    },
+    "issues": {
+        "water_heater_fallback": {
+            "description": "Due to added support for water heaters entities, these entities may use a different overlay. Please configure the integration entity and Tado app water heater zone overlay options (under Settings -> Rooms & Devices -> Hot Water).",
+            "title": "Tado water heater entities now support fallback options"
+        }
+    },
+    "services": {
+        "add_meter_reading": {
+            "description": "Adds a meter reading to Tado Energy IQ.",
+            "fields": {
+                "config_entry": {
+                    "description": "Config entry to add meter reading to.",
+                    "name": "Config Entry"
+                },
+                "reading": {
+                    "description": "Reading in m\u00b3 or kWh without decimals.",
+                    "name": "Reading"
+                }
+            },
+            "name": "Add meter reading"
+        },
+        "set_climate_temperature_offset": {
+            "description": "Sets the temperature offset of climate entities.",
+            "fields": {
+                "offset": {
+                    "description": "Offset you would like (depending on your device).",
+                    "name": "Offset"
+                }
+            },
+            "name": "Set climate temperature offset"
+        },
+        "set_climate_timer": {
+            "description": "Turns on climate entities for a set time.",
+            "fields": {
+                "requested_overlay": {
+                    "name": "Overlay"
+                },
+                "temperature": {
+                    "description": "Temperature to set climate entity to.",
+                    "name": "Temperature"
+                },
+                "time_period": {
+                    "name": "Time period"
+                }
+            },
+            "name": "Set climate timer"
+        },
+        "set_water_heater_timer": {
+            "description": "Turns on water heater for a set time.",
+            "fields": {
+                "temperature": {
+                    "description": "Temperature to set heater to.",
+                    "name": "Temperature"
+                },
+                "time_period": {
+                    "description": "Set the time period for the boost.",
+                    "name": "Time period"
+                }
+            },
+            "name": "Set water heater timer"
+        }
+    }
+}

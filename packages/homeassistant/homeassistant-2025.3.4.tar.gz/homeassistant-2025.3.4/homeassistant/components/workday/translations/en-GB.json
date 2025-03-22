@@ -1,0 +1,69 @@
+{
+    "config": {
+        "step": {
+            "options": {
+                "data": {
+                    "category": "Additional category as holiday"
+                },
+                "data_description": {
+                    "category": "Select additional categories to include as holidays"
+                }
+            }
+        }
+    },
+    "issues": {
+        "bad_date_holiday": {
+            "fix_flow": {
+                "step": {
+                    "fix_remove_holiday": {
+                        "description": "Remove holiday date `{remove_holidays}` as it can't be found in country {country}.",
+                        "title": "Configured holiday date {remove_holidays} for {title} does not exist"
+                    }
+                }
+            },
+            "title": "Configured holiday date {remove_holidays} for {title} does not exist"
+        },
+        "bad_named_holiday": {
+            "fix_flow": {
+                "step": {
+                    "fix_remove_holiday": {
+                        "description": "Remove named holiday `{remove_holidays}` as it can't be found in country {country}."
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "category": "Additional category as holiday"
+                },
+                "data_description": {
+                    "category": "Select additional categories to include as holidays"
+                }
+            }
+        }
+    },
+    "selector": {
+        "category": {
+            "options": {
+                "armed_forces": "Armed forces",
+                "bank": "Bank",
+                "catholic": "Catholic",
+                "chinese": "Chinese",
+                "christian": "Christian",
+                "government": "Government",
+                "half_day": "Half-day",
+                "hebrew": "Hebrew",
+                "hindu": "Hindu",
+                "islamic": "Islamic",
+                "optional": "Optional",
+                "public": "Public",
+                "school": "School",
+                "unofficial": "Unofficial",
+                "workday": "Workday"
+            }
+        }
+    }
+}

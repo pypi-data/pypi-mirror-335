@@ -1,0 +1,79 @@
+{
+    "config": {
+        "error": {
+            "connection_failed": "Connection failed. Please check that the host and port is correct."
+        },
+        "step": {
+            "user": {
+                "data_description": {
+                    "port": "Usually 7000 or 8000"
+                }
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "thermostat": {
+                "name": "Thermostat"
+            }
+        },
+        "select": {
+            "air_cleaning_event": {
+                "name": "Air cleaning event",
+                "state": {
+                    "allergies": "Allergies (24 hour)",
+                    "event_clean": "Event clean (3 hour)"
+                }
+            },
+            "air_cleaning_mode": {
+                "name": "Air cleaning mode",
+                "state": {
+                    "automatic": "Automatic",
+                    "constant_clean": "Constant clean"
+                }
+            },
+            "fresh_air_event": {
+                "name": "Fresh air event",
+                "state": {
+                    "24hour": "24 hour event",
+                    "3hour": "3 hour event"
+                }
+            },
+            "fresh_air_mode": {
+                "name": "Fresh air mode",
+                "state": {
+                    "automatic": "Automatic"
+                }
+            }
+        },
+        "sensor": {
+            "air_cleaning_status": {
+                "name": "Air cleaning status"
+            },
+            "dehumidification_status": {
+                "name": "Dehumidification status"
+            },
+            "fan_status": {
+                "name": "Fan status"
+            },
+            "humidification_status": {
+                "name": "Humidification status"
+            },
+            "indoor_humidity_controlling_sensor": {
+                "name": "Indoor humidity controlling sensor"
+            },
+            "indoor_temperature_controlling_sensor": {
+                "name": "Indoor temperature controlling sensor"
+            },
+            "outdoor_humidity_controlling_sensor": {
+                "name": "Outdoor humidity controlling sensor"
+            },
+            "outdoor_temperature_controlling_sensor": {
+                "name": "Outdoor temperature controlling sensor"
+            },
+            "ventilation_status": {
+                "name": "Ventilation status"
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "config": {
+        "error": {
+            "unknown": "Error inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "location": "Ubicaci\u00f3n"
+                },
+                "data_description": {
+                    "location": "Utiliza el mapa para establecer la ubicaci\u00f3n de Stookwijzer."
+                },
+                "description": "Selecciona la ubicaci\u00f3n para la que quieres recibir la informaci\u00f3n de Stookwijzer."
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "advice": {
+                "name": "C\u00f3digo de consejo",
+                "state": {
+                    "code_orange": "Naranja",
+                    "code_red": "Rojo",
+                    "code_yellow": "Amarillo"
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "no_data_received": {
+            "message": "No se recibieron datos de Stookwijzer."
+        }
+    },
+    "issues": {
+        "location_migration_failed": {
+            "title": "Error en la migraci\u00f3n de tu ubicaci\u00f3n"
+        }
+    }
+}

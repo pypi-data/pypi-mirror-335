@@ -1,0 +1,37 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful"
+        },
+        "step": {
+            "reconfigure": {
+                "data_description": {
+                    "host": "The hostname or IP address of your FRITZ!Box router."
+                },
+                "description": "Update your configuration information for {name}."
+            }
+        }
+    },
+    "entity": {
+        "climate": {
+            "thermostat": {
+                "state_attributes": {
+                    "preset_mode": {
+                        "state": {
+                            "holiday": "Holiday",
+                            "summer": "Summer"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "exceptions": {
+        "change_preset_while_active_mode": {
+            "message": "Can't change preset while holiday or summer mode is active on the device."
+        },
+        "manual_switching_disabled": {
+            "message": "Can't toggle switch while manual switching is disabled for the device."
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "config": {
+        "abort": {
+            "reconfigure_successful": "Re-configuration was successful",
+            "wrong_device": "This Roku device does not match the existing device ID. Please make sure you entered the correct host information."
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "play_media_app_id": "Play Media Roku Application ID"
+                },
+                "data_description": {
+                    "play_media_app_id": "The application ID to use when launching media playback. Must support the PlayOnRoku API."
+                }
+            }
+        }
+    },
+    "services": {
+        "search": {
+            "description": "Emulates opening the search screen and entering the search keyword.",
+            "fields": {
+                "keyword": {
+                    "description": "The keyword to search for.",
+                    "name": "Keyword"
+                }
+            },
+            "name": "Search"
+        }
+    }
+}

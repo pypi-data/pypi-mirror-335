@@ -1,0 +1,25 @@
+{
+    "entity": {
+        "binary_sensor": {
+            "pure_ac_integration": {
+                "name": "Pure Boost keppele oan netspanning"
+            }
+        }
+    },
+    "services": {
+        "enable_pure_boost": {
+            "fields": {
+                "ac_integration": {
+                    "description": "Yntegreer mei Airconditioner."
+                }
+            }
+        },
+        "full_state": {
+            "fields": {
+                "target_temperature": {
+                    "name": "Doeltemperatuer"
+                }
+            }
+        }
+    }
+}

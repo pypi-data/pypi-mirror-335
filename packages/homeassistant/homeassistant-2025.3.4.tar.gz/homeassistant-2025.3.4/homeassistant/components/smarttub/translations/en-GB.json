@@ -1,0 +1,24 @@
+{
+    "services": {
+        "reset_reminder": {
+            "fields": {
+                "days": {
+                    "description": "The number of days when the next reminder should trigger."
+                }
+            },
+            "name": "Reset a reminder"
+        },
+        "set_primary_filtration": {
+            "description": "Updates the primary filtration settings.",
+            "fields": {
+                "duration": {
+                    "description": "The desired duration of the primary filtration cycle.",
+                    "name": "Duration"
+                },
+                "start_hour": {
+                    "description": "The hour of the day at which to begin the primary filtration cycle."
+                }
+            }
+        }
+    }
+}

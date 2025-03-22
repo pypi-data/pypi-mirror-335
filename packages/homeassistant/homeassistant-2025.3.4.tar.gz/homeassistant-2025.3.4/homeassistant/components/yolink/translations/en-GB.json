@@ -1,0 +1,97 @@
+{
+    "config": {
+        "abort": {
+            "authorize_url_timeout": "Timeout generating authorise URL."
+        }
+    },
+    "entity": {
+        "number": {
+            "config_volume": {
+                "name": "Volume"
+            }
+        },
+        "sensor": {
+            "current_power": {
+                "name": "Current power"
+            },
+            "power_consumption": {
+                "name": "Power consumption"
+            },
+            "power_failure_alarm": {
+                "name": "Power failure alarm",
+                "state": {
+                    "alert": "Alert",
+                    "normal": "Normal"
+                }
+            },
+            "power_failure_alarm_beep": {
+                "name": "Power failure alarm beep"
+            },
+            "power_failure_alarm_mute": {
+                "name": "Power failure alarm mute",
+                "state": {
+                    "muted": "Muted",
+                    "unmuted": "Unmuted"
+                }
+            },
+            "power_failure_alarm_volume": {
+                "name": "Power failure alarm volume",
+                "state": {
+                    "high": "High",
+                    "low": "Low",
+                    "medium": "Medium"
+                }
+            },
+            "water_meter_reading": {
+                "name": "Water meter reading"
+            }
+        },
+        "switch": {
+            "plug_1": {
+                "name": "Plug 1"
+            },
+            "plug_2": {
+                "name": "Plug 2"
+            },
+            "plug_3": {
+                "name": "Plug 3"
+            },
+            "plug_4": {
+                "name": "Plug 4"
+            },
+            "usb_ports": {
+                "name": "USB ports"
+            }
+        },
+        "valve": {
+            "meter_valve_state": {
+                "name": "Valve state"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Config entry not found or not loaded!"
+        }
+    },
+    "selector": {
+        "speaker_tone": {
+            "options": {
+                "alert": "Alert",
+                "emergency": "Emergency",
+                "tip": "Tip",
+                "warn": "Warn"
+            }
+        }
+    },
+    "services": {
+        "play_on_speaker_hub": {
+            "description": "Converts text to speech for playback on a YoLink SpeakerHub",
+            "fields": {
+                "message": {
+                    "description": "Text message to be played."
+                }
+            }
+        }
+    }
+}

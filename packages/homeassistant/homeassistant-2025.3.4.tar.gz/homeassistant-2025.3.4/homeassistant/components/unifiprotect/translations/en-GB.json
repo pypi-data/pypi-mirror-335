@@ -1,0 +1,178 @@
+{
+    "config": {
+        "error": {
+            "cloud_user": "Ubiquiti Cloud users are not supported. Please use a local user instead."
+        }
+    },
+    "entity": {
+        "event": {
+            "doorbell": {
+                "name": "Doorbell",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "ring": "Ring"
+                        }
+                    }
+                }
+            },
+            "fingerprint": {
+                "name": "Fingerprint",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "identified": "Identified",
+                            "not_identified": "Not identified"
+                        }
+                    }
+                }
+            },
+            "nfc": {
+                "name": "NFC",
+                "state_attributes": {
+                    "event_type": {
+                        "state": {
+                            "scanned": "Scanned"
+                        }
+                    }
+                }
+            }
+        },
+        "sensor": {
+            "license_plate": {
+                "state": {
+                    "none": "Clear"
+                }
+            }
+        }
+    },
+    "issues": {
+        "cloud_user": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Starting on 22nd July, 2024, Ubiquiti will require all cloud users to enroll in multi-factor authentication (MFA), which is incompatible with Home Assistant.\n\nIt would be best to migrate to using a [local user]({learn_more}) as soon as possible to keep the integration working.\n\nConfirming this repair will trigger a re-authentication flow to enter the needed authentication credentials.",
+                        "title": "Ubiquiti Cloud Users are not Supported"
+                    }
+                }
+            },
+            "title": "Ubiquiti Cloud Users are not Supported"
+        },
+        "deprecate_hdr_switch": {
+            "description": "UniFi Protect v3 added a new state for HDR (auto). As a result, the HDR Mode switch has been replaced with an HDR Mode select, and it is deprecated.\n\nBelow are the detected automations or scripts that use one or more of the deprecated entities:\n{items}\nThe above list may be incomplete and it does not include any template usages inside of dashboards. Please update any templates, automations or scripts accordingly.",
+            "title": "HDR Mode switch deprecated"
+        },
+        "ea_channel_warning": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Are you sure you want to run unsupported versions of UniFi Protect? This may cause your Home Assistant integration to break.",
+                        "title": "UniFi Protect Early Access enabled"
+                    },
+                    "start": {
+                        "description": "You are either running an Early Access version of UniFi Protect (v{version}) or opt-ed into a release channel that is not the official release channel.\n\nAs these Early Access releases may not be tested yet, using it may cause the UniFi Protect integration to behave unexpectedly. [Read more about Early Access and Home Assistant]({learn_more}).\n\nSubmit to dismiss this message.",
+                        "title": "UniFi Protect Early Access enabled"
+                    }
+                }
+            },
+            "title": "UniFi Protect Early Access enabled"
+        },
+        "rtsp_disabled_readonly": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Are you sure you want to leave RTSPS disabled for {camera}?",
+                        "title": "RTSPS is disabled on camera {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS is disabled on the camera {camera}. RTSPS is required to be able to live stream your camera within Home Assistant. If you do not enable RTSPS, it may create an additional load on your UniFi Protect NVR, as any live video players will default to rapidly pulling snapshots from the camera.\n\nPlease [enable RTSPS]({learn_more}) on the camera and then come back and confirm this repair.",
+                        "title": "RTSPS is disabled on camera {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS is disabled on camera {camera}"
+        },
+        "rtsp_disabled_writable": {
+            "fix_flow": {
+                "step": {
+                    "confirm": {
+                        "description": "Are you sure you want to leave RTSPS disabled for {camera}?",
+                        "title": "RTSPS is disabled on camera {camera}"
+                    },
+                    "start": {
+                        "description": "RTSPS is disabled on the camera {camera}. RTSPS is required to live stream your camera within Home Assistant. If you do not enable RTSPS, it may create an additional load on your UniFi Protect NVR as any live video players will default to rapidly pulling snapshots from the camera.\n\nYou may manually [enable RTSPS]({learn_more}) on your selected camera quality channel or Home Assistant can automatically enable the highest quality channel for you. Confirm this repair once you have enabled the RTSPS channel or if you want Home Assistant to enable the highest quality automatically.",
+                        "title": "RTSPS is disabled on camera {camera}"
+                    }
+                }
+            },
+            "title": "RTSPS is disabled on camera {camera}"
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "data": {
+                    "allow_ea_channel": "Allow Early Access versions of Protect (WARNING: Will mark your integration as unsupported)"
+                }
+            }
+        }
+    },
+    "services": {
+        "add_doorbell_text": {
+            "description": "Adds a new custom message for doorbells.",
+            "fields": {
+                "device_id": {
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "name": "Custom message"
+                }
+            }
+        },
+        "get_user_keyring_info": {
+            "description": "Fetches a detailed list of users with NFC and fingerprint associations for automations.",
+            "fields": {
+                "device_id": {
+                    "description": "Any device from the UniFi Protect instance you want to retrieve keyring details. This is useful for systems with multiple Protect instances.",
+                    "name": "UniFi Protect NVR"
+                }
+            },
+            "name": "Get user keyring info"
+        },
+        "remove_doorbell_text": {
+            "fields": {
+                "device_id": {
+                    "description": "Any device from the UniFi Protect instance you want to change. In case you have multiple Protect Instances.",
+                    "name": "UniFi Protect NVR"
+                },
+                "message": {
+                    "name": "Custom message"
+                }
+            }
+        },
+        "remove_privacy_zone": {
+            "description": "Removes a privacy zone from a camera.",
+            "fields": {
+                "device_id": {
+                    "description": "Camera you want to remove the privacy zone from.",
+                    "name": "Camera"
+                },
+                "name": {
+                    "description": "The name of the zone to remove.",
+                    "name": "Privacy zone"
+                }
+            },
+            "name": "Remove privacy zone"
+        },
+        "set_chime_paired_doorbells": {
+            "fields": {
+                "device_id": {
+                    "name": "Chime"
+                },
+                "doorbells": {
+                    "description": "The doorbells to link to the chime."
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,64 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Apparaat is al geconfigureerd",
+            "reauth_successful": "Herauthenticatie geslaagd"
+        },
+        "error": {
+            "invalid_auth": "Ongeldige authenticatie",
+            "unknown": "Onverwachte fout"
+        },
+        "step": {
+            "reauth_confirm": {
+                "data": {
+                    "password": "Wachtwoord"
+                },
+                "title": "Authenticatie is verlopen voor {name}"
+            },
+            "user": {
+                "data": {
+                    "email": "E-mail",
+                    "password": "Wachtwoord"
+                }
+            }
+        }
+    },
+    "entity": {
+        "button": {
+            "approve": {
+                "name": "Laden goedkeuren"
+            }
+        },
+        "sensor": {
+            "status": {
+                "state": {
+                    "finished": "Klaar met opladen",
+                    "paused": "Gepauzeerd"
+                }
+            },
+            "vehicle_battery": {
+                "name": "Accu van het voertuig"
+            }
+        }
+    },
+    "exceptions": {
+        "invalid_config_entry": {
+            "message": "Ongeldige configuratie-invoer opgegeven. Kreeg {config_entry}"
+        },
+        "unloaded_config_entry": {
+            "message": "Ongeldige configuratie-invoer opgegeven. {config_entry} is niet geladen."
+        }
+    },
+    "services": {
+        "list_charge_slots": {
+            "description": "Geeft een lijst met laadslots terug.",
+            "fields": {
+                "config_entry": {
+                    "description": "De Ohme-configuratie-invoer waarvoor laadslots moeten worden geretourneerd.",
+                    "name": "Ohme account"
+                }
+            },
+            "name": "Lijst met laadslots"
+        }
+    }
+}
