@@ -1,0 +1,44 @@
+| File                       | Function                                                         | Statements | Missing | Excluded | Coverage |
+| -------------------------- | ---------------------------------------------------------------- | ---------- | ------- | -------- | -------- |
+| recursivist\_\_main\_\_.py | (no function)                                                    | 3          | 3       | 0        | 0%       |
+| recursivist\cli.py         | main                                                             | 1          | 1       | 0        | 0%       |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_size_mtime | 8          | 8       | 0        | 0%       |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_mtime      | 13         | 13      | 0        | 0%       |
+| recursivist\exports.py     | DirectoryExporter.to_jsx                                         | 5          | 3       | 0        | 40%      |
+| recursivist\exports.py     | DirectoryExporter.to_markdown                                    | 23         | 8       | 0        | 65%      |
+| recursivist\exports.py     | DirectoryExporter.to_markdown.\_build_md_tree                    | 85         | 30      | 0        | 65%      |
+| recursivist\cli.py         | compare                                                          | 52         | 17      | 0        | 67%      |
+| recursivist\exports.py     | sort_files_by_type.get_loc                                       | 3          | 1       | 0        | 67%      |
+| recursivist\exports.py     | sort_files_by_type.get_mtime                                     | 9          | 3       | 0        | 67%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.safe_get            | 3          | 1       | 0        | 67%      |
+| recursivist\exports.py     | DirectoryExporter.to_html.\_build_html_tree                      | 90         | 29      | 0        | 68%      |
+| recursivist\compare.py     | build_comparison_tree                                            | 289        | 89      | 0        | 69%      |
+| recursivist\exports.py     | DirectoryExporter.to_json                                        | 10         | 3       | 0        | 70%      |
+| recursivist\exports.py     | DirectoryExporter.to_html                                        | 27         | 8       | 0        | 70%      |
+| recursivist\compare.py     | \_export_comparison_to_html.\_build_html_tree                    | 224        | 64      | 0        | 71%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_size       | 11         | 3       | 0        | 73%      |
+| recursivist\core.py        | build_tree                                                       | 91         | 24      | 0        | 74%      |
+| recursivist\core.py        | count_lines_of_code                                              | 46         | 12      | 0        | 74%      |
+| recursivist\exports.py     | DirectoryExporter.to_txt.\_build_txt_tree                        | 109        | 25      | 0        | 77%      |
+| recursivist\cli.py         | export                                                           | 71         | 15      | 0        | 79%      |
+| recursivist\exports.py     | DirectoryExporter.to_json.convert_structure_for_json             | 63         | 13      | 0        | 79%      |
+| recursivist\exports.py     | sort_files_by_type.get_size                                      | 10         | 2       | 0        | 80%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_loc_mtime  | 10         | 2       | 0        | 80%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_name       | 5          | 1       | 0        | 80%      |
+| recursivist\compare.py     | \_export_comparison_to_html                                      | 79         | 14      | 0        | 82%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_loc        | 7          | 1       | 0        | 86%      |
+| recursivist\exports.py     | sort_files_by_type                                               | 26         | 3       | 0        | 88%      |
+| recursivist\exports.py     | DirectoryExporter.to_txt                                         | 24         | 3       | 0        | 88%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_loc_size   | 8          | 1       | 0        | 88%      |
+| recursivist\core.py        | get_directory_structure                                          | 106        | 12      | 0        | 89%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx.sort_key_all        | 9          | 1       | 0        | 89%      |
+| recursivist\compare.py     | display_comparison                                               | 82         | 8       | 0        | 90%      |
+| recursivist\jsx_export.py  | generate_jsx_component                                           | 51         | 5       | 0        | 90%      |
+| recursivist\jsx_export.py  | generate_jsx_component.\_build_structure_jsx                     | 109        | 11      | 0        | 90%      |
+| recursivist\core.py        | parse_ignore_file                                                | 11         | 1       | 0        | 91%      |
+| recursivist\core.py        | display_tree                                                     | 32         | 3       | 0        | 91%      |
+| recursivist\cli.py         | visualize                                                        | 53         | 4       | 0        | 92%      |
+| recursivist\core.py        | generate_color_for_extension                                     | 51         | 2       | 0        | 96%      |
+| recursivist\core.py        | sort_files_by_type                                               | 26         | 1       | 0        | 96%      |
+| recursivist\cli.py         | (no function)                                                    | 30         | 1       | 0        | 97%      |
+| **Total**                  |                                                                  | **1965**   | **449** | **0**    | **77%**  |
