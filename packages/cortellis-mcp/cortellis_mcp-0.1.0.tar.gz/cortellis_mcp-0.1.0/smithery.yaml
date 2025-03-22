@@ -1,0 +1,95 @@
+name: cortellis-mcp
+version: 1.0.0
+description: An MCP server enabling AI assistants to search and analyze pharmaceutical data through Cortellis API.
+
+build:
+  type: docker
+  dockerfile: Dockerfile
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required: ["username", "password"]
+    properties:
+      username:
+        type: string
+        description: "Your Cortellis API username"
+      password:
+        type: string
+        description: "Your Cortellis API password"
+  commandFunction: |
+    function getCommand(config) {
+      return {
+        command: "python",
+        args: ["-m", "cortellis_mcp"],
+        env: {
+          CORTELLIS_USERNAME: config.username,
+          CORTELLIS_PASSWORD: config.password,
+          PYTHONUNBUFFERED: "1"
+        }
+      };
+    }
+
+tools:
+  - name: search_drugs
+    description: "Search for drugs in the Cortellis database"
+    parameters:
+      - name: query
+        type: string
+        optional: true
+        description: "Raw search query"
+      - name: company
+        type: string
+        optional: true
+        description: "Company developing the drug"
+      - name: indication
+        type: string
+        optional: true
+        description: "Active indications"
+      - name: phase
+        type: string
+        optional: true
+        description: "Overall highest development status"
+      - name: drug_name
+        type: string
+        optional: true
+        description: "Name of the drug"
+
+  - name: explore_ontology
+    description: "Explore ontology/taxonomy terms in the Cortellis database"
+    parameters:
+      - name: term
+        type: string
+        optional: true
+        description: "Generic search term"
+      - name: category
+        type: string
+        optional: true
+        description: "Category to search within"
+      - name: indication
+        type: string
+        optional: true
+        description: "Active indications"
+
+categories:
+  - Life Sciences
+  - Competitive Intelligence
+  - Pharmaceutical Market Research
+  - Drug Discovery
+  - Clinical Research
+  - Regulatory Affairs
+  - Drug Development
+  - Pharmaceutical Manufacturing
+  - Pharmaceutical Distribution
+  - Pharmaceutical Sales
+
+platforms:
+  - linux
+  - darwin
+
+repository: https://github.com/uh-joan/mcp-cortellis
+license: MIT
+author:
+  name: Joan
+  email: janisaez@gmail.com 

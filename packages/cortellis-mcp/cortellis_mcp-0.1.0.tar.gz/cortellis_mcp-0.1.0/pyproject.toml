@@ -1,0 +1,55 @@
+[project]
+name = "cortellis-mcp"
+version = "0.1.0"
+description = "Cortellis MCP Server for drug search and ontology exploration"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+    { name = "Joan", email = "janisaez@gmail.com" }
+]
+keywords = ["cortellis", "mcp", "drug-search", "ontology", "pharmaceutical"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Intended Audience :: Healthcare Industry",
+    "Natural Language :: English"
+]
+dependencies = [
+    "requests>=2.31.0",
+    "python-dotenv>=1.0.0",
+    "mcp>=0.1.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/uh-joan/mcp-cortellis"
+Repository = "https://github.com/uh-joan/mcp-cortellis.git"
+"Bug Tracker" = "https://github.com/uh-joan/mcp-cortellis/issues"
+Documentation = "https://github.com/uh-joan/mcp-cortellis/tree/main/docs"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["cortellis_mcp"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+select = ["E", "F", "B", "I", "UP"]
+
+[tool.ruff.isort]
+known-first-party = ["cortellis_mcp"] 
