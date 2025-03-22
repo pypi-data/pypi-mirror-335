@@ -1,0 +1,161 @@
+Metadata-Version: 2.4
+Name: CodeHem
+Version: 0.1.5
+Summary: A language-agnostic library for code querying and manipulation
+Home-page: https://github.com/jacekjursza/CodeHem
+Author: Jacek Jursza
+Author-email: jacek.jursza@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: tree-sitter==0.24.0
+Requires-Dist: tree-sitter-javascript==0.23.1
+Requires-Dist: tree-sitter-python==0.23.6
+Requires-Dist: tree-sitter-typescript==0.23.2
+Requires-Dist: typing_extensions==4.12.2
+Requires-Dist: rich==13.9.4
+Requires-Dist: pydantic==2.10.6
+Requires-Dist: pydantic_core==2.27.2
+Requires-Dist: setuptools>=77.0.1
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-cov>=3.0.0; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+Requires-Dist: build; extra == "dev"
+Requires-Dist: wheel; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# CodeHem
+
+CodeHem is a language-agnostic library designed for sophisticated querying and manipulation of source code. 
+It provides a high-level interface to effortlessly navigate, analyze, and modify code elements such as functions, 
+classes, methods, and properties across multiple programming languages, including Python, JavaScript, and TypeScript.
+
+## Key Features
+
+- **Advanced Code Querying**: Easily locate functions, classes, methods, properties, imports, and more within your source code, using a uniform, intuitive API.
+- **Powerful Code Manipulation**: Replace, add, or remove functions, methods, classes, properties, or entire code sections with minimal effort.
+- **Syntax-aware Operations**: Ensures accurate manipulation preserving syntax integrity through the `tree-sitter` parser.
+- **Language Detection**: Automatically identifies the programming language based on file extensions or code analysis.
+- **Extensible Architecture**: Easily add support for new programming languages through the strategy pattern.
+
+## Supported Languages
+
+- Python
+- JavaScript / TypeScript (including TSX)
+
+## Project Structure
+
+```
+CodeHem/
+├── ast_handler.py            # Unified interface for AST operations
+├── caching/                  # Performance optimization through caching
+│   ├── __init__.py
+│   └── cache_manager.py
+│
+├── finder/                   # Code element location
+│   ├── base.py               # Abstract base class for querying code elements
+│   ├── factory.py            # Factory for creating code finders
+│   └── lang/
+│       ├── python_code_finder.py
+│       └── typescript_code_finder.py
+│
+├── formatting/               # Code formatting system
+│   ├── __init__.py
+│   ├── formatter.py          # Base formatter class
+│   ├── python_formatter.py   # Python-specific formatter
+│   └── typescript_formatter.py # TypeScript-specific formatter
+│
+├── language_handler.py       # High-level language handling interface (LangHem)
+├── languages.py              # Language definitions and parsers
+│
+├── manipulator/              # Code manipulation
+│   ├── abstract.py           # Abstract interface for code manipulators
+│   ├── base.py               # Base implementation
+│   ├── factory.py            # Factory for manipulators
+│   └── lang/
+│       ├── python_manipulator.py
+│       └── typescript_manipulator.py
+│
+├── query_builder.py          # Unified query construction
+│
+├── strategies/               # Strategy pattern for language-specific operations
+│   ├── __init__.py
+│   ├── language_strategy.py  # Abstract strategy interface
+│   ├── python_strategy.py    # Python-specific strategy
+│   └── typescript_strategy.py # TypeScript-specific strategy
+│
+├── templates/                # Templates for adding new languages
+│   └── new_language_template.py
+│
+└── utils/
+    └── logs.py               # Logging utilities
+## Installation
+
+Ensure Python 3.7 or later is installed, then:
+
+```
+
+Dependencies include `tree-sitter` and language-specific parsers.
+
+## Usage Example
+
+### Querying Code
+
+
+# Create a handler for Python code
+handler = LangHem('python')
+
+code = '''
+class Example:
+    def greet(self):
+        print("Hello")
+'''
+
+# Find method location
+start, end = handler.finder.find_method(code, 'Example', 'greet')
+print(f'Method found from line {start} to {end}')
+```
+
+### Manipulating Code
+
+
+handler = LangHem('python')
+
+original_code = '''
+def greet():
+    print("Hello")
+'''
+
+new_function = '''
+def greet():
+    print("Hello, World!")
+'''
+
+modified_code = handler.manipulator.replace_function(original_code, 'greet', new_function)
+```
+
+
+## Contributing
+
+We warmly welcome contributions, whether it's through reporting issues, suggesting enhancements, or submitting pull requests. Feel free to participate!
+
+## License
+
+This project is licensed under the MIT license. See `LICENSE` for details.
