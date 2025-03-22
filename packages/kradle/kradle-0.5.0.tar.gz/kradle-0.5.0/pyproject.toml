@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kradle"
+version = "0.5.0"
+authors = [
+    { name="Kradle Team", email="humans@kradle.ai" },
+]
+description = "Create AI agents that play Minecraft with Kradle"
+readme = "README.md"
+requires-python = ">=3.6"
+dependencies = [
+    "flask",
+    "flask-cors",
+    "rich",
+    "anthropic",
+    "openai",
+    "python-dotenv",
+    "requests",
+    "psutil",
+    "redis",
+    "google-cloud-firestore",
+    "watchdog",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Kradle-ai/kradle-python"
+"Bug Tracker" = "https://github.com/Kradle-ai/kradle-python/issues"
+
+[tool.setuptools]
+include-package-data = true
