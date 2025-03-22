@@ -1,0 +1,57 @@
+[project]
+name = "icij-common"
+version = "0.7.1"
+description = "Common utils for ICIJ libs"
+authors = [
+    { name = "Clément Doumouro", email = "cdoumouro@icij.org" },
+    { name = "ICIJ", email = "engineering@icij.org" },
+]
+readme = "README.md"
+requires-python = "~=3.10"
+dependencies = [
+    "pydantic>=2.0"
+]
+
+[project.urls]
+Repository = "https://github.com/ICIJ/icij-python"
+Issues = "https://github.com/ICIJ/icij-python/issues"
+
+[project.optional-dependencies]
+elasticsearch = [
+    "elasticsearch[async]~=7.17.9",
+    "tenacity~=9.0"
+]
+fastapi = [
+    "fastapi~=0.111"
+]
+neo4j = [
+    "neo4j~=5.0",
+    "pydantic-settings~=2.8"
+]
+
+[tool.poetry.extras]
+fastapi = ["fastapi"]
+neo4j = ["neo4j"]
+elasticsearch = ["elasticsearch", "tenacity"]
+
+[dependency-groups]
+dev = [
+    "black~=24.4",
+    "pylint~=3.1",
+    "pytest~=8.2",
+    "pytest-asyncio~=0.21",
+]
+
+[tool.hatch.build.targets.sdist]
+include = ["icij_common"]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
