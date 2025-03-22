@@ -1,0 +1,1 @@
+Pandas TA reborn - A Simplify Technical Analysis Library
