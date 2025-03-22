@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "steam_api_pkg"
+version = "0.1.2"
+description = "A basic package to interface with the Steam API."
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICENSE.txt"]
+keywords = ["steam", "api"]
+
+authors = [
+    { name = "Veli Ristimaki" }
+]
+dependencies = ["requests"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Operating System :: OS Independent",
+]
+
+[tool.setuptools]
+
+[tool.setuptools.package-data]
