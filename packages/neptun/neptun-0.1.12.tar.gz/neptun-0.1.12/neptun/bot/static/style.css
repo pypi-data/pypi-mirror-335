@@ -1,0 +1,78 @@
+Screen {
+    background: #111929;
+    scrollbar-color: #d9e3f3;
+    scrollbar-color-active: #e5e7a0;
+    scrollbar-color-hover: #e5e7a0;
+
+    scrollbar-background: #111929;
+    scrollbar-background-active: #111929;
+    scrollbar-background-hover: #111929;
+}
+
+MessageBox {
+    layout: horizontal;
+    height: auto;
+    align-horizontal: center;
+
+}
+
+.message {
+    width: 70%;
+    min-width: 0;
+    border: #d9e3f3 tall;
+    padding: 1 2;
+    margin: 1 0;
+    background: #020817;
+    overflow: hidden;
+    box-sizing: border-box;
+    color: #d9e3f3;
+}
+
+.info {
+    border: #e5e7a0 tall;
+    background: #020817;
+    color: #d9e3f3;
+    width: auto;
+    text-align: center;
+}
+
+.user {
+    margin: 1 0 1 25;
+}
+
+.assistant {
+    margin: 1 25 1 0;
+}
+
+#input_box {
+    dock: bottom;
+    height: auto;
+    width: 100%;
+    margin: 0 0 2 0;
+    align_horizontal: center;
+    background: #111929;
+}
+
+#message_input {
+    width: 50%;
+    background: #020817;
+    border: #d9e3f3 tall;
+    color: #d9e3f3;
+}
+
+#send_button {
+    width: auto;
+    background: #d9e3f3;
+    color: #2e2e2e;
+}
+#conversation_box {
+    height: auto;
+    overflow-y: auto;
+}
+
+
+
+Scrollbar{
+        background: #d9e3f3;
+
+}

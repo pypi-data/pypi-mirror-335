@@ -1,0 +1,38 @@
+[tool.poetry]
+name = "neptun"
+version = "0.1.12"
+description = "Neptun is a Python-based CLI for interacting with Neptun AI via the Neptun API interface, designed to answer questions on DevOps, Docker, Docker Compose, and more."
+
+authors = ["stevan06v", "jonasfroeller"]
+license = "MIT License"
+readme = "README.md"
+
+include = [
+    "neptun/config/default.json",
+    "neptun/config/config.ini",
+    "neptun/config/info.toml"
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+typer = "^0.15.1"
+pytest = "^8.2.2"
+httpx = "^0.27.0"
+pydantic = "^2.10.4"
+configparser = "^7.0.0"
+questionary = "^2.0.1"
+httpx-cache = "^0.13.0"
+textual = "^0.76.0"
+datetime = "^5.5"
+mdformat = "^0.7.22"
+pyfiglet = "^1.0.2"
+toml = "^0.10.2"
+colorama = "^0.4.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+neptun = "neptun.__main__:main"
