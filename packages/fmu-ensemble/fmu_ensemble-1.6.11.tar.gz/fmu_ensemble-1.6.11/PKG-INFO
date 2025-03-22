@@ -1,0 +1,75 @@
+Metadata-Version: 2.4
+Name: fmu-ensemble
+Version: 1.6.11
+Summary: Python API to ensembles produced by ERT
+Author-email: Håvard Berland <havb@equinor.com>
+License: GPL-3.0
+Project-URL: Repository, https://github.com/equinor/fmu-ensemble
+Keywords: fmu,ensemble
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: Developers
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/x-rst
+License-File: LICENSE
+License-File: AUTHORS.rst
+Requires-Dist: resdata>=4.0.0
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: pyyaml>=5.1
+Provides-Extra: test
+Requires-Dist: pytest>=2.9.2; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Provides-Extra: docs
+Requires-Dist: ipython; extra == "docs"
+Requires-Dist: rstcheck; extra == "docs"
+Requires-Dist: sphinx; extra == "docs"
+Requires-Dist: sphinx-argparse; extra == "docs"
+Requires-Dist: sphinx_rtd_theme; extra == "docs"
+Provides-Extra: style
+Requires-Dist: pre-commit; extra == "style"
+Provides-Extra: parquet
+Requires-Dist: pyarrow; extra == "parquet"
+Dynamic: license-file
+
+.. image:: https://badge.fury.io/py/fmu-ensemble.svg
+    :target: https://badge.fury.io/py/fmu-ensemble
+
+.. image:: https://img.shields.io/github/actions/workflow/status/equinor/fmu-ensemble/fmu-ensemble.yml?branch=master
+    :target: https://github.com/equinor/fmu-ensemble/actions?query=workflow%3Afmu-ensemble
+
+.. image:: https://codecov.io/gh/equinor/fmu-ensemble/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/equinor/fmu-ensemble
+
+.. image:: https://img.shields.io/badge/python-3.11%20|%203.12-blue.svg
+    :target: https://www.python.org
+
+.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
+    :target: https://www.gnu.org/licenses/gpl-3.0
+
+==============================
+Introduction to *FMU Ensemble*
+==============================
+
+FMU Ensemble is a Python module for handling simulation ensembles
+originating from an FMU (Fast Model Update) workflow.
+
+For documentation, see the
+`github pages for this repository <https://equinor.github.io/fmu-ensemble/>`_.
+
+Ensembles consist of realizations. Realizations consist of (input and)
+output from their associated *jobs* stored in text or binary files.
+Selected file formats (text and binary) are supported.
+
+This module will help you handle ensembles and realizations (and their
+associated data) as Python objects, and thereby facilitating the use
+use of other Python visualizations modules like webviz, plotly or
+interactive usage in IPython/Jupyter.
+
+If run as a post-workflow in Ert, a simple script using this library
+can replace and extend the existing *CSV_EXPORT1* workflow
+
+This software is released under GPL v3.0
