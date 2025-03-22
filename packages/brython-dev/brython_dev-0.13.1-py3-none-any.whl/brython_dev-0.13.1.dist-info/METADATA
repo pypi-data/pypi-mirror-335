@@ -1,0 +1,70 @@
+Metadata-Version: 2.3
+Name: brython-dev
+Version: 0.13.1
+Summary: Brython developer tools
+License: MIT
+Keywords: brython,Development,Build Tools,Debuggers,Testing
+Author: Lorenzo Garcia Calzadilla
+Author-email: lorenzogarciacalzadilla@gmail.com
+Requires-Python: >=3.13,<4.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development
+Classifier: Topic :: Software Development :: Bug Tracking
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: Topic :: Software Development :: Debuggers
+Classifier: Topic :: Software Development :: Testing
+Classifier: Topic :: Utilities
+Requires-Dist: brython (>=3.13.1,<4.0.0)
+Requires-Dist: flask (>=3.1.0,<4.0.0)
+Requires-Dist: pyyaml (>=6.0.2,<7.0.0)
+Description-Content-Type: text/markdown
+
+# Brython-dev
+
+Brython-dev is a Python library for developers in brython.
+
+## Installation
+
+Use the package manager [pip](https://pip.pypa.io/en/stable/) to install.
+
+```bash
+pip install brython-dev
+```
+
+## Usage
+
+For runserver
+
+```bash
+py -m brython_dev run
+```
+
+## Configuration
+
+The configuration is in the filename `brython.yml`
+
+* **name**: String. The name of the proyect
+* **proyect**: String, Default: `Path(name)`. The path of the proyect
+* **app**: String, Default: `app.py`, `null` to disable. The python main filename
+* **template**: String, Default: `app.html`, `null` to disable. The html main template
+* **proyect_tests**: String, Default: `Path(tests)`. The path of the proyect tests
+* **app_tests**: String, Default: `app.py`, `null` to disable. The python tests main filename
+* **template_tests**: String, Default: `app.html`, `null` to disable. The html tests main template
+* **console**: Boolean, Default: `false`. Enable the console in the navegator
+* **metatags**: List. A list whith meta tags
+* **stylesheets**: List. A list whith extras stylesheets
+* **extensions**: Dict. A dict whith enable brython extensions
+  * **brython**: Boolean, Default: `true`. Enable the brython library
+  * **brython_stdlib**: Boolean, Default: `false`. Enable the brython stdlib library
+* **scripts**: List. A list whith extras scripts
+* **pyscripts**: List. A list whith extras python scripts
+* **brython_url_prefix**: String, Default: `/`. The brython.js and brython_stdlib.js url prefix
+* **brython_options**: Dict. A dict whith brython options
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
