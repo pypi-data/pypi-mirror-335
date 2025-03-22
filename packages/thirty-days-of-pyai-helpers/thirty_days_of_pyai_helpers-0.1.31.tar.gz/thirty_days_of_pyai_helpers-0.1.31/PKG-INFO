@@ -1,0 +1,52 @@
+Metadata-Version: 2.4
+Name: thirty-days-of-pyai-helpers
+Version: 0.1.31
+Summary: 30 Days of AI with Python Course helper functions.
+Author: Witeout Codes
+Author-email: info@loveyourvecino.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: colorama==0.4.6
+Provides-Extra: dev
+Requires-Dist: pytest==7.1.2; extra == "dev"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 30 Days of PyAI Helpers
+
+A collection of helper functions designed to support the *30 Days of AI with Python* course by Witeout Codes. This library provides utilities to streamline coding tasks, including colorful terminal output with `colorama`.
+
+## Installation
+
+Install the package via PyPI:
+
+```bash
+pip install thirty-days-of-pyai-helpers
+```
+
+
+## Usage
+Here’s an example of using the helper functions (assuming print_helpers.py contains slow_print, etc.):
+
+```python
+from thirty_days_of_pyai_helpers.print_helpers import slow_print, slow_print_header, slow_print_error
+
+# Print text slowly with color
+slow_print("Processing AI task...")
+slow_print_header("Day 1: Introduction to AI")
+slow_print_error("Error: Missing input data")
+```
