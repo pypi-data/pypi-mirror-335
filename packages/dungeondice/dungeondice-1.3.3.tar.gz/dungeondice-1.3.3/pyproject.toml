@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "dungeondice"
+version = "1.3.3"
+authors = [
+  { name="jwizzle", email="info@hossel.net" },
+]
+description = "Tools to roll some virtual dice"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GPL-3.0-or-later"
+license-files = ["LICEN[CS]E*"]
+dependencies = [
+  "discord.py==2.5.2",
+  "python-dotenv==1.0.1",
+]
+
+[project.urls]
+Homepage = "https://github.com/jwizzle/dungeondice"
+Issues = "https://github.com/jwizzle/dungeondice/issues"
+
+[project.scripts]
+dungeondice = "dungeondice.main:start_bot"
