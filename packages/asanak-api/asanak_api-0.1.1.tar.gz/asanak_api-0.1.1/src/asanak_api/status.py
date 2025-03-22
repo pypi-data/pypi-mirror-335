@@ -1,0 +1,38 @@
+SMS_STATUS = {
+    "NotFound": -1,
+    "InQueue": 1,
+    "Pending": 4,
+    "Sent": 2,
+    "NoResponse": 7,
+    "Reject": 8,
+    "PartiallySent": 10,
+    "SentToDest": 9,
+    "Success": 6,
+    "Failed": 5,
+    "NoMsgID": 11,
+    "PartiallySuccess": 12,
+    "NoDelivery": 13,
+}
+
+
+API_STATUS = {
+    "200.1010": "InvalidDestination",
+    "200.1002": "InvalidSourceNumber",
+    "200.200": "Success",
+    "200.0": "Success",
+    "400.1001": "InvalidDestination",
+    "400.1002": "InvalidSourceNumber",
+    "400.1012": "InvalidMessage",
+    "400.1003": "InvalidMsgid",
+    "400": "BadRequest",
+    "403.1001": "InvalidTemplate",
+    "406.1002": "InvalidSourceNumber",
+    "402.1006": "InsufficientCredit",
+    "401.1009": "InvalidCredentials",
+    "401": "InvalidCredentials",
+    "401.1012": "InvalidCredentials",
+    "500.1004": "ServerError",
+    "500.500": "ServerError",
+    "500": "ServerError",
+    "404.404": "NotFound",
+}

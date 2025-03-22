@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "asanak-api"
+version = "0.1.1"
+description = "A Python API for Asanak"
+readme = "README.md"
+authors = [{ name = "Wahab Safi", email = "wahab.safi3@gmail.com" }]
+requires-python = ">=3.12"
+dependencies = ["requests>=2.32.3"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+[project.urls]
+"Homepage" = "https://github.com/wahabsafi/asanak-api"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["asanak_api*"]
