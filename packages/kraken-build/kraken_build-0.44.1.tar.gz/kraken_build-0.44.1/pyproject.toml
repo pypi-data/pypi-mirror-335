@@ -1,0 +1,102 @@
+[build-system]
+build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
+
+# Package metadata
+# ----------------
+
+[tool.poetry]
+authors = ["Niklas Rosenstein <rosensteinniklas@gmail.com>"]
+classifiers = []
+description = ""
+keywords = []
+license = "MIT"
+name = "kraken-build"
+packages = [
+  {include = "kraken/build", from = "src"},
+  {include = "kraken/common", from = "src"},
+  {include = "kraken/core", from = "src"},
+  {include = "kraken/std", from = "src"},
+]
+readme = "README.md"
+version = "0.44.1"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/kraken-build/kraken-build/issues"
+Documentation = "https://kraken-build.github.io/kraken-build/"
+Homepage = "https://kraken-build.github.io/kraken-build/"
+Repository = "https://github.com/kraken-build/kraken-build/"
+
+[tool.poetry.scripts]
+kraken = "kraken.core.cli.main:main"
+
+[tool.poetry.plugins."pytest11"]
+"kraken.core.testing" = "kraken.core.testing"
+
+# Dependencies
+# ------------
+
+[tool.poetry.dependencies]
+databind = "^4.5.0"
+dill = ">=0.3.8,<0.4.0"
+httpx = "^0.28.0"
+keyring = "^25.0.0"
+networkx = "^3.1"
+packaging = "^23.1"
+python = ">=3.10,<3.14"
+termcolor = "^2.3.0"
+tomli = "^2.0.1"
+tomli-w = "^1.0.0"
+tomlkit = "^0.13.0"
+typeapi = "^2.0.0"
+typing-extensions = ">=4.6.0"
+loguru = "^0.7.2"
+uv = "^0.6.0"
+
+[tool.poetry.group.dev.dependencies]
+localimport = "^1.7.6"
+pytest = ">=6.0.0"
+pytest-xdist = ">=3.0.0"
+mitmproxy = "^11.0.0"
+types-networkx = "^3.2.1.20240703"
+requests-mock = "^1.12.1"
+types-requests = "^2.32.0.20241016"
+
+# Slap configuration
+# ------------------
+
+[tool.slap]
+typed = true
+
+# Linter/Formatter configuration
+# ------------------------------
+
+[tool.mypy]
+explicit_package_bases = true
+mypy_path = ["src"]
+namespace_packages = true
+pretty = true
+python_version = "3.10"
+show_error_codes = true
+show_error_context = true
+strict = true
+warn_no_return = true
+warn_redundant_casts = true
+warn_unreachable = true
+warn_unused_ignores = true
+enable_error_code = "ignore-without-code, possibly-undefined"
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.lint.isort]
+forced-separate = ["tests"]
+known-first-party = ["kraken"]
+
+[tool.pytest.ini_options]
+markers = [
+  "integration",
+]
