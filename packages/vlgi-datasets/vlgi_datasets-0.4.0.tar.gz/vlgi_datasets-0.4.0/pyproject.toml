@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vlgi-datasets"
+version = "0.4.0"
+description = "A package with custom kedro datasets for VLGI"
+authors = [
+    { "name" = "Tecnologia Grupo Sozo", "email" = "tecnologia@gruposozo.com.br"}
+]
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "pandas>=1.5.3",
+    "kedro>=0.18.2, <=0.18.14",
+    "SQLAlchemy>=1.4.39, <=2.0.0",
+    "Office365-REST-Python-Client~=2.3.16",
+]
+requires-python = ">=3.6"
+
+[tool.setuptools]
+packages = ["vlgi_datasets"]
