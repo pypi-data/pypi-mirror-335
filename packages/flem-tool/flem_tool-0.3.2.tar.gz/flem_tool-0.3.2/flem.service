@@ -1,0 +1,14 @@
+[Unit]
+Description=FLEM Tool
+After=network.service
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/home/joelwilkins/source/flem_tool/src
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/home/joelwilkins/source/flem_tool/.venv/bin/python -m flem run
+KillSignal=SIGINT
+
+[Install]
+WantedBy=default.target
