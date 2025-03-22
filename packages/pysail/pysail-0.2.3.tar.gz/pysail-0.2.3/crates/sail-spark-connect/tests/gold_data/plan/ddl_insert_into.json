@@ -1,0 +1,1010 @@
+{
+  "tests": [
+    {
+      "input": "\nINSERT INTO testcat.ns1.ns2.tbl\nPARTITION (p1 = 3, p2)\nSELECT * FROM source\n      ",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "p1",
+                  {
+                    "literal": {
+                      "int32": {
+                        "value": 3
+                      }
+                    }
+                  }
+                ],
+                [
+                  "p2",
+                  null
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "\nINSERT INTO testcat.ns1.ns2.tbl\nPARTITION (p1 = 3, p2) (a, b)\nSELECT * FROM source\n      ",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [
+                "a",
+                "b"
+              ],
+              "partitionSpec": [
+                [
+                  "p1",
+                  {
+                    "literal": {
+                      "int32": {
+                        "value": 3
+                      }
+                    }
+                  }
+                ],
+                [
+                  "p2",
+                  null
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE t1 BY NAME (c1,c2) SELECT * FROM tmp_view",
+      "exception": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'c1'.(line 1, pos 30)\n\n== SQL ==\nINSERT INTO TABLE t1 BY NAME (c1,c2) SELECT * FROM tmp_view\n------------------------------^^^\n",
+      "output": {
+        "failure": "invalid argument: found c1 at 30:32 expected query"
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE testcat.ns1.ns2.tbl\nPARTITION (p1 = 3) IF NOT EXISTS\nSELECT * FROM source",
+      "exception": "\nOperation not allowed: INSERT INTO ... IF NOT EXISTS.(line 1, pos 0)\n\n== SQL ==\nINSERT INTO TABLE testcat.ns1.ns2.tbl\n^^^\nPARTITION (p1 = 3) IF NOT EXISTS\nSELECT * FROM source\n",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "p1",
+                  {
+                    "literal": {
+                      "int32": {
+                        "value": 3
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": true,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE testcat.ns1.ns2.tbl (a, b) SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [
+                "a",
+                "b"
+              ],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE testcat.ns1.ns2.tbl BY NAME SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE testcat.ns1.ns2.tbl SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO TABLE testcat.ns1.ns2.tbl SELECT * FROM testcat2.db.tbl",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "testcat2",
+                          "db",
+                          "tbl"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = X'537061726B2053514C') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "binary": {
+                        "value": [
+                          83,
+                          112,
+                          97,
+                          114,
+                          107,
+                          32,
+                          83,
+                          81,
+                          76
+                        ]
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = date'2019-01-02') VALUES ('a', DEFAULT)",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    },
+                    {
+                      "unresolvedAttribute": {
+                        "name": [
+                          "DEFAULT"
+                        ],
+                        "planId": null
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "date32": {
+                        "days": 17898
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = date'2019-01-02') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "date32": {
+                        "days": 17898
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = interval'1 day 2 hour 3 minute 4.123456 second 5 millisecond 6 microsecond') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "intervalMonthDayNano": {
+                        "value": {
+                          "months": 0,
+                          "days": 1,
+                          "nanoseconds": 7384128462000
+                        }
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = interval'1 year 2 month') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "intervalYearMonth": {
+                        "months": 14
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = interval'7 months 1 days 0.001 seconds') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "intervalMonthDayNano": {
+                        "value": {
+                          "months": 7,
+                          "days": 1,
+                          "nanoseconds": 1000000
+                        }
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO t PARTITION(part = timestamp'2019-01-02 11:11:11') VALUES('a')",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "values": [
+                  [
+                    {
+                      "literal": {
+                        "utf8": {
+                          "value": "a"
+                        }
+                      }
+                    }
+                  ]
+                ],
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "t"
+              ],
+              "columns": [],
+              "partitionSpec": [
+                [
+                  "part",
+                  {
+                    "literal": {
+                      "timestampMicrosecond": {
+                        "microseconds": 1546427471000000,
+                        "timezoneInfo": "sQLConfigured"
+                      }
+                    }
+                  }
+                ]
+              ],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO testcat.ns1.ns2.tbl (a, b) SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [
+                "a",
+                "b"
+              ],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO testcat.ns1.ns2.tbl BY NAME SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    },
+    {
+      "input": "INSERT INTO testcat.ns1.ns2.tbl SELECT * FROM source",
+      "output": {
+        "success": {
+          "command": {
+            "insertInto": {
+              "input": {
+                "project": {
+                  "input": {
+                    "read": {
+                      "namedTable": {
+                        "name": [
+                          "source"
+                        ],
+                        "temporal": null,
+                        "sample": null,
+                        "options": []
+                      },
+                      "isStreaming": false
+                    },
+                    "planId": null,
+                    "sourceInfo": null
+                  },
+                  "expressions": [
+                    {
+                      "unresolvedStar": {
+                        "target": null,
+                        "wildcardOptions": {
+                          "ilikePattern": null,
+                          "excludeColumns": null,
+                          "exceptColumns": null,
+                          "replaceColumns": null,
+                          "renameColumns": null
+                        }
+                      }
+                    }
+                  ]
+                },
+                "planId": null,
+                "sourceInfo": null
+              },
+              "table": [
+                "testcat",
+                "ns1",
+                "ns2",
+                "tbl"
+              ],
+              "columns": [],
+              "partitionSpec": [],
+              "replace": null,
+              "ifNotExists": false,
+              "overwrite": false
+            },
+            "planId": null,
+            "sourceInfo": null
+          }
+        }
+      }
+    }
+  ]
+}
