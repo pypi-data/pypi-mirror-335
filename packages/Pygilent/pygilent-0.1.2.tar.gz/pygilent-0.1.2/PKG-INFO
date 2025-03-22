@@ -1,0 +1,37 @@
+Metadata-Version: 2.3
+Name: Pygilent
+Version: 0.1.2
+Summary: Tools for working with Agilent data files.
+License: MIT
+Author: Matthew Dumont
+Requires-Python: >=3.9,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: matplotlib (>=3.8.3,<4.0.0)
+Requires-Dist: numpy (>=1.26.4,<2.0.0)
+Requires-Dist: pandas (>=2.2.1,<3.0.0)
+Requires-Dist: pathlib (>=1.0.1,<2.0.0)
+Requires-Dist: statsmodels (>=0.14.2,<0.15.0)
+Requires-Dist: sympy (>=1.13.2,<2.0.0)
+Requires-Dist: tk (>=0.1.0,<0.2.0)
+Project-URL: Repository, https://github.com/AlgalMatt/Pygilent
+Description-Content-Type: text/markdown
+
+# Pygilent
+
+Pygilent is a Python package for interacting with Agilent ICP-MS instruments (tested on Agilent 7500, 8800, and 8900 outputs). It provides a convenient and easy-to-use interface for importing, collating, and processing data from Agilent ICP-MS instruments in your Python scripts.
+
+## Features
+
+- Import batch data from Agilent output folders (csv outputs) or an archive database.
+- Perform processing on the batch using the new Batch class.
+- Currently able to process data for trace-element ratios.
+
+## Useage
+
+See examples directory for useful examples. 
