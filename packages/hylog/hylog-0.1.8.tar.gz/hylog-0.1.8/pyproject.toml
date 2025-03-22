@@ -1,0 +1,91 @@
+[project]
+name = "hylog"
+version = "0.1.8"
+description = "Python logging utility"
+readme = "README.md"
+authors = [
+    { name = "ckbuhl", email = "ckbuhl@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "mypy>=1.15.0",
+    "pre-commit>=4.1.0",
+    "pytest>=8.3.4",
+    "ruff>=0.9.7",
+]
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+tests = ["tests", "*/tests"]
+
+extend-exclude = [
+  "tests/fixtures/*",
+  "tests/**/fixtures/*",
+]
+
+[tool.mypy]
+enable_error_code = [
+  "ignore-without-code",
+  "redundant-expr",
+  "truthy-bool",
+]
+# explicit_package_bases = true
+ignore_missing_imports = true
+mypy_path = "src"
+# namespace_packages = true
+plugins = [
+  "pydantic.mypy",
+]
+show_error_codes = true
+strict = true
+# strict_optional = true
+
+[tool.pydantic-mypy]
+init_forbid_extra = false
+init_typed = true
+warn_required_dynamic_aliases = true
+
+[tool.ruff]
+extend-select = [
+  "B", # flake8-bugbear
+  "C4", # flake8-comprehensions
+  "ERA", # flake8-eradicate/eradicate
+  "PIE", # flake8-pie
+  "SIM", # flake8-simplify
+  "TID", # flake8-tidy-imports
+  "TCH", # flake8-type-checking
+  "N", # pep8-naming
+  "RUF", # ruff checks
+  "UP", # pyupgrade
+  "I", # isort
+  "PGH", # pygrep
+]
+fix = true
+ignore = [
+  "B904", # use 'raise ... from err'
+  "B905", # use explicit 'strict=' parameter with 'zip()'
+  "N818", #  Exception name should be named with an Error suffix
+  "PGH003", # Use specific rule codes when ignoring type issues
+  "ERA001", # Found commented out code
+]
+line-length = 88
+target-version = "py311"
+unfixable = [
+  "ERA", # do not autoremove commented out code
+  "ERA001", # do not autoremove commented out code
+  "F401", # do not autoremove unused imports
+]
+
+[tool.ruff.isort]
+force-single-line = true
+lines-after-imports = 2
+lines-between-types = 1
+
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
