@@ -1,0 +1,19 @@
+[project]
+version = "0.0.1"
+name = "mcp-xiaoai-hass"
+description = "MCP server for xiaoai voice control"
+dependencies = [
+    "mcp"
+]
+authors = [
+    {name = "Gemini Wen", email = "coffeesherk@gmail.com"}
+]
+requires-python = ">= 3.11"
+readme = "README.md"
+
+[project.scripts]
+mcp-xiaoai-hass = "xiaoai.server:main"
+
+[tool.setuptools.package-data]
+"moments" = ["*.scpt"]
+"*" = ["README.md", " misc/intro.png"]
