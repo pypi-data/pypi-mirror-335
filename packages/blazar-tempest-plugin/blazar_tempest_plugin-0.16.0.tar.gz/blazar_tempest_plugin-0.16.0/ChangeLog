@@ -1,0 +1,161 @@
+CHANGES
+=======
+
+0.16.0
+------
+
+* Disable flavor\_instance\_plugin testing by default
+* Remove pyflakes dependency
+* Update gate jobs as per the 2025.1 cycle testing runtime
+* Remove stable/2023.1 job from master gate
+
+0.15.0
+------
+
+* Support py3.12 and drop py3.8
+* Add stable/2024.2 job
+
+0.14.0
+------
+
+* Add scenario for flavor-based instance reservation
+* Add stable/2024.1 jobs on master gate
+* Remove test for unmaintained zed branch
+
+0.13.0
+------
+
+
+0.12.0
+------
+
+* Remove six
+* Update stable branch testing
+* Update python classifier in setup.cfg
+
+0.11.0
+------
+
+* Cleanup py27 support
+* Add stable/2023.1 jobs on master gate
+
+0.10.1
+------
+
+* Remove stable/wallaby job from master gate
+
+0.10.0
+------
+
+* Wait longer for lease deletion to complete
+* Add stable/zed jobs on master gate
+* Pin stable branch jobs nodeset to Ubuntu Focal (20.04)
+
+0.9.0
+-----
+
+* Update minimal tempest version to 27.0.0
+* Remove setup\_clients method
+* Remove unused methods
+* [CI] Move queue setting to project level
+* Remove stable/victoria job from master gate
+* Update 'Maintained' stable branch jobs on master gate
+* Remove \_log\_console\_output, ping\_ip\_address methods
+* Remove create\_server and rebuild\_server methods
+
+0.8.0
+-----
+
+* Remove \_create\_port and create\_keypair methods
+* Remove create\_server\_snapshot method
+* Updating python testing classifier as per Yoga testing runtime
+* Add stable/xena jobs on master gate
+
+0.7.0
+-----
+
+* Changed minversion in tox to 3.18.0
+* Use TOX\_CONSTRAINTS\_FILE
+* Add victoria/wallaby stable branch jobs on master gate
+
+0.6.1
+-----
+
+* Change dashes to underscore in setup.cfg
+* remove unicode from code
+
+0.6.0
+-----
+
+* Bump py37 to py38 in tox.ini
+* Add doc/requirements
+* Fix multiple CI failures
+
+0.5.0
+-----
+
+* Add py38 package metadata
+* Pin the <=ussuri jobs to a bionic nodeset
+* Port the blazar jobs to native Zuul v3
+* migrate testing to ubuntu focal
+* Switch to newer openstackdocstheme and reno versions
+* Add stable branch jobs on the plugins master gate
+
+0.4.0
+-----
+
+* Update docs building
+* Remove deprecated scenario image options
+* Stop testing with py2
+* Remove use of deprecated config options for volume API selection
+* Update lease dates to be far in the future
+
+0.3.0
+-----
+
+* Generate PDF documentation
+* Fix path to source code in configuration files
+* Publish blazar-tempest-plugin documentation
+* Fix failures when building documentation
+* Use global request id for scenario tests
+* Update sphinx requirements
+* Use opendev repository
+* OpenDev Migration Patch
+
+0.2.0
+-----
+
+* Add API tests for List and Get Allocation API
+* Change end date in test\_update\_host\_reservation
+* Import TimeoutException from tempest.lib.exceptions module
+* Wait before lease status transition
+* Update hacking version
+* Change openstack-dev to openstack-discuss
+* Add a lease update scenario for instance reservation
+* Add a lease expiration scenario for instance reservation
+* Implement scenario test for the new instance reservation feature
+* [Trivial Fix] update home-page url
+* Update Python 3 classifiers
+* import zuul job settings from project-config
+
+0.1.0
+-----
+
+* Add gabbi tests for invalid date error
+* Add test for invalid extra capability key
+* Adds /leases api tests using gabbi
+* Adds /os-hosts api tests using gabbi
+* change default python 3 env in tox to 3.5
+* fix tox python3 overrides
+* Remove volume v1 API service client usage
+* Updated from global requirements
+* Remove climate namespace
+* Switch to tempest.common.utils.services
+* Fix issues with Python3
+* Zuul: Remove project name
+* Updated from global requirements
+* Reuse blazar-devstack-dsvm against blazar tempest plugin
+* Use waiter method to check server status
+* Apply cookiecutter to newly split project blazar-tempest-plugin
+* Change lease start date in some test scenarios
+* Refactored blazar tempest plugin
