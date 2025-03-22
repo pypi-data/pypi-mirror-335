@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "utsam"
+version = "0.1.39"
+description = "UTS Assignment Marking Package"
+authors = ["Your Name <you@example.com>"]
+license = "Proprietary License"
+readme = "README.md"
+packages = [{include = "utsam"}]
+
+[tool.poetry.dependencies]
+python = "~3.10"
+pandas = "2.1.1"
+Faker = "26.0.0"
+SQLAlchemy = "2.0.32"
+altair = "4.2.2"
+pydantic = "2.10.6"
+pendulum = "3.0.0"
+
+[tool.poetry.group.dev.dependencies]
+jupyter = "^1.1.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
+build-backend = "poetry_dynamic_versioning.backend"
+
+[tool.poetry-dynamic-versioning]
+enable = false
+vcs = "git"
+pattern = '(?P<base>\d+\.\d+\.\d+)'
+
+[tool.poetry-dynamic-versioning.substitution]
+files = ["utsam/utsam/__init__.py"]
