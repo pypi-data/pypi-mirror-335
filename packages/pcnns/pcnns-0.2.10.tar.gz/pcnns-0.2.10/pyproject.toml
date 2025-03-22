@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "pcnns"
+version = "0.2.10"
+description = ""
+authors = ["Loris Di Natale <loris.dinatale@netplus.ch>"]
+readme = "README.md"
+packages = [{include = "pcnn"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "^2.6.0"
+numpy = "^2.2.2"
+loguru = "^0.7.3"
+
+[tool.poetry.group.dev.dependencies]
+pandas = "^2.2.3"
+matplotlib = "^3.10.0"
+ipykernel = "^6.29.5"
+ruff = "^0.9.7"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
