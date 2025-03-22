@@ -1,0 +1,208 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs", "nipreps-versions"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sdcflows"
+description = "Susceptibility Distortion Correction (SDC) workflows for EPI MR schemes."
+readme = "README.rst"
+authors = [{name = "The NiPreps Developers", email = "nipreps@gmail.com"}]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+license = "Apache-2.0"
+requires-python = ">=3.9"
+dependencies = [
+    "acres >= 0.2.0",
+    "attrs >= 20.1.0",
+    "nibabel >= 3.0",
+    "nipype >= 1.8.5",
+    "migas >= 0.4.0",
+    "nireports >= 25.0.1",
+    "niworkflows >= 1.11.0",
+    "nitransforms >= 24.1.0",
+    "numpy >= 1.23",
+    "pybids >= 0.16.4",
+    "scikit-image >= 0.18",
+    "scipy >= 1.8.1",
+    "templateflow >= 23.1",
+    "toml >= 0.10",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://www.nipreps.org/sdcflows"
+Home = "https://github.com/nipreps/sdcflows"
+NiPreps = "https://www.nipreps.org/"
+
+[project.optional-dependencies]
+doc = [
+    "attrs >= 20.1.0",
+    "furo",
+    "importlib_resources",
+    "ipykernel",
+    "ipython",
+    "nbsphinx",
+    "pandoc",
+    "pydot >= 1.2.3",
+    "pydotplus",
+    "sphinx >= 7.2.2",
+    "sphinx-argparse",
+    "sphinxcontrib-apidoc",
+]
+
+mem = [
+    "psutil"
+]
+
+dev = [
+    "black",
+    "pre-commit",
+    "isort",
+    "flake8-pyproject",
+]
+
+test = [
+    "coverage[toml] >=5.2.1",
+    "pytest >= 6",
+    "pytest-cov >= 2.11",
+    "pytest-env",
+    "pytest-xdist >= 2.5",
+]
+
+# Aliases
+docs = ["sdcflows[doc]"]
+tests = ["sdcflows[test]"]
+all = ["sdcflows[doc,test,mem,dev,test]"]
+
+[project.scripts]
+sdcflows = "sdcflows.cli.main:main"
+
+#
+# Hatch configurations
+#
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.sdist]
+exclude = [".git_archival.txt"]  # No longer needed in sdist
+
+[tool.hatch.build.targets.wheel]
+packages = ["sdcflows"]
+# exclude = [
+#     "sdcflows/tests/data",  # Large test data directory
+# ]
+
+##  The following two sections configure setuptools_scm in the hatch way
+
+[tool.hatch.version]
+validate-bump = true
+source = "vcs"
+raw-options = { version_scheme = "nipreps-calver" }
+
+[tool.hatch.build.hooks.vcs]
+version-file = "sdcflows/_version.py"
+
+#
+# Developer tool configurations
+#
+
+[tool.black]
+line-length = 99
+target-version = ['py39']
+skip-string-normalization = true
+exclude = '''
+# Directories
+/(
+    \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | venv
+  | _build
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = 'black'
+skip_gitignore = true
+
+[tool.flake8]
+max-line-length = "99"
+doctests = "False"
+exclude = "*build/"
+ignore = ["W503", "E203"]
+per-file-ignores = [
+    "**/__init__.py : F401",
+    "docs/conf.py : E265",
+]
+
+[tool.pytest.ini_options]
+minversion = "6"
+testpaths = ["sdcflows"]
+log_cli_level = "INFO"
+xfail_strict = true
+norecursedirs = [".git"]
+addopts = [
+  "-svx",
+  "-ra",
+  "--strict-config",
+  "--strict-markers",
+  "--doctest-modules",
+  # Config pytest-cov
+  "--cov=sdcflows",
+  "--cov-report=xml",
+  "--cov-config=pyproject.toml",
+]
+doctest_optionflags = "ALLOW_UNICODE NORMALIZE_WHITESPACE ELLIPSIS"
+env = "PYTHONHASHSEED=0"
+filterwarnings = ["ignore::DeprecationWarning"]
+junit_family = "xunit2"
+markers = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "veryslow: marks tests as very slow (>5min)",
+]
+
+
+[tool.coverage.run]
+branch = true
+omit = [
+    '*/tests/*',
+    '*/__init__.py',
+    '*/conftest.py',
+    'sdcflows/_version.py'
+]
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_lines = [
+    'raise NotImplementedError',
+    'warnings\.warn',
+]
+
+[tool.codespell]
+# nd - import scipy.ndimage as nd
+# mapp, reson -- Mapp. and Reson. abbreviations in citation
+ignore-words-list = 'nd,mapp,reson'
+skip = """
+./.git,*.pdf,*.svg,*.min.js,*.ipynb,ORIGINAL_LICENSE,\
+./docs/source/_static/example_anatreport.html"""
+
+[tool.check-wheel-contents]
+ignore = [
+  "W002",  # Test data contains duplicates
+]
