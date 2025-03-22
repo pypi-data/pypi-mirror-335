@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "khutbahmaker"
+version = "25.3.2"
+authors = [
+  { name="ikmalsaid", email="ikmalsaid@gmail.com" },
+]
+description = "Generate Islamic Friday sermons (khutbah) using AI (#GodamSahur 2025)"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "License :: OSI Approved :: GNU Affero General Public License v3",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+  "google-generativeai",
+  "colorpaws",
+  "gradio==4.38.1",
+  "fastapi==0.112.4",
+  "markdown-pdf"
+]
+
+[project.urls]
+Homepage = "https://github.com/ikmalsaid/khutbahmaker"
+Issues = "https://github.com/ikmalsaid/khutbahmaker/issues"
