@@ -1,0 +1,116 @@
+Metadata-Version: 2.1
+Name: sEVML
+Version: 0.3.0
+Summary: UNKNOWN
+Home-page: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+
+# sEVML: Small Extracellular Vesicles Machine Learning Toolkit
+
+A Python toolkit developed by the **INSERM U1231 HSPpathies** team for the analysis of ELISA-based datasets from small extracellular vesicles (sEVs).
+
+## Overview
+
+`sEVML` is designed to facilitate the preprocessing, modeling, evaluation, and interpretation of machine learning pipelines based on ELISA data. It is optimized for the classification of biomarkers measured from sEVs.
+
+Key features:
+- Preprocess ELISA datasets (pivot, clean, normalize)
+- Train XGBoost models with hyperparameter tuning
+- Visualize learning and validation curves
+- Evaluate model performance with ROC curves and confusion matrices
+- Interpret feature importance using SHAP values
+
+## Installation
+
+To install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Dependencies include:
+- numpy
+- pandas
+- matplotlib
+- scikit-learn
+- xgboost
+- shap
+
+## Usage
+
+```python
+from sevml import (
+    preprocess_elisa_dataset,
+    train_xgb_with_gridsearch,
+    evaluate_model,
+    plot_model_curves,
+    plot_shap_explanations
+)
+
+# Load and preprocess dataset
+label_mapping = {"S": 0, "PD": 1}
+X_train, X_test, y_train, y_test = preprocess_elisa_dataset("path/to/data.csv", label_mapping)
+
+# Train model
+model, params = train_xgb_with_gridsearch(X_train, y_train)
+
+# Evaluate model
+evaluate_model(model, X_train, y_train, X_test, y_test)
+
+# Visualize curves
+plot_model_curves(model, X_train, y_train)
+
+# SHAP explanations
+plot_shap_explanations(X_test, model, df_features)
+```
+
+## API Reference
+
+### preprocess_elisa_dataset(filepath, label_mapping, test_size=0.2, random_state=5)
+- Loads a raw ELISA CSV dataset.
+- Pivots biomarker data to wide format.
+- Imputes missing values (median).
+- Scales features using MinMax.
+- Splits data into training and testing sets.
+
+### train_xgb_with_gridsearch(X, y, eval_metric='logloss', random_state=5, cv=3)
+- Trains an XGBoost classifier.
+- Performs grid search over hyperparameters.
+- Returns best model and parameters.
+
+### evaluate_model(model, X_train, y_train, X_test, y_test)
+- Plots ROC curves and confusion matrices.
+- Computes AUC, accuracy, and F1 scores.
+
+### plot_model_curves(...)
+- Plots learning and validation curves.
+- Helpful for diagnosing under/overfitting.
+
+### plot_shap_explanations(X, model, df_features)
+- Uses SHAP to explain model predictions.
+- Generates multiple plots: heatmap, violin, beeswarm, bar, waterfall.
+
+## Context
+
+This package is developed and maintained by the **HSPpathies team** within the **INSERM U1231** research unit. It is used in clinical and translational studies focusing on:
+
+- Small extracellular vesicles (sEVs)
+- Biomarkers of neurological and rare diseases
+- Circulating PD-L1 analysis
+
+## License
+
+MIT License
+
+## Authors
+
+- **Naïkem Isen**
+- HSPpathies Team, INSERM U1231
+
+## Contact
+
+For questions or collaborations: [mail@isen-naiken.storga.com](mailto:mail@isen-naiken.storga.com)
+
+
