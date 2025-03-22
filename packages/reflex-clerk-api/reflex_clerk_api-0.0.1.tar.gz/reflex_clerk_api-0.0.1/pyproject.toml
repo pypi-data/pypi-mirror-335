@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "reflex-clerk-api"
+version = "0.0.1"
+description = "Reflex custom component wrapping @clerk/clerk-react and integrating the clerk-backend-api"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+requires-python = ">=3.10"
+authors = [{ name = "Tim Child", email = "timjchild@gmail.com" }]
+keywords = ["reflex","reflex-custom-components", "clerk", "clerk-backend-api"]
+
+dependencies = [
+    "authlib>=1.5.1",
+    "clerk-backend-api>=1.8.0",
+    "reflex>=0.7.0",
+]
+
+classifiers = ["Development Status :: 4 - Beta"]
+
+[project.urls]
+
+[project.optional-dependencies]
+dev = ["build", "twine"]
+
+[tool.setuptools.packages.find]
+where = ["custom_components"]
+
+[tool.pytest.ini_options]
+# addopts = "--headed"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.ruff.lint]
+extend-select = ["I", "RUF"]
+
+[dependency-groups]
+dev = [
+    "coverage>=7.6.12",
+    "dotenv>=0.9.9",
+    "pre-commit>=4.1.0",
+    "pyright>=1.1.396",
+    "pytest>=8.3.5",
+    "pytest-playwright>=0.7.0",
+    "ruff>=0.9.10",
+]

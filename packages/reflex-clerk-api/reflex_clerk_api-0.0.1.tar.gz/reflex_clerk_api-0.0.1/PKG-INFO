@@ -1,0 +1,61 @@
+Metadata-Version: 2.4
+Name: reflex-clerk-api
+Version: 0.0.1
+Summary: Reflex custom component wrapping @clerk/clerk-react and integrating the clerk-backend-api
+Author-email: Tim Child <timjchild@gmail.com>
+License: Apache-2.0
+Keywords: reflex,reflex-custom-components,clerk,clerk-backend-api
+Classifier: Development Status :: 4 - Beta
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: authlib>=1.5.1
+Requires-Dist: clerk-backend-api>=1.8.0
+Requires-Dist: reflex>=0.7.0
+Provides-Extra: dev
+Requires-Dist: build; extra == "dev"
+Requires-Dist: twine; extra == "dev"
+
+# clerk-api
+
+A Reflex custom component for integrating Clerk authentication into a Reflex application.
+
+See a demo of it in action [here](https://clerk-reflex-api.adventuresoftim.com).
+
+Documentation will soon be available [here](https://timchild.github.io/reflex-clerk-api/)
+
+## Installation
+
+Any of:
+
+```bash
+uv add reflex-clerk-api
+
+pip install reflex-clerk-api
+
+poetry add reflex-clerk-api
+```
+
+## Usage
+
+```python
+import reflex_clerk_api as clerk
+
+def index() -> rx.Component:
+    return clerk.clerk_provider(
+        rx.container(
+            clerk.clerk_loaded(
+                clerk.signed_in(
+                    clerk.sign_on(
+                        rx.button("Sign out"),
+                    ),
+                ),
+                clerk.signed_out(
+                    rx.button("Sign in"),
+                ),
+            ),
+        ),
+        publishable_key=os.environ["CLERK_PUBLISHABLE_KEY"],
+        secret_key=os.environ["CLERK_SECRET_KEY"],
+        register_user_state=True,
+    )
+```
