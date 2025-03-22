@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "count_unique_characters"
+version = "0.1.1"
+authors = [
+    { name = "Yurii Stepanenko", email = "Step.crypt@gmail.com" }
+]
+description = "A package to count unique characters in a string."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.7"
+dependencies = []
+
+[tool.setuptools]
+packages = { find = { where = ["src"] } }
+
+[project.scripts]
+count-unique-characters = "count_unique_characters.core:main"
+
+[tool.hatch.build.targets.sdist]
+include = ["src/count_unique_characters"]
