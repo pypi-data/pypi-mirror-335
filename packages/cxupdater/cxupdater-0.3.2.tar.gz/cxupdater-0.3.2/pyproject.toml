@@ -1,0 +1,36 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "cxupdater"
+version = "0.3.2"
+authors = [
+  { name="Oleg Sungurovsky", email="safasgasc.asfg@gmail.com" },
+]
+description = "Auto-update an application on Python"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.9"
+dependencies = [
+    "cx-Freeze>=7.2.9",
+    "pywin32>=308",
+    "requests>=2.32.3",
+    "packaging>=24.2",
+    "toml>=0.10.2"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/oleg-sung/cxupdater"
+Issues = "https://github.com/oleg-sung/cxupdater/issues"
+
+[project.scripts]
+generate-toml = "cxupdater.scripts.generate_toml:main"
