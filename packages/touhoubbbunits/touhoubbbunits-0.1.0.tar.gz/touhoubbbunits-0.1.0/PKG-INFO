@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: touhoubbbunits
+Version: 0.1.0
+Summary: 用于直接导入东方同人作品东方大战争的兵种信息
+Author-email: Komeiji_HSS <1271349487@qq.com>
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: MIT License
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+###项目简介
+#项目目前有两个对象，UNIT_LIST和UNIT_SET，是按BBB的BP页面顺序排列的
+#未来将要添加兵种对象，有初始价格INIPRICE，增长系数K，卡等级属性RANK
+#对于第i个单位，价格p(i)=INIPrice*exp(K(i-1))
