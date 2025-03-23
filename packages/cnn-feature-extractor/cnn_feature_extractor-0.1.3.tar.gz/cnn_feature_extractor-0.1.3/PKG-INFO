@@ -1,0 +1,256 @@
+Metadata-Version: 2.4
+Name: cnn_feature_extractor
+Version: 0.1.3
+Summary: Automatic CNN feature extraction and ML model comparison
+Home-page: https://github.com/ituperceptron/cnn_feature_extractor
+Author: ITU Perceptron
+Author-email: ituperceptron@gmail.com
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Science/Research
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: torch>=1.9.0
+Requires-Dist: torchvision>=0.10.0
+Requires-Dist: scikit-learn>=0.24.2
+Requires-Dist: numpy>=1.19.2
+Requires-Dist: pandas>=1.2.0
+Requires-Dist: tqdm>=4.50.0
+Requires-Dist: pillow>=8.0.0
+Requires-Dist: xgboost>=1.4.0
+Requires-Dist: lightgbm>=3.2.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# CNN Feature Extractor
+
+A Python package for automatic CNN feature extraction and ML model comparison. Extract features from images using pre-trained CNN models and evaluate multiple ML classifiers in one go.
+
+## Installation
+
+```bash
+pip install cnn_feature_extractor
+```
+
+## Quick Start with CIFAR10
+
+```python
+import torch
+import torchvision
+from torchvision import transforms
+from cnn_feature_extractor import CNNFeatureExtractor
+
+# Set image size
+image_size = 128
+
+# Define transforms
+transform = transforms.Compose([
+    transforms.Resize(image_size),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
+# Load CIFAR10 dataset
+train_dataset = torchvision.datasets.CIFAR10(
+    root='./data', 
+    train=True,
+    download=True,
+    transform=transform
+)
+
+val_dataset = torchvision.datasets.CIFAR10(
+    root='./data', 
+    train=False,
+    download=True,
+    transform=transform
+)
+
+# Create data loaders
+train_loader = torch.utils.data.DataLoader(
+    train_dataset,
+    batch_size=32,
+    shuffle=True,
+    num_workers=4
+)
+
+val_loader = torch.utils.data.DataLoader(
+    val_dataset,
+    batch_size=32,
+    shuffle=False,
+    num_workers=4
+)
+
+# Initialize and run feature extraction + ML comparison
+extractor = CNNFeatureExtractor(save_path='cifar10_results.csv')
+results = extractor.fit(
+    train_loader, 
+    val_loader,
+
+    # Example 1: Using specific models
+    cnn_models=['resnet18', 'efficientnet_b0'],    
+
+    # Example 2: Using the tiny package (fastest, good for testing)
+    # cnn_models='tiny',  # This will use: mobilenet_v2, mobilenet_v3_small, efficientnet_b0, convnext_tiny, resnet18
+
+    # Example 3: Mixing packages
+    # cnn_models='tiny + small',  # This will combine models from both packages
+    
+    ml_models=['RandomForest', 'LogisticRegression']
+)
+```
+
+## Using Your Custom Dataset
+
+### Required Dataset Structure
+```
+dataset/
+├── train/
+│   ├── class1/
+│   │   ├── image1.jpg
+│   │   └── image2.jpg
+│   └── class2/
+│       ├── image3.jpg
+│       └── image4.jpg
+└── val/
+    ├── class1/
+    │   └── image5.jpg
+    └── class2/
+        └── image6.jpg
+```
+
+### Custom Dataset Example
+
+```python
+from cnn_feature_extractor import CNNFeatureExtractor
+from cnn_feature_extractor.utils.dataset import load_custom_dataset
+
+# Set image size and other parameters
+image_size = 224  # Standard size for most CNN models
+batch_size = 32
+num_workers = 4
+
+# Load your custom dataset
+train_loader, val_loader, num_classes = load_custom_dataset(
+    data_dir='path/to/your/dataset',  # Path to your dataset root directory
+    batch_size=batch_size,
+    num_workers=num_workers,
+    image_size=image_size,
+    augment=True  # Enable data augmentation (optional)
+)
+
+# Initialize feature extractor
+extractor = CNNFeatureExtractor(save_path='results.csv')
+
+# Run feature extraction and ML comparison
+results = extractor.fit(
+    train_loader, 
+    val_loader,
+
+    # Example 1: Using specific models
+    cnn_models=['resnet18', 'efficientnet_b0'],    
+
+    # Example 2: Using the tiny package (fastest, good for testing)
+    # cnn_models='tiny',  # This will use: mobilenet_v2, mobilenet_v3_small, efficientnet_b0, convnext_tiny, resnet18
+
+    # Example 3: Mixing packages
+    # cnn_models='tiny + small',  # This will combine models from both packages
+    
+    ml_models=['RandomForest', 'LogisticRegression']
+)
+
+# Results will be saved to 'results.csv'
+print(results)
+```
+
+## Available Models
+
+### CNN Feature Extractors
+
+#### Tiny Package (Fast, Lower Accuracy)
+- mobilenet_v2
+- mobilenet_v3_small
+- efficientnet_b0
+- convnext_tiny
+- resnet18
+
+#### Small Package
+- resnet34
+- densenet121
+- mobilenet_v3_large
+- efficientnet_b1
+- convnext_small
+
+#### Medium Package
+- resnet50
+- densenet169
+- vgg16
+- efficientnet_b2
+- convnext_base
+
+#### Large Package
+- resnet101
+- densenet201
+- vgg19
+- efficientnet_b3
+- convnext_large
+
+#### Biggest Package (Slow, Higher Accuracy)
+- resnet152
+- densenet201
+- efficientnet_b7
+- convnext_large
+- vgg19
+
+### ML Classifiers
+- RandomForest
+- SVM (with probability estimation)
+- LogisticRegression
+- GradientBoosting
+- XGBoost
+- LightGBM
+- KNN
+- DecisionTree
+- AdaBoost
+- GaussianNB
+- RidgeClassifier
+- SGDClassifier
+- LinearSVC
+
+## Package Usage Tips
+
+1. **Choosing CNN Models**:
+   - Start with 'tiny' package models for quick experiments
+   - Use 'biggest' package models for maximum accuracy
+   - Mix models from different packages: `cnn_models=['resnet18', 'efficientnet_b7']`
+
+2. **Choosing ML Models**:
+   - Start with fast models like LogisticRegression
+   - Use RandomForest or XGBoost for better accuracy
+   - Try multiple models: `ml_models=['LogisticRegression', 'RandomForest', 'XGBoost']`
+
+3. **Data Augmentation**:
+   - Enable with `augment=True` in `load_custom_dataset`
+   - Helps prevent overfitting
+   - Especially useful for small datasets
+
+4. **GPU Usage**:
+   - GPU is automatically used if available
+   - CNN feature extraction is significantly faster on GPU
+   - Some ML models (XGBoost, LightGBM) can also use GPU
+
+## License
+
+MIT License 
