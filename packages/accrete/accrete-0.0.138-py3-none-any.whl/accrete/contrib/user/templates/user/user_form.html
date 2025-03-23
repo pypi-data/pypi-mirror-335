@@ -1,0 +1,58 @@
+{% extends 'ui/layout.html' %}
+{% load i18n %}
+
+{% block header_left_buttons %}
+    <button class="button is-light" hx-get="{% url 'user:change_password' %}" hx-target="body" hx-swap="beforeend">
+        <span>{% translate 'Change Password' %}</span>
+    </button>
+    <button class="button is-light" hx-get="{% url 'user:change_email' %}" hx-target="body" hx-swap="beforeend">
+        <span>{% translate 'Change E-Mail' %}</span>
+    </button>
+{% endblock %}
+
+{% block content_left %}
+    <form id="user-form" hx-post="{% url 'user:detail' %}" hx-trigger="change changed" hx-select="#user-form" hx-swap="outerHTML" hx-select-oob="#navbar-user-name">
+        {% csrf_token %}
+        <div class="columns m-0">
+            <div class="column is-6">
+                {% if form.save_error or form.non_field_errors %}
+                    <div class="notification is-danger is-light">
+                        {{ form.save_error|default_if_none:'' }}
+                        {{ form.non_field_errors|default_if_none:'' }}
+                    </div>
+                {% endif %}
+                <label class="label">
+                    {{ form.username.label }}
+                    {{ form.username }}
+                    <span class="has-text-danger is-size-7">{{ form.username.errors }}</span>
+                </label>
+                <label class="label">
+                    {{ form.first_name.label }}
+                    {{ form.first_name }}
+                    <span class="has-text-danger is-size-7">{{ form.first_name.errors }}</span>
+                </label>
+                <label class="label">
+                    {{ form.last_name.label }}
+                    {{ form.last_name }}
+                    <span class="has-text-danger is-size-7">{{ form.last_name.errors }}</span>
+                </label>
+                <label class="label">
+                    {% translate 'E-Mail' %}
+                    <div class="field has-addons">
+                        <p class="control input has-text-weight-normal">{{ user.email }}</p>
+                    </div>
+                </label>
+                <label class="label">
+                    {{ form.language_code.label }}
+                    {{ form.language_code }}
+                    <span class="has-text-danger is-size-7">{{ form.language_code.errors }}</span>
+                </label>
+                <label class="label">
+                    {{ form.theme.label }}
+                    {{ form.theme }}
+                    <span class="has-text-danger is-size-7">{{ form.theme.errors }}</span>
+                </label>
+            </div>
+        </div>
+    </form>
+{% endblock %}

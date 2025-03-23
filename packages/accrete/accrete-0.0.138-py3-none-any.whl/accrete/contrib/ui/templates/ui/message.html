@@ -1,0 +1,13 @@
+{% load ui %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div hx-swap-oob="beforeend:#message">
+            <div class="mb-2" style="min-width: 330px; max-width: 330px" x-data="{ show: false }" x-show="show" x-cloak="" x-init="show = true; setTimeout(() => show = false, 4000)" x-transition.duration.200ms>
+                <div class="notification has-text-centered is-light {{ message|message_class }}">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
