@@ -1,0 +1,34 @@
+Metadata-Version: 2.4
+Name: isfreader
+Version: 1.2.0
+Summary: Read tek scope isf files as a numpy array.
+Project-URL: Repository, https://github.com/justengel/isfreader
+Author-email: Justin Engel <jtengel08@gmail.com>
+License: MIT License
+License-File: LICENSE
+Keywords: ISF,Tek,reader,scope
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Build Tools
+Requires-Python: >=3.13
+Requires-Dist: numpy>=1.9.1
+Description-Content-Type: text/x-rst
+
+**********
+ISF Reader
+**********
+
+Read tek scope isf files as a numpy array.
+
+.. code-block:: python
+
+    import isfreader
+
+    data = isfreader.read_file('T0000CH1.ISF')
+    data[:, 0]  # Time column (Does not always start at 0)
+    data[:, 1]  # Data (Voltage) column
+    print(data.shape)
+    print(data.dtype)
