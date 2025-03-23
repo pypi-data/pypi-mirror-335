@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "pychemstation"
+version = "0.4.7.dev1"
+description = ""
+authors = ["lucyhao <hao.lucyy@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+matplotlib = "^3.9.3"
+seabreeze = "^2.10.0"
+pytest = "^8.3.4"
+polling = "^0.3.2"
+setuptools = "^75.6.0"
+twine = "^6.0.1"
+coverage = "^7.6.10"
+pdoc = "^15.0.1"
+xsdata = "^24.12"
+scipy = "^1.15.1"
+result = "^0.17.0"
+rainbow-api = "^1.0.10"
+rainbow = "^2.8.0"
+pandas = "^2.2.3"
+aghplctools = "4.8.6"
+
+[tool.poetry.group.dev.dependencies]
+mypy = "^1.14.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
