@@ -1,0 +1,49 @@
+site_name: chemsynthcalc
+
+site_url: https://mydomain.com/mysite
+
+repo_url: https://github.com/Syrov-Egor/chemsynthcalc
+
+theme:
+  name: material
+  palette: 
+
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/lightbulb
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/lightbulb-outline
+        name: Switch to light mode
+    
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.caret
+  - pymdownx.tilde
+
+plugins:
+- search
+- mkdocstrings:
+    handlers:
+      python:
+        paths: [src]
+        options:
+          show_submodules: true
+          filters: []
+          members_order: source
+
+nav:
+  - 'index.md'
+  - 'installation.md'
+  - 'usage.md'
+  - 'ChemicalFormula.md'
+  - 'ChemicalReaction.md'
+  - 'API.md'
+  - 'contacts.md'
