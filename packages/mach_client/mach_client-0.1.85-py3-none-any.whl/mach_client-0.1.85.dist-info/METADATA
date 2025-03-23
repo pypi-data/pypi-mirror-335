@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: mach_client
+Version: 0.1.85
+Summary: A Python client for the Mach exchange.
+Project-URL: Homepage, https://github.com/tristeroresearch/mach-client-py
+Project-URL: Issues, https://github.com/tristeroresearch/mach-client-py/issues
+Author-email: Richard Dong <richard@tristero.xyz>
+Keywords: crypto,cryptocurrencies,cryptocurrency,defi,exchange,liquidity,mach,pool,swap,tristero
+Classifier: Intended Audience :: Financial and Insurance Industry
+Classifier: License :: Other/Proprietary License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.13.0
+Requires-Dist: aiohttp
+Requires-Dist: anchorpy>=0.20.2
+Requires-Dist: cachebox
+Requires-Dist: eth-typing
+Requires-Dist: hdwallet
+Requires-Dist: hexbytes
+Requires-Dist: metaplex-python
+Requires-Dist: pydantic
+Requires-Dist: pyyaml
+Requires-Dist: solana>=0.36.6
+Requires-Dist: solders
+Requires-Dist: tronpy
+Requires-Dist: trontxsize
+Requires-Dist: web3
+Provides-Extra: dev
+Requires-Dist: anchorpy[cli,pytest]; extra == 'dev'
+Requires-Dist: anyio; extra == 'dev'
+Requires-Dist: construct-typing; extra == 'dev'
+Requires-Dist: ipykernel; extra == 'dev'
+Requires-Dist: pytest; extra == 'dev'
+Requires-Dist: uvloop; extra == 'dev'
+Description-Content-Type: text/markdown
+
+# mach-client-py
+
+This library contains 2 things:
+
+- A client for the [Mach exchange](https://www.mach.exchange/) and [asset server](https://tokens.machprotocol.com/docs)
+- A strongly typed set of abstractions used for working with clients, transactions, tokens, accounts and scanners on smart contract chains
+
+## Getting Started
+
+Create a copy of the `template.config.yaml` file:
+
+```bash
+cp template.config.yaml config.yaml
+```
+
+Edit the config to add the credentials for the account you wish to run the example with:
+
+```yaml
+accounts:
+  ethereum: "YOUR PRIVATE KEY"
+  solana: "..."
+  tron: "..."
+# ...
+```
+
+Then look at the notebook in the `examples/` directory.
