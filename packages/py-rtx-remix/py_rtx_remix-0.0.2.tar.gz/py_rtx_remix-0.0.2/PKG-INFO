@@ -1,0 +1,83 @@
+Metadata-Version: 2.4
+Name: py_rtx_remix
+Version: 0.0.2
+Summary: A Python Wrapper over the Nvidia RTX Remix C API for its Raytracing Engine.
+Author-email: "Emanuel Kozerski (E-man)" <emanualkoz.97@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Emanuel Kozerski
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/Ekozmaster/py-rtx-remix
+Project-URL: Issues, https://github.com/Ekozmaster/py-rtx-remix/issues
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Microsoft :: Windows
+Requires-Python: >=3.10.11
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: license-file
+
+# PyRtxRemix
+### A Python Wrapper over the Nvidia RTX Remix C API for its Raytracing Engine.
+![](docs/images/main_page.jpg)
+![](docs/images/code_sample.jpg)
+
+# Installation
+### For users
+```commandline
+>>> pip install py-rtx-remix
+>>> mkdir bin  # At your project root.
+# Download the latest release or action builds of dxvk-remix and paste inside bin/.
+```
+
+### For developers
+```commandline
+>>> git clone git@github.com:Ekozmaster/py-rtx-remix.git
+>>> cd py-rtx-remix
+>>> mkdir bin
+# Download the latest release or action builds of dxvk-remix and paste inside bin.
+# Open x64 Native Tools Command Prompt for VS 20xx and run build_remixapi.bat
+>>> mv remixapi.dll src/py_rtx_remix/
+```
+
+# Features
+- Wraps around the RTX Remix C API via a remixapi.dll using ctypes.
+- Provides a Pythonic and ergonomic interface to remix's components and function calls.
+- Ships with a simple obj loader to assist with scene building and testing.
+- Requires no other dependencies, except for development and testing.
+
+# Usage
+- You're supposed to manage your own window and provide a HWND. Python has tkinter built-in to help.
+- Instantiate `RTXRemixAPI()` and call `init()` with your HWND.
+```python
+import tkinter as tk
+from py_rtx_remix.core import RTXRemixAPI, StartupInfo
+
+window_width = 1600
+window_height = 900
+window = tk.Tk()
+window.title("PyRTXRemix")
+window.geometry(f"{window_width}x{window_height}")
+
+remix_api = RTXRemixAPI()
+startup_info = StartupInfo(hwnd=window.winfo_id())
+remix_api.init(startup_info)
+```
+- For more examples like creating a mesh, materials and lights check the `example.py` file.
