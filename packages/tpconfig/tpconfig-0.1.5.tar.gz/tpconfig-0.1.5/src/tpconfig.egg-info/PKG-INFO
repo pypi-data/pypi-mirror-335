@@ -1,0 +1,44 @@
+Metadata-Version: 2.4
+Name: tpconfig
+Version: 0.1.5
+Summary: Configuration management for TotalPath services
+Home-page: https://github.com/nopaque/tpconfig
+Author: Nopaque Limited
+Author-email: info@nopaque.co.uk
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: boto3>=1.37.8
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Nopaque Config
+
+A configuration management utility for Nopaque services. Install this into any application and provide the correct environment table name to be able to fetch, write, update and delete config data.
+
+## Installation
+
+```bash
+pip install tpconfig
+```
+
+# Builds
+
+Carry out the following:
+
+Update the version in `config-package/src/__init__.py` and `config-package/setup.py`
+
+1. `cd config-package`
+2. `pip install setuptools twine`
+3. `python setup.py sdist bdist_wheel`
+4. `twine check dist/*`
+6. `twine upload dist/*`
