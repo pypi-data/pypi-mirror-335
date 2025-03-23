@@ -1,0 +1,34 @@
+[project]
+license = {text = "Apache-2.0"}
+requires-python = ">=3.10"
+name = "perimeterx"
+version = "1.1.2"
+description = "Solves PerimeterX challenge and grabs cookies"
+authors = [
+    { name = "Troy Henson", email = "thenson@gmail.com" },
+]
+readme = "README.md"
+dynamic = [ "classifiers" ]
+
+[project.urls]
+homepage = "https://pypi.org/project/perimeterx"
+documentation = "https://pypi.org/project/perimeterx"
+Source = "https://pypi.org/project/perimeterx/#files"
+
+[tool.poetry]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "Topic :: Software Development :: Libraries",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+tls_client = "^1.0.1"
+typing_extensions = "^4.12.2"
+wgl = "^0.4.6"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
