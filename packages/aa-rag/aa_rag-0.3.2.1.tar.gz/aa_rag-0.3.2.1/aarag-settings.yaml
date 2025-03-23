@@ -1,0 +1,81 @@
+# config.yaml
+
+server:
+  host: "0.0.0.0"       # 服务监听地址
+  port: 222            # 服务监听端口
+  environment: "Development"  # 运行环境 [Development|Production]
+
+openai:
+  base_url: "https://api.openai.com/v1"  # OpenAI API基础地址
+  # api_key: "sk-xxx"    # 从.env文件或环境变量加载，此处不需要配置
+
+storage:
+  mode: "upsert"         # 数据库操作模式 [upsert|overwrite|append]
+  vector: "milvus"       # 向量数据库类型 [milvus|lancedb]
+  nosql: "tinydb"        # NoSQL数据库类型 [tinydb|mongodb]
+
+  # 向量数据库配置
+  lancedb:
+    uri: "./storage/lancedb"  # LanceDB存储路径
+
+  milvus:
+    uri: "./storage/milvus.db"  # Milvus文件路径（开发模式）
+    # uri: "http://localhost:19530"  # 生产模式地址
+    user: ""
+    password: ""
+    db_name: "aarag"
+
+  # NoSQL数据库配置
+  tinydb:
+    uri: "./storage/tinydb.json"  # TinyDB文件路径
+
+  mongodb:
+    uri: "mongodb://localhost:27017"  # MongoDB连接URI
+    user: ""
+    password: ""
+    db_name: "aarag"
+
+  # 图数据库配置
+  neo4j:
+    uri: "bolt://localhost:7687"  # Neo4j连接URI
+    username: "neo4j"
+    password: "password"
+
+embedding:
+  model: "text-embedding-3-small"  # 嵌入模型名称
+
+llm:
+  model: "gpt-4o"           # 主要语言模型
+  multimodal_model: "gpt-4o"  # 多模态模型
+
+engine:
+  type: "chunk"      # 引擎类型 [simple_chunk|lightrag]
+
+  # 简单分块引擎配置
+  simple_chunk:
+    index:
+      chunk_size: 1000      # 文本分块大小
+      overlap_size: 100     # 分块重叠大小
+
+    retrieve:
+      k: 3                 # 检索结果数量
+      type: "hybrid"       # 检索类型 [dense|sparse|hybrid]
+      weight:
+        dense: 0.5         # 密集检索权重
+        sparse: 0.5        # 稀疏检索权重
+
+  # LightRAG引擎配置
+  lightrag:
+    dir: "./storage/lightrag"  # 存储目录
+    vector_storage: "MilvusVectorDBStorage"  # 向量存储类型
+    graph_storage: "NetworkXStorage" # 图存储类型 [networkx|neo4j]
+    llm: "gpt-4o-mini"       # RAG专用模型
+    cosine_threshold: 0.3    # 相似度阈值
+    k: 60                    # 检索上下文数量
+
+oss:
+  endpoint: "https://s3.amazonaws.com"  # 对象存储端点
+  bucket: "aarag"          # 主存储桶
+  cache_bucket: "aarag-cache"  # 缓存存储桶
+  # access_key: ""         # 从环境变量加载
+  # secret_key: ""         # 从环境变量加载
