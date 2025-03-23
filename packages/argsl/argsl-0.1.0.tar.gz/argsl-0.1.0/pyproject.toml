@@ -1,0 +1,21 @@
+[project]
+name = "argsl"
+version = "0.1.0"
+description = "A readable DSL on top of argparse"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+  {name = "Gwang-Jin Kim", email = "gwang.jin.kim.phd@gmail.com"}
+]
+dependencies = []
+
+[project.scripts]
+argsl = "argsl.core:argsl"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
