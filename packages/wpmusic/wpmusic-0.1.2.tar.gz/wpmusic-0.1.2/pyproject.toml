@@ -1,0 +1,36 @@
+[project]
+name = "wpmusic"
+version = "0.1.2"
+description = "WordPress music uploader"
+authors = [{ name = "Danny Stewart", email = "danny@stewart.cc" }]
+urls = { repository = "https://github.com/dannystewart/dsbin" }
+readme = "README.md"
+packages = [{ include = "wpmusic", from = "src" }]
+requires-python = ">=3.12"
+dependencies = [
+    "dsbase (>=0.3.3,<0.4.0)",
+    "halo (>=0.0.31,<0.0.32)",
+    "inquirer (>=3.4.0,<4.0.0)",
+    "mutagen (>=1.47.0,<2.0.0)",
+    "mysql-connector-python (>=9.2.0,<10.0.0)",
+    "paramiko (>=3.5.1,<4.0.0)",
+    "pillow (>=11.1.0,<12.0.0)",
+    "pyperclip (>=1.9.0,<2.0.0)",
+    "requests (>=2.32.3,<3.0.0)",
+    "rich (>=13.9.4,<14.0.0)",
+    "scp (>=0.15.0,<0.16.0)",
+    "types-paramiko (>=3.5.0.20240928,<4.0.0.0)",
+    "types-pillow (>=10.2.0.20240822,<11.0.0.0)",
+    "types-requests (>=2.32.0.20250306,<3.0.0.0)",
+]
+
+[tool.poetry.group.dev.dependencies]
+mypy = ">=1.15.0"
+ruff = ">=0.11.2"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+wpmusic = "wpmusic.main:main"
