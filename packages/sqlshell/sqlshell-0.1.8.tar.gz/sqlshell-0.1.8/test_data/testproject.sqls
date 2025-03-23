@@ -1,0 +1,23 @@
+{
+    "tables": {
+        "customer_data": {
+            "file_path": "/home/user/SQLShell/test_data/customer_data.parquet",
+            "columns": [
+                "customerid",
+                "customername",
+                "email",
+                "country",
+                "joindate"
+            ]
+        },
+        "customers_by_country": {
+            "file_path": "/home/user/SQLShell/test_data/customers_by_country.parquet",
+            "columns": [
+                "country",
+                "n"
+            ]
+        }
+    },
+    "query": "SELECT country ,count(*) n FROM customer_data\ngroup by country ",
+    "connection_type": "duckdb"
+}
