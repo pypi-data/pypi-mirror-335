@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: matchescu-comparison-space-generation
+Version: 0.3.0
+Summary: 
+Author: Andrei Olar
+Author-email: andrei.olar@samlex.ro
+Requires-Python: >=3.12,<4.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: matchescu-base (>=0.12.0,<0.13.0)
+Requires-Dist: matchescu-reference-store (>=0.5.0,<0.6.0)
+Requires-Dist: numpy (>=2.2.4,<3.0.0)
+Requires-Dist: scikit-learn (>=1.6.1,<2.0.0)
+Requires-Dist: stopwords (>=1.0.1,<2.0.0)
+Description-Content-Type: text/markdown
+
+# Comparison Space Generation
+
+The comparison space is a storage facility which contains entity references
+arranged in a way that makes them ready for comparison operations.
+In entity resolution, comparison operations may be performed in terms of
+similarity (matching) or metric distance (clustering).
+
+In the basic case, comparison operations are binary and so the binary comparison
+space is not much more than a enumeration of pairs of entity references.
+
+# Development
+
+Run the following command to ensure you have all the dependencies ready and that
+the project is set up correctly.
+
+```shell
+$ make test
+```
+
+Afterward, follow the guidelines to contribute code to this repository. 
