@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "traktor-to-rekordbox"
+version = "0.1.0"
+description = "Convert Traktor NML playlists and cues into Rekordbox XML format."
+readme = "README.md"
+authors = [
+    { name="Joe Andolina", email="joe.andolina@gmail.com" }
+]
+license = "MIT"
+requires-python = ">=3.10,<3.11"
+dependencies = []
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
+]
+
+[project.scripts]
+traktor2rb = "traktor_to_rekordbox.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/yourusername/traktor-to-rekordbox"
+
+[tool.setuptools.packages.find]
+where = ["src"]
