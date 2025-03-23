@@ -1,0 +1,125 @@
+Metadata-Version: 2.1
+Name: xm-slurm
+Version: 0.1+editable
+Author-Email: Jesse Farebrother <jfarebro@cs.mcgill.ca>
+License: MIT
+Requires-Python: >=3.10
+Requires-Dist: xmanager>=0.4.0
+Requires-Dist: asyncssh>=2.13.2
+Requires-Dist: humanize>=4.8.0
+Requires-Dist: jinja2>=3.1.2
+Requires-Dist: toml>=0.10.2
+Requires-Dist: rich>=13.5.2
+Requires-Dist: immutabledict>=3.0.0
+Requires-Dist: backoff>=2.2.1
+Requires-Dist: sqlalchemy>=2.0
+Requires-Dist: alembic>=1.13.1
+Requires-Dist: aiosqlite>=0.20.0
+Requires-Dist: pathspec>=0.11.2; extra == "gcp"
+Requires-Dist: google-cloud-storage>=2.11.0; extra == "gcp"
+Requires-Dist: google-cloud-build>=3.20.0; extra == "gcp"
+Requires-Dist: google-cloud-logging>=3.8.0; extra == "gcp"
+Requires-Dist: google-cloud-iam>=2.12.2; extra == "gcp"
+Requires-Dist: google-cloud-kms>=2.19.2; extra == "gcp"
+Requires-Dist: google-crc32c>=1.5.0; extra == "gcp"
+Requires-Dist: pytest>=7.4.3; extra == "test"
+Provides-Extra: gcp
+Provides-Extra: test
+Description-Content-Type: text/markdown
+
+# Slurm XManager
+
+This project adds support for Slurm to XManager. This is done through the use of Docker on the client and Singularity/Apptainer containers on the cluster.
+This provides the following benefits:
+
+1. All development can be done locally and launched on any Slurm cluster without any configuration.
+2. Reproducible experiments (e.g., containerized runtime, code checkpointing, etc.)
+3. Easy to configure distributed experiments, all configuration is in Python.
+4. Launch experiments on any XManager launcher, e.g., GCP or Kubernetes
+
+## Minimal Example
+
+Currently the only out of the box container type is a [PDM](https://pdm.fming.dev/latest/) container.
+To use the pdm container you can start a new project with `pdm init`. From there you'll need to implement a launch script. A launch script will be decomposed into three parts:
+
+1. Specifying an executor specification, this will be where the exectuable will be stored.
+2. Specifying an executable and packaging the executables.
+3. Specifying a job and job requirements.
+
+```py
+import datetime
+from pathlib import Path
+
+from xmanager import xm
+
+import xm_slurm
+from xm_slurm.apptainer import packageables
+
+
+@xm.run_in_asyncio_loop
+async def main():
+    title = FLAGS.title
+
+    async with xm_slurm.create_experiment(title) as experiment:
+        # Step 1: Specify the executor specification
+        executor_spec = xm_slurm.SlurmSpec(tag="ghcr.io/YOUR_GITHUB_USERNAME/YOUR_GITHUB_REPOSITORY/launch:latest")
+
+        # Step 2: Specify the executable and package it
+        [executable] = experiment.package(
+            [
+                packageables.pdm_container(
+                    executor_spec=executor_spec,
+                    entrypoint=xm.ModuleName("train"),
+                    annotations={
+                        "org.opencontainers.image.source": "https://github.com/YOUR_GITHUB_USERNAME/YOUR_GITHUB_REPOSITORY"
+                    },
+                    args={}, # SPECIFY COMMAND CLI ARGS FOR THE EXECUTABLE
+                    env_vars={}, # SPECIFY COMMON ENV VARS FOR THE EXECUTABLE
+                ),
+            ]
+        )
+
+        # Step 3: Specify the executor and add the job
+        executor = xm_slurm.Slurm(
+            requirements=xm.JobRequirements(
+                resources={xm.ResourceType.A100: 1},
+                RAM=8 * xm.GiB,
+                CPU=4,
+            ),
+            time=dt.timedelta(hours=24),
+            account="", # SLURM ACCOUNT
+            # SPECIFY OTHER SLURM ARGUMENTS
+        )
+
+        await experiment.add(
+            job=xm.Job(
+                executor=executor,
+                executable=executable,
+                args={}, # SPECIFY ARGS FOR THIS JOB
+                env_vars={}, # SPECIFY ENV VARS FOR THIS JOB
+            ),
+        )
+
+if __name__ == "__main__":
+    main()
+```
+
+### Specifying sweeps
+
+When calling `experiment.add` you can specify an additional keyword argument `args`. This argument can be a sequence of arguments that'll specify a sweep. For example, if you want to run a sweep over the learning rate you can specify the following:
+
+```py
+await experiment.add(
+    job=xm.Job(
+        executor=executor,
+        executable=executable,
+    ),
+    args=[
+        {"learning_rate": 0.1},
+        {"learning_rate": 0.01},
+        {"learning_rate": 0.001},
+    ],
+)
+```
+
+This will launch a job array with 3 jobs, each with a different learning rate.
