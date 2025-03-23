@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "gcp_microservice_management"
+version = "0.8.1"
+description = "A package to deploy microservices on GCP"
+authors = ["David Piper <dbpiper@gmail.com>"]
+packages = [{ include = "gcp_microservice_management" }]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+google-cloud-run = "*"
+google-cloud-api-gateway = "*"
+google-api-core = "*"
+google-auth = "*"
+google-auth-oauthlib = "*"
+docker = "*"
+python-dotenv = "*"
+openapi-spec-validator = "^0.7.1"
+google-cloud-iam = "^2.15.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
