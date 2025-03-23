@@ -1,0 +1,114 @@
+Metadata-Version: 2.4
+Name: hogwarts-logger
+Version: 1.0.0
+Summary: 用于测试框架的日志封装
+Author: 霍格沃兹测试开发学社 https://ceshiren.com
+Project-URL: Homepage, https://ceshiren.com
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pyyaml
+Requires-Dist: pytest
+Requires-Dist: coverage
+Requires-Dist: pydantic
+
+# hogwarts-logger
+
+## what
+
+hogwarts-logger，一个专门方便pycharm查看的log库。
+
+## why
+
+为了方便霍格沃兹学社的测试开发教学，开发了一个方便打印日志的库
+
+## where 特点
+
+- 可以打印pycharm直接点击到源文件位置的路径提示
+- 可以打印上下log之间的耗时
+- 可以打印函数调用链 function call trace
+
+## how
+
+### 项目级别logger
+
+默认使用包名作为日志名字，适合项目中统一使用。
+
+```python
+from hogwarts_logger import Logger
+
+logger = Logger.get_instance()
+```
+
+### 实例级别logger
+
+允许创建多种Logger
+
+```python
+from hogwarts_logger import Logger
+
+logger1 = Logger()
+logger2 = Logger()
+```
+
+### 便捷使用
+
+```python
+from hogwarts_logger import *
+
+trace('trace message')
+debug('debug message')
+info('info message')
+```
+
+### 日志级别
+
+```python
+from hogwarts_logger import Logger
+
+logger = Logger()
+logger.set_level(logger.trace_level)
+logger.trace('trace')
+logger.log('trace')
+logger.debug('debug')
+logger.info('info')
+logger.warn('warn')
+```
+
+#### default 默认级别
+
+```log
+info
+warn
+```
+
+#### info级别
+
+```log
+test_path_log.py:199:test_info_level 2025-03-23 03:47:05,971 I info
+test_path_log.py:200:test_info_level 2025-03-23 03:47:05,972 W warn
+
+```
+
+#### debug级别
+
+```log
+test_path_log.py:188:test_debug_level:0.00  2025-03-23 03:47:05,968 D debug
+test_path_log.py:189:test_debug_level:0.00  2025-03-23 03:47:05,969 I info
+test_path_log.py:190:test_debug_level:0.00  2025-03-23 03:47:05,969 W warn
+```
+
+#### trace级别
+
+```log
+test_path_log.py:177:pytest_pyfunc_call:test_trace_level:0.00 2025-03-23 03:47:05,965 L trace
+test_path_log.py:178:pytest_pyfunc_call:test_trace_level:0.00 2025-03-23 03:47:05,966 D debug
+test_path_log.py:179:pytest_pyfunc_call:test_trace_level:0.00 2025-03-23 03:47:05,966 I info
+test_path_log.py:180:pytest_pyfunc_call:test_trace_level:0.00 2025-03-23 03:47:05,967 W warn
+```
+
+## who
+
+- [霍格沃兹测试开发学社](https://testing-studio.com)
+- [测吧（北京）科技有限公司](https://ceba.ceshiren.com)
+- [测试人社区](https://ceshiren.com)
+- 思寒 seveniruby
