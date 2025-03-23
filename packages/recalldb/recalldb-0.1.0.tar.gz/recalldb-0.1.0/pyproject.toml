@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "recalldb"
+version = "0.1.0"
+description = "A multi-user vector database for efficient document storage and retrieval"
+readme = "README.md"
+authors = [
+    {name = "RecallDB Team", email = "info@recalldb.ai"}
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Database",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+keywords = ["vector database", "embeddings", "search", "rag", "ai"]
+dependencies = [
+    "numpy>=1.20.0,<2.0.0",
+    "pandas>=1.3.0",
+    "pyarrow>=7.0.0",
+    "scikit-learn>=1.0.0",
+]
+requires-python = ">=3.7"
+
+[project.urls]
+"Homepage" = "https://github.com/yourusername/recalldb"
+"Bug Tracker" = "https://github.com/yourusername/recalldb/issues"
+
+[tool.setuptools]
+packages = ["recall_db"] 
