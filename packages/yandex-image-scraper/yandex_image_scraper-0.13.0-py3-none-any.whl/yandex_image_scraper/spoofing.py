@@ -1,0 +1,120 @@
+#!/usr/bin/env python3
+"""
+Spoofing configurations for Camoufox to evade detection
+"""
+
+import random
+from typing import Dict, Any, List
+
+# Common User-Agents (same as in main.py for consistency)
+USER_AGENTS: List[str] = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:89.0) Gecko/20100101 Firefox/89.0",
+]
+
+# Common Languages with Regions
+LANGUAGES: List[Dict[str, str]] = [
+    {"language": "en", "region": "US"},
+    {"language": "en", "region": "GB"},
+    {"language": "de", "region": "DE"},
+    {"language": "fr", "region": "FR"},
+    {"language": "es", "region": "ES"},
+    {"language": "it", "region": "IT"},
+    {"language": "ru", "region": "RU"},
+]
+
+# Timezone mapping to regions
+TIMEZONE_MAP: Dict[str, List[str]] = {
+    "US": ["America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles"],
+    "GB": ["Europe/London"],
+    "DE": ["Europe/Berlin"],
+    "FR": ["Europe/Paris"],
+    "ES": ["Europe/Madrid"],
+    "IT": ["Europe/Rome"],
+    "RU": ["Europe/Moscow"],
+}
+
+# Common screen resolutions
+SCREEN_RESOLUTIONS: List[Dict[str, int]] = [
+    {"width": 1920, "height": 1080},
+    {"width": 1366, "height": 768},
+    {"width": 1440, "height": 900},
+    {"width": 1536, "height": 864},
+    {"width": 1280, "height": 720},
+    {"width": 2560, "height": 1440},
+]
+
+def get_random_resolution() -> Dict[str, int]:
+    """Get a random screen resolution"""
+    return random.choice(SCREEN_RESOLUTIONS)
+
+def get_random_language() -> Dict[str, str]:
+    """Get a random language configuration"""
+    return random.choice(LANGUAGES)
+
+def get_random_timezone(region: str) -> str:
+    """Get a random timezone based on region"""
+    return random.choice(TIMEZONE_MAP.get(region, TIMEZONE_MAP["US"]))
+
+def generate_spoofing_config() -> Dict[str, Any]:
+    """
+    Generate a random spoofing configuration for Camoufox
+    """
+    # Select random user agent
+    user_agent: str = random.choice(USER_AGENTS)
+    
+    # Select random language/region
+    lang_config: Dict[str, str] = get_random_language()
+    language: str = lang_config["language"]
+    region: str = lang_config["region"]
+    
+    # Get a random screen resolution
+    resolution: Dict[str, int] = get_random_resolution()
+    
+    # Headers for HTTP requests
+    headers = {
+        "User-Agent": user_agent,
+        "Accept-Language": f"{language}-{region},{language};q=0.9",
+    }
+    
+    # JavaScript parameters to be set after page creation
+    js_params = {
+        "userAgent": user_agent,
+        "platform": "Win32" if "Windows" in user_agent else "MacIntel" if "Mac" in user_agent else "Linux x86_64",
+        "language": f"{language}-{region}",
+        "languages": [f"{language}-{region}", language],
+        "hardwareConcurrency": random.choice([2, 4, 8, 12, 16]),
+        "deviceMemory": random.choice([2, 4, 8, 16]),
+        "screen": {
+            "width": resolution["width"],
+            "height": resolution["height"],
+            "availWidth": resolution["width"] - random.randint(0, 60),
+            "availHeight": resolution["height"] - random.randint(30, 100),
+            "colorDepth": 24,
+            "pixelDepth": 24,
+        },
+        "window": {
+            "innerWidth": resolution["width"] - random.randint(50, 150),
+            "innerHeight": resolution["height"] - random.randint(100, 200),
+            "outerWidth": resolution["width"] - random.randint(0, 20),
+            "outerHeight": resolution["height"] - random.randint(0, 50),
+        }
+    }
+    
+    # Locale and timezone settings
+    locale_settings = {
+        "language": language,
+        "region": region,
+        "timezone": get_random_timezone(region),
+    }
+    
+    # Build the config object in a format Camoufox can use
+    config: Dict[str, Any] = {
+        "headers": headers,
+        "js_params": js_params,
+        "locale": locale_settings,
+        "humanize": True
+    }
+    
+    return config
