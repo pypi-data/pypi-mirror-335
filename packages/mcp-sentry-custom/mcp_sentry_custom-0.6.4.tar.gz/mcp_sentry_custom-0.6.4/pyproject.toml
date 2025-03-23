@@ -1,0 +1,20 @@
+[project]
+name = "mcp-sentry-custom"
+version = "0.6.4"
+description = "MCP server for retrieving issues from sentry.io or self-hosted Sentry instances"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["mcp>=1.0.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = ["pyright>=1.1.389", "pytest>=8.3.3", "ruff>=0.8.0"]
+
+[project.scripts]
+mcp-sentry-custom = "mcp_sentry_custom:main"
+[project.urls]
+"Homepage" = "https://github.com/javaDer/mcp-sentry-custom"
+"Bug Tracker" = "https://github.com/javaDer/mcp-sentry-custom/issues"
