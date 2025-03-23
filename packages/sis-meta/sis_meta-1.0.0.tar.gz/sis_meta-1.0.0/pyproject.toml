@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sis-meta"
+description = 'Handle annotation files in SIS (Ikar Lab)'
+readme = "README.md"
+requires-python = ">=3.7"
+license = "GPL-3.0-or-later"
+keywords = []
+authors = [
+  { name = "rolandomunoz", email = "rolando.muar@gmail.com" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "Jinja2",
+    "MarkupSafe",
+]
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/unknown/sis-meta#readme"
+Issues = "https://github.com/unknown/sis-meta/issues"
+Source = "https://github.com/unknown/sis-meta"
+
+[tool.hatch.version]
+path = "src/sis_meta/__about__.py"
+
+[tool.hatch.envs.default]
+dependencies = [
+  "pytest",
+  "pytest-cov",
+]
+[tool.hatch.envs.default.scripts]
+cov = "pytest --cov-report=term-missing --cov-config=pyproject.toml --cov=src/sis_meta --cov=tests {args}"
+no-cov = "cov --no-cov {args}"
+
+[[tool.hatch.envs.test.matrix]]
+python = ["37", "38", "39", "310", "311", "312", "313"]
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+  "/tests"
+]
+
+[tool.coverage.run]
+branch = true
+parallel = true
+omit = [
+  "src/sis_meta/__about__.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
