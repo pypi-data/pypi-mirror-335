@@ -1,0 +1,115 @@
+service: Premier_League_Data_Tool
+
+provider:
+  name: aws
+  region: ca-central-1
+  stage: ${opt:stage, 'dev'}
+  iamRoleStatements:
+    - Effect: 'Allow'
+      Action:
+        - s3:PutObject
+        - s3:GetObject
+  environment:
+    S3_BUCKET_NAME: ${env:S3_BUCKET_NAME, 'premier-league-bucket'}
+
+package:
+  include:
+    - ../players/**
+    - ../ranking/**
+    - ../transfers/**
+  exclude:
+    - ../**/__pycache__/**
+    - ../**/*.pyc
+    - ../**/*.pyo
+
+functions:
+  TransferPremierLeagueData:
+    handler: src/transfers_lambda.lambda_handler
+    runtime: python3.11
+    timeout: 30
+    memorySize: 1024
+    package:
+      exclude:
+        - ./api
+    events:
+      - http:
+          path: /transfers_in
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /transfers_out
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /transfers_csv
+          method: put
+          cors: false
+          private: false
+      - http:
+          path: /transfers_json
+          method: get
+          cors: false
+          private: false
+  PlayersPremierLeagueData:
+    handler: src/player_lambda.lambda_handler
+    runtime: python3.11
+    timeout: 30
+    memorySize: 1024
+    package:
+      exclude:
+        - ./api
+    events:
+      - http:
+          path: /player_ranking
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /player_csv
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /player_json
+          method: put
+          cors: false
+          private: false
+      - http:
+          path: /player_pdf
+          method: get
+          cors: false
+          private: false
+  RankingPremierLeagueData:
+    handler: src/ranking_lambda.lambda_handler
+    runtime: python3.11
+    timeout: 30
+    memorySize: 1024
+    package:
+      exclude:
+        - ./api
+    events:
+      - http:
+          path: /ranking
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /ranking_csv
+          method: get
+          cors: false
+          private: false
+      - http:
+          path: /ranking_json
+          method: put
+          cors: false
+          private: false
+      - http:
+          path: /ranking_pdf
+          method: get
+          cors: false
+          private: false
+
+plugins:
+  - serverless-python-requirements
