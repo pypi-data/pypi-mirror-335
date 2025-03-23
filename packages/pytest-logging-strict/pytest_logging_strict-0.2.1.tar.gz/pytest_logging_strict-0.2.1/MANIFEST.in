@@ -1,0 +1,31 @@
+# mypy
+prune .mypy_cache
+prune .pytest_cache
+
+# coverage
+exclude coverage.json
+exclude coverage.xml
+exclude .coverage
+
+prune build
+prune dist
+
+include .gitignore
+include .pre-commit-config.yaml
+include CHANGES.rst
+include Makefile
+include codecov.yml
+include howto.txt
+include tox-req.ini
+include tox-test.ini
+include tox.ini
+
+# requirements
+recursive-include requirements *.in *.unlock *.lock
+
+# tests
+recursive-include tests *.py
+recursive-include tests *.logging.config.yaml
+
+# github
+graft .github

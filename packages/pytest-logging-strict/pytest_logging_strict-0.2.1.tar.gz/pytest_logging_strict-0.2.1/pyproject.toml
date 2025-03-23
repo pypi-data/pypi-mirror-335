@@ -1,0 +1,172 @@
+[build-system]
+requires = [
+    "setuptools>=70.0.0",
+    "wheel",
+    "build",
+    "setuptools_scm>=8",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pytest-logging-strict"
+dynamic = [
+    "optional-dependencies",
+    "dependencies",
+    "version",
+]
+license = {file = "LICENSE"}
+description = "pytest fixture logging configured from packaged YAML"
+keywords = [
+    "pytest",
+    "strictyaml",
+    "yaml",
+    "logging.config",
+    "caplog",
+]
+readme = "README.rst"
+requires-python = ">=3.9"
+classifiers = [
+    "Framework :: Pytest",
+    "Environment :: Console",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Topic :: System :: Logging",
+    "Topic :: Software Development :: Testing",
+    "Natural Language :: English",
+    "Typing :: Typed",
+]
+# Contact by mastodon please
+authors = [
+    {name = "Dave Faulkmore", email = "faulkmore@protonmail.com"},
+]
+
+[project.urls]
+Changes = 'https://raw.githubusercontent.com/msftcangoblowm/pytest-logging-strict/master/CHANGES.rst'
+"PyPI Releases" = 'https://pypi.org/project/pytest-logging-strict'
+"Source code" = 'https://github.com/msftcangoblowm/pytest-logging-strict'
+"Issue tracker" = 'https://github.com/msftcangoblowm/pytest-logging-strict/issues'
+Mastodon = 'https://mastodon.social/@msftcangoblowme'
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["pytest_logging_strict*"]
+
+[project.entry-points.pytest11]
+# plugin_v0 -- metadata encoded into logging config YAML file names
+#              logging-strict==1.4.2
+# plugin_v1 -- YAML registry database. File names need not follow a naming convention
+#              ``python -m pip install -U git+https://github.com/msftcangoblowm/logging-strict.git@a2026ea7f6984261bf34b7e4543088ad8aa0b7d4``
+#              ``python -m build`` then install local development build
+logging_strict = "pytest_logging_strict.plugin_wireframe"
+has_logging_occurred = "pytest_logging_strict.plugin_shared"
+
+[tool.setuptools.dynamic]
+dependencies = { file = ['requirements/prod.unlock'] }
+version = {attr = "pytest_logging_strict._version.__version__"}
+
+# Each venv relative path is predetermined
+# Into which venv goes which requirements is predetermined
+# TOML format, paths **must be** single quoted
+[tool.wreck]
+create_pins_unlock = false
+
+[[tool.wreck.venvs]]
+venv_base_path = '.venv'
+reqs = [
+    'requirements/prod',
+    'requirements/dev',
+    'requirements/manage',
+    'requirements/mypy',
+    'requirements/kit',
+    'requirements/tox',
+]
+[[tool.wreck.venvs]]
+venv_base_path = '.rst2html5'
+reqs = [
+    'requirements/rst2html5',
+]
+
+[tool.black]
+include = '\.pyi?$'
+extend-exclude = '''(src/pytest_logging_strict/\_version.py)'''
+
+[tool.blackdoc]
+skip_string_normalization = true
+color = false  # affects diffs only
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+force_grid_wrap = 2
+use_parentheses = true
+include_trailing_comma = true
+ensure_newline_before_comments = true
+line_length = 88
+supported_extensions = ["py", "pyi"]
+skip = [
+    'src/pytest_logging_strict/_version.py',
+]
+
+[tool.flake8]
+max_line_length = 88
+# E301, E302 for .pyi files, flake-pyi conflicts with black
+extend_ignore = [
+    "E704",
+    "E203",
+    "W503",
+    "W605",
+    "W293",
+    "W291",
+    "E301",
+    "E302",
+    "E501",
+]
+exclude = [
+    'src/pytest_logging_strict/_version.py',
+]
+
+[tool.interrogate]
+color = true
+exclude = [
+    'src/pytest_logging_strict/_version.py',
+    '.doc',
+    'docs',
+    'build',
+]
+fail-under = 95
+ignore-init-module = true
+quiet = false
+omit-covered-files = true
+# possible values 0 (minimal output), 1 (-v), 2 (-vv)
+verbose = 2
+
+[tool.coverage.run]
+source_pkgs = ["pytest_logging_strict"] # **REQUIRED** to be set correctly. Your package name
+branch = true
+# Reduced coverage significantly 98.x% --> 93.36%
+# plugins = ["coverage_conditional_plugin"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "@abc.abstractmethod",
+    "@abc.abstractproperty",
+    "if TYPE_CHECKING:",
+    "if typing.TYPE_CHECKING:",
+]
+precision = 2
+ignore_errors = true
+skip_covered = true
+skip_empty = true
+fail_under = 68
+show_missing = true

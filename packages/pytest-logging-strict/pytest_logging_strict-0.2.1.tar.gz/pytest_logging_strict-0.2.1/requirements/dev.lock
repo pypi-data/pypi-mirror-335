@@ -1,0 +1,104 @@
+appdirs==1.4.4
+    # via logging-strict
+attrs==24.3.0
+    # via logging-strict
+black==24.10.0
+    # via
+    #   -r requirements/dev.in
+    #   blackdoc
+blackdoc==0.3.9
+    # via -r requirements/dev.in
+click==8.1.8
+    # via black
+coverage==7.6.10
+    # via -r requirements/dev.in
+exceptiongroup==1.2.2
+    # via pytest
+execnet==2.1.1
+    # via pytest-xdist
+fastjsonschema==2.21.1
+    # via validate-pyproject
+flake8==7.1.1
+    # via
+    #   -r requirements/dev.in
+    #   flake8-pyi
+    #   flake8-pyproject
+flake8-pyi==24.9.0
+    # via -r requirements/dev.in
+flake8-pyproject==1.2.3
+    # via -r requirements/dev.in
+iniconfig==2.0.0
+    # via pytest
+isort==5.13.2
+    # via -r requirements/dev.in
+logging-strict==1.5.0
+    # via -r requirements/prod.in
+markdown-it-py==3.0.0
+    # via rich
+mccabe==0.7.0
+    # via flake8
+mdurl==0.1.2
+    # via markdown-it-py
+more-itertools==10.6.0
+    # via blackdoc
+mypy==1.14.1
+    # via -r requirements/mypy.in
+mypy-extensions==1.0.0
+    # via
+    #   black
+    #   mypy
+packaging==24.2
+    # via
+    #   black
+    #   pytest
+pathspec==0.12.1
+    # via
+    #   black
+    #   blackdoc
+platformdirs==4.3.6
+    # via black
+pluggy==1.5.0
+    # via pytest
+pycodestyle==2.12.1
+    # via flake8
+pyflakes==3.2.0
+    # via
+    #   flake8
+    #   flake8-pyi
+pygments==2.19.1
+    # via rich
+pytest==8.3.4
+    # via
+    #   -r requirements/prod.in
+    #   pytest-xdist
+pytest-xdist==3.6.1
+    # via -r requirements/mypy.in
+python-dateutil==2.9.0.post0
+    # via
+    #   logging-strict
+    #   strictyaml
+rich==13.9.4
+    # via blackdoc
+six==1.17.0
+    # via python-dateutil
+strictyaml==1.7.3
+    # via
+    #   -r requirements/prod.in
+    #   logging-strict
+tomli==2.2.1
+    # via
+    #   black
+    #   blackdoc
+    #   flake8-pyproject
+    #   logging-strict
+    #   mypy
+    #   pytest
+typing-extensions==4.12.2 ; python_version < "3.11"
+    # via
+    #   -c requirements/pins-typing.in
+    #   black
+    #   logging-strict
+    #   mypy
+    #   rich
+validate-pyproject==0.23
+    # via -r requirements/dev.in

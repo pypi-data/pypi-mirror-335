@@ -1,0 +1,54 @@
+appdirs==1.4.4
+    # via logging-strict
+attrs==24.3.0
+    # via logging-strict
+cfgv==3.4.0
+    # via pre-commit
+distlib==0.3.9
+    # via virtualenv
+exceptiongroup==1.2.2
+    # via pytest
+filelock==3.16.1
+    # via virtualenv
+identify==2.6.5
+    # via pre-commit
+iniconfig==2.0.0
+    # via pytest
+logging-strict==1.5.0
+    # via -r requirements/prod.in
+nodeenv==1.9.1
+    # via pre-commit
+packaging==24.2
+    # via pytest
+platformdirs==4.3.6
+    # via virtualenv
+pluggy==1.5.0
+    # via pytest
+pre-commit==4.0.1
+    # via -r requirements/manage.in
+pytest==8.3.4
+    # via -r requirements/prod.in
+python-dateutil==2.9.0.post0
+    # via
+    #   logging-strict
+    #   strictyaml
+pyyaml==6.0.2
+    # via pre-commit
+six==1.17.0
+    # via python-dateutil
+strictyaml==1.7.3
+    # via
+    #   -r requirements/prod.in
+    #   logging-strict
+tomli==2.2.1
+    # via
+    #   logging-strict
+    #   pytest
+typing-extensions==4.12.2 ; python_version < "3.11"
+    # via
+    #   -c requirements/pins-typing.in
+    #   logging-strict
+virtualenv==20.29.0
+    # via
+    #   -c requirements/pins-virtualenv-cve-2024-53899.in
+    #   pre-commit
