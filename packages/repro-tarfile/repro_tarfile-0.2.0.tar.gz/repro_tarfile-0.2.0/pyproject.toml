@@ -1,0 +1,103 @@
+
+[project]
+name = "repro-tarfile"
+version = "0.2.0"
+description = "A tiny, zero-dependency replacement for Python's tarfile standard library for creating reproducible/deterministic tar archives."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+keywords = ["tarfile", "tar", "reproducible", "deterministic"]
+authors = [{ name = "DrivenData", email = "info@drivendata.org" }]
+classifiers = [
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: System :: Archiving",
+  "Topic :: System :: Archiving :: Compression",
+  "Topic :: System :: Archiving :: Packaging",
+]
+dependencies = []
+
+[project.optional-dependencies]
+cli = ["rptar"]
+
+[project.urls]
+Documentation = "https://github.com/drivendataorg/repro-tarfile#readme"
+Issues = "https://github.com/drivendataorg/repro-tarfile/issues"
+Source = "https://github.com/drivendataorg/repro-tarfile"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+## DEV ##
+
+[tool.uv.sources]
+rptar = { workspace = true }
+
+[tool.uv.workspace]
+members = ["cli/"]
+
+[dependency-groups]
+dev = [
+  "ipython",
+  "vspect",
+  { include-group = "lint" },
+  { include-group = "typecheck" },
+  { include-group = "test" },
+]
+lint = [
+  "ruff>=0.1.14",
+]
+test = [
+  "coverage>=6.5",
+  "pytest>=6,<8",
+  "pytest-cases",
+  "pytest-cov",
+]
+typecheck = [
+  "mypy>=1.0.0",
+]
+
+## TOOLS ##
+
+[tool.ruff]
+line-length = 99
+src = ["*.py", "cli/*.py", "tests/*.py"]
+
+[tool.ruff.lint]
+select = [
+  "E", # Pyflakes
+  "F", # Pycodestyle
+  "I", # isort
+]
+unfixable = ["F"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["repro_tarfile", "rptar"]
+force-sort-within-sections = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--cov=repro_tarfile --cov=rptar --cov-report=term --cov-report=html --cov-report=xml"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["."]
+omit = ["tests/*"]
+
+[tool.coverage.paths]
+source = [
+  "repro_tarfile/",
+  "*/site-packages/repro_tarfile/",
+  "cli/rptar.py",
+  "*/site-packages/rptar.py",
+]
