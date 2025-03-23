@@ -1,0 +1,1 @@
+"""FlareUI core module."""
