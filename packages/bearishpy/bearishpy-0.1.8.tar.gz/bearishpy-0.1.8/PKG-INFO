@@ -1,0 +1,81 @@
+Metadata-Version: 2.1
+Name: bearishpy
+Version: 0.1.8
+Summary: 
+Author: aan
+Author-email: andoludovic.andriamamonjy@gmail.com
+Requires-Python: >=3.10,<3.13
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Dist: alembic (>=1.14.0,<2.0.0)
+Requires-Dist: alpha-vantage (>=3.0.0,<4.0.0)
+Requires-Dist: html5lib (>=1.1,<2.0)
+Requires-Dist: pandas (>=2.1.4,<3.0.0)
+Requires-Dist: pydantic (>=2.5.3,<3.0.0)
+Requires-Dist: python-dotenv (>=1.0.1,<2.0.0)
+Requires-Dist: sqlmodel (>=0.0.22,<0.0.23)
+Requires-Dist: tenacity (>=9.0.0,<10.0.0)
+Requires-Dist: typeguard (>=4.1.5,<5.0.0)
+Requires-Dist: typer (>=0.13.1,<0.14.0)
+Requires-Dist: unidecode (>=1.3.8,<2.0.0)
+Requires-Dist: yfinance (>=0.2.48,<0.3.0)
+Description-Content-Type: text/markdown
+
+# 📉 Bearish
+
+> A lightweight stock data fetching tool that stores market data in SQLite using a common format.
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue.svg?logo=python)](https://www.python.org/) [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE) [![GitHub Stars](https://img.shields.io/github/stars/your-repo/bearish?style=social)](https://github.com/your-repo/bearish)
+
+## ✨ Features
+✅ Fetch stock data from multiple sources 📊  
+✅ Store data in an SQLite database 🗄️  
+✅ Support for multiple markets and countries 🌍  
+✅ Simple command-line interface 🖥️  
+
+## 📥 Installation
+Install Bearish using `pip`:
+
+```sh
+pip install bearishpy
+```
+
+## 🚀 Usage
+
+### 📌 Fetch and Store Tickers
+To get and store stock tickers from different markets and countries, run:
+
+```sh 
+bearish tickers /path/to/sqlite/db France Germany --api-keys=config.json
+```
+
+### 📌 Fetch Stock Prices
+To retrieve stock prices from different markets, use:
+
+```sh
+bearish prices /path/to/sqlite/db France Germany --api-keys=config.json
+```
+
+## 🔑 API Keys Configuration
+Make sure to provide a `config.json` file with your API keys to fetch data from various sources.
+
+Example `config.json`:
+```json
+{
+  "FMPAssets": "your Financial Modeling Prep API key", 
+  "FMP": "your Financial Modeling Prep API key", 
+  "AlphaVantage": "your Alphavantage API key",
+  "Tiingo": "yout Tiingo API key"
+}
+
+```
+
+## 🤝 Contributing
+Contributions are welcome! Feel free to submit a pull request or open an issue.
+
+## 📜 License
+This project is licensed under the **MIT License**.
+
+🚀 Happy Investing! 📈
+
