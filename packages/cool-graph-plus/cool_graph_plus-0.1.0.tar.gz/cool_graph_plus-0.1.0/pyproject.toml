@@ -1,0 +1,23 @@
+[project]
+name = "cool-graph-plus"
+version = "0.1.0"
+description = "testing purposes"
+authors = [
+    {name = "urasvarolgunes",email = "urasvarolgunes@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy (>=2.2.4,<3.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "cool_graph_plus", from = "src"}]
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
