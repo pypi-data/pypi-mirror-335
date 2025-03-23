@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "isobiscuit-engine"
+version = "0.1.9"
+description = ""
+authors = ["trollmii <trollmii@outlook.de>"]
+readme = "README.md"
+packages = [
+    { include = "isobiscuit_engine", from = "."},
+]
+
+exclude = [
+    "**/*.c",
+    "**/*.so"
+]
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = true
+[build-system]
+requires = ["setuptools", "Cython", "poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+
