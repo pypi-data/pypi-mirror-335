@@ -1,0 +1,37 @@
+Metadata-Version: 2.1
+Name: fink-science
+Version: 7.4.0
+Summary: User-defined science module for the Fink broker.
+Home-page: https://fink-broker.readthedocs.io/en/latest/
+Author: JulienPeloton
+Author-email: peloton@lal.in2p3.fr
+Project-URL: Documentation, https://fink-broker.readthedocs.io/en/latest/
+Project-URL: Source, https://github.com/astrolabsoftware/fink-science
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: Unix
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Science/Research
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+[![Rubin](https://github.com/astrolabsoftware/fink-science/actions/workflows/run_test_rubin.yml/badge.svg)](https://github.com/astrolabsoftware/fink-science/actions/workflows/run_test_rubin.yml)
+[![ZTF](https://github.com/astrolabsoftware/fink-science/actions/workflows/run_test_ztf.yml/badge.svg)](https://github.com/astrolabsoftware/fink-science/actions/workflows/run_test_ztf.yml)
+[![PEP8](https://github.com/astrolabsoftware/fink-science/workflows/PEP8/badge.svg)](https://github.com/astrolabsoftware/fink-science/actions?query=workflow%3APEP8)
+[![codecov](https://codecov.io/gh/astrolabsoftware/fink-science/branch/master/graph/badge.svg)](https://codecov.io/gh/astrolabsoftware/fink-science)
+
+# Fink Science
+
+This repository contains science modules used to generate added values to alert collected by the [Fink broker](https://github.com/astrolabsoftware/fink-broker). More information on the [documentation](https://fink-broker.readthedocs.io/en/latest/broker/science_modules/).
+
+## Installation
+
+`fink-science` can be easily installed from sources directly using a release tag (see [here](https://github.com/astrolabsoftware/fink-science/releases)):
+
+```
+# e.g. installing version 5.7.2
+export TMPDIR=somewhere_with_disk_space
+pip install --no-dependencies --cache-dir=$TMPDIR https://github.com/astrolabsoftware/fink-science/archive/5.7.2.zip
+```
