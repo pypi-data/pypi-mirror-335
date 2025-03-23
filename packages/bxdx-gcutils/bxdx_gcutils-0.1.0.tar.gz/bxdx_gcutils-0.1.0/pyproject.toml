@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "bxdx-gcutils"
+version = "0.1.0"
+description = "Utility functions to interact with Google Cloud"
+authors = [ "Benjamin Labrecque" ]
+packages = [
+    { include = "gcutils" }
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<4.0"
+pydantic = "^2.0.0"
+google-cloud-storage = "^2.14.0"
+tenacity = "^8.2.3"
+google-cloud-datastore = "^2.19.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+pytest = "^7.2.1"
+mypy = "^1.1.1"
+isort = "^5.12.0"
+types-requests = "^2.28.11.16"
+types-beautifulsoup4 = "^4.12.0.0"
+# Supposedly quite fast, but need to figure out how to make it work with Neovim
+ruff = "^0.1.5"
+
+[tool.mypy]
+files = "gcutils"
+strict = true
+namespace_packages = true
+explicit_package_bases = true
+
+# [tool.isort]
+# profile = "black"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    # "E",
+    # Pyflakes
+    # "F",
+    # pyupgrade
+    # "UP",
+    # flake8-bugbear
+    # "B",
+    # flake8-simplify
+    # "SIM",
+    # isort
+    "I",
+]
+fixable = ["I"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["gcutils"]
