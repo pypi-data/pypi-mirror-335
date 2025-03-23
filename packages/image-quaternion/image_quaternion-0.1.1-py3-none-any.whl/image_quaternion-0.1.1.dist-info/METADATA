@@ -1,0 +1,188 @@
+Metadata-Version: 2.1
+Name: image-quaternion
+Version: 0.1.1
+Summary: Una librería para trabajar con imágenes en formato de cuaterniones.
+Home-page: https://github.com/tu_usuario/image_quaternion
+Author: Ramiro Esquivel Felix, Luis Octavio Solis Sanchez
+Author-email: resfera@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: opencv-python
+
+<!-- -*- coding: iso-8859-1 -*- -->
+
+# Image Quaternion Library
+
+![Python](https://img.shields.io/badge/Python-3.6%2B-blue)
+![License](https://img.shields.io/badge/License-MIT-green)
+
+**Image Quaternion Library** es una librerÃ­a de Python que permite trabajar con imÃ¡genes en formato de cuaterniones. Proporciona herramientas para convertir imÃ¡genes RGB a cuaterniones, aplicar contrastes, comparar histogramas y calcular mÃ©tricas de calidad de imagen.
+
+## InstalaciÃ³n
+
+Puedes instalar la librerÃ­a directamente desde PyPI usando `pip`:
+
+```bash
+pip install image-quaternion
+```
+
+## Uso
+
+### ConversiÃ³n de RGB a Cuaterniones
+
+Convierte una imagen RGB a una representaciÃ³n en cuaterniones:
+
+```python
+import cv2
+from image_quaternion import rgb_to_quaternion
+
+# Cargar una imagen
+image = cv2.imread('ruta/a/tu/imagen.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convertir a RGB
+image = image / 255.0  # Normalizar la imagen
+
+# Convertir a cuaterniones
+q_image = rgb_to_quaternion(image)
+```
+
+### Aplicar Contraste
+
+Aplica un factor de contraste a una imagen en formato de cuaterniones:
+
+```python
+from image_quaternion import apply_contrast
+
+# Aplicar un contraste de 1.5
+q_contrast = apply_contrast(q_image, contrast=1.5)
+```
+
+### Convertir de Cuaterniones a RGB
+
+Convierte una imagen en formato de cuaterniones de vuelta a RGB:
+
+```python
+from image_quaternion import quaternion_to_rgb
+
+# Convertir a RGB
+rgb_image = quaternion_to_rgb(q_contrast)
+```
+
+### Visualizar Canales de Color
+
+Visualiza los canales de color de una imagen en formato de cuaterniones:
+
+```python
+from image_quaternion import plot_channels
+
+# Mostrar los canales de color
+plot_channels(q_contrast, title='Canales de Color con Contraste 1.5')
+```
+
+### Comparar Histogramas
+
+Compara los histogramas de una imagen tradicional y una en cuaterniones:
+
+```python
+from image_quaternion import compare_histograms
+
+# Comparar histogramas
+compare_histograms(q_image, image)
+```
+
+### Calcular MÃ©tricas de Calidad
+
+Calcula mÃ©tricas de calidad entre dos imÃ¡genes (MSE, PSNR y EntropÃ­a):
+
+```python
+from image_quaternion import calculate_metrics
+
+# Calcular mÃ©tricas
+mse, psnr, entropy = calculate_metrics(image, rgb_image)
+print(f'MSE: {mse}, PSNR: {psnr}, EntropÃ­a: {entropy}')
+```
+
+## Ejemplo Completo
+
+```python
+import cv2
+import numpy as np
+from image_quaternion import (
+    rgb_to_quaternion,
+    apply_contrast,
+    quaternion_to_rgb,
+    plot_channels,
+    compare_histograms,
+    calculate_metrics
+)
+
+# Cargar una imagen
+image = cv2.imread('ruta/a/tu/imagen.jpg')
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # Convertir a RGB
+image = image / 255.0  # Normalizar la imagen
+
+# Convertir a cuaterniones
+q_image = rgb_to_quaternion(image)
+
+# Aplicar un contraste de 1.5
+q_contrast = apply_contrast(q_image, contrast=1.5)
+
+# Convertir de vuelta a RGB
+rgb_image = quaternion_to_rgb(q_contrast)
+
+# Mostrar los canales de color
+plot_channels(q_contrast, title='Canales de Color con Contraste 1.5')
+
+# Comparar histogramas
+compare_histograms(q_image, image)
+
+# Calcular mÃ©tricas de calidad
+mse, psnr, entropy = calculate_metrics(image, rgb_image)
+print(f'MSE: {mse}, PSNR: {psnr}, EntropÃ­a: {entropy}')
+```
+
+## Requisitos
+
+- Python 3.6 o superior.
+- Dependencias:
+  - `numpy`
+  - `matplotlib`
+  - `opencv-python`
+
+## InstalaciÃ³n de Dependencias
+
+Puedes instalar las dependencias automÃ¡ticamente al instalar la librerÃ­a con `pip`. Si prefieres instalarlas manualmente:
+
+```bash
+pip install numpy matplotlib opencv-python
+```
+
+## Contribuir
+
+Si deseas contribuir a este proyecto, Â¡te damos la bienvenida! Por favor, sigue estos pasos:
+
+1. Haz un fork del repositorio.
+2. Crea una rama para tu contribuciÃ³n (`git checkout -b feature/nueva-funcionalidad`).
+3. Realiza tus cambios y haz commit (`git commit -m 'AÃ±adir nueva funcionalidad'`).
+4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
+5. Abre un Pull Request en GitHub.
+
+## Licencia
+
+Este proyecto estÃ¡ bajo la licencia MIT. Consulta el archivo [LICENSE](LICENSE) para mÃ¡s detalles.
+
+## Contacto
+
+Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
+
+- **Nombre**: [Tu Nombre]
+- **Email**: [tu@email.com]
+- **GitHub**: [https://github.com/tu_usuario](https://github.com/tu_usuario)
+
+---
+
+Este `README.md` estÃ¡ diseÃ±ado para ser claro y fÃ¡cil de seguir, proporcionando toda la informaciÃ³n necesaria para que los usuarios puedan instalar, usar y contribuir a la librerÃ­a. Â¡Espero que sea Ãºtil! ðŸš€
