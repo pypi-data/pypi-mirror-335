@@ -1,0 +1,1 @@
+# Biblioteca simples para manipulação de geometrias 2D
