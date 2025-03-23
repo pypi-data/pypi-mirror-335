@@ -1,0 +1,53 @@
+name: Qtile Tests
+run-name: Qtile tests in [${{ github.ref_name }}] @${{ github.actor }}
+
+on: 
+  push:
+    branches:
+      - main
+      - nightly
+    paths:
+      - 'ebenezer/**'
+      - '.github/workflows/**'
+  pull_request:
+    branches:
+      - main
+      - nightly
+    paths:
+      - 'ebenezer/**'
+      - '.github/workflows/**'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12' 
+
+    - name: Install Pipenv
+      run: |
+        python -m pip install --upgrade pip
+        pip install pipenv
+      working-directory: ./
+
+    - name: Install dependencies
+      run: |
+        make install
+      working-directory: ./
+
+    - name: Run tests
+      run: |
+        make test-non-ui
+      working-directory: ./
+
+    - name: Run ui tests
+      run: |
+        export DISPLAY=:99
+        Xvfb :99 &
+        make test-ui
+      working-directory: ./
