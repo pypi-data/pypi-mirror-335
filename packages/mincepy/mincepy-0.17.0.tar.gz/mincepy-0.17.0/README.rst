@@ -1,0 +1,41 @@
+.. _documentation: https://mincepy.readthedocs.org/
+.. _object-document mapper: https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping#Object-oriented_databases
+.. _data mapper pattern: https://en.wikipedia.org/wiki/Data_mapper_pattern
+
+mincePy
+=======
+
+.. image:: https://codecov.io/gh/muhrin/mincepy/branch/develop/graph/badge.svg
+    :target: https://codecov.io/gh/muhrin/mincepy
+    :alt: Coverage
+
+.. image:: https://github.com/muhrin/mincepy/actions/workflows/ci.yml/badge.svg
+    :target: https://github.com/muhrin/mincepy/actions/workflows/ci.yml
+    :alt: Tests
+
+.. image:: https://img.shields.io/pypi/v/mincepy.svg
+    :target: https://pypi.python.org/pypi/mincepy/
+    :alt: Latest Version
+
+.. image:: https://img.shields.io/pypi/wheel/mincepy.svg
+    :target: https://pypi.python.org/pypi/mincepy/
+
+.. image:: https://img.shields.io/pypi/pyversions/mincepy.svg
+    :target: https://pypi.python.org/pypi/mincepy/
+
+.. image:: https://img.shields.io/pypi/l/mincepy.svg
+    :target: https://pypi.python.org/pypi/mincepy/
+
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/psf/black
+
+
+mincePy: move the database to one side and let your objects take centre stage.
+
+MincePy is an `object-document mapper`_ (ORM) using the `data mapper pattern`_ designed specifically for computational
+and data science.  What does this all mean??  It's simple really, it means you can store, find, get the history of and
+annotate any of your python objects either in your local database or one shared with your collaborators.
+
+
+
+See `documentation`_ for more information.

@@ -1,0 +1,114 @@
+"""Module for mincepy object references"""
+
+from typing import TYPE_CHECKING, Optional
+
+from . import exceptions, records, type_ids, types
+
+if TYPE_CHECKING:
+    import mincepy
+
+__all__ = ("ObjRef", "ref")
+
+
+class ObjRef(types.SavableObject):
+    """A reference to an object instance"""
+
+    TYPE_ID = type_ids.OBJ_REF_TYPE_ID
+    IMMUTABLE = True
+
+    _obj = None
+    _sid: Optional["mincepy.SnapshotId"] = None
+    _loader = None
+
+    def __init__(self, obj=None):
+        super().__init__()
+        assert not (
+            obj is not None and types.is_primitive(obj)
+        ), "Can't create a reference to a primitive type"
+        self._obj = obj
+
+    def __bool__(self) -> bool:
+        """Test if this is a null reference"""
+        return self._obj is not None or self._sid is not None
+
+    def __str__(self) -> str:
+        desc = ["ObjRef('"]
+        if self._obj is not None:
+            desc.append(str(self._obj))
+        else:
+            desc.append(str(self._sid))
+        desc.append("')")
+        return "".join(desc)
+
+    def __repr__(self) -> str:
+        return f"ObjRef({self._obj if self._obj is not None else self._sid})"
+
+    def __call__(self, update=False) -> object:
+        """Get the object being referenced.  If update is called then the latest version
+        will be loaded from the historian"""
+        if self._obj is None:
+            # This means we were loaded and need to load the object
+            if self._sid is None:
+                raise RuntimeError("Cannot dereference a None reference")
+            # Cache the object
+            self._obj = self._loader.load(self._sid)
+            assert (  # nosec: intentional internal assert
+                self._obj is not None
+            ), f"Loader did not load object using SID {self._sid}"
+            self._sid = None
+            self._loader = None
+        elif update:
+            try:
+                self._historian.sync(self._obj)
+            except exceptions.NotFound:
+                pass  # Object must have never been saved and is therefore up-to-date
+
+        return self._obj
+
+    def __eq__(self, other) -> bool:
+        if not isinstance(other, ObjRef):
+            return False
+
+        if self._obj is not None:
+            return id(self._obj) == id(other._obj)
+
+        return self._sid == other._sid
+
+    def yield_hashables(self, hasher):
+        if self._obj is not None:
+            yield from hasher.yield_hashables(id(self._obj))
+        else:
+            # This will also work if ref is None
+            yield from hasher.yield_hashables(self._sid)
+
+    def save_instance_state(self, saver):
+        if self._obj is not None:
+            sid = saver.get_snapshot_id(self._obj)
+        else:
+            sid = self._sid
+
+        if sid is not None:
+            return sid.to_dict()
+
+        return None
+
+    def load_instance_state(self, saved_state, loader):
+        super().load_instance_state(saved_state, loader)
+        # Rely on class default values for members
+        if saved_state is not None:
+            if isinstance(saved_state, list):
+                # Legacy version
+                self._sid = records.SnapshotId(*saved_state)
+            else:
+                # New version is dict
+                self._sid = records.SnapshotId(**saved_state)
+
+            self._loader = loader
+
+
+def ref(obj=None) -> ObjRef:
+    """Create an object reference"""
+    return ObjRef(obj)
+
+
+HISTORIAN_TYPES = (ObjRef,)
