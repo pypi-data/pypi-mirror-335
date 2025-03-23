@@ -1,0 +1,49 @@
+name: macOS Build & Test
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  workflow_call:
+    inputs:
+      linux_status:
+        description: 'Status of the Linux Build job'
+        required: true
+        type: string
+
+jobs:
+  build_and_test_macos:
+    runs-on: macos-latest
+    outputs:
+      macos_status: ${{ job.status }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install system packages
+        run: brew install gsl
+
+      - name: Install Python dependencies
+        run: pip install --upgrade build
+  
+      - name: Build MacOS Wheel
+        run: python -m build
+
+      - name: Test Wheel Installation
+        run: |
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install dist/*.whl
+          pip show -f pyamtrack
+          python -c "import pyamtrack; print(pyamtrack.__doc__); print(dir(pyamtrack)); print(pyamtrack.calculate_velocity(2));"
+          python -c "import pyamtrack; print(pyamtrack.beta_from_energy(150));"
+          python -c "import pyamtrack; print(pyamtrack.electron_range(150));"
+
+      - name: Upload macOS Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libamtrack-macos
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 5

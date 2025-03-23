@@ -1,0 +1,45 @@
+name: Linux Build & Test
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  workflow_call:
+    # (Add inputs if needed later)
+
+jobs:
+  build_and_test_linux:
+    runs-on: ubuntu-latest
+    outputs:
+      linux_status: ${{ job.status }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install system packages
+        run: sudo apt-get install -y --no-install-recommends libgsl-dev python3-pip python3-venv
+
+      - name: Install Python build tools
+        run: pip install --upgrade build
+
+      - name: Build Python Wheel
+        run: python -m build
+
+      - name: Install and Test Python Wheel
+        run: |
+          python3 -m venv testenv
+          source testenv/bin/activate
+          pip install dist/*.whl
+          pip show -f pyamtrack
+          python -c "import pyamtrack; print(pyamtrack.__doc__); print(dir(pyamtrack)); print(pyamtrack.calculate_velocity(2));"
+          python -c "import pyamtrack; print(pyamtrack.beta_from_energy(150));"
+          python -c "import pyamtrack; print(pyamtrack.electron_range(150));"
+
+      - name: Upload Linux Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: libamtrack-linux
+          path: dist/*.whl
+          if-no-files-found: error
+          retention-days: 5
