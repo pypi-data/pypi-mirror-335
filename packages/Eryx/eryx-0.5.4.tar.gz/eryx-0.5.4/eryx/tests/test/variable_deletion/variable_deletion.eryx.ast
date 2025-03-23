@@ -1,0 +1,100 @@
+Program(
+  body: [    
+    VariableDeclaration(
+      constant: True,
+      identifier: Identifier(
+        position: (          
+          1,
+          7,
+          1
+        ),
+        symbol: "x"
+      ),
+      position: (        
+        1,
+        5,
+        5
+      ),
+      value: NumericLiteral(
+        position: (          
+          1,
+          12,
+          2
+        ),
+        value: 10.0
+      )
+    ),
+    
+    DelStatement(
+      identifier: Identifier(
+        position: (          
+          3,
+          6,
+          1
+        ),
+        symbol: "x"
+      ),
+      position: (        
+        3,
+        4,
+        3
+      )
+    ),
+    
+    VariableDeclaration(
+      constant: True,
+      identifier: Identifier(
+        position: (          
+          5,
+          8,
+          1
+        ),
+        symbol: "x"
+      ),
+      position: (        
+        5,
+        6,
+        5
+      ),
+      value: NumericLiteral(
+        position: (          
+          5,
+          12,
+          1
+        ),
+        value: 1.0
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        Identifier(
+          position: (            
+            7,
+            8,
+            1
+          ),
+          symbol: "x"
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          7,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        7,
+        6,
+        5
+      )
+    )
+  ],
+  position: (    
+    0,
+    0,
+    0
+  )
+)

@@ -1,0 +1,364 @@
+Program(
+  body: [    
+    VariableDeclaration(
+      constant: True,
+      identifier: Identifier(
+        position: (          
+          1,
+          9,
+          3
+        ),
+        symbol: "obj"
+      ),
+      position: (        
+        1,
+        5,
+        5
+      ),
+      value: ObjectLiteral(
+        position: (          
+          1,
+          13,
+          1
+        ),
+        properties: [          
+          Property(
+            key: "nested",
+            position: (              
+              8,
+              2,
+              1
+            ),
+            value: ObjectLiteral(
+              position: (                
+                2,
+                14,
+                1
+              ),
+              properties: [                
+                Property(
+                  key: "nested_val",
+                  position: (                    
+                    3,
+                    25,
+                    1
+                  ),
+                  value: NumericLiteral(
+                    position: (                      
+                      3,
+                      24,
+                      3
+                    ),
+                    value: 100.0
+                  )
+                ),
+                
+                Property(
+                  key: "nest_squared",
+                  position: (                    
+                    7,
+                    6,
+                    1
+                  ),
+                  value: ObjectLiteral(
+                    position: (                      
+                      4,
+                      24,
+                      1
+                    ),
+                    properties: [                      
+                      Property(
+                        key: "maybe",
+                        position: (                          
+                          6,
+                          10,
+                          1
+                        ),
+                        value: StringLiteral(
+                          position: (                            
+                            5,
+                            27,
+                            7
+                          ),
+                          value: "works"
+                        )
+                      )
+                    ]
+                  )
+                )
+              ]
+            )
+          )
+        ]
+      )
+    ),
+    
+    VariableDeclaration(
+      constant: False,
+      identifier: Identifier(
+        position: (          
+          10,
+          8,
+          3
+        ),
+        symbol: "key"
+      ),
+      position: (        
+        10,
+        4,
+        3
+      ),
+      value: StringLiteral(
+        position: (          
+          10,
+          19,
+          8
+        ),
+        value: "nested"
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        MemberExpression(
+          computed: False,
+          object: Identifier(
+            position: (              
+              12,
+              10,
+              3
+            ),
+            symbol: "obj"
+          ),
+          position: (            
+            12,
+            10,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              12,
+              17,
+              6
+            ),
+            symbol: "nested"
+          )
+        ),
+        
+        MemberExpression(
+          computed: True,
+          object: Identifier(
+            position: (              
+              12,
+              22,
+              3
+            ),
+            symbol: "obj"
+          ),
+          position: (            
+            12,
+            22,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              12,
+              26,
+              3
+            ),
+            symbol: "key"
+          )
+        ),
+        
+        MemberExpression(
+          computed: False,
+          object: MemberExpression(
+            computed: False,
+            object: MemberExpression(
+              computed: False,
+              object: Identifier(
+                position: (                  
+                  12,
+                  32,
+                  3
+                ),
+                symbol: "obj"
+              ),
+              position: (                
+                12,
+                32,
+                3
+              ),
+              property: Identifier(
+                position: (                  
+                  12,
+                  39,
+                  6
+                ),
+                symbol: "nested"
+              )
+            ),
+            position: (              
+              12,
+              32,
+              3
+            ),
+            property: Identifier(
+              position: (                
+                12,
+                52,
+                12
+              ),
+              symbol: "nest_squared"
+            )
+          ),
+          position: (            
+            12,
+            32,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              12,
+              58,
+              5
+            ),
+            symbol: "maybe"
+          )
+        ),
+        
+        MemberExpression(
+          computed: False,
+          object: MemberExpression(
+            computed: False,
+            object: MemberExpression(
+              computed: True,
+              object: Identifier(
+                position: (                  
+                  12,
+                  63,
+                  3
+                ),
+                symbol: "obj"
+              ),
+              position: (                
+                12,
+                63,
+                3
+              ),
+              property: StringLiteral(
+                position: (                  
+                  12,
+                  72,
+                  8
+                ),
+                value: "nested"
+              )
+            ),
+            position: (              
+              12,
+              63,
+              3
+            ),
+            property: Identifier(
+              position: (                
+                12,
+                86,
+                12
+              ),
+              symbol: "nest_squared"
+            )
+          ),
+          position: (            
+            12,
+            63,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              12,
+              92,
+              5
+            ),
+            symbol: "maybe"
+          )
+        ),
+        
+        MemberExpression(
+          computed: False,
+          object: MemberExpression(
+            computed: True,
+            object: MemberExpression(
+              computed: False,
+              object: Identifier(
+                position: (                  
+                  12,
+                  97,
+                  3
+                ),
+                symbol: "obj"
+              ),
+              position: (                
+                12,
+                97,
+                3
+              ),
+              property: Identifier(
+                position: (                  
+                  12,
+                  104,
+                  6
+                ),
+                symbol: "nested"
+              )
+            ),
+            position: (              
+              12,
+              97,
+              3
+            ),
+            property: StringLiteral(
+              position: (                
+                12,
+                119,
+                14
+              ),
+              value: "nest_squared"
+            )
+          ),
+          position: (            
+            12,
+            97,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              12,
+              126,
+              5
+            ),
+            symbol: "maybe"
+          )
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          12,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        12,
+        6,
+        5
+      )
+    )
+  ],
+  position: (    
+    0,
+    0,
+    0
+  )
+)

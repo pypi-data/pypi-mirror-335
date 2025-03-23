@@ -1,0 +1,122 @@
+Program(
+  body: [    
+    EnumDeclaration(
+      name: "Colors",
+      position: (        
+        1,
+        4,
+        4
+      ),
+      values: [        
+        Identifier(
+          position: (            
+            2,
+            10,
+            5
+          ),
+          symbol: "green"
+        ),
+        
+        Identifier(
+          position: (            
+            3,
+            10,
+            5
+          ),
+          symbol: "black"
+        ),
+        
+        Identifier(
+          position: (            
+            4,
+            9,
+            4
+          ),
+          symbol: "cyan"
+        ),
+        
+        Identifier(
+          position: (            
+            5,
+            12,
+            7
+          ),
+          symbol: "magenta"
+        )
+      ]
+    ),
+    
+    CallExpression(
+      arguments: [        
+        Identifier(
+          position: (            
+            8,
+            13,
+            6
+          ),
+          symbol: "Colors"
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          8,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        8,
+        6,
+        5
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        MemberExpression(
+          computed: False,
+          object: Identifier(
+            position: (              
+              10,
+              13,
+              6
+            ),
+            symbol: "Colors"
+          ),
+          position: (            
+            10,
+            13,
+            6
+          ),
+          property: Identifier(
+            position: (              
+              10,
+              19,
+              5
+            ),
+            symbol: "green"
+          )
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          10,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        10,
+        6,
+        5
+      )
+    )
+  ],
+  position: (    
+    0,
+    0,
+    0
+  )
+)

@@ -1,0 +1,308 @@
+Program(
+  body: [    
+    ClassDeclaration(
+      arguments: [        
+        "yes",
+        "a",
+        "c",
+        "g"
+      ],
+      methods: [        
+        AssignmentExpression(
+          assigne: Identifier(
+            position: (              
+              7,
+              8,
+              3
+            ),
+            symbol: "abc"
+          ),
+          operator: None,
+          position: (            
+            7,
+            8,
+            3
+          ),
+          value: NumericLiteral(
+            position: (              
+              7,
+              20,
+              1
+            ),
+            value: 1.0
+          )
+        ),
+        
+        FunctionDeclaration(
+          arguments: [            
+            "x",
+            "y"
+          ],
+          body: [            
+            ReturnStatement(
+              position: (                
+                10,
+                15,
+                6
+              ),
+              value: BinaryExpression(
+                left: Identifier(
+                  position: (                    
+                    10,
+                    17,
+                    1
+                  ),
+                  symbol: "a"
+                ),
+                operator: "+",
+                position: (                  
+                  10,
+                  17,
+                  1
+                ),
+                right: Identifier(
+                  position: (                    
+                    10,
+                    21,
+                    1
+                  ),
+                  symbol: "b"
+                )
+              )
+            )
+          ],
+          name: "sum",
+          position: (            
+            9,
+            9,
+            4
+          )
+        )
+      ],
+      name: "Test",
+      position: (        
+        1,
+        5,
+        5
+      )
+    ),
+    
+    VariableDeclaration(
+      constant: False,
+      identifier: Identifier(
+        position: (          
+          14,
+          8,
+          3
+        ),
+        symbol: "tst"
+      ),
+      position: (        
+        14,
+        4,
+        3
+      ),
+      value: CallExpression(
+        arguments: [          
+          StringLiteral(
+            position: (              
+              14,
+              23,
+              7
+            ),
+            value: "aaaaa"
+          ),
+          
+          NumericLiteral(
+            position: (              
+              14,
+              26,
+              1
+            ),
+            value: 7.0
+          ),
+          
+          Identifier(
+            position: (              
+              14,
+              32,
+              4
+            ),
+            symbol: "true"
+          ),
+          
+          NumericLiteral(
+            position: (              
+              14,
+              37,
+              3
+            ),
+            value: 999.0
+          )
+        ],
+        caller: Identifier(
+          position: (            
+            14,
+            15,
+            4
+          ),
+          symbol: "Test"
+        ),
+        position: (          
+          14,
+          15,
+          4
+        )
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        Identifier(
+          position: (            
+            16,
+            11,
+            4
+          ),
+          symbol: "Test"
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          16,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        16,
+        6,
+        5
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        Identifier(
+          position: (            
+            18,
+            10,
+            3
+          ),
+          symbol: "tst"
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          18,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        18,
+        6,
+        5
+      )
+    ),
+    
+    CallExpression(
+      arguments: [        
+        MemberExpression(
+          computed: False,
+          object: Identifier(
+            position: (              
+              20,
+              10,
+              3
+            ),
+            symbol: "tst"
+          ),
+          position: (            
+            20,
+            10,
+            3
+          ),
+          property: Identifier(
+            position: (              
+              20,
+              12,
+              1
+            ),
+            symbol: "a"
+          )
+        ),
+        
+        MemberExpression(
+          computed: True,
+          object: Identifier(
+            position: (              
+              20,
+              17,
+              3
+            ),
+            symbol: "tst"
+          ),
+          position: (            
+            20,
+            17,
+            3
+          ),
+          property: StringLiteral(
+            position: (              
+              20,
+              21,
+              3
+            ),
+            value: "a"
+          )
+        ),
+        
+        MemberExpression(
+          computed: False,
+          object: Identifier(
+            position: (              
+              20,
+              28,
+              4
+            ),
+            symbol: "Test"
+          ),
+          position: (            
+            20,
+            28,
+            4
+          ),
+          property: Identifier(
+            position: (              
+              20,
+              32,
+              3
+            ),
+            symbol: "abc"
+          )
+        )
+      ],
+      caller: Identifier(
+        position: (          
+          20,
+          6,
+          5
+        ),
+        symbol: "print"
+      ),
+      position: (        
+        20,
+        6,
+        5
+      )
+    )
+  ],
+  position: (    
+    0,
+    0,
+    0
+  )
+)
