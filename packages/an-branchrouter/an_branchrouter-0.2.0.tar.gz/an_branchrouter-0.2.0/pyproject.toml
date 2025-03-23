@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "an_branchrouter"
+version = "0.2.0"
+description = "A package for an_branchrouter."
+authors = [
+    { name = "Atsushi888", email = "vtgrotxu@gmail.com" }
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.6"
+dependencies = ['an_DebugHelper', 'an_EnvManager', 'an_CudaUtility', 'an_CondaManager', 'an_KohyaSetupManager', 'an_DteSetupManager', 'an_ComfySetupManager', 'an_SDSetupManager']
+
+[project.urls]
+Homepage = "https://github.com/Atsushi888/an_branchrouter"
+Repository = "https://github.com/Atsushi888/an_branchrouter"
