@@ -1,0 +1,33 @@
+MARKS_SEGMENT; BEGIN; COMPOSITE;BINARY;{{ marks_segment_size }}
+POSITIONS; BEGIN; VECTOR_DOUBLE;BINARY;{{ positions_size }}
+{{ positions }}
+POSITIONS; END
+
+IDS; BEGIN; VECTOR_INT;BINARY;{{ ids_size }}
+{{ ids }}
+IDS; END
+
+LENGTHS; BEGIN; VECTOR_DOUBLE;BINARY;{{ lengths_size }}
+{{ lengths }}
+LENGTHS; END
+
+{{ texts }}
+
+TEXT_ATTR_POSITIONS; BEGIN; MATRIX_INT;BINARY;{{ attr_size }}
+{{ text_attr_positions }}
+TEXT_ATTR_POSITIONS; END
+
+TEXT_ATTR_LENGTHS; BEGIN; MATRIX_INT;BINARY;{{ attr_size }}
+{{ text_attr_positions }}
+TEXT_ATTR_LENGTHS; END
+
+TEXT_ATTR_TYPES; BEGIN; MATRIX_INT;BINARY;{{ attr_size }}
+{{ text_attr_positions }}
+TEXT_ATTR_TYPES; END
+
+TEXT_ATTR_VALUES; BEGIN; MATRIX_INT;BINARY;{{ attr_size }}
+{{ text_attr_positions }}
+TEXT_ATTR_VALUES; END
+
+
+MARKS_SEGMENT; END

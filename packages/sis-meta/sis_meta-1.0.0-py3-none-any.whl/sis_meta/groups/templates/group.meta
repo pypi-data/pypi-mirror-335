@@ -1,0 +1,24 @@
+GROUP{{ group.id }}; BEGIN; COMPOSITE;BINARY;{{ size }}
+ID; {{ group.id }}
+
+NAME; {{ group.name }}
+
+COLOR; {{ group.color }}
+
+HOTKEY; {{ group.hotkey }}
+
+USERPARAM; {{ group.userparam }}
+
+{% if "child" in group %}
+SUBGROUPS; BEGIN; COMPOSITE;BINARY;{{ subgroup_size }}
+{{ subgroup }}
+SUBGROUPS; END
+
+
+GROUP{{ group.id }}; END
+
+{% else %}
+
+GROUP{{ group.id }}; END
+
+{% endif %}
