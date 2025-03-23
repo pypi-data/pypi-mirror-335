@@ -1,0 +1,10 @@
+[console_scripts]
+from_ipfs = from_ipfs.cli:main
+from_ipfs_alt = from_ipfs.main:main
+from_ipfs_config = from_ipfs.utils:show_config
+
+[llama_cpp]
+from_ipfs = from_ipfs:patch_llama_cpp
+
+[transformers]
+from_ipfs = from_ipfs:patch_transformers
