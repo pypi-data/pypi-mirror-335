@@ -1,0 +1,2559 @@
+
+# 2025-03-06 13:53:56.341703
++no
+
+# 2025-03-06 13:54:27.563061
++/add src/paperap/models/abstract/model.py
+
+# 2025-03-06 13:54:40.338945
++/add tests/models/test_base.py
+
+# 2025-03-06 13:56:57.083912
++Determine what unit tests are missing from test_base.py based on the functionality in model.py and create those tests.
+
+# 2025-03-06 13:57:51.969894
++no
+
+# 2025-03-06 14:08:28.819354
++/exit
+
+# 2025-03-06 19:53:55.522367
++no
+
+# 2025-03-06 19:54:07.962260
++/add src/paperap/models/document/queryset.py
+
+# 2025-03-06 19:55:06.141727
++ Consider the following documentation from paperless ngx:
+
+# 2025-03-06 19:55:22.084430
++no
+
+# 2025-03-06 19:55:31.736485
++/add src/paperap/models/document/queryset.py
+
+# 2025-03-06 19:57:02.041078
++Consider the following documentation from paperless ngx You can filter documents by their custom field values by specifying the custom_field_query query parameter. Here are some recipes for common use cases:
++
++    Documents with a custom field "due" (date) between Aug 1, 2024 and Sept 1, 2024 (inclusive):
++
++    ?custom_field_query=["due", "range", ["2024-08-01", "2024-09-01"]]
++
++    Documents with a custom field "customer" (text) that equals "bob" (case sensitive):
++
++    ?custom_field_query=["customer", "exact", "bob"]
++
++    Documents with a custom field "answered" (boolean) set to true:
++
++    ?custom_field_query=["answered", "exact", true]
++
++    Documents with a custom field "favorite animal" (select) set to either "cat" or "dog":
++
++    ?custom_field_query=["favorite animal", "in", ["cat", "dog"]]
++
++    Documents with a custom field "address" (text) that is empty:
++
++    ?custom_field_query=["OR", ["address", "isnull", true], ["address", "exact", ""]]
++
++    Documents that don't have a field called "foo":
++
++    ?custom_field_query=["foo", "exists", false]
++
++    Documents that have document links "references" to both document 3 and 7:
++
++    ?custom_field_query=["references", "contains", [3, 7]]
++
++All field types support basic operations including exact, in, isnull, and exists. String, URL, and monetary fields support case-insensitive substring matching operations including icontains, istartswith, and iendswith. Integer, float, and date fields support arithmetic comparisons including gt (>), gte (>=), lt (<), lte (<=), and range. Lastly, document link fields support a contains operator that behaves like a "is superset of" check. ---- I have written several methods in my document queryset to make it easy to find documents based on their custom fields. Please create more methods that make using the features described in the documentation above easy.
+
+# 2025-03-06 20:16:36.058569
++/exit
+
+# 2025-03-07 13:06:06.448217
++no
+
+# 2025-03-07 13:06:31.650075
++/add src/paperap/models/abstract/model.py
+
+# 2025-03-07 13:06:37.849115
++/add src/paperap/models/abstract/parser.py
+
+# 2025-03-07 13:06:41.277647
++/add src/paperap/models/abstract/queryset.py
+
+# 2025-03-07 13:08:29.368582
++Ensure all classes and methods have complete docstrings with Args: Returns: Raises: and Examples:. For context, this is a library that makes it easy to interact with the paperless ngx rest api, and files in models/abstract/ are base classes that are subclassed by other models.
+
+# 2025-03-07 13:10:59.770977
++no
+
+# 2025-03-07 13:22:42.669087
++Ensure all classes and methods have complete docstrings with Args: Returns: Raises: and Examples:. For context, this is a library that makes it easy to interact with the paperless ngx rest api, and files in models/abstract/ are base classes that are subclassed by other models.
+
+# 2025-03-07 13:46:28.405147
++/drop
+
+# 2025-03-07 13:46:37.823616
++/add models/document_type/*
+
+# 2025-03-07 13:46:47.284476
++/add src/paperap/models/document_type/*
+
+# 2025-03-07 13:47:00.036749
++/drop __init__.py
+
+# 2025-03-07 13:47:05.105170
++/drop src/paperap/models/document_type/__init__.py
+
+# 2025-03-07 13:47:13.979880
++ Ensure all classes and methods have complete docstrings with Args: Returns: Raises: and Examples:. For context, this is a library that makes it easy to interact with the paperless ngx rest api
+
+# 2025-03-07 13:48:03.730088
++/add README.md
+
+# 2025-03-07 13:48:08.010541
++/drop *.py
+
+# 2025-03-07 13:48:15.735500
++/drop src/paperap/models/document_type/model.py src/paperap/models/document_type/queryset.py
+
+# 2025-03-07 13:48:31.666651
++/add src/paperap/models/profile/*
+
+# 2025-03-07 13:48:38.147972
++/drop src/paperap/models/profile/__init__.py
+
+# 2025-03-07 13:48:58.163900
++Ensure all classes and methods have complete docstrings with Args: Returns: Raises: and Examples:. For context, this is a library that makes it easy to interact with the paperless ngx rest api
+
+# 2025-03-07 13:49:51.881699
++no
+
+# 2025-03-07 13:50:31.030487
++/exit
+
+# 2025-03-07 13:51:29.249257
++no
+
+# 2025-03-07 13:51:58.034993
++/undo
+
+# 2025-03-07 14:06:25.073509
++/exit
+
+# 2025-03-09 22:14:20.920466
++no
+
+# 2025-03-09 22:14:39.350899
++/add src/paperap/plugin_manager.py
+
+# 2025-03-09 22:15:01.860611
++Use lazy % formatting in logging functions in plugin_manager.py
+
+# 2025-03-09 22:15:22.573965
++/drop src/paperap/plugin_manager.py
+
+# 2025-03-09 22:15:37.274121
++/add src/paperap/models/abstract/parser.py
+
+# 2025-03-09 22:15:39.140004
++/add src/paperap/models/document/parser.py
+
+# 2025-03-09 22:15:42.526939
++Use lazy % formatting in logging functions
+
+# 2025-03-09 22:19:52.232940
++Ensure all classes, functions, and methods have docstrings.
+
+# 2025-03-09 22:21:06.798212
++no
+
+# 2025-03-09 22:21:08.877275
++/exit
+
+# 2025-03-09 22:21:31.444371
++no
+
+# 2025-03-09 22:21:47.420814
++/add src/paperap/models/document/model.py
+
+# 2025-03-09 22:22:04.130719
++Add docstrings
+
+# 2025-03-09 22:25:42.875479
++/drop model.py
+
+# 2025-03-09 22:25:49.032179
++/drop src/paperap/models/document/model.py
+
+# 2025-03-09 22:25:55.208049
++/add src/paperap/tests/testcase.py
+
+# 2025-03-09 22:26:06.236884
++Add docstrings
+
+# 2025-03-12 19:26:24.525375
++no
+
+# 2025-03-12 19:29:38.461193
++yes
+
+# 2025-03-12 20:07:02.093383
++no
+
+# 2025-03-12 20:07:31.801240
++yes
+
+# 2025-03-12 20:07:41.576778
++/exit
+
+# 2025-03-12 20:09:11.394523
++no
+
+# 2025-03-12 20:09:13.520719
++/exit
+
+# 2025-03-12 20:09:24.304125
++no
+
+# 2025-03-12 20:09:37.095898
++/exit
+
+# 2025-03-12 20:12:57.031786
++/clear
+
+# 2025-03-12 20:12:59.488992
++/exit
+
+# 2025-03-12 20:13:29.096696
++/add src/paperap/client.py
+
+# 2025-03-12 20:17:12.152663
++I have a Python library used to connect to the paperless ngx rest api, and I want to enhance it by adding contracts using the icontract library. My requirements:
++
++    Use icontract.require for preconditions to validate function arguments.
++    Use icontract.ensure for postconditions to validate return values.
++    Use icontract.inv for class invariants if applicable.
++    Ensure all contracts follow best practices, such as:
++        Keeping preconditions and postconditions expressive and readable.
++        Avoiding side effects inside contracts.
++        Using exceptions when contracts fail. Please analyze my code and add appropriate contracts while ensuring correctness and maintainability. Explain any assumptions or edge cases you account for.
+
+# 2025-03-12 20:30:46.369053
++no
+
+# 2025-03-12 20:30:48.068829
++/exit
+
+# 2025-03-12 23:54:03.299640
++/add tests/unit/test_signals.py
+
+# 2025-03-12 23:54:05.377515
++/add src/paperap/signals.py
+
+# 2025-03-12 23:54:39.995856
++Find features in signals.py that aren't being tested in test_signals.py and create unit tests for them.
+
+# 2025-03-12 23:55:21.261818
++no
+
+# 2025-03-12 23:58:57.019601
++/drop
+
+# 2025-03-12 23:59:02.576510
++/add src/paperap/models/document/model.py
+
+# 2025-03-12 23:59:19.105566
++/add tests/unit/models/test_document.py
+
+# 2025-03-12 23:59:47.213076
++Find features in document/model.py that are not being tested, and add unit tests to test_document.py. Be extremely thorough.
+
+# 2025-03-13 00:02:41.930367
++no
+
+# 2025-03-13 00:04:23.689297
++/drop
+
+# 2025-03-13 00:04:34.987735
++/add src/paperap/client.py tests/unit/test_client.py
+
+# 2025-03-13 00:04:57.784016
++Find code in client.py that is missing tests, and add them to test_client.py. Be extremely thorough.
+
+# 2025-03-13 00:07:40.508265
++no
+
+# 2025-03-13 00:08:24.918271
++/drop
+
+# 2025-03-13 00:09:29.664515
++/add src/paperap/plugins/collect_test_data.py
+
+# 2025-03-13 00:10:23.169271
++/add tests/unit/models/validation/test_correspondent.py
+
+# 2025-03-13 00:11:38.489347
++Create unit tests for all functionality in collect_test_data.py. Follow a similar format to other unit tests (for example, test_correspondent.py), and place the unit tests in a new file tests/unit/plugins/test_collect_test_data.py
+
+# 2025-03-13 00:13:15.766946
++no
+
+# 2025-03-13 00:15:02.747028
++/drop
+
+# 2025-03-13 00:15:08.772108
++/add src/paperap/models/abstract/queryset.py
+
+# 2025-03-13 00:15:14.608671
++/add tests/unit/models/test_queryset.py
+
+# 2025-03-13 00:15:35.793961
++Find any functionality in queryset.py that is not being tested, and place new tests in test_queryset.py. Be extremely thorough.
+
+# 2025-03-13 00:17:03.943673
++/run python -m unittest tests/unit/models/test_queryset.py
+
+# 2025-03-13 00:17:03.946716
++/run python -m unittest tests/unit/models/test_queryset.py
+
+# 2025-03-13 00:17:28.679123
++no
+
+# 2025-03-13 00:17:31.726227
++/drop
+
+# 2025-03-13 00:17:54.706971
++/add src/paperap/models/abstract/queryset.py
+
+# 2025-03-13 00:18:03.969049
++/add src/paperap/models/document/queryset.py
+
+# 2025-03-13 00:19:35.697824
++Write unit tests for all the code in document/queryset.py. Place the unit tests in a new file tests/unit/models/document/test_queryset.py. Be extremely thorough.
+
+# 2025-03-13 00:23:37.436349
++no
+
+# 2025-03-13 00:25:24.559538
++/drop
+
+# 2025-03-13 00:26:41.032838
++/add src/paperap/models/task/queryset.py
+
+# 2025-03-13 00:27:13.768431
++Create unit tests for all the code in task/queryset.py and put it in a new file in tests/unit/models/task/test_queryset.py. Be extremely thorough.
+
+# 2025-03-13 00:28:35.167915
++d
+
+# 2025-03-13 00:28:55.356563
++/drop
+
+# 2025-03-13 00:29:01.444158
++/add src/paperap/models/share_links/queryset.py
+
+# 2025-03-13 00:29:17.853150
++Create unit tests for all code in queryset.py and add it to a new test file
+
+# 2025-03-13 00:29:31.329712
++/exit
+
+# 2025-03-13 00:35:03.954037
++/model azure/gpt-4o-2024-05-13
+
+# 2025-03-13 00:35:09.999257
++/model
+
+# 2025-03-13 00:35:31.225320
++/exit
+
+# 2025-03-13 00:36:18.700366
++/model gpt-4o-2024-11-20
+
+# 2025-03-13 00:37:44.122980
++Find code throughout my library that is not tested, and create unit tests for it in a similarly named file in tests/unit. For example, models/foo/queryset.py would be named tests/unit/models/foo/test_queryset.py. Be extremely thorough in creating unit tests that fully test all aspects of the code.
+
+# 2025-03-13 00:47:25.109140
++/exit
+
+# 2025-03-13 00:48:24.956505
++/model chatgpt-4o-latest
+
+# 2025-03-13 00:48:28.138135
++Find code throughout my library that is not tested, and create unit tests for it in a similarly named file in tests/unit. For example, models/foo/queryset.py would be named tests/unit/models/foo/test_queryset.py. Be extremely thorough in creating unit tests that fully test all aspects of the code.
+
+# 2025-03-13 00:49:07.539880
++a
+
+# 2025-03-13 00:49:37.858664
++no
+
+# 2025-03-13 00:49:59.542986
++Expand on the unit tests you created to handle more code, more edge cases, more errors, and so on.
+
+# 2025-03-13 00:50:38.841415
++/run python -m unittest discover tests/unit
+
+# 2025-03-13 00:50:38.844489
++/run python -m unittest discover tests/unit
+
+# 2025-03-13 00:52:20.753021
++fix the failing unit tests
+
+# 2025-03-13 01:12:25.436501
++/exit
+
+# 2025-03-13 01:12:44.300454
++/add tests/unit/output/failure_test_client.txt
+
+# 2025-03-13 01:12:54.013202
++no
+
+# 2025-03-13 01:13:19.604791
++/add tests/output/failure_test_client.txt
+
+# 2025-03-13 01:13:25.581992
++/add test_client.py
+
+# 2025-03-13 01:13:27.900939
++no
+
+# 2025-03-13 01:13:30.904613
++/add tests/unit/test_client.py
+
+# 2025-03-13 01:13:37.036661
++/add src/paperap/client.py
+
+# 2025-03-13 01:15:04.584652
++Test output is in failure_test_client.txt. Identify if the error is an issue with the newly created unit tests, or with the code it is testing, and then fix the problem so the tests pass. If you identify additional issues while investigating, fix any issues you find, and make any improvements you can. 
+
+# 2025-03-13 01:15:51.697124
++no
+
+# 2025-03-13 01:40:38.324586
++ cd /mnt/c/Users/jessa/Work/Projects/Paperap ; /usr/bin/env /mnt/c/Users/jessa/Work/Projects/Paperap/.venv/bin/python /home/snow/.vscode-server/extensions/ms-python.debugpy-2025.4.1-linux-x64/bundled/libs/debugpy/adapter/../../debugpy/launcher 52167 -- -m unittest discover -s tests/unit --failfast 
+
+# 2025-03-13 01:55:45.997133
++/add tests/output/failureE_test_queryset.txt
+
+# 2025-03-13 01:55:47.713897
++no
+
+# 2025-03-13 01:55:57.968026
++/add tests/output/failure_test_queryset.txt
+
+# 2025-03-13 01:56:04.133884
++/add tests/unit/models/document/test_queryset.py
+
+# 2025-03-13 01:56:15.797166
++/add src/paperap/models/document/queryset.py
+
+# 2025-03-13 01:58:03.674021
++The text output is in failure_test_queryset.txt. Assess whether the errors are due to an issue in the newly created unit tests, or errors in the code, and fix the problem. If you discover any additional issues while investigating, fix them. Make any improvements you can to ensure the code is bug free and follows modern best practices.
+
+# 2025-03-13 01:59:09.867202
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 01:59:09.869503
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:00:24.202105
++Look at the most recent 16 errors and fix them. Make any additional improvements to the code or tests you can while you do it.
+
+# 2025-03-13 02:01:47.588370
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:01:47.590544
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:02:28.669754
++assess the newest 7 failures
+
+# 2025-03-13 02:03:05.594061
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:03:05.597695
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:03:46.391497
++Assess the most recent failures
+
+# 2025-03-13 02:04:39.504516
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:04:39.506879
++/run python -m unittest tests.unit.models.document.test_queryset
+
+# 2025-03-13 02:05:31.829556
++no
+
+# 2025-03-13 02:05:34.435417
++/exit
+
+# 2025-03-13 02:09:42.108487
++Look at unit test output below and assess the cause, make corrections to the tests or the code as appropriate. Make improvements, even if unrelated, while you do it. Unit test output: python -m unittest discover -s tests/unit
++.....................................................EF..E.E......................................................EE..F....................E..E...EE....................................................Unable to connect to Paperless server: GET url https://example.com/api/documents/, params None, data None, files None
++..Failed to parse JSON response: Invalid JSON -> url https://example.com/api/documents/ -> content: b'Not JSON'
++.......................EPlugin not found: NonExistentPlugin
++..Failed to initialize plugin FailingPlugin: Setup failed
++.............................F..
++======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_contains_with_model (models.test_queryset.TestContains.test_contains_with_model)
++Test checking if a model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 460, in test_contains_with_model
++    self.assertTrue(model in self.qs)
++                    ^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 660, in __getattr__
++    raise AttributeError("Mock object has no attribute %r" % name)
++AttributeError: Mock object has no attribute 'id'
++
++======================================================================
++ERROR: test_contains_with_non_model (models.test_queryset.TestContains.test_contains_with_non_model)
++Test checking if a non-model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 469, in test_contains_with_non_model
++    self.assertFalse(non_model in self.qs)
++                     ^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++AttributeError: 'str' object has no attribute 'id'
++
++======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 431, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 422, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 339, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 362, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
++======================================================================
++ERROR: test_discover_plugins (test_plugin_manager.TestPluginManager.test_discover_plugins)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_plugin_manager.py", line 36, in test_discover_plugins
++    self.manager.discover_plugins("paperap.plugins")
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/plugin_manager.py", line 93, in discover_plugins
++    for _, module_name, is_pkg in pkgutil.iter_modules(package.__path__, package.__name__ + "."):
++                                                       ^^^^^^^^^^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 662, in __getattr__
++    raise AttributeError(name)
++AttributeError: __path__
++
++======================================================================
++FAIL: test_tags_setter_with_integers (models.test_document.TestDocumentSetters.test_tags_setter_with_integers)
++Test setting tags with integer IDs.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 511, in test_tags_setter_with_integers
++    self.assertEqual(self.model.tag_ids, [1, 2, 3])
++AssertionError: Lists differ: [7, 4, 34, 5, 30, 1, 2, 3] != [1, 2, 3]
++
++First differing element 0:
++7
++1
++
++First list contains 5 additional elements.
++First extra element 3:
++5
++
++- [7, 4, 34, 5, 30, 1, 2, 3]
+++ [1, 2, 3]
++
++======================================================================
++FAIL: test_fetch_all_results_multiple_pages (models.test_queryset.TestFetchAllResults.test_fetch_all_results_multiple_pages)
++Test fetching all results with multiple pages.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 680, in test_fetch_all_results_multiple_pages
++    self.assertEqual(mock_request_iter.call_count, 2)
++AssertionError: 1 != 2
++
++======================================================================
++FAIL: test_queue_actions (test_signals.TestSignalSystem.test_queue_actions)
++Test queuing actions for signals that don't exist yet.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 282, in test_queue_actions
++    self.assertTrue(self.registry.is_queued("connect", "future.queue", handler1), f"Handler1 not queued for connect: {self.registry._queue['connect'].__repr__()}")
++AssertionError: False is not true : Handler1 not queued for connect: {'future.queue': {(<function TestSignalSystem.test_queue_actions.<locals>.handler1 at 0x7f064a7fb240>, 25), (<function TestSignalSystem.test_queue_actions.<locals>.handler2 at 0x7f064a7fb7e0>, 50)}}
++
++----------------------------------------------------------------------
++Ran 260 tests in 16.275s
++
++FAILED (failures=3, errors=10)python -m unittest discover -s tests/unit
++.....................................................EF..E.E......................................................EE..F....................E..E...EE....................................................Unable to connect to Paperless server: GET url https://example.com/api/documents/, params None, data None, files None
++..Failed to parse JSON response: Invalid JSON -> url https://example.com/api/documents/ -> content: b'Not JSON'
++.......................EPlugin not found: NonExistentPlugin
++..Failed to initialize plugin FailingPlugin: Setup failed
++.............................F..
++======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_contains_with_model (models.test_queryset.TestContains.test_contains_with_model)
++Test checking if a model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 460, in test_contains_with_model
++    self.assertTrue(model in self.qs)
++                    ^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 660, in __getattr__
++    raise AttributeError("Mock object has no attribute %r" % name)
++AttributeError: Mock object has no attribute 'id'
++
++======================================================================
++ERROR: test_contains_with_non_model (models.test_queryset.TestContains.test_contains_with_non_model)
++Test checking if a non-model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 469, in test_contains_with_non_model
++    self.assertFalse(non_model in self.qs)
++                     ^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++AttributeError: 'str' object has no attribute 'id'
++
++======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 431, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 422, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 339, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 362, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
++======================================================================
++ERROR: test_discover_plugins (test_plugin_manager.TestPluginManager.test_discover_plugins)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_plugin_manager.py", line 36, in test_discover_plugins
++    self.manager.discover_plugins("paperap.plugins")
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/plugin_manager.py", line 93, in discover_plugins
++    for _, module_name, is_pkg in pkgutil.iter_modules(package.__path__, package.__name__ + "."):
++                                                       ^^^^^^^^^^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 662, in __getattr__
++    raise AttributeError(name)
++AttributeError: __path__
++
++======================================================================
++FAIL: test_tags_setter_with_integers (models.test_document.TestDocumentSetters.test_tags_setter_with_integers)
++Test setting tags with integer IDs.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 511, in test_tags_setter_with_integers
++    self.assertEqual(self.model.tag_ids, [1, 2, 3])
++AssertionError: Lists differ: [7, 4, 34, 5, 30, 1, 2, 3] != [1, 2, 3]
++
++First differing element 0:
++7
++1
++
++First list contains 5 additional elements.
++First extra element 3:
++5
++
++- [7, 4, 34, 5, 30, 1, 2, 3]
+++ [1, 2, 3]
++
++======================================================================
++FAIL: test_fetch_all_results_multiple_pages (models.test_queryset.TestFetchAllResults.test_fetch_all_results_multiple_pages)
++Test fetching all results with multiple pages.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 680, in test_fetch_all_results_multiple_pages
++    self.assertEqual(mock_request_iter.call_count, 2)
++AssertionError: 1 != 2
++
++======================================================================
++FAIL: test_queue_actions (test_signals.TestSignalSystem.test_queue_actions)
++Test queuing actions for signals that don't exist yet.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 282, in test_queue_actions
++    self.assertTrue(self.registry.is_queued("connect", "future.queue", handler1), f"Handler1 not queued for connect: {self.registry._queue['connect'].__repr__()}")
++AssertionError: False is not true : Handler1 not queued for connect: {'future.queue': {(<function TestSignalSystem.test_queue_actions.<locals>.handler1 at 0x7f064a7fb240>, 25), (<function TestSignalSystem.test_queue_actions.<locals>.handler2 at 0x7f064a7fb7e0>, 50)}}
++
++----------------------------------------------------------------------
++Ran 260 tests in 16.275s
++
++FAILED (failures=3, errors=10)
+
+# 2025-03-13 02:09:47.394663
++no
+
+# 2025-03-13 02:10:25.431299
++/add storage_path/model.py
+
+# 2025-03-13 02:10:33.719413
++no
+
+# 2025-03-13 02:10:37.507576
++/add src/paperap/models/storage_path/model.py
+
+# 2025-03-13 02:10:44.747204
++/add src/paperap/models/tag/model.py
+
+# 2025-03-13 02:10:50.954071
++/add src/paperap/models/document/model.py
+
+# 2025-03-13 02:10:59.733664
++/add src/paperap/models/abstract/queryset.py
+
+# 2025-03-13 02:11:46.481660
++I've added a few of those files, but not all of them for brevity. Review the test output and these files to make corrections based on the failed tests. Here's the test output again: python -m unittest discover -s tests/unit
++.....................................................EF..E.E......................................................EE..F....................E..E...EE....................................................Unable to connect to Paperless server: GET url https://example.com/api/documents/, params None, data None, files None
++..Failed to parse JSON response: Invalid JSON -> url https://example.com/api/documents/ -> content: b'Not JSON'
++.......................EPlugin not found: NonExistentPlugin
++..Failed to initialize plugin FailingPlugin: Setup failed
++.............................F..
++======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_contains_with_model (models.test_queryset.TestContains.test_contains_with_model)
++Test checking if a model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 460, in test_contains_with_model
++    self.assertTrue(model in self.qs)
++                    ^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 660, in __getattr__
++    raise AttributeError("Mock object has no attribute %r" % name)
++AttributeError: Mock object has no attribute 'id'
++
++======================================================================
++ERROR: test_contains_with_non_model (models.test_queryset.TestContains.test_contains_with_non_model)
++Test checking if a non-model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 469, in test_contains_with_non_model
++    self.assertFalse(non_model in self.qs)
++                     ^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 826, in __contains__
++    pk = item if isinstance(item, int) else item.id
++                                            ^^^^^^^
++AttributeError: 'str' object has no attribute 'id'
++
++======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 431, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 422, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 339, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 362, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
++======================================================================
++ERROR: test_discover_plugins (test_plugin_manager.TestPluginManager.test_discover_plugins)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_plugin_manager.py", line 36, in test_discover_plugins
++    self.manager.discover_plugins("paperap.plugins")
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/plugin_manager.py", line 93, in discover_plugins
++    for _, module_name, is_pkg in pkgutil.iter_modules(package.__path__, package.__name__ + "."):
++                                                       ^^^^^^^^^^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 662, in __getattr__
++    raise AttributeError(name)
++AttributeError: __path__
++
++======================================================================
++FAIL: test_tags_setter_with_integers (models.test_document.TestDocumentSetters.test_tags_setter_with_integers)
++Test setting tags with integer IDs.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 511, in test_tags_setter_with_integers
++    self.assertEqual(self.model.tag_ids, [1, 2, 3])
++AssertionError: Lists differ: [7, 4, 34, 5, 30, 1, 2, 3] != [1, 2, 3]
++
++First differing element 0:
++7
++1
++
++First list contains 5 additional elements.
++First extra element 3:
++5
++
++- [7, 4, 34, 5, 30, 1, 2, 3]
+++ [1, 2, 3]
++
++======================================================================
++FAIL: test_fetch_all_results_multiple_pages (models.test_queryset.TestFetchAllResults.test_fetch_all_results_multiple_pages)
++Test fetching all results with multiple pages.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 680, in test_fetch_all_results_multiple_pages
++    self.assertEqual(mock_request_iter.call_count, 2)
++AssertionError: 1 != 2
++
++======================================================================
++FAIL: test_queue_actions (test_signals.TestSignalSystem.test_queue_actions)
++Test queuing actions for signals that don't exist yet.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 282, in test_queue_actions
++    self.assertTrue(self.registry.is_queued("connect", "future.queue", handler1), f"Handler1 not queued for connect: {self.registry._queue['connect'].__repr__()}")
++AssertionError: False is not true : Handler1 not queued for connect: {'future.queue': {(<function TestSignalSystem.test_queue_actions.<locals>.handler1 at 0x7f064a7fb240>, 25), (<function TestSignalSystem.test_queue_actions.<locals>.handler2 at 0x7f064a7fb7e0>, 50)}}
++
++----------------------------------------------------------------------
++Ran 260 tests in 16.275s
++
++FAILED (failures=3, errors=10)
+
+# 2025-03-13 02:15:03.141934
++/run python -m unittest discover -s tests/unit
+
+# 2025-03-13 02:15:03.145185
++/run python -m unittest discover -s tests/unit
+
+# 2025-03-13 02:16:16.382218
++/add tests/unit/test_signals.py
+
+# 2025-03-13 02:16:35.275630
++/add tests/unit/models/test_queryset.py
+
+# 2025-03-13 02:16:53.640434
++/add tests/unit/test_plugin_manager.py
+
+# 2025-03-13 02:16:59.244563
++/drop src/paperap/models/document/model.py
+
+# 2025-03-13 02:17:10.273190
++/drop src/paperap/models/storage_path/model.py
+
+# 2025-03-13 02:17:15.082300
++/drop src/paperap/models/tag/model.py
+
+# 2025-03-13 02:17:27.028742
++assess the most recent test errors
+
+# 2025-03-13 02:20:00.604827
++/exit
+
+# 2025-03-13 12:02:50.861654
++ython -m unittest discover -s tests/unit
++.....................................................E...E.E......................................................F...F....................E..E...EE....................................................Unable to connect to Paperless server: GET url https://example.com/api/documents/, params None, data None, files None
++..Failed to parse JSON response: Invalid JSON -> url https://example.com/api/documents/ -> content: b'Not JSON'
++.......................FPlugin not found: NonExistentPlugin
++..Failed to initialize plugin FailingPlugin: Setup failed
++.............................E..
++======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 433, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 424, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 341, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 364, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
++======================================================================
++ERROR: test_queue_actions (test_signals.TestSignalSystem.test_queue_actions)
++Test queuing actions for signals that don't exist yet.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 288, in test_queue_actions
++    any(id(h) == handler1_id for h, _ in self.registry._queue["disable"]["future.queue"]),
++    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 288, in <genexpr>
++    any(id(h) == handler1_id for h, _ in self.registry._queue["disable"]["future.queue"]),
++                                ^^^^
++TypeError: cannot unpack non-iterable function object
++
++======================================================================
++FAIL: test_contains_with_model (models.test_queryset.TestContains.test_contains_with_model)
++Test checking if a model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 462, in test_contains_with_model
++    self.assertTrue(model in self.qs)
++AssertionError: False is not true
++
++======================================================================
++FAIL: test_fetch_all_results_multiple_pages (models.test_queryset.TestFetchAllResults.test_fetch_all_results_multiple_pages)
++Test fetching all results with multiple pages.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 682, in test_fetch_all_results_multiple_pages
++    self.assertEqual(mock_request_iter.call_count, 2)
++AssertionError: 1 != 2
++
++======================================================================
++FAIL: test_discover_plugins (test_plugin_manager.TestPluginManager.test_discover_plugins)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_plugin_manager.py", line 51, in test_discover_plugins
++    mock_iter_modules.assert_called_with(
++  File "/usr/lib/python3.12/unittest/mock.py", line 940, in assert_called_with
++    raise AssertionError(error_message)
++AssertionError: expected call not found.
++Expected: iter_modules(['some/path'], 'paperap.plugins.')
++  Actual: not called.
++
++----------------------------------------------------------------------
++Ran 260 tests in 66.376s
++
++FAILED (failures=3, errors=8)
+
+# 2025-03-13 12:02:56.819012
++no
+
+# 2025-03-13 12:04:23.234735
++/add tests/models/test_document.py
+
+# 2025-03-13 12:04:28.610551
++/add tests/unit/test_signals.py
+
+# 2025-03-13 12:04:39.025637
++/add src/paperap/signals.py
+
+# 2025-03-13 12:04:57.587507
++ython -m unittest discover -s tests/unit
++.....................................................E...E.E......................................................F...F....................E..E...EE....................................................Unable to connect to Paperless server: GET url https://example.com/api/documents/, params None, data None, files None
++..Failed to parse JSON response: Invalid JSON -> url https://example.com/api/documents/ -> content: b'Not JSON'
++.......................FPlugin not found: NonExistentPlugin
++..Failed to initialize plugin FailingPlugin: Setup failed
++.............................E..
++======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 433, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 424, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 341, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 364, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
++======================================================================
++ERROR: test_queue_actions (test_signals.TestSignalSystem.test_queue_actions)
++Test queuing actions for signals that don't exist yet.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 288, in test_queue_actions
++    any(id(h) == handler1_id for h, _ in self.registry._queue["disable"]["future.queue"]),
++    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_signals.py", line 288, in <genexpr>
++    any(id(h) == handler1_id for h, _ in self.registry._queue["disable"]["future.queue"]),
++                                ^^^^
++TypeError: cannot unpack non-iterable function object
++
++======================================================================
++FAIL: test_contains_with_model (models.test_queryset.TestContains.test_contains_with_model)
++Test checking if a model is in the queryset.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 462, in test_contains_with_model
++    self.assertTrue(model in self.qs)
++AssertionError: False is not true
++
++======================================================================
++FAIL: test_fetch_all_results_multiple_pages (models.test_queryset.TestFetchAllResults.test_fetch_all_results_multiple_pages)
++Test fetching all results with multiple pages.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 682, in test_fetch_all_results_multiple_pages
++    self.assertEqual(mock_request_iter.call_count, 2)
++AssertionError: 1 != 2
++
++======================================================================
++FAIL: test_discover_plugins (test_plugin_manager.TestPluginManager.test_discover_plugins)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/test_plugin_manager.py", line 51, in test_discover_plugins
++    mock_iter_modules.assert_called_with(
++  File "/usr/lib/python3.12/unittest/mock.py", line 940, in assert_called_with
++    raise AssertionError(error_message)
++AssertionError: expected call not found.
++Expected: iter_modules(['some/path'], 'paperap.plugins.')
++  Actual: not called.
++
++----------------------------------------------------------------------
++Ran 260 tests in 66.376s
++
++FAILED (failures=3, errors=8)
+
+# 2025-03-13 12:09:05.904245
++/exit
+
+# 2025-03-13 12:14:46.731348
++/add tests/models/test_document.py
+
+# 2025-03-13 12:14:55.549410
++/add src/paperap/models/document/model.py
+
+# 2025-03-13 12:15:40.624456
++here is the unit test output. Fix tests in test_document or the code it tests. Make any fixes and improvements you can while you assess. ======================================================================
++ERROR: test_storage_path_setter_with_storage_path_object (models.test_document.TestDocumentSetters.test_storage_path_setter_with_storage_path_object)
++Test setting storage_path with a StoragePath object.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 594, in test_storage_path_setter_with_storage_path_object
++    storage_path = StoragePath(id=1, name="Test Storage Path")
++                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for StoragePath
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Test Storage Path'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_mixed_types (models.test_document.TestDocumentSetters.test_tags_setter_with_mixed_types)
++Test setting tags with a mix of integers and Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 522, in test_tags_setter_with_mixed_types
++    tag = Tag(id=2, name="Tag 2")
++          ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 2, 'name': 'Tag 2'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
++======================================================================
++ERROR: test_tags_setter_with_tag_objects (models.test_document.TestDocumentSetters.test_tags_setter_with_tag_objects)
++Test setting tags with Tag objects.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_document.py", line 515, in test_tags_setter_with_tag_objects
++    tag1 = Tag(id=1, name="Tag 1")
++           ^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 297, in __init__
++    super().__init__(**data)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 214, in __init__
++    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
++                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++pydantic_core._pydantic_core.ValidationError: 1 validation error for Tag
++is_insensitive
++  Field required [type=missing, input_value={'id': 1, 'name': 'Tag 1'}, input_type=dict]
++    For further information visit https://errors.pydantic.dev/2.10/v/missing
++
+
+# 2025-03-13 12:15:42.577965
++no
+
+# 2025-03-13 12:23:34.083885
++/add tests/unit/models/document/test_queryset.py
+
+# 2025-03-13 12:23:41.700033
++/add src/paperap/models/document/queryset.py
+
+# 2025-03-13 12:24:24.793249
++assess the unit test errors and make corrections to the tests, or the code it is testing. Make any additional improvements you can while you assess. ======================================================================
++ERROR: test_getitem_index_out_of_range (models.test_queryset.TestQuerySetGetItem.test_getitem_index_out_of_range)
++Test that accessing an index out of range raises IndexError.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 433, in test_getitem_index_out_of_range
++    _ = self.qs[5]
++        ~~~~~~~^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 715, in __getitem__
++    results = list(clone)
++              ^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 298, in count
++    for _ in _iter:
++             ^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_getitem_slice_with_start_only (models.test_queryset.TestQuerySetGetItem.test_getitem_slice_with_start_only)
++Test slicing with only a start index.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 424, in test_getitem_slice_with_start_only
++    result = qs_clone[2:]
++             ~~~~~~~~^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 695, in __getitem__
++    self._fetch_all_results()  # We need all results after the offset
++    ^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 493, in _fetch_all_results
++    self._result_cache.extend(list(iterator))
++                              ^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_fully_fetched_cache (models.test_queryset.TestQuerySetIter.test_iter_with_fully_fetched_cache)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 341, in test_iter_with_fully_fetched_cache
++    result = list(iter(self.qs))
++             ^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 606, in __iter__
++    for obj in self._iter:
++               ^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 530, in _request_iter
++    yield from self.resource.handle_response(**response)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 399, in handle_response
++    yield from self.handle_results(results)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/resources/base.py", line 409, in handle_results
++    raise ResponseParsingError(f"Expected type of elements in results is dict, got {type(item)}")
++paperap.exceptions.ResponseParsingError: API Error None: Expected type of elements in results is dict, got <class 'str'>
++
++======================================================================
++ERROR: test_iter_with_pagination (models.test_queryset.TestQuerySetIter.test_iter_with_pagination)
++Test iteration with pagination.
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_queryset.py", line 364, in test_iter_with_pagination
++    results = list(self.qs)
++              ^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 637, in __len__
++    return self.count()
++           ^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/queryset.py", line 303, in count
++    raise NotImplementedError("Requested iter, but no last response")
++NotImplementedError: Requested iter, but no last response
++
+
+# 2025-03-13 12:26:24.914887
++/run python -m unittest discover tests/unit/models/document
+
+# 2025-03-13 12:26:24.919559
++/run python -m unittest discover tests/unit/models/document
+
+# 2025-03-13 12:27:30.527773
++no
+
+# 2025-03-13 12:27:37.384337
++/exit
+
+# 2025-03-15 19:29:55.617347
++no
+
+# 2025-03-15 19:30:05.591741
++/add test_client.py
+
+# 2025-03-15 19:30:07.879744
++no
+
+# 2025-03-15 19:30:13.375741
++/add tests/unit/test_client.py
+
+# 2025-03-15 19:30:33.746029
++I've changed the way I patch client.request. 
++    # Change all tests that look like this:            
++    @patch("paperap.client.PaperlessClient.request")
++    def test_get_config(self, mock_request):
++        """Test getting system configuration.""" 
++        mock_request.return_value = {"app_title": "Paperless-ngx", "app_logo": ""}
++        config = self.client.get_config()
++        mock_request.assert_called_once_with("GET", "api/config/")
++        self.assertEqual(config["app_title"], "Paperless-ngx")
++
++    # To look like this
++    def test_get_config(self):
++        """Test getting system configuration."""
++        with self.patch_request(**{"app_title": "Paperless-ngx", "app_logo": ""}) as mock_request:
++            config = self.client.get_config()
++            mock_request.assert_called_once_with("GET", "api/config/")
++            self.assertEqual(config["app_title"], "Paperless-ngx")
+
+# 2025-03-15 19:31:27.226650
++/add test_queryset_base.py
+
+# 2025-03-15 19:31:28.712067
++no
+
+# 2025-03-15 19:31:32.300615
++/add tests/unit/models/test_queryset_base.py
+
+# 2025-03-15 19:32:14.983749
++I've changed the way I patch client.request. 
++    # Change all tests that look like this:            
++    @patch("paperap.client.PaperlessClient.request")
++    def test_get_config(self, mock_request):
++        """Test getting system configuration.""" 
++        mock_request.return_value = {"app_title": "Paperless-ngx", "app_logo": ""}
++        config = self.client.get_config()
++        mock_request.assert_called_once_with("GET", "api/config/")
++        self.assertEqual(config["app_title"], "Paperless-ngx")
++
++    # To look like this
++    def test_get_config(self):
++        """Test getting system configuration."""
++        with self.patch_request(**{"app_title": "Paperless-ngx", "app_logo": ""}) as mock_request:
++            config = self.client.get_config()
++            mock_request.assert_called_once_with("GET", "api/config/")
++            self.assertEqual(config["app_title"], "Paperless-ngx")
+
+# 2025-03-15 19:34:49.323075
++continue making that adjustment. Ensure all patches of client.request use the new format
+
+# 2025-03-15 19:40:21.486913
++For setUp() methods, any patching to client.request should happen by patching the self.client object. For instance: patch.object(self.client, "request", return_value=...
+
+# 2025-03-15 19:48:24.205397
++/exit
+
+# 2025-03-18 10:16:15.626820
++no
+
+# 2025-03-18 10:16:19.192112
++/exit
+
+# 2025-03-18 10:16:53.261594
++/add src/paperap/models/abstract/model.py
+
+# 2025-03-18 10:17:00.465976
++/add tests/unit/models/test_async_save.py
+
+# 2025-03-18 10:17:11.742870
++======================================================================
++ERROR: test_handle_save_result_updates_model (models.test_async_save.AsyncSaveTest.test_handle_save_result_updates_model)
++Test that _handle_save_result updates the model with new data
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1581, in __enter__
++    setattr(self.target, self.attribute, new_attr)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/src/paperap/models/abstract/model.py", line 790, in __setattr__
++    super().__setattr__(name, value)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 922, in __setattr__
++    self.__pydantic_validator__.validate_assignment(self, name, value)
++pydantic_core._pydantic_core.ValidationError: 1 validation error for ExampleModel
++update_locally
++  Object has no attribute 'update_locally' [type=no_such_attribute, input_value=<MagicMock name='update_l...y' id='140137120973072'>, input_type=MagicMock]
++    For further information visit https://errors.pydantic.dev/2.10/v/no_such_attribute
++
++During handling of the above exception, another exception occurred:
++
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 964, in __delattr__
++    object.__delattr__(self, item)
++AttributeError: 'ExampleModel' object has no attribute 'update_locally'
++
++During handling of the above exception, another exception occurred:
++
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 166, in test_handle_save_result_updates_model
++    with patch.object(self.model, 'update_locally') as mock_update_locally:
++         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 1594, in __enter__
++    if not self.__exit__(*sys.exc_info()):
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/usr/lib/python3.12/unittest/mock.py", line 1605, in __exit__
++    delattr(self.target, self.attribute)
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/.venv/lib/python3.12/site-packages/pydantic/main.py", line 966, in __delattr__
++    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
++AttributeError: 'ExampleModel' object has no attribute 'update_locally'
++
++======================================================================
++ERROR: test_timeout_handling (models.test_async_save.AsyncSaveTest.test_timeout_handling)
++Test handling of timeouts during save operation
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 270, in test_timeout_handling
++    call[0][2]['kwargs']['error'] == "Timeout"]
++    ~~~~~~~^^^
++IndexError: tuple index out of range
++
++======================================================================
++FAIL: test_save_calls_executor (models.test_async_save.AsyncPatchTest.test_save_calls_executor)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 477, in test_save_calls_executor
++    mock_save_executor.assert_called_once()
++  File "/usr/lib/python3.12/unittest/mock.py", line 928, in assert_called_once
++    raise AssertionError(msg)
++AssertionError: Expected 'save_executor' to have been called once. Called 2 times.
++Calls: [call(), call()].
++
++======================================================================
++FAIL: test_status_during_save (models.test_async_save.AsyncPatchTest.test_status_during_save)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/usr/lib/python3.12/unittest/mock.py", line 1396, in patched
++    return func(*newargs, **newkeywargs)
++           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 545, in test_status_during_save
++    self.assertEqual(new_model._status, ModelStatus.READY, "Status didn't change after save")
++AssertionError: <ModelStatus.SAVING: 'saving'> != <ModelStatus.READY: 'ready'> : Status didn't change after save
++
++======================================================================
++FAIL: test_dirty_fields_both (models.test_async_save.AsyncSaveTest.test_dirty_fields_both)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 350, in test_dirty_fields_both
++    self.assertEqual(dirty['name'], ('Original Name', 'Current'))
++AssertionError: Tuples differ: ('Original Name', 'New Original Data') != ('Original Name', 'Current')
++
++First differing element 1:
++'New Original Data'
++'Current'
++
++- ('Original Name', 'New Original Data')
+++ ('Original Name', 'Current')
++
++======================================================================
++FAIL: test_dirty_fields_noparam (models.test_async_save.AsyncSaveTest.test_dirty_fields_noparam)
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 377, in test_dirty_fields_noparam
++    self.assertEqual(dirty['name'], ('Original Name', 'Current'))
++AssertionError: Tuples differ: ('Original Name', 'New Original Data') != ('Original Name', 'Current')
++
++First differing element 1:
++'New Original Data'
++'Current'
++
++- ('Original Name', 'New Original Data')
+++ ('Original Name', 'Current')
++
++======================================================================
++FAIL: test_error_handling_in_save (models.test_async_save.AsyncSaveTest.test_error_handling_in_save)
++Test error handling during save operation
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 254, in test_error_handling_in_save
++    self.assertTrue(any("API error during save" in record.message for record in log.records))
++AssertionError: False is not true
++
++======================================================================
++FAIL: test_save_after_save_completes (models.test_async_save.AsyncTests.test_save_after_save_completes)
++Test that changes during save are saved after the first save completes
++----------------------------------------------------------------------
++Traceback (most recent call last):
++  File "/mnt/c/Users/jessa/Work/Projects/Paperap/tests/unit/models/test_async_save.py", line 627, in test_save_after_save_completes
++    self.assertTrue(second_save_event.wait(timeout=1.0), "Second save didn't happen")
++AssertionError: False is not true : Second save didn't happen
++
++----------------------------------------------------------------------
++Ran 464 tests in 100.520s
++
++FAILED (failures=6, errors=2)
+
+# 2025-03-18 10:17:17.165078
++no
+
+# 2025-03-18 10:19:54.176657
++/run python -m unittest tests/unit/models/test_async_save.py
+
+# 2025-03-18 10:19:54.179705
++/run python -m unittest tests/unit/models/test_async_save.py
+
+# 2025-03-18 10:22:27.805730
++no
+
+# 2025-03-18 10:22:32.845467
++/exit
+
+# 2025-03-18 19:44:08.227823
++/add src/paperap/scripts/describe.py
+
+# 2025-03-18 19:48:15.685339
++/exit
+
+# 2025-03-18 19:51:55.279081
++/add src/paperap/scripts/describe.py
+
+# 2025-03-18 19:53:39.504879
++describe.py was previously used in a different project of mine, which relied on pypaperless and a custom wrapper for it I made. I've now written this project as a new library, and want to adapt describe.py to work in it. Look at the methods available in the Document model and its queryset, and sample usage in test_document.py
+
+# 2025-03-18 19:54:52.032767
++describe.py was previously used in a different project of mine, which relied on pypaperless and a custom wrapper for it I made. I've now written this project as a new library, and want to adapt describe.py to work in it. Look at the methods available in the Document model and its queryset, and sample usage in test_document.py, and then replace the old impomrts from my previous project (and their usage) with this one. Make any other improvements you can to adhere to modern best practices while you do that. 
+
+# 2025-03-18 19:54:57.261585
++a
+
+# 2025-03-18 20:25:09.169269
++/exit
+
+# 2025-03-18 20:56:05.437023
++/add describe.py
+
+# 2025-03-18 20:56:07.340384
++no
+
+# 2025-03-18 20:56:10.419125
++/add src/paperap/scripts/describe.py
+
+# 2025-03-18 20:57:52.189264
++I've made a number of changes to refactor describe.py in order to incorporate it into my project. However, the work isn't done yet. There are still references to methods from the previous project, and other code that needs to be cleaned up, removed, or expanded. Examples of how to use the current project and its querysets can be found in test_document.py
+
+# 2025-03-18 20:57:58.045845
++y
+
+# 2025-03-18 21:06:39.882306
++/exit
+
+# 2025-03-18 21:11:17.062095
++/add src/paperap/scripts/describe.py
+
+# 2025-03-18 21:11:31.995900
++I've made a number of changes to refactor describe.py in order to incorporate it into my project. However, the work isn't done yet. There are still references to methods from the previous project, and other code that needs to be cleaned up, removed, or expanded. Examples of how to use the current project and its querysets can be found in test_document.py
+
+# 2025-03-18 21:21:08.429525
++/add document/model.py
+
+# 2025-03-18 21:21:10.492099
++no
+
+# 2025-03-18 21:21:13.992052
++/add src/paperap/models/document/model.py
+
+# 2025-03-18 21:23:32.474494
++My project interacts with the paperless ngx rest api. There is a similar package on the web called pypaperless that also does that in a different way. I'm going to show you some of the code from pypaperless below, as well as my library's Document model. Since we're both interacting with the same api, create new models and features in my code based on the models and features shown in pypaperless. 
++
++@dataclass(init=False)
++class DocumentMeta(PaperlessModel):
++    """Represent a Paperless `Document`s metadata."""
++
++    _api_path = API_PATH["documents_meta"]
++
++    id: int | None = None
++    original_checksum: str | None = None
++    original_size: int | None = None
++    original_mime_type: str | None = None
++    media_filename: str | None = None
++    has_archive_version: bool | None = None
++    original_metadata: list[DocumentMetadataType] | None = None
++    archive_checksum: str | None = None
++    archive_media_filename: str | None = None
++    original_filename: str | None = None
++    lang: str | None = None
++    archive_size: int | None = None
++    archive_metadata: list[DocumentMetadataType] | None = None
++
++    def __init__(self, api: "Paperless", data: dict[str, Any]) -> None:
++        """Initialize a `DocumentMeta` instance."""
++        super().__init__(api, data)
++
++        self._api_path = self._api_path.format(pk=data.get("id"))
++
++
++@dataclass(init=False)
++class DownloadedDocument(PaperlessModel):
++    """Represent a Paperless `Document`s downloaded file."""
++
++    _api_path = API_PATH["documents"]
++
++    id: int | None = None
++    mode: RetrieveFileMode | None = None
++    original: bool | None = None
++    content: bytes | None = None
++    content_type: str | None = None
++    disposition_filename: str | None = None
++    disposition_type: str | None = None
++
++    async def load(self) -> None:
++        """Get `raw data` from DRF."""
++        self._api_path = self._api_path.format(pk=self._data.get("id"))
++
++        params = {
++            "original": "true" if self._data.get("original", False) else "false",
++        }
++
++        async with self._api.request("get", self._api_path, params=params) as res:
++            self._data.update(
++                {
++                    "content": await res.read(),
++                    "content_type": res.content_type,
++                }
++            )
++
++            if res.content_disposition is not None:
++                self._data.update(
++                    {
++                        "disposition_filename": res.content_disposition.filename,
++                        "disposition_type": res.content_disposition.type,
++                    }
++                )
++
++        self._set_dataclass_fields()
++        self._fetched = True
++
++
++@dataclass(init=False)
++class DocumentSuggestions(PaperlessModel):
++    """Represent a Paperless `Document` suggestions."""
++
++    _api_path = API_PATH["documents_suggestions"]
++
++    id: int | None = None
++    correspondents: list[int] | None = None
++    tags: list[int] | None = None
++    document_types: list[int] | None = None
++    storage_paths: list[int] | None = None
++    dates: list[datetime.date] | None = None
++
++    def __init__(self, api: "Paperless", data: dict[str, Any]) -> None:
++        """Initialize a `DocumentSuggestions` instance."""
++        super().__init__(api, data)
++
++        self._api_path = self._api_path.format(pk=data.get("id"))
++
++
++class DocumentSuggestionsHelper(HelperBase[DocumentSuggestions]):
++    """Represent a factory for Paperless `DocumentSuggestions` models."""
++
++    _api_path = API_PATH["documents_suggestions"]
++    _resource = PaperlessResource.DOCUMENTS
++
++    _resource_cls = DocumentSuggestions
++
++    async def __call__(self, pk: int) -> DocumentSuggestions:
++        """Request exactly one resource item."""
++        data = {
++            "id": pk,
++        }
++        item = self._resource_cls.create_with_data(self._api, data)
++        await item.load()
++
++        return item
++
++
++class DocumentSubHelperBase(
++    HelperBase[DownloadedDocument],
++):
++    """Represent a factory for Paperless `DownloadedDocument` models."""
++
++    _api_path = API_PATH["documents_suggestions"]
++    _resource = PaperlessResource.DOCUMENTS
++
++    _resource_cls = DownloadedDocument
++
++    async def __call__(
++        self,
++        pk: int,
++        mode: RetrieveFileMode,
++        api_path: str,
++        *,
++        original: bool,
++    ) -> DownloadedDocument:
++        """Request exactly one resource item."""
++        data = {
++            "id": pk,
++            "mode": mode,
++            "original": original,
++        }
++        item = self._resource_cls.create_with_data(self._api, data)
++        item._api_path = api_path  # noqa: SLF001
++        await item.load()
++
++        return item
++
++
++class DocumentFileDownloadHelper(DocumentSubHelperBase):
++    """Represent a factory for Paperless `DownloadedDocument` models."""
++
++    _api_path = API_PATH["documents_download"]
++
++    async def __call__(  # type: ignore[override]
++        self,
++        pk: int,
++        *,
++        original: bool = False,
++    ) -> DownloadedDocument:
++        """Request exactly one resource item."""
++        return await super().__call__(
++            pk, RetrieveFileMode.DOWNLOAD, self._api_path, original=original
++        )
++
++
++class DocumentFilePreviewHelper(DocumentSubHelperBase):
++    """Represent a factory for Paperless `DownloadedDocument` models."""
++
++    _api_path = API_PATH["documents_preview"]
++
++    async def __call__(  # type: ignore[override]
++        self,
++        pk: int,
++        *,
++        original: bool = False,
++    ) -> DownloadedDocument:
++        """Request exactly one resource item."""
++        return await super().__call__(
++            pk, RetrieveFileMode.PREVIEW, self._api_path, original=original
++        )
++
++
++class DocumentFileThumbnailHelper(DocumentSubHelperBase):
++    """Represent a factory for Paperless `DownloadedDocument` models."""
++
++    _api_path = API_PATH["documents_thumbnail"]
++
++    async def __call__(  # type: ignore[override]
++        self,
++        pk: int,
++        *,
++        original: bool = False,
++    ) -> DownloadedDocument:
++        """Request exactly one resource item."""
++        return await super().__call__(
++            pk, RetrieveFileMode.THUMBNAIL, self._api_path, original=original
++        )
++
++
++class DocumentMetaHelper(
++    HelperBase[DocumentMeta],
++    helpers.CallableMixin[DocumentMeta],
++):
++    """Represent a factory for Paperless `DocumentMeta` models."""
++
++    _api_path = API_PATH["documents_meta"]
++    _resource = PaperlessResource.DOCUMENTS
++
++    _resource_cls = DocumentMeta
++
++
++class DocumentNoteHelper(HelperBase[DocumentNote]):
++    """Represent a factory for Paperless `DocumentNote` models."""
++
++    _api_path = API_PATH["documents_notes"]
++    _resource = PaperlessResource.DOCUMENTS
++
++    _resource_cls = DocumentNote
++
++    def __init__(self, api: "Paperless", attached_to: int | None = None) -> None:
++        """Initialize a `DocumentHelper` instance."""
++        super().__init__(api)
++
++        self._attached_to = attached_to
++
++    async def __call__(
++        self,
++        pk: int | None = None,
++    ) -> list[DocumentNote]:
++        """Request and return the documents `DocumentNote` list."""
++        doc_pk = self._get_document_pk(pk)
++        res = await self._api.request_json("get", self._get_api_path(doc_pk))
++
++        # We have to transform data here slightly.
++        # There are two major differences in the data depending on which endpoint is requested.
++        # url: documents/{:pk}/ ->
++        #       .document -> int
++        #       .user -> int
++        # url: documents/{:pk}/notes/ ->
++        #       .document -> does not exist (so we add it here)
++        #       .user -> dict(id=int, username=str, first_name=str, last_name=str)
++        return [
++            self._resource_cls.create_with_data(
++                self._api,
++                {
++                    **item,
++                    "document": doc_pk,
++                    "user": item["user"]["id"],
++                },
++                fetched=True,
++            )
++            for item in res
++        ]
++
++    def _get_document_pk(self, pk: int | None = None) -> int:
++        """Return the attached document pk, or the parameter."""
++        if not any((self._attached_to, pk)):
++            message = f"Accessing {type(self).__name__} data without a primary key."
++            raise PrimaryKeyRequiredError(message)
++        return cast(int, self._attached_to or pk)
++
++    def _get_api_path(self, pk: int) -> str:
++        """Return the formatted api path."""
++        return self._api_path.format(pk=pk)
++
++    def draft(self, pk: int | None = None, **kwargs: Any) -> DocumentNoteDraft:
++        """Return a fresh and empty `DocumentNoteDraft` instance.
++
++        Example:
++        -------
++        ```python
++        draft = paperless.documents.notes.draft(...)
++        # do something
++        ```
++
++        """
++        kwargs.update({"document": self._get_document_pk(pk)})
++        return DocumentNoteDraft.create_with_data(
++            self._api,
++            data=kwargs,
++            fetched=True,
++        )
++
++
++class DocumentHelper(
++    HelperBase[Document],
++    helpers.SecurableMixin,
++    helpers.CallableMixin[Document],
++    helpers.DraftableMixin[DocumentDraft],
++    helpers.IterableMixin[Document],
++):
++    """Represent a factory for Paperless `Document` models."""
++
++    _api_path = API_PATH["documents"]
++    _resource = PaperlessResource.DOCUMENTS
++
++    _draft_cls = DocumentDraft
++    _resource_cls = Document
++
++    def __init__(self, api: "Paperless") -> None:
++        """Initialize a `DocumentHelper` instance."""
++        super().__init__(api)
++
++        self._download = DocumentFileDownloadHelper(api)
++        self._meta = DocumentMetaHelper(api)
++        self._notes = DocumentNoteHelper(api)
++        self._preview = DocumentFilePreviewHelper(api)
++        self._suggestions = DocumentSuggestionsHelper(api)
++        self._thumbnail = DocumentFileThumbnailHelper(api)
++
++    @property
++    def download(self) -> DocumentFileDownloadHelper:
++        """Download the contents of an archived file.
++
++        Example:
++        -------
++        ```python
++        # request document contents directly...
++        download = await paperless.documents.download(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.documents(42)
++
++        download = await doc.get_download()
++        ```
++
++        """
++        return self._download
++
++    @property
++    def metadata(self) -> DocumentMetaHelper:
++        """Return the attached `DocumentMetaHelper` instance.
++
++        Example:
++        -------
++        ```python
++        # request metadata of a document directly...
++        metadata = await paperless.documents.metadata(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.documents(42)
++        metadata = await doc.get_metadata()
++        ```
++
++        """
++        return self._meta
++
++    @property
++    def notes(self) -> DocumentNoteHelper:
++        """Return the attached `DocumentNoteHelper` instance.
++
++        Example:
++        -------
++        ```python
++        # request document notes directly...
++        notes = await paperless.documents.notes(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.documents(42)
++        notes = await doc.notes()
++        ```
++
++        """
++        return self._notes
++
++    @property
++    def preview(self) -> DocumentFilePreviewHelper:
++        """Preview the contents of an archived file.
++
++        Example:
++        -------
++        ```python
++        # request document contents directly...
++        download = await paperless.documents.preview(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.documents(42)
++
++        download = await doc.get_preview()
++        ```
++
++        """
++        return self._preview
++
++    @property
++    def suggestions(self) -> DocumentSuggestionsHelper:
++        """Return the attached `DocumentSuggestionsHelper` instance.
++
++        Example:
++        -------
++        ```python
++        # request document suggestions directly...
++        suggestions = await paperless.documents.suggestions(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.suggestions(42)
++
++        suggestions = await doc.get_suggestions()
++        ```
++
++        """
++        return self._suggestions
++
++    @property
++    def thumbnail(self) -> DocumentFileThumbnailHelper:
++        """Download the contents of a thumbnail file.
++
++        Example:
++        -------
++        ```python
++        # request document contents directly...
++        download = await paperless.documents.thumbnail(42)
++
++        # ... or by using an already fetched document
++        doc = await paperless.documents(42)
++
++        download = await doc.get_thumbnail()
++        ```
++
++        """
++        return self._thumbnail
++
++    async def get_next_asn(self) -> int:
++        """Request the next archive serial number from DRF."""
++        async with self._api.request("get", API_PATH["documents_next_asn"]) as res:
++            try:
++                res.raise_for_status()
++                return int(await res.text())
++            except Exception as exc:
++                raise AsnRequestError from exc
++
++    async def more_like(self, pk: int) -> AsyncGenerator[Document, None]:
++        """Lookup documents similar to the given document pk.
++
++        Shortcut function. Same behaviour is possible using `reduce()`.
++
++        Documentation: https://docs.paperless-ngx.com/api/#searching-for-documents
++        """
++        async with self.reduce(more_like_id=pk):
++            async for item in self:
++                yield item
++
++    async def search(self, query: str) -> AsyncGenerator[Document, None]:
++        """Lookup documents by a search query.
++
++        Shortcut function. Same behaviour is possible using `reduce()`.
++
++        Documentation: https://docs.paperless-ngx.com/usage/#basic-usage_searching
++        """
++        async with self.reduce(query=query):
++            async for item in self:
++                yield item
++
+
+# 2025-03-18 21:23:35.344028
++no
+
+# 2025-03-18 22:02:03.757323
++/exit
