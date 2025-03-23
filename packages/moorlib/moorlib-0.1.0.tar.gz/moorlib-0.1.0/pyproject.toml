@@ -1,0 +1,40 @@
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "moorlib"
+version = "0.1.0"
+description = "moorlib: TODO"
+authors = [
+  { name="Amirhossein Pashaeehir", email="ahph1380@gmail.com" }
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "iniconfig>=2.0.0",
+    "mypy>=1.15.0",
+    "mypy-extensions>=1.0.0",
+    "packaging>=24.2",
+    "pluggy>=1.5.0",
+    "pytest>=8.3.4",
+    "typing_extensions>=4.12.2",
+    "ruff>=0.9.10",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v -ra"
+
+[tool.ruff]
+line-length = 119
+lint.ignore = [
+  "E501", # line-too-long
+]
+lint.select = ["E", "F", "I", "W"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["moorlib"]
+lines-after-imports = 2
+
