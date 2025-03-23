@@ -1,0 +1,70 @@
+frozendict<3,>=2
+orjson<4,>=3
+pandas<3,>=2
+polars<2,>=1
+pydantic<3,>=2
+pyyaml<7,>=6
+rich<14,>=13
+rtoml<1,>=0.12
+scipy<2,>=1
+xmltodict<1,>=0.13
+
+[:(sys_platform == "darwin" and platform_machine == "arm64") or sys_platform == "linux"]
+numpy<3,>=2
+
+[:sys_platform == "darwin" and platform_machine == "x86_64"]
+numpy<2,>=1
+
+[all]
+cbrkit[api,cli,eval,graphs,llm,nlp,timeseries,transformers]
+
+[api]
+cbrkit[cli]
+fastapi<1,>=0.100
+pydantic-settings<3,>=2
+python-multipart<1,>=0.0.15
+uvicorn[standard]<1,>=0.30
+
+[cli]
+typer<1,>=0.9
+
+[eval]
+ranx<1,>=0.3
+
+[graphs]
+networkx<4,>=3
+rustworkx<1,>=0.15
+
+[llm]
+cohere<6,>=5
+voyageai<1,>=0.3
+ollama<1,>=0.3
+openai<2,>=1
+tiktoken<1,>=0.8
+anthropic<1,>=0.40
+google-genai<2,>=1
+instructor<2,>=1
+
+[nlp]
+nltk<4,>=3
+
+[nlp:(sys_platform == "darwin" and platform_machine == "arm64") or sys_platform == "linux"]
+levenshtein<1,>=0.26
+spacy<4,>=3.8
+
+[nlp:sys_platform == "darwin" and platform_machine == "x86_64"]
+levenshtein<0.26,>=0.23
+spacy<3.8,>=3.7
+
+[timeseries]
+minineedle<4,>=3
+
+[transformers]
+sentence-transformers<4,>=3
+transformers<5,>=4
+
+[transformers:(sys_platform == "darwin" and platform_machine == "arm64") or sys_platform == "linux"]
+torch<3,>=2.5
+
+[transformers:sys_platform == "darwin" and platform_machine == "x86_64"]
+torch<2.3,>=2.2
