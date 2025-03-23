@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "codedoc_mcp"
+version = "0.1.0"
+description = "Code analysis and documentation tool with MCP support"
+readme = "README.md"
+authors = [
+    {name = "CodeDoc Team", email = "neozheng2336@gmail.com"}
+]
+license = {text = "MIT"}
+requires-python = ">=3.8"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Software Development :: Documentation",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Software Development :: Code Generators",
+]
+keywords = ["code analysis", "documentation", "markdown", "mermaid", "diagram"]
+dependencies = [
+    "loguru>=0.6.0",
+    "mcp>=1.0.0",
+    "regex>=2022.10.31",
+    "jinja2>=3.1.2",
+    "markdown>=3.4.3",
+    "httpx>=0.28.1",
+]
+
+[project.urls]
+"Bug Reports" = "https://github.com/aIFzzf/codedoc_mcp/issues"
+"Source" = "https://github.com/aIFzzf/codedoc_mcp"
+"Documentation" = "https://github.com/aIFzzf/codedoc_mcp#readme"
+
+[project.scripts]
+codedoc_mcp = "codedoc_mcp.__main__:main"
