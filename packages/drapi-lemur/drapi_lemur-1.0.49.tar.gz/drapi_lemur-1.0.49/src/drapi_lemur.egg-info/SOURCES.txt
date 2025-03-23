@@ -1,0 +1,188 @@
+MANIFEST.in
+README.md
+setup.cfg
+setup.py
+src/drapi/__init__.py
+src/drapi/code/__init__.py
+src/drapi/code/drapi/__init__.py
+src/drapi/code/drapi/classes.py
+src/drapi/code/drapi/cli_parsers.py
+src/drapi/code/drapi/compareGroups.py
+src/drapi/code/drapi/deIdentificationFunctions.py
+src/drapi/code/drapi/drapi.py
+src/drapi/code/drapi/expandColumn.py
+src/drapi/code/drapi/gather_files.py
+src/drapi/code/drapi/getPersonIDs.py
+src/drapi/code/drapi/makeListOfDates.py
+src/drapi/code/drapi/makeSymLinks.py
+src/drapi/code/drapi/modifyTSV.py
+src/drapi/code/drapi/parseAliasArguments.py
+src/drapi/code/drapi/prep_for_text_deidentification.py
+src/drapi/code/drapi/replace_text.py
+src/drapi/code/drapi/searchFolders.py
+src/drapi/code/drapi/sql.py
+src/drapi/code/drapi/stats.py
+src/drapi/code/drapi/uploadData.py
+src/drapi/code/drapi/c2s/__init__.py
+src/drapi/code/drapi/c2s/c2s.py
+src/drapi/code/drapi/constants/__init__.py
+src/drapi/code/drapi/constants/constants.py
+src/drapi/code/drapi/constants/phiValues.py
+src/drapi/code/drapi/constants/phiVariables.py
+src/drapi/code/drapi/constants/variableAliases.py
+src/drapi/code/drapi/convertColumns/hash.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/__init__.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/common.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/concatenateMaps.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/convertColumns.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/dataQualityTest.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/deIdentify.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/deleteColumns.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/gatherFiles.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/getIDValues.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/getProjectColumns.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/makeMapsFromOthers.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/makeMapsFromScratch.py
+src/drapi/code/drapi/deIdentificationSuiteFuncs0/makePersonIDMap.py
+src/drapi/code/drapi/getData/getData.py
+src/drapi/code/drapi/getData/getData_inner.py
+src/drapi/code/drapi/getData/getData_outer.py
+src/drapi/code/drapi/idealist/__init__.py
+src/drapi/code/drapi/idealist/getEncountersMap.py
+src/drapi/code/drapi/idealist/getPatientsMap.py
+src/drapi/code/drapi/idealist/idealist.py
+src/drapi/code/drapi/images/__init__.py
+src/drapi/code/drapi/images/utilities.py
+src/drapi/code/drapi/notes/__init__.py
+src/drapi/code/drapi/notes/freeText.py
+src/drapi/code/drapi/notes/pullNotes.py
+src/drapi/code/drapi/notes/utils.py
+src/drapi/code/drapi/omop/__init__.py
+src/drapi/code/drapi/omop/configProcessing.py
+src/drapi/code/drapi/omop/deidentify.py
+src/drapi/code/drapi/oneFlorida/__init__.py
+src/drapi/code/drapi/oneFlorida/oneFlorida.py
+src/drapi/code/drapi/qa/columnConversion.py
+src/drapi/code/drapi/qa/deidentification.py
+src/drapi/code/makeDirTemplate/__init__.py
+src/drapi/sql/9-Digit Zip Code.SQL
+src/drapi/sql/Consent2Share.sql
+src/drapi/sql/ConvertBetweenMrnAndOneFloridaPatID.SQL
+src/drapi/sql/LADMF.sql
+src/drapi/sql/MRNfromPatientKey.sql
+src/drapi/sql/OneFlorida to UF Health Patient ID Map.SQL
+src/drapi/sql/encounterNumber2patientKey.SQL
+src/drapi/templates/__init__.py
+src/drapi/templates/Anaconda Environment Variables/RenameMe environment-name/README.md
+src/drapi/templates/BASH Scripts/wait.bash
+src/drapi/templates/Data Disclosure README/README.md
+src/drapi/templates/Portions Templates/__init__.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/aliasVariables.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/common.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/concatenateMaps.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/concatenateTables.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/convertColumns.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/convertColumnsGeneral.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/dataQualityTest.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/deIdentify.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/deIdentifyByAge.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/deIdentifyDates.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/deleteByColumnValues.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/deleteColumns.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/getIDValues.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/getProjectColumns.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/i2b2ConvertIDs.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/i2b2GetIDs.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/i2b2MakeMap.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/makeAgeMap.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/makeDateShiftMap.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/makeMapsFromOthers.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/makeMapsFromScratch.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/makePersonIDMap.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Concatenated Results/code/mapToSqlite.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/code/example.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/code/template.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/data/input/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/BO Portion Template/data/output/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/code/filterNotes.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/code/freeText.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/code/script.bash
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/data/input/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/data/output/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/note_metadata.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/note_text.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_impression_metadata.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_impression_text.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_narrative_metadata.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_narrative_text.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_result_comment_metadata.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/Clinical Text Portion Template/sql/order_result_comment_text.sql
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/code/RenameMe.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/code/compareGroupsTemplate.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/code/loopTemplate.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/data/input/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/General Script Template/data/output/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/Config1.YAML
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/code/Project1.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/code/deidentify.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/code/getPersonIDs.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/data/input/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/data/output/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/OMOP Portion Template/sql/grabPersonIDs.SQL
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/.gitignore
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/README.md
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/launchIPython.bat
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/code/i2b2_dump.py
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/data/input/.deleteme
+src/drapi/templates/Portions Templates/Multi-Portion Template/Intermediate Results/i2b2 Portion Template/data/output/.deleteme
+src/drapi/templates/SQL/Map - i2b2 to UFH - Encounter.SQL
+src/drapi/templates/scripts/Command-line Script - with SQL.py
+src/drapi/templates/scripts/hippaDisclosure.py
+src/drapi/templates/scripts/prepTSVforSDOH.py
+src/drapi/templates/scripts/sqlQuery.py
+src/drapi/templates/scripts/uploadData_functionless.py
+src/drapi_lemur.egg-info/PKG-INFO
+src/drapi_lemur.egg-info/SOURCES.txt
+src/drapi_lemur.egg-info/dependency_links.txt
+src/drapi_lemur.egg-info/top_level.txt
+src/scripts/checkC2S.py
+src/scripts/clean_logs.bash
+src/scripts/convertColumnsHash.py
+src/scripts/expandColumns.py
+src/scripts/getData.py
+src/scripts/getIDSets.py
+src/scripts/join.py
+src/scripts/makeDirTemplate.py
+src/scripts/makeSymlink.bash
+src/scripts/mapOF2IDR_deid2deid.py
+src/scripts/mapOF2IDR_id2id.py
+src/scripts/map_deid2deid.py
+src/scripts/prepTSVforSDOH.py
+src/scripts/prepTSVforSDOH2.py
+src/scripts/prep_for_text_deidentification.py
+src/scripts/qaColumnConversion.py
+src/scripts/qaDeidentification.py
+src/scripts/replaceText.py
+src/scripts/replace_text.py
+src/scripts/tree.py
+src/scripts/uploadData.py
+src/scripts/resultsConcatenation/gather_files.py
+src/scripts/resultsConcatenation/makeMapsFromOthers.py
+tests/testCLI.py
+tests/test_bytes.py
