@@ -1,0 +1,48 @@
+Metadata-Version: 2.4
+Name: unicode-segmentation-py
+Version: 0.1.1
+Classifier: Typing :: Typed
+License-File: LICENSE.txt
+Summary: Python bindings for Rust library unicode-segmentation
+Keywords: unicode
+Author-email: zoushun1997 <zoushun1997@163.com>
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown; charset=UTF-8; variant=GFM
+Project-URL: source, https://github.com/zoushun1997/unicode-segmentation-py
+
+# unicode-segmentation-py
+
+Python bindings for Rust library `unicode-segmentation`.
+
+Note that the `*_indices` functions return Python character offsets,
+not byte offsets as in the original Rust library.
+
+## Usage
+
+```py
+>>> import unicode_segmentation_py
+>>> text = "Hello world!"
+>>> unicode_segmentation_py.to_words(text)
+['Hello', 'world']
+>>> unicode_segmentation_py.to_word_indices(text)
+[(0, 'Hello'), (6, 'world')]
+>>> unicode_segmentation_py.split_word_bounds(text)
+['Hello', ' ', 'world', '!']
+>>> unicode_segmentation_py.split_word_bound_indices(text)
+[(0, 'Hello'), (5, ' '), (6, 'world'), (11, '!')]
+```
+
+Other functions with similar signatures:
+
+- `to_graphemes`
+- `to_grapheme_indices`
+- `to_sentences`
+- `to_sentence_indices`
+- `split_sentence_bounds`
+- `split_sentence_bound_indices`
+
+The underlying Unicode version used by `unicode-segmentation`
+can be inspected through the constant `UNICODE_VERSION`,
+which takes the form of a tuple of three integers.
+
