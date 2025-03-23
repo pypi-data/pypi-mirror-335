@@ -1,0 +1,1 @@
+This is the MLP that I made as part of my extended project qualification to investigate how neural networks scale. It is lightweight, and efficient and features tools for gathering intermediate data of training. It is general-purpose from image classification to plotting regression lines.
