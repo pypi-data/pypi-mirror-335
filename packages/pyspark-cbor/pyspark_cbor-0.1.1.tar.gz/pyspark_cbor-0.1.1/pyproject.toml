@@ -1,0 +1,34 @@
+[project]
+name = "pyspark-cbor"
+version = "0.1.1"
+description = "Reading and writing CBOR files with PySpark"
+readme = "README.md"
+authors = [{name="Daniël Tom", email="d.e.tom89@gmail.com"}]
+requires-python = ">=3.9"
+dependencies = [
+    "cbor2>=5.6.5",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[dependency-groups]
+test = [
+    "pytest>=8.3.5",
+    "pyspark[connect]==4.0.0.dev2",
+    "pytest-coverage>=0.0",
+]
+dev = [
+    "ruff>=0.11.1"
+]
+aws = [
+    "boto3>=1.37.18",
+]
+azure = [
+    "azure-storage-blob>=12.25.0",
+]
+gcp = [
+    "google-cloud-storage>=3.1.0",
+]
