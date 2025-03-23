@@ -1,0 +1,70 @@
+Metadata-Version: 2.3
+Name: texture-viz
+Version: 0.0.11
+Summary: Process and profile text datasets interactively
+Keywords: text,nlp,data profiling,llm
+Author: Will Epperson
+Author-email: willepp@live.com
+Requires-Python: >=3.10
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Provides-Extra: extra
+Requires-Dist: anywidget (>=0.9.13,<0.10.0)
+Requires-Dist: duckdb (==1.1.3)
+Requires-Dist: fastapi (>=0.115.7,<0.116.0)
+Requires-Dist: lancedb (>=0.18.0,<0.19.0)
+Requires-Dist: multiprocess (>=0.70.17,<0.71.0)
+Requires-Dist: nltk (>=3.8.1) ; extra == "extra"
+Requires-Dist: numpy (>=2.2.2,<3.0.0)
+Requires-Dist: openai (>=1.60.2,<2.0.0)
+Requires-Dist: orjson (>=3.10.15,<4.0.0)
+Requires-Dist: pandas (>=2.2.3,<3.0.0)
+Requires-Dist: pyarrow (>=19.0.0,<20.0.0)
+Requires-Dist: pydantic (>=2.10.6,<3.0.0)
+Requires-Dist: sentence-transformers (>=2.2.2) ; extra == "extra"
+Requires-Dist: tiktoken (>=0.8.0,<0.9.0)
+Requires-Dist: torch (>=2.1.1) ; extra == "extra"
+Requires-Dist: umap-learn (>=0.5.5) ; extra == "extra"
+Requires-Dist: uvicorn[standard] (>=0.34.0,<0.35.0)
+Project-URL: Homepage, https://github.com/cmudig/Texture
+Project-URL: Repository, https://github.com/cmudig/Texture
+Description-Content-Type: text/markdown
+
+# Texture: Structured Text Analytics
+
+[![PyPi](https://img.shields.io/pypi/v/texture-viz.svg)](https://pypi.org/project/texture-viz/)
+
+Texture is a system for exploring and creating structured insights with your text datasets.
+
+1. **Interactive Attribute Profiles**: Texture visualizes structured attributes alongside your text data in interactive, cross-filterable charts.
+2. **Flexible attribute definitions**: Attribute charts can come from different tables and any level of a document such as words, sentences, or documents.
+3. **Embedding based operations**: Texture helps you use vector embeddings to search for similar text and summarize your data.
+
+![screenshot of Texture interface](.github/screenshots/texture_sc.png)
+
+## Install and run
+
+Install texture with pip:
+
+```bash
+pip install texture-viz
+```
+
+Then you can run in a python script or notebook by providing a dataframe with your text data and attributes.
+
+```python
+import texture
+texture.run(df)
+```
+
+## Texture Docs
+
+Texture allows you to customize attribute visualizations based on a schema and configure different tables to tailor how the interface presents your data. For more details and examples, check out our [documentation](https://dig.cmu.edu/Texture/).
+
+## Dev install
+
+See [DEV.md](DEV.md) for dev workflows and setup.
+
