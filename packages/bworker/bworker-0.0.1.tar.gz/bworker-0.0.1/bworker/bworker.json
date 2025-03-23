@@ -1,0 +1,38 @@
+{
+	"options":
+	{
+		"asan":
+		{
+			"description":"Adress sanitizer",
+			"default":"OFF",
+			"deb1":
+			{
+				"cxxflags":"-g -fsanitize=address -fsanitize=leak",
+				"cflags":"-g -fsanitize=address -fsanitize=leak",
+				"lflags":""
+			}
+		},
+		"tsan":
+		{
+			"description":"Thread sanitizer",
+			"default":"OFF",
+			"deb1":
+			{
+				"cxxflags":"-g -fsanitize=thread",
+				"cflags":"-g -fsanitize=thread",
+				"lflags":""
+			}
+		},
+		"cov":
+		{
+			"description":"Code coverage",
+			"default":"OFF",
+			"deb1":
+			{
+				"cxxflags":"-coverage -g",
+				"cflags":"-coverage -g",
+				"lflags":"-lgcov"
+			}
+		}		
+	}	
+}

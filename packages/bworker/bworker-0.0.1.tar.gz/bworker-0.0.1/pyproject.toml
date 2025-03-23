@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bworker"
+version = "0.0.1"
+requires-python = ">=3.6"
+authors = [{ name = "Piotr Sydow", email = "sydow@wp.pl" }]
+dependencies = [
+    "docopt>=0.6.2",
+    "mako>=1.1.6"
+]
+license = {text = "MIT"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.scripts]
+bworker = "bworker.bworker:main"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+bworker = ["bworker.json"]
+
+
