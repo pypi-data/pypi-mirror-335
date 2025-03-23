@@ -1,0 +1,46 @@
+Metadata-Version: 2.4
+Name: create-flask-vps-app
+Version: 0.4.0
+Summary: A CLI tool to scaffold a Flask API project with deployment setup.
+Home-page: https://github.com/al3rez/create-flask-vps-app
+Author: Alireza Bashiri
+Author-email: al3rez@gmail.com
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: jinja2
+Requires-Dist: flask
+Requires-Dist: python-dotenv
+Requires-Dist: fabric
+Requires-Dist: gunicorn
+Requires-Dist: flask-cors
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+
+```
+create-flask-app
+â”œâ”€ create_flask_vps_app
+â”‚  â”œâ”€ main.py
+â”‚  â”œâ”€ templates
+â”‚  â”‚  â”œâ”€ .env.example
+â”‚  â”‚  â”œâ”€ app
+â”‚  â”‚  â”‚  â”œâ”€ cors.py
+â”‚  â”‚  â”‚  â”œâ”€ db.py
+â”‚  â”‚  â”‚  â”œâ”€ main.py
+â”‚  â”‚  â”‚  â””â”€ __init__.py
+â”‚  â”‚  â”œâ”€ fabfile.py
+â”‚  â”‚  â”œâ”€ README.md
+â”‚  â”‚  â”œâ”€ requirements.txt
+â”‚  â”‚  â””â”€ templates
+â”‚  â”‚     â”œâ”€ nginx_config.j2
+â”‚  â”‚     â””â”€ systemd_service.j2
+â”‚  â””â”€ __init__.py
+â””â”€ setup.py
+
+```
