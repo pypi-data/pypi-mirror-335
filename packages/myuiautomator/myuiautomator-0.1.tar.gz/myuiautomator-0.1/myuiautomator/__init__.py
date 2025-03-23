@@ -1,0 +1,2 @@
+from .myuiautomator import UIAutomator
+
