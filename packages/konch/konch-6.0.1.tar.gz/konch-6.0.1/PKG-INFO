@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: konch
+Version: 6.0.1
+Summary: CLI and configuration utility for the Python shell, optimized for simplicity and productivity.
+Maintainer-email: Steven Loria <sloria1@gmail.com>
+Requires-Python: >=3.9
+Description-Content-Type: text/x-rst
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: System :: Shells
+License-File: LICENSE
+Requires-Dist: platformdirs>=4.3.7
+Requires-Dist: konch[tests] ; extra == "dev"
+Requires-Dist: ptpython ; extra == "dev"
+Requires-Dist: tox ; extra == "dev"
+Requires-Dist: sphinx==8.2.3 ; extra == "docs"
+Requires-Dist: sphinx-issues==5.0.0 ; extra == "docs"
+Requires-Dist: pytest ; extra == "tests"
+Requires-Dist: scripttest==2.0 ; extra == "tests"
+Requires-Dist: ipython>=8.0.0 ; extra == "tests"
+Requires-Dist: bpython>=0.24 ; extra == "tests"
+Project-URL: Changelog, https://konch.readthedocs.io/en/latest/changelog.html
+Project-URL: Issues, https://github.com/sloria/konch/issues
+Project-URL: Source, https://github.com/sloria/konch/
+Provides-Extra: dev
+Provides-Extra: docs
+Provides-Extra: tests
+
+=====
+konch
+=====
+
+.. image:: https://badgen.net/pypi/v/konch
+  :alt: pypi badge
+  :target: https://pypi.org/project/konch/
+
+.. image:: https://github.com/sloria/konch/actions/workflows/build-release.yml/badge.svg
+  :alt: ci status
+  :target: https://github.com/sloria/konch/actions/workflows/build-release.yml
+
+.. image:: https://readthedocs.org/projects/konch/badge/
+   :target: https://konch.readthedocs.io/
+   :alt: Documentation
+
+
+Configures your Python shell
+============================
+
+**konch** is a CLI and configuration utility for the Python shell, optimized for simplicity and productivity.
+
+- **Automatically import** any object upon startup
+- **Simple**, per-project configuration in a single file (it's just Python code)
+- Uses **IPython**, **BPython**, or **ptpython** if available, and falls back to built-in interpreter
+- Automatically load **IPython extensions**
+
+.. image:: https://user-images.githubusercontent.com/2379650/51432821-2ce68180-1c0c-11e9-9c8d-8053a1b99818.gif
+    :alt: Demo
+    :target: https://konch.readthedocs.io
+
+
+`https://konch.readthedocs.io <https://konch.readthedocs.io>`_
+==============================================================
+
