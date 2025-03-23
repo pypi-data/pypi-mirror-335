@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: image_processing_malu
+Version: 0.5.0
+Summary: Pacote para processamento de imagens com histogram matching, similaridade estrutural e redimensionamento.
+Home-page: https://github.com/malu-rm84/Package-dio
+Author: Maria Luiza
+Author-email: romani.malu84@gmail.com
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: opencv-python>=4.7.0
+Requires-Dist: numpy>=1.24.2
+Requires-Dist: matplotlib==3.7.1
+Requires-Dist: scikit-image>=0.20.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# image_processing_malu
+
+## Funcionalidades
+
+✔ **Histogram Matching** – Ajusta o histograma de uma imagem para corresponder ao de outra.  
+✔ **Structural Similarity** – Mede a similaridade estrutural entre duas imagens.  
+✔ **Resize Image** – Redimensiona uma imagem para um tamanho específico.  
+✔ **Utils**:
+   - Ler imagem (`read_image`)
+   - Salvar imagem (`save_image`)
+   - Exibir imagem (`plot_image`)
+   - Exibir comparação de imagens (`plot_result`)
+   - Exibir histograma de uma imagem (`plot_histogram`)
+
+## Instalação
+
+Use o gerenciador de pacotes [pip](https://pip.pypa.io/en/stable/) para instalar o `image_processing_malu`:
+
+```bash
+pip install image_processing_malu
+```
+
+## Uso
+```bash
+from image_processing_malu.processing import histogram_matching, structural_similarity, resize_image
+from image_processing_malu.utils import read_image, save_image, plot_image, plot_result, plot_histogram
+```
+
+## Autor
+Maria Luiza Romani
+Código Fonte: Karina Kato
