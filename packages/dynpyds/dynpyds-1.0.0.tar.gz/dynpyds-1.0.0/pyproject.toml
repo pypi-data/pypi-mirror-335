@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dynpyds"
+version = "1.0.0"
+description = "DynPy is a Python module designed for engineering calculations on dynamical systems. It provides a comprehensive framework for modeling, simulating, and analyzing dynamic mechanical systems."
+authors = [
+    { name="Filip Żelaźnicki", email="filipluke285@gmail.com" },
+]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+dependencies = [
+    "numpy>=1.26.0",
+    "pylatex>=1.4.2",
+    "sympy>=1.12",
+    "pandas>=2.1.0",
+    "matplotlib>=3.8.0",
+    "scipy>=1.11.0",
+    "pint>=0.23",
+    "pypandoc>=1.12",
+    "wand>=0.6.11"
+]
+
+[project.urls]
+repository = "https://github.com/bogumilchilinski/dynpy/?tab=readme-ov-file#introduction"
+
+[tool.setuptools.packages.find]
+include = ["dynpy*"]
