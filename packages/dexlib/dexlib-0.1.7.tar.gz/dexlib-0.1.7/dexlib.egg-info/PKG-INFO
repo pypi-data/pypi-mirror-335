@@ -1,0 +1,70 @@
+Metadata-Version: 2.4
+Name: dexlib
+Version: 0.1.7
+Summary: DEX interaction library for Base network
+Home-page: https://github.com/atomic-235/dex
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: pytz>=2023.3.post1
+Requires-Dist: mmh3>=4.0.1
+Requires-Dist: web3>=7.7.0
+Requires-Dist: requests>=2.32.3
+Requires-Dist: pycryptodome>=3.21.0
+Requires-Dist: websockets>=12.0
+Requires-Dist: parsimonious>=0.9.0
+Requires-Dist: python-dotenv>=1.0.0
+Requires-Dist: pandas>=2.2.3
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# DEX Interaction Library for Base Network
+
+A Python library for interacting with Decentralized Exchanges (DEXes) on the Base network.
+
+Repository: [https://github.com/atomic-235/dex](https://github.com/atomic-235/dex)
+
+## Overview
+
+This library provides tools and utilities for interacting with various decentralized exchanges on the Base network. It supports operations such as querying prices, executing trades, and managing liquidity positions.
+
+## Installation
+
+```bash
+pip install dexlib
+```
+
+## Getting Started
+
+1. Clone the repository
+2. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. Set up your environment variables in `.env` file
+4. Import and use the library in your project
+
+## Testing
+
+The project includes a test suite. To run the tests:
+
+```bash
+pytest tests/
+```
+
+## License
+
+This project is licensed under the MIT License.
