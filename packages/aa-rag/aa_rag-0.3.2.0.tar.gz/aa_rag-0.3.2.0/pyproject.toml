@@ -1,0 +1,60 @@
+[project]
+name = "aa-rag"
+version = "0.3.2.0"
+description = "RAG server for ai2apps."
+readme = "README.md"
+authors = [
+    { name = "jarlor", email = "jarlorzhang@outlook.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi[standard]>=0.115.6",
+    "langchain==0.3.14",
+    "langchain-community==0.3.14",
+    "langchain-core==0.3.29",
+    "langchain-milvus>=0.1.8",
+    "langchain-openai==0.2.14",
+    "markitdown==0.0.1a3",
+    "openai==1.59.3",
+    "pandas>=2.2.3",
+    "pymilvus>=2.5.4",
+    "python-dotenv==1.0.1",
+    "rank-bm25>=0.2.2",
+    "tinydb>=4.8.2",
+    "pydantic-settings>=2.8.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project.scripts]
+aarag = "aa_rag.main:startup"
+
+[project.optional-dependencies]
+online = [
+    "boto3>=1.36.25",
+    "lancedb>=0.19.0",
+    "neo4j>=5.28.1",
+    "pymongo>=4.11.1",
+    "future>=1.0.0",
+    "graspologic>=3.4.1",
+    "lightrag-hku>=1.2.2",
+    "nano-vectordb>=0.0.4.3",
+    "networkx>=3.4.2",
+    "pipmaster>=0.4.0",
+]
+lightrag = [
+    "future>=1.0.0",
+    "graspologic>=3.4.1",
+    "lightrag-hku>=1.2.2",
+    "nano-vectordb>=0.0.4.3",
+    "networkx>=3.4.2",
+    "pipmaster>=0.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "jupyter>=1.1.1"
+]
