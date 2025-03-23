@@ -1,0 +1,47 @@
+name: Publish
+## For reference on publishing with uv via workflows, see https://github.com/astral-sh/trusted-publishing-examples/blob/main/.github/workflows/release.yml
+
+on:
+  push:
+  ## publish on any tag starting with a `v`, e.g. `v1.2.3`
+    tags:
+      - v*
+
+
+
+jobs:
+  pypi:
+    name: Build + Publish to PyPI
+
+
+    ## Configure environment(s)
+    runs-on: ubuntu-latest
+    environment:
+      name: publish
+      ## The current filename and "name" above should correspond to entries in GitHub's "Environments" settings and PyPI's "Publishing" settings, which you must add manually:
+      ##   - GitHub: https://files.catbox.moe/7s8q99.png
+      ##   - PyPI: https://files.catbox.moe/qcecbd.png
+    permissions:
+      id-token: write
+
+
+    ## Declare steps/commands
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5  ## Ref: [1] https://github.com/marketplace/actions/astral-sh-setup-uv, [2] https://docs.astral.sh/uv/guides/integration/github/
+
+      - name: Build source distribution and wheels
+        run: uv build
+
+      - name: Smoke test (wheel)
+        run: uv run --isolated --no-project --python 3.12 --with dist/*.whl --with pytest -- pytest tests/Mag/test_sh.py tests/helper_functions/test_docstrings.py
+
+      - name: Smoke test (source distribution)
+        run: uv run --isolated --no-project --python 3.12 --with dist/*.tar.gz --with pytest -- pytest tests/Mag/test_sh.py tests/helper_functions/test_docstrings.py
+
+      - name: Publish to PyPI
+        run: uv publish --trusted-publishing always
+
+      ## TODO: add workflow to publish to GitHub Releases and/or conda-forge
