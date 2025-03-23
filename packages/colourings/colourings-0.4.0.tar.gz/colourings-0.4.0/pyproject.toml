@@ -1,0 +1,134 @@
+[tool.ruff.lint]
+ignore = ["E501"]
+select = [
+    "E",
+    "F",
+    "UP",
+    "B",
+    "SIM",
+    "I",
+    "C",
+    "W",
+    "B9"
+]
+
+
+[tool.tox]
+legacy_tox_ini = """
+    [tox]
+    envlist = quality, test, py{310,311,312,313}
+
+    [gh-actions]
+    python =
+        3.10: py310
+        3.11: py311
+        3.12: py312, quality, test
+        3.13: py313
+
+    [testenv]
+    basepython =
+        py310: {env:PYTHON:python3.10}
+        py311: {env:PYTHON:python3.11}
+        py312: {env:PYTHON:python3.12}
+        py313: {env:PYTHON:python3.13}
+        {quality,test,coverage}: {env:PYTHON:python3}
+    setenv =
+        PYTHONUNBUFFERED = yes
+    extras = dev
+    commands =
+        pytest {env:PYTEST_EXTRA_ARGS:} src tests {posargs:-vv}
+
+    [testenv:coverage]
+    description = measures code coverage
+    usedevelop = True
+    commands =
+        pytest --cov colourings {posargs:--cov-report=term-missing}
+        python -m mypy
+
+    [testenv:quality]
+    description = checks code quality
+    deps =
+        build
+        ruff
+    skip_install = true
+    commands =
+        python -m ruff check
+        python -m ruff format --diff
+        python -m build .
+"""
+
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "colourings"
+authors = [
+    {name = "Daniel Stoops", email = "danielstoops25@gmail.com"},
+]
+description = "Colouring in Python"
+readme = "README.md"
+requires-python = ">=3.10"
+keywords = ["color", "colour"]
+license = {file = "LICENSE.txt"}
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Operating System :: OS Independent",
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.4",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.9.4",
+    "tox>=4.24.1",
+    "build",
+]
+
+[project.urls]
+Repository = "https://github.com/Stoops-ML/colourings"
+# Documentation = "https://colourings.readthedocs.io/en"
+
+[tool.setuptools.dynamic]
+version = {attr = "colourings.__version__"}
+
+[tool.setuptools.package-data]
+"colourings" = ["py.typed"]
+
+[tool.mypy]
+files = [
+    "src/**/*.py",
+    "tests/**/*.py",
+]
+warn_redundant_casts = true
+warn_unused_configs = true
+pretty = true
+show_error_codes = true
+disallow_any_generics = true
+disallow_subclassing_any = true
+#disallow_untyped_calls = true
+#disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_unused_ignores = true
+warn_return_any = true
+no_implicit_reexport = true
+
+# More strict checks for library code
+[[tool.mypy.overrides]]
+module = "colourings"
+disallow_untyped_defs = true
+
+# Ignore certain missing imports
+[[tool.mypy.overrides]]
+module = ["setuptools.*"]
+ignore_missing_imports = true
