@@ -1,0 +1,66 @@
+Metadata-Version: 2.4
+Name: git-dag
+Version: 0.1.2
+Summary: Generates the DAG of a git repository
+Author-email: Dimitar Dimitrov <mail.mitko@gmail.com>
+License: Apache 2.0
+Project-URL: homepage, https://github.com/drdv/git-dag
+Project-URL: documentation, https://drdv.github.io/git-dag
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pydantic
+Requires-Dist: graphviz
+Requires-Dist: argcomplete
+Provides-Extra: lint
+Requires-Dist: pylint; extra == "lint"
+Requires-Dist: pylint-report; extra == "lint"
+Requires-Dist: pydocstyle; extra == "lint"
+Provides-Extra: docs
+Requires-Dist: Sphinx; extra == "docs"
+Requires-Dist: sphinx-rtd-theme; extra == "docs"
+Requires-Dist: sphinxcontrib-jsmath; extra == "docs"
+Requires-Dist: sphinxcontrib-websupport; extra == "docs"
+Requires-Dist: sphinx-copybutton; extra == "docs"
+Requires-Dist: sphinx-inline-tabs; extra == "docs"
+Requires-Dist: sphinx-argparse; extra == "docs"
+Requires-Dist: autodoc_pydantic; extra == "docs"
+Requires-Dist: furo; extra == "docs"
+Provides-Extra: code
+Requires-Dist: black; extra == "code"
+Requires-Dist: isort; extra == "code"
+Requires-Dist: pre-commit; extra == "code"
+Provides-Extra: test
+Requires-Dist: pytest; extra == "test"
+Requires-Dist: pytest-cov; extra == "test"
+Requires-Dist: pytest-html; extra == "test"
+Provides-Extra: types
+Requires-Dist: mypy; extra == "types"
+Requires-Dist: lxml; extra == "types"
+Provides-Extra: dev
+Requires-Dist: git_dag[code,docs,lint,test,types]; extra == "dev"
+Dynamic: license-file
+
+## Generates the DAG of a git repository
+
+See the online [documentation](https://drdv.github.io/git-dag).
+
+### Install
+
++ `pip install git-dag`
+
+### Examples
+
++ `git dag -rlst -n 20` would generate `git-dag.gv` (a [graphviz](https://graphviz.org/)
+  dot file) and `git-dag.gv.svg` with:
+  + the 20 most recent commits (`-n 20`, use `-n -1` to show all)
+  + all local branches (`-l`)
+  + all remote branches (`-r`)
+  + the stash (`-s`)
+  + all tags (`-t`)
+
++ displaying trees (`-T`) and blobs (`-B`) is recommended only for small(ish)
+  repositories.
+
++ using `-n 10 -i my-branch my-tag` would display the 10 most recent commits accessible
+  from `my-branch` or `my-tag`.
