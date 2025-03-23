@@ -1,0 +1,30 @@
+
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+
+[project]
+name = "tlhengine"
+
+authors = [
+  { name="lianghai tian", email="tianlh@163.com" },
+]
+dynamic = ["dependencies", "version"]
+description = "tlh engine"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements.txt"]
+[tool.hatch.version]
+path = "src/tlhengine/version.py"
+
+[project.urls]
+Homepage = "https://gitee.com/tianlianghai/tlh_engine"
+Issues = "https://gitee.com/tianlianghai/tlh_engine/issues"
