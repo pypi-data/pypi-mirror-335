@@ -1,0 +1,15 @@
+{
+  "dockerComposeFile": "docker-compose.yml",
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "remoteEnv": {
+    "PATH": "${containerWorkspaceFolder}/.venv/bin:${containerWorkspaceFolder}/scripts:${containerEnv:PATH}",
+    "PGDATABASE": "procrastinate",
+    "PGHOST": "127.0.0.1",
+    "PGPASSWORD": "password",
+    "PGUSER": "postgres",
+    "PROCRASTINATE_APP": "procrastinate.demos.demo_async.app.app",
+    "VIRTUAL_ENV": "${containerWorkspaceFolder}/.venv"
+  },
+  "service": "app",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}"
+}
