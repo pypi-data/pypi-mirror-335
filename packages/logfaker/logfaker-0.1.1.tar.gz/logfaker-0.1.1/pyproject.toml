@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "logfaker"
+version = "0.1.1"
+description = "Generate realistic test data for search engines, focusing on library catalog search systems"
+authors = ["rilmayer"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "logfaker"}]
+homepage = "https://github.com/rilmayer/logfaker"
+repository = "https://github.com/rilmayer/logfaker"
+keywords = ["search", "test-data", "elasticsearch", "openai", "data-generation"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Testing",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pandas = "^2.0.0"
+openai = "^1.12.0"
+elasticsearch = "^8.10.0"
+pydantic = "^2.5.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.1.1"
+isort = "^5.13.2"
+mypy = "^1.8.0"
+ruff = "^0.2.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests that require external services (e.g. OpenAI API)",
+]
