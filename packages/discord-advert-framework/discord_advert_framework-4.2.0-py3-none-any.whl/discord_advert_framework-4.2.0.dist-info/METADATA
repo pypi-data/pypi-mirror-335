@@ -1,0 +1,129 @@
+Metadata-Version: 2.4
+Name: discord-advert-framework
+Version: 4.2.0
+Summary: Framework for periodic advertisements on Discord
+Author: David Hozic
+Keywords: Discord,Advertising,Framework,NFT,Shilling
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.9
+Description-Content-Type: text/x-rst
+License-File: LICENSE.md
+Requires-Dist: aiohttp<3.12.0,>=3.9.0
+Requires-Dist: aiohttp_socks<0.11,>=0.8
+Requires-Dist: typeguard<2.14,>=2.13
+Requires-Dist: typing_extensions<5,>=4; python_version < "3.11"
+Requires-Dist: tkinter-async-execute<1.5,>=1.2
+Requires-Dist: asyncio-event-hub<1.2,>=1.0
+Requires-Dist: tkclasswiz<1.5,>=1.4
+Requires-Dist: ttkbootstrap==1.10.1
+Requires-Dist: audioop-lts~=0.2.1; python_version >= "3.13"
+Requires-Dist: pillow<11.2.0,>=10.4.0
+Provides-Extra: docs
+Requires-Dist: sphinx==8.2.3; extra == "docs"
+Requires-Dist: sphinx-autobuild==2024.9.19; extra == "docs"
+Requires-Dist: sphinx-copybutton==0.5.2; extra == "docs"
+Requires-Dist: furo==2024.8.6; extra == "docs"
+Requires-Dist: enum-tools[sphinx]==0.12.0; extra == "docs"
+Requires-Dist: sphinx-design[furo]==0.6.1; extra == "docs"
+Requires-Dist: readthedocs-sphinx-search==0.3.2; extra == "docs"
+Requires-Dist: sphinxcontrib-svg2pdfconverter==1.3.0; extra == "docs"
+Provides-Extra: voice
+Requires-Dist: PyNaCl<1.6,>=1.5; extra == "voice"
+Provides-Extra: sql
+Requires-Dist: sqlalchemy[asyncio]<3.0,>=2.0; extra == "sql"
+Requires-Dist: aiosqlite<0.22,>=0.19; extra == "sql"
+Requires-Dist: pymssql<2.4,>=2.2; extra == "sql"
+Requires-Dist: asyncpg<0.31,>=0.29; extra == "sql"
+Requires-Dist: asyncmy<0.3,>=0.2; extra == "sql"
+Provides-Extra: testing
+Requires-Dist: pytest<8.4,>=7.4; extra == "testing"
+Requires-Dist: pytest-asyncio<0.22,>=0.21; extra == "testing"
+Provides-Extra: web
+Requires-Dist: selenium<4.30,>=4.16; extra == "web"
+Requires-Dist: undetected-chromedriver<3.6,>=3.5; extra == "web"
+Requires-Dist: webdriver-manager<4.1,>=4.0; extra == "web"
+Requires-Dist: setuptools<77.1,>=77.0; python_version >= "3.12" and extra == "web"
+Provides-Extra: all
+Requires-Dist: PyNaCl<1.6,>=1.5; extra == "all"
+Requires-Dist: sqlalchemy[asyncio]<3.0,>=2.0; extra == "all"
+Requires-Dist: aiosqlite<0.22,>=0.19; extra == "all"
+Requires-Dist: pymssql<2.4,>=2.2; extra == "all"
+Requires-Dist: asyncpg<0.31,>=0.29; extra == "all"
+Requires-Dist: asyncmy<0.3,>=0.2; extra == "all"
+Requires-Dist: selenium<4.30,>=4.16; extra == "all"
+Requires-Dist: undetected-chromedriver<3.6,>=3.5; extra == "all"
+Requires-Dist: webdriver-manager<4.1,>=4.0; extra == "all"
+Requires-Dist: setuptools<77.1,>=77.0; python_version >= "3.12" and extra == "all"
+Dynamic: license-file
+
+=========================================================
+Discord Advertisement Framework
+=========================================================
+The Discord advertisement framework is a Python based automatic application that allows **easy periodic advertisement** / **shilling** on Discord.
+
+
+.. image:: ./docs/images/daf-gui-front.png
+    
+.. image:: ./docs/images/daf-gui-front-edit-msg.png
+
+----------------
+Guide / Usage
+----------------
+Instructions can be found `here <https://daf.davidhozic.com/en/stable/guide/GUI/quickstart.html>`_.
+
+---------------
+Help
+---------------
+Need help? Contact me in my `Discord server <https://discord.gg/DEnvahb2Sw>`_.
+
+----------------------
+Key features
+----------------------
+- Automatic periodic and scheduled messages to multiple servers and channels,
+- Error checking and recovery,
+- Message logging, invite link tracking & statistics
+- Multi-account support
+- Graphical Interface (GUI) / Console (script)
+- Easy to setup
+- Much more
+   
+----------------------
+Installation
+----------------------
+DAF can be installed though command prompt/terminal using the bottom commands.
+
+Pre-requirement: `Python (minimum v3.9 and currently max 3.11; 3.12 support is pending) <https://www.python.org/downloads/>`_.
+
+**Main package**
+
+::
+
+    pip install discord-advert-framework
+
+**Voice Messaging / AUDIO**
+
+::
+
+    pip install discord-advert-framework[voice]
+
+
+**SQL logging**
+            
+::
+
+    pip install discord-advert-framework[sql]
+
+
+**Chrome browser integration**
+
+::
+
+    pip install discord-advert-framework[web]
+            
+**All of the above (full package)**
+
+::
+
+    pip install discord-advert-framework[all]
