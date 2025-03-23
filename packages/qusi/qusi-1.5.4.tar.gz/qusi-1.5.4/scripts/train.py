@@ -1,0 +1,24 @@
+from torch.optim import AdamW
+
+from qusi.internal.train_logging_configuration import TrainLoggingConfiguration
+from qusi.internal.train_system_configuration import TrainSystemConfiguration
+from qusi.model import Hadryss
+from qusi.session import TrainHyperparameterConfiguration, train_session
+from scripts.dataset import get_heart_train_dataset, get_heart_validation_dataset
+
+
+def main():
+    train_light_curve_dataset = get_heart_train_dataset()
+    validation_light_curve_dataset = get_heart_validation_dataset()
+    model = Hadryss.new()
+    train_hyperparameter_configuration = TrainHyperparameterConfiguration.new(
+        batch_size=1000, cycles=5000, train_steps_per_cycle=100, validation_steps_per_cycle=10)
+    optimizer = AdamW(model.parameters(), lr=1e-2)
+    train_logging_configuration = TrainLoggingConfiguration.new(additional_log_dictionary={'run_name': 'non_lightning'})
+    train_session(train_datasets=[train_light_curve_dataset], validation_datasets=[validation_light_curve_dataset],
+                  model=model, hyperparameter_configuration=train_hyperparameter_configuration, optimizer=optimizer,
+                  logging_configuration=train_logging_configuration)
+
+
+if __name__ == '__main__':
+    main()
