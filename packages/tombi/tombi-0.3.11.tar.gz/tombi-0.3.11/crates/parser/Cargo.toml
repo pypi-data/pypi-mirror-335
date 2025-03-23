@@ -1,0 +1,30 @@
+[package]
+name = "parser"
+version = "0.0.0"
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+ast = { workspace = true }
+config.workspace = true
+diagnostic = { workspace = true, optional = true }
+document-tree = { workspace = true }
+drop_bomb = "0.1.5"
+itertools = { workspace = true }
+lexer = { workspace = true }
+rg-tree = { workspace = true }
+syntax = { workspace = true }
+text = { workspace = true }
+thiserror = { workspace = true }
+tracing = { workspace = true }
+
+[dev-dependencies]
+pretty_assertions.workspace = true
+rstest = { workspace = true }
+textwrap = { workspace = true }
+tracing-subscriber = { workspace = true }
+
+[features]
+default = ["diagnostic"]
+diagnostic = ["dep:diagnostic"]

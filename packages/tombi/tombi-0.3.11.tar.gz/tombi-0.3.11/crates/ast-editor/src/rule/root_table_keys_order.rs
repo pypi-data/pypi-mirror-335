@@ -1,0 +1,88 @@
+use ast::AstNode;
+use document_tree::IntoDocumentTreeAndErrors;
+use itertools::Itertools;
+use schema_store::{SchemaAccessor, SchemaContext, ValueSchema};
+use syntax::SyntaxElement;
+
+use crate::rule::table_keys_order::{sorted_accessors, table_keys_order};
+
+pub async fn root_table_keys_order<'a>(
+    key_values: Vec<ast::KeyValue>,
+    table_or_array_of_tables: Vec<ast::TableOrArrayOfTable>,
+    value_schema: Option<&'a ValueSchema>,
+    schema_url: Option<&'a schema_store::SchemaUrl>,
+    definitions: Option<&'a schema_store::SchemaDefinitions>,
+    schema_context: &'a SchemaContext<'a>,
+) -> Vec<crate::Change> {
+    if key_values.is_empty() && table_or_array_of_tables.is_empty() {
+        return Vec::with_capacity(0);
+    }
+
+    let mut changes = table_keys_order(
+        &document_tree::Value::Table(
+            key_values
+                .clone()
+                .into_document_tree_and_errors(schema_context.toml_version)
+                .tree,
+        ),
+        key_values,
+        value_schema,
+        schema_url,
+        definitions,
+        schema_context,
+    )
+    .await;
+
+    if table_or_array_of_tables.is_empty() {
+        return changes;
+    }
+
+    let old = std::ops::RangeInclusive::new(
+        SyntaxElement::Node(table_or_array_of_tables.first().unwrap().syntax().clone()),
+        SyntaxElement::Node(table_or_array_of_tables.last().unwrap().syntax().clone()),
+    );
+
+    let targets = table_or_array_of_tables
+        .clone()
+        .into_iter()
+        .map(|table| {
+            (
+                table
+                    .header()
+                    .map(|key| {
+                        key.keys()
+                            .map(|key| {
+                                SchemaAccessor::Key(
+                                    key.try_to_raw_text(schema_context.toml_version).unwrap(),
+                                )
+                            })
+                            .collect_vec()
+                    })
+                    .unwrap_or_default(),
+                table,
+            )
+        })
+        .collect_vec();
+
+    let new = sorted_accessors(
+        &document_tree::Value::Table(
+            table_or_array_of_tables
+                .into_document_tree_and_errors(schema_context.toml_version)
+                .tree,
+        ),
+        &[],
+        targets,
+        value_schema,
+        schema_url,
+        definitions,
+        schema_context,
+    )
+    .await
+    .into_iter()
+    .map(|kv| SyntaxElement::Node(kv.syntax().clone()))
+    .collect_vec();
+
+    changes.push(crate::Change::ReplaceRange { old, new });
+
+    changes
+}
