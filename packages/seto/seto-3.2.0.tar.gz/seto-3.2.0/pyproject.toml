@@ -1,0 +1,39 @@
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "seto"
+version = "3.2.0"
+description = "A Docker Swarm Deployment Manager"
+keywords = ["docker", "swarm", "manager"]
+authors = ["Sébastien Demanou <demsking@gmail.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+include = []
+exclude = []
+
+packages = [
+  { include = "seto" },
+]
+
+[tool.poetry.scripts]
+seto = "seto.__main__:main"
+
+[tool.poetry.urls]
+"Say Thanks!" = "https://www.buymeacoffee.com/demsking"
+"Source" = "https://gitlab.com/demsking/seto"
+"Tracker" = "https://gitlab.com/demsking/seto/-/issues"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+paramiko = "^3.4.0"
+pyyaml = "^6.0.1"
+docker = "^7.1.0"
+
+[tool.poetry.group.dev.dependencies]
+
+[tool.pytest.ini_options]
+# Function starting with the following pattern are considered for test cases.
+python_functions = "test_"
