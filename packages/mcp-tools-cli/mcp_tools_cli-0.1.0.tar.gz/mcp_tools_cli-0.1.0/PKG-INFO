@@ -1,0 +1,98 @@
+Metadata-Version: 2.4
+Name: mcp-tools-cli
+Version: 0.1.0
+Summary: command-line client for interacting with Model Context Protocol (MCP) servers.
+Author-email: moritalous <moritalous@gmail.com>
+License: MIT License
+        
+        Copyright (c) 2025 moritalous
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Requires-Python: >=3.12
+Requires-Dist: mcp>=1.5.0
+Description-Content-Type: text/markdown
+
+# mcp-tools-cli
+
+This is a command-line client for interacting with Model Context Protocol (MCP) servers.
+
+## Usage
+
+```
+mcp-tools-cli <action> --mcp-name <mcp_name> [options]
+```
+
+### Arguments
+
+*   `action` (required): The action to perform. Must be one of:
+    *   `list-tools`: Lists the available tools on the MCP server.
+    *   `call-tool`: Calls a specific tool on the MCP server.
+*   `--mcp-name` (required): The name of the MCP server to connect to, as defined in `mcp_config.json`.
+*   `--tool-name` (required for `call-tool` action): The name of the tool to call.
+*   `--tool-args` (optional): Arguments for the tool. Can be a JSON string or a single string value. If a single string value is not a valid JSON, it will be passed as the `query` argument to the tool.
+*   `--config-path` (optional): Path to the `mcp_config.json` file. Defaults to `mcp_config.json` in the current directory.
+
+### Configuration
+
+The client uses a configuration file named `mcp_config.json` to store the connection details for MCP servers. The file should be in the following format:
+
+```json
+{
+  "mcpServers": {
+    "<mcp_name>": {
+      "command": "<command to run the server>",
+      "args": ["<argument1>", "<argument2>", ...],
+      "env": {
+        "<environment variable name>": "<environment variable value>",
+        ...
+      }
+    },
+    ...
+  }
+}
+```
+
+Replace `<mcp_name>` with the name of your MCP server (e.g., `time`). The `command`, `args`, and `env` fields specify how to run the server.
+
+### Examples
+
+> A sample using the [Time MCP Server](https://github.com/modelcontextprotocol/servers/tree/main/src/time) is provided in mcp_config.sample.json. If you want to use this, please execute `pip install mcp-server-time` beforehand.
+
+1.  List available tools:
+
+```
+mcp-tools-cli list-tools --mcp-name time --config-path mcp_config.sample.json
+```
+
+2.  Call the `get_current_time` tool with a query:
+
+```
+mcp-tools-cli call-tool --mcp-name time --tool-name get_current_time --config-path mcp_config.sample.json
+```
+
+### Error Handling
+
+The client will print error messages to the console if any errors occur, such as:
+
+*   FileNotFoundError: If the config file is not found.
+*   json.JSONDecodeError: If the config file is not a valid JSON file.
+*   ValueError: If the MCP server is not found in the config file, or if the command is missing.
+*   argparse.ArgumentError: If there are invalid command-line arguments.
+*   Other exceptions during tool execution.
