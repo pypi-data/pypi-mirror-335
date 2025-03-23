@@ -1,0 +1,7 @@
+#!/bin/bash
+
+entrypoint=$(dirname -- "$0")/init
+
+if [ -e "$entrypoint" ]; then
+  "$entrypoint"
+fi
