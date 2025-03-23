@@ -1,0 +1,28 @@
+exp_name: Example
+
+path :
+  root: /path/to/root 
+  input : /path/to/input
+  output: ${path.root}/output
+  model: facebook/wav2vec2-base-960h
+
+train :
+  batch_size    : 16
+  learning_rate : 0.001
+  epochs        : 50
+
+signal : 
+  sample_rate : 16000
+  hop_size : 256
+  n_mels   : 80
+  eps      : 1.0e-8
+  max_len  : ${signal.sample_rate} // ${signal.hop_size}
+
+model :
+  input_dim      : 128
+  input_channel  : ${signal.n_mels}
+  output_channel : 5
+
+example : 
+  ex1 : 1 / ${train.batch_size}
+  ex2 : ${signal.sample_rate} / ${signal.hop_size}
