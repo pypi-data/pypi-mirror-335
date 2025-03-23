@@ -1,0 +1,78 @@
+site_name: Opsmate
+site_url: https://docs.opsmate.hjktech.uk
+theme:
+  name: material
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.action.view
+    - content.code.annotate
+    - content.code.copy
+    - content.code.select
+    - content.tabs.link
+    - content.tooltips
+    - header.autohide
+    - navigation.expand
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
+    - navigation.sections
+    - navigation.tabs
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins:
+  - mkdocs-jupyter:
+      ignore_h1_titles: true
+      execute: false
+  - search
+nav:
+  - Introduction: index.md
+  - CLI Reference:
+    - CLI: CLI/index.md
+    - opsmate run: CLI/run.md
+    - opsmate solve: CLI/solve.md
+    - opsmate chat: CLI/chat.md
+    - opsmate serve: CLI/serve.md
+    - opsmate worker: CLI/worker.md
+    - opsmate ingest: CLI/ingest.md
+    - opsmate ingest-prometheus-metrics-metadata: CLI/ingest-prometheus-metrics-metadata.md
+    - opsmate db-migrate: CLI/db-migrate.md
+    - opsmate db-rollback: CLI/db-rollback.md
+    - opsmate db-revisions: CLI/db-revisions.md
+    - opsmate list-contexts: CLI/list-contexts.md
+    - opsmate list-tools: CLI/list-tools.md
+    - opsmate list-models: CLI/list-models.md
+    - opsmate reset: CLI/reset.md
+  - Production: production.md
+  - Integrations:
+    - Add New LLM Providers: integrations/add-new-llm-providers.md
+    - Advanced Knowledge Retrieval: integrations/advanced-knowledge-retrieval.md
+  - Cookbooks:
+    - Cookbooks: cookbooks/index.md
+    - Use Opsmate for Automation: cookbooks/automation-using-python-runtime.ipynb
+    - Plugin System: cookbooks/plugin-system.ipynb
+    - 5 Levels of Workflow Orchestration: cookbooks/5-levels-of-workflow-orchestration.ipynb
+    - Knowledge Management: cookbooks/knowledge-management.ipynb
