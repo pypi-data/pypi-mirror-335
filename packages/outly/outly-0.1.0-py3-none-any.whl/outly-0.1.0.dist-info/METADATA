@@ -1,0 +1,45 @@
+Metadata-Version: 2.4
+Name: outly
+Version: 0.1.0
+Summary: Detección de outliers en Python con métodos estadísticos (Z-score e IQR).
+Home-page: https://github.com/josuemzx/outly
+Author: ESAI JOSUE HUAMAN MEZA
+Author-email: esai.huaman@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: numpy>=1.17.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# Outly
+
+**Outly** es una librería ligera para la **detección rápida de valores atípicos (outliers)** en Python usando métodos estadísticos sencillos (Z-score e IQR). El objetivo es ofrecer una solución minimalista para filtrar o reemplazar outliers en data sets sin instalar herramientas pesadas.
+
+## Características principales
+
+- **ZScoreDetector**: Marca como outliers los valores con un Z-score mayor a un umbral (p. ej., 3.0).
+- **IQRDetector**: Utiliza el rango intercuartílico (IQR); marca outliers fuera de [Q1 - k*IQR, Q3 + k*IQR].
+- **Funciones de utilidad**:
+  - `filter_outliers()`: Filtra y devuelve solo los valores no atípicos.
+  - `replace_outliers()`: Permite reemplazar outliers por mediana, media o un valor fijo.
+
+## Instalación
+
+Instala Outly desde PyPI con:
+
+```bash
+pip install outly
