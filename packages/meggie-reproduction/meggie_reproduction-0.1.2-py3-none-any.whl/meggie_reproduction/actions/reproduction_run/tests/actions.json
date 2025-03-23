@@ -1,0 +1,104 @@
+{
+    "sample_audvis_raw": [
+        {
+            "params": {
+                "rate": 100.0
+            },
+            "finished": true,
+            "timestamp": "2025-03-02T14:03:22.016834+00:00",
+            "id": "raw_resample",
+            "desc": "preprocessing",
+            "data": {
+                "inputs": {},
+                "outputs": {},
+                "tab_id": "preprocessing"
+            },
+            "version": 1
+        },
+        {
+            "params": {
+                "length": "10.0s",
+                "trans_bw": 0.5,
+                "lowpass": true,
+                "low_cutoff_freq": 40.0,
+                "highpass": true,
+                "high_cutoff_freq": 1.0,
+                "bandstop1": false,
+                "bandstop2": false,
+                "bandstop_bw": 1.0,
+                "bandstop_transbw": 0.5,
+                "bandstop_length": "10.0s"
+            },
+            "finished": true,
+            "timestamp": "2025-03-02T14:03:25.972720+00:00",
+            "id": "raw_filter",
+            "desc": "preprocessing",
+            "data": {
+                "inputs": {},
+                "outputs": {},
+                "tab_id": "preprocessing"
+            },
+            "version": 1
+        },
+        {
+            "params": {
+                "mag": true,
+                "grad": true,
+                "eeg": true,
+                "reject": {
+                    "mag": 4000.0,
+                    "grad": 3000.0,
+                    "eeg": 70.0
+                },
+                "tmin": -0.2,
+                "tmax": 0.5,
+                "bstart": -0.2,
+                "bend": 0.0,
+                "delay": 0.0,
+                "collection_name": "Epochs",
+                "events": [
+                    {
+                        "mask": 0,
+                        "event_id": 1
+                    }
+                ]
+            },
+            "finished": true,
+            "timestamp": "2025-03-02T14:03:38.870165+00:00",
+            "id": "epochs_create",
+            "desc": "epochs",
+            "data": {
+                "inputs": {},
+                "outputs": {
+                    "epochs": []
+                },
+                "tab_id": "epochs"
+            },
+            "version": 1
+        },
+        {
+            "params": {
+                "name": "Evoked",
+                "conditions": [
+                    "Epochs"
+                ]
+            },
+            "finished": true,
+            "timestamp": "2025-03-02T14:03:44.210496+00:00",
+            "id": "evoked_create",
+            "desc": "evoked",
+            "data": {
+                "inputs": {
+                    "epochs": [
+                        "Epochs"
+                    ]
+                },
+                "outputs": {
+                    "evoked": []
+                },
+                "tab_id": "evoked"
+            },
+            "version": 1
+        }
+    ]
+}

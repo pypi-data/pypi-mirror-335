@@ -1,0 +1,18 @@
+{
+    "id": "meggie_reproduction",
+    "name": "Reproduction",
+    "description": "Run actions based on an action log of a previous experiment",
+    "author": "CIBR",
+    "tabs": [
+        {
+            "id": "reproduction",
+            "name": "Reproduction",
+            "output_actions": ["reproduction_run"]
+        }
+    ],
+    "pipelines": [
+        {"id": "spectrum_sensor", "include_tabs": ["reproduction"]},
+        {"id": "evoked_sensor", "include_tabs": ["reproduction"]},
+        {"id": "induced_sensor", "include_tabs": ["reproduction"]}
+    ]
+}
