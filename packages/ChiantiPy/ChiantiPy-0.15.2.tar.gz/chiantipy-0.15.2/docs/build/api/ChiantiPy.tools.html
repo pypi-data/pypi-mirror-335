@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>ChiantiPy.tools package &#8212; ChiantiPy 0.15.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinxdoc.css?v=d11682b4" />
+    <script src="../_static/documentation_options.js?v=7c174e4c"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Notes" href="../notes.html" />
+    <link rel="prev" title="ChiantiPy.tests package" href="ChiantiPy.tests.html" /> 
+  </head><body>
+<div style="padding: 20px 10px 10px 40px; background-color: #fff8d3; text-align: left;">
+<a href="">
+<img border="0" alt="chiantipy" src="_static/chiantipy_logo.png"/>
+</a>
+</div>
+    
+
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../notes.html" title="Notes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ChiantiPy.tests.html" title="ChiantiPy.tests package"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChiantiPy 0.15.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >ChiantiPy’s API documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ChiantiPy.html" accesskey="U">ChiantiPy package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ChiantiPy.tools package</a></li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="chiantipy-tools-package">
+<h1>ChiantiPy.tools package<a class="headerlink" href="#chiantipy-tools-package" title="Link to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">¶</a></h2>
+</section>
+<section id="module-ChiantiPy.tools.archival">
+<span id="chiantipy-tools-archival-module"></span><h2>ChiantiPy.tools.archival module<a class="headerlink" href="#module-ChiantiPy.tools.archival" title="Link to this heading">¶</a></h2>
+<p>Functions for reading pre-v8 CHIANTI files</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.archival.elvlcRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.archival.</span></span><span class="sig-name descname"><span class="pre">elvlcRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useTh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.archival.elvlcRead" title="Link to this definition">¶</a></dt>
+<dd><p>read a chianti energy level file and returns
+{“lvl”:lvl,”conf”:conf,”term”:term,”spin”:spin,”l”:l,”spd”:spd,”j”:j
+,”mult”:mult,”ecm”:ecm,”eryd”:eryd,”ecmth”:ecmth,”erydth”:erydth,”ref”:ref,”pretty”:pretty, ‘ionS’:ions}
+if a energy value for ecm or eryd is zero(=unknown), the theoretical values
+(ecmth and erydth) are inserted</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.archival.elvlcWrite">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.archival.</span></span><span class="sig-name descname"><span class="pre">elvlcWrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addLvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.archival.elvlcWrite" title="Link to this definition">¶</a></dt>
+<dd><p>Write Chianti data to .elvlc file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<cite>dict</cite>) – Information about the Chianti data to write. Should contain
+the following keys: ionS, the Chianti style name of the ion such as c_4
+conf, an integer denoting the configuration - not too essential
+term, a string showing the configuration
+spin, an integer of the spin of the state in LS coupling
+l, an integer of the angular momentum quantum number
+spd, an string for the alphabetic symbol of the angular momemtum, S, P, D, etc
+j, a floating point number, the total angular momentum
+ecm, the observed energy in inverse cm, if unknown, the value is 0.
+eryd, the observed energy in Rydbergs, if unknown, the value is 0.
+ecmth, the calculated energy from the scattering calculation, in inverse cm
+erydth, the calculated energy from the scattering calculation in Rydbergs
+ref, the references in the literature to the data in the input info</p></li>
+<li><p><strong>outfile</strong> (<cite>str</cite>) – Output filename. ionS+’.elvlc’ (in current directory) if None</p></li>
+<li><p><strong>addLvl</strong> (<cite>int</cite>) – Add a constant value to the index of all levels</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For use with files created before elvlc format change in November 2012</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.io.elvlcWrite" title="ChiantiPy.tools.io.elvlcWrite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChiantiPy.tools.io.elvlcWrite</span></code></a></dt><dd><p>Write .elvlc file using the new format.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.archival.wgfaRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.archival.</span></span><span class="sig-name descname"><span class="pre">wgfaRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elvlcname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.archival.wgfaRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI data from a .wgfa file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>elvlcname</strong> (<cite>str</cite>) – If specified, the lsj term labels are returned in the <cite>pretty1</cite> and <cite>pretty2</cite> keys of <cite>Wgfa</cite></p></li>
+<li><p><strong>total</strong> (<cite>bool</cite>) – Return the level 2 avalue data in <cite>Wgfa</cite></p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Wgfa</strong> – Information read from the .wgfa file. The dictionary structure is {“lvl1”,”lvl2”,”wvl”,”gf”,”avalue”,”ref”,”ionS”,”filename”}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is text-wise not different than the v8 version except that it uses the
+archival elvlcRead in <cite>~ChiantiPy.tools.archival</cite> though this has now been commented out. Can this routine be removed? Should the elvlcRead routine be uncommented?</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.io.wgfaRead" title="ChiantiPy.tools.io.wgfaRead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChiantiPy.tools.io.wgfaRead</span></code></a></dt><dd><p>Read .wgfa file with the new format.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools.constants">
+<span id="chiantipy-tools-constants-module"></span><h2>ChiantiPy.tools.constants module<a class="headerlink" href="#module-ChiantiPy.tools.constants" title="Link to this heading">¶</a></h2>
+<p>A set of physical constants, in (mostly) cgs unit system. Most are from <a class="footnote-reference brackets" href="#id2" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>11<span class="fn-bracket">]</span></a>.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id2" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">11</a><span class="fn-bracket">]</span></span>
+<p>NIST Reference on Constants, Units and Uncertainty (<a class="reference external" href="http://physics.nist.gov/cuu">link</a>)</p>
+</aside>
+</aside>
+<p class="rubric">Notes</p>
+<p>Many of these can be replaced by the <cite>~astropy.constants</cite> module. Elemental symbols can be removed
+in favor of the periodictable module. Spectroscopic roman numerals can be removed in favor of roman
+module. The Gauss-Laguerre weights can be calculated by <cite>~numpy.polynomial.laguerre.laggauss</cite>.</p>
+</section>
+<section id="module-ChiantiPy.tools.data">
+<span id="chiantipy-tools-data-module"></span><h2>ChiantiPy.tools.data module<a class="headerlink" href="#module-ChiantiPy.tools.data" title="Link to this heading">¶</a></h2>
+<p>Module for collecting various top-level Chianti data</p>
+<p>Descriptions for <cite>keywordArgs</cite>:</p>
+<ul class="simple">
+<li><p><cite>temperature</cite> : temperature (in K)</p></li>
+<li><p><cite>eDensity</cite> : electron density (in :math:r`mathrm{cm}^{-3}`)</p></li>
+<li><p><cite>hDensity</cite> : hydrogen density (in :math:r`mathrm{cm}^{-3}`)</p></li>
+<li><p><cite>pDensity</cite> : proton density (in :math:r`mathrm{cm}^{-3}`)</p></li>
+<li><p><cite>radTemperature</cite> : radiation temperature of central source (in K)</p></li>
+<li><p><cite>rStar</cite> : distance of the plasma from the source (in units of the source’s radius)</p></li>
+<li><p><cite>distance</cite> : distance from the central source</p></li>
+</ul>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>XUVTOP</strong> (<em>str</em>) – the root of the CHIANTI database</p></li>
+<li><p><strong>Defaults</strong> (<em>dict</em>) – default values used by ChiantiPy, can also be set by an optional HOME/.chianti/chiantirc file</p></li>
+<li><p><strong>Ip</strong> (<em>np.ndarray</em>) – the ionization potentials for all ionization stages up to Zn, in eV</p></li>
+<li><p><strong>MasterList</strong> (<em>list</em>) – the CHIANTI style names of all ions in the CHIANTI database</p></li>
+<li><p><strong>IoneqAll</strong> (<em>dict</em>) – a dict containing the ionization equilibrium values for the default ionization file</p></li>
+<li><p><strong>ChiantiVersion</strong> (<em>str</em>) – the version of the CHIANTI database</p></li>
+<li><p><strong>AbundanceDefault</strong> (<em>dict</em>) – the elemental abundances in the default abundance file</p></li>
+<li><p><strong>AbundanceList</strong> (<em>list</em>) – the names of all abundance files included in the CHIANTI database</p></li>
+<li><p><strong>GrndLevels</strong> (<em>list</em>) – the number of levels that should be considered in an ionization calculation</p></li>
+</ul>
+</dd>
+</dl>
+</section>
+<section id="module-ChiantiPy.tools.filters">
+<span id="chiantipy-tools-filters-module"></span><h2>ChiantiPy.tools.filters module<a class="headerlink" href="#module-ChiantiPy.tools.filters" title="Link to this heading">¶</a></h2>
+<p>Line profile filters for creating synthetic spectra.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.boxcar">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">boxcar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.boxcar" title="Link to this definition">¶</a></dt>
+<dd><p>Box-car filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength filter should be centered on.</p></li>
+<li><p><strong>factor</strong> (<cite>~numpy.float64</cite>) – Full width of the box-car filter</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.gaussian">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.gaussian" title="Link to this definition">¶</a></dt>
+<dd><p>A gaussian filter</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength filter should be centered on.</p></li>
+<li><p><strong>factor</strong> (<cite>~numpy.float64</cite>) – Gaussian width</p></li>
+<li><p><strong>integrated value is unity</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.gaussianR">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">gaussianR</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.gaussianR" title="Link to this definition">¶</a></dt>
+<dd><p>A gaussian filter where the gaussian width is given by <cite>wvl0</cite>/<cite>factor</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength filter should be centered on.</p></li>
+<li><p><strong>factor</strong> (<cite>~numpy.float64</cite>) – Resolving power</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.lorentz">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">lorentz</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.lorentz" title="Link to this definition">¶</a></dt>
+<dd><p>Lorentz profile filter with the exception that all factors are in wavelength units
+rather than frequency as the lorentz profile is usually defined.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength filter should be centered on.</p></li>
+<li><p><strong>factor</strong> (<cite>~numpy.float64</cite>) – Value of the so-called constant gamma</p></li>
+<li><p><strong>integrated value is unity</strong></p></li>
+<li><p><strong>the FWHM is 2*gamma</strong></p></li>
+<li><p><strong>.. math::</strong> – L = frac{1}{pi gamma} frac{ gamma^2}{(lambda - lambda_0)^2 + gamma^2}</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.moffat">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">moffat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.5</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.moffat" title="Link to this definition">¶</a></dt>
+<dd><p>Moffat profile with parameters suited to Chandra Letg spectra</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength the filter is centered on.</p></li>
+<li><p><strong>factor</strong> (<cite>~numpy.float64</cite>) – Resolving power (TODO: correct description)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.psvoigt">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">psvoigt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(0.5,</span> <span class="pre">1.0)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.psvoigt" title="Link to this definition">¶</a></dt>
+<dd><p>pseudo-Voigt filter
+the sum of a Gaussian and a Lorentzian</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength the filter is centered on.</p></li>
+<li><p><strong>factor</strong> (<em>array-type</em>) – contains the following 2 parameters</p></li>
+<li><p><strong>A</strong> (<cite>~numpy.float64</cite>) – relative size of gaussian and lorentz components
+must be between 0. and 1. but this is not currently checked</p></li>
+<li><p><strong>sigma</strong> (<cite>~numpy.float64</cite>) – the gaussian width of the gaussian profile (the standard deviation)
+also creates the lorentz component with the same fwhm</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.filters.voigt">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.filters.</span></span><span class="sig-name descname"><span class="pre">voigt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wvl</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wvl0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">factor</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">(None,</span> <span class="pre">None)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.filters.voigt" title="Link to this definition">¶</a></dt>
+<dd><p>voigt profile from scipy.special.voigt_profile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wvl</strong> (<cite>~numpy.ndarray</cite>) – Wavelength array</p></li>
+<li><p><strong>wvl0</strong> (<cite>~numpy.float64</cite>) – Wavelength the filter is centered on.</p></li>
+<li><p><strong>factor</strong> (<em>array-type</em>) – contains the following 3 parameters</p></li>
+<li><p><strong>sigma</strong> (<cite>~numpy.ndarray</cite> of same shape as wvl, default value is 2.e-4) – the gaussian width of the gaussian component</p></li>
+<li><p><strong>gamma</strong> (<cite>~numpy.ndarray</cite> of the same shape as wvl, default value is 5.e-4) – the fwhm of the Lorentz profile</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools.io">
+<span id="chiantipy-tools-io-module"></span><h2>ChiantiPy.tools.io module<a class="headerlink" href="#module-ChiantiPy.tools.io" title="Link to this heading">¶</a></h2>
+<p>Reading and writing functions</p>
+<p>TODO:  see if klgfbRead is needed or not</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.abundanceRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">abundanceRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">abundancename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.abundanceRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read abundance file <cite>abundancename</cite> and return the abundance values relative to hydrogen</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>abundancename</strong> (<cite>str</cite>) – the name of the abundance file in the $XUVTOP/abundance directory to be read
+the default is an empty string and then the ‘default’ abundance values are read</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – if true, prints out some info</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.autoRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">autoRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.autoRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI autoionization rates from a .auto file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>elvlcname</strong> (<cite>str</cite>) – If specified, the lsj term labels are returned in the ‘pretty1’ and ‘pretty2’
+keys of ‘Wgfa’ dict</p></li>
+<li><p><strong>total</strong> (<cite>bool</cite>) – Return the summed level 2 autoionization rates in ‘Auto’</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>Auto</strong> – Information read from the .wgfa file. The dictionary structure is
+{“lvl1”, “lvl2”, “avalue”, “pretty1”, “pretty2”, “ref”,”ionS”, “filename”}</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.autoWrite">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">autoWrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minBranch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.autoWrite" title="Link to this definition">¶</a></dt>
+<dd><p>Write data to a CHIANTI .wgfa style file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<cite>dict</cite>) – Should contain the following:
+ionS, the Chianti style name of the ion such as c_4 for C IV,
+lvl1, the lower level, the ground level is 1,
+lvl2, the upper level, wvl, the wavelength (in Angstroms),
+avalue, the autoionization rate,
+pretty1, descriptive text of the lower level (optional),
+pretty2, descriptive text of the upper level (optiona),
+ref, reference text, a list of strings</p></li>
+<li><p><strong>outfile</strong> (<cite>str</cite>)</p></li>
+<li><p><strong>minBranch</strong> (<cite>~numpy.float64</cite>) – The transition must have a branching ratio greater than the specified to be written to the file</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.cireclvlRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">cireclvlRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filetype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cilvl'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.cireclvlRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read Chianti cilvl, reclvl, or rrlvl files and return data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>filetype</strong> (<cite>str</cite>) – {‘cilvl’, ‘reclvl’, ‘rrlvl’} Type of the file to read</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.convertName">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">convertName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.convertName" title="Link to this definition">¶</a></dt>
+<dd><p>Convert ion name string to Z and Ion and other interesting info</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<cite>str</cite>) – a generic name of an ion in the CHIANTI database,
+such as fe_14 for Fe XIV</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id3">
+<p class="admonition-title">Todo</p>
+<p>Put in separate module to avoid multiple copies</p>
+</div>
+<p class="rubric">Notes</p>
+<p>A duplicate of the routine in <cite>ChiantiPy.tools.util</cite> but needed by masterList Info</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.defaultsRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">defaultsRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.defaultsRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read in configuration from .chiantirc file or set defaults if one is not found.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.demRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">demRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">demName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.demRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read emission measure file <cite>emName</cite> and return the temperatures, densities and emission measures</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>demName</strong> (<cite>str</cite>) – the name of the differential emission measure file to read in the $XUVTOP/dem directory</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>DEM</strong> – keywords are <cite>temperature</cite>, <cite>density</cite>, <cite>dem</cite>, <cite>em</cite>, <cite>dt</cite>, <cite>filename</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.diRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">diRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.diRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read chianti direct ionization .params files and return data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.drRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">drRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.drRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI dielectronic recombination .drparams files
+if filename is set, then reads that file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.eaRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">eaRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.eaRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read a CHIANTI excitation-autoionization file and calculate the EA ionization rate data
+derived from splupsRead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.elvlcRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">elvlcRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getExtended</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getLatex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">useTh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.elvlcRead" title="Link to this definition">¶</a></dt>
+<dd><p>Reads the new format elvlc files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>getExtended</strong> (<cite>bool</cite>) – get energy levels in columns beyond the theoretical energy</p></li>
+<li><p><strong>getLatex</strong> (<cite>bool</cite>) – get energy level descriptions in latex markup</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – print out the elvlc information</p></li>
+<li><p><strong>useTh</strong> (<cite>bool</cite>) – If True, the theoretical values (ecmth and erydth) are inserted when
+an energy value for ecm or eryd is zero(=unknown)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.elvlcWrite">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">elvlcWrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outfile</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">round</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">addLvl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeRyd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">includeEv</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.elvlcWrite" title="Link to this definition">¶</a></dt>
+<dd><p>Write Chianti data to .elvlc file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>info</strong> (<cite>dict</cite>) – Information about the Chianti data to write. Should contain
+the following keys: ionS, the Chianti style name of the ion such as c_4
+term, a string showing the configuration
+spin, an integer of the spin of the state in LS coupling
+l, an integer of the angular momentum quantum number
+spd, an string for the alphabetic symbol of the angular momemtum, S, P, D, etc
+j, a floating point number, the total angular momentum
+ecm, the observed energy in inverse cm, if unknown, the value is 0.
+eryd, the observed energy in Rydbergs, if unknown, the value is 0.
+ecmth, the calculated energy from the scattering calculation, in inverse cm
+erydth, the calculated energy from the scattering calculation in Rydbergs
+ref, the references in the literature to the data in the input info</p></li>
+<li><p><strong>outfile</strong> (<cite>str</cite>) – Output filename. ionS + ‘.elvlc’ (in current directory) if None</p></li>
+<li><p><strong>round</strong> (<cite>int</cite>) – input to ‘np.round’ to round input values to maintain the correct number of significant figures</p></li>
+<li><p><strong>addLvl</strong> (<cite>int</cite>) – Add a constant value to the index of all levels</p></li>
+<li><p><strong>includeRyd</strong> (<cite>bool</cite>) – If True, write the Rydberg energies in the extended area, delimited by a comma</p></li>
+<li><p><strong>includeEv</strong> (<cite>bool</cite>) – If True, write the energies in eV in the extended area, delimited by a comma</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>For use with files created after elvlc format change in November 2012</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.archival.elvlcWrite" title="ChiantiPy.tools.archival.elvlcWrite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChiantiPy.tools.archival.elvlcWrite</span></code></a></dt><dd><p>Write .elvlc file using the old format.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.emRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">emRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.emRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read emission measure file <cite>emName</cite> and return the temperatures, densities and emission measures</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<cite>str</cite>) – the name of the emission measure file to read in the $XUVTOP/em directory</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>EM</strong> – keywords are <cite>temperature</cite>, <cite>density</cite>, <cite>em</cite>, <cite>filename</cite></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.fblfRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">fblfRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.fblfRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the .fbparams file to return the parameters to calculate the
+fb factor of Mao, Kaastra, Badnell Astron. Astrophys. 599, A10 (2017)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.fblvlRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">fblvlRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.fblvlRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read a Chianti energy level file for calculating the
+free-bound continuum</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.gffRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">gffRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.gffRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the free-free gaunt factors of <a class="footnote-reference brackets" href="#id5" id="id4" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id5" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id7">2</a>)</span>
+<p>Sutherland, R. S., 1998, MNRAS, <a class="reference external" href="http://adsabs.harvard.edu/abs/1998MNRAS.300..321S">300, 321</a></p>
+</aside>
+</aside>
+<p class="rubric">Notes</p>
+<p>This function reads the file and reverses the values of g2 and u</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.gffintRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">gffintRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.gffintRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the integrated free-free gaunt factors of <a class="footnote-reference brackets" href="#id5" id="id7" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.grndLevelsRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">grndLevelsRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.grndLevelsRead" title="Link to this definition">¶</a></dt>
+<dd><p>to read the grndLevels.dat file
+give the number of ground levels to sum over
+in populate and drPopulate</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.ioneqRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">ioneqRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ioneqName</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minIoneq</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.ioneqRead" title="Link to this definition">¶</a></dt>
+<dd><p>Reads an ioneq file
+ionization equilibrium values less then minIoneq are returns as zeros</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ioneqName</strong> (<cite>str</cite>) – reads the file in the $XUVTOP/ioneq directory, if a blank, the default is read</p></li>
+<li><p><strong>minIoneq</strong> (<cite>float</cite>) – sets values to zero if less the minIoneq</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – if true, prints into to the terminal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>{‘ioneqname’,’ioneqAll’,’ioneqTemperature’,’ioneqRef’}</strong> – Ionization equilibrium values and the reference to the literature</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.ipRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">ipRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.ipRead" title="Link to this definition">¶</a></dt>
+<dd><p>Reads the ionization potential file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ip</strong> – Ionization potential (in eV)</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.itohRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">itohRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.itohRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read in the free-free gaunt factors of <a class="footnote-reference brackets" href="#id9" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a>.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id9" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">2</a><span class="fn-bracket">]</span></span>
+<p>Itoh, N. et al., 2000, ApJS, <a class="reference external" href="http://adsabs.harvard.edu/abs/2000ApJS..128..125I">128, 125</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.klgbfnRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">klgbfnRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.klgbfnRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI files containing the free-bound gaunt factors for n=1-6 from <a class="footnote-reference brackets" href="#id12" id="id11" role="doc-noteref"><span class="fn-bracket">[</span>14<span class="fn-bracket">]</span></a>.
+This reads the corrected KL files in CHIANTI version 10+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<cite>str</cite>) – the filename for the KL data in the continuum directory, such as klgfb_1.dat, n=1,6</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[{‘pe’, ‘klgfb’}]</strong> – Photon energy and the bound-free gaunt factors</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id12" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">14</a><span class="fn-bracket">]</span></span>
+<p>Karzas and Latter, 1961, ApJSS, <a class="reference external" href="http://adsabs.harvard.edu/abs/1961ApJS....6..167K">6, 167</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.maoParsRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">maoParsRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.maoParsRead" title="Link to this definition">¶</a></dt>
+<dd><p>to read the mao et al par2.dat file for calculating the
+ratio of rrloss to rrrecomb
+The electron energy-loss rate due to radiative recombination.
+Mao J., Kaastra J., Badnell N.R.
+&lt;Astron. Astrophys. 599, A10 (2017)&gt;
+=2017A&amp;A…599A..10M
+1-  2  I2    —     s         Isoelectronic sequence number
+4-  5  I2    —     z         Atomic number
+7- 16  E10.4 —     a0        Primary fitting parameter
+18- 27  E10.4 —     b0        Primary fitting parameter
+29- 38  E10.4 —     c0        Addiational fitting parameter
+40- 49  E10.4 —     a1        Primary fitting parameter
+51- 60  E10.4 —     b1        Primary fitting parameter
+62- 71  E10.4 —     a2        Addiational fitting parameter
+73- 82  E10.4 —     b2        Addiational fitting parameter
+84- 86  F3.1  —     mdp       Maximum deviation in percent</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<cite>str</cite>)</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.masterListInfo">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">masterListInfo</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.masterListInfo" title="Link to this definition">¶</a></dt>
+<dd><p>Get information about ions in the CHIANTI masterlist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>force</strong> (<cite>bool</cite>) – if true, recreates the masterListInfo file</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – if true, prints into to the terminal</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>masterListInfo</strong> – {‘wmin’, ‘wmax’, ‘tmin’, ‘tmax’} Minimum and maximum wavelengths in
+the wgfa file. Minimum and maximum temperatures for which the
+ionization balance is nonzero.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function speeds up multi-ion spectral calculations.
+The information is stored in a pickled file ‘masterlist_ions.pkl’
+If the file is not found, one will be created.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.masterListRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">masterListRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.masterListRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read a CHIANTI masterlist file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>masterlist</strong> – All ions in Chianti database</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>list</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.rrLossRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">rrLossRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.rrLossRead" title="Link to this definition">¶</a></dt>
+<dd><p>to read the Mao 2017 rr loss parameters <a class="footnote-reference brackets" href="#id15" id="id14" role="doc-noteref"><span class="fn-bracket">[</span>12<span class="fn-bracket">]</span></a></p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id15" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">12</a><span class="fn-bracket">]</span></span>
+<p>Mao J., Kaastra J., Badnell N.R., <a class="reference external" href="http://adsabs.harvard.edu/abs/2017A%26A...599A..10M">2017 Astron. Astrophys. 599, A10</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.rrRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">rrRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.rrRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI radiative recombination .rrparams files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘rrtype’,’params’,’ref’}</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.scupsRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">scupsRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.scupsRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the new format v8 scups file containing the scaled temperature and upsilons from <a class="footnote-reference brackets" href="#id39" id="id16" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>) – if True, prints info to the terminal</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.splomRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">splomRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ea</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.splomRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read chianti .splom files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ea</strong> (<cite>bool</cite>) – if true, reads the  .easplom file</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘lvl1’, ‘lvl2’, ‘ttype’, ‘gf’, ‘deryd’, ‘c’, ‘splom’, ‘ref’}</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Still needed for ionization cross sections</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.splupsRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">splupsRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filetype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'splups'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.splupsRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read a CHIANTI .splups file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>filename</strong> (<cite>str</cite>, optional) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>filetype</strong> (<cite>str</cite>, optional) – {<cite>psplups</cite>,`cisplups`,`splups`} Type of file to read</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘lvl1’, ‘lvl2’, ‘ttype’, ‘gf’, ‘de’, ‘cups’, ‘bsplups’, ‘ref’}</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.twophotonHRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">twophotonHRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.twophotonHRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the two-photon Einstein A values and distribution function for the H sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘y0’, ‘z0’, ‘avalue’, ‘asum’, ‘psi0’}</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.twophotonHeRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">twophotonHeRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.twophotonHeRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the two-photon Einstein A values and distribution function for the He sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘y0’, ‘avalue’, ‘psi0’}</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.vernerRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">vernerRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.vernerRead" title="Link to this definition">¶</a></dt>
+<dd><p>Reads the photoionization cross-section data from <a class="footnote-reference brackets" href="#id18" id="id17" role="doc-noteref"><span class="fn-bracket">[</span>6<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>{‘pqn’,’l’,’eth’,’e0’,’sig0’,’ya’,’p’, yw’}</strong> – <cite>pqn</cite> is the principal quantum number, <cite>l</cite> is the subshell orbital quantum number, <cite>eth</cite> (in eV) is the subshell ionization threshold energy; <cite>sig0</cite>, <cite>ya</cite>, <cite>p</cite>, and <cite>yw</cite> are all fit parameters used in calculating the total photoionization cross-section.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id18" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">6</a><span class="fn-bracket">]</span></span>
+<p>Verner &amp; Yakovlev, 1995, A&amp;AS, <a class="reference external" href="http://adsabs.harvard.edu/abs/1995A%26AS..109..125V">109, 125</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.versionRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">versionRead</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.versionRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read the version number of the CHIANTI database</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.wgfaRead">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">wgfaRead</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">elvlcname</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">getLatex</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.wgfaRead" title="Link to this definition">¶</a></dt>
+<dd><p>Read CHIANTI data from a .wgfa file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<cite>str</cite>) – Ion, e.g. ‘c_5’ for C V</p>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>filename</strong> (<cite>str</cite>) – Custom filename, will override that specified by <cite>ions</cite></p></li>
+<li><p><strong>elvlcname</strong> (<cite>str</cite>) – If specified, the lsj term labels are returned in the ‘pretty1’ and ‘pretty2’
+keys of ‘Wgfa’ dict</p></li>
+<li><p><strong>total</strong> (<cite>bool</cite>) – Return the summed level 2 avalue data in ‘Wgfa’</p></li>
+<li><p><strong>getLatex</strong> (<cite>bool</cite>) – retrieve the level descriptions in latex markup returned in the ‘latex1’ and ‘latex2’
+keys of the <cite>Wgfa</cite> dict</p></li>
+<li><p><strong>verbose</strong> (<cite>bool</cite>)</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Wgfa</strong> – Information read from the .wgfa file. The dictionary structure is
+{“lvl1”,”lvl2”,”wvl”,”gf”,”avalue”,”ref”,”ionS”,”filename”}</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><cite>dict</cite></p>
+</dd>
+</dl>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.archival.wgfaRead" title="ChiantiPy.tools.archival.wgfaRead"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ChiantiPy.tools.archival.wgfaRead</span></code></a></dt><dd><p>Read .wgfa file with the old format.</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.wgfaWrite">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">wgfaWrite</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">info</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minBranch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rightDigits</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">maxLvl1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.wgfaWrite" title="Link to this definition">¶</a></dt>
+<dd><p>Write data to a CHIANTI .wgfa file</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>info</strong> (<cite>dict</cite>) – Should contain the following keys:
+ionS, the Chianti style name of the ion such as c_4 for C IV,
+lvl1, the lower level, the ground level is 1,
+lvl2, the upper level,
+wvl, the wavelength (in Angstroms),
+gf,the weighted oscillator strength,
+avalue, the A value,
+pretty1, descriptive text of the lower level (optional),
+pretty2, descriptive text of the upper level (optiona),
+ref, reference text, a list of strings</p></li>
+<li><p><strong>filename</strong> (<cite>str</cite>)</p></li>
+<li><p><strong>minBranch</strong> (<cite>~numpy.float64</cite>) –</p>
+<dl class="simple">
+<dt>The transition must have a branching ratio greater than the specified minBranch</dt><dd><p>to be written to the file.  default = 1.e-5</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>rightDigits</strong> (<cite>int</cite>) – the number of digits to the right of the decimal point in the wavelength
+default = 5</p></li>
+<li><p><strong>maxLvl1</strong> (<cite>int</cite>) – the largest level to be written. default is None</p></li>
+<li><p><strong>comment</strong> (<cite>str</cite>) – add a comment to the reference section.  default = None</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.io.zion2name">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.io.</span></span><span class="sig-name descname"><span class="pre">zion2name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.io.zion2name" title="Link to this definition">¶</a></dt>
+<dd><p>Convert <cite>Z</cite> and <cite>ion</cite> to generic name, e.g. 26, 13 -&gt; fe_13</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – the nuclear charge, for example 26 for Fe XIV</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ion stage, for example, 14 for Fe XIV</p></li>
+</ul>
+</dd>
+<dt class="field-even">Keyword Arguments<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dielectronic</strong> (<cite>bool</cite>) – if True, created the name of a dielectronic ion, with a ‘d’ at the end</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id20">
+<p class="admonition-title">Todo</p>
+<p>See if dielectronic is still appropriate</p>
+<p>Put in separate module to avoid multiple copies</p>
+</div>
+<p class="rubric">Notes</p>
+<p>A duplicate of the routine in <cite>ChiantiPy.tools.util</cite> but needed by masterList Info</p>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools.mputil">
+<span id="chiantipy-tools-mputil-module"></span><h2>ChiantiPy.tools.mputil module<a class="headerlink" href="#module-ChiantiPy.tools.mputil" title="Link to this heading">¶</a></h2>
+<p>Functions needed for standard Python multiprocessing module mspectrum</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doFbLossQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doFbLossQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doFbLossQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.continuum.freeBound</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQ</strong> (<cite>~multiprocessing.Queue</cite>) – Ion free-bound emission jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQ</strong> (<cite>~multiprocessing.Queue</cite>) – Finished free-bound emission jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doFbQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doFbQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doFbQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.continuum.freeBound</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQ</strong> (<cite>~multiprocessing.Queue</cite>) – Ion free-bound emission jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQ</strong> (<cite>~multiprocessing.Queue</cite>) – Finished free-bound emission jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doFfLossQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doFfLossQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doFfLossQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.continuum.freeFreeLoss</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQ</strong> (<cite>~multiprocessing.Queue</cite>) – Ion free-free emission jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQ</strong> (<cite>~multiprocessing.Queue</cite>) – Finished free-free emission jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doFfQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doFfQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQ</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQ</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doFfQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.continuum.freeFree</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQ</strong> (<cite>~multiprocessing.Queue</cite>) – Ion free-free emission jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQ</strong> (<cite>~multiprocessing.Queue</cite>) – Finished free-free emission jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doIonLossQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doIonLossQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQueue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doIonLossQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.ion</cite> and <cite>ChiantiPy.core.ion.twoPhoton</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQueue</strong> (<cite>~multiprocessing.Queue</cite>) – Jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQueue</strong> (<cite>~multiprocessing.Queue</cite>) – Finished jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.mputil.doIonQ">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.mputil.</span></span><span class="sig-name descname"><span class="pre">doIonQ</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inQueue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outQueue</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.mputil.doIonQ" title="Link to this definition">¶</a></dt>
+<dd><p>Multiprocessing helper for <cite>ChiantiPy.core.ion</cite> and <cite>ChiantiPy.core.ion.twoPhoton</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inQueue</strong> (<cite>~multiprocessing.Queue</cite>) – Jobs queued up by multiprocessing module</p></li>
+<li><p><strong>outQueue</strong> (<cite>~multiprocessing.Queue</cite>) – Finished jobs</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools.sources">
+<span id="chiantipy-tools-sources-module"></span><h2>ChiantiPy.tools.sources module<a class="headerlink" href="#module-ChiantiPy.tools.sources" title="Link to this heading">¶</a></h2>
+<p>Blackbody temperature calculations</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ChiantiPy.tools.sources.blackStar">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.sources.</span></span><span class="sig-name descname"><span class="pre">blackStar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.sources.blackStar" title="Link to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Calculate blackbody radiation</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature</strong> (<cite>~numpy.ndarray</cite>) – Temperature in Kelvin</p></li>
+<li><p><strong>radius</strong> (<cite>~numpy.ndarray</cite>) – Stellar radius in cm</p></li>
+</ul>
+</dd>
+<dt class="field-even">Variables<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Temperature</strong> (<cite>~numpy.ndarray</cite>) – Temperature in Kelvin</p></li>
+<li><p><strong>Radius</strong> (<cite>~numpy.ndarray</cite>) – Stellar radius in cm</p></li>
+<li><p><strong>Incident</strong> (<cite>~numpy.ndarray</cite>) – Blackbody photon distribution</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ChiantiPy.tools.sources.blackStar.incident">
+<span class="sig-name descname"><span class="pre">incident</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">distance</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.sources.blackStar.incident" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate photon distribution times the visible cross-sectional area.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>distance</strong> (<cite>~numpy.ndarray</cite>) – Distance to the stellar object in cm</p></li>
+<li><p><strong>energy</strong> (<cite>~numpy.ndarray</cite>) – Energy range in erg</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This function returns the photon distribution instead of the distribution times the cross-sectional area. Is this correct? Why is the incident photon distribution calculated at all?</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.sources.blackbody">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.sources.</span></span><span class="sig-name descname"><span class="pre">blackbody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hnu</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.sources.blackbody" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the blackbody photon distribution as a function of energy (<cite>hnu</cite> = 1) or as a function of wavelength (<cite>hnu</cite> = 0) in units of  <span class="math notranslate nohighlight">\(\mathrm{photons}\,\mathrm{cm}^{-2}\,\mathrm{s}^{-1}\,\mathrm{str}^{-1}\,\mathrm{erg}^{-1}\)</span></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>temperature</strong> (<cite>~numpy.float64</cite>) – Temperature at which to calculate the blackbody photon distribution</p></li>
+<li><p><strong>variable</strong> (<cite>~numpy.ndarray</cite>) – Either energy (in erg) or wavelength (in angstrom)</p></li>
+<li><p><strong>hnu</strong> (<cite>int</cite>) – If 1, calculate distribution as a function of energy. Otherwise, calculate it as a function of wavelength</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>{‘photons’, ‘temperature’, ‘energy’} or {‘photons’, ‘temperature’, ‘wvl’}</strong></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools.util">
+<span id="chiantipy-tools-util-module"></span><h2>ChiantiPy.tools.util module<a class="headerlink" href="#module-ChiantiPy.tools.util" title="Link to this heading">¶</a></h2>
+<p>Utility functions</p>
+<p class="rubric">Notes</p>
+<p>Some of these functions can be replaced by roman numeral and periodic table lookup libraries.
+some functions using os.walk can be replaced by os.path</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.between">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">between</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limits</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.between" title="Link to this definition">¶</a></dt>
+<dd><p>Find the indices of <cite>array</cite> corresponding to values in the range given by <cite>limits</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> (<cite>list</cite>, <cite>ndarray</cite>) – contains a list of elements such a wavelengths</p></li>
+<li><p><strong>limits</strong> (<cite>list</cite>, <cite>ndarray</cite>) – a 2 element array specifying the lower and upper limits of the array to be included</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.convertName">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">convertName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.convertName" title="Link to this definition">¶</a></dt>
+<dd><p>Convert ion name string (e.g. ‘fe_13’) to atomic number and ion number.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<cite>str</cite>) – the CHIANTI style name for an ion, such as fe_14</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>{‘Z’, ‘Ion’, ‘Dielectronic’, ‘Element’, ‘higher’, ‘lower’}</strong> – <cite>higher</cite> and <cite>lower</cite> are the Chianti-style names for the higher and lower ionization stages, respectively.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>dict</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.descale_bt">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">descale_bt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bte</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">btomega</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.descale_bt" title="Link to this definition">¶</a></dt>
+<dd><p>Apply excitation descaling of <a class="footnote-reference brackets" href="#id22" id="id21" role="doc-noteref"><span class="fn-bracket">[</span>3<span class="fn-bracket">]</span></a> to energy and collision strength</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bte</strong> (<em>array-like</em>) – Scaled energy</p></li>
+<li><p><strong>btomega</strong> (<em>array-like</em>) – Scaled collision strength</p></li>
+<li><p><strong>f</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>ev1</strong> (<em>array-like</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[energy,omega]</strong> – Descaled energy and collision strength</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Need more details here. Not clear which equations are being used.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.util.scale_bt" title="ChiantiPy.tools.util.scale_bt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bt</span></code></a></dt><dd><p>Apply scaling to excitation energy and cross-section</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id22" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id21">3</a><span class="fn-bracket">]</span></span>
+<p>Burgess, A. and Tully, J. A., 1992, A&amp;A, <a class="reference external" href="http://adsabs.harvard.edu/abs/1992A%26A...254..436B">254, 436</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.descale_bti">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">descale_bti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bte</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">btx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.descale_bti" title="Link to this definition">¶</a></dt>
+<dd><p>Apply ionization descaling of <a class="footnote-reference brackets" href="#id27" id="id24" role="doc-noteref"><span class="fn-bracket">[</span>9<span class="fn-bracket">]</span></a> to energy and cross-sections of <a class="footnote-reference brackets" href="#id37" id="id25" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bte</strong> (<em>array-like</em>) – Scaled energy</p></li>
+<li><p><strong>btx</strong> (<em>array-like</em>) – Scaled cross-section</p></li>
+<li><p><strong>f</strong> (<em>float</em>) – Scaling parameter</p></li>
+<li><p><strong>ev1</strong> (<em>float</em>) – ionization potential - units determine the output energy units</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[energy,cross]</strong> – Descaled energy and cross-section</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is the scaling used and discussed in the Dere (2007) calculation <a class="footnote-reference brackets" href="#id37" id="id26" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a> of cross sections.  It was derived from similar scalings provided by reference [2]</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.util.scale_bti" title="ChiantiPy.tools.util.scale_bti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scale_bti</span></code></a></dt><dd><p>Descale ionization energy and cross-section</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id27" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id24">9</a><span class="fn-bracket">]</span></span>
+<p>Burgess, A. and Tully, J. A., 1992, A&amp;A, <a class="reference external" href="http://adsabs.harvard.edu/abs/1992A%26A...254..436B">254, 436</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.descale_bti_rate">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">descale_bti_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">btTemperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">btRate</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.descale_bti_rate" title="Link to this definition">¶</a></dt>
+<dd><p>Apply ionization descaling of <a class="footnote-reference brackets" href="#id37" id="id29" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, a Burgess-Tully type scaling to bt scaled ionization rates and
+temperatures.  The result is to return a temperature array and a ionization rate array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>btTemperature</strong> (<cite>array-like</cite>) – the bt scaled temperature</p></li>
+<li><p><strong>btRate</strong> (<cite>array-like</cite>) – the bt scaled ionization rate</p></li>
+<li><p><strong>ip</strong> (<cite>float</cite>) – the ionization potential in eV.</p></li>
+<li><p><strong>f</strong> (<cite>float</cite> (optional)) – the scaling parameter, 1.7 generally works well</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.dilute">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">dilute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.dilute" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the dilution factor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>radius</strong> (<em>array-like</em>) – Distance from the center of a star in units of the stellar radius.</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>If <cite>radius</cite> is less than 1.0, returns 0.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.el2z">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">el2z</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">els</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.el2z" title="Link to this definition">¶</a></dt>
+<dd><p>Convert elemental symbol to atomic number</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>els</strong> (<em>str</em>) – the abreviated element name</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>z</strong> – the atomic number or nuclear charge of the element</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.findFileTypes">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">findFileTypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wpath</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'*.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.findFileTypes" title="Link to this definition">¶</a></dt>
+<dd><p>to find all the files in wpath and below with file names matching fname</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.ion2filename">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">ion2filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ions</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.ion2filename" title="Link to this definition">¶</a></dt>
+<dd><p>Convert ion name string to generic directory-file name.
+convertName has probably made this redundant</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ions</strong> (<em>str</em>) – the CHIANTI style name for an ion, such as fe_14</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fname</strong> – the full file name of the ion directory in the CHIANTI database
+assumes a top directory from the environmental variable XUVTOP</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+<div class="admonition-todo admonition" id="id30">
+<p class="admonition-title">Todo</p>
+<p>this duplicates what ‘convertName’ does</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.listFiles">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">listFiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.listFiles" title="Link to this definition">¶</a></dt>
+<dd><p>Walks the path and subdirectories to return a list of files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dir</strong> (<em>str</em>) – the top directory to search
+subdirectories are also searched</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>listname</strong> – a list of files in dir and  subdirectories</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This can be replaced by functions in <cite>os.path</cite>, as if 3.4, pathlib is probably better.
+It is not clear that this function is used anywhere in ChiantiPy</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.listRootNames">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">listRootNames</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dir</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.listRootNames" title="Link to this definition">¶</a></dt>
+<dd><p>Walks the path and subdirectories to return a list of file root names.</p>
+<p class="rubric">Notes</p>
+<p>This can be replaced by functions in <cite>os.path</cite>, as if 3.4, pathlib is probably better.
+Only seems to be used by</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.qrp">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">qrp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.qrp" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate <span class="math notranslate nohighlight">\(Q_R^{\prime}(Z,u)\)</span>, where <span class="math notranslate nohighlight">\(u=\epsilon/I\)</span> is the impact electron energy in threshold units, from Eq. 2.12 of <a class="footnote-reference brackets" href="#id32" id="id31" role="doc-noteref"><span class="fn-bracket">[</span>4<span class="fn-bracket">]</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – Atomic number</p></li>
+<li><p><strong>u</strong> (<em>array-like</em>) – Impact electron energy in threshold units.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>q</strong> – 1s ionization cross-section, <span class="math notranslate nohighlight">\(Q_R^{\prime}(Z,u)\)</span></p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Used for calculations of direct ionization cross-sections of the H and He sequences in <cite>ChiantiPy.tools.io.twophotonHRead</cite> and <cite>ChiantiPy.tools.io.twophotonHeRead</cite>, respectively.</p>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id32" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id31">4</a><span class="fn-bracket">]</span></span>
+<p>Fontes, C. et al., 1999, PhRvA, <a class="reference external" href="http://adsabs.harvard.edu/abs/1999PhRvA..59.1329F">59, 1329</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.scale_bt">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">scale_bt</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">omega</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.scale_bt" title="Link to this definition">¶</a></dt>
+<dd><p>Apply excitation scaling of <a class="footnote-reference brackets" href="#id39" id="id34" role="doc-noteref"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></a> to energy and collision strength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evin</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>omega</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>f</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>ev1</strong> (<em>array-like</em>)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[bte,btomega]</strong> – Scaled energy and collision strength</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Need more details here. Not clear which equations are being used.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.util.descale_bt" title="ChiantiPy.tools.util.descale_bt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descale_bt</span></code></a></dt><dd><p>Descale excitation energy and cross-section</p>
+</dd>
+</dl>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.scale_bt_rate">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">scale_bt_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.scale_bt_rate" title="Link to this definition">¶</a></dt>
+<dd><p>Apply ionization scaling of <a class="footnote-reference brackets" href="#id37" id="id35" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>, a Burgess-Tully type scaling to ionization rates and
+temperatures. The result of the scaling is to return a scaled temperature between 0 and 1 and a
+slowly varying scaled rate as a function of scaled temperature. In addition, the scaled rates
+vary slowly along an iso-electronic sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inDict</strong> (<cite>dict</cite>) – the input dictionary should have the following key pairs: <cite>temperature</cite>, array-like and
+<cite>rate</cite>, array-like</p></li>
+<li><p><strong>ip</strong> (<cite>float</cite>) – the ionization potential in eV.</p></li>
+<li><p><strong>f</strong> (<cite>float</cite> (optional)) – the scaling parameter, 1.7 generally works well</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p><cite>btTemperature</cite> and <cite>btRate</cite> keys are added to <cite>inDict</cite></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.scale_bti">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">scale_bti</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">evin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">crossin</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ev1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.scale_bti" title="Link to this definition">¶</a></dt>
+<dd><p>Apply ionization scaling of <a class="footnote-reference brackets" href="#id37" id="id36" role="doc-noteref"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></a>,[8]_, to energy and cross-section.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>evin</strong> (<em>float</em>) – Energy - same units as ev1</p></li>
+<li><p><strong>crossin</strong> (<em>array-like</em>) – Cross-section</p></li>
+<li><p><strong>f</strong> (<em>float -  the scale factor</em>)</p></li>
+<li><p><strong>ev1</strong> (<em>float</em>) – the ionization potential
+units - the same as evin</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>[bte,btx]</strong> – Scaled energy and cross-section</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>list</cite></p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This is the scaling used and discussed in the Dere (2007) calculation [1] of cross sections.  It was derived from similar scalings derived in reference [2]</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#ChiantiPy.tools.util.descale_bti" title="ChiantiPy.tools.util.descale_bti"><code class="xref py py-obj docutils literal notranslate"><span class="pre">descale_bti</span></code></a></dt><dd><p>Descale ionization energy and cross-section</p>
+</dd>
+</dl>
+</div>
+<p class="rubric">References</p>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id37" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>7<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id25">1</a>,<a role="doc-backlink" href="#id26">2</a>,<a role="doc-backlink" href="#id29">3</a>,<a role="doc-backlink" href="#id35">4</a>,<a role="doc-backlink" href="#id36">5</a>)</span>
+<p>Dere, K. P., 2007, A&amp;A, <a class="reference external" href="http://adsabs.harvard.edu/abs/2007A%26A...466..771D">466, 771,</a></p>
+</aside>
+<aside class="footnote brackets" id="id39" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span>8<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id16">1</a>,<a role="doc-backlink" href="#id34">2</a>)</span>
+<p>Burgess, A. and Tully, J. A., 1992, A&amp;A, <a class="reference external" href="http://adsabs.harvard.edu/abs/1992A%26A...254..436B">254, 436</a></p>
+</aside>
+</aside>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.scale_classical">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">scale_classical</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inDict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.scale_classical" title="Link to this definition">¶</a></dt>
+<dd><p>Apply the classical scaling to the input data</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul>
+<li><p><strong>inDict</strong> (<em>dictionary</em>) –</p>
+<dl class="simple">
+<dt>the input dictionary should have the following key pairs</dt><dd><p>energy and cross
+or
+temperature and rate</p>
+</dd>
+</dl>
+</li>
+<li><p><strong>energy</strong> (<em>array-like</em>) – energy values of the cross-section</p></li>
+<li><p><strong>cross</strong> (<em>array-like</em>) – a cross-section</p></li>
+<li><p><strong>temperature</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>rate</strong> (<em>array-like</em>)</p></li>
+<li><p><strong>ip</strong> (<em>float</em>) – the ionization potential.  Typically in eV.</p></li>
+<li><p><strong>Returns</strong> – the following keys are added to inDict</p></li>
+<li><p><strong>——-</strong></p></li>
+<li><p><strong>{‘csEnergy’, ‘csCross’, ‘ip’} or {‘csTemperature’, ‘csRate’, ‘ip’}</strong></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.spectroscopic2name">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">spectroscopic2name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">el</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">roman</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.spectroscopic2name" title="Link to this definition">¶</a></dt>
+<dd><p>Convert from spectroscopic notation, e.g. Fe XI to ‘fe_11’.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>el</strong> (<cite>str</cite>) – Elemental symbol, e.g. Fe for iron</p></li>
+<li><p><strong>roman</strong> (<cite>str</cite>) – Roman numeral spectroscopic symbol</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.splomDescale">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">splomDescale</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">splom</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.splomDescale" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the collision strength for excitation-autoionization as a function of energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>energy</strong> (<em>array-like</em>) – In eV</p></li>
+<li><p><strong>splom</strong> (<cite>dict</cite>) – Structure returned by <cite>ChiantiPy.tools.io.splomRead</cite></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>omega</strong> – Collision strength</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.units">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">units</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">defaults</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.units" title="Link to this definition">¶</a></dt>
+<dd><p>to create a set of units compatible with ChiantiPy default values</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.z2element">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">z2element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.z2element" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number <cite>z</cite> to its elemental symbol.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>element</strong> – the abbreviated element name</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2dir">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2dir</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xuvtop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2dir" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number and ion number to CHIANTI database directory.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 1 for the neutral, 2 for the first ionization stage, …</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional)</p></li>
+<li><p><strong>xuvtop</strong> (<cite>str</cite>, optional) – Set different CHIANTI database than the default</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fname</strong> – the CHIANTI directory where the file for the ion specified by z and ion are found</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2experimental">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2experimental</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2experimental" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number and ion number to spectroscopic notation string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 0 for neutrals, 1 for singly ionized</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>expt</strong> – the experimental/laboratory notation for the ion, such as Fe 13+</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2filename">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xuvtop</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2filename" title="Link to this definition">¶</a></dt>
+<dd><p>Convert nuclear charge/atomic number and ion number to CHIANTI database filename.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 1 for neutrals, 2 for singly ionized</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional) – whether the ion is the simple dielectronic model</p></li>
+<li><p><strong>xuvtop</strong> (<cite>str</cite>, optional) – the top directory of the CHIANTI database to be used</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>fname</strong> – CHIANTI database filename</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2localFilename">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2localFilename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2localFilename" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number and ion number to generic file name with current directory at top.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 1 for neutrals, 2 for singly ionized</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2name">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2name</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2name" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number and ion number to generic name, e.g. (26,13) to ‘fe_13’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 1 for the neutral, 2 for the first ionization stage, …</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>thisone</strong> – the CHIANTI style ion name, such as ‘fe_13’</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="ChiantiPy.tools.util.zion2spectroscopic">
+<span class="sig-prename descclassname"><span class="pre">ChiantiPy.tools.util.</span></span><span class="sig-name descname"><span class="pre">zion2spectroscopic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">z</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ion</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dielectronic</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ChiantiPy.tools.util.zion2spectroscopic" title="Link to this definition">¶</a></dt>
+<dd><p>Convert atomic number and ion number to spectroscopic notation string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>z</strong> (<cite>int</cite>) – The atomic number/nuclear charge</p></li>
+<li><p><strong>ion</strong> (<cite>int</cite>) – the ionization stage, 1 for neutrals, 2 for singly ionized</p></li>
+<li><p><strong>dielectronic</strong> (<cite>bool</cite>, optional)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>spect</strong> – the spectroscopic notation for the ion, such as Fe XIV</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><cite>str</cite></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-ChiantiPy.tools">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ChiantiPy.tools" title="Link to this heading">¶</a></h2>
+<p>Basic tools and utilities used in ChiantiPy</p>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h4>Previous topic</h4>
+    <p class="topless"><a href="ChiantiPy.tests.html"
+                          title="previous chapter">ChiantiPy.tests package</a></p>
+  </div>
+  <div>
+    <h4>Next topic</h4>
+    <p class="topless"><a href="../notes.html"
+                          title="next chapter">Notes</a></p>
+  </div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="../notes.html" title="Notes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ChiantiPy.tests.html" title="ChiantiPy.tests package"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../index.html">ChiantiPy 0.15.2 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >ChiantiPy’s API documentation</a> &#187;</li>
+          <li class="nav-item nav-item-2"><a href="ChiantiPy.html" >ChiantiPy package</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">ChiantiPy.tools package</a></li> 
+      </ul>
+    </div>
+<div style="padding: 20px 10px 10px 40px; background-color: #fff8d3; text-align: left;">
+
+
+</div>
+    
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025, Ken Dere.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    </div>
+
+  </body>
+</html>
