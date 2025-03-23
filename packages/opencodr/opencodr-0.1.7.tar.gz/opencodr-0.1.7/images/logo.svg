@@ -1,0 +1,27 @@
+<svg width="200" height="100" viewBox="0 0 200 85" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .text {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 24px;
+      fill: #2ecc71; /* Green color for the text */
+    }
+    .prompt {
+      font-family: 'Roboto Mono', monospace;
+      font-size: 30px;
+      fill: #2ecc71; /* Green color for the prompt */
+    }
+    .cursor {
+      fill: #2ecc71; /* Green color for the cursor */
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+  </style>
+
+  <text x="10" y="52" class="prompt">></text>
+  <rect x="170" y="33" width="2" height="20" class="cursor" />
+  <text x="32" y="50" class="text">opencodr</text>
+</svg>
