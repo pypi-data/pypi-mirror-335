@@ -1,0 +1,64 @@
+[project]
+name = "pywebexec"
+authors = [
+    { name = "Franck Jouvanceau" },
+]
+maintainers = [
+    { name = "Franck Jouvanceau" },
+]
+
+description = "Simple Python HTTP Exec Server"
+dependencies = [
+  "python-daemon>=2.3.2; platform_system != 'Windows'",
+  "cryptography>=40.0.2",
+  "Flask>=2.0.3",
+  "Flask-HTTPAuth>=4.8.0",
+  "pexpect>=4.9.0",
+  "gunicorn>=21.2.0; platform_system != 'Windows'",
+  "ldap3>=2.9.1",
+  "pyte>=0.8.1",
+  "PyYAML>=6.0.1",
+  "run-para>=1.0.2",
+  "waitress>=3.0.2; platform_system == 'Windows'",
+  "pywinpty>=2.0.15; platform_system == 'Windows'",
+]
+dynamic=["version"]
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">= 3.6"
+keywords = ["http", "server", "remote commands", "api", "website"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: System Administrators",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: POSIX",
+  "Operating System :: Unix",
+  "Operating System :: MacOS",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Topic :: System :: Clustering",
+  "Topic :: System :: Networking",
+  "Topic :: System :: Systems Administration",
+]
+
+[project.urls]
+Homepage = "https://github.com/joknarf/pywebexec"
+Documentation = "https://github.com/joknarf/pywebexec/blob/main/README.md"
+Repository = "https://github.com/joknarf/pywebexec.git"
+
+[build-system]
+requires = ["setuptools >= 61.0", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+version_file = "pywebexec/version.py"
+
+[project.scripts]
+pywebexec = "pywebexec.pywebexec:main"
