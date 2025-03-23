@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sevml"
+version = "0.4.1"
+description = "Machine learning tools for biological analysis"
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+authors = [
+  { name = "Isen Naiken", email = "isen_naiken@etu.u-bourgogne.fr" },
+  { name = "Valentin Bosch", email = "Valentin_Bosch@etu.u-bourgogne.fr" },
+  { name = "Jessica Gobbo", email = "jgobbo@cgfl.fr" },
+]
+maintainers = [
+  { name = "Isen Naiken", email = "isen_naiken@etu.u-bourgogne.fr" },
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "pandas",
+  "numpy<2",
+  "matplotlib",
+  "shap",
+  "xgboost",
+  "scikit-learn"
+]
+
+[project.scripts]
+sevml = "sevml.main:main"
+
+[project.urls]
+Homepage = "https://github.com"
+Issues = "https://github.com"
