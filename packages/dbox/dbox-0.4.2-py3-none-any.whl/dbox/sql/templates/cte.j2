@@ -1,0 +1,9 @@
+WITH
+{% for block in this.blocks %}
+{% if not loop.first %}, {% endif %}cte_{{loop.index}} as (
+  {% filter indent(width=2) %}
+  {{ block.sql() }}
+  {% endfilter %}
+)
+{% endfor %}
+SELECT * FROM cte_{{ this.blocks|length }}

@@ -1,0 +1,42 @@
+{#
+Remove any rows with zero validity and combine consecutive rows with the same values.
+#}
+
+WITH
+valid_rows AS (
+    SELECT *
+        , LAG(_change_data) OVER (
+            PARTITION BY _BID ORDER BY _UPDATED_AT, _INSERTED_AT, _DELETED DESC
+        ) AS previous
+    FROM {{ this.input_block.sql() | ident(10) }}
+    WHERE
+        -- take only last row for a timestamp
+        _VALID_FROM IS DISTINCT FROM _VALID_TO
+        -- unless it already existed before
+        OR NOT _CHANGE
+)
+SELECT * EXCEPT (previous)
+FROM valid_rows
+WHERE
+    -- keep only newly generated rows
+    _CHANGE
+    -- ignore rows where something changed but the row is still effectively deleted
+    {% if this.keep_first_deleted %}
+    AND NOT (previous._DELETED IS TRUE AND _DELETED)
+    {% else %}
+    AND NOT (COALESCE(previous._DELETED, TRUE) AND _change_data._DELETED)
+    {% endif %}
+    -- take either
+    AND (
+        {% if keep_first_deleted %}
+        -- there is no previous row
+        previous._HASH IS NULL
+        {% else %}
+        -- this row exists and there is no previous row
+        (NOT _change_data._DELETED AND previous._HASH IS NULL)
+        {% endif %}
+        -- the deletion status of the row changed
+        OR previous._DELETED != _change_data._DELETED
+        -- the previous row has different values
+        OR previous._HASH != _change_data._HASH
+    )

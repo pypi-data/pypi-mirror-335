@@ -1,0 +1,82 @@
+with
+
+`source` as (
+  {% filter indent(width=2, first=True) %}
+  {{- source.sql() }}
+  {% endfilter %}
+)
+, `target` as (
+  {% filter indent(width=2, first=True) %}
+  {{- target.sql() }}
+  {% endfilter %}
+)
+
+-- build common key
+, s0 as (
+    select
+        to_json_string(struct({% for col in key_columns %}{{col}}{% if not loop.last %},{% endif %}{% endfor %})) as __pkey
+        , * 
+    from `source`
+)
+, t0 as (
+    select
+        to_json_string(struct({% for col in key_columns %}{{col}}{% if not loop.last %},{% endif %}{% endfor %})) as __pkey
+        , * 
+    from `target`
+)
+
+-- start diff
+, s1 as (
+    select
+        __pkey
+        , farm_fingerprint(to_json_string(t)) as __hash
+        , (select as struct t.* except (__pkey)) as __value
+    from s0 t
+)
+, s2 as (
+    select
+        *
+    from s1
+    qualify row_number() over w = 1
+    window w as (partition by __pkey, __hash)
+)
+, t1 as (
+    select
+        __pkey
+        , farm_fingerprint(to_json_string(t)) as __hash
+        , (select as struct t.* except (__pkey)) as __value
+    from t0 t
+)
+, t2 as (
+    select
+        *
+    from t1
+    qualify row_number() over w = 1
+    window w as (partition by __pkey, __hash)
+)
+, joining as (
+    select
+        __pkey
+        , case
+            when s.__pkey is not null and t.__pkey is not null then 'both'
+            when s.__pkey is not null then 'source_only'
+            when t.__pkey is not null then 'target_only'
+        end as exists_in
+        , case
+            when s.__pkey is not null and t.__pkey is not null then s.__hash == t.__hash
+        end as has_same_value
+        , case
+            when s.__pkey is not null and t.__pkey is not nul
+            then `scoot-edw-uat.TEMP_DUAN.diff_json`(to_json(s.__value), to_json(t.__value))
+        end as diff
+        , s.__value as s
+        , t.__value as t
+    from t2 t full outer join s2 s using (__pkey)
+)
+
+-- END DIFF --
+select * from joining
+where (
+    (exists_in = 'both' and not has_same_value)
+    or exists_in != 'both'
+)

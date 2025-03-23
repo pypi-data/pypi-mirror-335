@@ -1,0 +1,12 @@
+WITH
+{% for block in this.blocks %}
+{% if not loop.first %}, {% endif %}cte_{{loop.index}} as (
+  {% filter indent(width=2, first=True) %}
+  {{- block.sql() }}
+  {% endfilter %}
+)
+{% endfor %}
+{% for block in this.blocks %}
+SELECT * FROM cte_{{ loop.index }}
+{% if not loop.last %}UNION ALL{% endif +%}
+{% endfor %}

@@ -1,0 +1,72 @@
+with
+`source` as (
+  {{ source.sql() | trim | indent(2) }}
+)
+, `target` as (
+  {{ target.sql() | trim | indent(2) }}
+)
+-- build common key
+, s0 as (
+    select
+        to_json_string(struct({% for col in key_columns %}{{col}}{% if not loop.last %},{% endif %}{% endfor %})) as __pkey
+        , * 
+    from `source`
+)
+, t0 as (
+    select
+        to_json_string(struct({% for col in key_columns %}{{col}}{% if not loop.last %},{% endif %}{% endfor %})) as __pkey
+        , * 
+    from `target`
+)
+
+-- start diff
+, s1 as (
+    select
+        __pkey
+        , farm_fingerprint(to_json_string(t)) as __hash
+        , (select as struct t.* except (__pkey)) as __value
+    from s0 t
+)
+, s2 as (
+    -- ignore duplicate rows
+    select * from s1
+    qualify row_number() over w = 1
+    window w as (partition by __pkey, __hash)
+)
+, t1 as (
+    select
+        __pkey
+        , farm_fingerprint(to_json_string(t)) as __hash
+        , (select as struct t.* except (__pkey)) as __value
+    from t0 t
+)
+, t2 as (
+    select * from t1
+    qualify row_number() over w = 1
+    window w as (partition by __pkey, __hash)
+)
+, joining as (
+    select
+        __pkey
+        , case
+            when s.__pkey is not null and t.__pkey is not null then 'both'
+            when s.__pkey is not null then 'source_only'
+            when t.__pkey is not null then 'target_only'
+        end as exists_in
+        , s.__hash is not distinct from t.__hash as has_same_value
+        , s
+        , t
+    from t2 t full outer join s2 s using (__pkey)
+)
+-- END DIFF --
+select
+    exists_in
+    , __pkey as pkey
+    , [s.__value, t.__value] as values
+    # , s.__value as source_value
+    # , t.__value as target_value
+from joining
+where (
+    (exists_in = 'both' and not has_same_value)
+    or exists_in != 'both'
+)

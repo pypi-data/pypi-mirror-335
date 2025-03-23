@@ -1,0 +1,7 @@
+terraform_bin: /usr/bin/terraform # optional
+workspace: entrypoints/10.google
+
+# relative to workspace
+data_dir: .terraform-{env}
+var_file: variables/{env}.tfvars
+backend_config: variables/{env}.gcs.tfbackend

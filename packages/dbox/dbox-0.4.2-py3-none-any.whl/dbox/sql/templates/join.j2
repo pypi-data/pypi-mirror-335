@@ -1,0 +1,8 @@
+select
+{% for expr, col in select_expressions %}
+  {%+ if not loop.first %}, {% endif %}{{ expr }} as {{ this.quote(col) }}
+{% endfor %}
+from {{ base.sql_target() }} {{ this.quote(base.name) }}
+{% for join in joins %}
+left join {{ join.target.sql_target() }} {{ this.quote(join.target.name) }} on {{ join.condition }}
+{% endfor %}

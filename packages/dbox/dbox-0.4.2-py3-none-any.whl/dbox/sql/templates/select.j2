@@ -1,0 +1,19 @@
+SELECT
+  {% if this.selects and this.selects|length <= 5 %}
+  {{ ', '.join(this.selects) }}
+  {% elif this.selects %}
+    {% for select in this.selects %}
+  {%+ if not loop.first %}, {% endif %}{{ select }}
+    {% endfor %}
+  {% elif this.excepts %}
+    * EXCEPT ({{ this.excepts | join(',') }})
+  {% else %}
+  *
+  {% endif %}
+FROM {{ this.input_block.sql_target() }}
+{% if this.filters %}
+WHERE
+  {% for condition in this.filters %}
+  {%+ if not loop.first %}AND {% endif %}{{ condition }}
+  {% endfor %}
+{% endif %}

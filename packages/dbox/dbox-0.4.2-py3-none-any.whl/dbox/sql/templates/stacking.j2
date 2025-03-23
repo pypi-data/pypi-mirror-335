@@ -1,0 +1,10 @@
+WITH
+input_source as (
+    {{ input_block.sql() | indent(4) }}
+)
+{% for block in blocks %}
+, {{ block.name }} AS (
+    {{ block.sql() | indent(4) }}
+)
+{% endfor %}
+SELECT * FROM {{ blocks[-1].name }}

@@ -1,0 +1,4 @@
+select
+    *
+    , {{ bid_expr }} as _bid
+from {{ input_block.sql() | indent(4) }}

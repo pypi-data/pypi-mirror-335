@@ -1,0 +1,12 @@
+SELECT
+  *
+  , TO_BASE64(MD5(TO_JSON_STRING(STRUCT(
+    {% if this.track_columns %}
+      {% for column in this.track_columns %}
+        {{ column }}{% if not loop.last %}, {% endif %}
+      {% endfor %}
+    {% else %}
+      t.*
+    {% endif %}
+  )))) AS _HASH
+FROM {{ this.input_block.sql() | indent(4) }} t

@@ -1,0 +1,5 @@
+select
+  * replace (
+    array(select as struct * from t.{{column}} order by {{order_column}}) as {{column}}
+  )
+from {{ input_block.sql_target() }} t

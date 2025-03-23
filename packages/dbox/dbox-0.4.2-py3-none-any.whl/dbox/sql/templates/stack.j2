@@ -1,0 +1,7 @@
+with
+{% for block in cloned_blocks %}
+{% if not loop.first %}, {% endif %}{{ block.name }} as (
+  {{ block.sql() | indent(2) }}
+)
+{% endfor %}
+select * from {{ cloned_blocks[-1].name }}
