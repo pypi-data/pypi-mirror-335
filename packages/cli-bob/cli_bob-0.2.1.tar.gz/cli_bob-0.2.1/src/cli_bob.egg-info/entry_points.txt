@@ -1,0 +1,13 @@
+[cli_bob.prompt_handlers]
+anthropic = cli_bob._endpoints:prompt_anthropic
+blablador = cli_bob._endpoints:prompt_blablador
+deepseek = cli_bob._endpoints:prompt_deepseek
+gh_models = cli_bob._endpoints:prompt_gh_models
+github_models = cli_bob._endpoints:prompt_gh_models
+kisski = cli_bob._endpoints:prompt_kisski
+ollama = cli_bob._endpoints:prompt_ollama
+openai = cli_bob._endpoints:prompt_openai
+
+[console_scripts]
+bob = cli_bob._terminal:command_line_interface
+cli-bob = cli_bob._terminal:command_line_interface
