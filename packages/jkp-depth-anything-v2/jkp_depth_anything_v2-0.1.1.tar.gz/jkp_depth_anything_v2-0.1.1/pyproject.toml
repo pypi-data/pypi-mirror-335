@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jkp-depth-anything-v2"
+version = "0.1.1"
+description = "Depth Anything V2: Robust Monocular Depth Estimation"
+readme = "README.md"
+authors = [
+    {name = "Lihe Yang"},
+    {name = "Bingyi Kang"},
+    {name = "Zilong Huang"},
+    {name = "Zhen Zhao"},
+    {name = "Xiaogang Xu"},
+    {name = "Jiashi Feng"},
+    {name = "Hengshuang Zhao"}
+]
+license = "Apache-2.0 AND CC-BY-NC-4.0"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "gradio",
+    "gradio_imageslider",
+    "matplotlib",
+    "opencv-python",
+    "torch",
+    "torchvision",
+]
+requires-python = ">=3.6"
+
+[project.urls]
+Homepage = "https://github.com/DepthAnything/Depth-Anything-V2"
+Issues = "https://github.com/DepthAnything/Depth-Anything-V2/issues"
+
+[project.scripts]
+depth_anything_run = "run:main"
+depth_anything_run_video = "run_video:main"
+depth_anything_app = "app:main" 
