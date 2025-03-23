@@ -1,0 +1,107 @@
+import base64
+import io
+from datetime import datetime
+from typing import List, Optional
+
+from PIL import Image
+
+from .errors import InvalidOperationError, LucidicNotInitializedError
+from .image_upload import get_presigned_url, upload_image_to_s3
+from .step import Step
+
+class Session:
+    def __init__(
+        self, 
+        agent_id: str, 
+        session_name: str, 
+        mass_sim_id: Optional[str] = None, 
+        task: Optional[str] = None
+    ):
+        self.agent_id = agent_id
+        self.session_name = session_name
+        self.mass_sim_id = mass_sim_id
+        self.task = task
+        self.session_id = None
+        self.step_history: List[Step] = []
+        self._active_step: Optional[Step] = None
+        self.base_url = "https://analytics.lucidic.ai/api"
+        self.starttime = datetime.now().isoformat()
+        self.is_finished = False
+        self.is_successful = None
+        self.init_session()
+
+    def init_session(self) -> None:
+        from .client import Client
+        request_data = {
+            "agent_id": self.agent_id,
+            "session_name": self.session_name,
+            "current_time": datetime.now().isoformat(),
+            "task": self.task,
+            "mass_sim_id": self.mass_sim_id
+        }
+        data = Client().make_request('initsession', 'POST', request_data)
+        self.session_id = data["session_id"]
+
+    @property   
+    def active_step(self) -> Optional[Step]:
+        return self._active_step
+    
+    def update_session(
+        self, 
+        is_finished: Optional[bool] = None,
+        is_successful: Optional[bool] = None, 
+        task: Optional[str] = None, 
+        has_gif=False
+    ) -> None:
+        from .client import Client
+        update_attrs = {k: v for k, v in locals().items() 
+                       if k != 'self' and v is not None}
+        self.__dict__.update(update_attrs)
+        request_data = {
+            "session_id": self.session_id,
+            "current_time": datetime.now().isoformat(),
+            "is_finished": self.is_finished,
+            "is_successful": self.is_successful, 
+            "task": self.task,
+            "has_gif": has_gif,
+        }
+        Client().make_request('updatesession', 'PUT', request_data)
+
+    def create_step(self, **kwargs) -> Step:
+        if not self.session_id:
+            raise LucidicNotInitializedError()
+            
+        if self._active_step:
+            raise InvalidOperationError("Cannot create new step while another step is active. Please finish current step first.")
+                
+        step = Step(session_id=self.session_id, **kwargs)
+        self._active_step = step
+        self.step_history.append(step)
+        return step
+
+    def update_step(self, **kwargs) -> None:
+        if not self._active_step:
+            raise InvalidOperationError("Cannot update step without active step")
+        self._active_step.update_step(**kwargs)
+        if 'is_finished' in kwargs and kwargs['is_finished']:
+            self._active_step = None
+
+    def end_session(self, is_successful: bool) -> bool:
+        if self._active_step:
+            print("[Warning] Ending Lucidic session while current step is unfinished...")
+        self.is_finished = True
+        self.is_successful = is_successful
+        images_b64 = []
+        for step in self.step_history:
+            if step.screenshot is not None:
+                images_b64.append(step.screenshot)
+        has_gif = False
+        if images_b64:
+            images = [Image.open(io.BytesIO(base64.b64decode(b64))) for b64 in images_b64]
+            gif_buffer = io.BytesIO()
+            images[0].save(gif_buffer, format="GIF", save_all=True, append_images=images[1:], duration=2000, loop=0)
+            gif_buffer.seek(0)
+            presigned_url, bucket_name, object_key = get_presigned_url(self.agent_id, session_id=self.session_id)
+            upload_image_to_s3(presigned_url, gif_buffer, "GIF")
+            has_gif = True
+        return self.update_session(is_finished=True, is_successful=is_successful, has_gif=has_gif)
