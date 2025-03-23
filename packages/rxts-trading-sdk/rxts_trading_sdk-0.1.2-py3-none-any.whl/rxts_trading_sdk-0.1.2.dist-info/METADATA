@@ -1,0 +1,202 @@
+Metadata-Version: 2.4
+Name: rxts-trading-sdk
+Version: 0.1.2
+Summary: RXTS Trading SDK
+Author-email: JasonJiang0303 <chinese88+0303@2925.com>
+License-Expression: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: protobuf>=3.19.0
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: watchdog>=2.1.9
+Requires-Dist: l2data_reader>=0.1.17
+Requires-Dist: level2-order-book>=0.1.1
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: black>=22.3.0; extra == "dev"
+Requires-Dist: isort>=5.10.1; extra == "dev"
+Dynamic: license-file
+
+# RXTS Trading SDK
+
+RXTS Trading SDK 是一个用于股票交易的 Python 软件开发工具包，提供了与交易系统通信、行情数据处理和交易指令发送的功能接口。
+
+## 功能特点
+
+- 支持多种交易接口连接（包括 Socket 传输）
+- 行情数据实时监控与处理
+- 交易指令发送与响应处理
+- 消息序列管理
+- 完整的回调机制
+- 配置化的接口管理
+
+## 安装要求
+
+- Python 3.8 或更高版本
+- 依赖包：
+  - protobuf >= 3.19.0
+  - pyyaml >= 6.0
+  - watchdog >= 2.1.9
+
+## 安装方法
+
+### 从 PyPI 安装
+
+```bash
+pip install rxts-trading-sdk
+```
+
+## 快速开始
+
+### 基本使用
+
+参考`examples/example_strategy.py`.
+
+### 配置文件示例
+
+```yaml
+# strategy_config.yaml
+
+strategy:
+  env: 'mock' # mock 或 real
+
+# 总线配置
+bus:
+  host: '127.0.0.1'
+  port: 7710
+  subscribe_topics:
+    - md
+    - report
+
+# 交易配置
+trade:
+  minimum_volume: 1000
+  maximum_volume: 10000
+  seqnum_persist_dir: "./data/seqnum"
+
+# 行情配置
+market:
+  # 表示一个slice的推送间隔时间
+  data_interval_ms: 5000
+  data_dir: "md"
+
+# 日志配置
+log:
+  path: "sample_strategy"
+  level: DEBUG
+  max_file_size: 104857600  # 100MB
+  max_files: 10
+
+# 扩展配置
+extra:
+  local_ip: 192.168.1.100
+  custom_param: value1
+  inmemdb_ip: 127.0.0.1
+  inmemdb_port: 13306
+
+# 订阅的股票代码列表
+subscriptions:
+  - 511380.SH
+```
+
+## 模块说明
+
+- `trading_sdk.main`: SDK 主入口
+- `trading_sdk.client_bus`: 客户端总线通信
+- `trading_sdk.socket_transport`: Socket 传输实现
+- `trading_sdk.callbacks`: 回调接口定义
+- `trading_sdk.interfaces`: 接口定义
+- `trading_sdk.config`: 配置管理
+- `trading_sdk.logger`: 日志管理
+- `trading_sdk.market_data_monitor`: 行情数据监控
+- `trading_sdk.message_seq_manager`: 消息序列管理
+
+## 开发指南
+
+### 项目结构
+
+```
+trading_sdk/
+├── __init__.py
+├── main.py          # SDK 主入口
+├── config.py        # 配置管理
+├── logger.py        # 日志管理
+├── interfaces.py    # 接口定义
+├── callbacks.py     # 回调接口
+├── client_bus.py    # 客户端总线
+├── socket_transport.py  # Socket 传输
+├── market_data_monitor.py  # 行情监控
+├── message_seq_manager.py  # 消息序列管理
+├── global_pb2.py    # Protobuf 生成的全局定义
+└── market_data_pb2.py  # Protobuf 生成的行情数据定义
+```
+
+### 扩展 SDK
+
+要扩展 SDK 功能，可以通过继承现有类或实现接口来完成：
+
+```python
+from trading_sdk.interfaces import TransportInterface
+
+class MyCustomTransport(TransportInterface):
+    def __init__(self, config):
+        self.config = config
+        
+    def connect(self):
+        # 实现连接逻辑
+        pass
+        
+    def disconnect(self):
+        # 实现断开连接逻辑
+        pass
+        
+    def send(self, message):
+        # 实现发送消息逻辑
+        pass
+        
+    def receive(self):
+        # 实现接收消息逻辑
+        pass
+```
+
+## 示例代码
+
+更多示例代码可以在 `examples` 目录中找到：
+
+- 基本交易策略示例
+- 行情数据处理示例
+- 自定义回调处理示例
+
+## 常见问题
+
+**Q: 如何处理连接断开的情况？**
+
+A: SDK 提供了自动重连机制，也可以通过回调函数监听连接状态变化：
+
+```python
+def on_connection_status(self, status):
+    if status == "disconnected":
+        print("连接已断开，尝试重新连接...")
+```
+
+**Q: 如何订阅特定股票的行情数据？**
+
+A: 在配置文件中指定需要订阅的股票代码，或者通过 API 动态订阅：
+
+```python
+sdk.subscribe_market_data(["600000.SH", "000001.SZ"])
+```
+
+## 许可证
+
+专有软件，未经授权不得使用、复制或分发。
+
+## 联系方式
+
+- 作者：Jason Jiang
+- 邮箱：chinese88+0303@2925.com
