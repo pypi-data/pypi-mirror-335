@@ -1,0 +1,58 @@
+Metadata-Version: 2.4
+Name: rylogic
+Version: 0.1.0
+Summary: Python bindings for the Rylogic library
+Author-email: Paul Ryland <support@rylogic.co.nz>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/psryland/rylogic_code
+Project-URL: Bug Tracker, https://github.com/psryland/rylogic_code/issues
+Keywords: rylogic,python,bindings
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file
+
+# Python Bindings for Rylogic Code
+
+Library of Rylogic Code related types
+
+## How to Build
+
+Ensure `build` is up to date
+
+```python -m pip install --upgrade build```
+
+Build from the root directory using
+
+```python -m build```
+
+## How to Test
+
+Ensure pytest is installed
+
+  ```pip install pytest```
+
+Run `pytest` from the project root
+
+Might need to run this first
+
+```pip install -e .```
+
+Individual files can be tested using `pytest tests/test_vector.py`
+
+## How to Publish
+
+Ensure `twine` is installed
+
+```python -m pip install --upgrade twine```
+
+Upload to PyPI
+
+```python -m twine upload dist/*```
+
+You'll need your account user/pass
+
