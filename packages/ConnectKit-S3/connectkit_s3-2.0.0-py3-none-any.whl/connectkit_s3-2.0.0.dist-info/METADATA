@@ -1,0 +1,114 @@
+Metadata-Version: 2.1
+Name: ConnectKit-S3
+Version: 2.0.0
+Summary: Wrapper for connection to S3
+Keywords: connectkit,s3,boto3,async,asyncio,aioboto3,aiofiles
+Author-Email: RealMetamorph <andr.timchuk@yandex.ru>
+License: The MIT License (MIT)
+         Copyright © 2024 MTUCI Open Source
+         
+         Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+         
+         The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+         
+         THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Project-URL: Homepage, https://github.com/mtuciru/ConnectKit-S3
+Project-URL: Repository, https://github.com/mtuciru/ConnectKit-S3.git
+Requires-Python: >=3.10
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: pydantic-settings>=2.8.1
+Requires-Dist: boto3>=1.37.1
+Provides-Extra: async
+Requires-Dist: aiofiles>=24.1.0; extra == "async"
+Requires-Dist: aioboto3>=14.1.0; extra == "async"
+Requires-Dist: async-lru>=2.0.5; extra == "async"
+Description-Content-Type: text/markdown
+
+# ConnectKit S3 [*en*|[ru](./README_RU.md)]
+
+___
+
+ConnectKit S3 is a wrapper for boto3 and aioboto3 to simplify working with S3 storages.
+
+Includes pydantic settings, template code.
+
+## Installation
+
+___
+
+To install the sync version:
+
+```shell
+pip install ConnectKit-S3
+```
+
+To install the async version:
+
+```shell
+pip install ConnectKit-S3[async]
+```
+
+## Usage
+
+___
+These variables from settings are used for connection by default.
+All variables are optional.
+
+The first four are responsible for setting up the default connection,
+you need to specify everything except the region to enable it.
+
+Bucket is used by default unless another one is programmatically selected.
+
+Variables are extracted from the environment:
+
+    AWS_HOST=str               # Address of S3 server
+    AWS_ACCESS_KEY_ID=str      # Access key
+    AWS_SECRET_ACCESS_KEY=str  # Secret key
+    AWS_REGION=str             # Region, optional
+    AWS_BUCKET=str             # Default bucket
+
+These variables can be overridden:
+
+```python
+from s3.settings import settings
+
+settings.AWS_BUCKET = "some_bucket"
+```
+
+> **!! Attention !!**
+> After creating a default connection, changing the settings variables for it is ignored.
+
+The `s3` and `async_s3` functions are used to open the connection.
+
+Uploading and downloading files requires:
+
+* Synchronous mode requires a synchronous file descriptor open in binary mode.
+* Asynchronous mode requires the aiofiles binary file descriptor
+
+```python
+from s3 import s3
+from s3.asyncio import async_s3
+
+# Synchronous
+client = s3()
+if client.has_file("s3_filename"):
+    pass
+
+# Asynchronous
+client = async_s3
+
+async with client() as conn:
+    if conn.has_file("s3_filename"):
+        pass
+
+```
+
+## License
+
+___
+
+ConnectKit S3 is [MIT License](./LICENSE).
