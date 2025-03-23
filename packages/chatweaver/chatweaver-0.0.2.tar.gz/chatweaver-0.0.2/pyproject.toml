@@ -1,0 +1,38 @@
+[project]
+name = "chatweaver"
+version = "0.0.2"
+dependencies = [
+    "openai==1.66.5"
+]
+authors = [
+    { name="Cecchelani Diego", email="ceccdieg@gmail.com" },
+]
+description = "A simple (for the moment) package that allows you to implement the back-end of a ai chat-bot with openai models in python."
+readme = "README.md"
+requires-python = ">=3.8"
+# license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent", 
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence"
+]
+
+# [project.urls]
+# Homepage = "https://github.com/pypa/sampleproject"
+# Issues = "https://github.com/pypa/sampleproject/issues"
+
+# [license]
+# file = "LICENSE"
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-data]
+Example = ["*", "**/*"]
