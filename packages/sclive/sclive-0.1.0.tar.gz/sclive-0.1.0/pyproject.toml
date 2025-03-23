@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "sclive"
+version = "0.1.0"
+description = "Single cell analysis plotting function with interactive and web development friendly outputs."
+authors = ["Adnan Cihan Cakar <cakar.adnancihan@gmail.com>"]
+readme = "README.md"
+license="LICENSE"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+anndata = "^0.11.1"
+polars = {extras = ["pandas", "pyarrow"], version = "^1.18.0"}
+distinctipy = "^1.3.4"
+plotly = "^5.24.1"
+
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.3.4"
+ruff = "^0.8.4"
+
+
+[tool.poetry.group.dev.dependencies]
+scanpy = {extras = ["leiden"], version = "^1.10.4"}
+
+[tool.poetry.group.docs.dependencies]
+ipykernel = "^6.29.5"
+sphinx = "^8.1.3"
+sphinx-rtd-theme = "^3.0.2"
+nbsphinx = "^0.9.6"
+sphinx-copybutton = "^0.5.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
