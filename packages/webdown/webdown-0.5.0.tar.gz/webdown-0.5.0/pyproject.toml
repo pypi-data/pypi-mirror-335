@@ -1,0 +1,97 @@
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "webdown"
+version = "0.5.0"
+description = "Convert web pages to markdown"
+authors = ["Travis Cole <kelp@plek.org>"]
+readme = "README.md"
+repository = "https://github.com/kelp/webdown"
+homepage = "https://github.com/kelp/webdown"
+documentation = "https://tcole.net/webdown/"
+keywords = ["web", "markdown", "html", "converter"]
+license = "MIT"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+packages = [{include = "webdown"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+requests = "^2.32.3"
+html2text = "^2024.2.26"
+beautifulsoup4 = "^4.13.3"
+tqdm = "^4.67.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+pytest-cov = "^6.0.0"
+black = "^25.1.0"
+flake8 = "^7.1.2"
+mypy = "^1.15.0"
+requests-mock = "^1.12.1"
+pre-commit = "^4.1.0"
+types-requests = "^2.32.0.20250306"
+isort = "^6.0.1"
+types-tqdm = "^4.67.0.20250301"
+pdoc = "^15.0.1"
+mkdocs = "^1.6.1"
+mkdocstrings = "^0.29.0"
+mkdocstrings-python = "^1.16.5"
+mkdocs-material = "^9.6.8"
+safety = "^2.3.5"
+
+[tool.poetry.scripts]
+webdown = "webdown.cli:main"
+
+[tool.pytest.ini_options]
+markers = [
+    "integration: marks tests as integration tests (select with '--integration')",
+]
+pythonpath = [
+    "."
+]
+
+[tool.coverage.run]
+omit = ["webdown/tests/test_integration.py"]
+
+[tool.mypy]
+python_version = "3.13"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+strict_optional = true
+
+[tool.mypy.overrides]
+module = [
+    "html2text.*",
+    "pytest.*",
+    "requests_mock.*"
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = 88
+target-version = ['py310', 'py311', 'py312']
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203"
+exclude = [".git", "__pycache__", "build", "dist", ".venv", "venv"]
