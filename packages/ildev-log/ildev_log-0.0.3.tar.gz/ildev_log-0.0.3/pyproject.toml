@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+requires-python = ">=3.8"
+name = "ildev-log"
+version = "0.0.3"
+description = "Reusable Loguru logging module"
+authors = [{name = "Ilias Aiupov"}]
+readme = "README.md"
+
+dependencies = [
+    "loguru>=0.7.0",
+    "pytest>=7.4.0",
+    "PyYAML>=6.0.1",
+    "pytest-mock>=3.14.0",
+]
+
+classifiers = [
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.optional-dependencies]
+build = ["build", "twine"]
+test = ["pytest", "pytest-asyncio", "pytest-mock"]
+dev = ["build", "twine", "pytest", "pytest-asyncio", "pytest-mock"]
+
+[tool.setuptools.dynamic]
+readme = { file = "README.md" }
