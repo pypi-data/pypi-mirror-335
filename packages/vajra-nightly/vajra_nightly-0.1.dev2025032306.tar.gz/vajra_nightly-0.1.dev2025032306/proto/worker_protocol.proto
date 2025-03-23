@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package vajra;
+
+
+message SequenceScheduleMetadata {
+    int64 schedule_id = 1;
+    string seq_id = 2;
+    int64 num_q_tokens = 3;
+    map<int64, int64> kvp_group_block_counter = 4;
+    repeated int64 kvp_group_ids = 5;
+    bool is_kvp_request = 6;
+}
+
+message SchedulerOutput {
+    int64 schedule_id = 1;
+    repeated string ignored_seq_ids = 2;
+    repeated string preempted_seq_ids = 3;
+    repeated SequenceScheduleMetadata seq_schedule_metadata_list = 4;
+}
+
+message SamplerOutput {
+    int64 schedule_id = 1;
+    string seq_id = 2;
+    repeated int64 output_tokens = 3;
+}
+
+message SamplingParams {
+    double temperature = 1;
+    double top_p = 2;
+    int64 top_k = 3;
+    bool ignore_eos = 4;
+    int64 max_tokens = 5;
+}
+
+message SequenceParams {
+    string seq_id = 1;
+    string prompt = 2;
+    repeated int64 prompt_token_ids = 3;
+    int64 block_size = 4;
+    int64 eos_token_id = 5;
+    double arrival_time = 6;    
+    SamplingParams sampling_params = 7;
+}
+  
+
+message PendingStepOutput {
+    SchedulerOutput scheduler_output = 1;
+    repeated SamplerOutput sampler_outputs = 2;
+}
+
+message StepInputs {
+    SchedulerOutput scheduler_output = 1;
+    repeated SequenceParams new_seq_params = 2;
+    repeated PendingStepOutput pending_step_outputs = 3;
+}
+
+message StepMicrobatchOutputs {
+    int32 schedule_id = 1;
+}
+
+message StepOutputs {
+    int32 schedule_id = 1;
+    repeated SamplerOutput sampler_outputs = 2;
+}
