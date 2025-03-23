@@ -1,0 +1,62 @@
+name: Test PyPI Publication
+
+on:
+  workflow_dispatch:  # Manual trigger
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'setup.py'
+      - 'pyproject.toml'
+      - 'midiogre/**'
+
+jobs:
+  test-publish:
+    runs-on: ubuntu-latest
+    env:
+      PACKAGE_NAME: midiogre-test
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: "3.x"
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine pytest pytest-cov
+        pip install -r requirements.txt
+        pip install -e .
+    
+    - name: Run tests
+      run: |
+        pytest tests/ --cov=midiogre --cov-report=term-missing
+    
+    - name: Prepare package for Test PyPI
+      run: |
+        # Temporarily modify pyproject.toml for test publication
+        sed -i 's/name = "midiogre"/name = "midiogre-test"/' pyproject.toml
+        python -m build
+        # Restore original pyproject.toml
+        git checkout pyproject.toml
+    
+    - name: Check package
+      run: |
+        twine check dist/*
+    
+    - name: Publish to Test PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        TWINE_REPOSITORY: testpypi
+      run: |
+        python -m twine upload --repository testpypi --verbose dist/*
+    
+    - name: Test install from Test PyPI
+      run: |
+        python -m pip install --index-url https://test.pypi.org/simple/ \
+          --extra-index-url https://pypi.org/simple/ \
+          midiogre-test 
