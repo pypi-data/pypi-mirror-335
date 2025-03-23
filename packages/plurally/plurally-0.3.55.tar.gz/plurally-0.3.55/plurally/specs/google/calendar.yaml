@@ -1,0 +1,125 @@
+openapi: 3.0.0
+info:
+  title: Google Calendar FreeBusy API
+  version: 1.0.0
+  description: API to retrieve free/busy information for a set of calendars using the Google Calendar API.
+  contact:
+    name: Google Workspace
+    url: https://developers.google.com/calendar
+
+servers:
+  - url: https://www.googleapis.com/calendar/v3
+    description: Production server
+
+paths:
+  /freeBusy:
+    post:
+      summary: Returns free/busy information for a set of calendars.
+      operationId: queryFreeBusy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                timeMin:
+                  type: string
+                  format: date-time
+                  description: The start of the interval for the query formatted as per RFC3339.
+                timeMax:
+                  type: string
+                  format: date-time
+                  description: The end of the interval for the query formatted as per RFC3339.
+                timeZone:
+                  type: string
+                  description: Time zone used in the response. Optional. The default is UTC.
+                groupExpansionMax:
+                  type: integer
+                  description: Maximal number of calendar identifiers for a single group. Optional.
+                  maximum: 100
+                calendarExpansionMax:
+                  type: integer
+                  description: Maximal number of calendars for which FreeBusy information is to be provided. Optional.
+                  maximum: 50
+                items:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: The identifier of a calendar or a group.
+      responses:
+        '200':
+          description: A successful response with free/busy information.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  kind:
+                    type: string
+                    example: "calendar#freeBusy"
+                    description: Type of the resource.
+                  timeMin:
+                    type: string
+                    format: date-time
+                    description: The start of the interval.
+                  timeMax:
+                    type: string
+                    format: date-time
+                    description: The end of the interval.
+                  groups:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        errors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              domain:
+                                type: string
+                              reason:
+                                type: string
+                        calendars:
+                          type: array
+                          items:
+                            type: string
+                  calendars:
+                    type: object
+                    additionalProperties:
+                      type: object
+                      properties:
+                        errors:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              domain:
+                                type: string
+                              reason:
+                                type: string
+                        busy:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              start:
+                                type: string
+                                format: date-time
+                              end:
+                                type: string
+                                format: date-time
+        '400':
+          description: Invalid request.
+        '401':
+          description: Unauthorized.
+        '500':
+          description: Internal server error.
+      security:
+        - plurally_google:
+            - https://www.googleapis.com/auth/calendar.freebusy
+

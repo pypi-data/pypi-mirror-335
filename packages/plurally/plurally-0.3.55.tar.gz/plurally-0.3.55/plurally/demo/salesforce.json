@@ -1,0 +1,3038 @@
+{
+  "date_created": "2025-01-11T18:38:14.504835",
+  "last_updated": "2025-01-11T22:01:51.625804",
+  "name": "Salesforce AUDIO Call summary (copy)",
+  "desc": "",
+  "container_id": null,
+  "last_exec_dt": null,
+  "flow_json": {
+    "directed": true,
+    "multigraph": true,
+    "graph": {},
+    "nodes": [
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Find accounts",
+          "_node_id": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+          "pos_x": 740.0,
+          "pos_y": 120.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.soql_filters",
+            "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities"
+          ],
+          "tgt_handles": [
+            "run",
+            "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.summary"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceReadAuto",
+              "name": "SalesforceReadAuto",
+              "_node_id": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841",
+              "pos_x": 644.25,
+              "pos_y": -70.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["filters", "run"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_read": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Account",
+                  "properties": "Name, Website, Industry",
+                  "properties_list": ["Name", "Website", "Industry"]
+                }
+              ],
+              "input_schema": {
+                "$defs": {
+                  "SalesforceAutoFilters": {
+                    "properties": {
+                      "Account": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Account",
+                        "title": "Account"
+                      }
+                    },
+                    "title": "SalesforceAutoFilters",
+                    "type": "object"
+                  },
+                  "SalesforceSOQLComparisonOperatorMulti": {
+                    "enum": ["IN", "NOT IN", "INCLUDES", "EXCLUDES"],
+                    "title": "SalesforceSOQLComparisonOperatorMulti",
+                    "type": "string"
+                  },
+                  "SalesforceSOQLComparisonOperatorSingle": {
+                    "enum": ["=", "!=", "<", "<=", ">", ">=", "LIKE"],
+                    "title": "SalesforceSOQLComparisonOperatorSingle",
+                    "type": "string"
+                  },
+                  "SalesforceSOQLFilterMulti": {
+                    "properties": {
+                      "field": { "title": "Field", "type": "string" },
+                      "operator": {
+                        "enum": ["IN", "NOT IN", "INCLUDES", "EXCLUDES"],
+                        "title": "SalesforceSOQLComparisonOperatorMulti",
+                        "type": "string"
+                      },
+                      "values": {
+                        "items": { "type": "string" },
+                        "title": "Values",
+                        "type": "array"
+                      }
+                    },
+                    "required": ["field", "operator", "values"],
+                    "title": "SalesforceSOQLFilterMulti",
+                    "type": "object"
+                  },
+                  "SalesforceSOQLFilterSingle": {
+                    "properties": {
+                      "field": { "title": "Field", "type": "string" },
+                      "operator": {
+                        "enum": ["=", "!=", "<", "<=", ">", ">=", "LIKE"],
+                        "title": "SalesforceSOQLComparisonOperatorSingle",
+                        "type": "string"
+                      },
+                      "value": { "title": "Value", "type": "string" }
+                    },
+                    "required": ["field", "operator", "value"],
+                    "title": "SalesforceSOQLFilterSingle",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "description": "Selects for the Salesforce entities.",
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "filters": {
+                    "properties": {
+                      "Account": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Account",
+                        "title": "Account"
+                      }
+                    },
+                    "title": "SalesforceAutoFilters",
+                    "type": "object",
+                    "default": null
+                  }
+                },
+                "title": "SalesforceAutoInput",
+                "type": "object"
+              },
+              "skip_if_no_filter": true
+            },
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (ChatGPT)",
+              "_node_id": "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9",
+              "pos_x": 675.75,
+              "pos_y": -204.0,
+              "is_trigger": false,
+              "src_handles": ["soql_filters"],
+              "tgt_handles": ["summary", "run"],
+              "instruct": "Write Salesforce Object Query Language (SOQL) filters to find existing Salesforce Account record(s) related to the customer involved in the call.\n\nYour query should NOT be case sensitive.\n\nYour filters should mimick fuzzy search.",
+              "output_fields": [
+                { "free": "SOQL Filters", "handle_id": "ae2b", "type": "Auto" }
+              ],
+              "input_fields": [
+                { "free": "Summary", "handle_id": "f410", "type": "Auto" }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "soql_filters": {
+                    "properties": {},
+                    "title": "SOQL Filters",
+                    "type": "object",
+                    "handle_id": "ae2b",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": ["soql_filters"],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "summary": {
+                    "properties": {},
+                    "title": "Summary",
+                    "type": "object",
+                    "handle_id": "f410",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": ["summary"],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "soql_filters###filters",
+              "label": "SOQL Filters -> None",
+              "source": "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9",
+              "src_handle": "soql_filters",
+              "target": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841",
+              "tgt_handle": "filters"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[SalesforceReadAuto: entities]",
+                "type": "object"
+              },
+              "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.soql_filters": {
+                "properties": {},
+                "title": "[AI (ChatGPT): soql_filters]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+              "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.soql_filters"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.summary": {
+                "properties": {},
+                "title": "[AI (ChatGPT): summary]",
+                "type": "object"
+              }
+            },
+            "required": ["nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.summary"],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Existing Opportunities And Contacts",
+          "_node_id": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+          "pos_x": 420.0,
+          "pos_y": 280.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.soql_filters",
+            "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities"
+          ],
+          "tgt_handles": [
+            "run",
+            "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.salesforce_accounts"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceReadAuto",
+              "name": "SalesforceReadAuto",
+              "_node_id": "nd-aab22124-6df0-407b-b607-d9414ce5ad81",
+              "pos_x": 324.25,
+              "pos_y": -178.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["filters", "run"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_read": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Contact",
+                  "properties": "Email, FirstName, LastName, Phone, Title",
+                  "properties_list": [
+                    "Email",
+                    "FirstName",
+                    "LastName",
+                    "Phone",
+                    "Title"
+                  ]
+                },
+                {
+                  "record_type": "",
+                  "s_object_type": "Opportunity",
+                  "properties": "Name,Amount,CloseDate,StageName",
+                  "properties_list": [
+                    "Name",
+                    "Amount",
+                    "CloseDate",
+                    "StageName"
+                  ]
+                }
+              ],
+              "input_schema": {
+                "$defs": {
+                  "SalesforceAutoFilters": {
+                    "properties": {
+                      "Contact": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Contact",
+                        "title": "Contact"
+                      },
+                      "Opportunity": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Opportunity",
+                        "title": "Opportunity"
+                      }
+                    },
+                    "title": "SalesforceAutoFilters",
+                    "type": "object"
+                  },
+                  "SalesforceSOQLComparisonOperatorMulti": {
+                    "enum": ["IN", "NOT IN", "INCLUDES", "EXCLUDES"],
+                    "title": "SalesforceSOQLComparisonOperatorMulti",
+                    "type": "string"
+                  },
+                  "SalesforceSOQLComparisonOperatorSingle": {
+                    "enum": ["=", "!=", "<", "<=", ">", ">=", "LIKE"],
+                    "title": "SalesforceSOQLComparisonOperatorSingle",
+                    "type": "string"
+                  },
+                  "SalesforceSOQLFilterMulti": {
+                    "properties": {
+                      "field": { "title": "Field", "type": "string" },
+                      "operator": {
+                        "enum": ["IN", "NOT IN", "INCLUDES", "EXCLUDES"],
+                        "title": "SalesforceSOQLComparisonOperatorMulti",
+                        "type": "string"
+                      },
+                      "values": {
+                        "items": { "type": "string" },
+                        "title": "Values",
+                        "type": "array"
+                      }
+                    },
+                    "required": ["field", "operator", "values"],
+                    "title": "SalesforceSOQLFilterMulti",
+                    "type": "object"
+                  },
+                  "SalesforceSOQLFilterSingle": {
+                    "properties": {
+                      "field": { "title": "Field", "type": "string" },
+                      "operator": {
+                        "enum": ["=", "!=", "<", "<=", ">", ">=", "LIKE"],
+                        "title": "SalesforceSOQLComparisonOperatorSingle",
+                        "type": "string"
+                      },
+                      "value": { "title": "Value", "type": "string" }
+                    },
+                    "required": ["field", "operator", "value"],
+                    "title": "SalesforceSOQLFilterSingle",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "description": "Selects for the Salesforce entities.",
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "filters": {
+                    "properties": {
+                      "Contact": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Contact",
+                        "title": "Contact"
+                      },
+                      "Opportunity": {
+                        "anyOf": [
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "=",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">=",
+                                  "LIKE"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorSingle",
+                                "type": "string"
+                              },
+                              "value": { "title": "Value", "type": "string" }
+                            },
+                            "required": ["field", "operator", "value"],
+                            "title": "SalesforceSOQLFilterSingle",
+                            "type": "object"
+                          },
+                          {
+                            "properties": {
+                              "field": { "title": "Field", "type": "string" },
+                              "operator": {
+                                "enum": [
+                                  "IN",
+                                  "NOT IN",
+                                  "INCLUDES",
+                                  "EXCLUDES"
+                                ],
+                                "title": "SalesforceSOQLComparisonOperatorMulti",
+                                "type": "string"
+                              },
+                              "values": {
+                                "items": { "type": "string" },
+                                "title": "Values",
+                                "type": "array"
+                              }
+                            },
+                            "required": ["field", "operator", "values"],
+                            "title": "SalesforceSOQLFilterMulti",
+                            "type": "object"
+                          },
+                          { "type": "null" }
+                        ],
+                        "default": null,
+                        "description": "Selects for Opportunity",
+                        "title": "Opportunity"
+                      }
+                    },
+                    "title": "SalesforceAutoFilters",
+                    "type": "object",
+                    "default": null
+                  }
+                },
+                "title": "SalesforceAutoInput",
+                "type": "object"
+              },
+              "skip_if_no_filter": true
+            },
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (ChatGPT)",
+              "_node_id": "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2",
+              "pos_x": 355.75,
+              "pos_y": -312.0,
+              "is_trigger": false,
+              "src_handles": ["soql_filters"],
+              "tgt_handles": ["run", "salesforce_accounts"],
+              "instruct": "Write Salesforce Object Query Language (SOQL) filters to find existing Salesforce record(s) related to the provided Salesforce Accounts.\n\nYour WHERE clause should look like:\n\nAccountId EQUALS <Account.Id> \nif there is one Account\n\nelse\nAccountId IN [<Account1.Id>, <Account2.Id>, ...] \nif there are more than one Account.",
+              "output_fields": [
+                { "free": "SOQL Filters", "handle_id": "ecde", "type": "Auto" }
+              ],
+              "input_fields": [
+                {
+                  "free": "Salesforce Accounts",
+                  "handle_id": "6a51",
+                  "type": "Auto"
+                }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "soql_filters": {
+                    "properties": {},
+                    "title": "SOQL Filters",
+                    "type": "object",
+                    "handle_id": "ecde",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": ["soql_filters"],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "salesforce_accounts": {
+                    "properties": {},
+                    "title": "Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "6a51",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": ["salesforce_accounts"],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "soql_filters###filters",
+              "label": "SOQL Filters -> None",
+              "source": "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2",
+              "src_handle": "soql_filters",
+              "target": "nd-aab22124-6df0-407b-b607-d9414ce5ad81",
+              "tgt_handle": "filters"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[SalesforceReadAuto: entities]",
+                "type": "object"
+              },
+              "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.soql_filters": {
+                "properties": {},
+                "title": "[AI (ChatGPT): soql_filters]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities",
+              "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.soql_filters"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_accounts]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.salesforce_accounts"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Task sync",
+          "_node_id": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+          "pos_x": 250.0,
+          "pos_y": 559.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.actions",
+            "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.explanation",
+            "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.salesforce_task_records_to_sync",
+            "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.entities"
+          ],
+          "tgt_handles": [
+            "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_accounts",
+            "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.call_summary",
+            "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_opportunities_and_contacts",
+            "run"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceAuto",
+              "name": "Auto Sync",
+              "_node_id": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5",
+              "pos_x": 251.0,
+              "pos_y": 0.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["run", "input"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_sync": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Task",
+                  "properties": "Subject,Status,Priority,Description,ActivityDate",
+                  "update_if_exists": "make_unique",
+                  "properties_list": [
+                    "Subject",
+                    "Status",
+                    "Priority",
+                    "Description",
+                    "ActivityDate"
+                  ]
+                }
+              ]
+            },
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (ChatGPT)",
+              "_node_id": "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8",
+              "pos_x": 226.0,
+              "pos_y": -134.0,
+              "is_trigger": false,
+              "src_handles": ["explanation", "salesforce_task_records_to_sync"],
+              "tgt_handles": [
+                "existing_salesforce_accounts",
+                "run",
+                "call_summary",
+                "existing_salesforce_opportunities_and_contacts"
+              ],
+              "instruct": "You are helping a company automate creation / update of Salesforce Task records. \n\n[Inputs]\nYou are given a call summary describing a sales conversation. \n\n[Goal]\n1. Log the given call by creating a Task with status Completed. Description here should be a structured, exhaustive summary.\n2. Create a Task for all of the follow-up tasks (to do) decided in the \"call summary\".\n\nFor each tasks, if ActivityDate is not mentionned, infer from today's date and what is discussed.\n\nIf the Description field is required, provide an exhaustive description of the task.\n\nBriefly explain what you did and did not do.",
+              "output_fields": [
+                {
+                  "free": "Salesforce Task records to sync",
+                  "handle_id": "6c4b",
+                  "type": "Auto"
+                },
+                { "free": "Explanation", "handle_id": "dd36", "type": "Text" }
+              ],
+              "input_fields": [
+                { "free": "Call summary", "handle_id": "0472", "type": "Auto" },
+                {
+                  "free": "Existing Salesforce Opportunities And Contacts",
+                  "handle_id": "dc82",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Existing Salesforce Accounts",
+                  "handle_id": "87f8",
+                  "type": "Auto"
+                }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "salesforce_task_records_to_sync": {
+                    "properties": {},
+                    "title": "Salesforce Task records to sync",
+                    "type": "object",
+                    "handle_id": "6c4b",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "explanation": {
+                    "handle_id": "dd36",
+                    "title": "Explanation",
+                    "type": "string"
+                  }
+                },
+                "required": ["salesforce_task_records_to_sync", "explanation"],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "call_summary": {
+                    "properties": {},
+                    "title": "Call summary",
+                    "type": "object",
+                    "handle_id": "0472",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_opportunities_and_contacts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Opportunities And Contacts",
+                    "type": "object",
+                    "handle_id": "dc82",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_accounts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "87f8",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": [
+                  "call_summary",
+                  "existing_salesforce_opportunities_and_contacts",
+                  "existing_salesforce_accounts"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "salesforce_task_records_to_sync###input",
+              "label": "Salesforce Task records to sync -> Input",
+              "source": "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8",
+              "src_handle": "salesforce_task_records_to_sync",
+              "target": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5",
+              "tgt_handle": "input"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "CrmAction": {
+                "properties": {
+                  "icon": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Icon"
+                  },
+                  "object_type": { "title": "Object Type", "type": "string" },
+                  "identifier": { "title": "Identifier", "type": "string" },
+                  "action_type": { "title": "Action Type", "type": "string" },
+                  "url": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Url"
+                  },
+                  "previous_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Previous State"
+                  },
+                  "new_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "New State"
+                  },
+                  "extra": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Extra"
+                  }
+                },
+                "required": ["object_type", "identifier", "action_type"],
+                "title": "CrmAction",
+                "type": "object"
+              },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.actions": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "icon": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Icon"
+                    },
+                    "object_type": { "title": "Object Type", "type": "string" },
+                    "identifier": { "title": "Identifier", "type": "string" },
+                    "action_type": { "title": "Action Type", "type": "string" },
+                    "url": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Url"
+                    },
+                    "previous_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Previous State"
+                    },
+                    "new_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "New State"
+                    },
+                    "extra": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Extra"
+                    }
+                  },
+                  "required": ["object_type", "identifier", "action_type"],
+                  "title": "CrmAction",
+                  "type": "object"
+                },
+                "title": "[Auto Sync: actions]",
+                "type": "array"
+              },
+              "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[Auto Sync: entities]",
+                "type": "object"
+              },
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.salesforce_task_records_to_sync": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_task_records_to_sync]",
+                "type": "object"
+              },
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.explanation": {
+                "title": "[AI (ChatGPT): explanation]",
+                "type": "string"
+              }
+            },
+            "required": [
+              "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.entities",
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.salesforce_task_records_to_sync",
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.explanation"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.call_summary": {
+                "properties": {},
+                "title": "[AI (ChatGPT): call_summary]",
+                "type": "object"
+              },
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_opportunities_and_contacts": {
+                "properties": {},
+                "title": "[AI (ChatGPT): existing_salesforce_opportunities_and_contacts]",
+                "type": "object"
+              },
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (ChatGPT): existing_salesforce_accounts]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.call_summary",
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_opportunities_and_contacts",
+              "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_accounts"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Contact sync",
+          "_node_id": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+          "pos_x": -80.0,
+          "pos_y": 560.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.entities",
+            "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.salesforce_contact_records_to_sync",
+            "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.actions",
+            "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.explanation"
+          ],
+          "tgt_handles": [
+            "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.call_summary",
+            "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_accounts",
+            "run",
+            "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_opportunities_and_contacts"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (Plurally)",
+              "_node_id": "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27",
+              "pos_x": -365.5,
+              "pos_y": -133.0,
+              "is_trigger": false,
+              "src_handles": [
+                "salesforce_contact_records_to_sync",
+                "explanation"
+              ],
+              "tgt_handles": [
+                "existing_salesforce_accounts",
+                "run",
+                "call_summary",
+                "existing_salesforce_opportunities_and_contacts"
+              ],
+              "instruct": "You are helping a company automate creation / update of Salesforce Contact records. \n\n[Inputs]\nYou are given\n    - call summary describing a sales conversation. \n    - Existing contacts\n    - Existing opportunities\n    - Existing accounts\n\n[Goal]\nCreate or update a Salesforce Contact record for all of the people involved or mentionned in the call on the buyer side (i.e. do not create records for the company selling). \n\nIf a contact already exists, update it by specifying its Id.\n\nBriefly explain what you did and did not do.",
+              "output_fields": [
+                {
+                  "free": "Salesforce Contact records to sync",
+                  "handle_id": "c080",
+                  "type": "Auto"
+                },
+                { "free": "Explanation", "handle_id": "bf41", "type": "Text" }
+              ],
+              "input_fields": [
+                {
+                  "free": "Existing Salesforce Opportunities And Contacts",
+                  "handle_id": "57a1",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Existing Salesforce Accounts",
+                  "handle_id": "6008",
+                  "type": "Auto"
+                },
+                { "free": "Call summary", "handle_id": "f322", "type": "Auto" }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "salesforce_contact_records_to_sync": {
+                    "properties": {},
+                    "title": "Salesforce Contact records to sync",
+                    "type": "object",
+                    "handle_id": "c080",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "explanation": {
+                    "handle_id": "bf41",
+                    "title": "Explanation",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "salesforce_contact_records_to_sync",
+                  "explanation"
+                ],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "existing_salesforce_opportunities_and_contacts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Opportunities And Contacts",
+                    "type": "object",
+                    "handle_id": "57a1",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_accounts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "6008",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "call_summary": {
+                    "properties": {},
+                    "title": "Call summary",
+                    "type": "object",
+                    "handle_id": "f322",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": [
+                  "existing_salesforce_opportunities_and_contacts",
+                  "existing_salesforce_accounts",
+                  "call_summary"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceAuto",
+              "name": "Auto Sync",
+              "_node_id": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320",
+              "pos_x": -340.5,
+              "pos_y": 1.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["run", "input"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_sync": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Contact",
+                  "properties": "Email, FirstName, LastName, Phone, Title, MailingCountryCode",
+                  "update_if_exists": "no_update",
+                  "properties_list": [
+                    "Email",
+                    "FirstName",
+                    "LastName",
+                    "Phone",
+                    "Title",
+                    "MailingCountryCode"
+                  ]
+                }
+              ]
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "salesforce_contact_records_to_sync###input",
+              "label": "Salesforce Contact records to sync -> Input",
+              "source": "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27",
+              "src_handle": "salesforce_contact_records_to_sync",
+              "target": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320",
+              "tgt_handle": "input"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "CrmAction": {
+                "properties": {
+                  "icon": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Icon"
+                  },
+                  "object_type": { "title": "Object Type", "type": "string" },
+                  "identifier": { "title": "Identifier", "type": "string" },
+                  "action_type": { "title": "Action Type", "type": "string" },
+                  "url": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Url"
+                  },
+                  "previous_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Previous State"
+                  },
+                  "new_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "New State"
+                  },
+                  "extra": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Extra"
+                  }
+                },
+                "required": ["object_type", "identifier", "action_type"],
+                "title": "CrmAction",
+                "type": "object"
+              },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.salesforce_contact_records_to_sync": {
+                "properties": {},
+                "title": "[AI (Plurally): salesforce_contact_records_to_sync]",
+                "type": "object"
+              },
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.explanation": {
+                "title": "[AI (Plurally): explanation]",
+                "type": "string"
+              },
+              "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.actions": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "icon": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Icon"
+                    },
+                    "object_type": { "title": "Object Type", "type": "string" },
+                    "identifier": { "title": "Identifier", "type": "string" },
+                    "action_type": { "title": "Action Type", "type": "string" },
+                    "url": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Url"
+                    },
+                    "previous_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Previous State"
+                    },
+                    "new_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "New State"
+                    },
+                    "extra": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Extra"
+                    }
+                  },
+                  "required": ["object_type", "identifier", "action_type"],
+                  "title": "CrmAction",
+                  "type": "object"
+                },
+                "title": "[Auto Sync: actions]",
+                "type": "array"
+              },
+              "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[Auto Sync: entities]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.salesforce_contact_records_to_sync",
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.explanation",
+              "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.entities"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_opportunities_and_contacts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+                "type": "object"
+              },
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_accounts]",
+                "type": "object"
+              },
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.call_summary": {
+                "properties": {},
+                "title": "[AI (Plurally): call_summary]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_opportunities_and_contacts",
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_accounts",
+              "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.call_summary"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Account sync",
+          "_node_id": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+          "pos_x": 577.0,
+          "pos_y": 559.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.actions",
+            "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.entities"
+          ],
+          "tgt_handles": [
+            "run",
+            "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_opportunities_and_contacts",
+            "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.call_summary",
+            "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_accounts"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (Plurally)",
+              "_node_id": "nd-7bbea982-266c-41f5-a3b0-2f936086eda7",
+              "pos_x": -123.0,
+              "pos_y": -141.0,
+              "is_trigger": false,
+              "src_handles": [
+                "explanation",
+                "salesforce_account_records_to_sync"
+              ],
+              "tgt_handles": [
+                "existing_salesforce_accounts",
+                "run",
+                "call_summary",
+                "existing_salesforce_opportunities_and_contacts"
+              ],
+              "instruct": "You are helping a company automate creation / update of Salesforce Account records. \n\n[Inputs]\nYou are given\n    - call summary describing a sales conversation. \n    - Existing contacts\n    - Existing opportunities\n    - Existing accounts\n\n[Goal]\nCreate or update the different Salesforce Account records involved in the call on the buyer side (i.e. do not create records for the company selling). \n\nIf an account already exists, update it by specifying its Id.\n\nBriefly explain what you did and did not do.",
+              "output_fields": [
+                {
+                  "free": "Salesforce Account records to sync",
+                  "handle_id": "0b4a",
+                  "type": "Auto"
+                },
+                { "free": "Explanation", "handle_id": "f5cd", "type": "Text" }
+              ],
+              "input_fields": [
+                {
+                  "free": "Existing Salesforce Opportunities And Contacts",
+                  "handle_id": "e66a",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Existing Salesforce Accounts",
+                  "handle_id": "299b",
+                  "type": "Auto"
+                },
+                { "free": "Call summary", "handle_id": "4d2a", "type": "Auto" }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "salesforce_account_records_to_sync": {
+                    "properties": {},
+                    "title": "Salesforce Account records to sync",
+                    "type": "object",
+                    "handle_id": "0b4a",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "explanation": {
+                    "handle_id": "f5cd",
+                    "title": "Explanation",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "salesforce_account_records_to_sync",
+                  "explanation"
+                ],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "existing_salesforce_opportunities_and_contacts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Opportunities And Contacts",
+                    "type": "object",
+                    "handle_id": "e66a",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_accounts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "299b",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "call_summary": {
+                    "properties": {},
+                    "title": "Call summary",
+                    "type": "object",
+                    "handle_id": "4d2a",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": [
+                  "existing_salesforce_opportunities_and_contacts",
+                  "existing_salesforce_accounts",
+                  "call_summary"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceAuto",
+              "name": "Auto Sync",
+              "_node_id": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a",
+              "pos_x": -103.0,
+              "pos_y": -21.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["run", "input"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_sync": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Account",
+                  "properties": "Name, Website, Industry,Site",
+                  "update_if_exists": "no_update",
+                  "properties_list": ["Name", "Website", "Industry", "Site"]
+                }
+              ]
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "salesforce_account_records_to_sync###input",
+              "label": "Salesforce Account records to sync -> Input",
+              "source": "nd-7bbea982-266c-41f5-a3b0-2f936086eda7",
+              "src_handle": "salesforce_account_records_to_sync",
+              "target": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a",
+              "tgt_handle": "input"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "CrmAction": {
+                "properties": {
+                  "icon": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Icon"
+                  },
+                  "object_type": { "title": "Object Type", "type": "string" },
+                  "identifier": { "title": "Identifier", "type": "string" },
+                  "action_type": { "title": "Action Type", "type": "string" },
+                  "url": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Url"
+                  },
+                  "previous_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Previous State"
+                  },
+                  "new_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "New State"
+                  },
+                  "extra": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Extra"
+                  }
+                },
+                "required": ["object_type", "identifier", "action_type"],
+                "title": "CrmAction",
+                "type": "object"
+              },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.salesforce_account_records_to_sync": {
+                "properties": {},
+                "title": "[AI (Plurally): salesforce_account_records_to_sync]",
+                "type": "object"
+              },
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.explanation": {
+                "title": "[AI (Plurally): explanation]",
+                "type": "string"
+              },
+              "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.actions": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "icon": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Icon"
+                    },
+                    "object_type": { "title": "Object Type", "type": "string" },
+                    "identifier": { "title": "Identifier", "type": "string" },
+                    "action_type": { "title": "Action Type", "type": "string" },
+                    "url": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Url"
+                    },
+                    "previous_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Previous State"
+                    },
+                    "new_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "New State"
+                    },
+                    "extra": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Extra"
+                    }
+                  },
+                  "required": ["object_type", "identifier", "action_type"],
+                  "title": "CrmAction",
+                  "type": "object"
+                },
+                "title": "[Auto Sync: actions]",
+                "type": "array"
+              },
+              "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[Auto Sync: entities]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.salesforce_account_records_to_sync",
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.explanation",
+              "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.entities"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_opportunities_and_contacts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+                "type": "object"
+              },
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_accounts]",
+                "type": "object"
+              },
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.call_summary": {
+                "properties": {},
+                "title": "[AI (Plurally): call_summary]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_opportunities_and_contacts",
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_accounts",
+              "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.call_summary"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Opportunity sync",
+          "_node_id": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+          "pos_x": 895.75,
+          "pos_y": 559.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.actions",
+            "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.entities"
+          ],
+          "tgt_handles": [
+            "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_accounts",
+            "run",
+            "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_opportunities_and_contacts",
+            "nd-e9960712-4179-47a9-9bda-7f586a3e2787.call_summary"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (Plurally)",
+              "_node_id": "nd-e9960712-4179-47a9-9bda-7f586a3e2787",
+              "pos_x": -64.25,
+              "pos_y": -161.0,
+              "is_trigger": false,
+              "src_handles": [
+                "salesforce_opportunity_records_to_sync",
+                "explanation"
+              ],
+              "tgt_handles": [
+                "existing_salesforce_accounts",
+                "run",
+                "call_summary",
+                "existing_salesforce_opportunities_and_contacts"
+              ],
+              "instruct": "You are helping a company automate creation / update of Salesforce Opportunity records. \n\n[Inputs]\nYou are given\n    - call summary describing a sales conversation. \n    - Existing contacts\n    - Existing opportunities\n    - Existing accounts\n\n[Goal]\nCreate or update the different Salesforce Opportunity records involved in the call on the buyer side (i.e. do not create records for the company selling). \n\nIf an opportunity already exists, update it by specifying its Id.\n\nBriefly explain what you did and did not do.",
+              "output_fields": [
+                {
+                  "free": "Salesforce Opportunity records to sync",
+                  "handle_id": "caf9",
+                  "type": "Auto"
+                },
+                { "free": "Explanation", "handle_id": "6419", "type": "Text" }
+              ],
+              "input_fields": [
+                { "free": "Call summary", "handle_id": "88b1", "type": "Auto" },
+                {
+                  "free": "Existing Salesforce Opportunities And Contacts",
+                  "handle_id": "5930",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Existing Salesforce Accounts",
+                  "handle_id": "74f1",
+                  "type": "Auto"
+                }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "salesforce_opportunity_records_to_sync": {
+                    "properties": {},
+                    "title": "Salesforce Opportunity records to sync",
+                    "type": "object",
+                    "handle_id": "caf9",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "explanation": {
+                    "handle_id": "6419",
+                    "title": "Explanation",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "salesforce_opportunity_records_to_sync",
+                  "explanation"
+                ],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "call_summary": {
+                    "properties": {},
+                    "title": "Call summary",
+                    "type": "object",
+                    "handle_id": "88b1",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_opportunities_and_contacts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Opportunities And Contacts",
+                    "type": "object",
+                    "handle_id": "5930",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "existing_salesforce_accounts": {
+                    "properties": {},
+                    "title": "Existing Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "74f1",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": [
+                  "call_summary",
+                  "existing_salesforce_opportunities_and_contacts",
+                  "existing_salesforce_accounts"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceAuto",
+              "name": "Auto Sync",
+              "_node_id": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d",
+              "pos_x": -44.25,
+              "pos_y": -21.0,
+              "is_trigger": false,
+              "src_handles": ["entities"],
+              "tgt_handles": ["run", "input"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com",
+              "objects_to_sync": [
+                {
+                  "record_type": "",
+                  "s_object_type": "Opportunity",
+                  "properties": "Name,Amount,CloseDate,StageName",
+                  "update_if_exists": "update",
+                  "properties_list": [
+                    "Name",
+                    "Amount",
+                    "CloseDate",
+                    "StageName"
+                  ]
+                }
+              ]
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "salesforce_opportunity_records_to_sync###input",
+              "label": "Salesforce Opportunity records to sync -> Input",
+              "source": "nd-e9960712-4179-47a9-9bda-7f586a3e2787",
+              "src_handle": "salesforce_opportunity_records_to_sync",
+              "target": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d",
+              "tgt_handle": "input"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "CrmAction": {
+                "properties": {
+                  "icon": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Icon"
+                  },
+                  "object_type": { "title": "Object Type", "type": "string" },
+                  "identifier": { "title": "Identifier", "type": "string" },
+                  "action_type": { "title": "Action Type", "type": "string" },
+                  "url": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Url"
+                  },
+                  "previous_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Previous State"
+                  },
+                  "new_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "New State"
+                  },
+                  "extra": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Extra"
+                  }
+                },
+                "required": ["object_type", "identifier", "action_type"],
+                "title": "CrmAction",
+                "type": "object"
+              },
+              "SalesforceReadAutoEntity": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "SalesforceReadAutoEntity",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.salesforce_opportunity_records_to_sync": {
+                "properties": {},
+                "title": "[AI (Plurally): salesforce_opportunity_records_to_sync]",
+                "type": "object"
+              },
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.explanation": {
+                "title": "[AI (Plurally): explanation]",
+                "type": "string"
+              },
+              "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.actions": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "icon": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Icon"
+                    },
+                    "object_type": { "title": "Object Type", "type": "string" },
+                    "identifier": { "title": "Identifier", "type": "string" },
+                    "action_type": { "title": "Action Type", "type": "string" },
+                    "url": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Url"
+                    },
+                    "previous_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Previous State"
+                    },
+                    "new_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "New State"
+                    },
+                    "extra": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Extra"
+                    }
+                  },
+                  "required": ["object_type", "identifier", "action_type"],
+                  "title": "CrmAction",
+                  "type": "object"
+                },
+                "title": "[Auto Sync: actions]",
+                "type": "array"
+              },
+              "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.entities": {
+                "additionalProperties": true,
+                "properties": {},
+                "title": "[Auto Sync: entities]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.salesforce_opportunity_records_to_sync",
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.explanation",
+              "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.entities"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.call_summary": {
+                "properties": {},
+                "title": "[AI (Plurally): call_summary]",
+                "type": "object"
+              },
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_opportunities_and_contacts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+                "type": "object"
+              },
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (Plurally): existing_salesforce_accounts]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.call_summary",
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_opportunities_and_contacts",
+              "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_accounts"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Form",
+          "name": "Form",
+          "_node_id": "nd-2c3d159d-9f8a-4ec8-a961-d0ee1c7d3294",
+          "pos_x": 320.0,
+          "pos_y": -380.0,
+          "is_trigger": true,
+          "src_handles": ["additional_context"],
+          "tgt_handles": [],
+          "form": [
+            {
+              "name": "additional context",
+              "type": "short_text",
+              "col_span": 12,
+              "is_required": false,
+              "placeholder": ""
+            }
+          ],
+          "show_label": true,
+          "button_text": "Submit",
+          "button_on_same_row": false,
+          "button_color": "#007bff",
+          "output_schema": {
+            "properties": {
+              "additional_context": {
+                "default": "",
+                "title": "Additional context",
+                "type": "string",
+                "uiSchema": {
+                  "ui:emptyValue": "",
+                  "ui:label": true,
+                  "ui:placeholder": ""
+                }
+              }
+            },
+            "title": "Form",
+            "type": "object",
+            "uiSchema": { "ui:grid": [["additional_context", 12]] }
+          }
+        }
+      },
+      {
+        "id": {
+          "template": "[Additional context]\n{context}",
+          "input_schema": {
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "context": { "title": "Context", "type": "string" }
+            },
+            "required": ["context"],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "PLURALLY_VERSION": 0,
+          "kls": "FormatText",
+          "name": "Text Formatter",
+          "_node_id": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+          "pos_x": 420.0,
+          "pos_y": -60.0,
+          "is_trigger": false,
+          "src_handles": ["formatted_text"],
+          "tgt_handles": ["run", "context"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Assocs",
+          "_node_id": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+          "pos_x": 293.0,
+          "pos_y": 795.0,
+          "is_trigger": false,
+          "src_handles": [
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.explanation",
+            "nd-e527b95d-a35d-4a2d-8364-6e424f533e94.actions"
+          ],
+          "tgt_handles": [
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_contacts",
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_opportunities",
+            "run",
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_accounts",
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_tasks",
+            "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.summary"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 1,
+              "kls": "Instruct",
+              "name": "AI (ChatGPT)",
+              "_node_id": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d",
+              "pos_x": -25.5,
+              "pos_y": -85.0,
+              "is_trigger": false,
+              "src_handles": ["salesforce_associations", "explanation"],
+              "tgt_handles": [
+                "salesforce_tasks",
+                "salesforce_opportunities",
+                "salesforce_contacts",
+                "run",
+                "salesforce_accounts",
+                "summary"
+              ],
+              "instruct": "Prompt:\n\nFor each call, associate Salesforce records based on the available relationship types. Ensure that all valid associations are created for each record.\n\n    Treat each record type individually, even if there are multiple records of the same type. For example, if there are three tasks (A, B, C) related to the same opportunity, create three separate TASK_TO_OPPORTUNITY associations.\n\n    If multiple association types are possible for the same record, create all relevant associations. For example, an opportunity can be linked to both a contact and an account.\n\n    Only create associations that correspond to available relationship types. For instance, if no T1_TO_T2 association type exists, do not attempt to create one between records of type T1 and T2.\n\nProvide a brief explanation of your reasoning.",
+              "output_fields": [
+                {
+                  "free": "Salesforce associations",
+                  "handle_id": "a741",
+                  "type": "Auto"
+                },
+                { "free": "Explanation", "handle_id": "fce6", "type": "Text" }
+              ],
+              "input_fields": [
+                {
+                  "free": "Salesforce Tasks",
+                  "handle_id": "1525",
+                  "type": "Auto"
+                },
+                { "free": "Summary", "handle_id": "93a3", "type": "Auto" },
+                {
+                  "free": "Salesforce Contacts",
+                  "handle_id": "26f1",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Salesforce Accounts",
+                  "handle_id": "0226",
+                  "type": "Auto"
+                },
+                {
+                  "free": "Salesforce Opportunities",
+                  "handle_id": "b150",
+                  "type": "Auto"
+                }
+              ],
+              "output_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "can-add-fields": true,
+                "properties": {
+                  "salesforce_associations": {
+                    "properties": {},
+                    "title": "Salesforce associations",
+                    "type": "object",
+                    "handle_id": "a741",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "explanation": {
+                    "handle_id": "fce6",
+                    "title": "Explanation",
+                    "type": "string"
+                  }
+                },
+                "required": ["salesforce_associations", "explanation"],
+                "title": "OutputSchema",
+                "type": "object"
+              },
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "salesforce_tasks": {
+                    "properties": {},
+                    "title": "Salesforce Tasks",
+                    "type": "object",
+                    "handle_id": "1525",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "summary": {
+                    "properties": {},
+                    "title": "Summary",
+                    "type": "object",
+                    "handle_id": "93a3",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "salesforce_contacts": {
+                    "properties": {},
+                    "title": "Salesforce Contacts",
+                    "type": "object",
+                    "handle_id": "26f1",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "salesforce_accounts": {
+                    "properties": {},
+                    "title": "Salesforce Accounts",
+                    "type": "object",
+                    "handle_id": "0226",
+                    "type-friendly": "Auto (BETA)"
+                  },
+                  "salesforce_opportunities": {
+                    "properties": {},
+                    "title": "Salesforce Opportunities",
+                    "type": "object",
+                    "handle_id": "b150",
+                    "type-friendly": "Auto (BETA)"
+                  }
+                },
+                "required": [
+                  "salesforce_tasks",
+                  "summary",
+                  "salesforce_contacts",
+                  "salesforce_accounts",
+                  "salesforce_opportunities"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              },
+              "is_table": false,
+              "model": "gpt-4o"
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "SalesforceAssocAuto",
+              "name": "SalesforceAssocAuto",
+              "_node_id": "nd-e527b95d-a35d-4a2d-8364-6e424f533e94",
+              "pos_x": 27.0,
+              "pos_y": 85.0,
+              "is_trigger": false,
+              "src_handles": ["actions"],
+              "tgt_handles": ["run", "assoc_id_pairs"],
+              "instance_url": "https://plurally2-dev-ed.develop.my.salesforce.com"
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "salesforce_associations###assoc_id_pairs",
+              "label": "Salesforce associations -> Salesforce Relationship Pairs",
+              "source": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d",
+              "src_handle": "salesforce_associations",
+              "target": "nd-e527b95d-a35d-4a2d-8364-6e424f533e94",
+              "tgt_handle": "assoc_id_pairs"
+            }
+          ],
+          "output_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "CrmAction": {
+                "properties": {
+                  "icon": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Icon"
+                  },
+                  "object_type": { "title": "Object Type", "type": "string" },
+                  "identifier": { "title": "Identifier", "type": "string" },
+                  "action_type": { "title": "Action Type", "type": "string" },
+                  "url": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Url"
+                  },
+                  "previous_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Previous State"
+                  },
+                  "new_state": {
+                    "anyOf": [{ "type": "object" }, { "type": "null" }],
+                    "default": null,
+                    "title": "New State"
+                  },
+                  "extra": {
+                    "anyOf": [{ "type": "string" }, { "type": "null" }],
+                    "default": null,
+                    "title": "Extra"
+                  }
+                },
+                "required": ["object_type", "identifier", "action_type"],
+                "title": "CrmAction",
+                "type": "object"
+              }
+            },
+            "properties": {
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_associations": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_associations]",
+                "type": "object"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.explanation": {
+                "title": "[AI (ChatGPT): explanation]",
+                "type": "string"
+              },
+              "nd-e527b95d-a35d-4a2d-8364-6e424f533e94.actions": {
+                "default": [],
+                "items": {
+                  "properties": {
+                    "icon": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Icon"
+                    },
+                    "object_type": { "title": "Object Type", "type": "string" },
+                    "identifier": { "title": "Identifier", "type": "string" },
+                    "action_type": { "title": "Action Type", "type": "string" },
+                    "url": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Url"
+                    },
+                    "previous_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Previous State"
+                    },
+                    "new_state": {
+                      "anyOf": [{ "type": "object" }, { "type": "null" }],
+                      "default": null,
+                      "title": "New State"
+                    },
+                    "extra": {
+                      "anyOf": [{ "type": "string" }, { "type": "null" }],
+                      "default": null,
+                      "title": "Extra"
+                    }
+                  },
+                  "required": ["object_type", "identifier", "action_type"],
+                  "title": "CrmAction",
+                  "type": "object"
+                },
+                "title": "[SalesforceAssocAuto: actions]",
+                "type": "array"
+              }
+            },
+            "required": [
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_associations",
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.explanation"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_tasks": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_tasks]",
+                "type": "object"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.summary": {
+                "properties": {},
+                "title": "[AI (ChatGPT): summary]",
+                "type": "object"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_contacts": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_contacts]",
+                "type": "object"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_accounts": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_accounts]",
+                "type": "object"
+              },
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_opportunities": {
+                "properties": {},
+                "title": "[AI (ChatGPT): salesforce_opportunities]",
+                "type": "object"
+              }
+            },
+            "required": [
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_tasks",
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.summary",
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_contacts",
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_accounts",
+              "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_opportunities"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["openai"]
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Subflow",
+          "name": "Send report",
+          "_node_id": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+          "pos_x": 260.0,
+          "pos_y": 1080.0,
+          "is_trigger": false,
+          "src_handles": [],
+          "tgt_handles": [
+            "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.opportunities",
+            "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.contacts",
+            "run",
+            "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.assocs",
+            "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.accounts",
+            "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.tasks"
+          ],
+          "desc": "",
+          "subflow_nodes": [
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "RenderActionsHtml",
+              "name": "RenderActionsHtml",
+              "_node_id": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05",
+              "pos_x": -140.0,
+              "pos_y": -180.0,
+              "is_trigger": false,
+              "src_handles": ["html"],
+              "tgt_handles": [
+                "run",
+                "accounts",
+                "contacts",
+                "opportunities",
+                "tasks",
+                "assocs"
+              ],
+              "crm_actions_lists": [
+                { "free": "Accounts", "handle_id": "4aa3", "type": "Auto" },
+                { "free": "Contacts", "handle_id": "85bc", "type": "Auto" },
+                {
+                  "free": "Opportunities",
+                  "handle_id": "6c87",
+                  "type": "Auto"
+                },
+                { "free": "Tasks", "handle_id": "84fa", "type": "Auto" },
+                { "free": "Assocs", "handle_id": "3566", "type": "Auto" }
+              ],
+              "input_schema": {
+                "$defs": {
+                  "Auto": {
+                    "properties": {},
+                    "title": "Auto",
+                    "type": "object"
+                  }
+                },
+                "additionalProperties": false,
+                "can-add-fields": true,
+                "properties": {
+                  "run": {
+                    "default": true,
+                    "description": "Whether to run the block.",
+                    "examples": [true, false],
+                    "title": "Run",
+                    "type": "boolean"
+                  },
+                  "accounts": {
+                    "properties": {},
+                    "title": "Accounts",
+                    "type": "object",
+                    "handle_id": "4aa3"
+                  },
+                  "contacts": {
+                    "properties": {},
+                    "title": "Contacts",
+                    "type": "object",
+                    "handle_id": "85bc"
+                  },
+                  "opportunities": {
+                    "properties": {},
+                    "title": "Opportunities",
+                    "type": "object",
+                    "handle_id": "6c87"
+                  },
+                  "tasks": {
+                    "properties": {},
+                    "title": "Tasks",
+                    "type": "object",
+                    "handle_id": "84fa"
+                  },
+                  "assocs": {
+                    "properties": {},
+                    "title": "Assocs",
+                    "type": "object",
+                    "handle_id": "3566"
+                  }
+                },
+                "required": [
+                  "accounts",
+                  "contacts",
+                  "opportunities",
+                  "tasks",
+                  "assocs"
+                ],
+                "title": "InputSchema",
+                "type": "object"
+              }
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "NotifyMe",
+              "name": "Send Notification",
+              "_node_id": "nd-67a7b07e-a0a0-4522-b516-56475872f063",
+              "pos_x": 100.0,
+              "pos_y": 40.0,
+              "is_trigger": false,
+              "src_handles": [],
+              "tgt_handles": ["attachments", "run", "body", "subject"],
+              "email": "wildenstein67@gmail.com"
+            },
+            {
+              "PLURALLY_VERSION": 0,
+              "kls": "Text",
+              "name": "Text",
+              "_node_id": "nd-5b5408ef-aaf8-430d-a19e-0c78670cc796",
+              "pos_x": 360.0,
+              "pos_y": -100.0,
+              "is_trigger": false,
+              "src_handles": ["value"],
+              "tgt_handles": ["run"],
+              "value": "De nouvelles actions ont été prises dans votre CRM"
+            }
+          ],
+          "subflow_links": [
+            {
+              "key": "html###body",
+              "label": "Html -> Body",
+              "source": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05",
+              "src_handle": "html",
+              "target": "nd-67a7b07e-a0a0-4522-b516-56475872f063",
+              "tgt_handle": "body"
+            },
+            {
+              "key": "value###subject",
+              "label": "Value -> Subject",
+              "source": "nd-5b5408ef-aaf8-430d-a19e-0c78670cc796",
+              "src_handle": "value",
+              "target": "nd-67a7b07e-a0a0-4522-b516-56475872f063",
+              "tgt_handle": "subject"
+            }
+          ],
+          "output_schema": {
+            "properties": {
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.html": {
+                "title": "[RenderActionsHtml: html]",
+                "type": "string"
+              },
+              "nd-5b5408ef-aaf8-430d-a19e-0c78670cc796.value": {
+                "title": "[Text: value]",
+                "type": "string"
+              }
+            },
+            "required": [
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.html",
+              "nd-5b5408ef-aaf8-430d-a19e-0c78670cc796.value"
+            ],
+            "title": "OutputSchema",
+            "type": "object",
+            "uiSchema": { "ui:options": { "label": false } }
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": { "properties": {}, "title": "Auto", "type": "object" },
+              "File": { "properties": {}, "title": "File", "type": "object" }
+            },
+            "additionalProperties": false,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.accounts": {
+                "properties": {},
+                "title": "[RenderActionsHtml: accounts]",
+                "type": "object"
+              },
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.contacts": {
+                "properties": {},
+                "title": "[RenderActionsHtml: contacts]",
+                "type": "object"
+              },
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.opportunities": {
+                "properties": {},
+                "title": "[RenderActionsHtml: opportunities]",
+                "type": "object"
+              },
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.tasks": {
+                "properties": {},
+                "title": "[RenderActionsHtml: tasks]",
+                "type": "object"
+              },
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.assocs": {
+                "properties": {},
+                "title": "[RenderActionsHtml: assocs]",
+                "type": "object"
+              },
+              "nd-67a7b07e-a0a0-4522-b516-56475872f063.attachments": {
+                "default": [],
+                "items": {
+                  "properties": {},
+                  "title": "File",
+                  "type": "object"
+                },
+                "title": "[Send Notification: attachments]",
+                "type": "array"
+              }
+            },
+            "required": [
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.accounts",
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.contacts",
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.opportunities",
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.tasks",
+              "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.assocs"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "icons": ["email"]
+        }
+      }
+    ],
+    "links": [
+      {
+        "src_handle": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+        "tgt_handle": "nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.salesforce_accounts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (ChatGPT): salesforce_accounts]",
+        "source": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "target": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+        "key": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities###nd-19d770ab-130b-4e1e-b3b5-a9f325e15be2.salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+        "tgt_handle": "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_accounts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (ChatGPT): existing_salesforce_accounts]",
+        "source": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "target": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+        "key": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities###nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+        "tgt_handle": "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_accounts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_accounts]",
+        "source": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "target": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+        "key": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities###nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+        "tgt_handle": "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_accounts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_accounts]",
+        "source": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "target": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+        "key": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities###nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities",
+        "tgt_handle": "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_accounts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_accounts]",
+        "source": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "target": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+        "key": "nd-81e30ef2-6ff1-497f-8689-98a8561f3841.entities###nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities",
+        "tgt_handle": "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_opportunities_and_contacts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (ChatGPT): existing_salesforce_opportunities_and_contacts]",
+        "source": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+        "target": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+        "key": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities###nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.existing_salesforce_opportunities_and_contacts"
+      },
+      {
+        "src_handle": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities",
+        "tgt_handle": "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_opportunities_and_contacts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+        "source": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+        "target": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+        "key": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities###nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.existing_salesforce_opportunities_and_contacts"
+      },
+      {
+        "src_handle": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities",
+        "tgt_handle": "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_opportunities_and_contacts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+        "source": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+        "target": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+        "key": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities###nd-7bbea982-266c-41f5-a3b0-2f936086eda7.existing_salesforce_opportunities_and_contacts"
+      },
+      {
+        "src_handle": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities",
+        "tgt_handle": "nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_opportunities_and_contacts",
+        "label": "[SalesforceReadAuto: entities] -> [AI (Plurally): existing_salesforce_opportunities_and_contacts]",
+        "source": "nd-4713c37d-e775-42d3-82d1-333676c9ccd1",
+        "target": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+        "key": "nd-aab22124-6df0-407b-b607-d9414ce5ad81.entities###nd-e9960712-4179-47a9-9bda-7f586a3e2787.existing_salesforce_opportunities_and_contacts"
+      },
+      {
+        "src_handle": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.entities",
+        "tgt_handle": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_tasks",
+        "label": "[Auto Sync: entities] -> [AI (ChatGPT): salesforce_tasks]",
+        "source": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+        "target": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "key": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.entities###nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_tasks"
+      },
+      {
+        "src_handle": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.actions",
+        "tgt_handle": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.tasks",
+        "label": "[Auto Sync: actions] -> [RenderActionsHtml: tasks]",
+        "source": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+        "target": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+        "key": "nd-34aa3e06-5bc0-4198-b659-a1b3bdcc56f5.actions###nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.tasks"
+      },
+      {
+        "src_handle": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.entities",
+        "tgt_handle": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_contacts",
+        "label": "[Auto Sync: entities] -> [AI (ChatGPT): salesforce_contacts]",
+        "source": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+        "target": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "key": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.entities###nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_contacts"
+      },
+      {
+        "src_handle": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.actions",
+        "tgt_handle": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.contacts",
+        "label": "[Auto Sync: actions] -> [RenderActionsHtml: contacts]",
+        "source": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+        "target": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+        "key": "nd-a1fe0a55-2b5c-4e22-8572-8396e12fd320.actions###nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.contacts"
+      },
+      {
+        "src_handle": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.entities",
+        "tgt_handle": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_accounts",
+        "label": "[Auto Sync: entities] -> [AI (ChatGPT): salesforce_accounts]",
+        "source": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+        "target": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "key": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.entities###nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_accounts"
+      },
+      {
+        "src_handle": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.actions",
+        "tgt_handle": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.accounts",
+        "label": "[Auto Sync: actions] -> [RenderActionsHtml: accounts]",
+        "source": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+        "target": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+        "key": "nd-1ff94ea8-2123-4f1c-8954-05f25a12307a.actions###nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.accounts"
+      },
+      {
+        "src_handle": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.entities",
+        "tgt_handle": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_opportunities",
+        "label": "[Auto Sync: entities] -> [AI (ChatGPT): salesforce_opportunities]",
+        "source": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+        "target": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "key": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.entities###nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.salesforce_opportunities"
+      },
+      {
+        "src_handle": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.actions",
+        "tgt_handle": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.opportunities",
+        "label": "[Auto Sync: actions] -> [RenderActionsHtml: opportunities]",
+        "source": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+        "target": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+        "key": "nd-1eb6ba51-6def-4fbb-8d12-501e67b8214d.actions###nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.opportunities"
+      },
+      {
+        "src_handle": "additional_context",
+        "tgt_handle": "context",
+        "label": "Additional context -> Context",
+        "source": "nd-2c3d159d-9f8a-4ec8-a961-d0ee1c7d3294",
+        "target": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "key": "additional_context###context"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.summary",
+        "label": "Formatted Text -> [AI (ChatGPT): summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3",
+        "key": "formatted_text###nd-924ddb35-f25c-4e64-ba60-323ccc21dcf9.summary"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.call_summary",
+        "label": "Formatted Text -> [AI (Plurally): call_summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e",
+        "key": "formatted_text###nd-cbcb0a1a-daa3-4ff2-8a10-6dbb8d38fa27.call_summary"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.call_summary",
+        "label": "Formatted Text -> [AI (ChatGPT): call_summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc",
+        "key": "formatted_text###nd-e787a3ef-3bc4-44f5-b247-05e33ce488b8.call_summary"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-e9960712-4179-47a9-9bda-7f586a3e2787.call_summary",
+        "label": "Formatted Text -> [AI (Plurally): call_summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9",
+        "key": "formatted_text###nd-e9960712-4179-47a9-9bda-7f586a3e2787.call_summary"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-7bbea982-266c-41f5-a3b0-2f936086eda7.call_summary",
+        "label": "Formatted Text -> [AI (Plurally): call_summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-5c153b43-d8b8-4446-9788-283555f1e0ec",
+        "key": "formatted_text###nd-7bbea982-266c-41f5-a3b0-2f936086eda7.call_summary"
+      },
+      {
+        "src_handle": "formatted_text",
+        "tgt_handle": "nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.summary",
+        "label": "Formatted Text -> [AI (ChatGPT): summary]",
+        "source": "nd-5f18e98e-368d-4eb3-9e88-e05e7ff0d48e",
+        "target": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "key": "formatted_text###nd-5034b6ff-a14a-449c-862a-587be4bb9f9d.summary"
+      },
+      {
+        "src_handle": "nd-e527b95d-a35d-4a2d-8364-6e424f533e94.actions",
+        "tgt_handle": "nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.assocs",
+        "label": "[SalesforceAssocAuto: actions] -> [RenderActionsHtml: assocs]",
+        "source": "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa",
+        "target": "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9",
+        "key": "nd-e527b95d-a35d-4a2d-8364-6e424f533e94.actions###nd-54b7938a-2a69-4eda-89ac-3ac52103ad05.assocs"
+      }
+    ],
+    "name": "",
+    "id": "fl-390bae52-6a79-4a00-bba6-46e8243a0672",
+    "_inter_subflow_run_links": {
+      "nd-18d9ea15-d3e2-4ce4-a834-da5486f399a3": [],
+      "nd-4713c37d-e775-42d3-82d1-333676c9ccd1": [],
+      "nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc": [],
+      "nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e": [],
+      "nd-5c153b43-d8b8-4446-9788-283555f1e0ec": [],
+      "nd-bd775592-04c1-4fbf-807d-df8a4fe465d9": [],
+      "nd-b6684fd4-2a4b-447c-bca6-345fc6c678aa": [],
+      "nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9": []
+    }
+  },
+  "id": "7ec620c9-1144-4bcc-8a1c-cf6cbcc677fa",
+  "owner_id": "83e1fa8e-a5db-487f-9780-c69846b9f8ca",
+  "is_running": false
+}

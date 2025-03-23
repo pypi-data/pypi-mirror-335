@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compte-rendu de visite d'urgence vétérinaire</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        line-height: 1.1;
+      }
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      img {
+        max-width: 150px;
+        height: auto;
+      }
+      h2 {
+        font-size: 1em;
+      }
+      .section {
+        margin-bottom: 20px;
+      }
+      .section h2 {
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+      }
+      .details {
+        padding: 10px;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        margin-top: 10px;
+      }
+      .footer {
+        text-align: center;
+        margin-top: 30px;
+      }
+      table {
+        width: 100%; /* Make the table take full width */
+        border-collapse: collapse; /* Merge borders for a clean look */
+        margin-top: 10px; /* Add some spacing above the table */
+      }
+      th,
+      td {
+        border: 1px solid #ddd; /* Thin borders */
+        padding: 8px; /* Padding for better readability */
+        text-align: left; /* Align text to the left */
+      }
+      th {
+        background-color: #f2f2f2; /* Light background for header */
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <img
+        width="200"
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQe8D3ZAcPryCOzB-gb6JYwm_fy7iXlcy9dnw&s"
+        alt="Logo de la Clinique Vétérinaire Vet-Urgentys"
+      />
+      <p>
+        5 Rue Lucien Servanty, 31400 Toulouse
+        <br />
+        Tél. : 05 61 11 21 31
+      </p>
+    </div>
+    <div class="header">
+      <h1>Compte-rendu de visite d'urgence</h1>
+      <p>Clinique Vétérinaire Vet-Urgentys</p>
+      <p>Dr. Jarek Szczepaniak</p>
+      <p>Date : {{ visit_date }}</p>
+    </div>
+
+    <div class="section">
+      <h2>Propriétaire</h2>
+      <div class="details">
+        <p>
+          <strong>Nom :</strong> {{ owner_formatted_name | default('N/A') }}
+        </p>
+        <p><strong>Adresse :</strong> {{ owner_address | default('N/A') }}</p>
+        <p><strong>Téléphone :</strong> {{ owner_phone | default('N/A') }}</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Animal</h2>
+      <div class="details">
+        <p><strong>Nom :</strong> {{ animal_name | default('N/A') }}</p>
+        <p><strong>Espèce :</strong> {{ animal_specie | default('N/A') }}</p>
+        <p><strong>Race :</strong> {{ animal_race | default('N/A') }}</p>
+        <p><strong>Âge :</strong> {{ animal_age | default('N/A') }}</p>
+        <p><strong>Poids :</strong> {{ animal_weight | default('N/A') }} kg</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Motif de la Consultation</h2>
+      <div class="details">
+        <p>{{ visit_reason }}</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Observations Cliniques</h2>
+      <div class="details">
+        {% if clinical_observations %} {% for observation in
+        clinical_observations %}
+        <p>{{ observation }}</p>
+        {% endfor %} {% else %}
+        <p>Aucune observation clinique particulière.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Signes vitaux</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Vital</th>
+            <th>Valeur</th>
+            <th>Unité</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Température</td>
+            <td>{{ animal_temperature | default('N/A') }}</td>
+            <td>°C</td>
+          </tr>
+          <tr>
+            <td>Rythme cardiaque</td>
+            <td>{{ animal_heart_rate | default('N/A') }}</td>
+            <td>bpm</td>
+          </tr>
+          <tr>
+            <td>Rythme respiratoire</td>
+            <td>{{ animal_respiratory_rate | default('N/A') }}</td>
+            <td>r/min</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Diagnostic</h2>
+      <div class="details">
+        {% if diagnosis %}
+        <p>{{ diagnosis }}</p>
+        {% else %}
+        <p>Aucun diagnostic établi.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Traitements</h2>
+      <div class="details">
+        {% if treatments %} {% for treatment in treatments %}
+        <p>{{ treatment }}</p>
+        {% endfor %} {% else %}
+        <p>Aucun traitement prescrit.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Recommandations</h2>
+      <div class="details">
+        {% if recommendations %} {% for recommendation in recommendations %}
+        <p>{{ recommendation }}</p>
+        {% endfor %} {% else %}
+        <p>Aucune recommandation particulière.</p>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>Vétérinaire : Dr. Jarek Szczepaniak</p>
+      <p>Date : {{ date }}</p>
+    </div>
+  </body>
+</html>

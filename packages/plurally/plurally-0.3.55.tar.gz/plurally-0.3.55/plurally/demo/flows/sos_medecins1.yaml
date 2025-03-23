@@ -1,0 +1,1158 @@
+container_id: null
+date_created: "2025-02-24T18:19:34.648765"
+desc: ""
+env_vars: {}
+flow_json:
+  _inter_subflow_run_links: {}
+  directed: true
+  graph: {}
+  id: fl-ca353993-f2c4-43d3-b565-067120265896
+  links:
+    - {
+        key: compte_rendu###audio,
+        label: Compte rendu -> Audio,
+        source: nd-806a16b4-7c25-49e3-a63c-8c4b73ee21b5,
+        src_handle: compte_rendu,
+        target: nd-59399c98-bd9d-4ca9-821a-77f715b5bbd3,
+        tgt_handle: audio,
+      }
+    - {
+        key: report###content,
+        label: report -> Content,
+        source: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        src_handle: report,
+        target: nd-c319a4d2-8140-464a-902e-1d9416b676a3,
+        tgt_handle: content,
+      }
+    - {
+        key: transcript###transcript,
+        label: Transcript -> transcript,
+        source: nd-59399c98-bd9d-4ca9-821a-77f715b5bbd3,
+        src_handle: transcript,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: transcript,
+      }
+    - {
+        key: corrected_transcript###transcript,
+        label: corrected_transcript -> transcript,
+        source: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        src_handle: corrected_transcript,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: transcript,
+      }
+    - {
+        key: corrected_transcript###transcript,
+        label: corrected_transcript -> transcript,
+        source: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        src_handle: corrected_transcript,
+        target: nd-3bb9d35b-3986-4b5e-962c-d088321fbf90,
+        tgt_handle: transcript,
+      }
+    - {
+        key: corrected_transcript###content,
+        label: corrected_transcript -> Content,
+        source: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        src_handle: corrected_transcript,
+        target: nd-b0561d56-4ae3-48be-87c5-ed0529cbd1ad,
+        tgt_handle: content,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-b92ebef0-bad5-492d-9785-6d2c03cbda28,
+        src_handle: values,
+        target: nd-74780aeb-767b-47ca-b011-62ad25f9f4c2,
+        tgt_handle: table,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-fbf71c70-04cf-4e21-ba31-43a51cd117f0,
+        src_handle: values,
+        target: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c,
+        tgt_handle: table,
+      }
+    - {
+        key: formatted_text###vocabulary,
+        label: Formatted Text -> vocabulary,
+        source: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c,
+        src_handle: formatted_text,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: vocabulary,
+      }
+    - {
+        key: corrected_transcript###transcript,
+        label: corrected_transcript -> transcript,
+        source: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        src_handle: corrected_transcript,
+        target: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        tgt_handle: transcript,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-faf71e16-05fd-4d6e-87cd-6045a15d7c00,
+        src_handle: values,
+        target: nd-0e9124f3-31d5-4ccf-9269-148b735307c3,
+        tgt_handle: table,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-faf71e16-05fd-4d6e-87cd-6045a15d7c00,
+        src_handle: values,
+        target: nd-8231f361-7376-47a5-a67f-46bab03abd13,
+        tgt_handle: table,
+      }
+    - {
+        key: values###knowledge,
+        label: Values -> Knowledge,
+        source: nd-446f3480-90a9-45dc-aa39-50cd90edef31,
+        src_handle: values,
+        target: nd-faf71e16-05fd-4d6e-87cd-6045a15d7c00,
+        tgt_handle: knowledge,
+      }
+    - {
+        key: formatted_text###template,
+        label: Formatted Text -> template,
+        source: nd-0e9124f3-31d5-4ccf-9269-148b735307c3,
+        src_handle: formatted_text,
+        target: nd-194a358a-09f9-4057-aa18-fe8ef9368feb,
+        tgt_handle: template,
+      }
+    - {
+        key: formatted_text###template,
+        label: Formatted Text -> template,
+        source: nd-0e9124f3-31d5-4ccf-9269-148b735307c3,
+        src_handle: formatted_text,
+        target: nd-0291f3bc-dbc1-4aec-b705-cd0fed5f22a4,
+        tgt_handle: template,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-a4d74224-9c19-47b9-bf38-ed15ed4c148b,
+        src_handle: values,
+        target: nd-845b12d8-406e-42ec-a927-39794bb2924d,
+        tgt_handle: table,
+      }
+    - {
+        key: formatted_text###acronyms,
+        label: Formatted Text -> acronyms,
+        source: nd-845b12d8-406e-42ec-a927-39794bb2924d,
+        src_handle: formatted_text,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: acronyms,
+      }
+    - {
+        key: report###previous_run,
+        label: Report -> previous_run,
+        source: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85,
+        src_handle: report,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: previous_run,
+      }
+    - {
+        key: transcript###previous_transcript,
+        label: Transcript -> previous_transcript,
+        source: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85,
+        src_handle: transcript,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: previous_transcript,
+      }
+    - {
+        key: template###template_saved,
+        label: Template -> template_saved,
+        source: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85,
+        src_handle: template,
+        target: nd-194a358a-09f9-4057-aa18-fe8ef9368feb,
+        tgt_handle: template_saved,
+      }
+    - {
+        key: report###report,
+        label: Report -> report,
+        source: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85,
+        src_handle: report,
+        target: nd-0291f3bc-dbc1-4aec-b705-cd0fed5f22a4,
+        tgt_handle: report,
+      }
+    - {
+        key: template_category###template_category_saved,
+        label: Template Category ->
+          template_category_saved,
+        source: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85,
+        src_handle: template_category,
+        target: nd-85a43d42-b39c-42d2-9df6-635bfc05a309,
+        tgt_handle: template_category_saved,
+      }
+    - {
+        key: formatted_text###content,
+        label: Formatted Text -> Content,
+        source: nd-194a358a-09f9-4057-aa18-fe8ef9368feb,
+        src_handle: formatted_text,
+        target: nd-00a860f2-9619-453e-81a9-1e9eebe7c27b,
+        tgt_handle: content,
+      }
+    - {
+        key: formatted_text###template,
+        label: Formatted Text -> template,
+        source: nd-194a358a-09f9-4057-aa18-fe8ef9368feb,
+        src_handle: formatted_text,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: template,
+      }
+    - {
+        key: formatted_text###previous_content,
+        label: Formatted Text -> Previous Content,
+        source: nd-0291f3bc-dbc1-4aec-b705-cd0fed5f22a4,
+        src_handle: formatted_text,
+        target: nd-c319a4d2-8140-464a-902e-1d9416b676a3,
+        tgt_handle: previous_content,
+      }
+    - {
+        key: formatted_text###examples,
+        label: Formatted Text -> examples,
+        source: nd-bb98af3e-61c7-4f7b-87b5-7908cb1f5b2d,
+        src_handle: formatted_text,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: examples,
+      }
+    - {
+        key: formatted_text###category,
+        label: Formatted Text -> category,
+        source: nd-8231f361-7376-47a5-a67f-46bab03abd13,
+        src_handle: formatted_text,
+        target: nd-26430211-b1c7-41b2-88a0-7092adc9cfe0,
+        tgt_handle: category,
+      }
+    - {
+        key: formatted_text###content,
+        label: Formatted Text -> Content,
+        source: nd-26430211-b1c7-41b2-88a0-7092adc9cfe0,
+        src_handle: formatted_text,
+        target: nd-138e918a-2d78-47f6-a43d-abfc196095b3,
+        tgt_handle: content,
+      }
+    - {
+        key: formatted_text###template_category,
+        label: Formatted Text -> template_category,
+        source: nd-26430211-b1c7-41b2-88a0-7092adc9cfe0,
+        src_handle: formatted_text,
+        target: nd-85a43d42-b39c-42d2-9df6-635bfc05a309,
+        tgt_handle: template_category,
+      }
+    - {
+        key: category###query,
+        label: category -> Query,
+        source: nd-3bb9d35b-3986-4b5e-962c-d088321fbf90,
+        src_handle: category,
+        target: nd-faf71e16-05fd-4d6e-87cd-6045a15d7c00,
+        tgt_handle: query,
+      }
+    - {
+        key: formatted_text###template_category,
+        label: Formatted Text -> template_category,
+        source: nd-85a43d42-b39c-42d2-9df6-635bfc05a309,
+        src_handle: formatted_text,
+        target: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5,
+        tgt_handle: template_category,
+      }
+  multigraph: true
+  name: ""
+  nodes:
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-806a16b4-7c25-49e3-a63c-8c4b73ee21b5
+        button_color: "#3b41cc"
+        button_on_same_row: false
+        button_text: Valider
+        form:
+          - {
+              col_span: 12,
+              is_required: true,
+              name: compte rendu,
+              placeholder: "",
+              type: audio
+                record,
+            }
+        is_output_fixable: false
+        is_trigger: true
+        kls: Form
+        name: Initialisation
+        output_schema:
+          $defs:
+            MicAudioFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: MicAudioFile
+              type: object
+              type-friendly: Audio
+              uiSchema:
+                ui:options: { label: false }
+          properties:
+            compte_rendu:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: Compte rendu
+              type: object
+              type-friendly: Record Audio
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+          required: [compte_rendu]
+          title: Form
+          type: object
+          uiSchema:
+            ui:grid:
+              - [compte_rendu, 12]
+        pos_x: 994.5
+        pos_y: 0.0
+        show_label: true
+        src_handles: [compte_rendu]
+        tgt_handles: []
+        use_case: true
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-9a9fa721-0e59-4830-a6a4-e4b9af98dfb5
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: a5d9, type: Auto }
+          - { free: template, handle_id: d34f, type: Auto }
+          - { free: examples, handle_id: bd16, type: Auto }
+          - { free: previous_run, handle_id: f60d, type: Auto }
+          - { free: template_category, handle_id: "3653", type: Auto }
+          - { free: previous_transcript, handle_id: 342a, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            examples:
+              handle_id: bd16
+              properties: {}
+              title: examples
+              type: object
+              type-friendly: Auto (BETA)
+            previous_run:
+              handle_id: f60d
+              properties: {}
+              title: previous_run
+              type: object
+              type-friendly: Auto (BETA)
+            previous_transcript:
+              handle_id: 342a
+              properties: {}
+              title: previous_transcript
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            template:
+              handle_id: d34f
+              properties: {}
+              title: template
+              type: object
+              type-friendly: Auto (BETA)
+            template_category:
+              handle_id: "3653"
+              properties: {}
+              title: template_category
+              type: object
+              type-friendly: Auto (BETA)
+            transcript:
+              handle_id: a5d9
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required:
+            [
+              transcript,
+              template,
+              examples,
+              previous_run,
+              template_category,
+              previous_transcript,
+            ]
+          title: InputSchema
+          type: object
+        instruct: |-
+          {%- set baseline = "current_report_state" if previous_run else "template" %}
+
+          <task>
+          You are given a transcript dictated by a medical doctor after a consultation as well as a <{{baseline}}>. Your task is to modify the <{{baseline}}> (completing or correcting) based on the information in the transcript.
+          </task>
+
+          <rules>
+              <rule>Include all critical details from the transcript in the final report. Ensure no important information is omitted or altered.</rule>
+              {%- if template_category == "OTHER" %}
+              <rule>Remove irrelevant sections. If a section in the <{{baseline}}> does not apply (e.g., no eye exam conducted), remove it entirely from the rewritten report.</rule>
+              {%- else %}
+              <rule>Use the <{{baseline}}> as a "sane baseline". **Keep all sections (including empty sections) intact**, unless the transcript explicitly contradicts the template. The transcript is the source of truth where conflicts arise. </rule>
+              {%- endif %}
+              <rule>Make sure to fill in the information in the appropriate place. For example, if the veterinary dictates the temperature of the animal on the 2nd day of hospitalization in the morning, make sure to fill in the correct location, but do not change the temperature in other parts of the report.</rule>
+          </rules>
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+
+          {% if previous_run %}
+          <current_report_state>
+          {{previous_run.content.content}}
+          </current_report_state>
+          {% else %}
+          <template>
+          {{template | trim}}
+          </template>
+          {% endif %}
+
+          {% if examples | trim %}
+          <examples>
+          {{examples}}
+          </examples>
+          {% endif %}
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Création du rapport
+        output_fields:
+          - { free: report, handle_id: 683e, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            report: { handle_id: 683e, title: report, type: string }
+          required: [report]
+          title: OutputSchema
+          type: object
+        pos_x: 566.5
+        pos_y: 1276.0
+        src_handles: [report]
+        tgt_handles:
+          [
+            template,
+            template_category,
+            transcript,
+            previous_run,
+            run,
+            previous_transcript,
+            examples,
+          ]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-59399c98-bd9d-4ca9-821a-77f715b5bbd3
+        is_output_fixable: false
+        is_trigger: false
+        kls: Transcript
+        language: ""
+        name: Transcription
+        pos_x: 1004.0
+        pos_y: 189.0
+        src_handles: [transcript]
+        tgt_handles: [run, audio]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 17b0, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 17b0
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript]
+          title: InputSchema
+          type: object
+        instruct: |-
+          You are an advanced assistant designed to help a French medical clinic optimize transcriptions by correcting errors and ensuring accuracy in specific medical vocabulary and homophones.
+
+          In particular, ensure that your phrases make sense.
+
+          Your output should be in {{PLURALLY_OUTPUT_LANGUAGE}}.
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Transcription
+        output_fields:
+          - { free: corrected_transcript, handle_id: 04f2, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            corrected_transcript:
+              { handle_id: 04f2, title: corrected_transcript, type: string }
+          required: [corrected_transcript]
+          title: OutputSchema
+          type: object
+        pos_x: 604.0
+        pos_y: 455.0
+        src_handles: [corrected_transcript]
+        tgt_handles: [transcript, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-b92ebef0-bad5-492d-9785-6d2c03cbda28
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Check exemples
+        pos_x: 559.0
+        pos_y: 16.5
+        range_name: Exemples
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-74780aeb-767b-47ca-b011-62ad25f9f4c2
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Check exemples
+        pos_x: 544.0
+        pos_y: 189.0
+        prefix: ""
+        separator: |2+
+
+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: |-
+          <example>
+          <report>
+          {report}
+          </report>
+          </example>
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-fbf71c70-04cf-4e21-ba31-43a51cd117f0
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Vocabulaire
+        pos_x: 789.0
+        pos_y: 16.5
+        range_name: Vocabulaire
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Table Formatter
+        pos_x: 774.0
+        pos_y: 189.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: "{Vocabulaire}"
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 8c56, type: Auto }
+          - { free: vocabulary, handle_id: 50fb, type: Auto }
+          - { free: acronyms, handle_id: 1a4a, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            acronyms:
+              handle_id: 1a4a
+              properties: {}
+              title: acronyms
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 8c56
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+            vocabulary:
+              handle_id: 50fb
+              properties: {}
+              title: vocabulary
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript, vocabulary, acronyms]
+          title: InputSchema
+          type: object
+        instruct: |-
+          You are a helpful assistant for an medical clinic.
+
+          <task>
+          Your task is to correct the transcript by using the given medical vocabulary, a list of acronyms and the medical vocabulary that you know.
+          </task>
+
+          Your output should be in {{PLURALLY_OUTPUT_LANGUAGE}}.
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+
+          <vocabulary>
+          {{vocabulary|tojson}}
+          </vocabulary>
+
+          <acronyms>
+          {{acronyms|tojson}}
+          </acronyms>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Acronym understanding
+        output_fields:
+          - { free: corrected_transcript, handle_id: fbc7, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            corrected_transcript:
+              { handle_id: fbc7, title: corrected_transcript, type: string }
+          required: [corrected_transcript]
+          title: OutputSchema
+          type: object
+        pos_x: 579.0
+        pos_y: 322.0
+        src_handles: [corrected_transcript]
+        tgt_handles: [transcript, vocabulary, run, acronyms]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-faf71e16-05fd-4d6e-87cd-6045a15d7c00
+        index_col: category
+        is_output_fixable: false
+        is_trigger: false
+        kls: Indexer
+        name: Smart Search
+        pos_x: 679.5
+        pos_y: 744.0
+        src_handles: [values]
+        tgt_handles: [query, knowledge, run]
+        top_k: 1
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-446f3480-90a9-45dc-aa39-50cd90edef31
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Choix template
+        pos_x: 992.0
+        pos_y: 588.0
+        range_name: Templates
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-0e9124f3-31d5-4ccf-9269-148b735307c3
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Table Formatter
+        pos_x: 969.5
+        pos_y: 1010.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: "{template}"
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-a4d74224-9c19-47b9-bf38-ed15ed4c148b
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Acronyms
+        pos_x: 329.0
+        pos_y: 16.5
+        range_name: Acronymes
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-845b12d8-406e-42ec-a927-39794bb2924d
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Acronyms
+        pos_x: 314.0
+        pos_y: 189.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: |-
+          Term: {Terme}
+          Meaning: {Signification}
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-c1e190a6-7b01-4458-9737-c9f7cc1eac85
+        is_output_fixable: false
+        is_trigger: false
+        keys: [report, template, transcript, template_category]
+        kls: StateInput
+        name: StateInput
+        output_schema:
+          properties:
+            report:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: Report
+            template:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: Template
+            template_category:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: Template Category
+            transcript:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: Transcript
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 694.0
+        pos_y: 1010.0
+        src_handles: [template_category, transcript, template, report]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-00a860f2-9619-453e-81a9-1e9eebe7c27b
+        is_hidden: true
+        is_output_fixable: false
+        is_trigger: false
+        key: template
+        kls: TextOutput
+        name: template output
+        pos_x: 1227.0
+        pos_y: 1276.0
+        src_handles: []
+        tgt_handles: [content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-194a358a-09f9-4057-aa18-fe8ef9368feb
+        input_schema:
+          additionalProperties: false
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            template:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: template
+            template_saved:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: template_saved
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 974.5
+        pos_y: 1143.0
+        src_handles: [formatted_text]
+        template: |
+          {% if template_saved %}
+          {{template_saved.content}}
+          {% else %}
+          {{template}}
+          {% endif %}
+        tgt_handles: [template, template_saved, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-c319a4d2-8140-464a-902e-1d9416b676a3
+        is_hidden: false
+        is_output_fixable: false
+        is_trigger: false
+        key: report
+        kls: MarkdownOutput
+        name: MarkdownOutput
+        pos_x: 460.0
+        pos_y: 1520.0
+        src_handles: []
+        tgt_handles: [previous_content, content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-0291f3bc-dbc1-4aec-b705-cd0fed5f22a4
+        input_schema:
+          additionalProperties: false
+          properties:
+            report:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: report
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            template:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: template
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 20.0
+        pos_y: 1400.0
+        src_handles: [formatted_text]
+        template: |-
+          {%- if report %}
+          {{report.content.content}}
+          {%- else %}
+          {{template | trim}}
+          {%- endif %}
+        tgt_handles: [template, run, report]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-bb98af3e-61c7-4f7b-87b5-7908cb1f5b2d
+        input_schema:
+          additionalProperties: false
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 405.0
+        pos_y: 1143.0
+        src_handles: [formatted_text]
+        template: |-
+          {% if false %}
+          {% endif %}
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-8231f361-7376-47a5-a67f-46bab03abd13
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Table Formatter
+        pos_x: 399.0
+        pos_y: 877.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: "{category}"
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-26430211-b1c7-41b2-88a0-7092adc9cfe0
+        input_schema:
+          additionalProperties: false
+          properties:
+            category:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: category
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 414.0
+        pos_y: 1010.0
+        src_handles: [formatted_text]
+        template: "{{category | trim}}"
+        tgt_handles: [category, run]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-3bb9d35b-3986-4b5e-962c-d088321fbf90
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 84b5, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 84b5
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript]
+          title: InputSchema
+          type: object
+        instruct: |
+          Your goal is to categorize a medical report into one of the following category, depending on what is the content.
+
+          1. OTHER
+
+          You should always return OTHER
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Find category
+        output_fields:
+          - { free: category, handle_id: 04cb, type: Auto }
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          can-add-fields: true
+          properties:
+            category:
+              handle_id: 04cb
+              properties: {}
+              title: category
+              type: object
+              type-friendly: Auto (BETA)
+          required: [category]
+          title: OutputSchema
+          type: object
+        pos_x: 471.5
+        pos_y: 599.5
+        src_handles: [category]
+        tgt_handles: [transcript, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-b0561d56-4ae3-48be-87c5-ed0529cbd1ad
+        is_hidden: true
+        is_output_fixable: false
+        is_trigger: false
+        key: transcript
+        kls: TextOutput
+        name: TextOutput
+        pos_x: 671.5
+        pos_y: 599.5
+        src_handles: []
+        tgt_handles: [content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-138e918a-2d78-47f6-a43d-abfc196095b3
+        is_hidden: true
+        is_output_fixable: false
+        is_trigger: false
+        key: template_category
+        kls: TextOutput
+        name: Template Category Save
+        pos_x: 605.0
+        pos_y: 1143.0
+        src_handles: []
+        tgt_handles: [content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-85a43d42-b39c-42d2-9df6-635bfc05a309
+        input_schema:
+          additionalProperties: false
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            template_category:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: template_category
+            template_category_saved:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: template_category_saved
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 205.0
+        pos_y: 1143.0
+        src_handles: [formatted_text]
+        template:
+          "{{ template_category_saved if template_category_saved else template_category
+          }}"
+        tgt_handles: [template_category, run, template_category_saved]
+id: 4a3f3567-339c-4ac1-a403-ae0640787564
+is_running: false
+last_exec_dt: null
+last_updated: "2025-02-24T21:19:03.938512"
+logo: https://sosmedecins66.fr/wp-content/uploads/2024/09/sigle-sos-bleu.webp
+name: Rapport consultation
+org_id: 98cc231e-32a6-40e7-8dca-30ef3b34e9fb
+owner_id: 83e1fa8e-a5db-487f-9780-c69846b9f8ca

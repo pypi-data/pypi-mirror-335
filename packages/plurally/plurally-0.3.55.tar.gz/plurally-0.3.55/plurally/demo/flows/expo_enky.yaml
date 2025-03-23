@@ -1,0 +1,1023 @@
+container_id: null
+date_created: "2025-03-21T09:55:59.499105"
+desc: ""
+env_vars: {}
+flow_json:
+  _inter_subflow_run_links: {}
+  directed: true
+  graph: {}
+  id: fl-8905815e-9d6a-4bfa-bd05-9687a446b464
+  links:
+    - {
+        key: note###audio,
+        label: Note -> Audio,
+        source: nd-6dd8d9c6-4129-49ea-9826-78eafeee3aac,
+        src_handle: note,
+        target: nd-33960e2b-17ad-42e3-bc04-bde1fcbb883f,
+        tgt_handle: audio,
+      }
+    - {
+        key: business__card_/__badge###image,
+        label: Business card / badge -> image,
+        source: nd-6dd8d9c6-4129-49ea-9826-78eafeee3aac,
+        src_handle: business__card_/__badge,
+        target: nd-7e147378-9353-4872-a8f1-41544d4453b4,
+        tgt_handle: image,
+      }
+    - {
+        key: transcript###transcript,
+        label: Transcript -> transcript,
+        source: nd-33960e2b-17ad-42e3-bc04-bde1fcbb883f,
+        src_handle: transcript,
+        target: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83,
+        tgt_handle: transcript,
+      }
+    - {
+        key: first_name###first_name,
+        label: first name -> First name,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: first_name,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: first_name,
+      }
+    - {
+        key: last_name###last_name,
+        label: last name -> Last name,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: last_name,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: last_name,
+      }
+    - {
+        key: role###role,
+        label: role -> Role,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: role,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: role,
+      }
+    - {
+        key: email###email,
+        label: email -> Email,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: email,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: email,
+      }
+    - {
+        key: phone###phone,
+        label: phone -> Phone,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: phone,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: phone,
+      }
+    - {
+        key: company_name###company_name,
+        label: company name -> Company name,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: company_name,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: company_name,
+      }
+    - {
+        key: company_website###company_website,
+        label: company website -> Company website,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: company_website,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: company_website,
+      }
+    - {
+        key: number_of_employees###number_of_employees,
+        label: number of employees ->
+          Number of employees,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: number_of_employees,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: number_of_employees,
+      }
+    - {
+        key: annual_revenue###annual_revenue,
+        label: annual revenue -> Annual revenue,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: annual_revenue,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: annual_revenue,
+      }
+    - {
+        key: date_met###date_met,
+        label: date met -> Date met,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: date_met,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: date_met,
+      }
+    - {
+        key: lead_status###lead_rating,
+        label: lead_status -> Lead rating,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: lead_status,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: lead_rating,
+      }
+    - {
+        key: country_code###country,
+        label: country code -> Country,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: country_code,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: country,
+      }
+    - {
+        key: funding_round###funding,
+        label: funding round -> Funding,
+        source: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        src_handle: funding_round,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: funding,
+      }
+    - {
+        key: profile_information###profile_information,
+        label: profile information ->
+          profile_information,
+        source: nd-7e147378-9353-4872-a8f1-41544d4453b4,
+        src_handle: profile_information,
+        target: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83,
+        tgt_handle: profile_information,
+      }
+    - {
+        key: profile_information###lead_details,
+        label: profile information -> lead_details,
+        source: nd-7e147378-9353-4872-a8f1-41544d4453b4,
+        src_handle: profile_information,
+        target: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        tgt_handle: lead_details,
+      }
+    - {
+        key: transcript###transcript,
+        label: transcript -> transcript,
+        source: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83,
+        src_handle: transcript,
+        target: nd-ebc27b90-0400-47be-ad5b-3e1c46f52e83,
+        tgt_handle: transcript,
+      }
+    - {
+        key: transcript###transcript,
+        label: transcript -> transcript,
+        source: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83,
+        src_handle: transcript,
+        target: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113,
+        tgt_handle: transcript,
+      }
+    - {
+        key: url###url,
+        label: Url -> Url,
+        source: nd-1f0268fc-d983-42cc-a260-35b3bfe4f6bd,
+        src_handle: url,
+        target: nd-2118d9e6-25aa-4a78-92fb-c1910b5072d7,
+        tgt_handle: url,
+      }
+    - {
+        key: icon###icon,
+        label: Icon -> Icon,
+        source: nd-1f0268fc-d983-42cc-a260-35b3bfe4f6bd,
+        src_handle: icon,
+        target: nd-2118d9e6-25aa-4a78-92fb-c1910b5072d7,
+        tgt_handle: icon,
+      }
+    - {
+        key: data###values,
+        label: Data -> Values,
+        source: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        src_handle: data,
+        target: nd-1f0268fc-d983-42cc-a260-35b3bfe4f6bd,
+        tgt_handle: values,
+      }
+    - {
+        key: data###content,
+        label: Data -> Content,
+        source: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        src_handle: data,
+        target: nd-2118d9e6-25aa-4a78-92fb-c1910b5072d7,
+        tgt_handle: content,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-af746e4e-a1ed-4f1b-9742-05ee439db3d1,
+        src_handle: values,
+        target: nd-d28f10ef-f405-4891-bc5c-e04d038d68d7,
+        tgt_handle: table,
+      }
+    - {
+        key: formatted_text###lexique,
+        label: Formatted Text -> lexique,
+        source: nd-d28f10ef-f405-4891-bc5c-e04d038d68d7,
+        src_handle: formatted_text,
+        target: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83,
+        tgt_handle: lexique,
+      }
+    - {
+        key: description###summary,
+        label: description -> Summary,
+        source: nd-ebc27b90-0400-47be-ad5b-3e1c46f52e83,
+        src_handle: description,
+        target: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878,
+        tgt_handle: summary,
+      }
+  multigraph: true
+  name: ""
+  nodes:
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-6dd8d9c6-4129-49ea-9826-78eafeee3aac
+        button_color: "#007bff"
+        button_on_same_row: false
+        button_text: Submit
+        form:
+          - {
+              col_span: 12,
+              is_required: false,
+              name: Business Card / Badge,
+              placeholder: "",
+              type: image,
+            }
+          - {
+              col_span: 12,
+              is_required: false,
+              name: Note,
+              placeholder: "",
+              type: audio
+                record,
+            }
+        is_output_fixable: false
+        is_trigger: true
+        kls: Form
+        name: Form
+        output_schema:
+          $defs:
+            ImageFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the image file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: image/*
+                  default: ""
+                  is-file: true
+                  title: Upload image file
+                  type: string
+                  uiSchema: { ui:widget: file }
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the image file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              title: ImageFile
+              type: object
+              type-friendly: Image
+              uiSchema:
+                ui:options: { label: false }
+            MicAudioFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: MicAudioFile
+              type: object
+              type-friendly: Audio
+              uiSchema:
+                ui:options: { label: false }
+          properties:
+            business__card_/__badge:
+              default: { content: "", file: "", filename: "" }
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the image file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: image/*
+                  default: ""
+                  is-file: true
+                  title: Upload image file
+                  type: string
+                  uiSchema: { ui:widget: file }
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the image file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              title: Business card / badge
+              type: object
+              type-friendly: Image
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+            note:
+              default: null
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: Note
+              type: object
+              type-friendly: Record Audio
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+          title: Form
+          type: object
+          uiSchema:
+            ui:grid:
+              - [business__card_/__badge, 12]
+              - [note, 12]
+        pos_x: 331.5
+        pos_y: 0.0
+        show_label: true
+        src_handles: [note, business__card_/__badge]
+        tgt_handles: []
+        use_case: false
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-33960e2b-17ad-42e3-bc04-bde1fcbb883f
+        is_output_fixable: false
+        is_trigger: false
+        kls: Transcript
+        language: ""
+        name: Transcription
+        pos_x: 235.25
+        pos_y: 190.0
+        src_handles: [transcript]
+        tgt_handles: [audio, run]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-9c1a2165-7b84-4a0e-8e94-4027d8ef2113
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: lead_details, handle_id: e132, type: Auto }
+          - { free: transcript, handle_id: e684, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            lead_details:
+              handle_id: e132
+              properties: {}
+              title: lead_details
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: e684
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [lead_details, transcript]
+          title: InputSchema
+          type: object
+        instruct: |
+          You are given a description of an interaction with a person and his / her details.
+
+          <goal>
+           Create a lead record using the provided information <transcript> and <lead_details>.
+          </goal>
+
+          <rules>
+           <rule>lead_status PICKLIST should be one of : "n/a", "cold", "warm".</rule>
+           <rule>Normalize urls (remove https:// and www if applicable).</rule>
+           <rule>In the country code field, use the country code (e.g. FR).</rule>
+           <rule>Output date format is DD/MM/YYYY.</rule>
+           <rule>Only use the given context, leave any field not specified empty (i.e. empty string).</rule>
+          </rule>
+
+          {PLURALLY_EXAMPLES}
+          {PLURALLY_GENERAL_INFO}
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+
+          <lead_details>
+          {{lead_details}}
+          </lead_details>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Creating lead
+        output_fields:
+          - { free: first name, handle_id: 78ea, type: Text }
+          - { free: last name, handle_id: 85df, type: Text }
+          - { free: lead_status, handle_id: "5737", type: Text }
+          - { free: role, handle_id: deef, type: Text }
+          - { free: email, handle_id: fc99, type: Text }
+          - { free: phone, handle_id: a904, type: Text }
+          - { free: company name, handle_id: db82, type: Text }
+          - { free: company website, handle_id: "1e30", type: Text }
+          - { free: number of employees, handle_id: 0f03, type: Integer }
+          - { free: annual revenue, handle_id: a935, type: Integer }
+          - { free: date met, handle_id: 590a, type: Text }
+          - { free: country code, handle_id: 100b, type: Text }
+          - { free: funding round, handle_id: a97c, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            annual_revenue:
+              { handle_id: a935, title: annual revenue, type: integer }
+            company_name: { handle_id: db82, title: company name, type: string }
+            company_website:
+              { handle_id: "1e30", title: company website, type: string }
+            country_code: { handle_id: 100b, title: country code, type: string }
+            date_met: { handle_id: 590a, title: date met, type: string }
+            email: { handle_id: fc99, title: email, type: string }
+            first_name: { handle_id: 78ea, title: first name, type: string }
+            funding_round:
+              { handle_id: a97c, title: funding round, type: string }
+            last_name: { handle_id: 85df, title: last name, type: string }
+            lead_status: { handle_id: "5737", title: lead_status, type: string }
+            number_of_employees:
+              { handle_id: 0f03, title: number of employees, type: integer }
+            phone: { handle_id: a904, title: phone, type: string }
+            role: { handle_id: deef, title: role, type: string }
+          required:
+            [
+              first_name,
+              last_name,
+              lead_status,
+              role,
+              email,
+              phone,
+              company_name,
+              company_website,
+              number_of_employees,
+              annual_revenue,
+              date_met,
+              country_code,
+              funding_round,
+            ]
+          title: OutputSchema
+          type: object
+        pos_x: 60.0
+        pos_y: 420.0
+        src_handles:
+          [
+            phone,
+            lead_status,
+            funding_round,
+            country_code,
+            email,
+            company_website,
+            number_of_employees,
+            date_met,
+            role,
+            annual_revenue,
+            first_name,
+            company_name,
+            last_name,
+          ]
+        tgt_handles: [transcript, lead_details, run]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-7e147378-9353-4872-a8f1-41544d4453b4
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: image, handle_id: 17b0, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            image:
+              handle_id: 17b0
+              properties: {}
+              title: image
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [image]
+          title: InputSchema
+          type: object
+        instruct: |-
+          Extract the profile information from the image.
+
+          When appropriate, normalize website url:
+          - no https://
+          - no www
+          - no trailing /
+
+          Extract the following information and output to JSON string.
+
+          "first_name"
+          "last_name"
+          "role"
+          "email"
+          "phone_number"
+          "company_name"
+          "company_website"
+
+          If no image is provided, return an empty mapping.
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Extract info from image
+        output_fields:
+          - { free: profile information, handle_id: 6d85, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            profile_information:
+              { handle_id: 6d85, title: profile information, type: string }
+          required: [profile_information]
+          title: OutputSchema
+          type: object
+        pos_x: 435.25
+        pos_y: 190.0
+        src_handles: [profile_information]
+        tgt_handles: [run, image]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-d79de16d-f8f9-4b53-beeb-df2c7ed45d83
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: profile_information, handle_id: 0c84, type: Auto }
+          - { free: transcript, handle_id: bcc8, type: Auto }
+          - { free: lexique, handle_id: c879, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            lexique:
+              handle_id: c879
+              properties: {}
+              title: lexique
+              type: object
+              type-friendly: Auto (BETA)
+            profile_information:
+              handle_id: 0c84
+              properties: {}
+              title: profile_information
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: bcc8
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [profile_information, transcript, lexique]
+          title: InputSchema
+          type: object
+        instruct: |
+          <task>
+           You are a language model specializing in correcting transcripts.
+
+           <goal>
+           Identify and correct errors in the transcript, including contextually incoherent words and misspelled names.
+           </goal>
+
+           <rules>
+           <rule>Use <profile_information> to correct name spelling errors when available.</rule>
+           <rule>Refer to <vocabulary> to fix misspelled technical terms and acronyms (always use the full vocabulary reference if replacing).</rule>
+           <rule>Correct names if they are phonetically similar to the reference name, but do not modify them if they are visually distinct.</rule>
+           <rule>Apply corrections to any noticeable transcription errors based on global context.</rule>
+           <rule>Preserve all other parts of the transcript without modification.</rule>
+           </rules>
+
+           {PLURALLY_EXAMPLES}
+           {PLURALLY_GENERAL_INFO}
+
+           <transcript>
+           {{transcript}}
+           </transcript>
+
+           <profile_information>
+           {{profile_information}}
+           </profile_information>
+
+           <vocabulary>
+           {{lexique}}
+           </vocabulary>
+          </task>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Transcription
+        output_fields:
+          - { free: transcript, handle_id: 21a7, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            transcript: { handle_id: 21a7, title: transcript, type: string }
+          required: [transcript]
+          title: OutputSchema
+          type: object
+        pos_x: 484.5
+        pos_y: 324.0
+        src_handles: [transcript]
+        tgt_handles: [transcript, run, profile_information, lexique]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-1f0268fc-d983-42cc-a260-35b3bfe4f6bd
+        append: true
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsWrite
+        name: Output
+        pos_x: 454.5
+        pos_y: 726.0
+        range_name: Leads!A4
+        sheet_id: 1IemeGZ8CQ5XQCxuEWK6a1LHXgySlvwAle2L3EAh_QPk
+        src_handles: [url, icon]
+        tgt_handles: [run, values]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-f477a6e0-9fdd-4d5c-9e84-86468c560878
+        columns:
+          - { free: First name, handle_id: a0b6, type: Auto }
+          - { free: Last name, handle_id: cb49, type: Auto }
+          - { free: Lead rating, handle_id: 784b, type: Auto }
+          - { free: Role, handle_id: 0ea6, type: Auto }
+          - { free: Email, handle_id: ce01, type: Auto }
+          - { free: Phone, handle_id: e480, type: Auto }
+          - { free: Company name, handle_id: b446, type: Auto }
+          - { free: Company website, handle_id: "9e10", type: Auto }
+          - { free: Number of employees, handle_id: b99b, type: Auto }
+          - { free: Annual revenue, handle_id: c7b9, type: Auto }
+          - { free: Date met, handle_id: "2082", type: Auto }
+          - { free: Summary, handle_id: 1d59, type: Auto }
+          - { free: Country, handle_id: 5bd4, type: Auto }
+          - { free: Funding, handle_id: d005, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            annual_revenue:
+              handle_id: c7b9
+              properties: {}
+              title: Annual revenue
+              type: object
+            company_name:
+              handle_id: b446
+              properties: {}
+              title: Company name
+              type: object
+            company_website:
+              handle_id: "9e10"
+              properties: {}
+              title: Company website
+              type: object
+            country:
+              handle_id: 5bd4
+              properties: {}
+              title: Country
+              type: object
+            date_met:
+              handle_id: "2082"
+              properties: {}
+              title: Date met
+              type: object
+            email:
+              handle_id: ce01
+              properties: {}
+              title: Email
+              type: object
+            first_name:
+              handle_id: a0b6
+              properties: {}
+              title: First name
+              type: object
+            funding:
+              handle_id: d005
+              properties: {}
+              title: Funding
+              type: object
+            last_name:
+              handle_id: cb49
+              properties: {}
+              title: Last name
+              type: object
+            lead_rating:
+              handle_id: 784b
+              properties: {}
+              title: Lead rating
+              type: object
+            number_of_employees:
+              handle_id: b99b
+              properties: {}
+              title: Number of employees
+              type: object
+            phone:
+              handle_id: e480
+              properties: {}
+              title: Phone
+              type: object
+            role:
+              handle_id: 0ea6
+              properties: {}
+              title: Role
+              type: object
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            summary:
+              handle_id: 1d59
+              properties: {}
+              title: Summary
+              type: object
+          required:
+            [
+              first_name,
+              last_name,
+              lead_rating,
+              role,
+              email,
+              phone,
+              company_name,
+              company_website,
+              number_of_employees,
+              annual_revenue,
+              date_met,
+              summary,
+              country,
+              funding,
+            ]
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: ToTable
+        name: Add entry
+        pos_x: 212.5
+        pos_y: 592.0
+        src_handles: [data]
+        tgt_handles:
+          [
+            run,
+            first_name,
+            last_name,
+            lead_rating,
+            role,
+            email,
+            phone,
+            company_name,
+            company_website,
+            number_of_employees,
+            annual_revenue,
+            date_met,
+            summary,
+            country,
+            funding,
+          ]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-2118d9e6-25aa-4a78-92fb-c1910b5072d7
+        is_hidden: false
+        is_output_fixable: false
+        is_trigger: false
+        key: Add entry
+        kls: TableOutput
+        name: Add entry
+        pos_x: 487.5
+        pos_y: 883.0
+        src_handles: []
+        tgt_handles: [content, icon, run, url]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-af746e4e-a1ed-4f1b-9742-05ee439db3d1
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Lexique
+        pos_x: 750.0
+        pos_y: 16.5
+        range_name: Lexique!A4:A
+        sheet_id: 1IemeGZ8CQ5XQCxuEWK6a1LHXgySlvwAle2L3EAh_QPk
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-d28f10ef-f405-4891-bc5c-e04d038d68d7
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Lexique
+        pos_x: 734.5
+        pos_y: 190.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: '- "{term}"'
+        tgt_handles: [table, run]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-ebc27b90-0400-47be-ad5b-3e1c46f52e83
+        examples: |-
+          [
+           {
+           "transcript":"John Doe reached out via email regarding our automation services. He is interested in optimizing their CRM process. He mentioned that they currently process around 500-700 leads per month and are looking for a solution to scale. He also inquired about integration with Salesforce. Their budget is in the range of $5,000-$7,500 per month. He requested a follow-up call next Wednesday at 3 PM. He is the Head of Sales at ABC Corp.",
+           "today_date":"Tuesday 11th February 2025",
+           "expected_description":"\nR\u00e9sum\u00e9\n- John Doe, Head of Sales at ABC Corp, reached out regarding automation services.\n- He is interested in optimizing their CRM process.\n- The company currently processes 700 leads per month (upper bound taken).\n- They are looking for a solution to scale and inquired about Salesforce integration.\n- Budget: $7,500 per month (upper bound taken).\n\nProchaines \u00e9tapes\n- Follow-up call scheduled for Wednesday at 3 PM.\n"
+           }
+          ]
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 5f8e, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 5f8e
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript]
+          title: InputSchema
+          type: object
+        instruct: |-
+          <task>
+           You are assisting the writing of a structured description of an interaction with a prospect.
+
+           <goal>
+           Use all provided information in <transcript> to write the description.
+           **Ensure that absolutely no details are omitted.**
+           </goal>
+
+           <rules>
+           <rule>Use the provided template (<description_template>).</rule>
+           <rule>Remove personal pronouns from the summarizer (e.g., "I").</rule>
+           <rule>Ensure content is structured and easy to read (use bullet points if needed).</rule>
+           <rule>Do not omit or modify any information provided.</rule>
+           <rule>Make sure to respect the speaker's choice of terms, especially in transcripts that involve terms in different languages. That means that if the transcript is in French and includes a term in English for a product or technical term, keep the English term.</rule>
+           <rule>Format all dates as DD/MM/YYYY.</rule>
+           <rule>Only use the given context.</rule>
+           </rules>
+
+           {PLURALLY_EXAMPLES}
+           {PLURALLY_GENERAL_INFO}
+
+           <transcript>
+           {{transcript}}
+           </transcript>
+
+           <description_template>
+           Résumé
+           (summary content)
+
+           (if next steps)
+           Prochaines étapes
+           (next steps content)
+           (end if)
+           </description_template>
+          </task>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Description
+        output_fields:
+          - { free: description, handle_id: 802a, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            description: { handle_id: 802a, title: description, type: string }
+          required: [description]
+          title: OutputSchema
+          type: object
+        pos_x: 750.0
+        pos_y: 458.0
+        src_handles: [description]
+        tgt_handles: [transcript, run]
+id: 58b1348d-dab9-45d1-bf4a-f8e598b56f96
+is_running: false
+last_exec_dt: null
+last_updated: "2025-03-21T14:12:50.190156"
+logo: https://img.icons8.com/color/200/google-sheets.png
+name: Plurally Expo Enky
+org_id: null
+owner_id: 83e1fa8e-a5db-487f-9780-c69846b9f8ca

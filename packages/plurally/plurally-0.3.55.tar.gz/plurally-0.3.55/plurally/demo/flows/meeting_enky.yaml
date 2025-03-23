@@ -1,0 +1,1676 @@
+container_id: null
+date_created: "2025-03-20T10:34:12.320820"
+desc: ""
+env_vars: {}
+flow_json:
+  _inter_subflow_run_links: {}
+  directed: true
+  graph: {}
+  id: fl-d65a84d6-affc-4533-b21a-19834d489c33
+  links:
+    - {
+        key: /freeBusy_post###data,
+        label: /freeBusy_post -> data,
+        source: nd-2a8aa72a-a859-4fb1-b518-7112db1d9a92,
+        src_handle: /freeBusy_post,
+        target: nd-8b674c3d-188e-4bd8-9e78-6a82cfb0d3cb,
+        tgt_handle: data,
+      }
+    - {
+        key: record###audio,
+        label: Record -> Audio,
+        source: nd-523da3b1-2a1c-4b8d-b68a-53a620283f2d,
+        src_handle: record,
+        target: nd-f5b26e62-01cc-4851-bd9e-34d284eec456,
+        tgt_handle: audio,
+      }
+    - {
+        key: business_card###business_card,
+        label: Business card -> Business Card,
+        source: nd-523da3b1-2a1c-4b8d-b68a-53a620283f2d,
+        src_handle: business_card,
+        target: nd-64dda878-9480-43cb-a413-7cf756abfbc9,
+        tgt_handle: business_card,
+      }
+    - {
+        key: email###email,
+        label: Email -> email,
+        source: nd-523da3b1-2a1c-4b8d-b68a-53a620283f2d,
+        src_handle: email,
+        target: nd-f7746536-3206-44e8-b906-92bd62a5b717,
+        tgt_handle: email,
+      }
+    - {
+        key: transcript###transcript,
+        label: Transcript -> transcript,
+        source: nd-f5b26e62-01cc-4851-bd9e-34d284eec456,
+        src_handle: transcript,
+        target: nd-2a8aa72a-a859-4fb1-b518-7112db1d9a92,
+        tgt_handle: transcript,
+      }
+    - {
+        key: /calendars/primary/events_post###inputs,
+        label: /calendars/primary/events_post
+          -> Inputs,
+        source: nd-8b674c3d-188e-4bd8-9e78-6a82cfb0d3cb,
+        src_handle: /calendars/primary/events_post,
+        target: nd-cb9e3581-ebb5-41c9-be4e-9f391205da68,
+        tgt_handle: inputs,
+      }
+    - {
+        key: profile_information###profile_info,
+        label: profile information -> profile_info,
+        source: nd-64dda878-9480-43cb-a413-7cf756abfbc9,
+        src_handle: profile_information,
+        target: nd-f7746536-3206-44e8-b906-92bd62a5b717,
+        tgt_handle: profile_info,
+      }
+    - {
+        key: formatted_text###inputs,
+        label: Formatted Text -> Inputs,
+        source: nd-f7746536-3206-44e8-b906-92bd62a5b717,
+        src_handle: formatted_text,
+        target: nd-fd53515e-8fd7-4612-bca3-70d54bd0e851,
+        tgt_handle: inputs,
+      }
+    - {
+        key: formatted_text###email,
+        label: Formatted Text -> email,
+        source: nd-f7746536-3206-44e8-b906-92bd62a5b717,
+        src_handle: formatted_text,
+        target: nd-8b674c3d-188e-4bd8-9e78-6a82cfb0d3cb,
+        tgt_handle: email,
+      }
+    - {
+        key: formatted_text###email_address,
+        label: Formatted Text -> Email Address,
+        source: nd-f7746536-3206-44e8-b906-92bd62a5b717,
+        src_handle: formatted_text,
+        target: nd-fef1e3a7-cab0-40bf-94a2-73a6a14f64d2,
+        tgt_handle: email_address,
+      }
+    - {
+        key: output###run,
+        label: Output -> Run,
+        source: nd-fd53515e-8fd7-4612-bca3-70d54bd0e851,
+        src_handle: output,
+        target: nd-f5b26e62-01cc-4851-bd9e-34d284eec456,
+        tgt_handle: run,
+      }
+    - {
+        key: output###inputs,
+        label: Output -> Inputs,
+        source: nd-fd53515e-8fd7-4612-bca3-70d54bd0e851,
+        src_handle: output,
+        target: nd-28139a55-e09f-4ee9-8a7c-91566beacbd9,
+        tgt_handle: inputs,
+      }
+    - {
+        key: output###run,
+        label: Output -> Run,
+        source: nd-28139a55-e09f-4ee9-8a7c-91566beacbd9,
+        src_handle: output,
+        target: nd-1ea03568-598f-4f80-8adb-8f8763650ed6,
+        tgt_handle: run,
+      }
+    - {
+        key: value###content,
+        label: Value -> Content,
+        source: nd-a16f3eee-c9de-48d5-9a26-ab036d92a8b6,
+        src_handle: value,
+        target: nd-1ea03568-598f-4f80-8adb-8f8763650ed6,
+        tgt_handle: content,
+      }
+    - {
+        key: output###inputs,
+        label: Output -> Inputs,
+        source: nd-cb9e3581-ebb5-41c9-be4e-9f391205da68,
+        src_handle: output,
+        target: nd-54cd26f7-0e13-499b-9ffa-1661abe462e8,
+        tgt_handle: inputs,
+      }
+    - {
+        key: output###run,
+        label: Output -> Run,
+        source: nd-54cd26f7-0e13-499b-9ffa-1661abe462e8,
+        src_handle: output,
+        target: nd-fef1e3a7-cab0-40bf-94a2-73a6a14f64d2,
+        tgt_handle: run,
+      }
+    - {
+        key: value###subject,
+        label: Value -> Subject,
+        source: nd-ec22ed2b-b949-440e-b623-141a12ba240b,
+        src_handle: value,
+        target: nd-fef1e3a7-cab0-40bf-94a2-73a6a14f64d2,
+        tgt_handle: subject,
+      }
+    - {
+        key: formatted_text###body,
+        label: Formatted Text -> Body,
+        source: nd-533454b5-8b59-44f7-ba53-ad22a62634de,
+        src_handle: formatted_text,
+        target: nd-fef1e3a7-cab0-40bf-94a2-73a6a14f64d2,
+        tgt_handle: body,
+      }
+  multigraph: true
+  name: ""
+  nodes:
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-2a8aa72a-a859-4fb1-b518-7112db1d9a92
+        add_explanation: false
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 3cb1, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 3cb1
+              properties: {}
+              title: transcript
+              type: object
+          required: [transcript]
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: Swagger
+        model: gpt-4o
+        name: Avails
+        output_schema:
+          $defs:
+            BusyItem:
+              properties:
+                end:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  title: End
+                start:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Start
+              title: BusyItem
+              type: object
+            Calendars:
+              properties:
+                busy:
+                  anyOf:
+                    - items:
+                        properties:
+                          end:
+                            anyOf:
+                              - { format: date-time, type: string }
+                              - { type: "null" }
+                            default: null
+                            title: End
+                          start:
+                            anyOf:
+                              - { format: date-time, type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Start
+                        title: BusyItem
+                        type: object
+                      type: array
+                    - { type: "null" }
+                  default: null
+                  title: Busy
+                errors:
+                  anyOf:
+                    - items:
+                        properties:
+                          domain:
+                            anyOf:
+                              - { type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Domain
+                          reason:
+                            anyOf:
+                              - { type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Reason
+                        title: Error
+                        type: object
+                      type: array
+                    - { type: "null" }
+                  default: null
+                  title: Errors
+              title: Calendars
+              type: object
+            Error:
+              properties:
+                domain:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Domain
+                reason:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Reason
+              title: Error
+              type: object
+            Groups:
+              properties:
+                calendars:
+                  anyOf:
+                    - items: { type: string }
+                      type: array
+                    - { type: "null" }
+                  default: null
+                  title: Calendars
+                errors:
+                  anyOf:
+                    - items:
+                        properties:
+                          domain:
+                            anyOf:
+                              - { type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Domain
+                          reason:
+                            anyOf:
+                              - { type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Reason
+                        title: Error
+                        type: object
+                      type: array
+                    - { type: "null" }
+                  default: null
+                  title: Errors
+              title: Groups
+              type: object
+            Payload:
+              properties:
+                calendars:
+                  anyOf:
+                    - additionalProperties:
+                        properties:
+                          busy:
+                            anyOf:
+                              - items:
+                                  properties:
+                                    end:
+                                      anyOf:
+                                        - { format: date-time, type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: End
+                                    start:
+                                      anyOf:
+                                        - { format: date-time, type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: Start
+                                  title: BusyItem
+                                  type: object
+                                type: array
+                              - { type: "null" }
+                            default: null
+                            title: Busy
+                          errors:
+                            anyOf:
+                              - items:
+                                  properties:
+                                    domain:
+                                      anyOf:
+                                        - { type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: Domain
+                                    reason:
+                                      anyOf:
+                                        - { type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: Reason
+                                  title: Error
+                                  type: object
+                                type: array
+                              - { type: "null" }
+                            default: null
+                            title: Errors
+                        title: Calendars
+                        type: object
+                      type: object
+                    - { type: "null" }
+                  default: null
+                  title: Calendars
+                groups:
+                  anyOf:
+                    - additionalProperties:
+                        properties:
+                          calendars:
+                            anyOf:
+                              - items: { type: string }
+                                type: array
+                              - { type: "null" }
+                            default: null
+                            title: Calendars
+                          errors:
+                            anyOf:
+                              - items:
+                                  properties:
+                                    domain:
+                                      anyOf:
+                                        - { type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: Domain
+                                    reason:
+                                      anyOf:
+                                        - { type: string }
+                                        - { type: "null" }
+                                      default: null
+                                      title: Reason
+                                  title: Error
+                                  type: object
+                                type: array
+                              - { type: "null" }
+                            default: null
+                            title: Errors
+                        title: Groups
+                        type: object
+                      type: object
+                    - { type: "null" }
+                  default: null
+                  title: Groups
+                kind:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: Type of the resource.
+                  examples: [calendar#freeBusy]
+                  title: Kind
+                timeMax:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The end of the interval.
+                  title: Timemax
+                timeMin:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The start of the interval.
+                  title: Timemin
+              title: Payload
+              type: object
+          properties:
+            /freeBusy_post:
+              default: []
+              items:
+                properties:
+                  calendars:
+                    anyOf:
+                      - additionalProperties:
+                          properties:
+                            busy:
+                              anyOf:
+                                - items:
+                                    properties:
+                                      end:
+                                        anyOf:
+                                          - { format: date-time, type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: End
+                                      start:
+                                        anyOf:
+                                          - { format: date-time, type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: Start
+                                    title: BusyItem
+                                    type: object
+                                  type: array
+                                - { type: "null" }
+                              default: null
+                              title: Busy
+                            errors:
+                              anyOf:
+                                - items:
+                                    properties:
+                                      domain:
+                                        anyOf:
+                                          - { type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: Domain
+                                      reason:
+                                        anyOf:
+                                          - { type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: Reason
+                                    title: Error
+                                    type: object
+                                  type: array
+                                - { type: "null" }
+                              default: null
+                              title: Errors
+                          title: Calendars
+                          type: object
+                        type: object
+                      - { type: "null" }
+                    default: null
+                    title: Calendars
+                  groups:
+                    anyOf:
+                      - additionalProperties:
+                          properties:
+                            calendars:
+                              anyOf:
+                                - items: { type: string }
+                                  type: array
+                                - { type: "null" }
+                              default: null
+                              title: Calendars
+                            errors:
+                              anyOf:
+                                - items:
+                                    properties:
+                                      domain:
+                                        anyOf:
+                                          - { type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: Domain
+                                      reason:
+                                        anyOf:
+                                          - { type: string }
+                                          - { type: "null" }
+                                        default: null
+                                        title: Reason
+                                    title: Error
+                                    type: object
+                                  type: array
+                                - { type: "null" }
+                              default: null
+                              title: Errors
+                          title: Groups
+                          type: object
+                        type: object
+                      - { type: "null" }
+                    default: null
+                    title: Groups
+                  kind:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    description: Type of the resource.
+                    examples: [calendar#freeBusy]
+                    title: Kind
+                  timeMax:
+                    anyOf:
+                      - { format: date-time, type: string }
+                      - { type: "null" }
+                    default: null
+                    description: The end of the interval.
+                    title: Timemax
+                  timeMin:
+                    anyOf:
+                      - { format: date-time, type: string }
+                      - { type: "null" }
+                    default: null
+                    description: The start of the interval.
+                    title: Timemin
+                title: Payload
+                type: object
+              title: /freeBusy_post
+              type: array
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 0.0
+        pos_y: 721.0
+        prompt: |-
+          You are a helpful assistant.
+
+          Your goal is to check if there are availabilities for each timeslot mentioned in the transcript.
+          <rules>
+              <rule>When the speaker mentions a timeslot by a datetime, assume it is the start of the event and that the event lasts 30 minutes.</rule>
+              <rule>Check each timeslot independently, ensuring that **all mentioned timeslots** are considered.</rule>
+              <rule>If multiple timeslots are mentioned, provide availability status for each timeslot separately.</rule>
+          </rules>
+
+          <timezone>
+          {{TIMEZONE | default('Europe/Paris')}}.
+          </timezone>
+
+          For items, use [{"id": "primary"}]
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+        src_handles: [/freeBusy_post]
+        swagger: |
+          info:
+            contact:
+              name: Google Workspace
+              url: https://developers.google.com/calendar
+            description: API to retrieve free/busy information for a set of calendars using
+              the Google Calendar API.
+            title: Google Calendar FreeBusy API
+            version: 1.0.0
+          openapi: 3.0.0
+          paths:
+            /freeBusy:
+              post:
+                operationId: queryFreeBusy
+                requestBody:
+                  content:
+                    application/json:
+                      schema:
+                        properties:
+                          calendarExpansionMax:
+                            description: Maximal number of calendars for which FreeBusy information
+                              is to be provided. Optional.
+                            maximum: 50
+                            type: integer
+                          groupExpansionMax:
+                            description: Maximal number of calendar identifiers for a single
+                              group. Optional.
+                            maximum: 100
+                            type: integer
+                          items:
+                            items:
+                              properties:
+                                id:
+                                  description: The identifier of a calendar or a group.
+                                  type: string
+                              type: object
+                            type: array
+                          timeMax:
+                            description: The end of the interval for the query formatted as
+                              per RFC3339.
+                            format: date-time
+                            type: string
+                          timeMin:
+                            description: The start of the interval for the query formatted as
+                              per RFC3339.
+                            format: date-time
+                            type: string
+                          timeZone:
+                            description: Time zone used in the response. Optional. The default
+                              is UTC.
+                            type: string
+                        type: object
+                  required: true
+                responses:
+                  '200':
+                    content:
+                      application/json:
+                        schema:
+                          properties:
+                            calendars:
+                              additionalProperties:
+                                properties:
+                                  busy:
+                                    items:
+                                      properties:
+                                        end:
+                                          format: date-time
+                                          type: string
+                                        start:
+                                          format: date-time
+                                          type: string
+                                      type: object
+                                    type: array
+                                  errors:
+                                    items:
+                                      properties:
+                                        domain:
+                                          type: string
+                                        reason:
+                                          type: string
+                                      type: object
+                                    type: array
+                                type: object
+                              type: object
+                            groups:
+                              additionalProperties:
+                                properties:
+                                  calendars:
+                                    items:
+                                      type: string
+                                    type: array
+                                  errors:
+                                    items:
+                                      properties:
+                                        domain:
+                                          type: string
+                                        reason:
+                                          type: string
+                                      type: object
+                                    type: array
+                                type: object
+                              type: object
+                            kind:
+                              description: Type of the resource.
+                              example: calendar#freeBusy
+                              type: string
+                            timeMax:
+                              description: The end of the interval.
+                              format: date-time
+                              type: string
+                            timeMin:
+                              description: The start of the interval.
+                              format: date-time
+                              type: string
+                          type: object
+                    description: A successful response with free/busy information.
+                  '400':
+                    description: Invalid request.
+                  '401':
+                    description: Unauthorized.
+                  '500':
+                    description: Internal server error.
+                security:
+                - plurally_google:
+                  - https://www.googleapis.com/auth/calendar.freebusy
+                summary: Returns free/busy information for a set of calendars.
+          servers:
+          - description: Production server
+            url: https://www.googleapis.com/calendar/v3
+        tgt_handles: [run, transcript]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-523da3b1-2a1c-4b8d-b68a-53a620283f2d
+        button_color: "#007bff"
+        button_on_same_row: false
+        button_text: Submit
+        form:
+          - {
+              col_span: 12,
+              is_required: false,
+              name: Email,
+              placeholder: Email,
+              type: short_text,
+            }
+          - {
+              col_span: 12,
+              is_required: false,
+              name: Business card,
+              placeholder: "",
+              type: image,
+            }
+          - {
+              col_span: 12,
+              is_required: true,
+              name: Record,
+              placeholder: "",
+              type: audio
+                record,
+            }
+        is_output_fixable: false
+        is_trigger: true
+        kls: Form
+        name: Form
+        output_schema:
+          $defs:
+            ImageFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the image file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: image/*
+                  default: ""
+                  is-file: true
+                  title: Upload image file
+                  type: string
+                  uiSchema: { ui:widget: file }
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the image file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              title: ImageFile
+              type: object
+              type-friendly: Image
+              uiSchema:
+                ui:options: { label: false }
+            MicAudioFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: MicAudioFile
+              type: object
+              type-friendly: Audio
+              uiSchema:
+                ui:options: { label: false }
+          properties:
+            business_card:
+              default: { content: "", file: "", filename: "" }
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the image file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: image/*
+                  default: ""
+                  is-file: true
+                  title: Upload image file
+                  type: string
+                  uiSchema: { ui:widget: file }
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the image file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              title: Business card
+              type: object
+              type-friendly: Image
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+            email:
+              default: ""
+              title: Email
+              type: string
+              uiSchema:
+                { ui:emptyValue: "", ui:label: true, ui:placeholder: Email }
+            record:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: Record
+              type: object
+              type-friendly: Record Audio
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+          required: [record]
+          title: Form
+          type: object
+          uiSchema:
+            ui:grid:
+              - [email, 12]
+              - [business_card, 12]
+              - [record, 12]
+        pos_x: 488.5
+        pos_y: 0.0
+        show_label: true
+        src_handles: [business_card, email, record]
+        tgt_handles: []
+        use_case: false
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-f5b26e62-01cc-4851-bd9e-34d284eec456
+        is_output_fixable: false
+        is_trigger: false
+        kls: Transcript
+        language: ""
+        name: Transcript
+        pos_x: 0.0
+        pos_y: 588.0
+        src_handles: [transcript]
+        tgt_handles: [audio, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-8b674c3d-188e-4bd8-9e78-6a82cfb0d3cb
+        add_explanation: false
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: data, handle_id: "9731", type: Auto }
+          - { free: email, handle_id: "6967", type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            data:
+              handle_id: "9731"
+              properties: {}
+              title: data
+              type: object
+            email:
+              handle_id: "6967"
+              properties: {}
+              title: email
+              type: object
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [data, email]
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: Swagger
+        model: gpt-4o
+        name: Send invit
+        output_schema:
+          $defs:
+            Attendee:
+              properties:
+                displayName:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Displayname
+                email:
+                  anyOf:
+                    - { format: email, type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Email
+              title: Attendee
+              type: object
+            End:
+              properties:
+                dateTime:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Datetime
+                timeZone:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The time zone of the event end time.
+                  title: Timezone
+              title: End
+              type: object
+            Payload:
+              properties:
+                attendees:
+                  anyOf:
+                    - items:
+                        properties:
+                          displayName:
+                            anyOf:
+                              - { type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Displayname
+                          email:
+                            anyOf:
+                              - { format: email, type: string }
+                              - { type: "null" }
+                            default: null
+                            title: Email
+                        title: Attendee
+                        type: object
+                      type: array
+                    - { type: "null" }
+                  default: null
+                  title: Attendees
+                description:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: Description of the event.
+                  title: Description
+                end:
+                  properties:
+                    dateTime:
+                      anyOf:
+                        - { format: date-time, type: string }
+                        - { type: "null" }
+                      default: null
+                      title: Datetime
+                    timeZone:
+                      anyOf:
+                        - { type: string }
+                        - { type: "null" }
+                      default: null
+                      description: The time zone of the event end time.
+                      title: Timezone
+                  title: End
+                  type: object
+                start:
+                  properties:
+                    dateTime:
+                      anyOf:
+                        - { format: date-time, type: string }
+                        - { type: "null" }
+                      default: null
+                      title: Datetime
+                    timeZone:
+                      anyOf:
+                        - { type: string }
+                        - { type: "null" }
+                      default: null
+                      description: The time zone of the event start time.
+                      title: Timezone
+                  title: Start
+                  type: object
+                summary:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: Title of the event.
+                  title: Summary
+              required: [end, start]
+              title: Payload
+              type: object
+            Start:
+              properties:
+                dateTime:
+                  anyOf:
+                    - { format: date-time, type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Datetime
+                timeZone:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The time zone of the event start time.
+                  title: Timezone
+              title: Start
+              type: object
+          properties:
+            /calendars/primary/events_post:
+              default: []
+              items:
+                properties:
+                  attendees:
+                    anyOf:
+                      - items:
+                          properties:
+                            displayName:
+                              anyOf:
+                                - { type: string }
+                                - { type: "null" }
+                              default: null
+                              title: Displayname
+                            email:
+                              anyOf:
+                                - { format: email, type: string }
+                                - { type: "null" }
+                              default: null
+                              title: Email
+                          title: Attendee
+                          type: object
+                        type: array
+                      - { type: "null" }
+                    default: null
+                    title: Attendees
+                  description:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    description: Description of the event.
+                    title: Description
+                  end:
+                    properties:
+                      dateTime:
+                        anyOf:
+                          - { format: date-time, type: string }
+                          - { type: "null" }
+                        default: null
+                        title: Datetime
+                      timeZone:
+                        anyOf:
+                          - { type: string }
+                          - { type: "null" }
+                        default: null
+                        description: The time zone of the event end time.
+                        title: Timezone
+                    title: End
+                    type: object
+                  start:
+                    properties:
+                      dateTime:
+                        anyOf:
+                          - { format: date-time, type: string }
+                          - { type: "null" }
+                        default: null
+                        title: Datetime
+                      timeZone:
+                        anyOf:
+                          - { type: string }
+                          - { type: "null" }
+                        default: null
+                        description: The time zone of the event start time.
+                        title: Timezone
+                    title: Start
+                    type: object
+                  summary:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    description: Title of the event.
+                    title: Summary
+                required: [end, start]
+                title: Payload
+                type: object
+              title: /calendars/primary/events_post
+              type: array
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 255.0
+        pos_y: 854.0
+        prompt: |-
+          {%- set busy_times = [] -%}
+
+          You are a helpful assistant helping create a new meeting.
+
+          <rules>
+              <rule>If an <availability> is provided, create an event using that availability and add all listed emails in <attendees> as attendees.</rule>
+              <rule>If no availability is provided, do nothing.</rule>
+          </rules>
+
+          {%- set avails = [] -%}
+          {%- for entry in data -%}
+          {%- set calendars = (entry or {}).get('calendars') -%}
+          {%- if calendars -%}
+          {%- set busy_times = (calendars.get('primary') or {}).get('busy', []) -%}
+          {%- if not busy_times or busy_times | length == 0 -%}
+          {{avails.append({
+          "start": entry.timeMin,
+          "end": entry.timeMax
+          }) or ""}}
+          {%- endif -%}
+          {%- endif -%}
+          {%- endfor -%}
+
+          {% if avails %}
+          <availability>
+              {{ avails | first }}
+          </availability>
+          {% else %}
+
+          No available time slots found.
+          {%- endif %}
+
+          <attendees>
+          <attendee>
+          email: {{email}}
+          responseStatus: needsAction
+          </attendee>
+          {%- for attendee in (DEFAULT_ATTENDEES or '').split(';') %}
+          <attendee>
+          email: {{attendee}}
+          responseStatus: accepted
+          </attendee>
+          {%- endfor %}
+          </attendees>
+
+          <conferenceData>
+          {% set my_uuid = uuid() %}
+          requestId = {{my_uuid[:8]}}
+          </conferenceData>
+        src_handles: [/calendars/primary/events_post]
+        swagger: |
+          components:
+            schemas:
+              Event:
+                properties:
+                  attendees:
+                    items:
+                      properties:
+                        email:
+                          format: email
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Description of the event.
+                    type: string
+                  end:
+                    properties:
+                      dateTime:
+                        format: date-time
+                        type: string
+                      timeZone:
+                        description: The time zone of the event end time.
+                        type: string
+                    type: object
+                  start:
+                    properties:
+                      dateTime:
+                        format: date-time
+                        type: string
+                      timeZone:
+                        description: The time zone of the event start time.
+                        type: string
+                    type: object
+                  summary:
+                    description: Title of the event.
+                    type: string
+                required:
+                - start
+                - end
+                type: object
+          info:
+            description: API to create events in a Google Calendar.
+            title: Google Calendar API
+            version: 1.0.0
+          openapi: 3.0.3
+          paths:
+            /calendars/primary/events:
+              post:
+                operationId: insertEvent
+                parameters:
+                - description: Whether to send notifications about the event update.
+                  in: query
+                  name: sendUpdates
+                  required: true
+                  schema:
+                    enum:
+                    - all
+                    type: string
+                  type: string
+                - description: Version number of conference data supported by the API client.
+                  in: query
+                  name: conferenceDataVersion
+                  required: true
+                  schema:
+                    enum:
+                    - 1
+                    type: string
+                requestBody:
+                  content:
+                    application/json:
+                      schema:
+                        properties:
+                          attendees:
+                            items:
+                              properties:
+                                email:
+                                  format: email
+                                  type: string
+                                responseStatus:
+                                  enum:
+                                  - needsAction
+                                  - accepted
+                                  type: string
+                              required:
+                              - email
+                              - responseStatus
+                              type: object
+                            type: array
+                          conferenceData:
+                            properties:
+                              createRequest:
+                                properties:
+                                  requestId:
+                                    type: string
+                                required:
+                                - requestId
+                                type: object
+                            required:
+                            - createRequest
+                            type: object
+                          description:
+                            description: Description of the event.
+                            enum:
+                            - 'Booked with plurally.fr
+
+                              Streamline the tedious.'
+                            type: string
+                          end:
+                            properties:
+                              dateTime:
+                                format: date-time
+                                type: string
+                              timeZone:
+                                description: The time zone of the event end time.
+                                type: string
+                            type: object
+                          guestsCanInviteOthers:
+                            enum:
+                            - true
+                            type: boolean
+                          start:
+                            properties:
+                              dateTime:
+                                format: date-time
+                                type: string
+                              timeZone:
+                                description: The time zone of the event start time.
+                                type: string
+                            type: object
+                          summary:
+                            description: Title of the event.
+                            enum:
+                            - "Suite \xE0 notre rencontre sur Workspace"
+                            type: string
+                        required:
+                        - start
+                        - end
+                        - description
+                        - summary
+                        - attendees
+                        - guestsCanInviteOthers
+                        - conferenceData
+                        type: object
+                  required: true
+                responses:
+                  '200':
+                    content:
+                      application/json:
+                        schema:
+                          properties:
+                            attendees:
+                              items:
+                                properties:
+                                  displayName:
+                                    type: string
+                                  email:
+                                    format: email
+                                    type: string
+                                type: object
+                              type: array
+                            description:
+                              description: Description of the event.
+                              type: string
+                            end:
+                              properties:
+                                dateTime:
+                                  format: date-time
+                                  type: string
+                                timeZone:
+                                  description: The time zone of the event end time.
+                                  type: string
+                              type: object
+                            start:
+                              properties:
+                                dateTime:
+                                  format: date-time
+                                  type: string
+                                timeZone:
+                                  description: The time zone of the event start time.
+                                  type: string
+                              type: object
+                            summary:
+                              description: Title of the event.
+                              type: string
+                          required:
+                          - start
+                          - end
+                          type: object
+                    description: Event created successfully.
+                security:
+                - plurally_google:
+                  - https://www.googleapis.com/auth/calendar.events.owned
+                summary: Creates an event in the specified calendar
+          servers:
+          - url: https://www.googleapis.com/calendar/v3
+        tgt_handles: [run, data, email]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-64dda878-9480-43cb-a413-7cf756abfbc9
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: Business Card, handle_id: 22a3, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            business_card:
+              handle_id: 22a3
+              properties: {}
+              title: Business Card
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [business_card]
+          title: InputSchema
+          type: object
+        instruct: |-
+          Extract the profile information from the image.
+
+          When appropriate, normalize website url:
+          - no https://
+          - no www
+          - no trailing /
+
+          Extract the following information and output to JSON string.
+
+          "first_name"
+          "last_name"
+          "role"
+          "email"
+          "phone_number"
+          "company_name"
+          "company_website"
+
+          If no image is provided, return an empty mapping.
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o-mini
+        name: profile information
+        output_fields:
+          - { free: profile information, handle_id: dc1a, type: Auto }
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          can-add-fields: true
+          properties:
+            profile_information:
+              handle_id: dc1a
+              properties: {}
+              title: profile information
+              type: object
+              type-friendly: Auto (BETA)
+          required: [profile_information]
+          title: OutputSchema
+          type: object
+        pos_x: 100.0
+        pos_y: 189.0
+        src_handles: [profile_information]
+        tgt_handles: [business_card, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-f7746536-3206-44e8-b906-92bd62a5b717
+        input_schema:
+          additionalProperties: false
+          properties:
+            email:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: email
+            profile_info:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: profile_info
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: email
+        pos_x: 555.0
+        pos_y: 322.0
+        src_handles: [formatted_text]
+        template:
+          "{{ email if email else profile_info.email if profile_info else ''
+          }}"
+        tgt_handles: [profile_info, email, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-fd53515e-8fd7-4612-bca3-70d54bd0e851
+        is_output_fixable: false
+        is_trigger: false
+        kls: Bool
+        name: HasEmail
+        pos_x: 155.0
+        pos_y: 455.0
+        src_handles: [output]
+        tgt_handles: [run, inputs]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-28139a55-e09f-4ee9-8a7c-91566beacbd9
+        is_output_fixable: false
+        is_trigger: false
+        kls: Not
+        name: NoEmail
+        pos_x: 200.0
+        pos_y: 588.0
+        src_handles: [output]
+        tgt_handles: [run, inputs]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-1ea03568-598f-4f80-8adb-8f8763650ed6
+        is_hidden: false
+        is_output_fixable: false
+        is_trigger: false
+        key: message
+        kls: TextOutput
+        name: TextOutput
+        pos_x: 300.0
+        pos_y: 721.0
+        src_handles: []
+        tgt_handles: [content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-a16f3eee-c9de-48d5-9a26-ab036d92a8b6
+        is_output_fixable: false
+        is_trigger: false
+        kls: Text
+        name: Text
+        pos_x: 400.0
+        pos_y: 588.0
+        src_handles: [value]
+        tgt_handles: [run]
+        value: No email address was provided.
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-cb9e3581-ebb5-41c9-be4e-9f391205da68
+        is_output_fixable: false
+        is_trigger: false
+        kls: Bool
+        name: Bool
+        pos_x: 255.0
+        pos_y: 987.0
+        src_handles: [output]
+        tgt_handles: [run, inputs]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-54cd26f7-0e13-499b-9ffa-1661abe462e8
+        is_output_fixable: false
+        is_trigger: false
+        kls: Not
+        name: Not
+        pos_x: 255.0
+        pos_y: 1120.0
+        src_handles: [output]
+        tgt_handles: [run, inputs]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-ec22ed2b-b949-440e-b623-141a12ba240b
+        is_output_fixable: false
+        is_trigger: false
+        kls: Text
+        name: Text
+        pos_x: 465.0
+        pos_y: 1120.0
+        src_handles: [value]
+        tgt_handles: [run]
+        value: Suite à notre rencontre sur Workspace
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-fef1e3a7-cab0-40bf-94a2-73a6a14f64d2
+        email: "{{EMAIL_SENDER}}"
+        fullname: "{{FULLNAME_SENDER}}"
+        is_output_fixable: false
+        is_trigger: false
+        kls: GMailSend
+        name: Send Email
+        pos_x: 490.0
+        pos_y: 1253.0
+        src_handles: []
+        tgt_handles: [email_address, run, reply_to, subject, attachments, body]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-533454b5-8b59-44f7-ba53-ad22a62634de
+        input_schema:
+          additionalProperties: false
+          properties:
+            CALENDLY_LINK:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: CALENDLY_LINK
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 760.0
+        pos_y: 920.0
+        src_handles: [formatted_text]
+        template: |
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <meta charset="UTF-8" />
+              <title>Rendez-vous avec Enky</title>
+            </head>
+            <body style="font-family: Arial, sans-serif; font-size: 16px; color: #333; line-height: 1.5;">
+              <p>Bonjour,</p>
+
+              <p>Ravi d'avoir fait votre connaissance !</p>
+              <p>Nous n'avons pas réussi à trouver un créneau pour notre prochain échange, je vous invite à choisir un moment directement dans mon <a href='{{CALENDLY_LINK}}'>agenda</a>.
+              </p>
+
+              <p>
+                Merci et à très vite,<br>
+                Nicolas
+              </p>
+
+          <div dir="ltr" class="gmail_signature" data-smartmail="gmail_signature"><div><table cellpadding="0" cellspacing="0"><tbody><tr><td width="300" align="left" valign="top" height="122"><a style="text-decoration:none"><img width="300" height="122" src="https://ci3.googleusercontent.com/meips/ADKq_NYg97WuiBVQJ5CIoS7nDjhIgkIejbftxzSMMFdk4NqBbrYTwivAKdFU8hid0xEUnBzhl54elgw_0F8ZT5E88UfImedViFyA-t0WtfIPaJ5vyOakqOm9H4B8YQNnAlH7s0Aib-g=s0-d-e1-ft#https://cdn.boostmymail.com/images/37245/Signature%20Nicolas-1738576368168.png" border="0" alt="logo" class="CToWUd a6T" data-bit="iit" tabindex="0"><div class="a6S" dir="ltr" style="opacity: 0.01; left: 260px; top: 145.5px;"><span data-is-tooltip-wrapper="true" class="a5q" jsaction="JIbuQc:.CLIENT"><button class="VYBDae-JX-I VYBDae-JX-I-ql-ay5-ays CgzRE" jscontroller="PIVayb" jsaction="click:h5M12e; clickmod:h5M12e;pointerdown:FEiYhc;pointerup:mF5Elf;pointerenter:EX0mI;pointerleave:vpvbp;pointercancel:xyn4sd;contextmenu:xexox;focus:h06R8; blur:zjh6rb;mlnRJb:fLiPzd;" data-idom-class="CgzRE" data-use-native-focus-logic="true" jsname="hRZeKc" aria-label="Download attachment " data-tooltip-enabled="true" data-tooltip-id="tt-c95" data-tooltip-classes="AZPksf" id="" jslog="91252; u014N:cOuCgd,Kr2w4b,xr6bB; 4:WyIjbXNnLWY6MTgyNzE5OTY3NjA5MjYyMTA3NyJd; 43:WyJpbWFnZS9qcGVnIl0."><span class="OiePBf-zPjgPe VYBDae-JX-UHGRz"></span><span class="bHC-Q" jscontroller="LBaJxb" jsname="m9ZlFb" soy-skip="" ssk="6:RWVI5c"></span><span class="VYBDae-JX-ank-Rtc0Jf" jsname="S5tZuc" aria-hidden="true"><span class="notranslate bzc-ank" aria-hidden="true"><svg viewBox="0 -960 960 960" height="20" width="20" focusable="false" class=" aoH"><path d="M480-336L288-528l51-51L444-474V-816h72v342L621-579l51,51L480-336ZM263.72-192Q234-192 213-213.15T192-264v-72h72v72H696v-72h72v72q0,29.7-21.16,50.85T695.96-192H263.72Z"></path></svg></span></span><div class="VYBDae-JX-ano"></div></button><div class="ne2Ple-oshW8e-J9" id="tt-c95" role="tooltip" aria-hidden="true">Download</div></span></div></a></td></tr><tr><td height="10"></td></tr><tr><td valign="top" width="250" style="font-family:Helvetica,Arial,sans-serif;font-size:10pt;line-height:15pt;color:#9b9b9b"><div><span style="font-size:10.5pt;line-height:15.5pt;color:#4a4a4a;font-weight:700">Nicolas Freymann</span><span> - </span><span style="font-size:10.5pt;line-height:15.5pt;color:#4a4a4a;font-weight:500">Enky Invest &amp; Partnerships Manager</span></div><div><span style="color:#9b9b9b;font-family:Helvetica;font-size:10.5pt;font-weight:500"></span><span style="color:#9b9b9b"></span></div><div></div><div> </div><a href="https://redirect.boostmymail.com/AKj-926748a6542d4297a5a3312a36ce3fba" style="color:#063647;text-decoration:none;font-family:Helvetica;font-size:10.5pt;font-weight:500" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://redirect.boostmymail.com/AKj-926748a6542d4297a5a3312a36ce3fba&amp;source=gmail&amp;ust=1742639807821000&amp;usg=AOvVaw1XtSzO2rbCaWKRBuJ-rlxF">enky.com</a></td></tr><tr><td height="10"><span></span></td></tr><tr><td><table cellspacing="0" cellpadding="0"><tbody><tr><td valign="top" style="width:36px;padding:3px"><a style="text-decoration:none" href="https://redirect.boostmymail.com/AKj-c80a62930f0d484a94c343d88ed6a42f" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://redirect.boostmymail.com/AKj-c80a62930f0d484a94c343d88ed6a42f&amp;source=gmail&amp;ust=1742639807821000&amp;usg=AOvVaw3R3VcESK172MNroZdh6NzI"><img alt="linkedin" src="https://ci3.googleusercontent.com/meips/ADKq_Nbgtd_QuKv7ypiJ7JGj1ck5ZlxGdD2tdZBaNjI6v_mEPBa9tcrcFLy_qrs1ZpqyErcB8gofMbwzYZ3qr9UqdyMUCCbAPuSu120cVq7Yo-UB-SKty6dp2tDYqw=s0-d-e1-ft#https://cdn.boostmymail.com/images/common/linkedin_circle_063647.png" height="24" width="24" class="CToWUd" data-bit="iit"></a></td><td valign="top" style="width:36px;padding:3px"><a style="text-decoration:none" href="https://redirect.boostmymail.com/AKj-c5a711d5a601422ebe56bc3f0d8cd2ec" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://redirect.boostmymail.com/AKj-c5a711d5a601422ebe56bc3f0d8cd2ec&amp;source=gmail&amp;ust=1742639807821000&amp;usg=AOvVaw1m49lkH6rE06HHFKWCjvEu"><img alt="instagram" src="https://ci3.googleusercontent.com/meips/ADKq_NZjG6SYHvvDm1a8MmPrXDs5DNkeg17ajv55J5UX_Me4ClTixdoJbhdXMLtmd_VmIFMmucm5_TfdV475eyaQ71v299Vne24DIyrw7HJxa5RxY58cxZao4ajMepc=s0-d-e1-ft#https://cdn.boostmymail.com/images/common/instagram_circle_063647.png" height="24" width="24" class="CToWUd" data-bit="iit"></a></td></tr></tbody></table></td></tr></tbody></table><table cellpadding="0" cellspacing="0"><tbody><tr><td style="width:800px;max-width:800px;padding-top:10px"><div><a href="https://redirect.boostmymail.com/AKj-80dc9e003b26400383058627740def7a" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://redirect.boostmymail.com/AKj-80dc9e003b26400383058627740def7a&amp;source=gmail&amp;ust=1742639807821000&amp;usg=AOvVaw2OAi627TqPQ3Vk_rJhKpMc"><img alt="Campaign Banner" width="510" height="85" src="https://ci3.googleusercontent.com/meips/ADKq_NaFoHPb6yzyXC_rNX8BjwTq4nwqSjI1wSrlD0HDWnfOyhD9ZQ9Bz4sVsKippPZD2W3DdylwuaWg15wc_Qhim05NM0B-PNcvA8Fk0KVgsr6mQP97U1zct2Kgug0=s0-d-e1-ft#https://cdn.boostmymail.com/images/37245/12032025_111549_pifg00x6.png" class="CToWUd" data-bit="iit"></a></div></td></tr><tr><td style="width:800px;max-width:800px;padding-top:2px;color:#4a4a4a;font-family:Helvetica,Arial,sans-serif;font-size:12px"></td></tr><tr><td style="width:800px;max-width:800px;color:#9b9b9b;font-family:Helvetica,Arial,sans-serif;font-size:10.5pt;font-weight:500;line-height:15pt"></td></tr></tbody></table></div></div>
+            </body>
+          </html>
+        tgt_handles: [CALENDLY_LINK, run]
+id: 4cb090bc-2a89-410a-946f-eb691b5e2504
+is_running: false
+last_exec_dt: null
+last_updated: "2025-03-21T14:17:07.481130"
+logo: https://c0.lestechnophiles.com/c.clc2l.com/c/thumbnail256webp/t/g/o/google-agenda-eqpxyt.png
+name: Meeting Enky
+org_id: null
+owner_id: 83e1fa8e-a5db-487f-9780-c69846b9f8ca

@@ -1,0 +1,13 @@
+{% if examples %}
+<examples>
+{%- for example in examples %}
+    <example>
+    {%- for k, v in example.items() %}
+        <{{ k }}>
+            {{ v }}
+        </{{ k }}>
+    {%- endfor %}
+    </example>
+{%- endfor %}
+</examples>
+{% endif %}

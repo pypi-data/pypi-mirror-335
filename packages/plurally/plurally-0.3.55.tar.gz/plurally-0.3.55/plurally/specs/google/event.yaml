@@ -1,0 +1,193 @@
+components:
+  schemas:
+    Event:
+      properties:
+        attendees:
+          items:
+            properties:
+              email:
+                format: email
+                type: string
+            type: object
+          type: array
+        description:
+          description: Description of the event.
+          type: string
+        end:
+          properties:
+            dateTime:
+              format: date-time
+              type: string
+            timeZone:
+              description: The time zone of the event end time.
+              type: string
+          type: object
+        start:
+          properties:
+            dateTime:
+              format: date-time
+              type: string
+            timeZone:
+              description: The time zone of the event start time.
+              type: string
+          type: object
+        summary:
+          description: Title of the event.
+          type: string
+      required:
+        - start
+        - end
+      type: object
+info:
+  description: API to create events in a Google Calendar.
+  title: Google Calendar API
+  version: 1.0.0
+openapi: 3.0.3
+paths:
+  /calendars/primary/events:
+    post:
+      operationId: insertEvent
+      parameters:
+        - description: Whether to send notifications about the event update.
+          in: query
+          name: sendUpdates
+          required: true
+          schema:
+            enum:
+              - all
+            type: string
+          type: string
+        - description: Version number of conference data supported by the API client.
+          in: query
+          name: conferenceDataVersion
+          required: true
+          schema:
+            enum:
+              - 1
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                conferenceData:
+                  required:
+                    - createRequest
+                  properties:
+                    createRequest:
+                      required:
+                        - requestId
+                      properties:
+                        requestId:
+                          type: string
+                      type: object
+                  type: object
+                guestsCanInviteOthers:
+                  type: boolean
+                  enum:
+                    - true
+                attendees:
+                  items:
+                    required:
+                      - email
+                      - responseStatus
+                    properties:
+                      email:
+                        format: email
+                        type: string
+                      responseStatus:
+                        type: string
+                        enum:
+                          - needsAction
+                          - accepted
+                    type: object
+                  type: array
+                description:
+                  description: Description of the event.
+                  type: string
+                  enum:
+                    - "This event was created using Plurally - https://tryplurally.com/en"
+                end:
+                  properties:
+                    dateTime:
+                      format: date-time
+                      type: string
+                    timeZone:
+                      description: The time zone of the event end time.
+                      type: string
+                  type: object
+                start:
+                  properties:
+                    dateTime:
+                      format: date-time
+                      type: string
+                    timeZone:
+                      description: The time zone of the event start time.
+                      type: string
+                  type: object
+                summary:
+                  description: Title of the event.
+                  type: string
+                  enum:
+                    - Corsight Follow-up Meeting
+              required:
+                - start
+                - end
+                - description
+                - summary
+                - attendees
+                - guestsCanInviteOthers
+                - conferenceData
+              type: object
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  attendees:
+                    items:
+                      properties:
+                        displayName:
+                          type: string
+                        email:
+                          format: email
+                          type: string
+                      type: object
+                    type: array
+                  description:
+                    description: Description of the event.
+                    type: string
+                  end:
+                    properties:
+                      dateTime:
+                        format: date-time
+                        type: string
+                      timeZone:
+                        description: The time zone of the event end time.
+                        type: string
+                    type: object
+                  start:
+                    properties:
+                      dateTime:
+                        format: date-time
+                        type: string
+                      timeZone:
+                        description: The time zone of the event start time.
+                        type: string
+                    type: object
+                  summary:
+                    description: Title of the event.
+                    type: string
+                required:
+                  - start
+                  - end
+                type: object
+          description: Event created successfully.
+      security:
+        - plurally_google:
+            - https://www.googleapis.com/auth/calendar.events.owned
+      summary: Creates an event in the specified calendar
+servers:
+  - url: https://www.googleapis.com/calendar/v3

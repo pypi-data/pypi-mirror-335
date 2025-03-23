@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "plurally"
+version = "0.3.55"
+description = ""
+authors = ["Alexandre Villard <alexvillard67@gmail.com>"]
+readme = "README.md"
+include = ["plurally/**/*.mo"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+loguru = "^0.7.2"
+networkx = {extras = ["default"], version = "^3.3"}
+pydantic = "^2.8.2"
+instructor = {version = "^1.7.2"}
+cryptography = "^43.0.0"
+beautifulsoup4 = "^4.12.3"
+google-api-python-client = "^2.144.0"
+google-auth = "^2.34.0"
+faiss-cpu = "^1.8.0.post1"
+litellm = "^1.44.22"
+thefuzz = "^0.22.1"
+jsonref = "^1.1.0"
+croniter = "^3.0.3"
+pydantic-extra-types = "^2.9.0"
+pytz = "^2024.2"
+hubspot-api-client = "^10.0.0"
+email-validator = "^2.2.0"
+rq = "^2.0.0"
+sentry-sdk = {extras = ["rq"], version = "^2.17.0"}
+weasyprint = "^63.0"
+jinja2schema = "^0.1.4"
+simple-salesforce = "^1.12.6"
+dateparser = "^1.2.0"
+babel = "^2.16.0"
+ruamel-yaml = "<0.18.0"
+dpath = "^2.2.0"
+datamodel-code-generator = "^0.28.1"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.8.0"
+ruff = "^0.6.2"
+pytest = "^8.3.2"
+polib = "^1.2.0"
+mypy = "^1.15.0"
+
+[tool.pyright]
+typeCheckingMode = "off"
+
+[tool.poetry.group.prod.dependencies]
+ruamel-yaml = "<0.18.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
