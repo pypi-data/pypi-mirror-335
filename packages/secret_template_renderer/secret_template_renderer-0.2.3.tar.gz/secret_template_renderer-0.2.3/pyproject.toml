@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "secret_template_renderer"
+version = "0.2.3"
+authors = ["Ben Trinh <huantrinh1802@gmail.com>"]
+description = "A tool for templating .env files and more."
+keywords = ["template", "management", "jinja2", "secrets", "dotenv", ".env"]
+readme = "README.md"
+packages = [{ include = "src" }]
+
+[tool.poetry.scripts]
+str = 'src.app:main'
+
+[tool.poetry.dependencies]
+python = "^3.12"
+jinja2 = "^3.1.5"
+
+[tool.poetry.extras]
+crypto = ["cryptography"]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/huantrinh1802/secret_template_renderer"
+Issues = "https://github.com/huantrinh1802/secret_template_renderer/issues"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
