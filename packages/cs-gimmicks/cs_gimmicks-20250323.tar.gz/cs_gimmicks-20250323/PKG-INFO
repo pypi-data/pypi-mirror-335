@@ -1,0 +1,74 @@
+Metadata-Version: 2.4
+Name: cs-gimmicks
+Version: 20250323
+Summary: Gimmicks and hacks to make some of my other modules more robust and less demanding of others.
+Keywords: python2,python3
+Author-email: Cameron Simpson <cs@cskk.id.au>
+Description-Content-Type: text/markdown
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 2
+Classifier: Programming Language :: Python :: 3
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
+Project-URL: MonoRepo Commits, https://bitbucket.org/cameron_simpson/css/commits/branch/main
+Project-URL: Monorepo Git Mirror, https://github.com/cameron-simpson/css
+Project-URL: Monorepo Hg/Mercurial Mirror, https://hg.sr.ht/~cameron-simpson/css
+Project-URL: Source, https://github.com/cameron-simpson/css/blob/main/lib/python/cs/gimmicks.py
+
+Gimmicks and hacks to make some of my other modules more robust and
+less demanding of others.
+
+*Latest release 20250323*:
+Provide direct r() and s() instead of circular cs.lex import.
+
+Module contents:
+- <a name="debug"></a>`debug(*a, **kw)`: Wrapper for `debug()` which does a deferred import.
+- <a name="error"></a>`error(*a, **kw)`: Wrapper for `error()` which does a deferred import.
+- <a name="exception"></a>`exception(*a, **kw)`: Wrapper for `exception()` which does a deferred import.
+- <a name="info"></a>`info(*a, **kw)`: Wrapper for `info()` which does a deferred import.
+- <a name="log"></a>`log(*a, **kw)`: Wrapper for `log()` which does a deferred import.
+- <a name="open_append"></a>`open_append(path)`: Ghastly hack to open something for append
+  entirely because some Linux systems do not let you open a
+  character device for append.
+  Tries sane `'a'` and falls back through 'r+' and finally to
+  'w' only if `path` refers to a character device.
+- <a name="r"></a>`r(obj)`: simplistic versions of cs.lex r() and s()
+- <a name="trace"></a>`trace(*a, **kw)`: Wrapper for `info()` which does a deferred import.
+- <a name="warning"></a>`warning(*a, **kw)`: Wrapper for `warning()` which does a deferred import.
+
+# Release Log
+
+
+
+*Release 20250323*:
+Provide direct r() and s() instead of circular cs.lex import.
+
+*Release 20240316*:
+Fixed release upload artifacts.
+
+*Release 20230331*:
+New open_append to handle idiotic Linux do-not-open-tty-for-append semantics.
+
+*Release 20230212*:
+Add gimmicks for cs.lex.r and cs.lex.s.
+
+*Release 20230210*:
+DEVNULL default open for "r+b" instead of "wb".
+
+*Release 20221228*:
+Generalise the logging function map, add trace function, bugfix logging call lookup.
+
+*Release 20220429*:
+Add DEVNULL symbol, needed before Python 3.3.
+
+*Release 20211208*:
+Define TimeoutError.
+
+*Release 20210306*:
+Add simple implementations of nullcontext and SimpleNamespace.
+
+*Release 20200418.1*:
+Initial release with logging call stubs.
