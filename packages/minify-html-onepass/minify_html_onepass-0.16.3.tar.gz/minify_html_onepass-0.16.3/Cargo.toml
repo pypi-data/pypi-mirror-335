@@ -1,0 +1,12 @@
+[workspace]
+members = ["minify-html-common", "minify-html-onepass-python", "minify-html-onepass"]
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+strip = true
+
+[profile.release.package."*"]
+codegen-units = 1
+opt-level = 3
