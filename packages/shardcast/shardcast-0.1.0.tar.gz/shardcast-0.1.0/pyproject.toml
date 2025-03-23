@@ -1,0 +1,52 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "shardcast"
+version = "0.1.0"
+description = "A package for distributing large files via HTTP P2P network"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+    {name = "P2P Weight Transfer", email = "felix@primeintellect.ai"}
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "setuptools",
+    "urllib3",
+    "pathlib",
+    "logging",
+    "argparse",
+    "typing",
+    "numpy",
+    "keyboard",
+    "torch",
+]
+
+[project.scripts]
+shardcast-origin = "shardcast.origin_server:main"
+shardcast-middle = "shardcast.middle_node:main"
+shardcast-client = "shardcast.client_node:main"
+
+[tool.hatch.metadata]
+allow-direct-references = true # allow direct references to git repos in dependencies
+
+[tool.ruff]
+line-length = 140
+"ignore" = ["F841"]
+
+[tool.uv]
+dev-dependencies = ["ruff>=0.5.0", "pre-commit>=3.0.0", "pytest>=7.0.0", "faker"]
+
+[tool.uv.sources]
+shardcast = { path = "shardcast", editable = true }
