@@ -1,0 +1,135 @@
+Metadata-Version: 2.1
+Name: sevml
+Version: 0.3.2
+Summary: UNKNOWN
+Home-page: UNKNOWN
+License: UNKNOWN
+Platform: UNKNOWN
+Description-Content-Type: text/markdown
+
+# sevml: Small Extracellular Vesicles Machine Learning Toolkit
+
+A Python toolkit developed by the **INSERM U1231 HSPpathies** team for the biological analysis.
+
+## Overview
+
+`sevml` is designed to facilitate the preprocessing, modeling, evaluation, and interpretation of machine learning pipelines based on biological data.
+
+Key features:
+- Preprocess ELISA datasets (pivot, clean, normalize)
+- Train XGBoost models with hyperparameter tuning
+- Visualize learning and validation curves
+- Evaluate model performance with ROC curves and confusion matrices
+- Interpret feature importance using SHAP values
+
+Disclosure : the Preprocess ELISA datasets function is highly specific to our laboratory and will need modifiction to be integrated in other relationnals databases outputs.
+
+The package is built following this structure:
+
+```bash
+sevml/
+├── __init__.py          # Package initializer
+├── main.py              # Only the CLI or entrypoint
+├── preprocessing.py     # Functions like preprocess_elisa_dataset
+├── training.py          # train_xgb_with_gridsearch, etc.
+├── evaluation.py        # evaluate_model
+├── visualization.py     # plot_model_curves, plot_shap_explanations
+└── utils.py             # Any shared utilities
+
+
+
+## Installation
+
+To install required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Dependencies include:
+- numpy
+- pandas
+- matplotlib
+- scikit-learn
+- xgboost
+- shap
+
+## Usage
+
+```python
+from sevml import (
+    preprocess_elisa_dataset,
+    train_xgb_with_gridsearch,
+    evaluate_model,
+    plot_model_curves,
+    plot_shap_explanations
+)
+
+# Load and preprocess dataset
+label_mapping = {"A": 0, "B": 1}
+X_train, X_test, y_train, y_test = preprocess_elisa_dataset("path/to/data.csv", label_mapping)
+
+# Train model
+model, params = train_xgb_with_gridsearch(X_train, y_train)
+
+# Evaluate model
+evaluate_model(model, X_train, y_train, X_test, y_test)
+
+# Visualize curves
+plot_model_curves(model, X_train, y_train)
+
+# SHAP explanations
+plot_shap_explanations(X_test, model, df_features)
+```
+
+## API Reference
+
+### preprocess_elisa_dataset(filepath, label_mapping, test_size=0.2, random_state=5)
+- Loads a raw ELISA CSV dataset.
+- Pivots biomarker data to wide format.
+- Imputes missing values (median).
+- Scales features using MinMax.
+- Splits data into training and testing sets.
+
+### train_xgb_with_gridsearch(X, y, eval_metric='logloss', random_state=5, cv=3)
+- Trains an XGBoost classifier.
+- Performs grid search over hyperparameters.
+- Returns best model and parameters.
+
+### evaluate_model(model, X_train, y_train, X_test, y_test)
+- Plots ROC curves and confusion matrices.
+- Computes AUC, accuracy, and F1 scores.
+
+### plot_model_curves(...)
+- Plots learning and validation curves.
+- Helpful for diagnosing under/overfitting.
+
+### plot_shap_explanations(X, model, df_features)
+- Uses SHAP to explain model predictions.
+- Generates multiple plots: heatmap, violin, beeswarm, bar, waterfall.
+
+## Context
+
+This package is developed and maintained by the **HSPpathies team** within the **INSERM U1231** research unit. It is used in clinical and translational studies.
+
+## License
+
+MIT License
+Copyright 2025
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+## Authors
+
+- **Dr Isen Naiken**
+- HSP-pathies Team, INSERM U1231, Dijon, France
+
+## Contact
+For questions or collaborations: [isen_naiken@etu.u-bourgogne.fr](mailto:isen_naiken@etu.u-bourgogne.fr)
+
+
