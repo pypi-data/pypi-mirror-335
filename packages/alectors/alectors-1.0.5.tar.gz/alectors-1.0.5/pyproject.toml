@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "alectors"
+version = "1.0.5"
+description = "A collection of different transformer-based RL agents."
+authors = ["Vasileios Valatsos <aethrvmn@apotheke.earth>"]
+license = "Don't Be Evil License 1.1"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+torch = "^2.6.0"
+pytest = "^8.3.5"
+transformers = "^4.49.0"
+tqdm = "^4.67.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
