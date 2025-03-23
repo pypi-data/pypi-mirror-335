@@ -1,0 +1,57 @@
+Metadata-Version: 2.4
+Name: avibe
+Version: 0.1.0
+Summary: Utility for executing python async functions everywhere the same way - scripts, notebooks, etc.
+Author: Zach Blumenfeld
+Author-email: zblumenf@gmail.com
+License: Apache 2.0
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: nest-asyncio
+Provides-Extra: test
+Requires-Dist: unittest; extra == "test"
+Requires-Dist: nbconvert; extra == "test"
+Requires-Dist: nbformat; extra == "test"
+Requires-Dist: jupyter; extra == "test"
+Requires-Dist: pytest; extra == "test"
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# avibe
+Utility for executing python async functions everywhere the same way - scripts, notebooks, etc. 
+
+Stupidly simple, surprisingly useful.
+
+# Usage
+The `run_async_function` method allows you to execute asynchronous functions the same in both scripts and Jupyter notebooks...like a normal sync function.
+
+```python
+from avibe import run_async_function
+import asyncio
+
+
+# Sample async function
+async def sample_async_function(x, y):
+    await asyncio.sleep(1)  # Simulate async work
+    return x + y
+
+
+# Run the async function
+result = run_async_function(sample_async_function, 5, 7)
+print(result)  # Output: 12
+
+```
