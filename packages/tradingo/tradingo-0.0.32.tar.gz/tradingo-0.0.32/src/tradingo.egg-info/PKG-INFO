@@ -1,0 +1,41 @@
+Metadata-Version: 2.4
+Name: tradingo
+Version: 0.0.32
+Summary: Instrument price store
+Author-email: Rory McStay <rory@rorymcstay.com>
+Classifier: Programming Language :: Python :: 3
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: numba
+Requires-Dist: pandas
+Requires-Dist: pandera
+Requires-Dist: arcticdb
+Requires-Dist: PyYAML
+Requires-Dist: yfinance
+Requires-Dist: pandas_market_calendars
+Requires-Dist: trading_ig
+Requires-Dist: riskfolio-lib
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: pytest-benchmark; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: nb-clean; extra == "dev"
+Provides-Extra: research
+Requires-Dist: dtale; extra == "research"
+Requires-Dist: jupyter; extra == "research"
+
+# Tradingo
+
+A functional strategy backtesting framework
+
+Integrates with IG platform
+
+## Universe
+Defines the list of assets to trade 
+
+### Sampling
+## Signals
+
+## Portfolio Construction
+## Simulation
+## Platform Integration
