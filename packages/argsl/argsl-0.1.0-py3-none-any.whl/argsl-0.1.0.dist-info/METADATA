@@ -1,0 +1,39 @@
+Metadata-Version: 2.4
+Name: argsl
+Version: 0.1.0
+Summary: A readable DSL on top of argparse
+Author-email: Gwang-Jin Kim <gwang.jin.kim.phd@gmail.com>
+License: MIT
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Dynamic: license-file
+
+# argsl
+
+A readable DSL on top of argparse. Define your CLI like:
+
+```python
+from argsl import argsl
+
+args = argsl("""
+--name|-n <str!>            # Required
+--age|-a <int=42>           # Optional with default
+--debug|-d <flag>           # Boolean flag
+filename <path!>            # Required positional
+""")
+```
+
+No more boilerplate, just clear CLI definitions.
+
+### CLI Entry Point
+
+You can also run:
+
+```bash
+argsl --name Alice --debug
+```
+
+To test the built-in DSL runner (self-test).
