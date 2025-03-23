@@ -1,0 +1,150 @@
+# This workflow builds and publishes the documentation for SpectrochemPy
+# Documentation is built using Sphinx and published to GitHub Pages
+
+name: Docs 📕
+
+# Trigger on:
+# - Code pushes to main branches
+# - Pull requests
+# - New releases
+# - Manual triggers
+# - Weekly schedule
+on:
+  push:
+    branches:
+      - master
+      - docs/*
+
+  pull_request:
+
+  release:
+    types: [published]
+
+  workflow_dispatch:
+
+  schedule:
+    - cron: "0 0 * * 0"  # At 00:00 on Sunday
+
+permissions:
+  contents: write  # Required for pushing to gh-pages
+  actions: read    # Default permission for actions
+  id-token: none   # Explicitly disable id-token unless needed
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_and_publish_documentation:
+    # Only run scheduled jobs on main repository
+    if: |
+      (github.event_name == 'schedule'
+       && github.repository == 'spectrochempy/spectrochempy') || (
+       github.event_name != 'schedule')
+
+    name: Build and publish documentation
+    runs-on: ubuntu-latest
+    env:
+      TZ: "Etc/UTC"
+
+    defaults:
+      run:
+        shell: bash -l {0}
+
+    steps:
+      # Step 1: Get the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      # step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      # step 3: Create a virtual environment (necessary to use pip interface)
+      - name: Create virtual environment
+        run: |
+          python -m venv .venv
+          echo "VIRTUAL_ENV=$GITHUB_WORKSPACE/.venv" >> $GITHUB_ENV
+          echo "$GITHUB_WORKSPACE/.venv/bin" >> $GITHUB_PATH
+
+      # step 4: Install uv
+      - name: Install uv and verify installation
+        run: |
+          . .venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade uv
+          which uv
+          uv --version
+
+      # Step 5: Install spectrochempy and dependencies using uv
+      - name: Install spectrochempy
+        run: |
+           . .venv/bin/activate
+           uv pip install -e ".[docs]"
+
+      # Step 6: Install Pandoc and check version
+      - name: Install Pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
+          pandoc --version
+
+      # Step 7: Setup Jupyter kernel for notebooks
+      - name: Setup Jupyter kernel
+        run: |
+          . .venv/bin/activate
+          uv pip install ipykernel
+          python3 -m ipykernel install --user --name python3 --display-name "Python 3"
+
+      # Step 8: Set up version environment variable
+      - name: Set up version environment variable
+        run: |
+          . .venv/bin/activate
+          python3 .github/workflows/scripts/set_env_var.py
+
+      # Step 9: Clone gh-pages branch
+      - name: Clone gh-pages branch
+        run: |
+          mkdir -p build
+          git clone --branch=gh-pages --single-branch https://github.com/${{ github.repository }}.git build/html
+
+      # Step 10: Build the documentation
+      - name: Build docs
+        run: |
+          . .venv/bin/activate
+          echo "Updating docs"
+          python3 docs/make.py -j1 html
+
+      # Step 11: Build oldest version of the documentation if it doesn't yet exist
+      - name: Build oldest version of the documentation
+        run: |
+          . .venv/bin/activate
+          if [ ! -d build/html/0.6.10 ]; then
+            echo "Recreating oldest docs"
+            python3 docs/make.py -j1 html -T 0.6.10
+          fi
+
+      # Step 12: Upload build artifacts
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs
+          path: build/html/
+          retention-days: 5
+
+      # Final step: Deploy to GitHub Pages
+      # Only runs on push events (not pull requests)
+      - name: Deployment
+        if: (github.event_name != 'pull_request' && !github.event.act)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: build/html/
+          single-commit: true
+          repository-name: ${{ github.repository }}

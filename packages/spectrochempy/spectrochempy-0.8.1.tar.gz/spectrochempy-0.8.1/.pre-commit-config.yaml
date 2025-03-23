@@ -1,0 +1,56 @@
+default_language_version:
+  # force all unspecified python hooks to run python3
+  python: python3
+
+repos:
+  - repo: local
+    hooks:
+      - id: regenerate_requirements
+        name: regenerate_requirements
+        description: Create or update environment and requirement files according to a template
+        entry: python src/spectrochempy/ci/regenerate_requirements.py
+        language: python
+        additional_dependencies: [toml, jinja2]
+        pass_filenames: false
+      # TODO: fix first the static version of regenrate_api
+      # - id: regenerate_api
+      #   name: regenerate_api
+      #   description: Generate or update API lazy import files
+      #   entry: python src/spectrochempy/ci/regenerate_api.py
+      #   language: python
+      #   additional_dependencies: [jinja2, setuptools_scm]
+      #   pass_filenames: false
+      - id: regenerate_lazy_stub
+        name: regenerate_lazy stub files
+        description: Generate or update lazy stub .pyi files
+        entry: python src/spectrochempy/ci/regenerate_lazy_stubs.py
+        language: python
+        pass_filenames: false
+      - id: update_version_and_release_notes
+        name: update_version_and_release_notes
+        description: Update version number and udate release notes
+        entry: python .github/workflows/scripts/update_version_and_release_notes.py
+        language: python
+        additional_dependencies: [pyyaml, cffconvert, setuptools_scm]
+        pass_filenames: false
+
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: mixed-line-ending
+      - id: check-yaml
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.2.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+
+  # This is not working correctly because the use of docrep for some docstrings
+  # - repo: https://github.com/numpy/numpydoc
+  #   rev: v1.8.0
+  #   hooks:
+  #     - id: numpydoc-validation
