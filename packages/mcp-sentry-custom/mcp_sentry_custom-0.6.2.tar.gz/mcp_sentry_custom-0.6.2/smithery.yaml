@@ -1,0 +1,57 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    required:
+      - authToken
+      - projectSlug
+      - organizationSlug
+    properties:
+      authToken:
+        type: string
+        description: Your Sentry authentication token with appropriate permissions
+      projectSlug:
+        type: string
+        description: The slug identifier for your Sentry project
+      organizationSlug:
+        type: string
+        description: The slug identifier for your Sentry organization
+      SENTRY_URL:
+        type: string
+        description: Base URL for Sentry instance (defaults to official Sentry if not specified)
+        default: https://sentry.io
+    additionalProperties: false  # Prevents undefined properties
+
+  commandFunction: |
+    (config) => {
+      const baseArgs = [
+        '--auth-token', config.authToken,
+        '--project-slug', config.projectSlug,
+        '--organization-slug', config.organizationSlug
+      ];
+      
+      // Add SENTRY_URL only if it's different from the default
+      const optionalArgs = [];
+      if (config.SENTRY_URL && config.SENTRY_URL !== 'https://sentry.io') {
+        optionalArgs.push('--sentry-url', config.SENTRY_URL);
+      }
+      
+      return {
+        command: 'mcp-sentry-custom',
+        args: [...baseArgs, ...optionalArgs]
+      };
+    }
+
+  exampleConfig:
+    # Example for default (official) Sentry
+    authToken: YOUR_SENTRY_TOKEN
+    projectSlug: YOUR_PROJECT_SLUG
+    organizationSlug: YOUR_ORGANIZATION_SLUG
+
+    # Example for custom/self-hosted Sentry (uncomment to use)
+    # SENTRY_URL: https://sentry.yourdomain.com
+    # authToken: YOUR_SELF_HOSTED_TOKEN
+    # projectSlug: YOUR_PROJECT_SLUG
+    # organizationSlug: YOUR_ORGANIZATION_SLUG
