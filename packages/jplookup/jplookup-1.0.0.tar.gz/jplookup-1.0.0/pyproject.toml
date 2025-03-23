@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jplookup"
+version = "1.0.0"
+description = "A Python tool that scrapes pitch accent, phonetic pronunciation, definitions, and example sentences from Wiktionary to create flashcards for Anki."
+authors = [{ name = "TravisGK", email = "githubtravisgk@gmail.com" }]
+license = { text = "MIT" }
+readme = { file = "README.md", content-type = "text/markdown" }
+requires-python = ">=3.6"
+dependencies = [
+    "beautifulsoup4>=4.9",
+    "jaconv>=0.3.0"
+]
+keywords = ["Japanese", "Wiktionary", "Anki", "pitch accent", "scraper"]
+
+[project.urls]
+"Homepage" = "https://github.com/TravisGK/jplookup"
+"Repository" = "https://github.com/TravisGK/jplookup"
