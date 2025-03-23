@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load static %}
+{% load cache %}
+{% load ui %}
+{% load partials %}
+
+<div id="filter" x-data="filter">
+    
+    <div id="query-tags" x-ref="queryTags" class="mb-1">
+        {{ filter.query_tags }}
+    </div>
+    
+    <div id="query-input" class="">
+        {{ filter.query_input }}
+    </div>
+    
+    <div class="mb-6" style="width: 100%" x-show="showParams" x-cloak="" x-on:click.outside="showParams = false;" x-transition.duration.150ms>
+        {{ filter.query_params }}
+    </div>
+
+    <div id="query-apply" x-ref="queryApply"
+         hx-trigger="click" hx-replace-url="true"
+         hx-target="#content-left-container"
+         hx-select="#content-left-container"
+         hx-select-oob="#query-tags,#query-apply">
+    </div>
+</div>

@@ -1,0 +1,38 @@
+{% load i18n %}
+{% load ui %}
+
+<div id="{{ modal_id }}" x-data="{showModal: false, close() {$dispatch('close-modal-{{ modal_id }}')} }" x-ref="modal" class="modal is-active"
+     @close-modal-{{ modal_id }}.window="showModal = false; setTimeout(() => $refs.modal.remove(), 200);"
+     @keyup.escape.window="if (! $refs.{{ modal_id|xrefsave }}Indicator.classList.contains('htmx-request')) {$dispatch('close-modal-{{ modal_id }}')}"
+     {% if blocking %}
+        hx-indicator="#{{ modal_id }}-indicator"
+        hx-disabled-elt="#{{ modal_id }}-background"
+     {% endif %}
+>
+    <button id="{{ modal_id }}-background" class="modal-background" @click="$dispatch('close-modal-{{ modal_id }}')" style="cursor: default"></button>
+    <div class="modal-card" x-show="showModal" x-transition.duration.200ms x-init="$nextTick(() => {showModal = true;})" >
+        <header class="modal-card-head">
+            <p class="modal-card-title">
+                {{ title }}
+            </p>
+            <button class="delete" aria-label="close" @click="$dispatch('close-modal-{{ modal_id }}')"></button>
+        </header>
+        <section class="modal-card-body">
+            {% block modal_content %}{% endblock %}
+        </section>
+        <footer class="modal-card-foot">
+            {% block modal_footer %}
+                <div class="buttons" style="width: 100%">
+                    {% block modal_buttons %}
+                        <button type="button" class="button is-light" @click="$dispatch('close-modal-{{ modal_id }}')">
+                            {% translate 'Close' %}
+                        </button>
+                    {% endblock %}
+                </div>
+            {% endblock %}
+        </footer>
+        <div id="{{ modal_id }}-indicator" x-ref="{{ modal_id|xrefsave }}Indicator" class="htmx-indicator modal-request-overlay" style="position: absolute; inset: 0; background: rgba(47, 47, 62, 0.2)">
+            <progress class="progress is-success" max="100" style="position: fixed; inset: 0; min-width: 300px; max-width: 20vw; margin: auto;"></progress>
+        </div>
+    </div>
+</div>
