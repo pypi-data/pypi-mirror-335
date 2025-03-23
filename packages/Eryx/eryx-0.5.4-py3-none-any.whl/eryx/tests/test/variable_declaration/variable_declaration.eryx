@@ -1,0 +1,24 @@
+let integer = 10;
+
+const flt = 15.5;
+
+let neg_num = -100;
+
+let string = "abc";
+
+const obj = {
+    integer,
+    flt,
+    neg_num,
+    abc_str: string,
+    nested: {
+        nested_val: 100,
+        nest_squared: {
+            maybe: "works"
+        }
+    }
+};
+
+let arr = [1, -2, 3.14, "4", {n:5}, [6, 7], obj];
+
+print(arr)
