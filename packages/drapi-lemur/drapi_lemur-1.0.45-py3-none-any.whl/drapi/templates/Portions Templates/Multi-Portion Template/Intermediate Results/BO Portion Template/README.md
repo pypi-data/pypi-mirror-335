@@ -1,0 +1,3 @@
+# README
+
+This is the README for the **BO** portion of this data request. **BO** is short for **SAP Business Objects**. The **BO** portion is sometimes also called the **SQL** or **Line-Level** portion. The purpose of this portion is typically to download data from BO, either directly from the BO graphical user interface or indirectly by using its back-end SQL queries. Custom SQL queries are also usually included in this portion.
