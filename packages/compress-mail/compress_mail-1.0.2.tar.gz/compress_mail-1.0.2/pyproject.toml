@@ -1,0 +1,85 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "compress-mail"
+dynamic = ["version"]
+description = 'A utility to compress email messages for use with dovecot.'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "lingfish", email = "jason@lucid.net.au" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = ["rich", "click"]
+
+[project.urls]
+Documentation = "https://github.com/lingfish/compress-mail#readme"
+Issues = "https://github.com/lingfish/compress-mail/issues"
+Source = "https://github.com/lingfish/compress-mail"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/compress_mail tests}"
+
+[tool.coverage.run]
+source_pkgs = ["compress_mail", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/compress_mail/_version.py",
+]
+
+[tool.coverage.paths]
+compress_mail = ["src/compress_mail", "*/compress-mail/src/compress_mail"]
+tests = ["tests", "*/compress-mail/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+[project.scripts]
+compress-mail = "compress_mail.compress_mail:main"
+
+[tool.pylint]
+max-line-length = 120
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.pytest.ini_options]
+log_level = "INFO"
+
+[tool.hatch.envs.hatch-test.scripts]
+run = "pytest{env:HATCH_TEST_ARGS:} {args}"
+run-cov = "coverage run -m pytest{env:HATCH_TEST_ARGS:} {args}"
+cov-combine = "coverage combine"
+cov-report = "coverage xml"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/compress_mail/_version.py"
