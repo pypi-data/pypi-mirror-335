@@ -1,0 +1,28 @@
+Metadata-Version: 2.3
+Name: powcaptcha
+Version: 0.2.0
+Summary: 基于工作量证明的验证码系统 - Python客户端
+Author: ravizhan
+Author-email: ravizhan <ravizhan@hotmail.com>
+Requires-Dist: httpx>=0.28.1
+Requires-Python: >=3.10
+Project-URL: Homepage, https://github.com/ravizhan/powcaptcha
+Project-URL: Issues, https://github.com/ravizhan/powcaptcha/issues
+Project-URL: Repository, https://github.com/ravizhan/powcaptcha.git
+Description-Content-Type: text/markdown
+
+## Python 客户端
+
+### 安装
+
+```bash
+pip install powcaptcha
+```
+
+### 接入
+
+```python
+from powcaptcha import PowCaptcha
+captcha = PowCaptcha("http://localhost:8000") # 填写服务端地址，实例化类
+token = captcha.solve() # 自动完成验证码，成功返回token否则为None
+```
