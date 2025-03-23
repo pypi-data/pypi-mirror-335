@@ -1,0 +1,124 @@
+Metadata-Version: 2.4
+Name: openstaad
+Version: 0.0.5
+Summary: A small example package for openstaad python package
+Project-URL: Homepage, https://github.com/OpenStaad/OpenStaadPython
+Project-URL: Issues, https://github.com/OpenStaad/OpenStaadPython/issues
+Author-email: konrad <opensteel611@example.com>
+License: MIT License
+        
+        Copyright (c) 2023 OpenStaad
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.8
+Requires-Dist: comtypes==1.2.0
+Description-Content-Type: text/markdown
+
+# OpenStaad
+
+## Abstract
+
+This Python package is designed to facilitate the connection between the [OpenStaad API](https://docs.bentley.com/LiveContent/web/STAAD.Pro%20Help-v14/en/GUID-93E26CB6-E60E-4175-920A-72D504639722.html) and python. 
+
+## Quick Info
+
+- `openstaad` is a Python package to call easily functions from the OpenStaad API.
+- MIT-License
+- The intended audience is StaadPro users with knowledge of Python
+- Compatibitity:
+    - Tested with Python 3.10.9
+    - Operating System: Windows 11  
+- Dependencies:
+    - [comtypes](https://pypi.org/project/comtypes/)
+
+- See [implemented funcionts](docs/implemented.md) for a list of currently working features.
+- Please contact the [developer](openstee611@gmail.com) for requests.
+
+## Installation
+
+Basic installation by pip.
+
+    pip install openstaad
+
+## A simple example
+
+For the next example, a valid STAAD.Pro file should be open.
+
+```Python
+from openstaad import Geometry, Root
+
+geometry = Geometry()
+root = Root()
+
+# Function that returns a list
+beam_list = geometry.GetBeamList()
+
+# Function that retuns a string
+file_name = root.GetSTAADFile()
+
+# Function that recibe an argument
+beam_number = 10 
+beam_nodes = geometry.GetMemberIncidence(beam_number)
+
+
+print(beam_list)
+print(file_name)
+print(beam_nodes)
+```
+
+## Website
+
+Not yet implemented
+
+## Documentation
+
+See [documentation](/docs/) folder 
+
+## Contribution
+
+The source code of *openstaad* can be found at __GitHub__, target your pull requests to the `main` branch:
+
+https://github.com/OpenStaad/OpenStaadPython/pulls
+
+
+## Feedback
+
+Questions and feedback at __GitHub Discussions__:
+
+https://github.com/OpenStaad/OpenStaadPython/discussions
+
+Questions at __Stack Overflow__:
+
+Post questions at [stack overflow](https://stackoverflow.com/) and use the tag `openstaad` or `openstaadpython`.
+
+Issue tracker at __GitHub__: https://github.com/OpenStaad/OpenStaadPython/issues
+
+## Contact
+
+Please __always__ post questions at the [forum](https://github.com/OpenStaad/OpenStaadPython/discussions) 
+or [stack overflow](https://stackoverflow.com/) to make answers 
+available to other users as well. 
+
+Feedback is greatly appreciated.
+
+Konrad
