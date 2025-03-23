@@ -1,0 +1,75 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[project]
+name = "h5xxhsum"
+dynamic = ["version"]
+description = 'Compute xxHash digest of hdf5 datasets'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Stefano Miccoli", email = "stefano.miccoli@polimi.it" },
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+]
+dependencies = [
+  "click >= 8.1",
+  "h5py >= 3.11.0",
+  "xxhash >= 3.4.1",
+]
+
+[project.urls]
+Documentation = "https://github.com/miccoli/hdf5-xxh?tab=readme-ov-file#readme-ov-file"
+Issues = "https://github.com/miccoli/hdf5-xxh/issues"
+Source = "https://github.com/miccoli/hdf5-xxh.git"
+
+[project.scripts]
+h5xxhsum = "h5xxhsum.cli:h5xxhsum"
+
+#
+# hatch
+#
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "src/h5xxhsum/_version.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/h5xxhsum tests}"
+
+#
+# coverage
+#
+[tool.coverage.run]
+source_pkgs = ["h5xxhsum", "tests"]
+branch = true
+parallel = true
+
+[tool.coverage.paths]
+h5xxhsum = ["src/h5xxhsum", "*/h5xxhsum/src/h5xxhsum"]
+tests = ["tests", "*/h5xxhsum/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
