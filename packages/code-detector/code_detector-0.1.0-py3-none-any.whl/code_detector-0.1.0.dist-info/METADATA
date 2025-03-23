@@ -1,0 +1,67 @@
+Metadata-Version: 2.1
+Name: code-detector
+Version: 0.1.0
+Summary: A package to detect if text is likely code
+Author: Ahmed Zaky
+Author-email: ahmedzakymouad303@gmail.com
+Keywords: code,detection,text-analysis,regex,nlp
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Code Detector
+
+A Python package to detect if text is likely code.
+
+## Installation
+
+You can install the package via pip:
+
+```
+pip install code-detector
+```
+
+## Usage
+
+```python
+from code_detector import is_code
+
+# Check if a string is likely code
+text = "for i in range(10): print(i)"
+result = is_code(text)  # Returns True
+
+# Check if a string is not code
+text = "This is just regular text explaining something."
+result = is_code(text)  # Returns False
+
+# Process multiple texts in batch
+from code_detector.utils import batch_process
+texts = [
+    "for i in range(10): print(i)",
+    "This is just regular text.",
+    "npm install react --save"
+]
+results = batch_process(texts)  # Returns [True, False, True]
+
+# Get statistics for a corpus
+from code_detector.utils import get_statistics
+stats = get_statistics(texts)
+# Returns: {'total': 3, 'code_count': 2, 'non_code_count': 1, 'code_percentage': 66.66...}
+```
+
+## Features
+
+- Detects various programming languages and code patterns
+- Recognizes command line instructions
+- Distinguishes between code and natural language descriptions of code
+- Handles code within backticks
+- Detects package manager commands
+- Recognizes specialized patterns for R, CSS, and other languages
+- Works with both simple and complex code examples
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
