@@ -1,0 +1,53 @@
+Metadata-Version: 2.4
+Name: fastapi-casdoor-fix
+Version: 0.1.12
+Summary: Integration Casdoor with FastAPI
+Home-page: https://github.com/kdbanit/python-fastapi-casdoor
+Author: Winrey
+Author-email: i@iaside.com
+Keywords: auth,casdoor,fastapi,dependency
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Framework :: FastAPI
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Natural Language :: English
+Classifier: Natural Language :: Chinese (Simplified)
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: fastapi
+Requires-Dist: python-dateutil
+Requires-Dist: PyJWT
+Requires-Dist: pydantic
+Requires-Dist: pydantic-settings
+Requires-Dist: casdoor
+Dynamic: license-file
+
+# fastAPI Casdoor
+Integration Casdoor with FastAPI
+
+## Installation
+
+```bash
+pip install fastapi-casdoor-fix
+```
+
+## Usage
+
+```python
+from typing import Annotated
+from fastapi import FastAPI, Depends
+from fastapi_casdoor.deps import get_current_user
+from fastapi_casdoor.models import User
+
+app = FastAPI()
+
+@app.get("/")
+async def root(user: Annotated[User, Depends(get_current_user)]):
+    return {
+        "user": user,
+    }
+```
