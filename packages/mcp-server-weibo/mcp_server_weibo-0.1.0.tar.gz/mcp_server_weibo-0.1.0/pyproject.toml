@@ -1,0 +1,22 @@
+[project]
+name = "mcp-server-weibo"
+version = "0.1.0"
+description = "A MCP Server for Weibo"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "httpx",
+    "mcp[cli]",
+]
+
+
+[project.urls]
+Repository = "https://github.com/qinyuanpei/mcp-server-weibo.git"
+Issues = "https://github.com/qinyuanpei/mcp-server-weibo/issues"
+
+[project.scripts]
+mcp-server-weibo = "mcp_server_weibo.server:mcp.run"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
