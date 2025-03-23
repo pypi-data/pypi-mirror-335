@@ -1,0 +1,35 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build]
+exclude = [
+    "tests/",
+    "Makefile",
+    "requirements.txt",
+    "CHANGELOG.md",
+    ".?*",
+]
+
+[project]
+name = "dwm_status_bar"
+version = "0.3.0"
+authors = [
+    { name="Lucas L. S. Haine", email="lucaslshaine@gmail.com" },
+]
+description = "Add status information to your Dynamic Window Manager bar"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX",
+]
+dependencies = [
+    "psutil",
+]
+
+[project.scripts]
+dwm-status-bar = "dwm_status_bar.app:App"
+
+[project.urls]
+"Homepage" = "https://github.com/llucasls/dwm-status-bar"
