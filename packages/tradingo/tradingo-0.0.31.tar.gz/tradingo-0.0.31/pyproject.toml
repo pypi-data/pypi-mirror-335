@@ -1,0 +1,53 @@
+[project]
+name = "tradingo"
+dynamic = ["version"]
+authors = [
+  { name="Rory McStay", email="rory@rorymcstay.com" },
+]
+description = "Instrument price store"
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3",
+]
+dependencies = [
+  "numpy",
+  "numba",
+  "pandas",
+  "pandera",
+  "arcticdb",
+  "PyYAML",
+  "yfinance",
+  "pandas_market_calendars",
+  "trading_ig",
+  "riskfolio-lib",
+]
+[project.optional-dependencies]
+dev = [
+  "pytest",
+  "pytest-benchmark",
+  "black",
+  "nb-clean",
+]
+research = [
+  "dtale",
+  "jupyter",
+]
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = [
+  "cython",
+  "numpy",
+  "setuptools>=64",
+  "setuptools_scm>=8",
+]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+
+
+[tool.setuptools_scm]
