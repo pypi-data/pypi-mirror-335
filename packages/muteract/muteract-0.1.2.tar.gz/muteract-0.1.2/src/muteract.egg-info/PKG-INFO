@@ -1,0 +1,108 @@
+Metadata-Version: 2.4
+Name: muteract
+Version: 0.1.2
+Summary: A small example package
+Author-email: Mukul Paras Potta <mukul.potta@iitgn.ac.in>
+License-Expression: Apache-2.0
+Project-URL: Homepage, https://github.com/SET-IITGN/Muteract
+Project-URL: Issues, https://github.com/SET-IITGN/Muteract/issues
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Operating System :: POSIX :: Linux
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: annotated-types==0.7.0
+Requires-Dist: anyio==4.8.0
+Requires-Dist: asgiref==3.8.1
+Requires-Dist: certifi==2024.12.14
+Requires-Dist: click==8.1.8
+Requires-Dist: distro==1.9.0
+Requires-Dist: Django==5.1.5
+Requires-Dist: django-webpack-loader==3.1.1
+Requires-Dist: exceptiongroup==1.2.2
+Requires-Dist: gunicorn==23.0.0
+Requires-Dist: h11==0.14.0
+Requires-Dist: httpcore==1.0.7
+Requires-Dist: httpx==0.28.1
+Requires-Dist: idna==3.10
+Requires-Dist: jiter==0.8.2
+Requires-Dist: joblib==1.4.2
+Requires-Dist: nltk==3.9.1
+Requires-Dist: openai==1.59.8
+Requires-Dist: packaging==24.2
+Requires-Dist: pydantic==2.10.5
+Requires-Dist: pydantic_core==2.27.2
+Requires-Dist: regex==2024.11.6
+Requires-Dist: rouge==1.0.1
+Requires-Dist: six==1.17.0
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: sqlparse==0.5.3
+Requires-Dist: tqdm==4.67.1
+Requires-Dist: typing_extensions==4.12.2
+Dynamic: license-file
+
+# Muteract [![PyPI version](https://badge.fury.io/py/your-package-name.svg)](https://pypi.org/project/muteract/0.1.1/) [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE) 
+
+Interactive and Iterative Prompt Mutation Interface for LLM Developers and Evaluators
+![Screenshot of the Muteract User Interface](images/UI.png "Muteract User Interface")
+
+## Table of Contents
+
+- [Muteract  ](#muteract--)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Contributing](#contributing)
+  - [License](#license)
+
+## Introduction
+
+Muteract - an interactive and iterative prompt mutation interface that enables LLM developers and evaluators to input natural language (NL) text prompts, apply mutations, analyze variations in textual responses, and archive results.
+
+As of now, this tool provides only Radamsa as the mutator, since it works directly on the bytes in a prompt and can be applied to various modalities. We plan to add more mutators for specific to images, text etc. in the future.
+
+The interaction flow of Muteract is
+
+![flowchart](images/Muteract-Flow.drawio.png)
+
+
+## Getting Started
+
+Muteract is a python based tool. Make sure python is installed before following the [Installation](#installation) guide.
+
+### Installation
+
+Muteract can be installed with a simple pip command.
+
+```bash
+# Installation command
+pip install muteract
+```
+
+All the dependencies are taken care by the installation.
+
+### Usage
+Ensure that the OpenAI API Key is configured in the environment variable `OPEN_AI_API_KEY` before starting the application.
+
+Just running the Muteract command will open the GUI:
+```bash
+muteract
+```
+
+
+## Configuration
+
+```
+Python version above 3.10 is needed for running the application, along with a browser that supports ES2017.
+```
+
+## Contributing
+
+Conrtibutions are accepted. The contributions will be accepted only if they are suitable for the tool.
+
+## License
+[Apache License](LICENSE)
+
