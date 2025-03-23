@@ -1,0 +1,1 @@
+[![smithery badge](https://smithery.ai/badge/@AgentsWorkingTogether/mcp-sleep)](https://smithery.ai/server/@AgentsWorkingTogether/mcp-sleep)
