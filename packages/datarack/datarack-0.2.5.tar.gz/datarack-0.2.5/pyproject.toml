@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "datarack"
+version = "0.2.5"
+description = "Manage data easily and efficiently"
+authors = [
+    { name = "TrattyGod" }
+]
+license = { file = "LICENSE" }
+readme = "README.md"
+keywords = ["data", "storage", "data-management"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10"
+]
+
+[project.urls]
+Homepage = "https://github.com/TrattyGod/DataRack-Python-Library/"
+
+[tool.setuptools.packages.find]
+include = ["datarack"]
+where = ["src"]
