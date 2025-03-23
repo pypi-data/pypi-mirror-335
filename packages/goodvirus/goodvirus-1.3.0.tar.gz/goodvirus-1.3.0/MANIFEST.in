@@ -1,0 +1,21 @@
+# Include essential documentation
+include LICENSE
+include README.md
+include SECURITY.md
+
+# Include versioning and changelog
+include goodvirus/version.txt
+include goodvirus/changelog.json
+
+# Include config files and core modules
+recursive-include goodvirus/config *.ini
+recursive-include goodvirus/core *.py
+
+# Include main daemon and logic modules
+recursive-include goodvirus *.py
+
+# Exclude unnecessary files and folders
+exclude *.pyc
+exclude __pycache__/
+exclude logs/
+exclude env/
