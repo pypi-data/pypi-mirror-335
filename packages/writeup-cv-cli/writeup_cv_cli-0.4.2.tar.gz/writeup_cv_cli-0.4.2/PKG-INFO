@@ -1,0 +1,311 @@
+Metadata-Version: 2.1
+Name: writeup-cv-cli
+Version: 0.4.2
+Summary: A command-line CV Analyzer tool that processes PDF resumes and performs analysis.
+License: MIT
+Author: Yaakov Khodorkovski
+Author-email: yaakov103@gmail.com
+Requires-Python: >=3.10,<4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Requires-Dist: fpdf2 (>=2.8.2,<3.0.0)
+Requires-Dist: google (>=3.0.0,<4.0.0)
+Requires-Dist: google-genai (>=1.3.0,<2.0.0)
+Requires-Dist: httpx (>=0.28.1,<0.29.0)
+Requires-Dist: matplotlib (>=3.10.1,<4.0.0)
+Requires-Dist: pytest (>=8.3.5,<9.0.0)
+Requires-Dist: pytest-xdist (>=3.6.1,<4.0.0)
+Requires-Dist: python-dateutil (>=2.9.0.post0,<3.0.0)
+Requires-Dist: python-dotenv (>=1.0.1,<2.0.0)
+Requires-Dist: reportlab (>=4.3.1,<5.0.0)
+Requires-Dist: requests (>=2.28.1,<3.0.0)
+Requires-Dist: rich (>=13.9.4,<14.0.0)
+Requires-Dist: toml (>=0.10.2,<0.11.0)
+Requires-Dist: typer (>=0.9.0,<0.10.0)
+Project-URL: repository, https://github.com/dolev146/writeup
+Description-Content-Type: text/markdown
+
+![image](https://github.com/user-attachments/assets/fbd23f54-9491-45b0-b75d-804f871342c7)
+
+# writeup - Software Engineering Project - 22916 2025A
+
+A brief description of what this project does and who it's for
+
+## Authors
+
+
+| Contributor | GitHub Profile |
+|------------|---------------|
+| [@dolev146](https://www.github.com/dolev146) | [GitHub](https://www.github.com/dolev146) |
+| [@shimshon21](https://www.github.com/shimshon21) | [GitHub](https://www.github.com/shimshon21) |
+| [@yakov103](https://www.github.com/yakov103) | [GitHub](https://www.github.com/yakov103) |
+
+## Phase 1: Requirements Engineering
+
+### Consult with an LLM to define ONE significant and interesting CV analysis feature.
+
+prompt : "I am a software developer developing a terminal Python app that gets a CV (curriculum vitae) PDF file as input and a text prompt from the user, for example, "Does this CV match the iOS developer?" I want to consult with you about what could be a significant and interesting analysis feature I can implement in my software. Document the feature's requirements clearly. Include acceptance criteria.
+The users of our software will be Human resources trying to find the best job applicant."
+
+### Document the feature's requirements clearly (inline).
+
+Feature Overview
+Feature Name
+Role Matching & Competency Analysis
+
+Description
+The Role Matching & Competency Analysis feature takes a PDF CV and a text prompt describing the job role (e.g., “iOS Developer” or specific requirement job post. It then analyzes the CV content for skills, experiences, and qualifications relevant to that role. The outcome is a numerical score, a list of matched competencies/keywords, and a brief explanation of why the CV might or might not be suitable.
+
+#### User Stories
+
+As an HR professional, I want to input a CV and a prompt describing the job position so that I can receive a quick assessment of how well the CV matches the role.
+As an HR professional, I want to see a breakdown of relevant skills and experiences extracted from the CV so that I can understand the candidate's strengths and areas where they might fall short.
+As an HR professional, I want a confidence or match score that summarizes the overall fit so that I can compare multiple applicants easily.
+
+#### Functional Requirements
+
+1. File Parsing & Text Extraction
+Accept PDF input via command line, extract text reliably (up to ~10 pages).
+
+2. Keyword & Competency Extraction
+Identify relevant skills using a predefined list or NLP; optionally highlight them in output.
+
+3. Scoring Mechanism
+Generate a 0-100 score based on keyword frequency, critical experience, and years of experience.
+
+#### Non-Functional Requirements
+
+1. Reliability
+The system should reliably parse PDFs with standard text. If the PDF is scanned or image-based, the system may return an error or a warning unless Optical Character Recognition (OCR) is implemented.
+
+### Include acceptance criteria (inline)
+
+Acceptance Criteria
+CV Input & Prompt Capture
+
+**Given a valid PDF file path and a relevant prompt,
+when the user runs the software in the terminal,
+then the software extracts text from the PDF and processes the prompt without error.**
+
+#### Analysis & Scoring
+
+Given a valid PDF that includes skills relevant to the prompt (e.g., iOS development skills) and a prompt “Does this CV match iOS developer?”,
+when the user runs the analysis,
+then the system outputs:
+A match score between 0 and 100,
+A list of detected relevant skills (e.g., “Swift,” “Objective-C,” “UIKit”),
+A short textual summary describing the candidate’s suitability.
+No Relevant Skills Found
+
+Given a valid PDF that lacks any relevant skills for the prompt,
+when the user runs the analysis,
+then the system outputs a low match score (e.g., near 0) and indicates no relevant skills found.
+Invalid CV or Prompt
+
+Given an invalid or non-existent PDF file path,
+when the user runs the software,
+then the system provides an error message and does not crash.
+Given an empty or nonsensical prompt (e.g., “asdfghjk”),
+when the user runs the software,
+then the system warns the user that the role could not be identified and proceeds with minimal or no matching.
+Performance
+
+Given a CV of ~5 pages,
+when the user runs the analysis,
+then the system should return results within a few seconds (e.g., under 5 seconds).
+
+- Document LLM interactions (link).
+[chat](https://chatgpt.com/share/67c1dfc9-f7a8-8011-8a50-cec0dd751f5f)
+
+## Phase 2: Architecture
+
+### Define command-line interface specification (inline).
+Cli commends:
+***writeup evaluate --help***
+
+Description:
+Provide additional information of the command 'scan' as described below
+
+***writeup evaluate <RESUME_PATH> <JOB_DESCRIPTION_PATH> [OPTIONS]***
+
+Description:
+Scans the resume located at RESUME_PATH against the job description in JOB_DESCRIPTION_PATH and returns a match score, highlight relevant skills and also provide a short summary.
+
+#### Arguments
+
+***<RESUME_PATH>*** – A path or filename for the resume (PDF format).
+
+***<JOB_DESCRIPTION_PATH>*** – A path or filename for the job description (usually a TXT file).
+Options:
+
+***--api-key TEXT***
+Required API key used for accessing the Gemini or other LLM-based API.
+Example: --api-key "YOUR_API_KEY_HERE"
+
+__--output, -o TEXT__
+Path to an optional output file (e.g., JSON) for storing the results.
+Example: --output "results.json"
+
+#### Examples
+
+#### Basic usage with console output only
+writeup scan my_resume.pdf job_description.txt --api-key "123abc"
+
+#### Saving results to a JSON file
+writeup scan my_resume.pdf job_description.txt --api-key "123abc" -o output/results.json
+
+### Plan file system interactions, i.e., input/output (inline).
+### Inputs
+
+__Resume__:
+A PDF file.
+The CLI will accept a file path (resume_path) and parse or extract text from the resume.
+Job Description:
+Provided as a plain text or similar file (job_description_path).
+
+__Outputs__:
+Displays the final “match score” and a short text-based summary.
+Optional JSON file:
+If --output is specified, the CLI writes a JSON with fields such as:
+json
+Copy
+Edit
+
+```python
+{
+   class Feedback(BaseModel):
+      score: float
+      summary: str
+      skills: list[str]
+}
+```
+
+### Your feature may use additional files for input and output.
+__A .env file__ or config file could store default API_KEY and other environment variables.
+
+__A logs__ directory could store logs if needed for debugging or usage reporting.
+
+### Identify relevant third-party libraries (inline).
+__Typer__
+
+For easy and intuitive CLI creation.
+
+__Poetry__
+
+Dependency management and project packaging.
+
+__Curl__
+
+For requests
+
+__pydantic(To check)__
+
+For data validation and structured output if needed.
+
+### Define team member responsibilities (inline).
+ __TODO__
+
+
+***LLM Interactions:***
+ [chat](https://chatgpt.com/share/67c30550-6034-800a-be83-a438dda7406d)
+
+## Phase 3: Design
+### CRC: Classes, Responsibilities, and Collaborations
+#### CLIHandler (or WriteupCLI)
+__Responsibility__:
+
+Parse command-line arguments (resume path, job description path, API key, output file).
+Orchestrate the overall flow: call parser, analyzer, and output results.
+
+__Collaborations__:
+
+Uses Parser to extract text from files.
+Uses Analyzer to get the match score and summary.
+Writes results to console and/or calls a helper to save results to a file.
+
+#### Analyzer
+__Responsibility__:
+
+Accept two chunks of text (resume text, job description text).
+Possibly preprocess or clean text (removing extra whitespace, tokenizing, etc.).
+Work with the GeminiClient (or local logic) to compute a match score and a concise summary.
+
+__Collaborations__:
+
+Delegates actual similarity computation or LLM-based analysis to GeminiClient.
+Returns the final score and summary to the CLIHandler for output.
+
+#### GeminiClient (or LLMClient)
+__Responsibility__:
+
+Wrap all calls to the external Gemini API.
+Handle authentication (API keys), network requests, error handling, and response parsing.
+
+__Collaborations__:
+Called by Analyzer to generate a similarity score and short text summary (if using an API-based approach).
+Returns data back to Analyzer.
+
+#### OutputManager (optional):
+
+If the project grows in complexity, a dedicated class or function may handle JSON/CSV output formatting, logging, etc.
+Currently, the CLIHandler can handle basic output tasks directly.
+
+## Phase 4: Coding & Testing
+## Phase 5: Documentation
+
+## Demo
+
+Insert gif or link to demo
+
+## Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone <repository_url>
+   cd writeup
+   ```
+
+2. **Install dependencies with Poetry:**
+   ```bash
+   poetry install
+   ```
+
+3. **Activate the virtual environment:**
+   ```bash
+   poetry shell
+   ```
+
+## Usage
+
+After installing, you can run the CLI command as follows:
+
+```bash
+writeup scan --pdf-path path/to/cv.pdf
+```
+
+This command scans and analyzes the provided CV PDF file and outputs an analysis report.
+
+## Development
+
+- **Run Tests:**
+  ```bash
+  poetry run pytest
+  ```
+- **LLM Interactions:** Save all LLM chats in the `chats/` directory.
+
+## Screenshots
+
+![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+
+## Acknowledgements
+
+ - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
+ - [Awesome README](https://github.com/matiassingers/awesome-readme)
+ - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+
+
+
+
