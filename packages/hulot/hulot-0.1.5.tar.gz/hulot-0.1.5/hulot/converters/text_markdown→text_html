@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+# Hulot converter: text/markdown→text/html
+# © Reuben Thomas 2002-2023
+
+import sys
+import subprocess
+
+file = sys.argv[1]
+subprocess.check_call(["makepage", "-f", "footnote,nopants,noalphalist,nostyle,fencedcode", file])
