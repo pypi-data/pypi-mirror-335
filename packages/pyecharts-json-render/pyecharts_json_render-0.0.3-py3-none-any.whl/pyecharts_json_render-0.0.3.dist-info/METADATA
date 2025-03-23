@@ -1,0 +1,23 @@
+Metadata-Version: 2.1
+Name: pyecharts-json-render
+Version: 0.0.3
+Summary: A simple wrapper using pyecharts to render html from Echarts option(JSON).
+Home-page: https://github.com/forhonourlx/pyecharts_json_render
+Author: forhonourlx
+Author-email: forhonourlx@qq.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: pyecharts (<=1.5.1)
+Requires-Dist: Jinja2 (<=3.0.3)
+Requires-Dist: beautifulsoup4
+
+You can use Echarts option JSON (similar way in JavaScript) directly to make Echarts html.Usage:
+from pyecharts_json_render import render
+jsn = render.read_json_file('./TEST_JSON.json')
+render.render_html_from_ec_option_json(jsn)
+
+option = render.pyecharts_html_to_echarts_option(html)
+render.render_html_from_ec_option_json(option)
