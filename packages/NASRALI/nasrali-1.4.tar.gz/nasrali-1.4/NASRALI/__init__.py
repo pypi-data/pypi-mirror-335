@@ -1,0 +1,1 @@
+from .Devil import obfuscation, deobfuscation, generate_random_key
