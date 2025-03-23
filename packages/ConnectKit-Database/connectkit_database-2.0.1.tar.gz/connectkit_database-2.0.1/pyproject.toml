@@ -1,0 +1,85 @@
+[project]
+name = "ConnectKit-Database"
+version = "2.0.1"
+description = "Wrapper for connection to database"
+authors = [
+    { name = "RealMetamorph", email = "andr.timchuk@yandex.ru" },
+]
+keywords = [
+    "connectkit",
+    "database",
+    "postgres",
+    "postgresql",
+    "mysql",
+    "sqlite3",
+    "sqlite",
+    "mariadb",
+    "async",
+    "asyncio",
+    "sqlalchemy",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Topic :: Database :: Front-Ends",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+dependencies = [
+    "sqlalchemy>=2.0.39",
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.1",
+]
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/mtuciru/ConnectKit-Database"
+Repository = "https://github.com/mtuciru/ConnectKit-Database.git"
+
+[project.optional-dependencies]
+postgresql = [
+    "psycopg[binary]>=3.2.6",
+]
+asyncpg = [
+    "psycopg[binary]>=3.2.6",
+    "sqlalchemy[asyncio]>=2.0.39",
+]
+mysql = [
+    "mysqlclient>=2.2.7",
+]
+aiomysql = [
+    "aiomysql>=0.2.0",
+    "sqlalchemy[asyncio]>=2.0.39",
+]
+aiosqlite = [
+    "aiosqlite>=0.21.0",
+    "sqlalchemy[asyncio]>=2.0.39",
+]
+all = [
+    "ConnectKit-Database[mysql,postgresql]",
+]
+asyncall = [
+    "ConnectKit-Database[asyncpg,aiomysql,aiosqlite]",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+tests = "echo 'tests will be here'"
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.25.3",
+]
