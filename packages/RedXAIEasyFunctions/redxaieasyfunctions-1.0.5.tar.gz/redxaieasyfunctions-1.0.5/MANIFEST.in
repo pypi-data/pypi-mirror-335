@@ -1,0 +1,23 @@
+# 🔒 Exclude GitHub files and version control
+exclude .gitignore
+exclude .gitattributes
+exclude .git/*
+exclude .github/*
+exclude .vscode/*
+exclude *.zip
+
+# 🔒 Exclude secrets and private stuff
+exclude Hidden/*
+exclude Hidden/.env
+exclude *.log
+
+# 🔒 Exclude dev/build files
+exclude env/*
+exclude *.pyc
+exclude *.pyo
+exclude *.pyd
+exclude __pycache__/*
+
+
+# Ignore venv from PyPI builds
+exclude venv/*
