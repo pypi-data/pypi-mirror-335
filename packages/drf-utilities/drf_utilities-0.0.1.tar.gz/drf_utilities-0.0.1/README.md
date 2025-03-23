@@ -1,0 +1,415 @@
+Rest Framework Utils
+====================
+
+This is a utility package which currentlly supports writable nested serializers in Django Rest Framework.
+
+Installation
+============
+
+```
+pip install drf-utilities
+```
+
+Usage
+=====
+
+For example, consider the following models:
+```python
+class User(models.Model):
+    phone = models.CharField(max_length=15, blank=True, null=True)
+
+class UserDetail(models.Model):
+    user = models.OneToOneField(
+        User, 
+        related_name="user_detail", 
+        on_delete=models.RESTRICT
+    )
+    employeed_at = models.ForeignKey(
+        "users.Company", 
+        related_name="employees", 
+        null=True, 
+        blank=True, 
+        on_delete=models.CASCADE
+    )
+    projects = models.ManyToManyField(
+        "users.Project", 
+        related_name="users", 
+        blank=True
+    )
+    licenses = models.ManyToManyField(
+        "users.License", 
+        related_name="users", 
+        blank=True
+    )
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+    owner = models.ForeignKey(
+        "users.UserDetail", 
+        related_name="companies", 
+        on_delete=models.CASCADE
+    )
+
+class Certificate(models.Model):
+    user = models.ForeignKey(
+        "users.UserDetail", 
+        related_name="certificates", 
+        on_delete=models.CASCADE
+    )
+    name = models.CharField(max_length=255)
+    received_on = models.DateField()
+    expires_on = models.DateField(null=True, blank=True)
+    description = models.TextField(blank=True, null=True)
+
+class Project(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+    start_date = models.DateField()
+    end_date = models.DateField(null=True, blank=True)
+
+class License(models.Model):
+    primary_key = models.BigAutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+
+```
+
+## Create object with nested data
+Let's say we want to create a UserDetail model object and also create Company, Project
+and License model in the same API request. Create following serializers first:
+
+```python
+from rest_framework import serializers
+from rest_framework_utils.serializers import WritableNestedSerializer
+
+class CompanySerializer(WritableNestedSerializer):
+    awards = AwardSerializer(many=True)
+    class Meta:
+        model = Company
+        fields = [
+            "id",
+            "name",
+            "address",
+            "owner",
+            "awards"
+        ]
+    
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = [
+            "id",
+            "name",
+            "description",
+            "start_date",
+            "end_date",
+        ]
+
+class LicenseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = License
+        fields = [
+            "primary_key",
+            "name"
+        ]
+
+```
+
+Then create serializer for UserDetail model which extends WritableNestedSerializer
+```python
+
+class UserDetailCreateSerializer(WritableNestedSerializer):
+    employeed_at = CompanySerializer()
+    projects = ProjectSerializer(many=True)
+    licenses = LicenseSerializer(many=True)
+
+    class Meta:
+        model = UserDetail
+        fields = [
+            "id",
+            "user",
+            "employeed_at",
+            "projects",
+            "licenses"
+        ]
+```
+
+Pass input payload like below to create related objects of nested serializers:
+```
+{
+  "user": 1,
+  "employeed_at": {
+    "name": "Company Name",
+    "address": "Company address",
+    "owner": 7
+  },
+  "projects": [
+    {
+      "name": "Project Name",
+      "description": "Project Description",
+      "start_date": "2025-02-28",
+      "end_date": "2025-02-28"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "License Name"
+    }
+  ]
+}
+```
+
+This will create a Company, Project and License model objects with values provided in employeed_at, 
+projects and licenses key.
+
+If you want to link any existing company, project or license object with the newly created UserDetail object, 
+you can use following input payload:
+
+```
+{
+  "user": 3,
+  "employeed_at": {
+    "id": 1,
+    "link": true
+  },
+  "projects": [
+    {
+      "name": "Project Name",
+      "description": "Project Description",
+      "start_date": "2025-02-28",
+      "end_date": "2025-02-28"
+    },
+    {
+      "id": 12,
+      "link": true
+    }
+  ],
+  "licenses": [
+    {
+      "name": "User 3 test"
+    },
+    {
+      "primary_key": 18,
+      "link": true
+    }
+  ]
+}
+```
+Above request when completed creates UserDetail object with following data:
+- Assign Company with id 1 to the created object.
+- Create a new Project object with name "Project Name" and other provided data.
+- As second json in projects key's list contains "id" and "link" key, this request
+will also assign the Project object with id 12 to created UserDetail object.
+- Create one new License model object and assign License object with primary_key value 18 to UserDetail object.
+
+NOTE: "id" and "primary_key" are the primary key columns of database. If your
+primary key column name for respective model is different, use that as key.
+
+## Update object with nested data
+To Update UserDetail object and update Company, Project or License objects in the same request, use the following serializer:
+
+```python
+class UserDetailUpdateSerializer(WritableNestedSerializer):
+    employeed_at = CompanySerializer()
+    projects = ProjectSerializer(many=True)
+    licenses = LicenseSerializer(many=True)
+
+    class Meta:
+        model = UserDetail
+        fields = [
+            "id",
+            "employeed_at",
+            "projects",
+            "licenses"
+        ]
+```
+Pass the following as input payload to the API request:
+```
+{
+  "user": 3,
+  "employeed_at": {
+    "name": "Company Name",
+    "address": "Company Address",
+    "owner": 7
+  },
+  "projects": [
+    {
+      "name": "Project Name",
+      "description": "Project Description",
+      "start_date": "2025-02-28",
+      "end_date": "2025-02-28"
+    },
+    {
+      "id": 12,
+      "link": true
+    },
+    {
+      "id":13 ,
+      "name": "Updated Project Name",
+      "end_date": "2025-03-28"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "License Name"
+    },
+    {
+      "primary_key": 18,
+      "name": "Updated Name"
+    },
+    {
+      "primary_key": 17,
+      "link": false
+    }
+  ]
+}
+```
+Following changes will be made in UserDetail object when this request completes:
+- Create a new Company model object and assign it to the UserDetail object. If you want to set already created company, pass its primary key value pair along with "link" key and value true/false. If true, it will set employeed_at value to the object with primary key and if false, it will employeed_at to null.
+
+- Create a new project and assign it to object, assign project with provided id 12 to the object, update the project object with id 13 with provided values and assign it to UserDetail object. UserDetail object will have 3 project linked to the manyToMany field.
+
+- Create a new License object, update the License object name with primary_key 18, remove License object with primary_key 17(link=false) from ManyToMany field. 
+
+Note: Here the primary key column for Company and Project model is "id" and that of License is "primary_key". Hence, for "licenses" key, primary_key is used insted of "id". If your model's primary key column name is different, use that.
+
+Set "link" key to true/false along with primary key value to add /remove OneToOne, ForeignKey or ManyToMany field values from UserDetail object.
+
+## Ignore Nested Serializer
+If you want the class to ignore creation/updation of nested serializer data, pass the serializer field in ignore_serializer Meta option. It takes list of field names that needs to be ignored. You can write custom implementation for these fields by overriding create/update method of serializer.
+```python
+class UserDetailUpdateSerializer(WritableNestedSerializer):
+    employeed_at = CompanySerializer()
+    projects = ProjectSerializer(many=True)
+    licenses = LicenseSerializer(many=True)
+
+    class Meta:
+        model = UserDetail
+        fields = [
+            "id",
+            "employeed_at",
+            "projects",
+            "licenses"
+        ]
+        ignore_serializer=["projects"]
+```
+This serializer class will ignore data provided in projects key and not do any changes in it.
+
+## Nested Serializers with further Nested Serializer fields
+If you have serializer fields which furthur have serializer fields in them:
+1. If serializer field has many=True(For ManyToMany fields), this class does not support such serializer fields.
+2. For ForeignKey and OneToOne fields, creation and updation needs to be managed in the serializer class of that serializer field itself. You can extend the class of serializer field by WritableNestedSerializer and it will work.
+
+Consider following exaxmple:
+```python
+
+class Awards(models.Model):
+    name = models.CharField(max_length=255)
+    received_on = models.DateField()
+
+    def __str__(self):
+        return self.name
+
+
+class Company(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+    owner = models.ForeignKey(
+        "users.UserDetail", 
+        related_name="companies", 
+        on_delete=models.CASCADE
+    )
+    awards = models.ManyToManyField(
+        "users.Awards", related_name="companies", blank=True
+    )
+```
+Lets say the Company model has a ManyToMany field with Awards model.
+You can create following serializers to create/update Copany model object along with creating/updating Award models ManyToMany field.
+
+```python
+
+class CompanySerializer(WritableNestedSerializer):
+    awards = AwardSerializer(many=True)
+    class Meta:
+        model = Company
+        fields = [
+            "id",
+            "name",
+            "address",
+            "owner",
+            "awards"
+        ]
+
+class UserDetailUpdateSerializer(WritableNestedSerializer):
+    employeed_at = CompanySerializer()
+    projects = ProjectSerializer(many=True)
+    licenses = LicenseSerializer(many=True)
+
+    class Meta:
+        model = UserDetail
+        fields = [
+            "id",
+            "employeed_at",
+            "projects",
+            "licenses"
+        ]
+```
+ Pass following input payload to update UserDetail object along with Company and its Awards:
+ ```
+{
+  "employeed_at": {
+    "name": "Company Name",
+    "address": "Company Address",
+    "owner": 1,
+    "awards": [
+      {
+        "name": "Award Name",
+        "received_on": "2025-03-22"
+      },
+      {
+        "id": 1,
+        "link": true/false
+      },
+      {
+        "id": 2,
+        "name": "Updated name",
+        "received_on": "2025-03-22"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "Project Name",
+      "description": "Project Description",
+      "start_date": "2025-03-22",
+      "end_date": "2025-03-22"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "License Name"
+    }
+  ]
+}
+ ```
+This will create a new Company object, assign Company object with id 1(link=true) and update the Company object with id 2 and assign it to the created Company object and assign this created Company object to UserDetail object.
+
+Just in case if employeed_at was not a ForeignKey and a ManyToMany field in UserDetail model, and serializer would look like following:
+```python
+class UserDetailCreateSerializer(WritableNestedSerializer):
+    employeed_at = CompanySerializer(many=True) #This is not supported
+    projects = ProjectSerializer(many=True)
+    licenses = LicenseSerializer(many=True)
+
+    class Meta:
+        model = UserDetail
+        fields = [
+            "id",
+            "user",
+            "employeed_at",
+            "projects",
+            "licenses"
+        ]
+```
+This is not supported as CompanySerializer is having many=True and has furthur nested serializer field AwardSerializer.
+
