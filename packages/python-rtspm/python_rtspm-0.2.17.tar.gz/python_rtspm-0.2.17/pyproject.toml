@@ -1,0 +1,54 @@
+[tool.poetry]
+name = "python-rtspm"
+version = "0.2.17"
+description = "Python adaptation of SPM functions for real-time fMRI analysis"
+authors = ["OpenNFT Team <opennft@gmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+keywords = ["neurofeedback", "neurofeedback-training", "opennft", "spm"]
+
+classifiers = [
+    "Development Status :: 1 - Planning",
+    "Intended Audience :: Science/Research",
+    "Topic :: Software Development :: Libraries",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+]
+
+packages = [
+    { include = "rtspm" },
+]
+
+include = [
+    "src/*"
+]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+numpy = ">=1.19.2"
+scipy = ">=1.5.4"
+
+[tool.poetry.group.dev.dependencies]
+setuptools = "^77.0.3"
+pytest = "^8.3.5"
+pydicom = "^2.4.4"
+nibabel = "^3.2.1"
+pybind11 = "^2.13.6"
+
+[tool.poetry.build]
+script = "buildext.py"
+generate-setup-file = true
+
+[build-system]
+requires = [
+    "poetry-core>=1.0.0",
+    "setuptools",
+    "pybind11",
+]
+build-backend = "poetry.core.masonry.api"
