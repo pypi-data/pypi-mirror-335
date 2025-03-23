@@ -1,0 +1,80 @@
+Metadata-Version: 2.4
+Name: dxcord
+Version: 0.1.0
+Summary: Discord API Wrapper
+Home-page: https://github.com/s0rdeal/dxcord
+Author: s0rdeal
+Author-email: sordealpro@gmail.com
+License: MIT
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Libraries
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Requires-Dist: colorama
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+## CREDIT:  
+##      Created by: s0rdeal
+##      
+##      https://github.com/greg6775/Discord-Api-Endpoints/blob/master/Endpoints.md | Really good documentation for discord api endpoints
+
+## CONTACT:
+##      Discord: qdbv / s0rdeal
+##      Twitter: s0rdeal
+##      GitHub: s0rdeal
+##      Telegram : @s0rdeal
+##      
+##      Discord Server : https://discord.gg/ulq
+
+## DISCLAIMER:
+##      Some features can rate limit your account, use this at your own risk.
+
+
+
+# DXCORD BY s0rdeal
+
+# USAGE:
+
+```python
+import dxcord # Import the module
+       
+client = dxcord.Client(token='your_token_here') # Initialize the client with your token
+      
+client.GetCountry() # Get the country of the user
+
+client.GetDms() # Get the direct messages of the user
+
+client.GetGuilds() # Get the guilds of the user
+
+client.GetFriends() # Get the friends of the user
+
+client.TokenLookup() # Lookup the token of the user
+
+client.SendMessage(ChannelId=id,Message='message') # Send a message to a channel
+
+client.RemoveFriend(UserId=id) # Remove a friend
+
+client.SetLanguage(CountryCode='en-GB') # Set the language of the user ('da','de','en-GB','en-US','es-ES','fr','hr','it','lt','hu','nl','no','pl','pt-BR','ro','fi','sv-SE','vi','tr','cs','el','bg','ru','uk','th','zh-CN','ja','ko')
+
+client.SetHypesquad(house=id) # Set the hypesquad of the user (1 = Bravery, 2 = Brillance, 3 = Balance)
+
+client.BlockUser(UserId=id) # Block a user
+
+client.UnblockUser(UserId=id) # Unblock a user
+
+client.GetMessage(ChannelId=id) # Get all messages of a channel
+
+```
