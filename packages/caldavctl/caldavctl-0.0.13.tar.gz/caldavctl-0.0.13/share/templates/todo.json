@@ -1,0 +1,9 @@
+[{% for todo in todo_list %}
+{{ '    {' }}
+    "status": "{{todo.status}}",
+    "percent": {{todo.percent}},
+    "summary": "{{todo.summary}}",
+    "uid": "{{todo.uid}}",
+    "description": "{{todo.description}}"
+    {{ '}' }}{{ "," if not loop.last else "" }}
+{% endfor %}]

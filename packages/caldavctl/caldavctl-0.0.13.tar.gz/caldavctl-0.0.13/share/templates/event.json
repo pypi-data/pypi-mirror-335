@@ -1,0 +1,8 @@
+[{% for event in event_list %}
+{{ '    {' }}
+    "date": "{{event.date}}",
+    "summary": "{{event.summary}}",
+    "uid": "{{event.uid}}",
+    "description": "{{event.description}}"
+    {{ '}' }}{{ "," if not loop.last else "" }}
+{% endfor %}]

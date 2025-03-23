@@ -1,0 +1,1 @@
+{% for todo in todo_list %}{{todo.status}} {{'%3d' % todo.percent}}% {{todo.summary}}{% if show_uid %} - {{todo.uid}}{% endif %}{% if show_description %}{{newline}}{{todo.description}}{% endif %}{% endfor %}
