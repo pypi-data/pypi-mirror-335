@@ -1,0 +1,93 @@
+Metadata-Version: 2.1
+Name: python-lockana
+Version: 0.1.0
+Summary: Python wrapper for the Lockana API
+Home-page: https://github.com/NullPointerGang/Lockana-Python
+Author: FlacSy
+Author-email: flacsy.x@gmail.com
+Requires-Python: >=3.10.0
+Description-Content-Type: text/markdown
+License-File: LICENSE
+
+# Python Lockana
+
+## О проекте
+Python-Lockana это оболочка для **API [Lockana](https://github.com/NullPointerGang/Lockana)** которая предоставляет функциональность для аутентификации пользователей, управления секретами, администрирования пользователей и логирования. Этот проект реализует основные операции с API в Python и предоставляет удобный интерфейс для работы с Lockana.
+
+## Примечания
+
+1. Все операции, такие как создание пользователей или работа с секретами, требуют действующего токена, полученного через аутентификацию с TOTP.
+2. Для выполнения запросов необходимо настроить сервер Lockana с правильным URL и портом.
+
+## Функциональность
+
+- **Аутентификация**:
+  - Логин и логаут с использованием TOTP.
+  
+- **Работа с пользователями**:
+  - Создание, удаление и получение списка пользователей.
+  
+- **Работа с секретами**:
+  - Добавление, получение, обновление и удаление секретов.
+  
+- **Логирование**:
+  - Получение и удаление логов.
+
+## Установка
+
+```bash
+pip3 install python-lockana
+```
+
+### Требования
+
+- Python 3.10+
+- Библиотеки:
+  - `requests`
+  - `unittest.mock` (для тестов)
+
+
+## Использование
+
+### Пример использования клиента
+
+```python
+from lockana.client import LockanaClient
+
+if __name__ == "__main__":
+    # Инициализация клиента с логином и URL сервера
+    client = LockanaClient("PYTHON_TEST", "http://localhost:8000")
+    
+    # Аутентификация пользователя с TOTP кодом
+    client.auth_login(input("TOTP: "))
+    
+    # Добавление нового секрета
+    client.secrets_add("TEST_SECRET", "TEST_SECRET_VALUE")
+    
+    # Получение списка секретов
+    secrets = client.secrets_list()
+    print(secrets)
+    
+    # Удаление секрета
+    client.secrets_delete("TEST_SECRET")
+    
+    # Логаут пользователя
+    client.auth_logout()
+```
+
+### Методы класса `LockanaClient`
+
+- `auth_login(totp: str)`: Аутентификация пользователя с использованием TOTP.
+- `auth_logout()`: Выход из системы.
+- `secrets_add(secret_name: str, secret_value: str)`: Добавление нового секрета.
+- `secrets_list()`: Получение списка всех секретов.
+- `secrets_delete(secret_name: str)`: Удаление секрета.
+- `create_user(username: str)`: Создание нового пользователя.
+- `delete_user(username: str)`: Удаление пользователя.
+- `list_users()`: Получение списка пользователей.
+
+
+## Лицензия
+
+Этот проект распространяется под лицензией MIT. Подробности можно найти в файле [LICENSE](LICENSE).
+
