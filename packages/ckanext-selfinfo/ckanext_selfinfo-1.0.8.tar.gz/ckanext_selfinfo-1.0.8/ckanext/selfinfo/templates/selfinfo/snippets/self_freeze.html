@@ -1,0 +1,9 @@
+<button class="btn btn-primary mb-3" onclick="copyClip()">{{ _('Copy list') }}</button>
+<textarea rows="{{ data.freeze.modules|length }}" class="w-100 form-control" id="freeze-list">{{ data.freeze.modules_html }}</textarea>
+<script>
+    function copyClip() {
+        let clip = document.getElementById("freeze-list");
+        clip.select();
+        navigator.clipboard.writeText(clip.value);
+    }
+</script>
