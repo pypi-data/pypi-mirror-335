@@ -1,0 +1,22 @@
+[project]
+name = "vbumper"
+version = "0.1.0"
+description = "Comprehensive version bumper for Python projects"
+authors = [{ name = "Danny Stewart", email = "danny@stewart.cc" }]
+urls = { repository = "https://github.com/dannystewart/dsbin" }
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "dsbase (>=0.2.2,<0.3.0)",
+]
+
+[tool.poetry.group.dev.dependencies]
+mypy = ">=1.15.0"
+ruff = ">=0.11.2"
+
+[build-system]
+requires = ["poetry-core>=2.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+vbumper = "vbumper.main:main"
