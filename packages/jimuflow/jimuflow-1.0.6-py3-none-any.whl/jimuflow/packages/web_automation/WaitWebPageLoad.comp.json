@@ -1,0 +1,52 @@
+{
+  "name": "WaitWebPageLoad",
+  "displayName": "Wait for Web Page to Load",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.web_automation.WaitWebPageLoadComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Web Automation",
+  "secondaryCategory": "Web Page Operation",
+  "sortNo": 5,
+  "helpUrl": "commands/WebAutomation/WebPageOperation/wait_web_page_load/",
+  "variables": [
+    {
+      "name": "webPage",
+      "type": "WebPage",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Web Page Object",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "loadTimeout",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Loading Timeout(seconds)",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "loadTimeoutAction",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "stop_loading",
+      "uiConfig": {
+        "label": "Action after Loading Timeout",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "stop_loading",
+            "label": "stop loading the web page"
+          },
+          {
+            "value": "throw_error",
+            "label": "execute error handling"
+          }
+        ]
+      }
+    }
+  ]
+}

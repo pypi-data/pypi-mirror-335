@@ -1,0 +1,169 @@
+{
+  "name": "ScrollWebPage",
+  "displayName": "Scroll Web Page",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.web_automation.ScrollWebPageComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Web Automation",
+  "secondaryCategory": "Web Page Operation",
+  "sortNo": 6,
+  "helpUrl": "commands/WebAutomation/WebPageOperation/scroll_web_page/",
+  "variables": [
+    {
+      "name": "webPage",
+      "type": "WebPage",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Web Page Object",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "scrollOnElement",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Scroll on Element",
+        "inputType": "check_box",
+        "required": false
+      }
+    },
+    {
+      "name": "scrollElement",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Scroll Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.web_element_selector.WebElementEdit",
+        "dependsOn": {
+          "variableName": "scrollOnElement",
+          "operator": "==",
+          "value": true
+        }
+      }
+    },
+    {
+      "name": "findAncestorWhenElementIsNotScrollable",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": true,
+      "uiConfig": {
+        "label": "Find Scrollable Element Upward When the Element is Not Scrollable",
+        "inputType": "check_box",
+        "required": false,
+        "dependsOn": {
+          "variableName": "scrollOnElement",
+          "operator": "==",
+          "value": true
+        }
+      }
+    },
+    {
+      "name": "scrollType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "top",
+      "uiConfig": {
+        "label": "Scroll Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "top",
+            "label": "Scroll to the top"
+          },
+          {
+            "value": "bottom",
+            "label": "Scroll to the bottom"
+          },
+          {
+            "value": "page",
+            "label": "Scroll one screen"
+          },
+          {
+            "value": "element",
+            "label": "Scroll to a specified element"
+          }
+        ]
+      }
+    },
+    {
+      "name": "scrollTimes",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"1\"",
+      "uiConfig": {
+        "label": "Number of Scrolls",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "scrollType",
+          "operator": "==",
+          "value": "page"
+        }
+      }
+    },
+    {
+      "name": "scrollInterval",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"2\"",
+      "uiConfig": {
+        "label": "Scroll Interval(seconds)",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "scrollType",
+          "operator": "==",
+          "value": "page"
+        }
+      }
+    },
+    {
+      "name": "scrollToElement",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Scroll to Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.web_element_selector.WebElementEdit",
+        "dependsOn": {
+          "variableName": "scrollType",
+          "operator": "==",
+          "value": "element"
+        }
+      }
+    },
+    {
+      "name": "scrollBehavior",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "smooth",
+      "uiConfig": {
+        "label": "Scroll behavior",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "smooth",
+            "label": "Smooth scrolling"
+          },
+          {
+            "value": "instant",
+            "label": "Instant scrolling"
+          }
+        ]
+      }
+    },
+    {
+      "name": "waitTime",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Waiting Time(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    }
+  ]
+}

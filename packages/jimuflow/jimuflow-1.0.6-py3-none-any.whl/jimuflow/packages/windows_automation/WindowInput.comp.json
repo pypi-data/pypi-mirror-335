@@ -1,0 +1,174 @@
+{
+  "name": "WindowInput",
+  "displayName": "Window Input",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.windows_automation.WindowInputComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Windows Automation",
+  "secondaryCategory": "Window Element Operation",
+  "sortNo": 1,
+  "helpUrl": "commands/WindowsAutomation/WindowElementOperation/window_input/",
+  "platforms": [
+    "windows"
+  ],
+  "variables": [
+    {
+      "name": "elementUri",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Window Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.window_element_selector.WindowElementEdit"
+      }
+    },
+    {
+      "name": "content",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Input Content",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "append",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Append input",
+        "inputType": "check_box",
+        "required": false
+      }
+    },
+    {
+      "name": "pressEnterAfterInput",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Press enter key after input completion",
+        "inputType": "check_box",
+        "required": false
+      }
+    },
+    {
+      "name": "pressTabAfterInput",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Press tab key after input completion",
+        "inputType": "check_box",
+        "required": false
+      }
+    },
+    {
+      "name": "inputMethod",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "simulate",
+      "uiConfig": {
+        "label": "Input Method",
+        "group": "advanced",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "simulate",
+            "label": "Simulate human input"
+          },
+          {
+            "value": "automate",
+            "label": "Automated interface input"
+          }
+        ]
+      }
+    },
+    {
+      "name": "includeShortcutKeys",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "The input content contains shortcut keys",
+        "group": "advanced",
+        "inputType": "check_box",
+        "required": false,
+        "dependsOn": {
+          "variableName": "inputMethod",
+          "operator": "==",
+          "value": "simulate"
+        }
+      }
+    },
+    {
+      "name": "clickBeforeInput",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": true,
+      "uiConfig": {
+        "label": "Click element before input",
+        "group": "advanced",
+        "inputType": "check_box",
+        "required": false,
+        "dependsOn": {
+          "variableName": "inputMethod",
+          "operator": "==",
+          "value": "simulate"
+        }
+      }
+    },
+    {
+      "name": "inputInterval",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"100\"",
+      "uiConfig": {
+        "label": "Input Interval(milliseconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "inputMethod",
+          "operator": "==",
+          "value": "simulate"
+        }
+      }
+    },
+    {
+      "name": "delayAfterFocus",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"1\"",
+      "uiConfig": {
+        "label": "Delay input after getting focus(seconds)",
+        "group": "advanced",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "delayAfterAction",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"0\"",
+      "uiConfig": {
+        "label": "Delay After Action(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    },
+    {
+      "name": "waitTime",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Waiting Time(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    }
+  ]
+}

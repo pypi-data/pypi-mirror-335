@@ -1,0 +1,107 @@
+{
+  "name": "ReplaceText",
+  "displayName": "Replace Text",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.core.ReplaceTextComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Data Process",
+  "secondaryCategory": "Text Operation",
+  "sortNo": 5,
+  "helpUrl": "commands/DataProcess/TextOperation/replace_text/",
+  "variables": [
+    {
+      "name": "originalText",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Original Text",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "replaceType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "text",
+      "uiConfig": {
+        "label": "Replacement Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "text",
+            "label": "Text replacement"
+          },
+          {
+            "value": "regex",
+            "label": "Regular expression replacement"
+          }
+        ]
+      }
+    },
+    {
+      "name": "textToReplace",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Text to Replace",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "replaceType",
+          "operator": "==",
+          "value": "text"
+        }
+      }
+    },
+    {
+      "name": "regexToReplace",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Regular Expression to Replace",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "replaceType",
+          "operator": "==",
+          "value": "regex"
+        }
+      }
+    },
+    {
+      "name": "replaceFirstMatch",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Replace only the first match",
+        "inputType": "check_box"
+      }
+    },
+    {
+      "name": "ignoreCase",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Ignore case",
+        "inputType": "check_box"
+      }
+    },
+    {
+      "name": "replacementText",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Replacement Text",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "result",
+      "type": "text",
+      "direction": "OUT",
+      "uiConfig": {
+        "label": "Result"
+      }
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "name": "RenameFile",
+  "displayName": "Rename File",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.core.RenameFileComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Operating System",
+  "sortNo": 9,
+  "helpUrl": "commands/OperatingSystem/rename_file/",
+  "variables": [
+    {
+      "name": "filePath",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "File Path",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.file_path_editor.OpenFilePathEdit",
+        "inputValueType": "expression"
+      }
+    },
+    {
+      "name": "newFilename",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "New File Name",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "actionWhenExists",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "cancel",
+      "uiConfig": {
+        "label": "Action if Exists",
+        "inputType": "combo_box",
+        "required": false,
+        "options": [
+          {
+            "value": "cancel",
+            "label": "Cancel the rename operation"
+          },
+          {
+            "value": "overwrite",
+            "label": "Overwrite"
+          }
+        ]
+      }
+    },
+    {
+      "name": "newFilePath",
+      "type": "text",
+      "direction": "OUT",
+      "uiConfig": {
+        "label": "New File Path"
+      }
+    }
+  ]
+}
