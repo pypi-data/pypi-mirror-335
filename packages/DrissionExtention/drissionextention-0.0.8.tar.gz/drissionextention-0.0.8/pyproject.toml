@@ -1,0 +1,24 @@
+[project]
+name = "DrissionExtention"
+version = "0.0.8"
+authors = [
+  { name="MouseRider", email="pyu@bapi.eu.org" },
+]
+dependencies =[
+    "DrissionPage>=4.1.0.0b19"
+]
+description = "Extension for DrissionPage"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+
+# 构建后端，默认为 Hatchling
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+[tool.hatch.build.targets.wheel]
+packages = ["DrissionExtention"]
