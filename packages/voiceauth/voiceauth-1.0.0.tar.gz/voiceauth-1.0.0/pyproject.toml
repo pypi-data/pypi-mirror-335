@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "voiceauth"
+description = "AI Voice Detection System"
+readme = "VoiceAuth/README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+dynamic = ["version", "dependencies"]
+
+[project.urls]
+"Homepage" = "https://github.com/zohaiblazuli/VoiceAuth"
+"Bug Tracker" = "https://github.com/zohaiblazuli/VoiceAuth/issues"
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.dynamic]
+version = {attr = "VoiceAuth.__version__"}
+dependencies = {file = ["VoiceAuth/requirements.txt"]}
+
+[project.scripts]
+voiceauth = "VoiceAuth.run_voiceauth:main" 
