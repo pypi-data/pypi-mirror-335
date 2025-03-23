@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "logmd"
+version = "0.1.34"
+description = "Log MD trajectories. "
+authors = [
+  "Alexander Mathiasen <alexander.mathiasen@gmail.com>",
+  "Frederik Hvilshoj <fhvilshoj@gmail.com>",
+]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+ase = "^3.24.0"
+httpx = "^0.28.1"
+tqdm = "^4.67.1"
+openmm = "^8.2.0"
+typer = "^0.15.2"
+pydantic = "^2.10.6"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.9.9"
+mypy = "^1.15.0"
+types-tqdm = "^4.67.0.20250301"
+
+[tool.poetry.scripts]
+logmd = "logmd.cli.main:app"
+
+[tool.ruff]
+exclude = ["demos"]
+
+[tool.codespell]
+builtin = "clear,rare,informal,usage,code,names"
+ignore-words-list = "adn,master,uint,wrod"
+skip="*.pdb,logmd/constants.py,poetry.lock"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
