@@ -1,0 +1,345 @@
+from collections.abc import Hashable
+import contextlib
+import copy
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Generic,
+    MutableMapping,
+    Optional,
+    Sequence,
+    Set,
+    TypeVar,
+    Union,
+    overload,
+)
+import weakref
+
+from . import exceptions, operations, records, utils
+
+if TYPE_CHECKING:
+    import mincepy
+
+IdT = TypeVar("IdT", bound=Hashable)
+
+
+class LiveObjects(Generic[IdT]):
+    """A container for storing live objects"""
+
+    def __init__(self):
+        # Live object -> data records
+        self._records: MutableMapping[object, "mincepy.DataRecord"] = utils.WeakObjectIdDict[
+            "mincepy.DataRecord"
+        ]()
+
+        # Obj id -> (weak) object
+        self._objects: MutableMapping[IdT, object] = weakref.WeakValueDictionary()
+
+    def __str__(self):
+        return f"{len(self._objects)} live"
+
+    def __contains__(self, item: object):
+        """Determine if an object instance is in this live objects container"""
+        return item in self._records
+
+    def insert(self, obj: object, record: "mincepy.DataRecord"):
+        self._records[obj] = record
+        self._objects[record.obj_id] = obj
+
+    def update(self, live_objects: "LiveObjects"):
+        """Like a dictionary update, take the given live objects container and absorb it into
+        ourselves overwriting any existing values and incorporating any new"""
+        # pylint: disable=protected-access
+        self._records.update(live_objects._records)
+        self._objects.update(live_objects._objects)
+
+    def remove(self, obj_id: IdT) -> object:
+        """Remove an object from the collection.  Returns the removed object.
+
+        :raises: :class:`mincepy.NotFound` if the ID is not found
+        """
+        try:
+            return self._records.pop(self._objects.pop(obj_id))
+        except KeyError:
+            raise exceptions.NotFound(obj_id) from None
+
+    def get_record(self, obj: object) -> "mincepy.DataRecord":
+        try:
+            return self._records[obj]
+        except KeyError:
+            raise exceptions.NotFound(f"No live object found '{obj}'") from None
+
+    @overload
+    def get_object(self, identifier: "mincepy.SnapshotId[IdT]"): ...
+
+    @overload
+    def get_object(self, identifier: Any): ...
+
+    def get_object(self, identifier: Union["mincepy.SnapshotId[IdT]", IdT]):
+        """Get an object from the collection either by snapshot id or object id
+
+        :raises: :class:`mincepy.NotFound` if the ID is not found
+        """
+        if isinstance(identifier, records.SnapshotId):
+            for obj, record in self._records.items():
+                if record.snapshot_id == identifier:
+                    return obj
+            raise exceptions.NotFound(identifier)
+
+        # Must be an object id
+        try:
+            return self._objects[identifier]
+        except KeyError:
+            raise exceptions.NotFound(f"No live object with id '{identifier}'") from None
+
+    def get_snapshot_id(self, obj) -> "mincepy.SnapshotId[IdT]":
+        """Given an object, get the snapshot id"""
+        try:
+            return self._records[obj].snapshot_id
+        except KeyError:
+            raise exceptions.NotFound(obj) from None
+
+
+class RollbackTransaction(Exception):
+    pass
+
+
+class Transaction:
+    """A transaction object for keeping track of actions performed in a transaction that will be
+    committed at the end.
+
+    A transaction has no interaction with the database and simply stores a transient state.  For
+    this reason things like constrains are not enforced and database queries will not reflect
+    mutations performed within the transaction (only upon commit).
+    """
+
+    # pylint: disable=too-many-public-methods
+
+    def __init__(self):
+        # Records staged for saving to the archive
+        self._staged: list[operations.Operation] = []
+
+        self._deleted = set()  # A set of deleted obj ids
+
+        self._live_objects = LiveObjects()
+        # Snapshot id -> obj for objects currently being saved
+        self._in_progress_cache: dict["mincepy.SnapshotId", object] = {}
+
+        # Snapshots: snapshot id -> obj
+        self._snapshots: dict["mincepy.SnapshotId", Any] = {}
+        # Maps from object id -> metadata dictionary
+        self._metas: dict[Any, dict] = {}
+
+    def __str__(self):
+        return (
+            f"{self._live_objects}, "
+            f"{len(self._in_progress_cache)} live ref(s), "
+            f"{len(self._snapshots)} snapshots, "
+            f"{len(self._staged)} staged"
+        )
+
+    @property
+    def live_objects(self) -> LiveObjects:
+        return self._live_objects
+
+    @property
+    def deleted(self) -> Set:
+        return self._deleted
+
+    @property
+    def snapshots(self):
+        return self._snapshots
+
+    @property
+    def metas(self) -> dict:
+        return self._metas
+
+    # region LiveObjects
+
+    def insert_live_object(self, obj, record: "mincepy.DataRecord"):
+        """Insert a live object along with an up-to-date record into the transaction"""
+        if self.is_deleted(record.obj_id):
+            raise ValueError(f"Object with id '{record.obj_id}' has already been deleted!")
+
+        sid = record.snapshot_id
+        if sid in self._in_progress_cache:
+            assert self._in_progress_cache[sid] is obj
+
+        self._live_objects.insert(obj, record)
+
+    @contextlib.contextmanager
+    def prepare_for_saving(self, snapshot_id: "mincepy.SnapshotId", obj):
+        """Insert a snapshot reference for an object into the transaction"""
+        self._in_progress_cache[snapshot_id] = obj
+        try:
+            yield
+        except Exception:  # Need this for the 'else' pylint: disable=try-except-raise
+            raise
+        else:
+            if self._live_objects.get_snapshot_id(obj) != snapshot_id:
+                raise RuntimeError(
+                    f"Problem saving object with snapshot id '{snapshot_id}', "
+                    "the snapshot id saved does not match that given"
+                )
+        finally:
+            del self._in_progress_cache[snapshot_id]
+
+    @overload
+    def get_live_object(self, identifier: "mincepy.SnapshotId") -> object: ...
+
+    @overload
+    def get_live_object(self, identifier: Any) -> object: ...
+
+    def get_live_object(self, identifier: Union["mincepy.SnapshotId", Any]) -> object:
+        if isinstance(identifier, records.SnapshotId):
+            self._ensure_not_deleted(identifier.obj_id)
+            try:
+                return self._in_progress_cache[identifier]
+            except KeyError:
+                return self._live_objects.get_object(identifier)
+
+        # Must be an object id
+        self._ensure_not_deleted(identifier)
+        return self._live_objects.get_object(identifier)
+
+    def get_record_for_live_object(self, obj) -> "mincepy.DataRecord":
+        return self._live_objects.get_record(obj)
+
+    def get_snapshot_id_for_live_object(self, obj) -> "mincepy.SnapshotId":
+        for snapshot_id, cached_obj in self._in_progress_cache.items():
+            if obj is cached_obj:
+                return snapshot_id
+
+        return self._live_objects.get_snapshot_id(obj)
+
+    def delete(self, obj_id):
+        """Mark an object as deleted"""
+        try:
+            self._live_objects.remove(obj_id)
+        except exceptions.NotFound:
+            pass
+
+        self.set_meta(obj_id, None)
+        self._deleted.add(obj_id)
+
+    def is_deleted(self, obj_id):
+        return obj_id in self.deleted
+
+    # endregion LiveObjects
+
+    # region meta
+
+    def set_meta(self, obj_id, meta: Optional[dict]):
+        """Set an object's metadata.  Can pass None to unset."""
+        self._ensure_not_deleted(obj_id)
+        self._metas[obj_id] = copy.deepcopy(meta)
+
+    def get_meta(self, obj_id) -> dict:
+        """Get an object's metadata.
+        If the returned metadata is None then it means the user has set this metadata to be removed.
+
+        :raise exceptions.NotFound: if not metadata information for the object is contained in this
+            transaction.
+        """
+        self._ensure_not_deleted(obj_id)
+        try:
+            return self._metas[obj_id]
+        except KeyError:
+            raise exceptions.NotFound from None
+
+    # endregion
+
+    def insert_snapshot(self, obj, snapshot_id):
+        self._snapshots[snapshot_id] = obj
+
+    def get_snapshot(self, snapshot_id):
+        try:
+            return self._snapshots[snapshot_id]
+        except KeyError:
+            raise exceptions.NotFound(f"No snapshot with id '{snapshot_id}' found") from None
+
+    def stage(self, op: operations.Operation):  # pylint: disable=invalid-name
+        """Stage an operation to be carried out on completion of this transaction"""
+        self._staged.append(op)
+
+    @property
+    def staged(self) -> Sequence[operations.Operation]:
+        """The list of records that were staged during this transaction"""
+        return self._staged
+
+    @contextlib.contextmanager
+    def nested(self):
+        nested = NestedTransaction(self)
+        try:
+            yield nested
+        except RollbackTransaction:
+            pass
+        else:
+            # Update our transaction with the nested
+            self._update(nested)
+
+    def _update(self, transaction: "Transaction"):
+        """Absorb a nested transaction into this one, done at the end of a nested context"""
+        # pylint: disable=protected-access
+        self._live_objects.update(transaction.live_objects)
+        self._snapshots.update(transaction.snapshots)
+        self._in_progress_cache.update(transaction._in_progress_cache)
+        self._staged.extend(transaction.staged)
+        self._metas.update(transaction.metas)
+        for deleted in transaction.deleted:
+            self.delete(deleted)
+
+    @staticmethod
+    def rollback():
+        raise RollbackTransaction
+
+    def _ensure_not_deleted(self, obj_id):
+        """Make sure that an object id has not been deleted in this transaction.  Raises an
+        ObjectDeleted exception if so."""
+        if self.is_deleted(obj_id):
+            raise exceptions.ObjectDeleted(obj_id)
+
+
+class NestedTransaction(Transaction):
+    def __init__(self, parent: Transaction):
+        super().__init__()
+        self._parent = parent
+
+    def __str__(self):
+        return f"{super().__str__()} (parent: {self._parent})"
+
+    def get_live_object(self, identifier) -> object:
+        try:
+            return super().get_live_object(identifier)
+        except exceptions.NotFound:
+            return self._parent.get_live_object(identifier)
+
+    def get_snapshot_id_for_live_object(self, obj):
+        try:
+            return super().get_snapshot_id_for_live_object(obj)
+        except exceptions.NotFound:
+            return self._parent.get_snapshot_id_for_live_object(obj)
+
+    def get_record_for_live_object(self, obj):
+        try:
+            return super().get_record_for_live_object(obj)
+        except exceptions.NotFound:
+            return self._parent.get_record_for_live_object(obj)
+
+    def get_snapshot(self, snapshot_id):
+        try:
+            return super().get_snapshot(snapshot_id)
+        except exceptions.NotFound:
+            return self._parent.get_snapshot(snapshot_id)
+
+    def get_meta(self, obj_id) -> dict:
+        try:
+            return super().get_meta(obj_id)
+        except exceptions.NotFound:
+            return self._parent.get_meta(obj_id)
+
+    def is_deleted(self, obj_id):
+        if obj_id in self.deleted:
+            return True
+
+        return self._parent.is_deleted(obj_id)
