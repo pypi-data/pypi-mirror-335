@@ -1,0 +1,12 @@
+include LICENSE
+include README.md
+include SECURITY.md
+include goodvirus/version.txt
+include goodvirus/changelog.json
+recursive-include goodvirus/config *.ini
+recursive-include goodvirus/core *.py
+
+# Exclude things
+exclude env/
+exclude logs/
+exclude *.pyc
