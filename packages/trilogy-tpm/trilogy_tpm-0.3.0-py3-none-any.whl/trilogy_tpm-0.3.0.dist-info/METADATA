@@ -1,0 +1,221 @@
+Metadata-Version: 2.4
+Name: trilogy-tpm
+Version: 0.3.0
+Summary: A command-line tool for interacting with GitHub repositories, Google Drive documents, AWS services, Jira, and Notion
+Home-page: https://github.com/trilogy-group/tpm-cli
+Author: Technical Project Managers
+Author-email: dschwartz@trilogy.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.0
+Requires-Dist: tabulate>=0.8.7
+Requires-Dist: google-api-python-client>=2.0.0
+Requires-Dist: google-auth-httplib2>=0.1.0
+Requires-Dist: google-auth-oauthlib>=0.4.2
+Requires-Dist: markdown>=3.3.4
+Requires-Dist: beautifulsoup4>=4.9.3
+Requires-Dist: boto3>=1.18.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: jira>=3.0.0
+Requires-Dist: rich>=10.0.0
+Requires-Dist: tqdm>=4.60.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# TPM CLI
+
+A command-line tool for Technical Project Managers to interact with GitHub repositories, Google Drive documents, and AWS services.
+
+## Installation
+
+```bash
+pip install tpm-cli
+```
+
+## Features
+
+- **GitHub Repository Management**: Search for repositories, get repository information.
+- **Google Drive Integration**: List, get, and search Google Drive documents.
+- **AWS CLI Integration**: Run AWS CLI commands with assumed role credentials, manage configuration, and view CloudWatch logs.
+
+## Usage
+
+### GitHub Repositories
+
+```bash
+# Search for repositories
+tpm repo "search query" --org "organization"
+
+# Get repository information
+tpm repo "exact-repo-name" --org "organization"
+
+# Output to file
+tpm repo "search query" --output "output.md"
+```
+
+### Google Drive
+
+```bash
+# List Google Drive files
+tpm google list --query "search query"
+tpm google list --folder "folder-id"
+
+# Get a Google Drive document
+tpm google get "document-id" --format md
+tpm google get "https://docs.google.com/document/d/..." --output "output.md"
+
+# Search within a Google Drive document
+tpm google search "document-id" "search query"
+```
+
+### AWS
+
+```bash
+# Run AWS CLI commands with assumed role credentials
+tpm aws run -a 123456789012 s3 ls
+tpm aws run -a 123456789012 -r CustomRoleName ec2 describe-instances
+tpm aws run s3 ls  # Uses default target account if set during setup
+
+# Configure default settings
+tpm aws config
+tpm aws config --set-role CustomRoleName
+tpm aws config --set-source-profile my-profile
+
+# Show recently used accounts
+tpm aws recent
+
+# Quick setup for SaaS and target accounts
+tpm aws setup -s 123456789012 -t 987654321098
+tpm aws setup -s 123456789012  # Set up with just SaaS account
+
+# Get logs from CloudWatch Logs
+tpm aws logs /aws/lambda/my-function
+tpm aws logs /aws/lambda/my-function --start-time 2023-01-01T00:00:00 --end-time 2023-01-02T00:00:00
+tpm aws logs /aws/lambda/my-function --filter-pattern "ERROR"
+```
+
+## AWS Command Details
+
+The `aws` command provides several subcommands for interacting with AWS services:
+
+### run
+
+Run AWS CLI commands with assumed role credentials.
+
+```bash
+tpm aws run [options] [AWS CLI command and arguments]
+```
+
+Options:
+- `-a, --account`: Target AWS account ID (optional if default target is set)
+- `-r, --role`: Role name to assume
+- `-s, --source-profile`: Source profile for role chaining
+- `--saas-account`: SaaS account ID for role chaining
+- `--saas-role`: SaaS role name for role chaining
+- `--debug`: Enable debug logging
+
+Examples:
+```bash
+tpm aws run -a 123456789012 s3 ls
+tpm aws run -a 123456789012 -r CustomRoleName ec2 describe-instances
+tpm aws run s3 ls  # Uses default target account if set during setup
+tpm aws run -s my-profile --saas-account 123456789012 s3 ls  # Uses role chaining
+```
+
+### config
+
+Configure default settings for AWS.
+
+```bash
+tpm aws config [options]
+```
+
+Options:
+- `-a, --account`: Target AWS account ID
+- `-r, --role`: Role name to assume
+- `--set-role`: Set default role
+- `--set-saas-role`: Set default SaaS role for role chaining
+- `--set-source-profile`: Set default source profile for role chaining
+- `--source-profile`: Source profile for role chaining
+- `--saas-account`: SaaS account ID for role chaining
+- `--debug`: Enable debug logging
+
+### recent
+
+Show recently used AWS accounts.
+
+```bash
+tpm aws recent [options]
+```
+
+Options:
+- `-a, --account`: Target AWS account ID
+- `-r, --role`: Role name to assume
+- `-s, --source-profile`: Source profile for role chaining
+- `--saas-account`: SaaS account ID for role chaining
+- `--debug`: Enable debug logging
+
+### setup
+
+Quick setup for SaaS and target accounts.
+
+```bash
+tpm aws setup [options]
+```
+
+Options:
+- `-s, --saas-account`: SaaS AWS account ID (required)
+- `-t, --target-account`: Target AWS account ID (optional)
+- `-r, --role`: Role name to assume
+- `--saas-role`: SaaS role name for role chaining
+- `--source-profile`: Source profile for role chaining
+- `--debug`: Enable debug logging
+
+### logs
+
+Get logs from CloudWatch Logs.
+
+```bash
+tpm aws logs [log-group] [options]
+```
+
+Options:
+- `-a, --account`: Target AWS account ID (optional if default target is set)
+- `-r, --role`: Role name to assume
+- `-s, --source-profile`: Source profile for role chaining
+- `--saas-account`: SaaS account ID for role chaining
+- `--saas-role`: SaaS role name for role chaining
+- `--start-time`: Start time in ISO format (YYYY-MM-DDTHH:MM:SS)
+- `--end-time`: End time in ISO format (YYYY-MM-DDTHH:MM:SS)
+- `--filter-pattern`: Filter pattern
+- `--output`: Output file path
+- `--debug`: Enable debug logging
+
+Examples:
+```bash
+tpm aws logs /aws/lambda/my-function
+tpm aws logs /aws/lambda/my-function --start-time 2023-01-01T00:00:00 --end-time 2023-01-02T00:00:00
+tpm aws logs /aws/lambda/my-function --filter-pattern "ERROR" --output logs.txt
+```
+
+## Configuration
+
+The TPM CLI stores configuration in the following locations:
+
+- GitHub token: `~/.config/github/token`
+- Google Drive credentials: `~/.tpm-cli/credentials.json`
+- AWS configuration: `~/.tpm-cli/aws-config.json`
+
+## License
+
+MIT
