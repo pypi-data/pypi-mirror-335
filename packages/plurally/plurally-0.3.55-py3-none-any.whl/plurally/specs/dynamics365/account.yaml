@@ -1,0 +1,54 @@
+info:
+  description:
+    Test API for authenticating with Microsoft Dynamics 365 using OAuth
+    2.0 Authorization Code Flow with PKCE.
+  title: Dynamics 365 API Test
+  version: 1.0.0
+openapi: 3.0.1
+paths:
+  /accounts:
+    get:
+      operationId: getAccounts
+      parameters:
+        - name: $select
+          in: query
+          required: true
+          description: "OData select expression for contacts. Supports `name,revenue`."
+          schema:
+            type: string
+            enum:
+              - name,revenue
+        - name: $filter
+          in: query
+          required: false
+          description: "OData filter expression for contacts. Supports `contains(displayName, 'value')`."
+          schema:
+            type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                properties:
+                  value:
+                    items:
+                      properties:
+                        accountid:
+                          example: 00000000-0000-0000-0000-000000000001
+                          type: string
+                        name:
+                          example: Contoso Ltd
+                          type: string
+                        revenue:
+                          example: 500000.0
+                          type: number
+                      type: object
+                    type: array
+                type: object
+          description: Successfully retrieved accounts.
+      security:
+        - plurally_dynamics365:
+            - https://orgc3a4dcf1.crm12.dynamics.com/.default
+      summary: Retrieve Accounts from Dynamics 365
+servers:
+  - url: https://orgc3a4dcf1.crm12.dynamics.com/api/data/v9.0

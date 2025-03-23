@@ -1,0 +1,449 @@
+container_id: null
+date_created: "2025-02-24T21:32:52.627029"
+desc: ""
+env_vars: {}
+flow_json:
+  _inter_subflow_run_links: {}
+  directed: true
+  graph: {}
+  id: fl-8378be84-3f40-4383-902b-b8fb16b859ba
+  links:
+    - {
+        key: compte_rendu###transcript,
+        label: Compte rendu -> transcript,
+        source: nd-806a16b4-7c25-49e3-a63c-8c4b73ee21b5,
+        src_handle: compte_rendu,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: transcript,
+      }
+    - {
+        key: clean_content###cr,
+        label: clean_content -> cr,
+        source: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        src_handle: clean_content,
+        target: nd-da872cc9-79ef-44d6-af67-3aa4d2067209,
+        tgt_handle: cr,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-b92ebef0-bad5-492d-9785-6d2c03cbda28,
+        src_handle: values,
+        target: nd-74780aeb-767b-47ca-b011-62ad25f9f4c2,
+        tgt_handle: table,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-fbf71c70-04cf-4e21-ba31-43a51cd117f0,
+        src_handle: values,
+        target: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c,
+        tgt_handle: table,
+      }
+    - {
+        key: formatted_text###vocabulary,
+        label: Formatted Text -> vocabulary,
+        source: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c,
+        src_handle: formatted_text,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: vocabulary,
+      }
+    - {
+        key: corrected_transcript###transcript,
+        label: corrected_transcript -> transcript,
+        source: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        src_handle: corrected_transcript,
+        target: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        tgt_handle: transcript,
+      }
+    - {
+        key: values###table,
+        label: Values -> Table,
+        source: nd-a4d74224-9c19-47b9-bf38-ed15ed4c148b,
+        src_handle: values,
+        target: nd-845b12d8-406e-42ec-a927-39794bb2924d,
+        tgt_handle: table,
+      }
+    - {
+        key: formatted_text###acronyms,
+        label: Formatted Text -> acronyms,
+        source: nd-845b12d8-406e-42ec-a927-39794bb2924d,
+        src_handle: formatted_text,
+        target: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54,
+        tgt_handle: acronyms,
+      }
+    - {
+        key: formatted_text###terms,
+        label: Formatted Text -> terms,
+        source: nd-845b12d8-406e-42ec-a927-39794bb2924d,
+        src_handle: formatted_text,
+        target: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe,
+        tgt_handle: terms,
+      }
+    - {
+        key: formatted_text###content,
+        label: Formatted Text -> Content,
+        source: nd-da872cc9-79ef-44d6-af67-3aa4d2067209,
+        src_handle: formatted_text,
+        target: nd-c319a4d2-8140-464a-902e-1d9416b676a3,
+        tgt_handle: content,
+      }
+  multigraph: true
+  name: ""
+  nodes:
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-806a16b4-7c25-49e3-a63c-8c4b73ee21b5
+        button_color: "#3b41cc"
+        button_on_same_row: false
+        button_text: Valider
+        form:
+          - {
+              col_span: 12,
+              is_required: true,
+              name: compte rendu,
+              placeholder: "",
+              type: text,
+            }
+        is_output_fixable: false
+        is_trigger: true
+        kls: Form
+        name: Initialisation
+        output_schema:
+          properties:
+            compte_rendu:
+              title: Compte rendu
+              type: string
+              uiSchema:
+                { ui:label: true, ui:placeholder: "", ui:widget: textarea }
+          required: [compte_rendu]
+          title: Form
+          type: object
+          uiSchema:
+            ui:grid:
+              - [compte_rendu, 12]
+        pos_x: 0.0
+        pos_y: 156.0
+        show_label: true
+        src_handles: [compte_rendu]
+        tgt_handles: []
+        use_case: true
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-e5d008cb-98d9-45d0-a639-1e9657fb4efe
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 17b0, type: Auto }
+          - { free: terms, handle_id: "1e96", type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            terms:
+              handle_id: "1e96"
+              properties: {}
+              title: terms
+              type: object
+              type-friendly: Auto (BETA)
+            transcript:
+              handle_id: 17b0
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript, terms]
+          title: InputSchema
+          type: object
+        instruct: |-
+          You are an advanced assistant designed to help a French medical clinic optimize transcriptions by correcting errors and ensuring accuracy in specific medical vocabulary and homophones.
+
+          While keeping all of the medical information intact, you should correct any errors in the transcription and redact the information so that it can be included in a letter at the attention of the patient cleanly (i.e., without any errors nor acronyms or abbreviations).
+
+          Your output should be in {{PLURALLY_OUTPUT_LANGUAGE}}.
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+
+          <terms>
+          {{terms}}
+          </terms>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Transcription
+        output_fields:
+          - { free: clean_content, handle_id: 04f2, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            clean_content:
+              { handle_id: 04f2, title: clean_content, type: string }
+          required: [clean_content]
+          title: OutputSchema
+          type: object
+        pos_x: 600.0
+        pos_y: 500.0
+        src_handles: [clean_content]
+        tgt_handles: [transcript, terms, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-b92ebef0-bad5-492d-9785-6d2c03cbda28
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Check exemples
+        pos_x: 235.5
+        pos_y: 0.0
+        range_name: Exemples
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-74780aeb-767b-47ca-b011-62ad25f9f4c2
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Check exemples
+        pos_x: 220.0
+        pos_y: 184.0
+        prefix: ""
+        separator: |2+
+
+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: |-
+          <example>
+          <report>
+          {report}
+          </report>
+          </example>
+        tgt_handles: [run, table]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-fbf71c70-04cf-4e21-ba31-43a51cd117f0
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Vocabulaire
+        pos_x: 466.5
+        pos_y: 0.0
+        range_name: Vocabulaire
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-7ef9c4d1-221c-4bb0-99c1-71788e97302c
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Table Formatter
+        pos_x: 451.0
+        pos_y: 184.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: "{Vocabulaire}"
+        tgt_handles: [run, table]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-2e699a47-f3d2-44e3-b1a4-e4aeb7dcdc54
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 8c56, type: Auto }
+          - { free: vocabulary, handle_id: 50fb, type: Auto }
+          - { free: acronyms, handle_id: 1a4a, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            acronyms:
+              handle_id: 1a4a
+              properties: {}
+              title: acronyms
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 8c56
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+            vocabulary:
+              handle_id: 50fb
+              properties: {}
+              title: vocabulary
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript, vocabulary, acronyms]
+          title: InputSchema
+          type: object
+        instruct: |-
+          You are a helpful assistant for an medical clinic.
+
+          <task>
+          Your task is to correct the transcript by using the given medical vocabulary, a list of acronyms and the medical vocabulary that you know.
+          </task>
+
+          Your output should be in {{PLURALLY_OUTPUT_LANGUAGE}}.
+
+          <transcript>
+          {{transcript}}
+          </transcript>
+
+          <vocabulary>
+          {{vocabulary|tojson}}
+          </vocabulary>
+
+          <acronyms>
+          {{acronyms|tojson}}
+          </acronyms>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Acronym understanding
+        output_fields:
+          - { free: corrected_transcript, handle_id: fbc7, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            corrected_transcript:
+              { handle_id: fbc7, title: corrected_transcript, type: string }
+          required: [corrected_transcript]
+          title: OutputSchema
+          type: object
+        pos_x: 441.5
+        pos_y: 346.0
+        src_handles: [corrected_transcript]
+        tgt_handles: [transcript, acronyms, run, vocabulary]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-a4d74224-9c19-47b9-bf38-ed15ed4c148b
+        is_output_fixable: false
+        is_trigger: false
+        kls: SheetsRead
+        name: Acronyms
+        pos_x: 697.5
+        pos_y: 0.0
+        range_name: Acronymes
+        sheet_id: 1HudnqYsNZTeV5_ESxDe_JuXVL9MHaYuxlNDlcIzh1vg
+        src_handles: [values]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-845b12d8-406e-42ec-a927-39794bb2924d
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatTable
+        name: Acronyms
+        pos_x: 682.0
+        pos_y: 184.0
+        prefix: ""
+        separator: |2+
+
+        src_handles: [formatted_text]
+        suffix: ""
+        template: |-
+          Term: {Terme}
+          Meaning: {Signification}
+        tgt_handles: [run, table]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-c319a4d2-8140-464a-902e-1d9416b676a3
+        is_hidden: false
+        is_output_fixable: false
+        is_trigger: false
+        key: report
+        kls: MarkdownOutput
+        name: MarkdownOutput
+        pos_x: 560.0
+        pos_y: 860.0
+        src_handles: []
+        tgt_handles: [previous_content, content, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-da872cc9-79ef-44d6-af67-3aa4d2067209
+        input_schema:
+          additionalProperties: false
+          properties:
+            cr:
+              anyOf:
+                - {}
+                - { type: "null" }
+              default: null
+              title: cr
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: FormatJinja
+        name: FormatJinja
+        pos_x: 580.0
+        pos_y: 660.0
+        src_handles: [formatted_text]
+        template: |-
+          ![][image1]
+
+          | Dr Paul AIT GHEZALA  RPPS : XXXXX \- ADELI : XXXXXX  98 Rue de Hochfelden \- 67200 STRASBOURG  Tél : 03 88 75 75 75 \- Fax : 03 88 36 11 36  sos.medecin-67@medical67.apicrypt.org |
+          | :---- |
+
+          Médecin traitant : NC
+
+          Cher confrère,
+
+          Votre patiente LASTNAME Firstname, AGE ans, a consulté SOS Médecins ce 15 février 2025\.
+
+          CONSTANTES, DIAGNOSTIC PROBABLE, ACTE, EXAMEN
+
+          {{cr}}
+
+          [image1]: <data:image/png;base64,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>
+        tgt_handles: [run, cr]
+id: 8f01e72f-ba7b-4c9d-8fe3-280707345353
+is_running: false
+last_exec_dt: null
+last_updated: "2025-02-25T08:50:55.745929"
+logo: https://sosmedecins66.fr/wp-content/uploads/2024/09/sigle-sos-bleu.webp
+name: Lettre médecin traitant
+org_id: 98cc231e-32a6-40e7-8dca-30ef3b34e9fb
+owner_id: 83e1fa8e-a5db-487f-9780-c69846b9f8ca

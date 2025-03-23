@@ -1,0 +1,1524 @@
+container_id: null
+date_created: "2025-02-02T11:51:59.093649"
+desc: ""
+env_vars: {}
+flow_json:
+  _inter_subflow_run_links:
+    nd-4713c37d-e775-42d3-82d1-333676c9ccd1: []
+    nd-5c153b43-d8b8-4446-9788-283555f1e0ec: []
+    nd-a84ee7d2-3bb8-4946-b3b6-6f1962d9657e: []
+    nd-acffeaaa-1e75-4702-a4c9-4e267af2cdfc: []
+    nd-b8c32f1c-5f3a-4a7b-926b-e5691ece7cf9: []
+    nd-bd775592-04c1-4fbf-807d-df8a4fe465d9: []
+  directed: true
+  graph: {}
+  id: fl-a4c51ae1-ad64-4237-8058-4380b5cf6779
+  links:
+    - {
+        key: intervention_sncf_records###events,
+        label: Intervention Sncf Records ->
+          events,
+        source: nd-57dc9a4f-4eda-461e-8753-3e5e3d5be1f2,
+        src_handle: intervention_sncf_records,
+        target: nd-3cabc0b8-caf1-4497-8c82-ae4c84e17bd0,
+        tgt_handle: events,
+      }
+    - {
+        key: intervention_sncf_records###events,
+        label: Intervention Sncf Records ->
+          Events,
+        source: nd-57dc9a4f-4eda-461e-8753-3e5e3d5be1f2,
+        src_handle: intervention_sncf_records,
+        target: nd-c0d8e1e7-2328-438e-a149-4663e4077e53,
+        tgt_handle: events,
+      }
+    - {
+        key: actions###actions,
+        label: Actions -> Actions,
+        source: nd-57dc9a4f-4eda-461e-8753-3e5e3d5be1f2,
+        src_handle: actions,
+        target: nd-8679f271-b525-4fc6-8a0d-bd5e797a73d5,
+        tgt_handle: actions,
+      }
+    - {
+        key: events###intervention_sncf_records,
+        label: events -> Intervention Sncf Records,
+        source: nd-9ecb6a3d-6a36-48de-8134-20f034c1150b,
+        src_handle: events,
+        target: nd-57dc9a4f-4eda-461e-8753-3e5e3d5be1f2,
+        tgt_handle: intervention_sncf_records,
+      }
+    - {
+        key: résumé###audio,
+        label: Résumé -> Audio,
+        source: nd-2c3d159d-9f8a-4ec8-a961-d0ee1c7d3294,
+        src_handle: résumé,
+        target: nd-4ca1a795-5b88-4bf6-9f59-e57a7737cb9d,
+        tgt_handle: audio,
+      }
+    - {
+        key: transcript###transcript,
+        label: Transcript -> transcript,
+        source: nd-4ca1a795-5b88-4bf6-9f59-e57a7737cb9d,
+        src_handle: transcript,
+        target: nd-a07bd8d2-7f5d-48e1-8b4b-bf512e03293c,
+        tgt_handle: transcript,
+      }
+    - {
+        key: intervention_sncf_records###existing_records,
+        label: Intervention Sncf Records
+          -> existing_records,
+        source: nd-3d88c08a-9da3-4609-9413-25eb318619e3,
+        src_handle: intervention_sncf_records,
+        target: nd-9ecb6a3d-6a36-48de-8134-20f034c1150b,
+        tgt_handle: existing_records,
+      }
+    - {
+        key: soql_filters###intervention_sncf_records,
+        label: SOQL Filters -> Intervention
+          Sncf Records,
+        source: nd-da805605-cd37-482e-9998-960aaf5a8b43,
+        src_handle: soql_filters,
+        target: nd-3d88c08a-9da3-4609-9413-25eb318619e3,
+        tgt_handle: intervention_sncf_records,
+      }
+    - {
+        key: transcript###report,
+        label: transcript -> report,
+        source: nd-a07bd8d2-7f5d-48e1-8b4b-bf512e03293c,
+        src_handle: transcript,
+        target: nd-da805605-cd37-482e-9998-960aaf5a8b43,
+        tgt_handle: report,
+      }
+    - {
+        key: transcript###report,
+        label: transcript -> report,
+        source: nd-a07bd8d2-7f5d-48e1-8b4b-bf512e03293c,
+        src_handle: transcript,
+        target: nd-9ecb6a3d-6a36-48de-8134-20f034c1150b,
+        tgt_handle: report,
+      }
+    - {
+        key: transcript###report,
+        label: transcript -> report,
+        source: nd-a07bd8d2-7f5d-48e1-8b4b-bf512e03293c,
+        src_handle: transcript,
+        target: nd-3cabc0b8-caf1-4497-8c82-ae4c84e17bd0,
+        tgt_handle: report,
+      }
+    - {
+        key: zone_records###zones,
+        label: Zone Records -> zones,
+        source: nd-6af7c31f-2cda-457e-ad3b-57c318421418,
+        src_handle: zone_records,
+        target: nd-3cabc0b8-caf1-4497-8c82-ae4c84e17bd0,
+        tgt_handle: zones,
+      }
+    - {
+        key: zone_records###zone_records,
+        label: Zone Records -> Zone Records,
+        source: nd-6af7c31f-2cda-457e-ad3b-57c318421418,
+        src_handle: zone_records,
+        target: nd-c0d8e1e7-2328-438e-a149-4663e4077e53,
+        tgt_handle: zone_records,
+      }
+    - {
+        key: actions###actions_1,
+        label: Actions -> Actions 1,
+        source: nd-46b0cf23-3934-4f79-9283-1fcd51765133,
+        src_handle: actions,
+        target: nd-8679f271-b525-4fc6-8a0d-bd5e797a73d5,
+        tgt_handle: actions_1,
+      }
+    - {
+        key: assocs###assoc_id_pairs,
+        label: assocs -> Salesforce Relationship Pairs,
+        source: nd-3cabc0b8-caf1-4497-8c82-ae4c84e17bd0,
+        src_handle: assocs,
+        target: nd-46b0cf23-3934-4f79-9283-1fcd51765133,
+        tgt_handle: assoc_id_pairs,
+      }
+    - {
+        key: output###entities,
+        label: Output -> Entities,
+        source: nd-c0d8e1e7-2328-438e-a149-4663e4077e53,
+        src_handle: output,
+        target: nd-46b0cf23-3934-4f79-9283-1fcd51765133,
+        tgt_handle: entities,
+      }
+    - {
+        key: output###actions,
+        label: Output -> Actions,
+        source: nd-8679f271-b525-4fc6-8a0d-bd5e797a73d5,
+        src_handle: output,
+        target: nd-fa917166-c5cf-491d-993b-6d61ddb8f9e7,
+        tgt_handle: actions,
+      }
+  multigraph: true
+  name: ""
+  nodes:
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-57dc9a4f-4eda-461e-8753-3e5e3d5be1f2
+        input_schema:
+          $defs:
+            SalesforceAutoEntity:
+              properties: {}
+              title: SalesforceAutoEntity
+              type: object
+          properties:
+            intervention_sncf_records:
+              default: []
+              items:
+                properties: {}
+                title: SalesforceAutoEntity
+                type: object
+              title: Intervention Sncf Records
+              type: array
+          title: SalesforceAutoInput
+          type: object
+        instance_url: https://plurally2-dev-ed.develop.my.salesforce.com
+        is_output_fixable: false
+        is_trigger: false
+        kls: SalesforceAuto
+        name: Auto Sync
+        objects_to_sync:
+          - Account_properties: Name, Website, Industry
+            AssociatedLocation_properties: ""
+            Contact_properties: Email, FirstName, LastName, Phone, Title
+            EventRelation_properties: ""
+            Event_properties: Description,DurationInMinutes,StartDateTime,Subject,Equipment_affected__c,Status_after_intervention__c,Severity__c,Intervention_type__c
+            Lead_properties: FirstName,LastName,Company,Email,Website,Title,Status,Industry,LeadSource
+            Opportunity_properties: Name,Amount,CloseDate,StageName
+            Poulailler__c_properties: Name
+            Task_properties: Subject,Status,Priority,Description,ActivityDate
+            properties: Description,DurationInMinutes,StartDateTime,Subject,Equipment_affected__c,Status_after_intervention__c,Severity__c,Intervention_type__c
+            properties_list:
+              [
+                Description,
+                DurationInMinutes,
+                StartDateTime,
+                Subject,
+                Equipment_affected__c,
+                Status_after_intervention__c,
+                Severity__c,
+                Intervention_type__c,
+              ]
+            record_type: Intervention_SNCF
+            s_object_type: Event
+            update_if_exists: update
+        output_schema:
+          $defs:
+            CrmAction:
+              properties:
+                action_type:
+                  properties:
+                    label: { title: Label, type: string }
+                    name: { title: Name, type: string }
+                  required: [name, label]
+                  title: CrmActionType
+                  type: object
+                extra:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Extra
+                icon:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Icon
+                identifier: { title: Identifier, type: string }
+                new_state:
+                  anyOf:
+                    - { type: object }
+                    - { type: "null" }
+                  default: null
+                  title: New State
+                object_type: { title: Object Type, type: string }
+                previous_state:
+                  anyOf:
+                    - { type: object }
+                    - { type: "null" }
+                  default: null
+                  title: Previous State
+                url:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  title: Url
+              required: [object_type, identifier, action_type]
+              title: CrmAction
+              type: object
+            CrmActionType:
+              properties:
+                label: { title: Label, type: string }
+                name: { title: Name, type: string }
+              required: [name, label]
+              title: CrmActionType
+              type: object
+            SalesforceAutoEntity:
+              properties: {}
+              title: SalesforceAutoEntity
+              type: object
+          properties:
+            actions:
+              default: []
+              items:
+                properties:
+                  action_type:
+                    properties:
+                      label: { title: Label, type: string }
+                      name: { title: Name, type: string }
+                    required: [name, label]
+                    title: CrmActionType
+                    type: object
+                  extra:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    title: Extra
+                  icon:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    title: Icon
+                  identifier: { title: Identifier, type: string }
+                  new_state:
+                    anyOf:
+                      - { type: object }
+                      - { type: "null" }
+                    default: null
+                    title: New State
+                  object_type: { title: Object Type, type: string }
+                  previous_state:
+                    anyOf:
+                      - { type: object }
+                      - { type: "null" }
+                    default: null
+                    title: Previous State
+                  url:
+                    anyOf:
+                      - { type: string }
+                      - { type: "null" }
+                    default: null
+                    title: Url
+                required: [object_type, identifier, action_type]
+                title: CrmAction
+                type: object
+              title: Actions
+              type: array
+            intervention_sncf_records:
+              default: []
+              items:
+                properties: {}
+                title: SalesforceAutoEntity
+                type: object
+              title: Intervention Sncf Records
+              type: array
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 118.25
+        pos_y: 860.0
+        src_handles: [actions, intervention_sncf_records]
+        tgt_handles: [intervention_sncf_records]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-9ecb6a3d-6a36-48de-8134-20f034c1150b
+        examples: |-
+          [
+             {
+                "transcript":"Corrigé la maintenance préventive pour les problèmes de rouille de 11h30 sur la zone A2, l'équipement affecté n'est pas le train, mais bien les rails avec un manque d'une soupape pour finir la maintenance, mais le statut a été non résolu.",
+                "expected_Description":"Manque d'une soupape pour finir la maintenance.",
+                "expected_Status_after_intervention__c":"NotResolved",
+                "expected_Subject": "A2 / maintenance préventive / rouille"
+             }
+          ]
+        general_info: ""
+        input_fields:
+          - { free: report, handle_id: b9bb, type: Auto }
+          - { free: existing_records, handle_id: 8eac, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            existing_records:
+              handle_id: 8eac
+              properties: {}
+              title: existing_records
+              type: object
+              type-friendly: Auto (BETA)
+            report:
+              handle_id: b9bb
+              properties: {}
+              title: report
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [report, existing_records]
+          title: InputSchema
+          type: object
+        instruct: |
+          You are helping the railway company create records for technical interventions.
+
+          <goal>
+          Given a report of technical intervention and existing interventions, create or update the relevant record for that intervention.
+          </goal>
+
+          <rules>
+              <rule>
+                  If the record is not about a correction create a new record.
+              </rule>
+              <rule>
+                  If the report is actually dictating a correction or a complement for an existing record, treat it like so, then find the existing record (in the existing_records) and update it by specifying its Id.
+              </rule>
+              <rule>
+                  In the description, include only additional information that are not specified in other fields. Remove all the content that could be giving orders (e.g. "correct this in report", "add this"). If updating, unless contradicting previous information, you should add the information to the description, rather than replace.
+              </rule>
+              <rule>
+                  If updating, do not update the start time.
+              </rule>
+              <rule>
+                  If the start of the intervention is mentioned use it for StartDateTime.
+                  Else if duration is mentioned, then compute StartDateTime by subtracting the duration from the current time, assuming the end time is now.
+                  Else set StartDateTime as the current time.
+              </rule>
+              <rule>
+                  Subject should be following the template : (zone) / (intervention type) / (what it's about in few words).
+              </rule>
+              <rule>
+                  Ensure the output is in {PLURALLY_OUTPUT_LANGUAGE}.
+              </rule>
+              <rule>
+                  Only use the provided context, when no clear information for a given field, do not try to fill it.
+              </rule>
+          </rules>
+
+          {PLURALLY_EXAMPLES}
+          {PLURALLY_GENERAL_INFO}
+
+          <report>
+          {{report}}
+          </report>
+
+          <existing_records>
+          {% for existing_record in existing_records %}
+              <existing_record>
+                  {{existing_record|tojson}}
+              </existing_record>
+          {% endfor %}
+          </existing_records>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Création des évènements
+        output_fields:
+          - { free: events, handle_id: fb00, type: Auto }
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          can-add-fields: true
+          properties:
+            events:
+              handle_id: fb00
+              properties: {}
+              title: events
+              type: object
+              type-friendly: Auto (BETA)
+          required: [events]
+          title: OutputSchema
+          type: object
+        pos_x: 96.75
+        pos_y: 726.0
+        src_handles: [events]
+        tgt_handles: [run, existing_records, report]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-2c3d159d-9f8a-4ec8-a961-d0ee1c7d3294
+        button_color: "#1c71d8"
+        button_on_same_row: false
+        button_text: Valider
+        form:
+          - {
+              col_span: 12,
+              is_required: true,
+              name: Résumé,
+              placeholder: "",
+              type: audio
+                record,
+            }
+        is_output_fixable: false
+        is_trigger: true
+        kls: Form
+        name: Transcription
+        output_schema:
+          $defs:
+            MicAudioFile:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: MicAudioFile
+              type: object
+              type-friendly: Audio
+              uiSchema:
+                ui:options: { label: false }
+          properties:
+            résumé:
+              properties:
+                content:
+                  anyOf:
+                    - { format: binary, type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The content of the audio file
+                  title: Content
+                  uiSchema: { ui:widget: hidden }
+                file:
+                  accept: audio/*
+                  is-file: true
+                  minLength: 1
+                  title: Upload audio file
+                  type: string
+                  uiExampleSchema: { ui:widget: file }
+                  uiSchema:
+                    errorMessages:
+                      { minLength: Please finish recording some audio first }
+                    ui:widget: AudioRecorderWidget
+                filename:
+                  anyOf:
+                    - { type: string }
+                    - { type: "null" }
+                  default: null
+                  description: The name of the audio file
+                  title: Filename
+                  uiSchema: { ui:widget: hidden }
+              required: [file]
+              title: Résumé
+              type: object
+              type-friendly: Record Audio
+              uiSchema: { ui:label: true, ui:placeholder: "" }
+          required: [résumé]
+          title: Form
+          type: object
+          uiSchema:
+            ui:grid:
+              - [résumé, 12]
+        pos_x: 173.0
+        pos_y: 0.0
+        show_label: true
+        src_handles: [résumé]
+        tgt_handles: []
+        use_case: false
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-4ca1a795-5b88-4bf6-9f59-e57a7737cb9d
+        is_output_fixable: false
+        is_trigger: false
+        kls: Transcript
+        language: ""
+        name: Transcription
+        pos_x: 184.0
+        pos_y: 190.0
+        src_handles: [transcript]
+        tgt_handles: [audio, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-fa917166-c5cf-491d-993b-6d61ddb8f9e7
+        is_hidden: false
+        is_output_fixable: false
+        is_trigger: false
+        key: CrmActionsOutput
+        kls: CrmActionsOutput
+        name: CrmActionsOutput
+        pos_x: 258.75
+        pos_y: 1396.0
+        src_handles: []
+        tgt_handles: [actions, run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-3d88c08a-9da3-4609-9413-25eb318619e3
+        input_schema:
+          $defs:
+            SalesforceSOQLComparisonOperatorMulti:
+              enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+              title: SalesforceSOQLComparisonOperatorMulti
+              type: string
+            SalesforceSOQLComparisonOperatorSingle:
+              enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+              title: SalesforceSOQLComparisonOperatorSingle
+              type: string
+            SalesforceSOQLFilterGroup:
+              properties:
+                filters:
+                  items:
+                    anyOf:
+                      - properties:
+                          field: { title: Field, type: string }
+                          operator:
+                            enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                            title: SalesforceSOQLComparisonOperatorSingle
+                            type: string
+                          value:
+                            anyOf:
+                              - { type: string }
+                              - { type: integer }
+                              - { type: number }
+                              - { format: date-time, type: string }
+                              - { format: date, type: string }
+                            title: Value
+                        required: [field, operator, value]
+                        title: SalesforceSOQLFilterSingle
+                        type: object
+                      - properties:
+                          field: { title: Field, type: string }
+                          operator:
+                            enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                            title: SalesforceSOQLComparisonOperatorMulti
+                            type: string
+                          values:
+                            items: { type: string }
+                            title: Values
+                            type: array
+                        required: [field, operator, values]
+                        title: SalesforceSOQLFilterMulti
+                        type: object
+                  title: Filters
+                  type: array
+                logical_operator:
+                  default: AND
+                  enum: [AND, OR, NOT]
+                  title: SalesforceSOQLLogicalOperator
+                  type: string
+              required: [filters]
+              title: SalesforceSOQLFilterGroup
+              type: object
+            SalesforceSOQLFilterMulti:
+              properties:
+                field: { title: Field, type: string }
+                operator:
+                  enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                  title: SalesforceSOQLComparisonOperatorMulti
+                  type: string
+                values:
+                  items: { type: string }
+                  title: Values
+                  type: array
+              required: [field, operator, values]
+              title: SalesforceSOQLFilterMulti
+              type: object
+            SalesforceSOQLFilterSingle:
+              properties:
+                field: { title: Field, type: string }
+                operator:
+                  enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                  title: SalesforceSOQLComparisonOperatorSingle
+                  type: string
+                value:
+                  anyOf:
+                    - { type: string }
+                    - { type: integer }
+                    - { type: number }
+                    - { format: date-time, type: string }
+                    - { format: date, type: string }
+                  title: Value
+              required: [field, operator, value]
+              title: SalesforceSOQLFilterSingle
+              type: object
+            SalesforceSOQLLogicalOperator:
+              enum: [AND, OR, NOT]
+              title: SalesforceSOQLLogicalOperator
+              type: string
+          additionalProperties: false
+          description: Selects for the Salesforce entities.
+          properties:
+            intervention_sncf_records:
+              anyOf:
+                - properties:
+                    field: { title: Field, type: string }
+                    operator:
+                      enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                      title: SalesforceSOQLComparisonOperatorSingle
+                      type: string
+                    value:
+                      anyOf:
+                        - { type: string }
+                        - { type: integer }
+                        - { type: number }
+                        - { format: date-time, type: string }
+                        - { format: date, type: string }
+                      title: Value
+                  required: [field, operator, value]
+                  title: SalesforceSOQLFilterSingle
+                  type: object
+                - properties:
+                    field: { title: Field, type: string }
+                    operator:
+                      enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                      title: SalesforceSOQLComparisonOperatorMulti
+                      type: string
+                    values:
+                      items: { type: string }
+                      title: Values
+                      type: array
+                  required: [field, operator, values]
+                  title: SalesforceSOQLFilterMulti
+                  type: object
+                - properties:
+                    filters:
+                      items:
+                        anyOf:
+                          - properties:
+                              field: { title: Field, type: string }
+                              operator:
+                                enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                                title: SalesforceSOQLComparisonOperatorSingle
+                                type: string
+                              value:
+                                anyOf:
+                                  - { type: string }
+                                  - { type: integer }
+                                  - { type: number }
+                                  - { format: date-time, type: string }
+                                  - { format: date, type: string }
+                                title: Value
+                            required: [field, operator, value]
+                            title: SalesforceSOQLFilterSingle
+                            type: object
+                          - properties:
+                              field: { title: Field, type: string }
+                              operator:
+                                enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                                title: SalesforceSOQLComparisonOperatorMulti
+                                type: string
+                              values:
+                                items: { type: string }
+                                title: Values
+                                type: array
+                            required: [field, operator, values]
+                            title: SalesforceSOQLFilterMulti
+                            type: object
+                      title: Filters
+                      type: array
+                    logical_operator:
+                      default: AND
+                      enum: [AND, OR, NOT]
+                      title: SalesforceSOQLLogicalOperator
+                      type: string
+                  required: [filters]
+                  title: SalesforceSOQLFilterGroup
+                  type: object
+                - { type: "null" }
+              default: null
+              description: Selects for Event(Record type = Intervention_SNCF)
+              title: Intervention Sncf Records
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          title: SalesforceAutoInput
+          type: object
+        instance_url: https://plurally2-dev-ed.develop.my.salesforce.com
+        is_output_fixable: true
+        is_trigger: false
+        kls: SalesforceReadAuto
+        name: Lecture des visites
+        objects_to_read:
+          - Account_properties: Name, Website, Industry
+            AssociatedLocation_properties: ""
+            Contact_properties: Email, FirstName, LastName, Phone, Title
+            EventRelation_properties: ""
+            Event_properties: Description,DurationInMinutes,Location,StartDateTime,Subject,Equipment_affected__c,Status_after_intervention__c,Severity__c,Intervention_type__c
+            Lead_properties: FirstName,LastName,Company,Email,Website,Title,Status,Industry,LeadSource
+            Opportunity_properties: Name,Amount,CloseDate,StageName
+            Poulailler__c_properties: Name
+            Task_properties: Subject,Status,Priority,Description,ActivityDate
+            properties: Description,DurationInMinutes,Location,StartDateTime,Subject,Equipment_affected__c,Status_after_intervention__c,Severity__c,Intervention_type__c
+            properties_list:
+              [
+                Description,
+                DurationInMinutes,
+                Location,
+                StartDateTime,
+                Subject,
+                Equipment_affected__c,
+                Status_after_intervention__c,
+                Severity__c,
+                Intervention_type__c,
+              ]
+            record_type: Intervention_SNCF
+            s_object_type: Event
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          properties:
+            intervention_sncf_records:
+              default: []
+              items:
+                properties: {}
+                title: Auto
+                type: object
+              title: Intervention Sncf Records
+              type: array
+          title: OutputSchema
+          type: object
+          uiSchema: { ui:field: SalesforceQuery }
+        pos_x: 0.0
+        pos_y: 592.0
+        skip_if_no_filter: true
+        src_handles: [intervention_sncf_records]
+        tgt_handles: [run, intervention_sncf_records]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-da805605-cd37-482e-9998-960aaf5a8b43
+        examples: |-
+          [
+             {
+                "report":"Intervention at 00:10",
+                "now":"2025-01-29T14:30:00+01:00",
+                "timezone":"Europe/Paris",
+                "expected_filter":{
+                   "filters":[
+                      {
+                         "field":"StartDateTime",
+                         "operator":"GREATER_THAN_OR_EQUAL",
+                         "value":"2025-01-28T23:10:00+01:00"
+                      },
+                      {
+                         "field":"StartDateTime",
+                         "operator":"LESS_THAN_OR_EQUAL",
+                         "value":"2025-01-29T01:10:00+01:00"
+                      }
+                   ],
+                   "logical_operator":"AND"
+                }
+             },
+             {
+                "report":"Intervention on 1st of March",
+                "now":"2025-01-29T14:30:00+01:00",
+                "timezone":"Europe/Paris",
+                "expected_filter":{
+                   "filters":[
+                      {
+                         "field":"StartDateTime",
+                         "operator":"GREATER_THAN_OR_EQUAL",
+                         "value":"2025-03-01T00:00:00+01:00"
+                      },
+                      {
+                         "field":"StartDateTime",
+                         "operator":"LESS_THAN_OR_EQUAL",
+                         "value":"2025-03-01T23:59:59+01:00"
+                      }
+                   ],
+                   "logical_operator":"AND"
+                }
+             }
+          ]
+        general_info: ""
+        input_fields:
+          - { free: report, handle_id: ad11, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            report:
+              handle_id: ad11
+              properties: {}
+              title: report
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [report]
+          title: InputSchema
+          type: object
+        instruct: |
+          Write the query filters to find the records related to the report.
+
+          <goal>
+          You are given a report and you must write the query to find the records that could match, i.e. that are in the relevant time window.
+          </goal>
+
+          <rules>
+              <rule>
+                  If no date / time is specified about the event in the report, then find events between  between 7 days ago and tomorrow (use datetimes).
+              </rule>
+              <rule>
+                  If a date is specified about the event in the report, then find events for that date.
+              </rule>
+              <rule>
+                  If a date and time is specified, then find events that fall in a +/- 1 hour window around that datetime, ensuring that when subtracting 1 hour, the result correctly moves to the previous day if needed, and when adding 1 hour, it correctly moves to the next day.
+              </rule>
+              <rule>
+                  If only a time is specified, assume it refers to today's date in the relevant timezone, and find events that fall in a +/- 1 hour window around today at that time, ensuring that when subtracting 1 hour, the result correctly moves to the previous day if needed, and when adding 1 hour, it correctly moves to the next day.
+              </rule>
+              <rule>
+                  If a time like 00:00 is provided without an explicit distinction (e.g., "midnight Saturday"), assume it refers to the beginning of the specified date.
+              </rule>
+              <rule>
+                  When adding 1 hour or removing 1 hour make sure to handle overlap with next or previous day properly:
+                  - For example: removing 1 hour from 2025-01-28T00:10:00+01:00 gives 2025-01-27T23:10:00+01:00).
+                  - For example: add 1 hour to 2025-01-28T23:10:00+01:00 gives 2025-01-29T00:10:00+01:00).
+              </rule>
+              <rule>
+                  Always specify the timezone in the datetimes.
+              </rule>
+          </rules>
+
+          <steps>
+              <step1>
+                  Find the lower bound datetime (make sure to handle previous day properly).
+              </step1>
+              <step2>
+                  Find the upper bound datetime (make sure to handle next day properly).
+              </step2>
+          </steps>
+
+          {PLURALLY_EXAMPLES}
+          {PLURALLY_GENERAL_INFO}
+
+          <report>
+          {{report}}
+          </report>
+        is_output_fixable: true
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Lecture des interventions
+        output_fields:
+          - { free: SOQL Filters, handle_id: 44de, type: Auto }
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          can-add-fields: true
+          properties:
+            soql_filters:
+              handle_id: 44de
+              properties: {}
+              title: SOQL Filters
+              type: object
+              type-friendly: Auto (BETA)
+          required: [soql_filters]
+          title: OutputSchema
+          type: object
+        pos_x: 12.0
+        pos_y: 458.0
+        src_handles: [soql_filters]
+        tgt_handles: [run, report]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-a07bd8d2-7f5d-48e1-8b4b-bf512e03293c
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: transcript, handle_id: 19f8, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            transcript:
+              handle_id: 19f8
+              properties: {}
+              title: transcript
+              type: object
+              type-friendly: Auto (BETA)
+          required: [transcript]
+          title: InputSchema
+          type: object
+        instruct: |
+          You are a language model that specializes in correcting transcripts for technical intervention records.
+
+          <rules>
+              <rule>
+                  Pay attention to the fact that the speaker might be giving orders to a system while dictating. E.g. "Do this", "add this", "remove that", "correct the" when looking for phonetic incoherence.
+              </rule>
+              <rule>
+                  Only make corrections if the correction is phonetically similar, indicating it’s likely a spelling mistake.
+              </rule>
+              <rule>
+                  Ensure that corrections maintain the original capitalization.
+              </rule>
+              <rule>
+                  Do not modify any other parts of the transcript.
+              </rule>
+          </rules>
+
+          {PLURALLY_EXAMPLES}
+          {PLURALLY_GENERAL_INFO}
+
+          Correct the following transcript:
+          <transcript>
+              {{ transcript }}
+          </transcript>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Transcript
+        output_fields:
+          - { free: transcript, handle_id: f299, type: Text }
+        output_schema:
+          can-add-fields: true
+          properties:
+            transcript: { handle_id: f299, title: transcript, type: string }
+          required: [transcript]
+          title: OutputSchema
+          type: object
+        pos_x: 184.0
+        pos_y: 324.0
+        src_handles: [transcript]
+        tgt_handles: [run, transcript]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-6af7c31f-2cda-457e-ad3b-57c318421418
+        input_schema:
+          $defs:
+            SalesforceSOQLComparisonOperatorMulti:
+              enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+              title: SalesforceSOQLComparisonOperatorMulti
+              type: string
+            SalesforceSOQLComparisonOperatorSingle:
+              enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+              title: SalesforceSOQLComparisonOperatorSingle
+              type: string
+            SalesforceSOQLFilterGroup:
+              properties:
+                filters:
+                  items:
+                    anyOf:
+                      - properties:
+                          field: { title: Field, type: string }
+                          operator:
+                            enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                            title: SalesforceSOQLComparisonOperatorSingle
+                            type: string
+                          value:
+                            anyOf:
+                              - { type: string }
+                              - { type: integer }
+                              - { type: number }
+                              - { format: date-time, type: string }
+                              - { format: date, type: string }
+                            title: Value
+                        required: [field, operator, value]
+                        title: SalesforceSOQLFilterSingle
+                        type: object
+                      - properties:
+                          field: { title: Field, type: string }
+                          operator:
+                            enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                            title: SalesforceSOQLComparisonOperatorMulti
+                            type: string
+                          values:
+                            items: { type: string }
+                            title: Values
+                            type: array
+                        required: [field, operator, values]
+                        title: SalesforceSOQLFilterMulti
+                        type: object
+                  title: Filters
+                  type: array
+                logical_operator:
+                  default: AND
+                  enum: [AND, OR, NOT]
+                  title: SalesforceSOQLLogicalOperator
+                  type: string
+              required: [filters]
+              title: SalesforceSOQLFilterGroup
+              type: object
+            SalesforceSOQLFilterMulti:
+              properties:
+                field: { title: Field, type: string }
+                operator:
+                  enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                  title: SalesforceSOQLComparisonOperatorMulti
+                  type: string
+                values:
+                  items: { type: string }
+                  title: Values
+                  type: array
+              required: [field, operator, values]
+              title: SalesforceSOQLFilterMulti
+              type: object
+            SalesforceSOQLFilterSingle:
+              properties:
+                field: { title: Field, type: string }
+                operator:
+                  enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                  title: SalesforceSOQLComparisonOperatorSingle
+                  type: string
+                value:
+                  anyOf:
+                    - { type: string }
+                    - { type: integer }
+                    - { type: number }
+                    - { format: date-time, type: string }
+                    - { format: date, type: string }
+                  title: Value
+              required: [field, operator, value]
+              title: SalesforceSOQLFilterSingle
+              type: object
+            SalesforceSOQLLogicalOperator:
+              enum: [AND, OR, NOT]
+              title: SalesforceSOQLLogicalOperator
+              type: string
+          additionalProperties: false
+          description: Selects for the Salesforce entities.
+          properties:
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            zone_records:
+              anyOf:
+                - properties:
+                    field: { title: Field, type: string }
+                    operator:
+                      enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                      title: SalesforceSOQLComparisonOperatorSingle
+                      type: string
+                    value:
+                      anyOf:
+                        - { type: string }
+                        - { type: integer }
+                        - { type: number }
+                        - { format: date-time, type: string }
+                        - { format: date, type: string }
+                      title: Value
+                  required: [field, operator, value]
+                  title: SalesforceSOQLFilterSingle
+                  type: object
+                - properties:
+                    field: { title: Field, type: string }
+                    operator:
+                      enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                      title: SalesforceSOQLComparisonOperatorMulti
+                      type: string
+                    values:
+                      items: { type: string }
+                      title: Values
+                      type: array
+                  required: [field, operator, values]
+                  title: SalesforceSOQLFilterMulti
+                  type: object
+                - properties:
+                    filters:
+                      items:
+                        anyOf:
+                          - properties:
+                              field: { title: Field, type: string }
+                              operator:
+                                enum: ["=", "!=", <, <=, ">", ">=", LIKE]
+                                title: SalesforceSOQLComparisonOperatorSingle
+                                type: string
+                              value:
+                                anyOf:
+                                  - { type: string }
+                                  - { type: integer }
+                                  - { type: number }
+                                  - { format: date-time, type: string }
+                                  - { format: date, type: string }
+                                title: Value
+                            required: [field, operator, value]
+                            title: SalesforceSOQLFilterSingle
+                            type: object
+                          - properties:
+                              field: { title: Field, type: string }
+                              operator:
+                                enum: [IN, NOT IN, INCLUDES, EXCLUDES]
+                                title: SalesforceSOQLComparisonOperatorMulti
+                                type: string
+                              values:
+                                items: { type: string }
+                                title: Values
+                                type: array
+                            required: [field, operator, values]
+                            title: SalesforceSOQLFilterMulti
+                            type: object
+                      title: Filters
+                      type: array
+                    logical_operator:
+                      default: AND
+                      enum: [AND, OR, NOT]
+                      title: SalesforceSOQLLogicalOperator
+                      type: string
+                  required: [filters]
+                  title: SalesforceSOQLFilterGroup
+                  type: object
+                - { type: "null" }
+              default: null
+              description: Selects for Account(Record type = Zone)
+              title: Zone Records
+          title: SalesforceAutoInput
+          type: object
+        instance_url: https://plurally2-dev-ed.develop.my.salesforce.com
+        is_output_fixable: false
+        is_trigger: false
+        kls: SalesforceReadAuto
+        name: Lecture des zones
+        objects_to_read:
+          - Account_properties: Name, Name__c
+            AssociatedLocation_properties: ""
+            Contact_properties: Email, FirstName, LastName, Phone, Title
+            EventRelation_properties: ""
+            Event_properties: Description,DurationInMinutes,Location,StartDateTime,Subject,Type
+            Lead_properties: FirstName,LastName,Company,Email,Website,Title,Status,Industry,LeadSource
+            Opportunity_properties: Name,Amount,CloseDate,StageName
+            Poulailler__c_properties: Name
+            Task_properties: Subject,Status,Priority,Description,ActivityDate
+            properties: Name, Name__c
+            properties_list: [Name, Name__c]
+            record_type: Zone
+            s_object_type: Account
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          properties:
+            zone_records:
+              default: []
+              items:
+                properties: {}
+                title: Auto
+                type: object
+              title: Zone Records
+              type: array
+          title: OutputSchema
+          type: object
+          uiSchema: { ui:field: SalesforceQuery }
+        pos_x: 452.75
+        pos_y: 860.0
+        skip_if_no_filter: false
+        src_handles: [zone_records]
+        tgt_handles: [run]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-46b0cf23-3934-4f79-9283-1fcd51765133
+        instance_url: https://plurally2-dev-ed.develop.my.salesforce.com
+        is_output_fixable: false
+        is_trigger: false
+        kls: SalesforceAssocAuto
+        name: Association
+        pos_x: 326.25
+        pos_y: 1128.0
+        src_handles: [actions]
+        tgt_handles: [entities, run, assoc_id_pairs]
+    - id:
+        PLURALLY_VERSION: 1
+        _node_id: nd-3cabc0b8-caf1-4497-8c82-ae4c84e17bd0
+        examples: ""
+        general_info: ""
+        input_fields:
+          - { free: report, handle_id: 92c1, type: Auto }
+          - { free: events, handle_id: e2e0, type: Auto }
+          - { free: zones, handle_id: fc38, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            events:
+              handle_id: e2e0
+              properties: {}
+              title: events
+              type: object
+              type-friendly: Auto (BETA)
+            report:
+              handle_id: 92c1
+              properties: {}
+              title: report
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            zones:
+              handle_id: fc38
+              properties: {}
+              title: zones
+              type: object
+              type-friendly: Auto (BETA)
+          required: [report, events, zones]
+          title: InputSchema
+          type: object
+        instruct: |-
+          Your goal is to associate the Event (Intervention SNCF) to the appropriate Zone given the report.
+
+          <rules>
+              <rule>
+                  If there are no matching zone, do not associate.
+              </rule>
+              <rule>
+                  Zone are considered to be accounts, so only use EVENT_TO_ACCOUNT association type.
+              </rule>
+          </rules>
+
+          <report>
+          {{report}}
+          </report>
+
+
+          {% for event in events %}
+          <event>
+          {{event|tojson}}
+          </event>
+          {% endfor %}
+
+          <zones>
+          {% for zone in zones %}
+          <zone>
+          {{zone|tojson}}
+          </zone>
+          {% endfor %}
+          </zones>
+        is_output_fixable: false
+        is_table: false
+        is_trigger: false
+        kls: Instruct
+        model: gpt-4o
+        name: Association
+        output_fields:
+          - { free: assocs, handle_id: d574, type: Auto }
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          can-add-fields: true
+          properties:
+            assocs:
+              handle_id: d574
+              properties: {}
+              title: assocs
+              type: object
+              type-friendly: Auto (BETA)
+          required: [assocs]
+          title: OutputSchema
+          type: object
+        pos_x: 224.75
+        pos_y: 994.0
+        src_handles: [assocs]
+        tgt_handles: [zones, run, events, report]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-c0d8e1e7-2328-438e-a149-4663e4077e53
+        input_fields:
+          - { free: Zone Records, handle_id: 66eb, type: Auto }
+          - { free: Events, handle_id: 10fd, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            events:
+              handle_id: 10fd
+              properties: {}
+              title: Events
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+            zone_records:
+              handle_id: 66eb
+              properties: {}
+              title: Zone Records
+              type: object
+              type-friendly: Auto (BETA)
+          required: [zone_records, events]
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: Concat
+        name: Concat
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          properties:
+            output:
+              items:
+                properties: {}
+                title: Auto
+                type: object
+              title: Output
+              type: array
+          required: [output]
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 484.75
+        pos_y: 994.0
+        src_handles: [output]
+        tgt_handles: [run, events, zone_records]
+    - id:
+        PLURALLY_VERSION: 0
+        _node_id: nd-8679f271-b525-4fc6-8a0d-bd5e797a73d5
+        input_fields:
+          - { free: Actions, handle_id: 5c1c, type: Auto }
+          - { free: Actions 1, handle_id: f2b3, type: Auto }
+        input_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          additionalProperties: false
+          can-add-fields: true
+          properties:
+            actions:
+              handle_id: 5c1c
+              properties: {}
+              title: Actions
+              type: object
+              type-friendly: Auto (BETA)
+            actions_1:
+              handle_id: f2b3
+              properties: {}
+              title: Actions 1
+              type: object
+              type-friendly: Auto (BETA)
+            run:
+              default: true
+              description: Whether to run the block.
+              examples: [true, false]
+              title: Run
+              type: boolean
+          required: [actions, actions_1]
+          title: InputSchema
+          type: object
+        is_output_fixable: false
+        is_trigger: false
+        kls: Concat
+        name: Concat
+        output_schema:
+          $defs:
+            Auto:
+              properties: {}
+              title: Auto
+              type: object
+          properties:
+            output:
+              items:
+                properties: {}
+                title: Auto
+                type: object
+              title: Output
+              type: array
+          required: [output]
+          title: OutputSchema
+          type: object
+          uiSchema:
+            ui:options: { label: false }
+        pos_x: 281.25
+        pos_y: 1262.0
+        src_handles: [output]
+        tgt_handles: [actions, actions_1, run]
+id: 1fa3c51d-d308-47a7-a0dc-e9bf72b2ad5f
+is_running: false
+last_exec_dt: null
+last_updated: "2025-02-25T09:07:40.448014"
+logo: https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSG543KfKOdBS85zr3djySR5ztDfVdon4YAikXttMdMOHqyy01g2pAAUZ83udUDSL1ZZ8Y&usqp=CAU
+name: Intervention réseau
+org_id: null
+owner_id: 83e1fa8e-a5db-487f-9780-c69846b9f8ca

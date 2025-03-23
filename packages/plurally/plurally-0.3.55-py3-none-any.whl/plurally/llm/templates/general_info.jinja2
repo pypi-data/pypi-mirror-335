@@ -1,0 +1,9 @@
+{% if general_info %}
+<general_informations>
+{%- for info in general_info %}
+    <general_information>
+        {{ info }}
+    </general_information>
+{%- endfor %}
+</general_informations>
+{% endif %}

@@ -1,0 +1,620 @@
+{
+  "date_created": "2024-12-18T11:24:07.078579",
+  "last_updated": "2025-02-09T07:06:47.396500",
+  "name": "Enky Inbound Qualification",
+  "logo": null,
+  "desc": "",
+  "container_id": null,
+  "last_exec_dt": "2025-02-06T18:04:40.643860",
+  "flow_json": {
+    "directed": true,
+    "multigraph": true,
+    "graph": {},
+    "nodes": [
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "NewEmail",
+          "name": "Email entrant",
+          "_node_id": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+          "pos_x": 20.0,
+          "pos_y": -140.0,
+          "is_trigger": true,
+          "src_handles": [
+            "message_id",
+            "subject",
+            "sender_name",
+            "datetime_received",
+            "content",
+            "sender_email"
+          ],
+          "tgt_handles": [],
+          "is_output_fixable": false,
+          "username": "nicolas@enky.com",
+          "password": "gAAAAABnaYScAxAmn3skyiTa1RJXOojQjCRtqCf97-JHeUwpev8E6jvvHAYvQvUp4vcD8dmZJ5nSctY6pzsXRsQ71KqdIl0TCL1Ox3KU6ZvIrwlu_m9GbK0=",
+          "imap_server": "imap.gmail.com",
+          "port": 993,
+          "mailbox": "Tous les messages"
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 1,
+          "kls": "Instruct",
+          "name": "Plurally",
+          "_node_id": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+          "pos_x": -120.0,
+          "pos_y": 140.0,
+          "is_trigger": false,
+          "src_handles": [
+            "responsable",
+            "langage",
+            "categorie",
+            "nom_de_la_personne_ayant_soumis_le_formulaire",
+            "resume",
+            "email",
+            "numero_telephone"
+          ],
+          "tgt_handles": ["corps_email", "sujet_email", "run"],
+          "is_output_fixable": false,
+          "instruct": "Ton objectif est de classer les emails entrants dans une bo\u00eete aux lettres d'entreprise. Les emails sont des notifications de soumissions de formulaires.\n\nL'entreprise s'appelle Enky et fournit des meubles pour les espaces de bureau ou autres entreprises.\n\nLes emails doivent \u00eatre class\u00e9s dans les cat\u00e9gories suivantes :\n\nCat\u00e9gorie 1 : \"Demande commerciale mobilier\"\nDescription : Toute demande commerciale, projet mobilier ou immobilier.\nResponsable : Nicolas\n\nCat\u00e9gorie 2 : \"RH / Recherche emploi\"\nDescription : Toute demande \u00e0 transmettre aux ressources humaines, par exemple recherche d'emploi, recherche de stage, etc...\nResponsable : S\u00e9bastien\n\nCat\u00e9gorie 3 : \"Partenariat designer\"\nDescription : Designers ou architectes ou autres acteurs du milieu voulant discuter un partenariat.\nResponsable : Nicolas / Constance\n\nCat\u00e9gorie 4 : \"Support ou demande Enky Invest ou crowdfuding\"\nDescription : Personnes ayant besoin de support ou des questions li\u00e9es \u00e0 Enky Invest ou crowdfunding.\nResponsable : Nicolas / Laura\n\nCat\u00e9gorie 5 : \"Demande marketing\"\nDescription : Toutes demandes li\u00e9es au marketing, par exemple proposition de services sur r\u00e9seaux sociaux ou autre.\nResponsable : Marie\n\nCat\u00e9gorie  6 : \"Test\"\nDescription : Les emails de test sont des emails envoy\u00e9s pour v\u00e9rifier le bon fonctionnement de la bo\u00eete aux lettres et ne n\u00e9cessitent pas de r\u00e9ponse. Les emails de test sont toutes les adresses e-mail finissant par @enky.com ou bien marie.defontreaulx@gmail.com, wilcotdelvaux@outlook.com. Les formulaires qui ont \u00e9t\u00e9 soumis par une adresse e-mail telle que d\u00e9crite ci-dessus appartiennent \u00e0  la cat\u00e9gorie de Test (IMPORTANT : cela a toujours la prori\u00e9t\u00e9 sur les autres cat\u00e9gories).\nResponsable : N/A\n\nCat\u00e9gorie 7 : \"T\u00e9l\u00e9chargement catalogue\"\nDescription : Tous les emails contenant \"Catalogue Form\"\nResponsable : Nicolas\n\nCat\u00e9gorie 8 : \"Autres partenaires / fournisseurs / rachat de mobilier\"\nDescription : Personnes ou entreprises voulant revendre du mobilier ou autres partenariats qui ne rentrent pas dans les autres cat\u00e9gories\nResponsable : Shari\n\nCat\u00e9gorie 9 : \"Inscription newsletter\"\nDescription : Les emails correspondant \u00e0 une inscription \u00e0 la Newsletter.\nResponsable : N/A\n\nCat\u00e9gorie 10 : \"Autre\"\nDescription : Les emails qui ne sont pas classifiables dans les autre cat\u00e9gories.\nResponsable : TBD\n\nPour chaque email : retourne le nom de la cat\u00e9gorie comme indiqu\u00e9, le nom du responsable et un r\u00e9sum\u00e9 en une phrase de l'email, le nom de la personne ayant soumis le formulaire, son email, son num\u00e9ro de t\u00e9l\u00e9phone, et le langage parl\u00e9 (code 2 lettres, par exemple FR ou EN).\n\nSi aucune information \u00e0 propos du langage n'est pr\u00e9sente essaye de d\u00e9tecter le langage dans le message du formulaire - si applicable, sinon renvoie N/A. \n\nParfois le champ \"You are interested in\" du formulaire ne correspond pas vraiment \u00e0 la demande, en cas de doute, classifie en utilisant le champ How can we help en priorit\u00e9 (voir exemple 2 et 3).\n\nExplique \u00e9galement bri\u00e8vement ton raisonnement.\n\n>>> Exemple 1 (complet)\n\nLanguage: NL\nFirst Name:: Alex\nLast Name:: Villard\nEmail:: alexply@outlook.com\nPhone Number:: 0766513444\nYou are:: I am a company\nYou are interested in:: I have furniture to sell\nHow can we help:: Bonjour, Etant une soci\u00e9t\u00e9 bas\u00e9e \u00e0 Bruxelles et sp\u00e9cialis\u00e9e dans la logistique d'art, nous avons d\u00e9m\u00e9nag\u00e9 un groupe financier derni\u00e8rement. Nous avons une vingtaine de bureaux (avec double caisson) et une quarantaine de fauteuils de bureaux d'occasion \u00e0 vendre. Plus un tr\u00e8s grand bureau de direction en corian. Pourriez-vous nous contacter \u00e0 ce sujet? Merci.\n\n>>> R\u00e9ponse attendu\n\nnom cat\u00e9gorie: Autres partenaires / fournisseurs / rachat de mobilier\nresponsable: Shari \nr\u00e9sum\u00e9 : Mobilier de bureau d'occasion \u00e0 vendre : 20 bureaux, 40 fauteuils, 1 bureau de direction en corian.\nemail : alexply@outlook.com\nnumero de telephone : 0766513444\nnom de la personne ayant soumis le formulaire : Alex Villard\nlangage : NL\n\n>>> Exemple 2 (partiel)\n\nYou are interested in:: I\u2019m interested in Furniture solutions\nHow can we help:: Nous allons d\u00e9m\u00e9nager dans des nouveaux bureaux et souhaitons explorer la possibilit\u00e9 d'utiliser vos solutions, y compris avec un designer qui nous aide sur la d\u00e9finition.\n\n>>> R\u00e9ponse attendu\n\nnom cat\u00e9gorie: Demande commerciale mobilier\n\n>>> Exemple 3 (partiel)\n\nYou are interested in:: I\u2019m interested in Furniture solutions\nHow can we help:: Bonjour,\n\nNous sommes un m\u00e9dia engag\u00e9 d\u00e9di\u00e9 \u00e0 la sensibilisation sur des th\u00e9matiques essentielles telles que la transition \u00e9cologique, la justice sociale, le f\u00e9minisme et la sant\u00e9 mentale. Notre audience principale se trouve sur Instagram, et nous r\u00e9unissons pr\u00e8s de 56 000 abonn\u00e9s sur l'ensemble de nos r\u00e9seaux. Fonctionnant gr\u00e2ce au b\u00e9n\u00e9volat, nous op\u00e9rons sous le statut d\u2019association loi 1901.\n\nDepuis d\u00e9but 2024, nous proposons des partenariats aux entreprises et marques engag\u00e9es, telles que la v\u00f4tre, sous la forme de publications sponsoris\u00e9es. Ces collaborations nous permettent de financer nos activit\u00e9s tout en apportant de la visibilit\u00e9 \u00e0 des projets align\u00e9s avec nos valeurs.\n\nGr\u00e2ce \u00e0 ces posts sponsoris\u00e9s, nous pourrions mettre en avant votre activit\u00e9 aupr\u00e8s de notre communaut\u00e9 engag\u00e9e et int\u00e9ress\u00e9e par les initiatives responsables.\n\nSi cette proposition vous int\u00e9resse, nous serions ravis de vous transmettre notre dossier de sponsoring pour vous donner plus d\u2019informations.\n\n\n>>> R\u00e9ponse attendu\n\nnom cat\u00e9gorie: Demande marketing\n\n\n\n",
+          "output_fields": [
+            {
+              "free": "categorie",
+              "handle_id": "0e44",
+              "type": "Text"
+            },
+            {
+              "free": "responsable",
+              "handle_id": "c472",
+              "type": "Text"
+            },
+            {
+              "free": "resume",
+              "handle_id": "8a35",
+              "type": "Text"
+            },
+            {
+              "free": "email",
+              "handle_id": "6ca3",
+              "type": "Text"
+            },
+            {
+              "free": "numero telephone",
+              "handle_id": "2da4",
+              "type": "Text"
+            },
+            {
+              "free": "nom de la personne ayant soumis le formulaire",
+              "handle_id": "ab06",
+              "type": "Text"
+            },
+            {
+              "free": "langage",
+              "handle_id": "964e",
+              "type": "Text"
+            }
+          ],
+          "input_fields": [
+            {
+              "free": "Sujet email",
+              "handle_id": "26cf",
+              "type": "Auto"
+            },
+            {
+              "free": "Corps email",
+              "handle_id": "a184",
+              "type": "Auto"
+            }
+          ],
+          "output_schema": {
+            "can-add-fields": true,
+            "properties": {
+              "categorie": {
+                "handle_id": "0e44",
+                "title": "categorie",
+                "type": "string"
+              },
+              "responsable": {
+                "handle_id": "c472",
+                "title": "responsable",
+                "type": "string"
+              },
+              "resume": {
+                "handle_id": "8a35",
+                "title": "resume",
+                "type": "string"
+              },
+              "email": {
+                "handle_id": "6ca3",
+                "title": "email",
+                "type": "string"
+              },
+              "numero_telephone": {
+                "handle_id": "2da4",
+                "title": "numero telephone",
+                "type": "string"
+              },
+              "nom_de_la_personne_ayant_soumis_le_formulaire": {
+                "handle_id": "ab06",
+                "title": "nom de la personne ayant soumis le formulaire",
+                "type": "string"
+              },
+              "langage": {
+                "handle_id": "964e",
+                "title": "langage",
+                "type": "string"
+              }
+            },
+            "required": [
+              "categorie",
+              "responsable",
+              "resume",
+              "email",
+              "numero_telephone",
+              "nom_de_la_personne_ayant_soumis_le_formulaire",
+              "langage"
+            ],
+            "title": "OutputSchema",
+            "type": "object"
+          },
+          "input_schema": {
+            "$defs": {
+              "Auto": {
+                "properties": {},
+                "title": "Auto",
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "can-add-fields": true,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "sujet_email": {
+                "properties": {},
+                "title": "Sujet email",
+                "type": "object",
+                "handle_id": "26cf",
+                "type-friendly": "Auto (BETA)"
+              },
+              "corps_email": {
+                "properties": {},
+                "title": "Corps email",
+                "type": "object",
+                "handle_id": "a184",
+                "type-friendly": "Auto (BETA)"
+              }
+            },
+            "required": ["sujet_email", "corps_email"],
+            "title": "InputSchema",
+            "type": "object"
+          },
+          "is_table": false,
+          "model": "gpt-4o",
+          "examples": "",
+          "general_info": ""
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "SheetsWrite",
+          "name": "Tableau inbound",
+          "_node_id": "nd-0a4446ac-12fc-429e-9c0a-036af194b599",
+          "pos_x": 216.5,
+          "pos_y": 411.0,
+          "is_trigger": false,
+          "src_handles": [],
+          "tgt_handles": ["values", "run"],
+          "is_output_fixable": false,
+          "sheet_id": "1h8pYp8hOV17-u8_KkUkK-KJbFH2qIiRLA82coobRyR0",
+          "range_name": "Inbound!A5",
+          "append": true
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "ToTable",
+          "name": "To Table",
+          "_node_id": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+          "pos_x": -20.0,
+          "pos_y": 300.0,
+          "is_trigger": false,
+          "src_handles": ["data"],
+          "tgt_handles": [
+            "run",
+            "date",
+            "rsum",
+            "catgorie",
+            "responsable",
+            "statut",
+            "email",
+            "tlphone",
+            "nom",
+            "contenu",
+            "langue"
+          ],
+          "is_output_fixable": false,
+          "columns": [
+            {
+              "free": "Date",
+              "handle_id": "74c6",
+              "type": "Text"
+            },
+            {
+              "free": "R\u00e9sum\u00e9",
+              "handle_id": "b83e",
+              "type": "Text"
+            },
+            {
+              "free": "Cat\u00e9gorie",
+              "handle_id": "500e",
+              "type": "Text"
+            },
+            {
+              "free": "Responsable",
+              "handle_id": "fe15",
+              "type": "Text"
+            },
+            {
+              "free": "Statut",
+              "handle_id": "4ab6",
+              "type": "Text"
+            },
+            {
+              "free": "Email",
+              "handle_id": "bd0d",
+              "type": "Text"
+            },
+            {
+              "free": "T\u00e9l\u00e9phone",
+              "handle_id": "dd9b",
+              "type": "Text"
+            },
+            {
+              "free": "Nom",
+              "handle_id": "7d89",
+              "type": "Text"
+            },
+            {
+              "free": "Contenu",
+              "handle_id": "82bc",
+              "type": "Text"
+            },
+            {
+              "free": "Langue",
+              "handle_id": "7968",
+              "type": "Text"
+            }
+          ],
+          "input_schema": {
+            "$defs": {
+              "Auto": {
+                "properties": {},
+                "title": "Auto",
+                "type": "object"
+              }
+            },
+            "additionalProperties": false,
+            "can-add-fields": true,
+            "properties": {
+              "run": {
+                "default": true,
+                "description": "Whether to run the block.",
+                "examples": [true, false],
+                "title": "Run",
+                "type": "boolean"
+              },
+              "date": {
+                "properties": {},
+                "title": "Date",
+                "type": "object",
+                "handle_id": "74c6"
+              },
+              "rsum": {
+                "properties": {},
+                "title": "R\u00e9sum\u00e9",
+                "type": "object",
+                "handle_id": "b83e"
+              },
+              "catgorie": {
+                "properties": {},
+                "title": "Cat\u00e9gorie",
+                "type": "object",
+                "handle_id": "500e"
+              },
+              "responsable": {
+                "properties": {},
+                "title": "Responsable",
+                "type": "object",
+                "handle_id": "fe15"
+              },
+              "statut": {
+                "properties": {},
+                "title": "Statut",
+                "type": "object",
+                "handle_id": "4ab6"
+              },
+              "email": {
+                "properties": {},
+                "title": "Email",
+                "type": "object",
+                "handle_id": "bd0d"
+              },
+              "tlphone": {
+                "properties": {},
+                "title": "T\u00e9l\u00e9phone",
+                "type": "object",
+                "handle_id": "dd9b"
+              },
+              "nom": {
+                "properties": {},
+                "title": "Nom",
+                "type": "object",
+                "handle_id": "7d89"
+              },
+              "contenu": {
+                "properties": {},
+                "title": "Contenu",
+                "type": "object",
+                "handle_id": "82bc"
+              },
+              "langue": {
+                "properties": {},
+                "title": "Langue",
+                "type": "object",
+                "handle_id": "7968"
+              }
+            },
+            "required": [
+              "date",
+              "rsum",
+              "catgorie",
+              "responsable",
+              "statut",
+              "email",
+              "tlphone",
+              "nom",
+              "contenu",
+              "langue"
+            ],
+            "title": "InputSchema",
+            "type": "object"
+          }
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "FormatDatetime",
+          "name": "Datetime Formatter",
+          "_node_id": "nd-206f9695-5bc2-4a6f-b481-b9c1215afef9",
+          "pos_x": 380.0,
+          "pos_y": 60.0,
+          "is_trigger": false,
+          "src_handles": ["formatted_date"],
+          "tgt_handles": ["date", "run"],
+          "is_output_fixable": false,
+          "format": "%Y-%m-%d %H:%M"
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Text",
+          "name": "Statut",
+          "_node_id": "nd-a0b88667-5777-4e12-8388-cd96e50a9a2f",
+          "pos_x": 420.0,
+          "pos_y": 180.0,
+          "is_trigger": false,
+          "src_handles": ["value"],
+          "tgt_handles": ["run"],
+          "is_output_fixable": false,
+          "value": "en attente"
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "Switch",
+          "name": "Condition",
+          "_node_id": "nd-b047a8dd-2274-4c88-aaed-ee902f2ee80b",
+          "pos_x": -120.0,
+          "pos_y": 20.0,
+          "is_trigger": false,
+          "src_handles": ["710e"],
+          "tgt_handles": ["value", "run"],
+          "is_output_fixable": false,
+          "possible_values": [
+            {
+              "value": "no-reply-forms@webflow.com",
+              "handle_id": "710e"
+            }
+          ],
+          "output_schema": {
+            "properties": {
+              "710e": {
+                "default": null,
+                "title": "no-reply-forms@webflow.com",
+                "type": "boolean"
+              }
+            },
+            "title": "OutputSchema",
+            "type": "object"
+          }
+        }
+      },
+      {
+        "id": {
+          "PLURALLY_VERSION": 0,
+          "kls": "HtmlParser",
+          "name": "Parse HTML",
+          "_node_id": "nd-ceea9dd5-2057-4d4c-bb52-f7ecae8702d2",
+          "pos_x": 200.0,
+          "pos_y": 40.0,
+          "is_trigger": false,
+          "src_handles": ["text"],
+          "tgt_handles": ["html", "run"],
+          "is_output_fixable": false,
+          "selectors": [
+            {
+              "selector": "",
+              "mode": "TEXT"
+            }
+          ]
+        }
+      }
+    ],
+    "links": [
+      {
+        "src_handle": "subject",
+        "tgt_handle": "sujet_email",
+        "label": "Incoming Email's Subject -> Sujet email",
+        "source": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+        "target": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "key": "subject###sujet_email"
+      },
+      {
+        "src_handle": "content",
+        "tgt_handle": "corps_email",
+        "label": "Incoming Email's Body -> Corps email",
+        "source": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+        "target": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "key": "content###corps_email"
+      },
+      {
+        "src_handle": "datetime_received",
+        "tgt_handle": "date",
+        "label": "Datetime Received -> Date",
+        "source": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+        "target": "nd-206f9695-5bc2-4a6f-b481-b9c1215afef9",
+        "key": "datetime_received###date"
+      },
+      {
+        "src_handle": "sender_email",
+        "tgt_handle": "value",
+        "label": "Sender's Email Address -> Input",
+        "source": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+        "target": "nd-b047a8dd-2274-4c88-aaed-ee902f2ee80b",
+        "key": "sender_email###value"
+      },
+      {
+        "src_handle": "content",
+        "tgt_handle": "html",
+        "label": "Incoming Email's Body -> HTML",
+        "source": "nd-8f19f1fb-e9fd-4893-9cdb-61fef71e402a",
+        "target": "nd-ceea9dd5-2057-4d4c-bb52-f7ecae8702d2",
+        "key": "content###html"
+      },
+      {
+        "src_handle": "responsable",
+        "tgt_handle": "responsable",
+        "label": "responsable -> Responsable",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "responsable###responsable"
+      },
+      {
+        "src_handle": "email",
+        "tgt_handle": "email",
+        "label": "email -> Email",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "email###email"
+      },
+      {
+        "src_handle": "resume",
+        "tgt_handle": "rsum",
+        "label": "resume -> R\u00e9sum\u00e9",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "resume###rsum"
+      },
+      {
+        "src_handle": "categorie",
+        "tgt_handle": "catgorie",
+        "label": "categorie -> Cat\u00e9gorie",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "categorie###catgorie"
+      },
+      {
+        "src_handle": "numero_telephone",
+        "tgt_handle": "tlphone",
+        "label": "numero telephone -> T\u00e9l\u00e9phone",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "numero_telephone###tlphone"
+      },
+      {
+        "src_handle": "nom_de_la_personne_ayant_soumis_le_formulaire",
+        "tgt_handle": "nom",
+        "label": "nom de la personne ayant soumis le formulaire -> Nom",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "nom_de_la_personne_ayant_soumis_le_formulaire###nom"
+      },
+      {
+        "src_handle": "langage",
+        "tgt_handle": "langue",
+        "label": "langage -> Langue",
+        "source": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "langage###langue"
+      },
+      {
+        "src_handle": "data",
+        "tgt_handle": "values",
+        "label": "Data -> Values",
+        "source": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "target": "nd-0a4446ac-12fc-429e-9c0a-036af194b599",
+        "key": "data###values"
+      },
+      {
+        "src_handle": "formatted_date",
+        "tgt_handle": "date",
+        "label": "Formatted Date -> Date",
+        "source": "nd-206f9695-5bc2-4a6f-b481-b9c1215afef9",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "formatted_date###date"
+      },
+      {
+        "src_handle": "value",
+        "tgt_handle": "statut",
+        "label": "Value -> Statut",
+        "source": "nd-a0b88667-5777-4e12-8388-cd96e50a9a2f",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "value###statut"
+      },
+      {
+        "src_handle": "710e",
+        "tgt_handle": "run",
+        "label": "no-reply-forms@webflow.com -> Run",
+        "source": "nd-b047a8dd-2274-4c88-aaed-ee902f2ee80b",
+        "target": "nd-3241e841-3814-4de7-b558-b3123f985e02",
+        "key": "710e###run"
+      },
+      {
+        "src_handle": "text",
+        "tgt_handle": "contenu",
+        "label": "Text -> Contenu",
+        "source": "nd-ceea9dd5-2057-4d4c-bb52-f7ecae8702d2",
+        "target": "nd-71f1318f-d82e-42f0-ad9f-d546c36af9aa",
+        "key": "text###contenu"
+      }
+    ],
+    "name": "",
+    "id": "fl-f4919d4a-6917-47b0-960a-dcd953a3698d",
+    "_inter_subflow_run_links": {}
+  },
+  "id": "b03ee4f7-bc38-42e4-bf14-bb564322e519",
+  "owner_id": "45f4b027-f1b8-418f-accc-e54e3cbe2957",
+  "is_running": false
+}
