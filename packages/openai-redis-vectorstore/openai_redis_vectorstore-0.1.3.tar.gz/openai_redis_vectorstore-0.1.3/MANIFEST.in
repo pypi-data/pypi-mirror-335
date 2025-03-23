@@ -1,0 +1,8 @@
+include MANIFEST.in
+include LICENSE
+include README.md
+include requirements.txt
+graft openai_redis_vectorstore
+exclude test_orvs.py
+global-exclude __pycache__
+global-exclude *.py[co]

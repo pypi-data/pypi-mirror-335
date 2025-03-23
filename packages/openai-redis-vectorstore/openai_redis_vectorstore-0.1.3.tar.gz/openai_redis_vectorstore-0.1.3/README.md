@@ -1,0 +1,108 @@
+# openai-redis-vectorstore
+
+基于RedisStack向量数据库，集成embeddings和rerank模型，支持二阶段召回，支持添加和删除等管理功能。
+
+## 安装
+
+```shell
+pip install openai-redis-vectorstore
+```
+
+## 依赖说明
+
+- 使用`python-environment-settings`管理配置项。详见该项目的参考文档。
+- 深度依赖于`openai-simple-embeddings`和`openai-simple-rerank`。同时也依赖于两者的配置项。详见这两个项目的参考文档。
+
+## 配置项说明
+
+- REDIS_STACK_URL: redis-stack服务器地址。如：redis://localhost:6379/0
+    - 有资料提到要使用redis-stack向量功能，必须是0号库（未测试）
+    - （配置项别名）
+    - REDIS_URL
+    - REDIS
+
+## 使用
+
+### 将文本插入到向量数据库
+
+*代码：*
+
+```python
+from openai_redis_vectorstore.base import RedisVectorStore
+
+index_name = str(uuid.uuid4())
+rvs = RedisVectorStore()
+uid = rvs.insert("hello", meta={"id": 1}, index_name=index_name)
+```
+
+*说明：*
+
+- id=1表示内容在业务系统中的唯一码。
+- uid表示内容在向量数据库中的唯一码。可以根据uid唯一码，从向量数据库中删除相应内容。
+
+### 搜索向量数据库
+
+*代码：*
+
+```python
+from openai_redis_vectorstore.base import RedisVectorStore
+
+index_name1 = str(uuid.uuid4())
+index_name2 = str(uuid.uuid4())
+rvs = RedisVectorStore()
+
+# 向1号逻辑库中插入3条数据
+rvs.insert_many(
+    ["开会了", "再见", "你好"],
+    metas=[
+        {"id": 1},
+        {"id": 2},
+        {"id": 3},
+    ],
+    index_name=index_name1,
+)
+
+# 向2号逻辑库中插入3条数据
+rvs.insert_many(
+    ["开会去", "好的", "谢谢"],
+    metas=[
+        {"id": 1},
+        {"id": 2},
+        {"id": 3},
+    ],
+    index_name=index_name2,
+)
+
+# 从1号和2号逻辑库中搜索关键词并汇总
+# 并要求匹配度不低于指定阈值
+docs = rvs.similarity_search_and_rerank(
+    query="开会",
+    index_names=[index_name1, index_name2],
+    embeddings_score_threshold=0.65,
+    rerank_score_threshold=0.85,
+)
+assert len(docs) == 2
+doc1 = docs[0]
+doc2 = docs[1]
+assert doc1.vs_index_name in [index_name1, index_name2]
+assert doc2.vs_index_name in [index_name1, index_name2]
+assert doc1.vs_rerank_score > doc2.vs_rerank_score
+```
+
+## 版本记录
+
+### v0.1.0
+
+- 版本首发。
+
+### v0.1.1
+
+- 修改：搜索一个空向量库时，只在日志中记录WARNING信息并返回空数组。
+
+### v0.1.2
+
+- 修改：`openai_redis_vectorstore.schemas.Document`增加`content`字段。
+
+### 0.1.3
+
+- 修正：查询结果page_content字段没有做反序列化的问题。
