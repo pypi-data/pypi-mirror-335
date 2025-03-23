@@ -1,0 +1,154 @@
+Metadata-Version: 2.1
+Name: ConnectKit-Database
+Version: 2.0.1
+Summary: Wrapper for connection to database
+Keywords: connectkit,database,postgres,postgresql,mysql,sqlite3,sqlite,mariadb,async,asyncio,sqlalchemy
+Author-Email: RealMetamorph <andr.timchuk@yandex.ru>
+License: The MIT License (MIT)
+         Copyright © 2024 MTUCI Open Source
+         
+         Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+         
+         The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+         
+         THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: Database :: Front-Ends
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Project-URL: Homepage, https://github.com/mtuciru/ConnectKit-Database
+Project-URL: Repository, https://github.com/mtuciru/ConnectKit-Database.git
+Requires-Python: >=3.10
+Requires-Dist: sqlalchemy>=2.0.39
+Requires-Dist: pydantic>=2.10.6
+Requires-Dist: pydantic-settings>=2.8.1
+Provides-Extra: postgresql
+Requires-Dist: psycopg[binary]>=3.2.6; extra == "postgresql"
+Provides-Extra: asyncpg
+Requires-Dist: psycopg[binary]>=3.2.6; extra == "asyncpg"
+Requires-Dist: sqlalchemy[asyncio]>=2.0.39; extra == "asyncpg"
+Provides-Extra: mysql
+Requires-Dist: mysqlclient>=2.2.7; extra == "mysql"
+Provides-Extra: aiomysql
+Requires-Dist: aiomysql>=0.2.0; extra == "aiomysql"
+Requires-Dist: sqlalchemy[asyncio]>=2.0.39; extra == "aiomysql"
+Provides-Extra: aiosqlite
+Requires-Dist: aiosqlite>=0.21.0; extra == "aiosqlite"
+Requires-Dist: sqlalchemy[asyncio]>=2.0.39; extra == "aiosqlite"
+Provides-Extra: all
+Requires-Dist: ConnectKit-Database[mysql,postgresql]; extra == "all"
+Provides-Extra: asyncall
+Requires-Dist: ConnectKit-Database[aiomysql,aiosqlite,asyncpg]; extra == "asyncall"
+Description-Content-Type: text/markdown
+
+# ConnectKit Database [*en*|[ru](./README_RU.md)]
+
+___
+
+ConnectKit Database is a wrapper under SQLAlchemy with some utils.
+
+Include pydantic settings, custom json serializer, template code.
+
+## Installation
+
+___
+
+Three types of connectors are supported:
+
+-[x] PostgreSQL (sync/async)
+-[x] MySQL (MariaDB) (sync/async)
+-[x] Sqlite3 (sync/async)
+
+By default, the DB connector package is not installed (exclude default sqlite), extensions are specified for installation.
+
+To install sync versions:
+
+```shell
+pip install ConnectKit-Database[postgresql]  # Установка коннектора PostgreSQL
+pip install ConnectKit-Database[mysql]       # Установка коннектора MySQL/MariaDB
+pip install ConnectKit-Database[all]         # Установка всех sync коннекторов
+```
+
+To install async versions:
+
+```shell
+pip install ConnectKit-Database[asyncpg]        # Установка коннектора PostgreSQL
+pip install ConnectKit-Database[aiomysql]       # Установка коннектора MySQL/MariaDB
+pip install ConnectKit-Database[aiosqlite]      # Установка коннектора Sqlite3
+pip install ConnectKit-Database[asyncall]       # Установка всех async коннекторов
+```
+
+## Usage
+
+___
+
+Environment variables are used for connection by default.
+Variables are extracted from the environment:
+
+    DB_ADDR=  # Address for default connection to postgres or mysql(mariadb) (default: None)
+    DB_PORT=5432  # Port for default connection to postgres or mysql(mariadb)
+    DB_ADAPTER=postgresql  # Select default connection dialect (from postgresql, mysql and sqlite)
+    DB_USERNAME=postgres  # Username for default connection postgres or mysql(mariadb)
+    DB_PASSWORD=  # Username for default connection postgres or mysql(mariadb) (default: None)
+    DB_NAME=postgres  # Database for postgres or mysql(mariadb), filepath for sqlite
+    DB_POOL_TIMEOUT=1  # Global pool timeout for creating new session to DB
+    DB_ECHO: bool = False  # Log all sql statements (for debug purposes)
+
+These variables can be overridden:
+
+```python
+from database.settings import settings
+
+settings.DB_ECHO = False
+```
+
+> **!! Attention !!**
+After creating a default connection, changing the settings variables for it is ignored.
+
+To open a connection, the `Database` and `AsyncDatabase` context managers are used:
+
+```python
+from database import Database, AsyncDatabase, AsyncSession
+
+with Database() as db:
+    db.execute(...)
+
+async with AsyncDatabase() as db:
+    await db.execute(...)
+
+
+# For FastAPI:
+
+async def db_dependency() -> AsyncSession:
+    async with AsyncDatabase() as db:
+        yield await db.execute(...)
+```
+
+The default Base can be used to create models:
+
+```python
+from database import Base
+from sqlalchemy.orm import Mapped
+
+
+class Model(Base):
+    id: Mapped[int]
+```
+
+To initialize ORM models via Base for default connection:
+
+```python
+from database import init_default_base, async_init_default_base
+from database import Base
+
+init_default_base(Base.metadata)
+
+await async_init_default_base(Base.metadata)
+```
+
+## License
+
+___
+
+ConnectKit Database is [MIT License](./LICENSE).
