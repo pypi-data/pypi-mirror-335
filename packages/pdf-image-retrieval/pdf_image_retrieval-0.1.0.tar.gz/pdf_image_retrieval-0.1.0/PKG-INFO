@@ -1,0 +1,40 @@
+Metadata-Version: 2.4
+Name: pdf-image-retrieval
+Version: 0.1.0
+Summary: Extracts images from PDFs, stores them in S3, and retrieves based on keyword search
+Home-page: https://github.com/aryandhandhukiya/pdf-image-retrieval
+Author: Aryan Dhandhukiya
+Author-email: dhandhukiyaaryan05@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: fitz
+Requires-Dist: pdf2image
+Requires-Dist: Pillow
+Requires-Dist: boto3
+Requires-Dist: nltk
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# PDF Image Retrieval
+
+## Overview
+This Python package extracts images from PDFs, stores them in AWS S3, and retrieves relevant images based on keyword extraction.
+
+## Features
+- Extract images from PDF files
+- Store images in AWS S3
+- Extract keywords from PDFs using NLP
+- Search and retrieve images based on keywords
+
+## Installation
+pip install pdf-image-retrieval
