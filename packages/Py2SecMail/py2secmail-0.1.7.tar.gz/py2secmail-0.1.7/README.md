@@ -1,0 +1,78 @@
+
+# Py2SecMail 🎉
+
+**Py2SecMail** est une bibliothèque Python simple pour interagir avec l'API de 2SecMail. Elle permet de gérer des emails temporaires, de récupérer des domaines, et de manipuler des messages.
+
+## Fonctionnalités
+
+- **Récupération de domaines** : Obtenez une liste de domaines disponibles.
+- **Création d'emails temporaires** : Générez des emails jetables.
+- **Gestion des messages** : Récupérez, mettez à jour et supprimez des messages.
+
+## Installation
+
+Pour installer `Py2SecMail`, utilisez pip :
+
+```bash
+pip install py2secmail
+Utilisation
+Voici comment utiliser Py2SecMail dans votre projet :
+
+Copier
+import requests
+from py2secmail import Py2SecMail
+
+# Initialisation de la classe
+api = Py2SecMail()
+
+# Récupérer la liste des domaines disponibles
+domains = api.get_domains("all")
+print(domains)
+
+# Créer un nouvel email temporaire
+new_email = api.create_email()
+print(new_email)
+
+# Modifier une adresse email existante
+updated_email = api.update_email("old@example.com", "newuser", "newexample.com")
+print(updated_email)
+
+# Supprimer un email temporaire
+delete_response = api.delete_email("old@example.com")
+print(delete_response)
+
+# Récupérer les messages d'un email donné
+messages = api.get_messages("example@example.com")
+print(messages)
+
+# Récupérer un message spécifique par son ID
+message = api.get_message_by_id("ap94AWDg123ELQz07vrVB9dLXlbqZM5NGwYxOJKko8n6m1")
+print(message)
+
+# Supprimer un message spécifique par son ID
+delete_message_response = api.delete_message_by_id("ap94AWDg123ELQz07vrVB9dLXlbqZM5NGwYxOJKko8n6m1")
+print(delete_message_response)
+
+# Télécharger une pièce jointe d'un email
+attachment = api.download_attachment("abc123", "filename.pdf")
+with open("filename.pdf", "wb") as f:
+    f.write(attachment)
+
+# Récupérer l'email associé à un token
+email_url = api.token_to_email("email_token")
+print(email_url)
+Fonctionnalités détaillées
+get_domains(domain_type="all") : Récupère la liste des domaines disponibles.
+create_email() : Crée un nouvel email temporaire.
+update_email(current_email, new_username, new_domain) : Modifie une adresse email existante.
+delete_email(email) : Supprime un email temporaire.
+get_messages(email) : Récupère les messages d'un email donné.
+get_message_by_id(message_id) : Récupère un message spécifique par son ID.
+delete_message_by_id(message_id) : Supprime un message spécifique par son ID.
+download_attachment(hash_id, filename) : Télécharge une pièce jointe d'un email.
+token_to_email(email_token) : Récupère l'email associé à un token.
+Contribution
+Les contributions sont les bienvenues ! N'hésitez pas à proposer des améliorations ou à signaler des bugs.
+
+Licence
+Ce projet est sous licence MIT.
