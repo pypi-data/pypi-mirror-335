@@ -1,0 +1,181 @@
+Metadata-Version: 2.4
+Name: monitoro-herd
+Version: 0.1.1
+Summary: Python SDK for Monitoro Herd
+Author: Omar Kamali <omar@herd.garden>
+License: EULA
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp>=3.8.0
+Requires-Dist: nats-py>=2.2.0
+Requires-Dist: sseclient-py>=1.7.2
+Requires-Dist: nkeys>=0.1.0
+Requires-Dist: python-dateutil>=2.8.0
+Requires-Dist: dataclasses>=0.6
+Requires-Dist: asyncio>=3.4.3
+Requires-Dist: typing>=3.7.4
+Provides-Extra: test
+Requires-Dist: pytest>=7.4.0; extra == "test"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "test"
+Requires-Dist: python-dotenv>=1.0.0; extra == "test"
+Dynamic: author
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: license
+Dynamic: license-file
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: summary
+
+# Herd Python SDK
+
+A Python SDK for interacting with the Herd automation platform. This SDK provides a simple interface for controlling browser automation and device management.
+
+## Installation
+
+```bash
+pip install -r requirements.txt
+```
+
+## Usage
+
+Here's a basic example of how to use the SDK:
+
+```python
+import asyncio
+from main import HerdClient
+
+async def example():
+    # Create a client
+    client = HerdClient(
+        token='your-auth-token'
+    )
+
+    # Initialize the client (required before using)
+    await client.initialize()
+
+    try:
+        # List available devices
+        devices = await client.list_devices()
+        print('Available devices:', devices)
+
+        # Get a specific device
+        device = await client.get_device('device-id')
+
+        # Create a new page
+        page = await device.new_page()
+
+        # Navigate to a URL
+        await page.goto('https://example.com')
+
+        # Click an element
+        await page.click('#submit-button')
+
+        # Fill a form field
+        await page.fill('#username', 'testuser')
+
+        # Extract data
+        data = await page.extract({
+            'title': 'h1',
+            'description': '.description',
+            'items': {
+                'price': '.item-price',
+                'name': '.item-name'
+            }
+        })
+        print('Extracted data:', data)
+
+        # Subscribe to device events
+        def handle_event(event):
+            print('Device event:', event)
+
+        unsubscribe = device.on_event(handle_event)
+
+        # Cleanup
+        unsubscribe()
+        await page.close()
+        await device.close()
+    finally:
+        # Always close the client when done
+        await client.close()
+
+# Run the example
+asyncio.run(example())
+```
+
+## Features
+
+- Asynchronous API using `asyncio`
+- Device management
+- Browser automation
+- Event subscription
+- Data extraction
+- Automatic reconnection handling
+- Type hints for better IDE support
+
+## API Reference
+
+### HerdClient
+
+The main client class for interacting with the Herd platform.
+
+```python
+client = HerdClient(base_url: str, token: str)
+```
+
+Methods:
+- `initialize()` - Initialize the client and connect to NATS
+- `list_devices()` - Get a list of available devices
+- `get_device(device_id: str)` - Get a specific device
+- `register_device(device_id: str, device_type: str, name: str = None)` - Register a new device
+- `close()` - Close the client and cleanup resources
+
+### Device
+
+Represents a device in the Herd platform.
+
+Methods:
+- `new_page()` - Create a new page
+- `list_pages()` - List all pages
+- `get_page(page_id: int)` - Get a specific page
+- `on_event(callback)` - Subscribe to device events
+- `close()` - Close the device and cleanup resources
+
+### Page
+
+Represents a browser page/tab.
+
+Methods:
+- `goto(url: str)` - Navigate to a URL
+- `click(selector: str, options: Dict = None)` - Click an element
+- `fill(selector: str, value: str, options: Dict = None)` - Fill a form field
+- `extract(selectors: Dict)` - Extract data from the page
+- `close()` - Close the page
+
+## Error Handling
+
+The SDK uses exceptions to handle errors. Make sure to handle these appropriately in your code:
+
+```python
+try:
+    await client.initialize()
+except Exception as e:
+    print(f"Failed to initialize client: {e}")
+```
+
+## Best Practices
+
+1. Always use `async/await` with the SDK functions
+2. Initialize the client before using it
+3. Close resources when done using them
+4. Handle exceptions appropriately
+5. Use type hints for better code completion
+6. Subscribe to events when needed for real-time updates
+
+## Contributing
+
+Feel free to submit issues and pull requests to improve the SDK.
+
+## License
+
+EULA - see [LICENSE](LICENSE)
