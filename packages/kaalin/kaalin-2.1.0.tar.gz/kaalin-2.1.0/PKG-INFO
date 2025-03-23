@@ -1,0 +1,62 @@
+Metadata-Version: 2.4
+Name: kaalin
+Version: 2.1.0
+Summary: Special opportunities for the Karakalpak language
+Author: Turdıbek Jumabaev
+Author-email: <turdibekjumabaev05@gmail.com>
+Keywords: karakalpak,language,python
+Classifier: Development Status :: 1 - Planning
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: Unix
+Classifier: Operating System :: MacOS :: MacOS X
+Classifier: Operating System :: Microsoft :: Windows
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: keywords
+Dynamic: license-file
+Dynamic: summary
+
+
+# Kaalin
+
+<p>
+    The string methods provided by the Python programming language are primarily tailored for English language usage, which might not seamlessly suit the needs of other languages such as Karakalpak. Consequently, to bridge this gap, you can employ this library to avail a range of functions specifically designed to accommodate the intricacies of the Karakalpak language. 
+</p>
+
+## Example
+```python
+from kaalin import Latin
+
+kaa = Latin('BÁHÁR')
+
+print(kaa.upper())      # BÁHÁR
+print(kaa.lower())      # báhár
+print(kaa.isupper())    # True
+print(kaa.islower())    # False
+print(kaa.isalpha())    # True
+print(kaa.isdigit())    # False
+```
+```python
+from kaalin import Number, NumberRangeError
+
+kaa_num = Number()
+
+try:
+    print(kaa_num.to_word(533_525))         # bes júz otız úsh mıń bes júz jigirma bes
+    print(kaa_num.to_word(894_236_671))     # segiz júz toqsan tórt million eki júz otız altı mıń altı júz jetpis bir
+except NumberRangeError as e:
+    print("San shegaradan asıp ketti!")
+```
+```python
+from kaalin.utils import latin2cyrillic, cyrillic2latin
+
+
+print(latin2cyrillic("Assalawma áleykum"))      # Ассалаўма әлейкум
+print(cyrillic2latin("Ассалаўма әлейкум"))      # Assalawma áleykum
+```
