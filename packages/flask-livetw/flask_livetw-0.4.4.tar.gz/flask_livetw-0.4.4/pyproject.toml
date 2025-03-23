@@ -1,0 +1,51 @@
+[project]
+name = "flask-livetw"
+version = "0.4.4"
+authors = [{ name = "Josue", email = "josue.sa.trabajos@gmail.com" }]
+description = "A simple package that enables live reload and Tailwind CSS for Flask templates."
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["flask", "tailwindcss", "livereload", "css", "html", "template"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Environment :: Console",
+  "Framework :: Flask",
+  "Intended Audience :: Developers",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+  "Typing :: Typed",
+]
+requires-python = ">=3.8"
+dependencies = ["pytailwindcss >= 0.2", "websockets >= 13.1", "tomli >= 2"]
+
+[project.urls]
+repository = "https://github.com/josu-dev/flask-livetw.git"
+issues = "https://github.com/josu-dev/flask-livetw/issues"
+
+[project.scripts]
+livetw = "flask_livetw.main:main"
+
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+flask_livetw = ["resources/*"]
+
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+profile = "black"
+line_length = 79
+
+[tool.pyright]
+reportPrivateUsage = false
+typeCheckingMode = "strict"
