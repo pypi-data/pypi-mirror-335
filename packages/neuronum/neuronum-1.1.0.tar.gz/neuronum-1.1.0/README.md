@@ -1,0 +1,85 @@
+![Neuronum Logo](https://neuronum.net/static/logo_pip.png "Neuronum")
+Interact with the `Neuronum Network` to build, connect & automate economic data streams.
+[![Website](https://img.shields.io/badge/Website-Neuronum-blue)](https://neuronum.net)
+[![Documentation](https://img.shields.io/badge/Docs-Read%20now-green)](https://neuronum.net/docs)
+[![Tutorials](https://img.shields.io/badge/Tutorials-Watch%20now-red)](https://www.youtube.com/@neuronumnet)
+
+Interact with the Neuronum Network to build, connect & automate economic data streams
+
+## Features
+`Transmitters (TX)`: Automate economic data transfer + Circuits Integration
+`Circuits (CTX)`: A simple Key-Value-Label database to store economic data
+`Streams (STX)`: Stream economic data to synchronize devices & databases in real time (beta)
+
+Install the Neuronum library using pip:
+```bash
+pip install neuronum
+```
+
+Set & test Cell connection:
+```bash
+import neuronum
+
+cell = neuronum.Cell(
+host="test::cell",
+password="test1234",
+network="neuronum.net",
+synapse="testtesttesttesttesttesttesttest"
+)
+
+cell.test_connection()
+```
+
+Activate Transmitter (TX):
+```bash
+TX = "test_transmitter"
+
+data = {
+"key1": "value1",
+"key2": "value2",
+"key3": "value3",
+"key4": "value4"
+}
+
+cell.activate(TX, data)
+```
+
+Store data on Circuit (CTX):
+```bash
+CTX = "test::ctx"
+
+label = "your_label"
+data = {
+        "key1": "value1",
+        "key2": "value2",
+        "key3": "value3",
+}
+cell.store(label, data, CTX)
+```
+
+Load data from Circuit (CTX):
+```bash
+CTX = "test::ctx"
+
+label = "your_label"
+
+data = cell.load(label, CTX)
+key1 = data["key1"]
+key2 = data["key2"]
+key3 = data["key3"]
+print(key1, key2, key3)
+```
+
+Delete data from Circuit (CTX):
+```bash
+CTX = "test::ctx"
+
+label = "your_label"
+data = cell.delete(label, CTX)
+```
+
+Stream data:
+```bash
+data = "your_data"
+cell.stream(data)
+```
