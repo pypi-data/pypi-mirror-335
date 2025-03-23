@@ -1,0 +1,116 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "from_ipfs"
+version = "0.1.0"
+description = "Use IPFS URIs with Hugging Face transformers and llama.cpp Python bindings"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "alexbakers"}
+]
+keywords = ["ipfs", "huggingface", "transformers", "llama-cpp-python", "decentralized", "models"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+    "requests>=2.25.0",
+    "tqdm>=4.65.0",
+]
+
+[project.optional-dependencies]
+transformers = ["transformers>=4.0.0"]
+llama-cpp = ["llama-cpp-python>=0.2.0"]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.1.0",
+    "black>=23.0.0",
+    "isort>=5.12.0",
+    "ruff>=0.0.254",
+    "transformers>=4.0.0",
+    "llama-cpp-python>=0.2.0",
+    "torch>=2.0.0",
+    "huggingface-hub>=0.19.0",
+]
+all = [
+    "transformers>=4.0.0",
+    "llama-cpp-python>=0.2.0",
+    "torch>=2.0.0",
+    "huggingface-hub>=0.19.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/alexbakers/from_ipfs"
+Issues = "https://github.com/alexbakers/from_ipfs/issues"
+Documentation = "https://github.com/alexbakers/from_ipfs#readme"
+Repository = "https://github.com/alexbakers/from_ipfs.git"
+
+[project.scripts]
+from_ipfs = "from_ipfs.cli:main"
+from_ipfs_alt = "from_ipfs.main:main"
+from_ipfs_config = "from_ipfs.utils:show_config"
+
+[project.entry-points.transformers]
+from_ipfs = "from_ipfs:patch_transformers"
+
+[project.entry-points.llama_cpp]
+from_ipfs = "from_ipfs:patch_llama_cpp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["from_ipfs"]
+
+[tool.black]
+line-length = 100
+target-version = ["py38"]
+include = '\.pyi?$'
+extend-exclude = '''
+# A regex preceded with ^/ will apply only to files and directories
+# in the root of the project.
+^/docs
+'''
+
+[tool.isort]
+profile = "black"
+line_length = 100
+known_first_party = ["from_ipfs"]
+known_third_party = ["transformers", "llama_cpp", "huggingface_hub"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "C",  # flake8-comprehensions
+    "B",  # flake8-bugbear
+]
+ignore = [
+    "E501",  # line too long, handled by black
+    "B008",  # do not perform function calls in argument defaults
+    "C901",  # function too complex - temporarily ignored while we refactor
+    "B023",  # function definition does not bind loop variable - temporarily ignored
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=from_ipfs --cov-report=term-missing"
+testpaths = [
+    "tests",
+]
