@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=42.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.ruff]
+line-length = 160
+select = ['E', 'F', 'C90', 'D', 'RUF']
+ignore = ['D100', 'D101','D104', 'D203', 'D204', 'D212', 'RUF001', 'RUF010']
+extend-exclude = [
+    'qtgui_rc.py',
+    'tests/',
+]
+
+[tool.ruff.mccabe]
+max-complexity = 6
+
+[tool.interrogate]
+ignore-init-method = false
+ignore-init-module = true
+ignore-magic = true
+ignore-semiprivate = false
+ignore-private = false
+ignore-property-decorators = false
+ignore-module = true
+ignore-nested-functions = false
+ignore-nested-classes = true
+ignore-setters = false
+fail-under = 90
+verbose = 1
+quiet = false
+exclude = ['tests/test_*', 'moht/qtgui_rc.py']
+
+[tool.mypy]
+ignore_missing_imports = true
+html_report = 'mypyhtml'
+exclude = [
+    '/qtgui\.py$',
+    'tests/',
+]
+
+[[tool.mypy.overrides]]
+module = 'moht.qtgui'
+follow_imports = 'skip'
+
+
+[tool.pydocstyle]
+inherit = false
+ignore = ['D100', 'D101','D104', 'D203', 'D204', 'D212']
+match = '(?!test_|qtgui_rc).*\.py'
+
+[tool.isort]
+line_length = 160
