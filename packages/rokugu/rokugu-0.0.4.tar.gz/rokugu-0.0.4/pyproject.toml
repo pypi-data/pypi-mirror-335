@@ -1,0 +1,85 @@
+[build-system]
+requires = ["setuptools", "wheel", 'build']
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rokugu"
+version = "0.0.4"
+description = "An opinionated PySide6 library that delivers ready-to-use components and utilities."
+readme = "README.md"
+authors = [{ name = "Santos Vilanculos", email = "santosvilanculos@yahoo.com" }]
+license = { text = "MIT" }
+requires-python = ">=3.12,<3.14"
+keywords = ["PySide6"]
+classifiers = [
+  "Development Status :: 2 - Pre-Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Typing :: Typed",
+]
+dependencies = ["pendulum>=3.0.0", "psutil>=7.0.0", "PySide6>=6.8.2.1"]
+
+[project.urls]
+Homepage = "https://github.com/rokugu"
+# Documentation = ""
+Repository = "https://github.com/rokugu/rokugu"
+"Bug Tracker" = "https://github.com/rokugu/rokugu/issues"
+Changelog = "https://github.com/rokugu/rokugu/blob/main/CHANGELOG.md"
+
+[project.optional-dependencies]
+dev = [
+  "autoflake==2.3.1",
+  "black==25.1.0",
+  "build==1.2.2",
+  "isort==6.0.0",
+  "pendulum==3.0.0",
+  "pillow==11.1.0",
+  "pyinstaller==6.12.0",
+  "pyinstaller_versionfile==3.0.0",
+  "PySide6==6.8.2.1",
+  "psutil==7.0.0",
+  "py-mon==2.0.5",
+  "taskipy",
+  "twine==6.1.0",
+  "wheel==0.45.1",
+]
+doc = [
+  "mkdocs==1.6.1",
+  "mkdocs-material==9.6.8",
+  "mkdocstrings==0.29.0",
+  "mkdocstrings-python==1.16.5",
+  "pymdown-extensions==10.14.3",
+]
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.package-data]
+rokugu = ["py.typed"]
+
+[tool.autoflake]
+remove-all-unused-imports = true
+recursive = true
+expand-star-imports = true
+in-place = true
+remove-duplicate-keys = true
+
+[tool.isort]
+profile = "black"
+remove_redundant_aliases = true
+
+[tool.black]
+line-length = 79
+
+[tool.taskipy.tasks]
+dev = "pymon -p '*css' ./examples/main.py"
+format = "autoflake .; isort .; black ."
+lint = "autoflake --check .; isort --check .; black --check ."
+install = "pip install . --no-build-isolation"
+build = "python -m build --sdist --wheel --no-isolation"
+upload = "twine upload ./dist/*"
