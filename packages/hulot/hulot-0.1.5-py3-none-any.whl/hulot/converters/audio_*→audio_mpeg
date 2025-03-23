@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+# Hulot converter: audio/*→audio/mpeg
+# FIXME: generalise to arbitrary audio types, using output of pacpl --formats
+# © Reuben Thomas 2023
+
+import sys
+import subprocess
+
+file = sys.argv[1]
+sys.stdout.buffer.write(subprocess.check_output(["ffmpeg", "-loglevel", "quiet", "-i", file, "-f", "mp3", "-"]))
