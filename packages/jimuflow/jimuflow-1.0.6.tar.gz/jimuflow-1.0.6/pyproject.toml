@@ -1,0 +1,61 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jimuflow"
+version = "1.0.6"
+description = "A simple and easy-to-use cross-platform RPA tool"
+readme = "README_PyPI.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Weng Jing", email = "superwhisper@hotmail.com" }
+]
+requires-python = ">=3.12,<3.14"
+dependencies = [
+    "PySide6>=6.8.1.1",
+    "lark",
+    "playwright",
+    "openpyxl",
+    "xlrd",
+    "xlwt",
+    "python-dateutil",
+    "pyperclip",
+    "psutil",
+    "Babel",
+    "arrow",
+    "pyautogui",
+    "opencv-python",
+    "pywinauto",
+    "lxml",
+    "pillow",
+    "requests",
+    "requests[socks]",
+    "mysql-connector-python",
+    "psycopg2-binary",
+    "pymssql"
+]
+
+classifiers = [
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/jimuflow/jimuflow"
+Repository = "https://github.com/jimuflow/jimuflow"
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-asyncio", "freezegun", "pyinstaller", "tomli", "pytest-httpbin"]
+docs = ["mkdocs", "mkdocs[i18n]"]
+all = ["pytest", "pytest-asyncio", "freezegun", "pyinstaller", "tomli", "pytest-httpbin", "mkdocs", "mkdocs[i18n]"]
+
+[tool.setuptools.packages.find]
+include = ["jimuflow*", "jimuflow"]
+
+[tool.setuptools.package-data]
+"jimuflow" = ["locales/**/*.mo", "resources/*.js", "packages/**/*.json"]
+
+[project.scripts]
+jimuflow_gui = "jimuflow.gui.main_window:main"

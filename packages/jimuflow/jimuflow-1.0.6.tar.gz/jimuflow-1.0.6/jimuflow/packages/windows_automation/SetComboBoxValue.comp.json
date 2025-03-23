@@ -1,0 +1,128 @@
+{
+  "name": "SetComboBoxValue",
+  "displayName": "Set ComboBox Value",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.windows_automation.SetComboBoxValueComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Windows Automation",
+  "secondaryCategory": "Window Element Operation",
+  "sortNo": 2,
+  "helpUrl": "commands/WindowsAutomation/WindowElementOperation/set_combobox_value/",
+  "platforms": [
+    "windows"
+  ],
+  "variables": [
+    {
+      "name": "elementUri",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "ComboBox Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.window_element_selector.WindowElementEdit"
+      }
+    },
+    {
+      "name": "selectType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "by_content",
+      "uiConfig": {
+        "label": "Selection Method",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "by_content",
+            "label": "Select by option content"
+          },
+          {
+            "value": "by_index",
+            "label": "Select by option index"
+          }
+        ]
+      }
+    },
+    {
+      "name": "optionContent",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Option Content",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "selectType",
+          "operator": "==",
+          "value": "by_content"
+        }
+      }
+    },
+    {
+      "name": "matchType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "contains",
+      "uiConfig": {
+        "label": "Matching Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "contains",
+            "label": "Fuzzy matching"
+          },
+          {
+            "value": "equals",
+            "label": "Exact matching"
+          },
+          {
+            "value": "regex",
+            "label": "Regular expression matching"
+          }
+        ],
+        "dependsOn": {
+          "variableName": "selectType",
+          "operator": "==",
+          "value": "by_content"
+        }
+      }
+    },
+    {
+      "name": "optionIndex",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"0\"",
+      "uiConfig": {
+        "label": "Option Index",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "selectType",
+          "operator": "==",
+          "value": "by_index"
+        }
+      }
+    },
+    {
+      "name": "delayAfterAction",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"0\"",
+      "uiConfig": {
+        "label": "Delay After Action(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    },
+    {
+      "name": "waitTime",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Waiting Time(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    }
+  ]
+}

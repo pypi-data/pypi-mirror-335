@@ -1,0 +1,112 @@
+{
+  "name": "CheckWebContent",
+  "displayName": "Detect Web Page Content",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.web_automation.CheckWebContentComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Web Automation",
+  "sortNo": 4,
+  "helpUrl": "commands/WebAutomation/check_web_content/",
+  "variables": [
+    {
+      "name": "webPage",
+      "type": "WebPage",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Web Page Object",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "checkType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "include_element",
+      "uiConfig": {
+        "label": "Detection Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "include_element",
+            "label": "contains element"
+          },
+          {
+            "value": "exclude_element",
+            "label": "does not contain element"
+          },
+          {
+            "value": "include_text",
+            "label": "contains text"
+          },
+          {
+            "value": "exclude_text",
+            "label": "does not contain text"
+          },
+          {
+            "value": "element_is_visible",
+            "label": "element is visible"
+          },
+          {
+            "value": "element_is_invisible",
+            "label": "element is invisible"
+          },
+          {
+            "value": "text_is_visible",
+            "label": "text is visible"
+          },
+          {
+            "value": "text_is_invisible",
+            "label": "text is invisible"
+          }
+        ]
+      }
+    },
+    {
+      "name": "checkElementUri",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Detection Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.web_element_selector.WebElementEdit",
+        "dependsOn": {
+          "variableName": "checkType",
+          "operator": "in",
+          "value": [
+            "include_element",
+            "exclude_element",
+            "element_is_visible",
+            "element_is_invisible"
+          ]
+        }
+      }
+    },
+    {
+      "name": "checkText",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Detection Text",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "checkType",
+          "operator": "in",
+          "value": [
+            "include_text",
+            "exclude_text",
+            "text_is_visible",
+            "text_is_invisible"
+          ]
+        }
+      }
+    },
+    {
+      "name": "checkResult",
+      "type": "bool",
+      "direction": "OUT",
+      "uiConfig": {
+        "label": "Detection Result"
+      }
+    }
+  ]
+}

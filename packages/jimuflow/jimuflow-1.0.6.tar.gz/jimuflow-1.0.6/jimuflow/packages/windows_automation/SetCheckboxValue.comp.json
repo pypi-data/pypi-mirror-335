@@ -1,0 +1,74 @@
+{
+  "name": "SetCheckboxValue",
+  "displayName": "Set Checkbox Value",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.windows_automation.SetCheckboxValueComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Windows Automation",
+  "secondaryCategory": "Window Element Operation",
+  "sortNo": 3,
+  "helpUrl": "commands/WindowsAutomation/WindowElementOperation/set_checkbox_value/",
+  "platforms": [
+    "windows"
+  ],
+  "variables": [
+    {
+      "name": "elementUri",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Checkbox Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.window_element_selector.WindowElementEdit"
+      }
+    },
+    {
+      "name": "checkType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "check",
+      "uiConfig": {
+        "label": "Selection Method",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "check",
+            "label": "Check"
+          },
+          {
+            "value": "uncheck",
+            "label": "Uncheck"
+          },
+          {
+            "value": "toggle",
+            "label": "Toggle"
+          }
+        ]
+      }
+    },
+    {
+      "name": "delayAfterAction",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"0\"",
+      "uiConfig": {
+        "label": "Delay After Action(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    },
+    {
+      "name": "waitTime",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Waiting Time(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    }
+  ]
+}

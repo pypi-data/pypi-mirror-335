@@ -1,0 +1,158 @@
+{
+  "name": "WebDownload",
+  "displayName": "Web Download",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.web_automation.WebDownloadComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Web Automation",
+  "secondaryCategory": "Web Dialog Operation",
+  "sortNo": 7,
+  "helpUrl": "commands/WebAutomation/WebDialogOperation/web_download/",
+  "variables": [
+    {
+      "name": "webPage",
+      "type": "WebPage",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Web Page Object",
+        "inputType": "expression"
+      }
+    },
+    {
+      "name": "downloadType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "click_element",
+      "uiConfig": {
+        "label": "Download Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "click_element",
+            "label": "Click the download button"
+          },
+          {
+            "value": "open_url",
+            "label": "Open the download link"
+          }
+        ]
+      }
+    },
+    {
+      "name": "elementUri",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Download Button Element",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.web_element_selector.WebElementEdit",
+        "dependsOn": {
+          "variableName": "downloadType",
+          "operator": "==",
+          "value": "click_element"
+        }
+      }
+    },
+    {
+      "name": "url",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Download Address",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "downloadType",
+          "operator": "==",
+          "value": "open_url"
+        }
+      }
+    },
+    {
+      "name": "saveFolder",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Save Folder",
+        "inputType": "custom",
+        "inputEditorType": "jimuflow.gui.components.file_path_editor.FolderPathEdit",
+        "inputValueType": "expression"
+      }
+    },
+    {
+      "name": "fileNamingType",
+      "type": "text",
+      "direction": "IN",
+      "defaultValue": "suggested",
+      "uiConfig": {
+        "label": "File Naming Type",
+        "inputType": "combo_box",
+        "options": [
+          {
+            "value": "suggested",
+            "label": "Use suggested filename"
+          },
+          {
+            "value": "custom",
+            "label": "Custom filename"
+          }
+        ]
+      }
+    },
+    {
+      "name": "customFilename",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Custom File Name",
+        "inputType": "expression",
+        "dependsOn": {
+          "variableName": "fileNamingType",
+          "operator": "==",
+          "value": "custom"
+        }
+      }
+    },
+    {
+      "name": "overrideExistingFile",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Override existing file",
+        "inputType": "check_box",
+        "required": false
+      }
+    },
+    {
+      "name": "downloadTimeout",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"300\"",
+      "uiConfig": {
+        "label": "Download Timeout(seconds)",
+        "inputType": "expression",
+        "required": false
+      }
+    },
+    {
+      "name": "waitTime",
+      "type": "number",
+      "direction": "IN",
+      "defaultValue": "\"30\"",
+      "uiConfig": {
+        "label": "Waiting Time(seconds)",
+        "group": "advanced",
+        "inputType": "expression",
+        "required": false
+      }
+    },
+    {
+      "name": "downloadFilename",
+      "type": "text",
+      "direction": "OUT",
+      "uiConfig": {
+        "label": "Download File Name"
+      }
+    }
+  ]
+}

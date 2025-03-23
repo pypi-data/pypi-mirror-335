@@ -1,0 +1,63 @@
+{
+  "name": "WriteTableCell",
+  "displayName": "Write to Table Cell",
+  "controlFlowType": "NORMAL",
+  "type": "jimuflow.components.table.WriteTableCellComponent",
+  "supportsErrorHandling": true,
+  "primaryCategory": "Data Table",
+  "sortNo": 2,
+  "helpUrl": "commands/DataTable/write_table_cell/",
+  "variables": [
+    {
+      "name": "table",
+      "type": "table",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Data Table",
+        "inputType": "expression",
+        "helpInfo": "Target data table to be written"
+      }
+    },
+    {
+      "name": "rowNo",
+      "type": "number",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Row Number",
+        "inputType": "expression",
+        "helpInfo": "Enter the line number, starting from line 1, where -n represents the nth to last line"
+      }
+    },
+    {
+      "name": "columnNo",
+      "type": "number",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Column Number",
+        "inputType": "expression",
+        "helpInfo": "Enter the column name/number, starting from column 1, where -n represents the nth to last column"
+      }
+    },
+    {
+      "name": "value",
+      "type": "text",
+      "direction": "IN",
+      "uiConfig": {
+        "label": "Content to Write into Cell",
+        "inputType": "expression",
+        "helpInfo": "Enter the content to be written into the cell"
+      }
+    },
+    {
+      "name": "appendRowIfOutOfRange",
+      "type": "bool",
+      "direction": "IN",
+      "defaultValue": false,
+      "uiConfig": {
+        "label": "Excess rows auto-append to table end",
+        "inputType": "check_box",
+        "required": false
+      }
+    }
+  ]
+}
