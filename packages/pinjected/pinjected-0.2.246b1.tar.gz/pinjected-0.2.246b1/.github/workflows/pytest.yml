@@ -1,0 +1,60 @@
+name: Python Tests
+
+on:
+  push:
+    branches: [ main, feature/design-spec ]
+  pull_request:
+    branches: [ main, feature/design-spec ]
+
+permissions:
+  contents: read
+  packages: read
+  actions: read
+  pull-requests: write
+  repository-projects: read
+  security-events: write
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+    - uses: actions/checkout@v4
+        
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        
+    - name: Install uv
+      run: |
+        curl -LsSf https://astral.sh/uv/install.sh | sh
+        echo "$HOME/.cargo/bin" >> $GITHUB_PATH
+        uv --version
+        
+    - name: Cache uv dependencies
+      uses: actions/cache@v4
+      with:
+        path: .venv
+        key: ${{ runner.os }}-uv-${{ hashFiles('**/pyproject.toml') }}
+        restore-keys: |
+          ${{ runner.os }}-uv-
+          
+    - name: Install dependencies
+      run: |
+        make sync
+        make setup-all
+        uv pip install pytest-cov
+        
+    - name: Run tests with coverage
+      run: |
+        make test-cov
+        
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
