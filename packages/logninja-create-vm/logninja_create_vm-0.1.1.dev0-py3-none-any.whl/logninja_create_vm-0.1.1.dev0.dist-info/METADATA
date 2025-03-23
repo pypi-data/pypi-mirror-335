@@ -1,0 +1,72 @@
+Metadata-Version: 2.4
+Name: logninja-create-vm
+Version: 0.1.1.dev0
+Summary: Interactive CLI tool for provisioning virtual machines using virt-install (LOGGIE infrastructure)
+Home-page: https://github.com/loggie-eth/logninja-create-vm
+Author: loggie.eth
+Author-email: founder@loggie.ai
+License: MIT
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: System Administrators
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3
+Classifier: Topic :: System :: Emulators
+Classifier: Topic :: Utilities
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: license
+Dynamic: license-file
+Dynamic: requires-python
+Dynamic: summary
+
+# 🧰 logninja-create-vm
+
+A secure, interactive CLI utility for creating virtual machines using `virt-install`, built for the **LOGGIE** decentralized infrastructure stack.
+
+> 🔐 Part of the LogNinja Ecosystem  
+> 👤 Maintained by: [loggie.eth](https://etherscan.io/address/0xF62E1F6193FD0b3d8eD7B3198915D3b0c9bd3f99)  
+> 🪙 Powered by: [LOGGIE Token](https://sepolia.etherscan.io/token/0x0bDB1e28D64b080892c5A7f9D56b1F98E5Cbf576)
+
+---
+
+## 🚀 What is this?
+
+This tool makes it easy to provision Ubuntu-based VMs on any machine running KVM/QEMU and `libvirt`. Perfect for:
+- Building secure test environments
+- Spawning decentralized AI workers
+- Automating node deployment in a Docker Swarm cluster
+
+---
+
+## ⚙️ Features
+
+- ✅ Interactive prompts for VM config
+- ✅ Optional CLI flag automation
+- ✅ Logging to both terminal and `vm_provision.log`
+- ✅ Validates ISO path before provisioning
+- ✅ Compatible with `virt-manager` and headless VNC
+
+---
+
+## 📦 Installation
+
+```bash
+pip install logninja-create-vm
+
+```
+## Flag	Description	Required
+--name	Name of the VM	✅
+--ram	RAM in MB	✅
+--vcpus	Number of virtual CPUs	✅
+--disk	Disk size in GB	✅
+--iso	Path to ISO image	✅
+--os-variant	OS variant (default: ubuntu22.04)	❌
+--network	Network to attach to (default: default)	❌
