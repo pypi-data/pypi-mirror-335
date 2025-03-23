@@ -1,0 +1,87 @@
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="common.js"></script>
+<script src="index.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+img, video {
+  display: block;
+  margin: 8px auto;
+  max-width: 100%;
+  max-height: calc(100vh - 150px);
+}
+
+header {
+  padding-right: 28px; /* scroll bar 20px + default 8px */
+}
+
+@media screen and (max-width: 960px) {
+  .blog-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav style="flex: 1;">
+    <a id=homeButton href='index.html' class=NavItem>Home</a>
+    <a id=photosButton class="NavItem">Photos</a>
+  </nav>
+
+  <div id=headerTitle class="header-title" style="width:800px;"></div>
+
+  <div class="header-controls" style="flex: 1;"></div>
+
+</header>
+
+<main>
+  <div id=notificationContainer class="notificationContainer"></div>
+
+  <div id=innerTitle class=inner-title></div>
+
+  <div id=body style="max-width:800px; margin: auto;">
+  </div>
+</main>
+
+<script>
+const app = {};
+{
+  app.main = (contentId, content) => {
+    const notifier = new Notification();
+
+    photosButton.href = `photos.html?${contentId}`;
+    if(isHttp()) {
+      fetch(window.location.href).then(res => {
+        const hostname = res.headers.get('X-Server-Name');
+        document.title = `${hostname}/${content.title}`;
+        homeButton.textContent = hostname;
+      }).catch(_ =>{
+        document.title = `local/${content.title}`;
+        console.log('Failed to host name. Setting to default.');
+      });
+    }
+
+    headerTitle.appendChild(createTitle(content.title, content.author, content.date, content.board, contentId));
+    innerTitle.appendChild(createTitle(content.title, content.author, content.date, content.board, contentId));
+    innerTitle.appendChild(document.createElement('hr'));
+
+    body.innerHTML = content.body;
+  }
+}
+</script>
+<script type="text/javascript">
+  const contentId = location.search.split('?')[1];
+  app.main(contentId, _table[contentId]);
+</script>
+
+</body>

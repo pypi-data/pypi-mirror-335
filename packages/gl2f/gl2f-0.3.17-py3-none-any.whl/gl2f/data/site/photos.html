@@ -1,0 +1,135 @@
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/modaal@0.4.4/dist/js/modaal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modaal@0.4.4/dist/css/modaal.min.css">
+
+<script src="index.js"></script>
+<script src="common.js"></script>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+nav{
+  flex: 1;
+}
+
+.header-controls {
+  display: flex;
+  flex:1;
+  justify-content: right;
+  align-items: center;
+  padding-left: 8px;
+}
+</style>
+</head>
+
+
+<body>
+
+<header>
+  <nav>
+    <a id=homeButton href='index.html' class=navItem>Home</a>
+    <a id=articleButton class="navItem">Article</a>
+  </nav>
+
+  <div id=headerTitle class="header-title"></div>
+
+  <div class=header-controls>
+    <div>
+      <input type="checkbox" class="toggleInput" id="listButton" onchange="toggleList()">
+      <label class="toggleButton navItem" for="listButton" title='Toggle file list'>List</label>
+
+      <input id="cols" type="range" min="1" step="1" title='adjust number of colmuns'>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div id=notificationContainer class="notificationContainer"></div>
+
+  <div id=innerTitle class=inner-title></div>
+
+  <center id=tiles>
+    <div id=list class=tile style="display: none; margin: 20px auto; padding:20px; background:pink; text-align:left;"></div>
+    <br>
+  </center>
+</main>
+
+<script>
+const app = {};
+{
+  function toggleList(){
+    list.style.display = toDisplay(listButton.checked);
+  }
+
+  function calcImageWidth(){
+    console.log(`${tiles.offsetWidth} / ${cols.value}`);
+    return (tiles.offsetWidth - 16) / cols.value ;
+  }
+
+  app.main = (contentId, content) =>{
+    const notifier = new Notification();
+    const mediaList = content['media'].map(e => {
+      return {
+        path: `${contentId}/${e}`,
+        displayName:e,
+      }
+    });
+
+    {
+      const n = content.media.length;
+      cols.max = Math.min(n, 7);
+      cols.value = Math.min(Math.ceil(Math.sqrt(n * window.innerWidth / window.innerHeight)), n);
+    }
+
+    const tileHandlers = mediaList.map(i => createTile(i, calcImageWidth(), notifier));
+    cols.oninput = () =>{
+      tileHandlers.forEach(u => u.updateWidth(calcImageWidth()));
+    };
+
+
+    articleButton.href = `article.html?${contentId}`;
+    if(isHttp()) {
+      fetch(window.location.href).then(res => {
+        const hostname = res.headers.get('X-Server-Name');
+        document.title = `${hostname}/Photos - ${content.title}`;
+        homeButton.textContent = hostname;
+      }).catch(_ =>{
+        document.title = `local/Photos - ${content.title}`;
+        console.log('Failed to host name. Setting to default.');
+      });
+    }
+
+    headerTitle.appendChild(createTitle(content.title, content.author, content.date, content.board, contentId));
+    innerTitle.appendChild(createTitle(content.title, content.author, content.date, content.board, contentId));
+    innerTitle.appendChild(document.createElement('hr'));
+
+    mediaList.forEach(i => {
+      const div = document.createElement('div');
+      div.className = "list-item";
+      div.textContent = i.path.split('/')[1];
+      list.appendChild(div);
+    });
+
+    tileHandlers.forEach(u => {
+      const div = document.createElement('div');
+      div.className = 'tile';
+      div.appendChild(u.tile);
+      tiles.appendChild(div)
+    });
+    tileHandlers.forEach(u => u.updateWidth(calcImageWidth()));
+    setupModaal();
+  }
+}
+</script>
+<script type="text/javascript">
+const contentId = location.search.split("?")[1];
+const content = _table[contentId];
+app.main(contentId, content);
+</script>
+
+</body>
