@@ -1,0 +1,5 @@
+__author__ = "Peter Norvig & AIMA Team"
+__compiler__ = "Your Name (Packager)"
+__version__ = "1.0"
+__email__ = "your.email@example.com"
+__license__ = "MIT"
