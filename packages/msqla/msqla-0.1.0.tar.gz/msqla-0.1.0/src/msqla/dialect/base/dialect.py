@@ -1,0 +1,3 @@
+from sqlalchemy.engine.default import DefaultDialect
+class MSQLADialect(DefaultDialect):
+    ...
