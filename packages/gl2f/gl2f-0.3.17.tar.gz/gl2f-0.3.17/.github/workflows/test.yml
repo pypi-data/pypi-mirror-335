@@ -1,0 +1,64 @@
+name: test
+
+on:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        runs-on: [ubuntu-latest, windows-latest, macos-latest]
+        python:
+          - '3.8'
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
+
+    name: ${{ matrix.python }} • ${{ matrix.runs-on }}
+    runs-on: ${{ matrix.runs-on }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: main
+        fetch-depth: 0
+    - run: git config user.name "action"
+    - run: git config user.email "action@github.com"
+    - run: git switch ${{ github.base_ref }}
+    - run: git merge origin/${{ github.head_ref }} --no-ff
+    - run: git submodule update --init
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python }}
+
+    - run: pip install .[dev]
+    - run: gl2f completion
+
+    - run: python3 -m pytest --junit-xml results/pytest.xml
+      continue-on-error: true
+
+    - run: py.test --pylint --pylint-error-types=EF --pylint-ignore-patterns=gl2f.ayame --junit-xml=results/pytest-pylint.xml
+      continue-on-error: true
+
+    - uses: actions/upload-artifact@v4
+      with:
+        if-no-files-found: error
+        name: test-results-${{ matrix.python }}-${{ matrix.runs-on }}
+        path: results/*.xml
+
+  summary:
+    needs:
+    - test
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/download-artifact@v4
+      with:
+        path: artifacts
+
+    - uses: EnricoMi/publish-unit-test-result-action@v2
+      with:
+        junit_files: artifacts/**/*.xml

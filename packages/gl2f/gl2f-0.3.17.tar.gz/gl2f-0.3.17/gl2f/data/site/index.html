@@ -1,0 +1,455 @@
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>local/gl2f</title>
+
+<script src="common.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/modaal@0.4.4/dist/js/modaal.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modaal@0.4.4/dist/css/modaal.min.css">
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+th{
+	padding:8px 8px;
+	position: sticky;
+	top:0;
+	background: lightcoral;
+	font-size: 1em;
+}
+
+td{
+	padding: 4px 8px;
+	background: lavenderblush;
+}
+
+tr:nth-child(odd) td{
+	background: white;
+}
+
+.dropdown-item{
+	padding: 2px;
+	font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header style="justify-content: left;">
+	<nav>
+		<a href="index.html" class="navItem" id=homeButton>Home</a>
+		<div>
+			<input type="checkbox" class="toggleInput" id="togglePhotosButton">
+			<label class="NavItem toggleButton" for="togglePhotosButton">Photos</label>
+		</div>
+	</nav>
+
+	<div style='margin-left:8px; margin-right: auto;'>
+		<select id=filter_board class="dropdown-item"></select>
+		<select id=filter_author class="dropdown-item"></select>
+	</div>
+
+	<div>
+		<div id=columnDropdown style="position: relative; display: inline-block;">
+			<button id="columnDropdownButton" class="dropdown-item">
+				Cols&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+			</button>
+			<div id="columnDropdownContent" class="float" style="right: 0; border-radius: 5px;"></div>
+		</div>
+	</div>
+
+</header>
+
+<main>
+	<div id=notificationContainer class="notificationContainer"></div>
+
+	<div id=tableContainer>
+		<table style="margin: 0; border-collapse: collapse;">
+			<thead id='thead'></thead>
+			<tbody id='tbody'></tbody>
+		</table>
+	</div>
+
+	<div id='media' style="display:none;">
+		<hr>
+		<center id=center></center>
+	</div>
+</main>
+
+<div id="tileContextMenu" class="context-menu"></div>
+
+<script type="text/javascript">
+const app = {};
+{
+	const columnDefs = {
+		expired: {
+			displayName: '<i class="fa fa-chain-broken" aria-hidden="true"></i>',
+			data: (k, v)=>v.expired? '<i class="fa fa-chain-broken" aria-hidden="true"></i>': '',
+			default: window.innerWidth < 400? false: true,
+		},
+		id: {
+			displayName: 'Id',
+			data: (k, v) => `<a href='./contents/${k}'>${k}</a>`,
+			default: false,
+		},
+		date: {
+			displayName: 'Date',
+			data: (k, v) => toDate(v.date),
+			default: true,
+		},
+		expiredDate: {
+			displayName: 'Expired',
+			data: (k, v) => v.expired? toDate(v.expired) : "",
+			default: false,
+		},
+		board: {
+			displayName: 'Board',
+			data:(k, v)=>`<a href='https://girls2-fc.jp/page/${v.board}/${k}' target='_blank' style="text-decoration:none;">${v.board}&nbsp;<i class="fa fa-external-link"></i></a>`,
+			default: window.innerWidth < 800? false : true,
+		},
+		author: {
+			displayName: 'Author',
+			data:(k, v)=>`<center style="white-space: nowrap">${v['author']}`,
+			default: window.innerWidth < 600? false : true,
+		},
+		title: {
+			displayName: 'Title',
+			data:(k, v)=>['girls2radio', 'lucky2radio', 'wallpaper', 'commercialmovie', 'gtube'].includes(v['board'])?
+				`<a href=photos.html?${k}>${v.title}</a>`
+				: `<a href=article.html?${k}>${v.title}</a>&nbsp;/&nbsp;<a href=photos.html?${k}>Photos</a>`,
+			default: true,
+		},
+	};
+
+ 	function defaultState(){
+		return {
+			board: '*',
+			author: '*',
+			order: 'date.desc',
+			photos: false,
+		};
+	}
+
+	function createState() {
+		const state = decodeParameter(window.location.search, defaultState());
+		return new Proxy(state, {
+			get(target, prop) {
+				if(prop === 'order')
+				{
+					const [col, dir] = target.order.split('.');
+					return [col, dir==='desc'?-1:1];
+				}
+				return target[prop];
+			},
+			set(target, prop, value) {
+				if(prop === 'order')
+				{
+					const [col, dir] = value;
+					target.order = `${col}.${dir<0?'desc':'asc'}`;
+				}
+				else if (target[prop] !== value) {
+				  target[prop] = value;
+				}
+
+			  const params = encodeParameter(state, defaultState());
+	  		const url = params? `?${params}` : window.location.pathname;
+	  		window.history.replaceState(null, '', url);
+
+				return true;
+			},
+	  });
+	}
+
+	function updateMediaTile(tiles, query) {
+		tiles.forEach(([_, v, u]) =>{
+			const visible = (query.board == '*' || query.board == v.board)
+				&& (query.author == '*' || query.author == v.author);
+			u.updateVisibility(visible);
+		});
+
+		center.replaceChildren();
+		tiles.sort(([lp, lv, _], [rp, rv, __])=>{
+			const [col, dir] = query.order;
+			const l = String(lv[col]).toLowerCase();
+			const r = String(rv[col]).toLowerCase();
+			return l == r? lp > rp : l > r? dir : -dir;
+		})
+		.forEach(([_, __, u]) => {
+		 const div = document.createElement('div');
+	    div.className = 'tile';
+	    div.appendChild(u.tile);
+	    center.appendChild(div);
+		});
+	}
+
+	function getItems(table, query) {
+		const [col, dir] = query.order;
+		const toSortKey = v => String(v[col]).toLowerCase();
+		return Object.entries(table)
+			.filter(([_, v]) => query.board == '*' || query.board == v['board'])
+			.filter(([_, v]) => query.author == '*' || query.author == v['author'])
+			.sort(([_, l], [__, r]) => toSortKey(l) < toSortKey(r)? -dir : dir);
+	}
+
+	function updateTableData(table, query) {
+		tbody.replaceChildren();
+		getItems(table, query).forEach(data =>{
+			const tr = document.createElement('tr');
+			Object.entries(columnDefs).forEach(([k, v])=>{
+				const td = document.createElement('td');
+				const checked = document.getElementById(`col_${k}`).checked;
+				td.style.display = toDisplay(checked);
+				td.setAttribute('data-column', k);
+				td.innerHTML = v.data(...data);
+
+				tr.appendChild(td);
+			});
+			tbody.appendChild(tr);
+		});
+	};
+
+	function updateLabels(query) {
+		Object.entries(columnDefs).forEach(([k, v]) =>{
+			const [col, dir] = query.order;
+			const arrow = k != col? '↑↓' : dir == 1? '↑':'↓';
+			document.getElementById(`th_${k}`).innerHTML = `${v.displayName}&thinsp;${arrow}`;
+		});
+	}
+
+	app.main = table =>{
+		const notifier =  new Notification();
+		const queryState = createState();
+
+		const tileHandlers = Object.entries(table).flatMap(([k, v])=>v['media'].map(m => {
+			const prefix = v['author']? v['author'] : v['board'];
+			return {
+				contentId: k,
+				path: `${k}/${m}`,
+				displayName: `[${prefix}] ${v['title']}`,
+			}
+		}))
+		.map(i => {
+			return [i.path, table[i.contentId], createTile(i, (tableContainer.clientWidth-16)*0.25, notifier)];
+		});
+
+		{ // header
+			if(isHttp()) {
+				fetch(window.location.href).then(res => {
+					const hostname = res.headers.get('X-Server-Name');
+					document.title = `${hostname}/gl2f`;
+					homeButton.textContent = hostname;
+				}).catch(_ =>{
+					console.log('Failed to host name');
+				});
+			}
+
+			togglePhotosButton.onchange = ()=> {
+				tableContainer.style.maxHeight = togglePhotosButton.checked? '30vh' : '';
+				tableContainer.style.overflow = togglePhotosButton.checked? 'auto': '';
+				media.style.display = toDisplay(togglePhotosButton.checked);
+				queryState.photos = togglePhotosButton.checked;
+			};
+			togglePhotosButton.checked = queryState.photos;
+			togglePhotosButton.onchange();
+
+			const filters = ['board', 'author'];
+			filters.forEach(id => {
+				const e = document.getElementById(`filter_${id}`);
+				e.style.width = '8em';
+				e.innerHTML = [
+					`<option value=*>${id} / all</option>`,
+					...Array.from(new Set(Object.values(table).map(v => v[id])))
+						.sort()
+						.map(b=>`<option value='${b}'>${b}</option>`)
+				].join('');
+				e.value = queryState[id];
+
+				e.addEventListener('change', () => {
+					queryState[id] = e.value;
+					if(getItems(table, queryState).length == 0){
+						filters.filter(b => b != id).forEach(b => {
+							const e = document.getElementById(`filter_${b}`);
+							e.value = '*';
+							queryState[b] = '*';
+						});
+					}
+					updateTableData(table, queryState);
+					updateMediaTile(tileHandlers, queryState);
+				});
+			});
+
+			Object.entries(columnDefs).forEach(([k, v]) => {
+				const checkbox = document.createElement('input');
+				checkbox.id = `col_${k}`;
+				checkbox.type = 'checkbox';
+				checkbox.style.marginRight = '5px';
+				checkbox.checked = v.default;
+				checkbox.onchange = () => {
+					document.querySelectorAll(`[data-column="${k}"]`).forEach(cell =>{
+						cell.style.display = toDisplay(checkbox.checked);
+					});
+				};
+
+				const view = document.createElement('div');
+				view.innerHTML = v.displayName;
+
+				const label = document.createElement('label');
+				label.className = 'dropdown-item';
+				label.style.display = 'flex';
+				label.appendChild(checkbox);
+				label.appendChild(view);
+
+				columnDropdownContent.appendChild(label);
+			});
+
+			columnDropdownButton.onclick = ()=> {
+				const c = columnDropdownContent;
+				c.style.display = c.style.display === 'block'? 'none' : 'block';
+			};
+			columnDropdown.onmouseleave = () => columnDropdownContent.style.display = 'none';
+		}
+		{ // table
+			const row = document.createElement('tr');
+			Object.entries(columnDefs).forEach(([k, v]) => {
+				const th = document.createElement('th');
+				th.setAttribute('data-column', k);
+				th.style.display = toDisplay(v.default);
+
+				const e = document.createElement('div');
+				e.className = 'buttonlike';
+				e.id = `th_${k}`;
+				e.addEventListener('click', ()=>{
+					const [col, dir] = queryState.order;
+					if (col == k) {
+						queryState.order = [col, -dir];
+					}
+					else {
+						queryState.order = [k, 1];
+					}
+					updateLabels(queryState);
+					updateTableData(table, queryState);
+					updateMediaTile(tileHandlers, queryState);
+				});
+				th.appendChild(e);
+
+				row.appendChild(th);
+			});
+
+			thead.appendChild(row);
+
+			updateLabels(queryState);
+			updateTableData(table, queryState);
+			updateMediaTile(tileHandlers, queryState);
+			setupModaal();
+		}
+		{ // contextmenu
+			function createCommonItems(target) {
+		  	const ar = target.src.split('/');
+				const id = ar[ar.length - 2];
+			  return [
+			  	createContextMenuButton('View article',
+						() => {
+							window.open(`article.html?${id}`, '_blank');
+						}, true),
+					createContextMenuButton('View photos',
+						() => {
+							window.open(`photos.html?${id}`, '_blank');
+						}, true),
+					createContextMenuButton('Open in FC',
+						() => {
+							const board = table[id]['board'];
+							window.open(createFcArticleUrl(board, id));
+						}, true),
+					createContextMenuButton("Open media in new tab",
+						() => {
+							window.open(target.src, '_blank');
+						}, true),
+			  ];
+			}
+
+			const canCopyText = navigator.clipboard && navigator.clipboard.writeText;
+
+			function showMenu(e) {
+				if(e.target.tagName === 'IMG')
+				{
+				  const img = e.target;
+
+				  const items = createCommonItems(img);
+					items.push(document.createElement('hr'));
+
+					items.push(createContextMenuButton('Copy image',
+						async () => {
+							const canvas = document.createElement('canvas');
+							canvas.width = img.naturalWidth;
+							canvas.height = img.naturalHeight;
+
+							const ctx = canvas.getContext('2d');
+							ctx.drawImage(img, 0, 0);
+
+							new Promise(resolve => canvas.toBlob(resolve, 'image/png'))
+							.then(blob => navigator.clipboard.write([new ClipboardItem({[blob.type]: blob})])
+								.then(_ => notifier.info('Image copied.')))
+							.catch(_ => notifier.error('Failed to copy the image.'));
+						},
+						img.tagName === 'IMG' && navigator.clipboard && navigator.clipboard.write));
+					items.push(createContextMenuButton("Copy image address",
+						() =>{
+							navigator.clipboard.writeText(img.src)
+							.then(_ => notifier.info('Image path copied.'))
+							.catch(_ => notifier.error('Failed to copy the image path.'));
+						},
+						canCopyText));
+
+					if(e.cancelable){
+						e.preventDefault();
+					}
+					initCustomContextMenu(items, e.clientX, e.clientY);
+				}
+
+				if (e.target.tagName === 'VIDEO')
+				{
+					const items = createCommonItems(e.target);
+					items.push(document.createElement('hr'));
+
+					items.push(createContextMenuButton("Copy video address",
+						() => {
+							navigator.clipboard.writeText(e.target.src)
+							.then(_ => notifier.info('Video path copied.'))
+							.catch(_ => notifier.error('Failed to copy the video path.'))
+						},
+						canCopyText));
+
+					if(e.cencelable){
+						e.preventDefault();
+					}
+					initCustomContextMenu(items, e.clientX, e.clientY);
+				}
+			}
+
+			media.addEventListener('contextmenu', showMenu);
+
+      let touchTimer;
+      media.addEventListener("touchstart", e => {
+        touchTimer = setTimeout(() => showMenu(e), 500);
+      }, {passive: true});
+
+      media.addEventListener("touchend", () => {
+        clearTimeout(touchTimer);
+      });
+
+			document.addEventListener('click', ()=>tileContextMenu.style.display = 'none');
+		}
+	}
+};
+</script>
+<script src="index.js"></script>
+<script type="text/javascript">
+	app.main(_table);
+</script>
+
+</body>

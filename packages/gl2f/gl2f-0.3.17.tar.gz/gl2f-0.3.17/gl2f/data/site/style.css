@@ -1,0 +1,176 @@
+html{
+  font-family: arial;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 8px;
+  background: linear-gradient(to right, #F486BA, #FFCE5D);
+  margin-bottom: 2px;
+}
+
+header a{
+  color: #0066b2;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  align-items: center;
+  gap: 4px;
+  padding-right: 4px;
+}
+
+.navItem {
+  padding: 4px;
+  border: solid;
+  border-color: white;
+  border-width: 2px;
+  border-radius: 12px;
+  color: black;
+}
+
+main {
+  margin: 0;
+  margin-bottom: 2px;
+  padding: 0 20px 30px 20px;
+  overflow: auto;
+}
+
+label, .buttonlike{
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  height: fit-content;
+}
+
+p{
+  margin:0;
+}
+
+h1{
+  margin: 0;
+  font-size: 1.5em;
+}
+
+
+.toggleInput {
+  display: none;
+}
+
+.toggleButton {
+  color: #f1f1f1;
+  background: #4e4e4e8a;
+}
+
+.toggleInput:checked + .toggleButton {
+  color: white;
+  background: cadetblue;
+}
+
+.float, .context-menu {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+  padding: 2px;
+  z-index: 1000;
+
+  display: none;
+}
+
+.context-menu button {
+  display: block;
+  width: 100%;
+  padding: 5px 10px;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.context-menu button:hover {
+  background: #f0f0f0;
+}
+
+.notificationContainer {
+  z-index: 1000;
+  position: fixed;
+  right: 30px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 6px;
+}
+
+.notification {
+  width: 200px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 4px 6px 6px rgba(0, 0, 0, 0.7);
+  font-size: 16px;
+  color: #fff;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.notification.error {
+  background-color: #f44336;
+}
+
+.notification.warning {
+  background-color: #ff9800;
+  color:#282828;
+}
+
+.notification.info {
+  background-color: #2196f3;
+}
+
+
+/*gallery*/
+.tile{
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.modaal-inner-wrapper {
+  height: 100%;
+  padding: 25px 25px;
+}
+
+.modaal-gallery-item img {
+  max-height: calc(100vh - 60px);
+}
+
+/*photos and article*/
+.header-title{}
+
+.inner-title{
+  display: none;
+}
+
+@media only screen and (max-width:768px){
+  main{
+    padding: 0 8px 30px 8px;
+  }
+
+  .header-title{
+    display: none;
+  }
+
+  .inner-title{
+    display: block;
+  }
+}

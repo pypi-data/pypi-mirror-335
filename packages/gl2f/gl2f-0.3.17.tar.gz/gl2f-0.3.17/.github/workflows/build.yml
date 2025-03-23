@@ -1,0 +1,127 @@
+name: build
+
+on:
+  pull_request:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build-pyinstaller:
+    strategy:
+      matrix:
+        target:
+          - windows
+          - macos
+        include:
+          - target: windows
+            os: windows-latest
+          - target: macos
+            os: macos-latest
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: git submodule update --init
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: pip install . pyinstaller
+
+      - run: . dev/scripts/build-pyinstaller.bash
+        shell: bash
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.target }}
+          path: dist/*
+
+  build-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: git submodule update --init
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+      - run: python3 -m pip install build
+
+      - run: python3 -m build
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish-to-pypi:
+    if: startsWith(github.ref, 'refs/tags/')
+    needs:
+    - build-dist
+
+    runs-on: ubuntu-latest
+
+    environment:
+      name: pypi
+      url: https://pypi.org/p/gl2f
+
+    permissions:
+      id-token: write
+
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
+
+  release:
+    if: startsWith(github.ref, 'refs/tags')
+    needs:
+    - build-pyinstaller
+    - publish-to-pypi
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # windows
+      - uses: actions/download-artifact@v4
+        with:
+          name: windows
+      - run: zip windows.zip windows/*
+
+      # mac
+      - uses: actions/download-artifact@v4
+        with:
+          name: macos
+      - run: zip macos.zip macos/*
+
+      # dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: sigstore/gh-action-sigstore-python@v2.1.1
+        with:
+          inputs: >-
+            ./dist/*.tar.gz
+            ./dist/*.whl
+
+      - name: Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          generate_release_notes: true
+          files: |
+            windows.zip
+            macos.zip
+            dist/**
