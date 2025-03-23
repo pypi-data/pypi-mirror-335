@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ilovesyd"
+version = "0.1.0"
+description = "A Python wrapper for ilovesyd.xyz API"
+readme = "README.md"
+authors = [{ name = "KrishhVii", email = "krish@ilovesyd.xyz" }]
+license = { text = "MIT" }
+dependencies = [
+    "curl_cffi"
+]
+requires-python = ">=3.7"
+
+[project.urls]
+Homepage = "https://github.com/KrishhVii/ilovesyd"  # Change to your repo
+Repository = "https://github.com/KrishhVii/ilovesyd"
+Issues = "https://github.com/KrishhVii/ilovesyd/issues"
+
+[tool.setuptools]
+packages = ["ilovesyd"]
