@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ImgFixer</title>
+    <link rel="stylesheet" type="text/css" href="/static/styles.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', path='favicon.ico') }}">
+    <meta name="copyright" content="Copyright (c) 2025 Krishnakanth Allika, wheat-chop-octane [at] duck [dot] com">
+    <meta name="license" content="Licensed under the GNU General Public License v3 (GPLv3). This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/gpl-3.0-standalone.html">
+</head>
+<body>
+    <div class="container">
+        <h2>ImgFixer</h2>
+        <p>ImgFixer is a tool designed to help you correct the file extensions of image files in a specified directory. It scans the directory for image files, checks their actual file types, and renames them with the correct file extensions if necessary.</p>
+        <form action="/process" method="post">
+            <div class="form-group">
+                <label for="directory">Enter the directory path where your image files are located:</label>
+                <input type="text" id="directory" name="directory" required>
+                <p></p>
+                <button>Process</button>
+            </div>
+        </form>
+    </div>
+    <footer>
+        <p>Copyright (c) 2025 Krishnakanth Allika, wheat-chop-octane [at] duck [dot] com, Licensed under the GNU General Public License v3 (GPLv3).</p>
+    </footer>
+</body>
+</html>
