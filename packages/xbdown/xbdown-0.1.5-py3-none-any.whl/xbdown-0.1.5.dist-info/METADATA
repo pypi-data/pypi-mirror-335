@@ -1,0 +1,44 @@
+Metadata-Version: 2.1
+Name: xbdown
+Version: 0.1.5
+Summary: 强大的种子下载工具，优化性能与美观终端输出
+Home-page: https://github.com/pythonxueba/xbdown
+Author: Python学霸
+Author-email: xueba@xb.com
+License: MIT
+Keywords: torrent downloader magnet cli
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Utilities
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: colorama (>=0.4.4)
+Requires-Dist: libtorrent (>=2.0.5)
+Requires-Dist: requests (>=2.25.0)
+
+# XB Torrent Downloader
+
+A high-performance torrent downloader built with libtorrent, featuring an optimized session and a beautiful CLI.
+高效磁力下载工具
+## Installation
+
+```bash
+pip install xbdown
+```
+
+## Usage
+
+```bash
+xbdown "magnet:?XXXX"
+xbdown "https://example.com/torrent/VIDEO.MP4" 
+```
+
