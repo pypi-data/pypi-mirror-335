@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: faasit-runtime
+Version: 1.0.0
+Summary: Faasit Runtime support for Python
+Author: dydy
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: pydantic==1.10.8
+Requires-Dist: python-dotenv==1.0.1
+Provides-Extra: kn
+Requires-Dist: redis==5.2.1; extra == "kn"
+Requires-Dist: requests==2.26.0; extra == "kn"
+Requires-Dist: rocketmq-client-python==2.0.1rc1; extra == "kn"
+Provides-Extra: pku
+Requires-Dist: serverless-framework==1.0.0; extra == "pku"
+
