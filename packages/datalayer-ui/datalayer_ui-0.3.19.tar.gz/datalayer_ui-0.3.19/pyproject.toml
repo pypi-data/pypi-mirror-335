@@ -1,0 +1,104 @@
+# Copyright (c) 2021-2024 Datalayer, Inc.
+#
+# Datalayer License
+
+[build-system]
+requires = ["hatchling==1.21.1", "jupyterlab==4.0.9", "hatch-nodejs-version"]
+build-backend = "hatchling.build"
+
+[project]
+name = "datalayer_ui"
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+classifiers = [
+    "Framework :: Jupyter",
+    "Framework :: Jupyter :: JupyterLab",
+    "Framework :: Jupyter :: JupyterLab :: 4",
+    "Framework :: Jupyter :: JupyterLab :: Extensions",
+    "Framework :: Jupyter :: JupyterLab :: Extensions :: Prebuilt",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+]
+dependencies = [
+    "jupyter_server>=2,<3",
+    "traitlets",
+]
+dynamic = ["version", "description", "authors", "urls", "keywords"]
+
+[project.optional-dependencies]
+test = [
+    "coverage",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest_jupyter",
+    "pytest-tornasync",
+]
+
+[project.scripts]
+datalayer-lab = "datalayer_ui.lab:main"
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.build]
+artifacts = [
+  "datalayer_ui/static",
+  "datalayer_ui/templates"
+]
+
+[tool.hatch.build.hooks.custom]
+
+[tool.hatch.metadata.hooks.nodejs]
+fields = ["description", "authors", "urls"]
+
+[tool.hatch.build.targets.sdist]
+artifacts = [
+    "datalayer_ui/static",
+    "datalayer_ui/labextension",
+]
+exclude = [".github", "binder", ".yarn"]
+
+[tool.hatch.build.targets.wheel]
+artifacts = [
+    "datalayer_ui/static",
+    "datalayer_ui/labextension/static/lite-service-worker.js",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"datalayer_ui/labextension" = "share/jupyter/labextensions/@datalayer/ui"
+"install.json" = "share/jupyter/labextensions/@datalayer/ui/install.json"
+"jupyter-config/server-config" = "etc/jupyter/jupyter_server_config.d"
+"jupyter-config/nb-config" = "etc/jupyter/jupyter_notebook_config.d"
+
+[tool.hatch.build.hooks.version]
+path = "datalayer_ui/_version.py"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = [
+    "datalayer_ui/labextension/static/style.js",
+    "datalayer_ui/labextension/package.json",
+]
+skip-if-exists = ["datalayer_ui/labextension/static/style.js"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+build_cmd = "build:prod"
+npm = ["jlpm"]
+
+[tool.hatch.build.hooks.jupyter-builder.editable-build-kwargs]
+build_cmd = "install:extension"
+npm = ["jlpm"]
+source_dir = "src"
+build_dir = "datalayer_ui/labextension"
+
+[tool.jupyter-releaser.options]
+version_cmd = "hatch version"
