@@ -1,0 +1,62 @@
+[project]
+name = "ConnectKit-S3"
+version = "2.0.0"
+description = "Wrapper for connection to S3"
+authors = [
+    { name = "RealMetamorph", email = "andr.timchuk@yandex.ru" },
+]
+keywords = [
+    "connectkit",
+    "s3",
+    "boto3",
+    "async",
+    "asyncio",
+    "aioboto3",
+    "aiofiles",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.10"
+readme = "README.md"
+dependencies = [
+    "pydantic>=2.10.6",
+    "pydantic-settings>=2.8.1",
+    "boto3>=1.37.1",
+]
+
+[project.license]
+file = "LICENSE"
+
+[project.urls]
+Homepage = "https://github.com/mtuciru/ConnectKit-S3"
+Repository = "https://github.com/mtuciru/ConnectKit-S3.git"
+
+[project.optional-dependencies]
+async = [
+    "aiofiles>=24.1.0",
+    "aioboto3>=14.1.0",
+    "async-lru>=2.0.5",
+]
+
+[build-system]
+requires = [
+    "pdm-backend",
+]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+tests = "echo 'tests will be here'"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "pytest-asyncio>=0.25.3",
+    "types-aiobotocore[s3]>=2.21.1",
+]
