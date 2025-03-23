@@ -1,0 +1,25 @@
+[project]
+name = "guideframe"
+version = "0.5.2"
+description = "A tool to generate reusable software walkthrough videos via  code."
+authors = [
+    {name = "Pat O'Connor"}
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "selenium (==4.27.1)",
+    "ffmpeg-python (==0.2.0)",
+    "mutagen (==1.47.0)",
+    "gtts (==2.5.4)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry]
+include = ["guideframe/scripts/install_dependencies.sh"]
