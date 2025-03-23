@@ -1,0 +1,2 @@
+from clselove import auto
+                      
