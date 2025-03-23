@@ -1,0 +1,93 @@
+Metadata-Version: 2.2
+Name: aistudent
+Version: 1.0.1
+Summary: A simple AI utilities package for search, CSP, and games.
+Author: Babar Ahmad
+Author-email: babar.ahmad@aumc.edu.pk
+Classifier: Programming Language :: Python :: 3.12
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
+Requires-Dist: numpy
+Requires-Dist: matplotlib
+Requires-Dist: networkx
+Requires-Dist: sortedcontainers
+Requires-Dist: pillow
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: requires-dist
+Dynamic: summary
+
+# AI Utilities Package
+
+This package provides essential implementations of AI algorithms, making it easier for students to learn and experiment with **search algorithms, constraint satisfaction problems (CSP), and game-playing strategies**. It is based on the **AIMA-Python** project but has been modularized and simplified for educational use.
+
+## Features
+- **Search Algorithms**: Implements **uninformed** (BFS, DFS, UCS) and **informed** (Greedy, A*) search algorithms.
+- **Constraint Satisfaction Problems (CSP)**: Includes **backtracking search, forward-checking, and heuristics** for CSPs.
+- **Game Playing**: Implements **Minimax and Alpha-Beta pruning** for decision-making in two-player games.
+
+## Installation  
+To install this package, use:
+
+```sh
+pip install aistudent-1.0.0-non-any-py312.whl
+```
+## Dependencies
+- numpy
+- networkx
+- sortedcontainers
+- scipy
+- matplotlib
+
+### These dependencies will be installed automatically, but you can manually install them using:
+```sh
+pip install numpy networkx sortedcontainers scipy matplotlib
+```
+## Usage
+
+Once installed, you can import and use the package in your Python scripts.
+
+
+### Example 1: Using BFS from Search Module
+```sh
+from aiutils import search
+
+problem = search.GraphProblem('A', 'B', some_graph)
+solution = search.breadth_first_search(problem)
+print(solution)
+```
+### Example 2: Solving a CSP Problem
+```sh
+from aiutils import csp
+
+variables = ['A', 'B', 'C']
+domains = {'A': [1, 2], 'B': [1, 2], 'C': [1, 2]}
+neighbors = {'A': ['B'], 'B': ['A', 'C'], 'C': ['B']}
+problem = csp.CSP(variables, domains, neighbors)
+
+solution = csp.backtracking_search(problem)
+print(solution)
+``
+### Example 3: Minimax Algorithm for Game AI
+```sh
+from aiutils import game
+
+game_state = game.TicTacToe()
+move = game.minimax_decision(game_state, game_state.player)
+print("Best Move:", move)
+```
+## Credits & Contributions
+This package is based on the AIMA-Python implementations by Stuart Russell & Peter Norvig, originally developed as part of Artificial Intelligence: A Modern Approach.
+
+Original Implementation: AIMA-Python Contributors
+
+Refactored & Simplified for Students: [Babar Ahmad]
+
+Package Creation & Modularization: [Babar Ahmad]
+
+This package is designed to simplify AI learning for students by providing easy-to-use, modular AI implementations.
+
