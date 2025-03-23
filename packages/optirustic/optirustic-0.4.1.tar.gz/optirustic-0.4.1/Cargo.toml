@@ -1,0 +1,53 @@
+[package]
+name = "optirustic"
+version = "1.2.2"
+authors = ["Stefano Simoncelli <16114781+s-simoncelli@users.noreply.github.com>"]
+edition = "2021"
+rust-version = "1.80"
+description = "A multi-objective optimisation framework for Rust"
+repository = "https://github.com/s-simoncelli/optirustic"
+keywords = ["genetic-algorithm", "optimisation", "multiobjective", "nsga2", "nsga3"]
+categories = ["science", "algorithms"]
+readme = "README.md"
+license = "MIT"
+
+[workspace]
+resolver = "2"
+members = ["libs/optirustic-macros", "libs/hv-fonseca-et-al-2006-sys"]
+default-members = ["libs/optirustic-macros", "libs/hv-fonseca-et-al-2006-sys"]
+exclude = ["optirustic-py"]
+
+[lib]
+name = "optirustic"
+
+[dependencies]
+log = "0.4.21"
+serde_json = "1.0"
+serde = { version = "1.0.200", features = ["derive"] }
+rand = "0.9.0"
+rand_chacha = "0.9.0"
+thiserror = "2.0.11"
+rayon = "1.10.0"
+env_logger = "0.11.3"
+chrono = { version = "0.4.38", features = ["serde"] }
+optirustic-macros = { path = "libs/optirustic-macros", version = "1.1.0" }
+hv-fonseca-et-al-2006-sys = { path = "libs/hv-fonseca-et-al-2006-sys", version = "2.0.2-rc.2" }
+nalgebra = "0.33.0"
+pyo3 = { version = ">=0.23.5", optional = true, features = ["extension-module"] }
+pyo3-build-config = { version = ">=0.23.5", optional = true }
+
+[dev-dependencies]
+float-cmp = "0.10.0"
+
+[features]
+# Enable pyo3 support when creating a Python module that wraps this library with an optimisation problem
+python = ["pyo3", "pyo3-build-config"]
+
+[package.metadata.docs.rs]
+all-features = true
+cargo-args = ["-Zunstable-options", "-Zrustdoc-scrape-examples"]
+rustdoc-args = ["--html-in-header", "src/katex-header.html"]
+
+# Run test with optimisation to speed up tests solving optimisation problems.
+[profile.test]
+opt-level = 3

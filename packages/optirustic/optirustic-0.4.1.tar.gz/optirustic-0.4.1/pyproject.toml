@@ -1,0 +1,44 @@
+[build-system]
+requires = ["maturin>=1.5,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "optirustic"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Rust",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dynamic = ["version"]
+dependencies = ["matplotlib~=3.9.2", "numpy~=2.0.1"]
+
+[project.optional-dependencies]
+dev = ["ruff", "maturin", "pytest"]
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+manifest-path = "optirustic-py/Cargo.toml"
+
+[tool.ruff]
+exclude = [
+    ".env",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+]
+
+# Same as Black.
+indent-width = 4
+
+[tool.ruff.lint]
+select = ["E", "F", "D", "ANN"]
+ignore = ["ANN204", "D203", "D205", "D404", "D212"]
+
+fixable = ["ALL"]
+unfixable = []
+
+[tool.ruff.format]
+docstring-code-format = true
+quote-style = "double"
+indent-style = "space"
