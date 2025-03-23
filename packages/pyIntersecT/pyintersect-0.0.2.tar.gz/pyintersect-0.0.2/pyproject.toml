@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pyIntersecT"
+version = "0.0.2"
+description = "Quantitative isopleth thermobarometry from PerpleX"
+authors = [{name = "Sara Nerone", email = "sara.nerone@unito.it"}]
+license = {file = "LICENSE"}
+readme = "README.md"
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy",
+    "matplotlib",
+    "pandas",
+    "pytk",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/neoscalc/IntersecT"
+"Bug Tracker" = "https://github.com/neoscalc/IntersecT/issues"
