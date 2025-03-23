@@ -1,0 +1,16 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+import "kilight/protocol/Color.proto";
+import "kilight/protocol/OutputIdentifier.proto";
+
+message OutputState
+{
+    OutputIdentifier outputId = 1;
+    Color color = 2;
+    uint32 brightness = 3;
+    bool on = 4;
+    uint32 current = 5;
+    optional int32 temperature = 6;
+}

@@ -1,0 +1,18 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+import "kilight/protocol/OutputState.proto";
+import "kilight/protocol/SystemTemperatures.proto";
+import "kilight/protocol/FanState.proto";
+
+message SystemState
+{
+    OutputState outputA = 1;
+
+    optional OutputState outputB = 2;
+
+    SystemTemperatures temperatures = 3;
+
+    FanState fan = 4;
+}

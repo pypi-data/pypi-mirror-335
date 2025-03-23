@@ -1,0 +1,13 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+import "kilight/protocol/GetData.proto";
+import "kilight/protocol/WriteOutput.proto";
+
+message Request {
+    oneof request_type {
+        GetData getData = 1;
+        WriteOutput writeOutput = 2;
+    }
+}

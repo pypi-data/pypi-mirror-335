@@ -1,0 +1,16 @@
+syntax="proto3";
+
+import "embedded_proto_options.proto";
+
+package kilight.protocol;
+
+import "kilight/protocol/VersionInfo.proto";
+
+message SystemInfo
+{
+    string hardwareId = 1 [(EmbeddedProto.options).maxLength = 16];
+    string model = 2 [(EmbeddedProto.options).maxLength = 32];
+    string manufacturer = 3 [(EmbeddedProto.options).maxLength = 32];
+    VersionInfo firmwareVersion = 4;
+    VersionInfo hardwareVersion = 5;
+}

@@ -1,0 +1,9 @@
+syntax="proto3";
+
+package kilight.protocol;
+
+message FanState
+{
+    uint32 rpm = 1;
+    uint32 outputPerThou = 2;
+}
