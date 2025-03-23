@@ -1,0 +1,47 @@
+[tool.poetry]
+name = "structura-py"
+version = "1.0.0"
+description = "Structura is a CLI tool that automates folder structure generation and dependency management for Python projects. It supports multiple architectures (MVC, MVCS, Hexagonal) and frameworks (Flask, FastAPI), using YAML configuration for flexibility."
+authors = ["ShyamSundhar1411 <clashwithchiefrpjyt@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+typer = "^0.15.2"
+inquirerpy = "^0.3.4"
+flake8 = "^7.1.2"
+black = "^25.1.0"
+mypy = "^1.15.0"
+isort = "^6.0.1"
+pre-commit = "^4.2.0"
+pydantic = "^2.10.6"
+pyyaml = "^6.0.2"
+inquirer = "^3.4.0"
+ruff = "^0.11.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503","E501"]
+exclude = ["__init__.py"]
+[tool.poetry.scripts]
+structura = "structura_py.cli:structura"
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+default_section = "THIRDPARTY"
+known_first_party = []
+known_third_party = ["inquirer", "pydantic", "rich", "setuptools", "typer", "yaml"]
+[tool.ruff]
+line-length = 200
+target-version = "py311"
+lint.select = ["E", "F", "W"]
+lint.extend-ignore = ["F403"]
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
