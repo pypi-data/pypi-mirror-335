@@ -1,0 +1,45 @@
+[tool.poetry.scripts]
+init-db = "sqlalchemy_service.base_db.create:run_init_db"
+
+[tool.poetry.group.dev.dependencies]
+pytest = {extras = ["asyncio"], version = "^8.3.4"}
+pytest-asyncio = "^0.25.3"
+httpx = "^0.28.1"
+psycopg2-binary = "^2.9.10"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+name = "sqlalchemy-service"
+version = "1.0.9"
+description = ""
+authors = [
+  { name = "prostoLavr (Lawrence Naumov)", email = "<prostolawr@gmail.com>" },
+]
+readme = "README.md"
+license = "LICENSE"
+requires-python = ">=3.12,<4.0"
+keywords = ["sqlalchemy"]
+maintainers = [
+  { name = "prostoLavr (Lawrence Naumov)", email = "<prostolawr@gmail.com>" },
+  { name = "romakot321" },
+]
+dependencies = [
+    "loguru~=0.7.3",
+    "pydantic-settings~=2.7.1",
+    "alembic~=1.14.0",
+]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[project.optional-dependencies]
+fastapi = ["fastapi~=0.115.8"]
+mysql = ["aiomysql~=0.2.0"]
+postgres = ["asyncpg~=0.30.0"]
+
+[project.urls]
+Homepage = "https://github.com/Dianapp-online/sqlalchemy-service"
+Issues = "https://github.com/Dianapp-online/sqlalchemy-service/issues"
