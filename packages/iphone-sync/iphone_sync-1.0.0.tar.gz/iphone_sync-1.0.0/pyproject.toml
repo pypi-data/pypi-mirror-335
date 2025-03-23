@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=70.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iphone-sync"
+requires-python = ">=3"
+authors = [{ name = "Pradish Bijukchhe", email = "pradish@sandbox.com.np" }]
+description = "An open source CLI script for Windows to backup photos from your iPhone"
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = []
+classifiers = ["Programming Language :: Python :: 3"]
+dynamic = ["version", "dependencies"]
+
+[project.scripts]
+iphone-sync = "iphone_sync.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/pradishb/iphone-sync"
+Issues = "https://github.com/pradishb/iphone-sync/issues"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.package-dir]
+"iphone_sync" = "iphone_sync"
+
+[tool.setuptools.dynamic]
+version = { attr = "iphone_sync.__version__" }
+dependencies = { file = "requirements.txt" }
+
+[tool.isort]
+profile = "black"
+line_length = 79
+force_single_line = true
+
+[tool.black]
+line-length = 79
+preview = true
+enable-unstable-feature = ["string_processing"]
+
+[tool.pyright]
+venvPath = "."
+venv = "venv"
+include = ["iphone_sync", "test.py"]
+typeCheckingMode = "strict"
