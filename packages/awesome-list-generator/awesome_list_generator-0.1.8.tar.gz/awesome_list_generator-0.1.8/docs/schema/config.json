@@ -1,0 +1,99 @@
+{
+  "$defs": {
+    "Category": {
+      "properties": {
+        "category": { "title": "Category", "type": "string" },
+        "title": { "title": "Title", "type": "string" },
+        "subtitle": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Subtitle"
+        }
+      },
+      "required": ["category", "title"],
+      "title": "Category",
+      "type": "object"
+    },
+    "Configuration": {
+      "properties": {
+        "format": { "$ref": "#/$defs/Format", "default": "markdown" }
+      },
+      "title": "Configuration",
+      "type": "object"
+    },
+    "Format": {
+      "enum": ["json", "markdown"],
+      "title": "Format",
+      "type": "string"
+    },
+    "ProjectConfig": {
+      "properties": {
+        "name": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Name"
+        },
+        "categories": {
+          "anyOf": [
+            { "items": { "type": "string" }, "type": "array" },
+            { "type": "null" }
+          ],
+          "default": null,
+          "title": "Categories"
+        },
+        "cargo": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Cargo"
+        },
+        "conda": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Conda"
+        },
+        "ctan": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Ctan"
+        },
+        "github": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Github"
+        },
+        "go": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Go"
+        },
+        "npm": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Npm"
+        },
+        "pypi": {
+          "anyOf": [{ "type": "string" }, { "type": "null" }],
+          "default": null,
+          "title": "Pypi"
+        }
+      },
+      "title": "ProjectConfig",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "config": { "$ref": "#/$defs/Configuration" },
+    "categories": {
+      "items": { "$ref": "#/$defs/Category" },
+      "title": "Categories",
+      "type": "array"
+    },
+    "projects": {
+      "items": { "$ref": "#/$defs/ProjectConfig" },
+      "title": "Projects",
+      "type": "array"
+    }
+  },
+  "title": "Config",
+  "type": "object"
+}
