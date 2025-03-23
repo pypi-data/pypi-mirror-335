@@ -1,0 +1,124 @@
+query Search(
+  $after: String
+  $first: Int
+  $query: String
+  $format: String
+  $includeContent: Boolean
+) {
+  search(
+    after: $after
+    first: $first
+    query: $query
+    format: $format
+    includeContent: $includeContent
+  ) {
+    ... on SearchSuccess {
+      edges {
+        cursor
+        node {
+          ...SearchItemFields
+        }
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+        totalCount
+      }
+    }
+    ... on SearchError {
+      errorCodes
+    }
+  }
+}
+
+fragment HighlightFields on Highlight {
+  id
+  type
+  shortId
+  quote
+  prefix
+  suffix
+  patch
+  annotation
+  createdByMe
+  createdAt
+  updatedAt
+  sharedAt
+  highlightPositionPercent
+  highlightPositionAnchorIndex
+  labels {
+    id
+    name
+    color
+    createdAt
+  }
+}
+fragment SearchItemFields on SearchItem {
+  id
+  title
+  slug
+  url
+  pageType
+  contentReader
+  createdAt
+  updatedAt
+  isArchived
+  readingProgressPercent
+  readingProgressTopPercent
+  readingProgressAnchorIndex
+  author
+  image
+  description
+  publishedAt
+  ownedByViewer
+  originalArticleUrl
+  uploadFileId
+  color
+  labels {
+    id
+    name
+    color
+  }
+  pageId
+  shortId
+  quote
+  annotation
+  state
+  siteName
+  subscription
+  unsubMailTo
+  unsubHttpUrl
+  readAt
+  savedAt
+  wordsCount
+  recommendations {
+    id
+    name
+    note
+    user {
+      userId
+      name
+      username
+      profileImageURL
+    }
+    recommendedAt
+  }
+  highlights {
+    ...HighlightFields
+  }
+  language
+  siteIcon
+  content
+  archivedAt
+  feedContent
+  previewContentType
+  links
+  folder
+  aiSummary
+  directionality
+  format
+  score
+  seenAt
+}
