@@ -1,0 +1,192 @@
+# Poetry
+
+[tool.poetry]
+name = "codenames"
+version = "5.5.5"
+description = "Codenames board game logic implementation in python."
+authors = ["Asaf Kali <asaf.kali@mail.huji.ac.il>"]
+readme = "README.md"
+include = ["CHANGELOG.md"]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/asaf-kali/codenames"
+Repository = "https://github.com/asaf-kali/codenames"
+Issues = "https://github.com/asaf-kali/codenames/issues"
+
+[tool.poetry.extras]
+web = ["selenium"]
+
+[tool.poetry.dependencies]
+# Core
+python = "^3.12"
+pydantic = "^2.0"
+# CLI
+beautifultable = "^1.0"
+# Web
+selenium = { version = "^4.1", optional = true }
+
+[tool.poetry.group.test.dependencies]
+pytest = "^7.2"
+coverage = "^7.2"
+pytest-retry = "^1.6"
+
+[tool.poetry.group.lint.dependencies]
+ruff = ">=0.7"
+black = ">=24.10"
+isort = ">=5.12.0"
+mypy = ">=1.13.0"
+pylint = ">=3.3.3"
+types-requests = "^2.28.11.17"
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = ">=3.2.2"
+twine = ">=5.0"
+python-semantic-release = "^8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+# Release
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+commit_parser = "emoji"
+build_command = "make build"
+commit_author = "Semantic release <semantic-release>"
+commit_message = "🤖 Release [{version}] [skip ci]"
+
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+[tool.semantic_release.branches.dev]
+match = ".*"
+prerelease = true
+prerelease_token = "dev"
+
+[tool.semantic_release.commit_parser_options]
+major_tags = [
+    "💥",
+    "🚀",
+    "🎉",
+]
+minor_tags = [
+    "✨",
+    "🔥",
+    "🐲",
+    "🎡",
+]
+patch_tags = [
+    "📝",
+    "📜",
+    "🏗️",
+    "🛠️",
+    "🐛",
+    "🚑",
+    "📌",
+    "🌴",
+    "🎢",
+    "🏖️",
+]
+
+# Test
+
+[tool.pytest.ini_options]
+addopts = "-s --disable-pytest-warnings --junitxml=junit.xml"
+
+[tool.coverage.run]
+source = ["codenames", "tests"]
+omit = []
+
+# Lint
+
+[tool.ruff]
+line-length = 120
+exclude = ["local", ".deployment"]
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ARG",
+    "ANN001",
+    "ANN002",
+    "ANN003",
+    "ANN201",
+    "ANN202",
+    "ANN204",
+    "ANN401",
+    "BLE001",
+    "D",
+    "ERA001",
+    "EM101",
+    "FA",
+    "FBT001",
+    "FBT002",
+    "G004",
+    "N818",
+    "PERF203",
+    "PGH003",
+    "PGH004",
+    "PLR0911",
+    "PLR0913",
+    "PLR0915",
+    "PLR2004",
+    "PLW0603",
+    "PT011",
+    "PTH100",
+    "PTH103",
+    "PTH118",
+    "PYI063",
+    "RET504",
+    "RUF001",
+    "RUF012",
+    "S101",
+    "S311",
+    "SIM105",
+    "TC001",
+    "TRY003",
+    "TRY300",
+    "TRY401",
+    "UP035",
+]
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+skip = ["__init__.py"]
+profile = "black"
+
+[tool.mypy]
+ignore_missing_imports = true
+check_untyped_defs = true
+exclude = ["build", "dist", "playground"]
+
+[tool.pylint]
+max-line-length = 120
+good-names = [
+    "by",
+    "e",
+    "i",
+    "n",
+    "x",
+]
+disable = [
+    "C0114",
+    "C0115",
+    "C0116",
+    "R0801",
+    "R0903",
+    "R0917",
+    "W1203",
+    "fixme",
+    "too-many-arguments",
+    "too-many-public-methods",
+    "too-many-return-statements",
+    "too-many-locals",
+]
+extension-pkg-allow-list = ["pydantic"]
+
+[tool.pylint.MASTER]
+ignore-paths = ""
