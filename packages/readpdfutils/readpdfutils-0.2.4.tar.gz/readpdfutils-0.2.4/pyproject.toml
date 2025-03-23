@@ -1,0 +1,20 @@
+[project]
+name = "readpdfutils"
+version = "0.2.4"
+dependencies = ['numpy <= 1.2.2']
+
+[build-system]
+requires = ["setuptools", "numpy"]
+build-backend = "setuptools.build_meta"
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+[tool.pixi.pypi-dependencies]
+myutils = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.setuptools]
+py-modules = []
