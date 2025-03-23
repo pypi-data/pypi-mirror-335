@@ -1,0 +1,56 @@
+[project]
+name = "codespector"
+version = "0.1.1"
+authors = [
+    { name = "vtitov", email = "v.v.titov94@gmail.com" }
+]
+description = "Assistant for reviewing your code"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "click>=8.1.8",
+    "environs>=14.1.1",
+    "loguru>=0.7.3",
+    "requests>=2.32.3",
+    "ujson>=5.10.0",
+]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project.urls]
+Repository = "https://github.com/Vladimir-Titov/codespector"
+Issues = "https://github.com/Vladimir-Titov/codespector/issues"
+
+
+[project.scripts]
+codespector = "codespector.main:main"
+
+
+[tool.ruff]
+line-length = 120
+indent-width = 4
+
+[tool.ruff.lint]
+ignore = ["F401"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.3.5",
+    "ruff>=0.11.0",
+]
+
