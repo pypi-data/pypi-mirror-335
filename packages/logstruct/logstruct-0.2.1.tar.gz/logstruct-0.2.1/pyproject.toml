@@ -1,0 +1,109 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "logstruct"
+authors = [
+    {name = "Karoline Pauls", email = "code@karolinepauls.com"},
+]
+description = "Structured stdlib logging with context vars"
+readme = "README.rst"
+requires-python = ">=3.9"
+keywords = ["logging", "log", "logger", "structured", "structure", "json", "stdlib", "structlog"]
+license = {text = "BSD-3-Clause"}
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Topic :: System :: Logging",
+    "Typing :: Typed",
+]
+dependencies = []
+dynamic = ["version"]
+
+[project.urls]
+Source = "https://gitlab.com/karolinepauls/logstruct"
+Documentation = "https://logstruct.readthedocs.io/"
+Changelog = "https://gitlab.com/karolinepauls/logstruct/-/blob/master/CHANGELOG.rst"
+
+[tool.setuptools_scm]
+version_file = "src/logstruct/_version.py"
+fallback_version = "0.0.0"  # do not depend on git in testing
+# For non-tag builds, will create versions like <last_tag>.post<commits_since>, e.g. 0.2.post10
+version_scheme = "post-release"
+local_scheme = "no-local-version"
+
+[tool.pdm.scripts]
+post_lock.composite = [
+    "pdm export -G dev -o requirements-dev.txt --without-hashes",
+    "pdm export -G doc -o requirements-doc.txt --without-hashes",
+]
+
+[tool.mypy]
+python_version=3.9
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+disallow_untyped_defs = true
+exclude = [
+    '^build/*.',
+    '^dist/*.',
+    '^venv/*.',
+]
+
+[tool.ruff]
+src = ["src"]
+line-length = 110
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = [
+    # pycodestyle
+    "E",
+    # Pyflakes
+    "F",
+    # pyupgrade
+    "UP",
+    # flake8-bugbear
+    "B",
+    # flake8-simplify
+    "SIM",
+    # isort
+    "I",
+    # pydocstyle
+    "D",
+]
+ignore = [
+    "D203",  # blank-line-before-class
+    "D213",  # multi-line-summary-second-line
+]
+[tool.ruff.lint.per-file-ignores]
+"test_*" = [
+    "D100",
+    "D103",
+]
+
+[tool.ruff.format]
+docstring-code-format = true
+preview = true
+
+[dependency-groups]
+doc = [
+    'Sphinx~=7.4.7',
+    'sphinx-rtd-theme~=2.0.0',
+    'sphinxcontrib-programoutput~=0.17',
+    "pyyaml",
+]
+dev = [
+    "mypy~=1.15.0",
+    "pytest~=8.3.2",
+    "pytest-asyncio~=0.23.8",
+    "ruff~=0.5.6",
+    "freezegun~=1.5.1",
+    "types-setuptools~=71.1.0.20240726",
+    "build~=1.2.1",
+    "types-PyYAML>=6.0.12.20241230",
+    "pyyaml>=6.0.2",
+]

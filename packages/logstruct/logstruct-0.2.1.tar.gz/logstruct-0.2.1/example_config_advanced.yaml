@@ -1,0 +1,40 @@
+version: 1
+disable_existing_loggers: false
+
+handlers:
+  stream:
+    class: logging.StreamHandler
+    formatter: structured
+    level: INFO
+    stream: ext://sys.stderr
+formatters:
+  structured:
+    (): logstruct.StructuredFormatter
+    structured_formatter_config:
+      format_message: False
+      uses_time: True
+      log_fields:
+        - source: asctime
+          dest: ts
+          condition: bool
+        - source: levelname
+          dest: level
+        - source: name
+          dest: logger
+        - source: lineno
+          dest: line
+        - source: message
+          dest: msg
+        - source: args
+          dest: msg_args
+          condition: bool
+        - source: exc_text
+          dest: exc
+          condition: bool
+        - source: stack_info
+          dest: stack_info
+          condition: bool
+      dumps_fn: logstruct.DEFAULT_DUMPS_FN  # This is the default but you can import anything
+root:
+  level: INFO
+  handlers: [stream]

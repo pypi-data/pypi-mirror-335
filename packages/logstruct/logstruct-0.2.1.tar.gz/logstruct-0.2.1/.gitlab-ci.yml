@@ -1,0 +1,117 @@
+stages:
+  - test
+  - publish-test
+  - publish-real
+
+variables:
+  PIP_CACHE_DIR: '$CI_PROJECT_DIR/pip-cache'
+
+.test-template: &test-template
+  stage: test
+  cache: &cache-setup
+    key: '$CI_JOB_NAME'
+    paths:
+      - '$PIP_CACHE_DIR'
+  script:
+    - 'mkdir -p $PIP_CACHE_DIR'
+    - '[ -f src/logstruct/py.typed ]'  # Typing marker must exist.
+    - pip install .
+    # Ensure no dev dependencies required to import the project (or any other since there are no requirements
+    # otherwise))
+    - python -c 'import logstruct'
+    - pip install . -r requirements-dev.txt -r requirements-doc.txt
+    - ruff format --check --diff
+    - ruff check .
+    - mypy .
+    - sphinx-build docs docs/_build --fail-on-warning --keep-going --builder doctest
+    # Build and ensure the dist directory was created.
+    - '[ ! -d dist ]'
+    - python -m build
+    - '[ -d dist ]'
+    # Install the packaged project and make sure we're not importing code from the directory.
+    - rm src -r
+    - 'pip install dist/logstruct-*.tar.gz'
+    - py.test -vv -s --durations=0 tests/
+    - ./demo.py
+    - ./demo_dict_config.py
+    - ./demo_dict_config_advanced.py
+    - ./demo_file_config.py
+    - ./demo_custom.py
+    - ./demo_context.py
+    - ./demo_dev_mode.py
+    - DEBUG=1 ./demo_dev_mode.py
+
+test-sphinx:
+  image: python:3.12-slim-bookworm
+  cache:
+    <<: *cache-setup
+  stage: test
+  script:
+    - pip install . -r requirements-doc.txt
+    - cd docs
+    - python -m sphinx -T -b html -d _build/doctrees -D language=en . _build/html/ --fail-on-warning --keep-going
+
+test-3.9:
+  image: python:3.9-slim-bookworm
+  <<: *test-template
+
+test-3.10:
+  image: python:3.10-slim-bookworm
+  <<: *test-template
+
+test-3.11:
+  image: python:3.11-slim-bookworm
+  <<: *test-template
+
+test-3.12:
+  image: python:3.12-slim-bookworm
+  <<: *test-template
+
+test-3.13:
+  image: python:3.13-slim-bookworm
+  <<: *test-template
+
+
+.publish-template: &publish-template
+  image: python:3.12-slim-bookworm
+  cache:
+    <<: *cache-setup
+    key: publish
+  script:
+    - apt update && apt install git --no-install-recommends -y
+    - pip install twine build
+    - python3 -m build --sdist --wheel
+    - ls dist
+    - 'twine check dist/*'
+    - |
+      PYTHONPATH="$PWD/src" python3 -c '
+      from os import environ
+      from logstruct import __version__
+
+      ci_tag = environ.get("CI_COMMIT_TAG")
+      if ci_tag is not None:
+          assert __version__ == ci_tag, f"{__version__=} must match the {ci_tag=}"'
+    - 'twine upload --verbose --skip-existing dist/*'
+
+
+publish-test-pypi:
+  stage: publish-test
+  rules:
+    - if: "$TESTPYPI_TWINE_PASSWORD != null"
+  <<: *publish-template
+  variables:
+    TWINE_REPOSITORY: testpypi
+    TWINE_USERNAME: __token__
+    TWINE_PASSWORD: $TESTPYPI_TWINE_PASSWORD
+
+publish-real-pypi:
+  stage: publish-real
+  when: manual
+  only:
+    - tags
+    - web
+  <<: *publish-template
+  variables:
+    TWINE_REPOSITORY: pypi
+    TWINE_USERNAME: __token__
+    TWINE_PASSWORD: $REALPYPI_TWINE_PASSWORD

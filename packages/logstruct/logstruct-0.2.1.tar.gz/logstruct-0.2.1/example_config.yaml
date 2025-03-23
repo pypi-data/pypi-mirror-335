@@ -1,0 +1,15 @@
+version: 1
+disable_existing_loggers: false
+
+handlers:
+  stream:
+    class: logging.StreamHandler
+    formatter: structured
+    level: INFO
+    stream: ext://sys.stderr
+formatters:
+  structured:
+    class: logstruct.StructuredFormatter
+root:
+  level: INFO
+  handlers: [stream]
