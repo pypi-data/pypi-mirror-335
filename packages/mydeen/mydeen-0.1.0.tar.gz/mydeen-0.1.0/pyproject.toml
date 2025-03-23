@@ -1,0 +1,30 @@
+[tool.poetry]
+name = "mydeen"
+version = "0.1.0"
+description = "Un package Python qui, par la permission d'Allah, soit un bien pour la communauté musulmane francophone."
+authors = ["YassinePaquitoNobody <monsieurnobody01@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{ include = "mydeen", from = "src" }]
+homepage = "https://github.com/YassineNobody/mydeen"
+repository = "https://github.com/YassineNobody/mydeen"
+keywords = ["coran", "youtube", "islam", "python", "API", "religion"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+
+[tool.poetry.dependencies]
+python = ">=3.9"
+pandas = ">=2.2.3,<3.0.0"
+requests = ">=2.32.3,<3.0.0"
+google-api-python-client = ">=2.165.0,<3.0.0"
+
+[tool.poetry.scripts]
+# si tu veux un CLI plus tard (tu peux le commenter pour l’instant)
+# mydeen = "mydeen.__main__:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
