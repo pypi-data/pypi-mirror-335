@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "meggie_reproduction"
+version = "0.1.2"
+description = "Reproduction plugin for Meggie"
+license = { text = "BSD" }
+dependencies = ["meggie>=1.9.2"]
+
+[project.urls]
+homepage = "https://github.com/cibr-jyu/meggie_reproduction"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "pylama",
+    "pytest",
+    "pytest-qt",
+    "build",
+    "twine",
+    "setuptools",
+]
+test = [
+    "black",
+    "pylama",
+    "pytest",
+    "pytest-qt",
+    "setuptools",
+]
