@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knockssh"
+version = "0.1.0"
+description = "knockssh automates knock-and-ssh for a more convenient workflow"
+authors = [
+  { name = "Andreas Glashauser", email = "ag@andreasglashauser.com" },
+]
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.6"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+]
+
+dependencies = [
+]
+
+[project.urls]
+"Source" = "https://git.andreasglashauser.com/?p=knockssh.git"
+
+[project.scripts]
+knockssh = "knockssh.main:main"
