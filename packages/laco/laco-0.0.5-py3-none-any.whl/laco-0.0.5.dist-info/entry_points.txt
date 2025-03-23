@@ -1,0 +1,8 @@
+[console_scripts]
+laco = laco.cli:main
+
+[iopathlib]
+laco = laco.handlers:LacoHandler
+
+[laco]
+wandb = laco.readers.wandb:read_config
