@@ -1,0 +1,30 @@
+[project]
+name = "isobiscuit-engine"
+dynamic = ["requires-python", "version", "description", "scripts", "readme", "authors"]
+[tool.poetry]
+name = "isobiscuit-engine"
+version = "0.1.11"
+description = ""
+authors = ["trollmii <trollmii@outlook.de>"]
+readme = "README.md"
+packages = [
+    { include = "isobiscuit_engine", from = "."},
+]
+
+exclude = [
+    { path = "isobiscuit_engine/*.so", format = "sdist"}
+]
+include = [
+    { path = "isobiscuit_engine/*.so", format = "wheel"}
+]
+[tool.poetry.dependencies]
+python = "^3.9"
+cython = "^3.0.12"
+[tool.poetry.build]
+script = "build.py"
+generate-setup-file = true
+
+[build-system]
+requires = ["setuptools", "Cython", "poetry-core", "wheel"]
+build-backend = "poetry.core.masonry.api"
+
