@@ -1,0 +1,13 @@
+[tool.poetry]
+name = "smh-fastapi-backend-templates"
+version = "0.1.1"
+description = "A CLI tool for managing templates"
+authors = ["S MUNI HARISH <samamuniharish@gmail.com>"]
+packages = [{ include = "templates" }]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.scripts]
+smh-fastapi-backend-templates = "templates.cli:main"
