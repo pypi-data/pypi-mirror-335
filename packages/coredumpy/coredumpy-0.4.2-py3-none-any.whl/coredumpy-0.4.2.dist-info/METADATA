@@ -1,0 +1,497 @@
+Metadata-Version: 2.4
+Name: coredumpy
+Version: 0.4.2
+Summary: coredumpy saves your crash site for post-mortem debugging
+Author-email: Tian Gao <gaogaotiantian@hotmail.com>
+License:                                  Apache License
+                                   Version 2.0, January 2004
+                                http://www.apache.org/licenses/
+        
+           TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        
+           1. Definitions.
+        
+              "License" shall mean the terms and conditions for use, reproduction,
+              and distribution as defined by Sections 1 through 9 of this document.
+        
+              "Licensor" shall mean the copyright owner or entity authorized by
+              the copyright owner that is granting the License.
+        
+              "Legal Entity" shall mean the union of the acting entity and all
+              other entities that control, are controlled by, or are under common
+              control with that entity. For the purposes of this definition,
+              "control" means (i) the power, direct or indirect, to cause the
+              direction or management of such entity, whether by contract or
+              otherwise, or (ii) ownership of fifty percent (50%) or more of the
+              outstanding shares, or (iii) beneficial ownership of such entity.
+        
+              "You" (or "Your") shall mean an individual or Legal Entity
+              exercising permissions granted by this License.
+        
+              "Source" form shall mean the preferred form for making modifications,
+              including but not limited to software source code, documentation
+              source, and configuration files.
+        
+              "Object" form shall mean any form resulting from mechanical
+              transformation or translation of a Source form, including but
+              not limited to compiled object code, generated documentation,
+              and conversions to other media types.
+        
+              "Work" shall mean the work of authorship, whether in Source or
+              Object form, made available under the License, as indicated by a
+              copyright notice that is included in or attached to the work
+              (an example is provided in the Appendix below).
+        
+              "Derivative Works" shall mean any work, whether in Source or Object
+              form, that is based on (or derived from) the Work and for which the
+              editorial revisions, annotations, elaborations, or other modifications
+              represent, as a whole, an original work of authorship. For the purposes
+              of this License, Derivative Works shall not include works that remain
+              separable from, or merely link (or bind by name) to the interfaces of,
+              the Work and Derivative Works thereof.
+        
+              "Contribution" shall mean any work of authorship, including
+              the original version of the Work and any modifications or additions
+              to that Work or Derivative Works thereof, that is intentionally
+              submitted to Licensor for inclusion in the Work by the copyright owner
+              or by an individual or Legal Entity authorized to submit on behalf of
+              the copyright owner. For the purposes of this definition, "submitted"
+              means any form of electronic, verbal, or written communication sent
+              to the Licensor or its representatives, including but not limited to
+              communication on electronic mailing lists, source code control systems,
+              and issue tracking systems that are managed by, or on behalf of, the
+              Licensor for the purpose of discussing and improving the Work, but
+              excluding communication that is conspicuously marked or otherwise
+              designated in writing by the copyright owner as "Not a Contribution."
+        
+              "Contributor" shall mean Licensor and any individual or Legal Entity
+              on behalf of whom a Contribution has been received by Licensor and
+              subsequently incorporated within the Work.
+        
+           2. Grant of Copyright License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              copyright license to reproduce, prepare Derivative Works of,
+              publicly display, publicly perform, sublicense, and distribute the
+              Work and such Derivative Works in Source or Object form.
+        
+           3. Grant of Patent License. Subject to the terms and conditions of
+              this License, each Contributor hereby grants to You a perpetual,
+              worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+              (except as stated in this section) patent license to make, have made,
+              use, offer to sell, sell, import, and otherwise transfer the Work,
+              where such license applies only to those patent claims licensable
+              by such Contributor that are necessarily infringed by their
+              Contribution(s) alone or by combination of their Contribution(s)
+              with the Work to which such Contribution(s) was submitted. If You
+              institute patent litigation against any entity (including a
+              cross-claim or counterclaim in a lawsuit) alleging that the Work
+              or a Contribution incorporated within the Work constitutes direct
+              or contributory patent infringement, then any patent licenses
+              granted to You under this License for that Work shall terminate
+              as of the date such litigation is filed.
+        
+           4. Redistribution. You may reproduce and distribute copies of the
+              Work or Derivative Works thereof in any medium, with or without
+              modifications, and in Source or Object form, provided that You
+              meet the following conditions:
+        
+              (a) You must give any other recipients of the Work or
+                  Derivative Works a copy of this License; and
+        
+              (b) You must cause any modified files to carry prominent notices
+                  stating that You changed the files; and
+        
+              (c) You must retain, in the Source form of any Derivative Works
+                  that You distribute, all copyright, patent, trademark, and
+                  attribution notices from the Source form of the Work,
+                  excluding those notices that do not pertain to any part of
+                  the Derivative Works; and
+        
+              (d) If the Work includes a "NOTICE" text file as part of its
+                  distribution, then any Derivative Works that You distribute must
+                  include a readable copy of the attribution notices contained
+                  within such NOTICE file, excluding those notices that do not
+                  pertain to any part of the Derivative Works, in at least one
+                  of the following places: within a NOTICE text file distributed
+                  as part of the Derivative Works; within the Source form or
+                  documentation, if provided along with the Derivative Works; or,
+                  within a display generated by the Derivative Works, if and
+                  wherever such third-party notices normally appear. The contents
+                  of the NOTICE file are for informational purposes only and
+                  do not modify the License. You may add Your own attribution
+                  notices within Derivative Works that You distribute, alongside
+                  or as an addendum to the NOTICE text from the Work, provided
+                  that such additional attribution notices cannot be construed
+                  as modifying the License.
+        
+              You may add Your own copyright statement to Your modifications and
+              may provide additional or different license terms and conditions
+              for use, reproduction, or distribution of Your modifications, or
+              for any such Derivative Works as a whole, provided Your use,
+              reproduction, and distribution of the Work otherwise complies with
+              the conditions stated in this License.
+        
+           5. Submission of Contributions. Unless You explicitly state otherwise,
+              any Contribution intentionally submitted for inclusion in the Work
+              by You to the Licensor shall be under the terms and conditions of
+              this License, without any additional terms or conditions.
+              Notwithstanding the above, nothing herein shall supersede or modify
+              the terms of any separate license agreement you may have executed
+              with Licensor regarding such Contributions.
+        
+           6. Trademarks. This License does not grant permission to use the trade
+              names, trademarks, service marks, or product names of the Licensor,
+              except as required for reasonable and customary use in describing the
+              origin of the Work and reproducing the content of the NOTICE file.
+        
+           7. Disclaimer of Warranty. Unless required by applicable law or
+              agreed to in writing, Licensor provides the Work (and each
+              Contributor provides its Contributions) on an "AS IS" BASIS,
+              WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+              implied, including, without limitation, any warranties or conditions
+              of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+              PARTICULAR PURPOSE. You are solely responsible for determining the
+              appropriateness of using or redistributing the Work and assume any
+              risks associated with Your exercise of permissions under this License.
+        
+           8. Limitation of Liability. In no event and under no legal theory,
+              whether in tort (including negligence), contract, or otherwise,
+              unless required by applicable law (such as deliberate and grossly
+              negligent acts) or agreed to in writing, shall any Contributor be
+              liable to You for damages, including any direct, indirect, special,
+              incidental, or consequential damages of any character arising as a
+              result of this License or out of the use or inability to use the
+              Work (including but not limited to damages for loss of goodwill,
+              work stoppage, computer failure or malfunction, or any and all
+              other commercial damages or losses), even if such Contributor
+              has been advised of the possibility of such damages.
+        
+           9. Accepting Warranty or Additional Liability. While redistributing
+              the Work or Derivative Works thereof, You may choose to offer,
+              and charge a fee for, acceptance of support, warranty, indemnity,
+              or other liability obligations and/or rights consistent with this
+              License. However, in accepting such obligations, You may act only
+              on Your own behalf and on Your sole responsibility, not on behalf
+              of any other Contributor, and only if You agree to indemnify,
+              defend, and hold each Contributor harmless for any liability
+              incurred by, or claims asserted against, such Contributor by reason
+              of your accepting any such warranty or additional liability.
+        
+           END OF TERMS AND CONDITIONS
+        
+           APPENDIX: How to apply the Apache License to your work.
+        
+              To apply the Apache License to your work, attach the following
+              boilerplate notice, with the fields enclosed by brackets "[]"
+              replaced with your own identifying information. (Don't include
+              the brackets!)  The text should be enclosed in the appropriate
+              comment syntax for the file format. We also recommend that a
+              file or class name and description of purpose be included on the
+              same "printed page" as the copyright notice for easier
+              identification within third-party archives.
+        
+           Copyright [yyyy] [name of copyright owner]
+        
+           Licensed under the Apache License, Version 2.0 (the "License");
+           you may not use this file except in compliance with the License.
+           You may obtain a copy of the License at
+        
+               http://www.apache.org/licenses/LICENSE-2.0
+        
+           Unless required by applicable law or agreed to in writing, software
+           distributed under the License is distributed on an "AS IS" BASIS,
+           WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+           See the License for the specific language governing permissions and
+           limitations under the License.
+        
+Project-URL: Homepage, https://github.com/gaogaotiantian/coredumpy
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Operating System :: MacOS
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Operating System :: Microsoft :: Windows
+Classifier: Topic :: Software Development :: Quality Assurance
+Classifier: Topic :: Software Development :: Bug Tracking
+Classifier: Topic :: System :: Logging
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: NOTICE.txt
+Dynamic: license-file
+
+# coredumpy
+
+[![build](https://github.com/gaogaotiantian/coredumpy/actions/workflows/build_test.yaml/badge.svg)](https://github.com/gaogaotiantian/coredumpy/actions/workflows/build_test.yaml)
+[![coverage](https://img.shields.io/codecov/c/github/gaogaotiantian/coredumpy)](https://codecov.io/gh/gaogaotiantian/coredumpy)
+[![pypi](https://img.shields.io/pypi/v/coredumpy.svg)](https://pypi.org/project/coredumpy/)
+[![support-version](https://img.shields.io/pypi/pyversions/coredumpy)](https://img.shields.io/pypi/pyversions/coredumpy)
+[![Visual Studio Marketplace Version](https://img.shields.io/visual-studio-marketplace/v/gaogaotiantian.coredumpy-vscode)](https://marketplace.visualstudio.com/items?itemName=gaogaotiantian.coredumpy-vscode)
+[![sponsor](https://img.shields.io/badge/%E2%9D%A4-Sponsor%20me-%23c96198?style=flat&logo=GitHub)](https://github.com/sponsors/gaogaotiantian)
+
+coredumpy saves your crash site for post-mortem debugging.
+
+<p align="center">
+    <img src="img/showcase.gif" />
+</p>
+
+
+## Highlights
+
+* Easy to use
+* Native support for unittest, pytest and run-time exceptions
+* Portable and safe dump
+* Support VSCode and pdb interface
+* Support multi-threading with VSCode
+
+## Usage
+
+### dump
+
+For `pytest`, you can use `coredumpy` as a plugin
+
+```
+# Create a dump in "./dumps" when there's a pytest failure/error
+pytest --enable-coredumpy --coredumpy-dir ./dumps
+```
+
+For `Exception` and `unittest`, you can use `coredumpy run` command.
+A dump will be generated when there's an unhandled exception or a test failure
+
+```
+# with no argument coredumpy run will generate the dump in the current dir
+coredumpy run my_script.py
+coredumpy run my_script.py --directory ./dumps
+coredumpy run -m unittest --directory ./dumps
+```
+
+Or you can patch explicitly in your code and execute the script/module as usual
+
+```python
+import coredumpy
+# Create a dump in "./dumps" when there's an unhandled exception
+coredumpy.patch_except(directory='./dumps')
+# Create a dump in "./dumps" when there's a unittest failure/error
+coredumpy.patch_unittest(directory='./dumps')
+# Create a dump in "./dumps" when there's a pytest failure/error
+coredumpy.patch_pytest(directory='./dumps')
+```
+
+<details>
+
+<summary>
+Or you can dump the current frame stack manually
+</summary>
+
+```python
+import coredumpy
+
+# Without frame argument, top frame will be the caller of coredumpy.dump()
+coredumpy.dump()
+# Specify a specific frame as the top frame to dump
+coredumpy.dump(frame)
+# Set the search depth to 2 to reduce the dump size
+coredumpy.dump(depth=2)
+# Specify a filename to save the dump, without it a unique name will be generated
+coredumpy.dump(path='coredumpy.dump')
+# You can use a function for path
+coredumpy.dump(path=lambda: f"coredumpy_{time.time()}.dump")
+# Specify a directory to keep the dump
+coredumpy.dump(directory='./dumps')
+# Specify the description of the dump for peek
+coredumpy.dump(description="a random dump")
+```
+
+</details>
+
+A [github action](https://github.com/gaogaotiantian/upload-coredumpy) is available
+to upload your coredumpy dumps and generate a load link to open the dumps in VSCode
+directly.
+
+### load
+
+Load your dump with
+
+```
+# This will bring up pdb
+coredumpy load <your_dump_file>
+# This will bring up ipdb, ipython is required
+coredumpy load --ipdb <your_dump_file>
+```
+
+A debugger will be brought up and of course not everything is supported.
+
+### peek
+
+If you only need some very basic information of the dump (to figure out which dump
+you actually need), you can use `peek` command.
+
+```
+coredumpy peek <your_dump_directory>
+coredumpy peek <your_dump_file1> <your_dump_file2>
+```
+
+### VSCode Extension
+
+Download the [VSCode Extension](https://marketplace.visualstudio.com/items?itemName=gaogaotiantian.coredumpy-vscode)
+and right click your dump file - choose `Load with coredumpy`.
+
+### Configuration
+
+All configurations should be done through `coredumpy.config`.
+The default value is listed below and you can change them as you need.
+
+```python
+from coredumpy import config
+# The dump depth if not specified
+config.default_recursion_depth: int = 10
+# Best effort timeout for dump - not guaranteed. Only checked for each new depth.
+config.dump_timeout: int = 60
+# Whether dump all threads
+config.dump_all_threads: bool = True
+# Whether hide strings that match config.secret_patterns
+config.hide_secret: bool = True
+# The patterns for secrets
+config.secret_patterns: list[re.Pattern] = [re.compile(r"[A-Za-z0-9]{32,1024}")]
+# Whether hide strings that match os.environ.values()
+config.hide_environ: bool = True
+# The filter to determine whether an environ should be hidden
+config.environ_filter: Callable = lambda env: len(env) > 8
+```
+
+## Type support
+
+`coredumpy` supports the common built-in types like `float`, `int`, `str`, `list`,
+`dict` etc. For all the other types that it can't recognize, it will treat them as
+a Python object, which means `coredumpy` will iterate and store all the attributes
+of the object.
+
+You can add support for any arbitrary types by creating a class that inherits
+`coredumpy.TypeSupportBase`. You need to finish the following class methods in
+order to make it work:
+
+```python
+@classmethod
+def get_type(cls) -> tuple[Union[type, Callable], str]:
+    # returns a tuple with two elements:
+    # 0. type (or a callable for lazy load) for dump
+    #    coredumpy will dispatch the objects with this type to the dump method
+    # 1. a type string for load
+    #    coredumpy will dispatch the data with this type to the load method
+
+@classmethod
+def dump(cls, obj) -> tuple[dict, Optional[list]]:
+    # takes the object to be dumped
+    # returns a tuple with two elements:
+    # 0. a json-serializable dict, which will be stored in the dump file
+    # 1. a list that contains the objects needed to be dumped for this object
+    #    if none needed (the object is not a container), use None
+
+@classmethod
+def load(cls, data: dict, objects: dict) -> tuple[object, Optional[list[str]]]:
+    # takes the dict data from `dump` method and a dict of all objects with the ids
+    # as keys
+    # returns a tuple with two elements:
+    # 0. the restored object. If not ready, return coredumpy.NotReady
+    # 1. a list of the ids of dependent objects, if not applicable, use None
+```
+
+If the type is a container, inherit `coredumpy.TypeSupportContainerBase` and
+implement an extra method:
+
+```python
+@classmethod
+def reload(cls, container, data, objects: dict) -> tuple[object, Optional[list[str]]]:
+    # takes the already built container, the other arguments are the same as `load`
+    # returns the same as `load`
+    # This is helpful to create a placeholder first with `load` so the other objects
+    # can reference to it, and build the placeholder later
+```
+
+You only need to create the class, it will be automatically registered.
+
+## Startup script
+
+In order to import the type supports and do some customization, `coredumpy` provides
+a way to run an arbitrary script after importing `coredumpy`. You can put a
+`conf_coredumpy.py` file in your current working directory. If `coredumpy` discovers
+it, the script will be executed. You can put anything you need in the script.
+
+Or if you prefer to do it explicitly, you can pass `--conf your_conf_file.py` to
+`coredumpy run` or `coredumpy load` command to run that specified file.
+
+## About the data
+
+Besides a couple of builtin types, coredumpy treats almost every object as an
+Python object with attributes, and that's what it records in the dump.
+
+That being said, most of the objects will not be "restored" as they were when
+being dumped. You are in an observer mode where you can inspect attributes of
+all objects. None of the methods of the objects would work, nor would any
+dymanic features.
+
+### Why not `pickle`?
+
+* Most importantly, `pickle` does not always work. You can't partially pickle
+  something, which means if you have an unpickleable object, you are doomed.
+* `pickle` requires the same environment to deserialize the objects, which
+  defeats the original purpose of loading the dump anywhere.
+* `pickle` is unsafe by design and we don't want unnecessary hesitation when
+  users try to load a dump from an untrusted source.
+
+### Security concerns
+
+Because coredumpy dumps the whole frame stack, you should take care of your
+sensitive information.
+
+#### API Keys
+
+coredumpy has a default-on filter for strings that looks like API keys
+(`"[A-Za-z0-9]{32,1024}"`), but if you know what your key looks like,
+you should add the pattern to protect your keys.
+
+```python
+from coredumpy import config
+config.secret_patterns.append(re.compile("<your API key pattern>"))
+```
+
+You can edit `config.secret_patterns` as you wish, it's a list of
+`re.Pattern`s that coredumpy will use to match against all strings.
+
+If you need to turn off this feature:
+
+```python
+from coredumpy import config
+config.hide_secret = False
+```
+
+#### Environs
+
+It's common to store sensitive data in your environment variables, so coredumpy
+also has a default-on filter for environs. It will redact all strings if they
+are in `os.environ` and their length > 8. You can change the filter by
+
+```python
+from coredumpy import config
+# Only redact if the length > 16
+config.environ_filter = lambda env: len(env) > 16
+```
+
+Turn this filter off with
+```python
+from coredumpy import config
+config.hide_environ = False
+```
+
+
+## License
+
+Copyright 2024-2025 Tian Gao.
+
+Distributed under the terms of the  [Apache 2.0 license](https://github.com/gaogaotiantian/coredumpy/blob/master/LICENSE).
