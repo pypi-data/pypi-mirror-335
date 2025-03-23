@@ -1,0 +1,20 @@
+<div class="image-upload-wrapper">
+    <div class="preview-area">
+        <img src="{{ widget.value|default:"" }}" class="preview-image">
+    </div>
+    
+    <div class="controls">
+        <input type="file" class="image-file-input" accept="image/*" hidden>
+        <button type="button" class="upload-local-btn">选择本地图片</button>
+        <button type="button" class="upload-oss-btn">上传到云存储</button>
+    </div>
+
+    <input type="url" 
+           name="{{ widget.name }}" 
+           value="{{ widget.value|default:'' }}" 
+           class="url-input" 
+           placeholder="图片URL"
+           {{ widget.attrs|safe }}>
+    
+    <input type="hidden" class="upload-url" value="{{ widget.upload_url }}">
+</div>
