@@ -1,0 +1,32 @@
+Metadata-Version: 2.1
+Name: doc2txt-antiword
+Version: 0.1.1
+Summary: A Python package to convert .doc files to .txt using the Antiword binary.
+Home-page: https://github.com/Bhola-kumar/doc2txt-py
+Author: Bhola Kumar
+Author-email: bholak993@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+
+
+# doc2txt-py
+
+**doc2txt-py** is a simple Python package that converts `.doc` files to `.txt` format using the [Antiword](http://www.winfield.demon.nl/) binary. This package wraps around the Antiword command-line tool, providing a Python interface to easily integrate `.doc` to `.txt` conversion into your projects.
+
+## Features
+
+- Converts `.doc` (Word 97-2003) documents into plain text files.
+- Simple Python interface using the `AntiwordConverter` class.
+- Includes the Antiword binary for ease of use.
+- Cross-platform support (can be adjusted for Linux and MacOS by modifying the binary path).
+
+## Installation
+
+You can install the package directly from PyPI (after uploading):
+
+```bash
+pip install doc2txt-py
+```
