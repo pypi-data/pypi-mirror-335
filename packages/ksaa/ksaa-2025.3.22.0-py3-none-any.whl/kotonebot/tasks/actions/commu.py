@@ -1,0 +1,75 @@
+"""检测与跳过交流"""
+import logging
+
+from cv2.typing import MatLike
+
+
+from .. import R
+from ..game_ui import WhiteFilter
+from kotonebot.util import Countdown, Interval
+from kotonebot import device, image, color, user, rect_expand, until, action, sleep, use_screenshot
+
+logger = logging.getLogger(__name__)
+
+
+@action('检查是否处于交流')
+def is_at_commu():
+    return image.find(R.Common.ButtonCommuSkip, preprocessors=[WhiteFilter()]) is not None
+
+@action('跳过交流')
+def skip_commu():
+    device.click(image.expect_wait(R.Common.ButtonCommuSkip))
+
+@action('检查未读交流', screenshot_mode='manual')
+def handle_unread_commu(img: MatLike | None = None) -> bool:
+    """
+    检查当前是否处在未读交流，并自动跳过。
+
+    :param img: 截图。
+    :return: 是否跳过了交流。
+    """
+    ret = False
+    logger.info('Check and skip commu')
+    img = use_screenshot(img)
+    skip_btn = image.find(R.Common.ButtonCommuFastforward, preprocessors=[WhiteFilter()])
+    if skip_btn is None:
+        logger.info('No fast forward button found. Not at a commu.')
+        return ret
+    
+    ret = True
+    logger.debug('Fast forward button found. Check commu')
+
+    it = Interval()
+    while True:
+        if not is_at_commu():
+            break
+        if image.find(R.Common.ButtonCommuSkip, preprocessors=[WhiteFilter()]):
+            device.click()
+            logger.debug('Clicked skip button.')
+        if image.find(R.Common.ButtonConfirm):
+            logger.info('Unread commu found.')
+            device.click()
+            logger.debug('Clicked confirm button.')
+            logger.debug('Pushing notification...')
+            user.info('发现未读交流', images=[img])
+
+        logger.debug('Fast forwarding...')
+        it.wait()
+    
+    logger.info('Fast forward done.')
+    return ret
+
+
+if __name__ == '__main__':
+    import logging
+    logging.basicConfig(level=logging.INFO, format='[%(asctime)s] [%(levelname)s] [%(name)s] [%(funcName)s] [%(lineno)d] %(message)s')
+    logger.setLevel(logging.DEBUG)
+    from kotonebot.backend.context import manual_context, inject_context
+    from kotonebot.backend.debug.mock import MockDevice
+    manual_context().begin()
+    device = MockDevice()
+    device.load_image(r"D:\current_screenshot.png")
+    inject_context(device=device)
+    print(is_at_commu())
+    # while True:
+    #     print(handle_unread_commu())
