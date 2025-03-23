@@ -1,0 +1,219 @@
+[project]
+dependencies = [
+  "pydantic-settings>=2.8.1",
+  "lazy-loader>=0.4",
+  "rich>=13.7.0",
+  "mcp[cli]>=1.5.0",
+]
+description = "A sequential storytelling MCP server for mnemonic problem-solving"
+name = "sequential-story"
+readme = "README.md"
+requires-python = ">=3.11"
+version = "1.0.0"
+authors = [{ name = "dhkts1" }]
+keywords = ["mcp", "llm", "sequential-thinking", "storytelling","sequential-story"]
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+]
+
+[project.urls]
+Homepage = "https://github.com/dhkts1/sequentialStory"
+Repository = "https://github.com/dhkts1/sequentialStory"
+Documentation = "https://github.com/dhkts1/sequentialStory/blob/main/README.md"
+
+[project.scripts]
+sequential-story = "src.cli:main"
+
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
+
+
+[tool.hatch.build.targets.sdist]
+include = ["src", "README.md"]
+exclude = ["tests", "dist", "site", ".git", ".github", ".venv", ".pytest_cache", ".ruff_cache", "__pycache__"]
+
+[tool.uv]
+default-groups = []
+package = true
+publish-url = "https://upload.pypi.org/legacy/"
+check-url = "https://pypi.org/simple/"
+
+[dependency-groups]
+dev = [
+  "mdformat>=0.7.22",
+  "mdformat-config>=0.1.3",
+  "mdformat-web>=0.1.1",
+  "mdformat-tables>=0.4.1",
+  "mdformat-frontmatter>=0.4.1",
+  "codespell>=2.4.1",
+  "flynt>=1.0.2",
+  "mkdocs>=1.6.1",
+  "mkdocs-material>=9.6.8",
+  "mkdocstrings-python>=1.16.5",
+  "mkinit>=1.1.0",
+  "mkdocs-include-markdown-plugin>=7.1.5",
+  "poethepoet>=0.33.0",
+  "pre-commit>=4.1.0",
+  "pyright>=1.1.396",
+  "pytest>=8.3.5",
+  "pyupgrade>=3.19.1",
+  "ruff>=0.11.0",
+  "yesqa>=1.5.0",
+  "bandit>=1.7.8",
+  "interrogate>=1.5.0",
+  "darglint>=1.8.1",
+  "vulture>=2.11",
+  "commitizen>=3.20.0",
+  "xenon>=0.9.3",
+  "pytest-cov>=6.0.0",
+  "pytest-asyncio>=0.25.3",
+  "pytest-xdist>=3.6.1",
+  "shellcheck-py>=0.10.0.1",
+  "logging>=0.4.9.6",
+  "mdformat-mkdocs>=4.1.2",
+  "mdformat-gfm>=0.4.1",
+]
+
+[tool.poe.tasks]
+flynt = "flynt --aggressive --fail-on-change --quiet src tests"
+lint = {sequence = ["pyupgrade", "flynt", "pyright", "ruff-check", "ruff-format"]}
+mdformat = {cmd = "mdformat --number docs"}
+mkdocs = {cmd = "mkdocs build --strict"}
+mkdocs-serve = {cmd = "mkdocs serve"}
+mkinit = {sequence = ["mkinit-src", "mkinit-tests"]}
+mkinit-src = {cmd = "mkinit src --relative --lazy_loader_typed --black --recursive -w"}
+mkinit-tests = {cmd = "mkinit tests --relative --lazy_loader_typed --black --recursive -w"}
+pre = "pre-commit run --all-files --verbose" # THE MOST IMPORTANT COMMAND "poe pre" or "uv run poe pre"
+pre-commit = "pre-commit run --all-files --show-diff-on-failure"
+pyright = "uv run pyright"
+pyupgrade = "pyupgrade --py311-plus"
+radon = "radon cc src --min C --total-average"
+ruff-check = "ruff check"
+ruff-format = "ruff format"
+sync = "uv sync"
+bandit = "bandit -c pyproject.toml -r src --exclude tests,.venv,.git"
+interrogate = "interrogate -v src"
+test-coverage = "pytest -xvs -n auto --cov=src --cov-report=term-missing --cov-report=xml --cov-fail-under=80 --ignore=tests"
+vulture = "vulture src --min-confidence 80"
+xenon = "xenon src -a B -b B -m B --paths-in-front"
+
+[tool.ruff]
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".git-rewrite",
+  ".hg",
+  ".ipynb_checkpoints",
+  ".mypy_cache",
+  ".nox",
+  ".pants.d",
+  ".pyenv",
+  ".pytest_cache",
+  ".pytype",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  ".vscode",
+  "__pypackages__",
+  "_build",
+  "buck-out",
+  "build",
+  "dist",
+  "node_modules",
+  "site-packages",
+  "venv",
+  "__init__.py",
+]
+
+fix = true
+unsafe-fixes = true
+line-length = 120
+src = ["src"]
+target-version = "py311"
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+indent-style = "space"
+line-ending = "auto"
+quote-style = "double"
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint]
+extend-ignore = [
+  "E203",
+  "E501",
+  "D401",
+  "D203",
+  "D213",
+  "COM812",
+  "F811",
+  "ISC001",
+  "BLE001",
+  "PGH",
+  "C901",
+  "PLR",
+  "TRY300",
+]
+extend-select = [
+  "ALL",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["D104"] # Allow __init__.py stuff
+"tests/**/*.py" = ["S101", "ARG001", "FBT001"] # Allow assert statements in tests, unused function arguments, and boolean positional arguments
+[tool.pyright]
+exclude = [
+  "**/__init__.py",
+]
+
+include = ["src", "tests"]
+pythonVersion = "3.11"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "none"
+reportUnknownVariableType = "none"
+typeCheckingMode = "strict"
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv", ".git"]
+skips = ["B101"] # Skip assert statements warning
+
+[tool.darglint]
+docstring_style = "google"
+strictness = "short" # Options: short, long, full
+
+[tool.interrogate]
+exclude = ["tests", ".venv", ".git"]
+fail-under = 80
+ignore-init-method = true
+ignore-init-module = true
+
+[tool.vulture]
+exclude = ["tests", ".venv", ".git"]
+ignore_names = ["setUp", "tearDown", "test_*"]
+min_confidence = 80
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "function"
+python_classes = ["Test*"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+testpaths = ["tests"]
+addopts = "--cov-config=pyproject.toml"
+
+[tool.coverage.run]
+omit = [ "*/__init__.py","src/utils/logging.py","src/utils/settings.py","src/cli.py"]
+
+

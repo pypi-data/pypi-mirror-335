@@ -1,0 +1,1 @@
+"""Sequential Story MCP Server package.""" 
