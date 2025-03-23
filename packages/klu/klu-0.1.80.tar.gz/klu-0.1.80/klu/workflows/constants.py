@@ -1,0 +1,1 @@
+WORKFLOWS_ENDPOINT = "/workflows/"
