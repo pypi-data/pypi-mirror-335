@@ -1,0 +1,101 @@
+Metadata-Version: 2.4
+Name: Py2SecMail
+Version: 0.1.7
+Summary: Librairie pour interagir avec l'API 2SecMail pour des emails temporaires
+Home-page: https://github.com/alvorks/Py2SecMail
+Author: ItsukiPth
+Author-email: itsukiche@gmail.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
+Requires-Dist: requests
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+
+# Py2SecMail ðŸŽ‰
+
+**Py2SecMail** est une bibliothÃ¨que Python simple pour interagir avec l'API de 2SecMail. Elle permet de gÃ©rer des emails temporaires, de rÃ©cupÃ©rer des domaines, et de manipuler des messages.
+
+## FonctionnalitÃ©s
+
+- **RÃ©cupÃ©ration de domaines** : Obtenez une liste de domaines disponibles.
+- **CrÃ©ation d'emails temporaires** : GÃ©nÃ©rez des emails jetables.
+- **Gestion des messages** : RÃ©cupÃ©rez, mettez Ã  jour et supprimez des messages.
+
+## Installation
+
+Pour installer `Py2SecMail`, utilisez pip :
+
+```bash
+pip install py2secmail
+Utilisation
+Voici comment utiliser Py2SecMail dans votre projet :
+
+Copier
+import requests
+from py2secmail import Py2SecMail
+
+# Initialisation de la classe
+api = Py2SecMail()
+
+# RÃ©cupÃ©rer la liste des domaines disponibles
+domains = api.get_domains("all")
+print(domains)
+
+# CrÃ©er un nouvel email temporaire
+new_email = api.create_email()
+print(new_email)
+
+# Modifier une adresse email existante
+updated_email = api.update_email("old@example.com", "newuser", "newexample.com")
+print(updated_email)
+
+# Supprimer un email temporaire
+delete_response = api.delete_email("old@example.com")
+print(delete_response)
+
+# RÃ©cupÃ©rer les messages d'un email donnÃ©
+messages = api.get_messages("example@example.com")
+print(messages)
+
+# RÃ©cupÃ©rer un message spÃ©cifique par son ID
+message = api.get_message_by_id("ap94AWDg123ELQz07vrVB9dLXlbqZM5NGwYxOJKko8n6m1")
+print(message)
+
+# Supprimer un message spÃ©cifique par son ID
+delete_message_response = api.delete_message_by_id("ap94AWDg123ELQz07vrVB9dLXlbqZM5NGwYxOJKko8n6m1")
+print(delete_message_response)
+
+# TÃ©lÃ©charger une piÃ¨ce jointe d'un email
+attachment = api.download_attachment("abc123", "filename.pdf")
+with open("filename.pdf", "wb") as f:
+    f.write(attachment)
+
+# RÃ©cupÃ©rer l'email associÃ© Ã  un token
+email_url = api.token_to_email("email_token")
+print(email_url)
+FonctionnalitÃ©s dÃ©taillÃ©es
+get_domains(domain_type="all") : RÃ©cupÃ¨re la liste des domaines disponibles.
+create_email() : CrÃ©e un nouvel email temporaire.
+update_email(current_email, new_username, new_domain) : Modifie une adresse email existante.
+delete_email(email) : Supprime un email temporaire.
+get_messages(email) : RÃ©cupÃ¨re les messages d'un email donnÃ©.
+get_message_by_id(message_id) : RÃ©cupÃ¨re un message spÃ©cifique par son ID.
+delete_message_by_id(message_id) : Supprime un message spÃ©cifique par son ID.
+download_attachment(hash_id, filename) : TÃ©lÃ©charge une piÃ¨ce jointe d'un email.
+token_to_email(email_token) : RÃ©cupÃ¨re l'email associÃ© Ã  un token.
+Contribution
+Les contributions sont les bienvenues ! N'hÃ©sitez pas Ã  proposer des amÃ©liorations ou Ã  signaler des bugs.
+
+Licence
+Ce projet est sous licence MIT.
