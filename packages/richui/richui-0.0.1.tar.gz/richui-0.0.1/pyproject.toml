@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "richui"
+version = "0.0.1"
+description = "An interactive command-line UI module built on top of Rich for customizable UI components."
+authors = [
+    { name = "Moh Iqbal Hidayat", email = "iqbalmh18.dev@gmail.com" }
+]
+readme = "README.md"
+license = { file = "LICENSE" }
+keywords = ["rich", "richui", "cli", "UI", "interactive", "terminal"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent"
+]
+dependencies = [
+    "rich"
+]
+requires-python = ">=3.7"
+
+[project.urls]
+Homepage = "https://pypi.org/project/richui"
+Source = "https://github.com/iqbalmh18/richui"
