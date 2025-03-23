@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: pygame_tools_tafh
+Version: 0.1.3
+Summary: Advanced game engine built upon pygame. Includes such things like tweens, game objects, scenes, etc.
+Project-URL: Homepage, https://github.com/TAFH-debug/pygame_tools_TAFH
+Project-URL: Issues, https://github.com/TAFH-debug/pygame_tools_TAFH/issues
+Author-email: Talim Aushakman <aushahman2007@gmail.com>
+License-File: LICENSE
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+
+# Pygame Tools
+
+Pygame Tools Tafh is an advanced game engine built upon pygame. Includes such things like tweens, game objects, scenes, etc.
+
+---
+
+## Example
+
+```py
+# main.py
+import asyncio
+from pygame_tools_tafh import *
+
+class Scene:
+
+    def load(self):
+        label = GameObject("label")
+        label.add_component(LabelComponent("Hello, World!", (255, 0, 0)))
+        label.transform.position = Vector2d(400, 300)
+
+engine = Engine("Glorytopia", 60, (800, 600))
+
+def main():
+    asyncio.run(engine.run(Scene()))
+    
+
+if __name__ == "__main__":
+    main()
+```
+
+## Run it
+
+```bash
+python3 main.py
+```
+
+![alt text](img/image.png)
