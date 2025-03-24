@@ -1,0 +1,54 @@
+<article class="message role-{{ message.role }}">
+    <header>
+        {% if message.role == "assistant" %}
+            {% if message.backend_name == "openai" %}
+                {% include "icons/openai.html" %}
+            {% elif message.backend_name == "anthropic" %}
+                {% include "icons/anthropic.html" %}
+            {% endif %}
+            <h3>{{ message.model_name }}</h3>
+        {% elif message.role == "tool" %}
+            {% include "icons/wrench.html" %}
+            <h3>{{ message.tool_call.tool_call.function }}</h3>
+        {% else %}
+            {% include "icons/user.html" %}
+            <h3>{{ message.role }}</h3>
+        {% endif %}
+    </header>
+
+    {% if message.role == "assistant" %}
+        {% for tool_call in message.tool_calls %}
+            <div class="tool-call">
+                {% include "icons/wrench.html" %}
+                <strong>{{ tool_call.function }}</strong>
+                <dl class="tool-arguments">
+                    {% for key, value in tool_call.arguments.items() %}
+                    <div>
+                        <dt>{{ key }}</dt>
+                        <dd>{{ value }}</dd>
+                    </div>
+                    {% endfor %}
+                </dl>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if message.role == "tool" %}
+        <p>{{ message.tool_call.content }}</p>
+    {% endif %}
+
+        {% for content in message.content %}
+            {% if content.type == "text" %}
+                <p>{{ content.text }}</p>
+            {% elif content.type == "reasoning" %}
+                <p>{{ content.reasoning }}</p>
+            {% elif content.type == "image" %}
+                <img src="{{ content.as_base64_uri() }}" alt="Image">
+            {% elif content.type == "video" %}
+                <video src="{{ content.as_base64_uri() }}" controls></video>
+            {% elif content.type == "audio" %}
+                <audio src="{{ content.as_base64_uri() }}" controls></audio>
+            {% endif %}
+        {% endfor %}
+    </header>
+</article>

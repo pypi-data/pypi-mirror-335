@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.demo {
+    --light-bg: #f0f0f0;
+    --light-text: #222;
+    --dark-bg: #222;
+    --dark-text: #f0f0f0;
+
+    & > header {
+        background-color: light-dark(var(--light-bg), var(--dark-bg));
+        color: light-dark(var(--light-text), var(--dark-text));
+
+        & > h1 {
+            font-weight: lighter;
+            font-size: 1.20em;
+            padding: 1rem;
+        }
+    }
+}
+
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-inline: 1rem;
+    padding-block: 2rem;
+
+    & .input {
+        display: flex;
+        gap: 0.5rem;
+        padding: 1rem;
+        background-color: var(--light-bg);
+        border-radius: 0.5rem;
+
+        & select, & input, & button, & textarea {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--light-text);
+        }
+
+        & label {
+            font-size: 0.8em;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            gap: 0.20rem;
+        }
+
+        & input[type="text"], & textarea {
+            flex-grow: 1;
+        }
+
+        & .message-input {
+            flex-grow: 1;
+        }
+    }
+
+    & .messages {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+
+        & > footer {
+            width: 100%;
+        }
+    }
+
+    & .message {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        background-color: var(--light-bg);
+        color: var(--light-text);
+        max-width: 60%;
+
+        & header {
+            display: flex;
+            flex-direction: row;
+            gap: 0.2rem;
+            font-size: 0.9em;
+            align-items: center;
+            margin-block-end: 0.5rem;
+            text-wrap: nowrap;
+        }
+
+        &.role-user, &.role-tool {
+            align-self: flex-end;
+            text-align: right;
+
+            & header {
+                justify-content: flex-end;
+            }
+        }
+
+        &.role-assistant {
+            align-self: flex-start;
+        }
+        
+    }
+}
+
+
+.icon {
+    max-height: 1em;
+    max-width: 1em;
+    display: inline-block;
+}
+
+.tool-call {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.tool-arguments {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.8em;
+
+    & dt, & dd {
+        border: 1px solid var(--light-text);
+        border-radius: 0.25rem;
+        padding: 0.15rem 0.25rem;
+        text-wrap: nowrap;
+    }
+
+    & dt {
+        font-weight: bold;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    & dd {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left: 0;
+    }
+
+    & > div {
+        display: inline-flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
