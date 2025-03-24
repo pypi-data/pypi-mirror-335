@@ -1,0 +1,228 @@
+#!python
+"""
+TPM-CLI: A command-line tool for interacting with GitHub repositories, Google Drive documents, AWS services, Jira, and Notion.
+"""
+
+import argparse
+import os
+import sys
+import importlib.util
+import inspect
+
+# Add the current directory to the path so we can import the command modules
+current_dir = os.path.dirname(os.path.abspath(__file__))
+if current_dir not in sys.path:
+    sys.path.insert(0, current_dir)
+
+# Import command modules
+from commands import github_commands, google_commands, aws_commands, jira_commands, config_commands, notion_commands
+
+VERSION = "0.3.0"
+
+def main():
+    """Main entry point for the CLI."""
+    parser = argparse.ArgumentParser(description='TPM CLI - Tools for Technical Project Managers')
+    parser.add_argument('--version', action='version', version=f'TPM CLI v{VERSION}')
+    subparsers = parser.add_subparsers(dest='command', help='Commands')
+    
+    # GitHub repository command
+    repo_parser = subparsers.add_parser('repo', help='Find repositories or get repository information')
+    repo_parser.add_argument('query', help='Repository name or search query')
+    repo_parser.add_argument('--org', help='GitHub organization')
+    repo_parser.add_argument('--output', help='Output file path for markdown table')
+    repo_parser.add_argument('--limit-pages', action='store_true', help='Limit the number of pages to fetch')
+    repo_parser.add_argument('--max-pages', type=int, help='Maximum number of pages to fetch (default: all)')
+    repo_parser.add_argument('--details', action='store_true', help='Show detailed information even when multiple results are found')
+    repo_parser.add_argument('--type', help='Filter by repository type classification')
+    repo_parser.add_argument('--activity', choices=['Active', 'Inactive'], help='Filter by activity status')
+    repo_parser.add_argument('--importance', choices=['High', 'Medium', 'Low'], help='Filter by importance level')
+    repo_parser.set_defaults(func=github_commands.cmd_repo)
+    
+    # Google Drive command with subcommands
+    google_parser = subparsers.add_parser('google', help='Google Drive commands')
+    google_subparsers = google_parser.add_subparsers(dest='subcommand', help='Google Drive subcommands')
+    
+    # Google Drive list subcommand
+    google_list_parser = google_subparsers.add_parser('list', help='List Google Drive files')
+    google_list_parser.add_argument('--query', help='Search query for file names')
+    google_list_parser.add_argument('--folder', help='Folder ID to search within')
+    google_list_parser.add_argument('--limit', type=int, default=10, help='Maximum number of results to return')
+    google_list_parser.set_defaults(func=google_commands.cmd_google_list)
+    
+    # Google Drive get subcommand
+    google_get_parser = google_subparsers.add_parser('get', help='Get Google Drive document')
+    google_get_parser.add_argument('doc_id', help='Document ID')
+    google_get_parser.add_argument('--output', help='Output file path')
+    google_get_parser.add_argument('--format', choices=['md', 'html', 'text'], default='md', help='Output format')
+    google_get_parser.set_defaults(func=google_commands.cmd_google_get)
+    
+    # Google Drive search subcommand
+    google_search_parser = google_subparsers.add_parser('search', help='Search Google Drive')
+    google_search_parser.add_argument('query', help='Search query')
+    google_search_parser.add_argument('--limit', type=int, default=10, help='Maximum number of results to return')
+    google_search_parser.set_defaults(func=google_commands.cmd_google_search)
+    
+    # AWS command with subcommands
+    aws_parser = subparsers.add_parser('aws', help='AWS commands')
+    aws_subparsers = aws_parser.add_subparsers(dest='subcommand', help='AWS subcommands')
+    
+    # AWS run subcommand
+    aws_run_parser = aws_subparsers.add_parser('run', help='Run AWS CLI command with assumed role')
+    aws_run_parser.add_argument('command', nargs='+', help='AWS CLI command to run')
+    aws_run_parser.add_argument('--account', help='AWS account ID')
+    aws_run_parser.add_argument('--role', help='AWS role name')
+    aws_run_parser.add_argument('--profile', help='AWS profile name')
+    aws_run_parser.add_argument('--debug', action='store_true', help='Enable debug output')
+    aws_run_parser.set_defaults(func=aws_commands.cmd_aws_run)
+    
+    # AWS config subcommand
+    aws_config_parser = aws_subparsers.add_parser('config', help='Configure default settings for AWS')
+    aws_config_parser.add_argument('--saas-account', help='SaaS account ID')
+    aws_config_parser.add_argument('--saas-role', help='SaaS role name')
+    aws_config_parser.add_argument('--target-account', help='Target account ID')
+    aws_config_parser.add_argument('--role', help='Role name')
+    aws_config_parser.add_argument('--source-profile', help='Source profile name')
+    aws_config_parser.set_defaults(func=aws_commands.cmd_aws_config)
+    
+    # AWS recent subcommand
+    aws_recent_parser = aws_subparsers.add_parser('recent', help='Show recently used AWS accounts')
+    aws_recent_parser.set_defaults(func=aws_commands.cmd_aws_recent)
+    
+    # AWS setup subcommand
+    aws_setup_parser = aws_subparsers.add_parser('setup', help='Quick setup for SaaS and target accounts')
+    aws_setup_parser.set_defaults(func=aws_commands.cmd_aws_setup)
+    
+    # AWS logs subcommand - using 'sam logs' as per user preference
+    aws_logs_parser = aws_subparsers.add_parser('logs', help='Get logs from CloudWatch Logs using sam logs')
+    aws_logs_parser.add_argument('log_group', help='Log group name')
+    aws_logs_parser.add_argument('--filter', help='Filter pattern')
+    aws_logs_parser.add_argument('--start', help='Start time (e.g., 5m, 1h, 1d)')
+    aws_logs_parser.add_argument('--account', help='AWS account ID')
+    aws_logs_parser.add_argument('--role', help='AWS role name')
+    aws_logs_parser.add_argument('--profile', help='AWS profile name')
+    aws_logs_parser.set_defaults(func=aws_commands.cmd_aws_logs)
+    
+    # Jira command with subcommands
+    jira_parser = subparsers.add_parser('jira', help='Jira commands')
+    jira_subparsers = jira_parser.add_subparsers(dest='subcommand', help='Jira subcommands')
+    
+    # Jira search subcommand
+    jira_search_parser = jira_subparsers.add_parser('search', help='Search Jira issues')
+    jira_search_parser.add_argument('query', help='JQL query')
+    jira_search_parser.add_argument('--limit', type=int, default=10, help='Maximum number of results to return')
+    jira_search_parser.add_argument('--output', help='Output file path for markdown table')
+    jira_search_parser.set_defaults(func=jira_commands.cmd_jira_search)
+    
+    # Jira get subcommand
+    jira_get_parser = jira_subparsers.add_parser('get', help='Get Jira issue')
+    jira_get_parser.add_argument('issue_key', help='Issue key (e.g., PROJ-123)')
+    jira_get_parser.add_argument('--output', help='Output file path')
+    jira_get_parser.set_defaults(func=jira_commands.cmd_jira_get)
+    
+    # Jira test subcommand
+    jira_test_parser = jira_subparsers.add_parser('test', help='Test Jira connection')
+    jira_test_parser.set_defaults(func=jira_commands.cmd_jira_test)
+    
+    # Jira projects subcommand
+    jira_projects_parser = jira_subparsers.add_parser('projects', help='List accessible Jira projects')
+    jira_projects_parser.set_defaults(func=jira_commands.cmd_jira_projects)
+    
+    # Notion command with subparsers
+    notion_parser = subparsers.add_parser('notion', help='Notion commands')
+    notion_subparsers = notion_parser.add_subparsers(dest='notion_action', help='Notion subcommands')
+    
+    # Setup Notion subcommands
+    # Status command
+    status_parser = notion_subparsers.add_parser('status', help='Check Notion API status')
+    
+    # List pages command
+    list_parser = notion_subparsers.add_parser('list', help='List Notion pages')
+    list_parser.add_argument('--limit', type=int, default=10, help='Maximum number of pages to list')
+    list_parser.add_argument('--full-ids', action='store_true', help='Show full page IDs')
+    
+    # Add content command
+    add_parser = notion_subparsers.add_parser('add', help='Add content to a Notion page')
+    add_parser.add_argument('page', help='Page ID or name to add content to')
+    add_parser.add_argument('--markdown', help='Markdown file to add')
+    add_parser.add_argument('--sample', action='store_true', help='Use sample markdown content')
+    add_parser.add_argument('--debug', action='store_true', help='Show debug information')
+    add_parser.add_argument('--mode', choices=['append', 'replace'], default='append',
+                           help='How to add content: append to page or replace page content')
+    add_parser.add_argument('--replace-marker', help='Marker to replace in the page (for replace mode)')
+    add_parser.add_argument('--format', action='store_true', help='Format markdown for Notion compatibility')
+    
+    # Create page command
+    create_parser = notion_subparsers.add_parser('create', help='Create a new Notion page')
+    create_parser.add_argument('title', help='Title of the new page')
+    create_parser.add_argument('--markdown', help='Markdown file to use as content')
+    create_parser.add_argument('--sample', action='store_true', help='Use sample markdown content')
+    create_parser.add_argument('--debug', action='store_true', help='Show debug information')
+    create_parser.add_argument('--format', action='store_true', help='Format markdown for Notion compatibility')
+    
+    # Set the function to handle Notion commands
+    notion_parser.set_defaults(func=notion_commands.handle_notion_commands)
+    
+    # Config command with subcommands
+    config_parser = subparsers.add_parser('config', help='Configuration commands')
+    config_subparsers = config_parser.add_subparsers(dest='config_action')
+    
+    # config show command
+    config_show_parser = config_subparsers.add_parser('show', help='Show current configuration')
+    
+    # config google command
+    config_google_parser = config_subparsers.add_parser('google', help='Configure Google Drive')
+    config_google_parser.add_argument('--json-file', required=True, help='Path to Google service account JSON file')
+    
+    # config github command
+    config_github_parser = config_subparsers.add_parser('github', help='Configure GitHub')
+    config_github_parser.add_argument('--token', required=True, help='GitHub personal access token')
+    
+    # config jira command
+    config_jira_parser = config_subparsers.add_parser('jira', help='Configure Jira')
+    config_jira_parser.add_argument('--email', help='Jira email address')
+    config_jira_parser.add_argument('--token', help='Jira API token')
+    config_jira_parser.add_argument('--server', help='Jira server URL (e.g., https://your-instance.atlassian.net)')
+    
+    # config notion command
+    config_notion_parser = config_subparsers.add_parser('notion', help='Configure Notion')
+    config_notion_parser.add_argument('--token', required=True, help='Notion API token')
+    
+    config_parser.set_defaults(func=config_commands.cmd_config)
+    
+    args = parser.parse_args()
+    
+    if not args.command:
+        parser.print_help()
+        sys.exit(1)
+    
+    if args.command == 'jira' and not args.subcommand:
+        jira_parser.print_help()
+        sys.exit(1)
+    
+    if args.command == 'google' and not args.subcommand:
+        google_parser.print_help()
+        sys.exit(1)
+    
+    if args.command == 'aws' and not args.subcommand:
+        aws_parser.print_help()
+        sys.exit(1)
+    
+    if args.command == 'config' and not args.config_action:
+        config_parser.print_help()
+        sys.exit(1)
+    
+    if args.command == 'notion' and not args.notion_action:
+        notion_parser.print_help()
+        sys.exit(1)
+    
+    try:
+        args.func(args)
+    except AttributeError as e:
+        if "'Namespace' object has no attribute 'func'" in str(e):
+            parser.print_help()
+            sys.exit(1)
+        else:
+            raise
+
+if __name__ == '__main__':
+    main()
