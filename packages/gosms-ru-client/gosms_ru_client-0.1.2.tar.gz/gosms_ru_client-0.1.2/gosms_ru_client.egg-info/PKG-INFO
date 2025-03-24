@@ -1,0 +1,99 @@
+Metadata-Version: 2.4
+Name: gosms-ru-client
+Version: 0.1.2
+Summary: Python client for GoSMS API - сервис отправки SMS сообщений
+Home-page: https://gosms.ru
+Author: GoSMS
+Author-email: support@gosms.ru
+Project-URL: Documentation, https://docs.gosms.ru
+Project-URL: Source, https://github.com/gosms/gosms-python-client
+Keywords: sms,gosms,api,client,messaging
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: keywords
+Dynamic: project-url
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# GoSMS Python Client
+
+Python клиент для работы с API сервиса отправки SMS сообщений GoSMS.
+
+## Установка
+
+```bash
+pip install gosms-ru-client
+```
+
+## Аутентификация
+
+Для работы с API необходим JWT токен. Получить его можно в панели управления GoSMS:
+
+1. Войдите в панель управления по адресу https://cms.gosms.ru
+2. Перейдите в раздел "API интеграция"
+3. Нажмите "Создать токен"
+4. Скопируйте полученный токен и используйте его при инициализации клиента
+
+## Использование
+
+```python
+from gosms import GoSMSClient
+
+# Инициализация клиента
+client = GoSMSClient(token="your_jwt_token")
+
+try:
+    # Отправка SMS
+    message = client.send_sms(
+        phone_number="79999999999",
+        message="Тестовое сообщение"
+    )
+    print(f"Сообщение отправлено: {message}")
+    
+    # Получение списка сообщений
+    messages = client.get_messages(limit=10)
+    print(f"Последние сообщения: {messages}")
+    
+except GoSMSError as e:
+    print(f"Ошибка API: {e}")
+```
+
+## Возможности
+
+- Отправка SMS сообщений
+- Получение списка сообщений с пагинацией и поиском
+- Обработка ошибок API
+- Поддержка типизации (type hints)
+
+## Требования
+
+- Python 3.7 или выше
+- requests>=2.25.0
+
+## Документация
+
+Полная документация доступна на сайте: https://docs.gosms.ru
+
+## Лицензия
+
+MIT 
