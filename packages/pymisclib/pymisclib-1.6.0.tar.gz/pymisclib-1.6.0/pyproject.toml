@@ -1,0 +1,44 @@
+[build-system]
+requires = [
+   "setuptools>=61.0",
+   "setuptools-scm>=8.0",
+   "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pymisclib"
+authors = [
+  { name="Christian Dönges", email="cd.pymisclib@platypus-projects.net" },
+]
+description = "A collection of various useful Python routines."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+]
+# version is handled by setuptools-scm
+dynamic = ["version"]
+
+[tool.setuptools_scm]
+# Write the version to this file.
+version_file = "src/pymisclib/__version__.py"
+
+[project.urls]
+"Homepage" = "https://rot.regenbogenkraut.de/cd/pymisclib"
+"Bug Tracker" = "https://rot.regenbogenkraut.de/cd/pymisclib/issues"
+
+[tool.setuptools]
+# By default, include-package-data is true in pyproject.toml, so you do
+# NOT have to specify this line.
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+# Files with these extensions are considered data files and included in the
+# package distribution.
+pymisclib = ["*.txt", "*.rst", "*.spdx"]
