@@ -1,0 +1,76 @@
+[project]
+name = "ubo-gui"
+dynamic = ["version"]
+description = "GUI sdk for Ubo Pod"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Sassan Haradji", email = "me@sassanh.com" }]
+maintainers = [{ name = "Sassan Haradji", email = "me@sassanh.com" }]
+readme = "README.md"
+requires-python = ">=3.11"
+keywords = ['ubo', 'kivy', 'components', 'widgets']
+dependencies = [
+  "headless-kivy>=0.12.1",
+  "python-immutable>=1.0.2",
+  "qrcode>=7.4.2",
+]
+
+[tool.uv]
+dev-dependencies = ["poethepoet>=0.29.0", "pyright>=1.1.397", "ruff>=0.11.0"]
+
+[project.urls]
+homepage = 'https://github.com/ubopod/ubo-gui/'
+repository = 'https://github.com/ubopod/ubo-gui/'
+documentation = 'https://github.com/ubopod/ubo-gui/'
+changelog = 'https://github.com/ubopod/ubo-gu//blob/main/CHANGELOG.md'
+
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.hatch.build.hooks.vcs]
+version-file = "ubo_gui/_version.py"
+
+[tool.hatch.version.raw-options]
+local_scheme = "setup_scm_schemes:local_scheme"
+
+[tool.hatch.build]
+packages = ["ubo_gui"]
+
+[tool.hatch.build.targets.sdist]
+packages = ["ubo_gui"]
+
+[tool.poe.tasks]
+lint = "ruff check . --unsafe-fixes"
+typecheck = "pyright -p pyproject.toml ."
+sanity = ["typecheck", "lint"]
+download_font.shell = "mkdir -p ubo_gui/assets/fonts; wget https://github.com/google/material-design-icons/raw/master/variablefont/MaterialSymbolsOutlined%5BFILL%2CGRAD%2Copsz%2Cwght%5D.ttf -O ./ubo_gui/assets/fonts/MaterialSymbolsOutlined[FILL,GRAD,opsz,wght].ttf"
+
+[tool.poe.tasks.deploy-to-device]
+cmd = 'scripts/deploy.sh'
+
+[tool.ruff]
+target-version = 'py311'
+
+[tool.ruff.lint]
+select = ['ALL']
+ignore = ['INP001', 'PLR0911', 'D203', 'D213']
+fixable = ['ALL']
+unfixable = []
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "single"
+multiline-quotes = "double"
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.isort]
+profile = "black"
+
+[tool.pyright]
+exclude = ['typings', '.venv']
+filterwarnings = 'error'
