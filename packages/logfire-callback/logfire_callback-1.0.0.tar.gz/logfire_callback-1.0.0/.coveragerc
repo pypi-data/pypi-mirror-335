@@ -1,0 +1,19 @@
+[run]
+source = src/logfire_callback
+omit =
+    tests/*
+    setup.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    if __name__ == "__main__":
+    raise NotImplementedError
+    raise ImportError
+    except ImportError
+    pass
+    raise
+
+[html]
+directory = coverage_html_report
