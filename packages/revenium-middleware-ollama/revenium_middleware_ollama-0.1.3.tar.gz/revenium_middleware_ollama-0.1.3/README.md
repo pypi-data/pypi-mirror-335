@@ -1,0 +1,129 @@
+# 🤖 Revenium Middleware for Ollama
+
+[![PyPI version](https://img.shields.io/pypi/v/revenium-middleware-ollama.svg)](https://pypi.org/project/revenium-middleware-ollama/)
+[![Python Versions](https://img.shields.io/pypi/pyversions/revenium-middleware-ollama.svg)](https://pypi.org/project/revenium-middleware-ollama/)
+[![Documentation Status](https://readthedocs.org/projects/revenium-middleware-ollama/badge/?version=latest)](https://revenium-middleware-ollama.readthedocs.io/en/latest/?badge=latest)
+[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
+
+[//]: # ([![Build Status]&#40;https://github.com/revenium/revenium-middleware-ollama/actions/workflows/ci.yml/badge.svg&#41;]&#40;https://github.com/revenium/revenium-middleware-ollama/actions&#41;)
+
+A middleware library for metering and monitoring Ollama API usage in Python applications. 🐍✨
+
+## ✨ Features
+
+- **📊 Precise Usage Tracking**: Monitor tokens, costs, and request counts across all Ollama API endpoints
+- **🔌 Seamless Integration**: Drop-in middleware that works with minimal code changes
+- **⚙️ Flexible Configuration**: Customize metering behavior to suit your application needs
+
+## 📥 Installation
+
+```bash
+pip install revenium-middleware-ollama
+```
+
+## 🔧 Usage
+
+### 🔄 Zero-Config Integration
+
+Simply export your REVENIUM_METERING_API_KEY and import the middleware.
+Your Ollama calls will be metered automatically:
+
+```python
+import ollama
+import revenium_middleware_ollama
+
+# Ensure REVENIUM_METERING_API_KEY environment variable is set
+
+response: ollama.ChatResponse = ollama.chat(
+    model='qwen2.5:0.5b', messages=[
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+    ])
+print(response['message']['content'])
+```
+
+The middleware automatically intercepts Ollama API calls and sends metering data to Revenium without requiring any
+changes to your existing code. Make sure to set the `REVENIUM_METERING_API_KEY` environment variable for authentication
+with the Revenium service.
+
+### 📈 Enhanced Tracking with Metadata
+
+For more granular usage tracking and detailed reporting, add the `usage_metadata` parameter:
+
+```python
+import ollama
+import revenium_middleware_ollama
+
+response = ollama.chat(
+    model='qwen2.5:0.5b', messages=[
+        {
+            'role': 'user',
+            'content': 'Why is the sky blue?',
+        },
+    ],
+    usage_metadata={
+        "trace_id": "conv-28a7e9d4-1c3b-4e5f-8a9b-7d1e3f2c1b4a",
+        "task_id": "chat-summary-af23c910",
+        "task_type": "text-classification",
+        "subscriber_identity": "customer-email@example.com",
+        "organization_id": "acme-corporation-12345",
+        "subscription_id": "startup-plan-quarterly-2025-Q1",
+        "product_id": "intelligent-document-processor-v3",
+        "source_id": "mobile-app-ios-v4.2",
+        "ai_provider_key_name": "ollama-production-key1",
+        "agent": "customer-support-assistant-v2",
+    },
+)
+print(response.choices[0].message.content)
+```
+
+#### 🏷️ Metadata Fields
+
+The `usage_metadata` parameter supports the following fields:
+
+| Field                  | Description                                     | Use Case                                                          |
+|------------------------|-------------------------------------------------|-------------------------------------------------------------------|
+| `trace_id`             | Unique identifier for a conversation or session | Track multi-turn conversations                                    |
+| `task_id`              | Identifier for a specific AI task               | Group related API calls for a single task                         |
+| `task_type`            | Classification of the AI operation              | Categorize usage by purpose (e.g., classification, summarization) |
+| `subscriber_identity`  | End-user identifier                             | Track usage by individual users                                   |
+| `organization_id`      | Customer or department identifier               | Allocate costs to business units                                  |
+| `subscription_id`      | Reference to a billing plan                     | Associate usage with specific subscriptions                       |
+| `product_id`           | The product or feature using AI                 | Track usage across different products                             |
+| `source_id`            | Origin of the request                           | Monitor usage by platform or app version                          |
+| `ai_provider_key_name` | Identifier for the API key used                 | Track usage by different API keys                                 |
+| `agent`                | Identifier for the specific AI agent            | Compare performance across different AI agents                    |
+
+All metadata fields are optional. Adding them enables more detailed reporting and analytics in Revenium.
+
+## 🔄 Compatibility
+
+- 🐍 Python 3.8+
+- 🤖 Ollama Python SDK 1.0.0+
+- 🌐 Works with all Ollama models
+
+## 📚 Documentation
+
+Full documentation is available
+at [https://revenium-middleware-ollama.readthedocs.io/](https://revenium-middleware-ollama.readthedocs.io/)
+
+## 👥 Contributing
+
+Contributions are welcome! Please check out our [contributing guidelines](CONTRIBUTING.md) for details.
+
+1. 🍴 Fork the repository
+2. 🌿 Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. 💾 Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. 🚀 Push to the branch (`git push origin feature/amazing-feature`)
+5. 🔍 Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the Apache Software License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- 🔥 Thanks to the Ollama team for creating an excellent API
+- 💖 Built with ❤️ by the Revenium team
