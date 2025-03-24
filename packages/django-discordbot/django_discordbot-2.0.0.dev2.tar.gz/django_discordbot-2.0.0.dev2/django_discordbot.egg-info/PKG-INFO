@@ -1,0 +1,77 @@
+Metadata-Version: 2.4
+Name: django-discordbot
+Version: 2.0.0.dev2
+Summary: A discord bot integrated in Django
+Author-email: Rafael Urben <github@rafaelurben.ch>
+Maintainer-email: Rafael Urben <github@rafaelurben.ch>
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/rafaelurben/django-discordbot/
+Project-URL: GitHub, https://github.com/rafaelurben/django-discordbot
+Project-URL: Issues, https://github.com/rafaelurben/django-discordbot/issues
+Classifier: Environment :: Web Environment
+Classifier: Framework :: Django
+Classifier: Framework :: Django :: 4.2
+Classifier: Framework :: Django :: 5.0
+Classifier: Framework :: Django :: 5.1
+Classifier: Framework :: Django :: 5.2
+Classifier: Intended Audience :: Developers
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Internet :: WWW/HTTP
+Classifier: Topic :: Internet :: WWW/HTTP :: Dynamic Content
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: Django>=4.1
+Requires-Dist: gunicorn>=20.0.4
+Requires-Dist: requests>=2.24.0
+Requires-Dist: discord.py>=2.0.0
+Requires-Dist: opuslib>=3.0.1
+Requires-Dist: ffmpeg>=1.4
+Requires-Dist: fuzzywuzzy[speedup]>=0.18.0
+Requires-Dist: youtube-dl>=2020.9.6
+Requires-Dist: rich>=9.0.1
+Requires-Dist: tqdm>=4.43.0
+Requires-Dist: dnspython>=2.0.0
+Dynamic: license-file
+
+# django-discordbot
+
+> [!NOTE]
+> After the [death of discord.py](https://github.com/rafaelurben/django-discordbot/discussions/139) and the [rebirth of discord.py](https://github.com/rafaelurben/django-discordbot/discussions/161), discord.py V2 has been released! That means it's time for v2 of django-discordbot! 🎉
+
+> [!WARNING]
+> This bot is currently in a phase of transitioning from the old commands to the new app commands (slash commands).
+
+------
+
+[![PyPI](https://img.shields.io/pypi/v/django-discordbot)](https://pypi.org/project/django-discordbot)
+![PyPI - Django Version](https://img.shields.io/pypi/djversions/django-discordbot)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/django-discordbot)
+![PyPI - License](https://img.shields.io/pypi/l/django-discordbot)
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/rafaelurben/django-discordbot)
+![GitHub lines of code](https://img.shields.io/tokei/lines/github.com/rafaelurben/django-discordbot)
+[![GitHub issues](https://img.shields.io/github/issues/rafaelurben/django-discordbot)](https://github.com/rafaelurben/django-discordbot/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/rafaelurben/django-discordbot)](https://github.com/rafaelurben/django-discordbot/pulls)
+
+[![CodeFactor](https://www.codefactor.io/repository/github/rafaelurben/django-discordbot/badge)](https://www.codefactor.io/repository/github/rafaelurben/django-discordbot)
+
+A Discord bot running in a django environment. The current version of the bot itself is German, but I might consider adding translations in the future.
+
+Planned features can be found in the [project board](https://github.com/rafaelurben/django-discordbot/projects/1?fullscreen=true).
+
+Feel free to open an issue or start a pull request. ;)
+
+## Requirements
+
+Python, django and discord.py knowledge.
+
+## Documentation
+
+You can find a documentation in the [docs folder](./docs/index.md).
