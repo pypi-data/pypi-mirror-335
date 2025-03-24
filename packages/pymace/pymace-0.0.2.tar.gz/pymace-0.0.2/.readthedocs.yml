@@ -1,0 +1,11 @@
+version: 2
+
+build:
+  os: "ubuntu-22.04"
+  commands:
+    - asdf plugin add uv
+    - asdf install uv latest
+    - asdf global uv latest
+    - uv python install
+    - uv sync --extra docs --frozen
+    - uv run --color never mkdocs build --site-dir $READTHEDOCS_OUTPUT/html

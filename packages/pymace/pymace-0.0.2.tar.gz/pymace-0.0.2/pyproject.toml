@@ -1,0 +1,88 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pymace"
+version = "0.0.2"
+authors = [
+  { name="Tjalf Stadel", email="tjalf13+mace@gmail.com" },
+  { name="Jannik Frank", email="jannik.frank@akamodell.de" },
+]
+description = "A package for evaluating and analysing modell Aircraft"
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.11"
+dependencies=[
+    "numpy",
+    'scipy',
+    'scikit-optimize',
+    'tabulate',
+    'matplotlib',
+    'tqdm',
+    'psutil',
+    'bs4',
+    'requests',
+]
+
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+keywords = ["modell aircraft",
+            "aircraft",
+            "Akamodell Stuttgart"
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6.4",
+]
+
+test = [
+  'pytest',
+]
+
+docs = [
+  "mkdocs>=1.6.1",
+  "mkdocstrings[python]>=0.26.2",
+  "mkdocs-material>=9.5.42",
+]
+
+[dependency-groups]
+docs = [
+  "mkdocs>=1.6.1",
+  "mkdocstrings[python]>=0.26.2",
+  "mkdocs-material>=9.5.42",
+]
+
+[project.urls]
+"Repository" = "https://github.com/TheHenrik/mace"
+"Documentation" = "https://pymace.readthedocs.io/en/latest/"
+
+
+[project.scripts]
+test = "mace.cli:test2"
+
+
+[tool.pytest.ini_options]
+console_output_style = "progress"
+
+[tool.ruff]
+exclude = [
+  "docs/uml",
+]
+
+line-length = 88
+indent-width = 4
+
+[tool.ruff.lint]
+ignore = ["E741", "F841"]
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
