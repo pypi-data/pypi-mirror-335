@@ -1,0 +1,36 @@
+# Persian Calendar
+
+A Python package to get the current Jalali (Persian) date.
+
+## Installation
+pip install persianCalendar
+
+### usage
+pc_fa = PersianCalendar(use_persian_numbers=True)
+print("== خروجی فارسی ==")
+print("تاریخ امروز (جلالی):", pc_fa.format_date(pc_fa.today_jalali()))
+print("تاریخ امروز (قمری تقریبی):", pc_fa.get_hijri_date())
+print("زمان تا نوروز:", str(pc_fa.next_nowruz()).split('.')[0])
+print("زمان تا چهارشنبه‌سوری:", pc_fa.next_chaharshanbe_suri())
+print("زمان تا پایان مدارس:", pc_fa.next_school_end())
+print("زمان تا سیزده بدر:", pc_fa.next_sizdah_bedar())
+print("زمان فعلی:", pc_fa.current_time())
+fa_day, _ = pc_fa.current_day_names()
+print("نام روز امروز (فارسی):", fa_day)
+print("شماره هفته در سال شمسی:", pc_fa.week_number())
+print("نام ماه جلالی:", pc_fa.current_jalali_month_name())
+print("نام ماه قمری (Gregorian):", pc_fa.current_gregorian_month_name())
+pc_en = PersianCalendar(use_persian_numbers=False)
+print("\n== English Output ==")
+print("Today's Jalali Date:", pc_en.format_date(pc_en.today_jalali()))
+print("Today's Hijri Date (approx.):", pc_en.get_hijri_date())
+print("Time until Nowruz:", str(pc_en.next_nowruz()).split('.')[0])
+print("Time until Chaharshanbe Suri:", pc_en.next_chaharshanbe_suri())
+print("Time until School End:", pc_en.next_school_end())
+print("Time until Sizdah Bedar:", pc_en.next_sizdah_bedar())
+print("Current Time:", pc_en.current_time())
+_, en_day = pc_en.current_day_names()
+print("Today's Day (English):", en_day)
+print("Week number in Jalali year:", pc_en.week_number())
+print("Current Jalali Month Name:", pc_en.current_jalali_month_name())
+print("Current Gregorian Month Name:", pc_en.current_gregorian_month_name())
