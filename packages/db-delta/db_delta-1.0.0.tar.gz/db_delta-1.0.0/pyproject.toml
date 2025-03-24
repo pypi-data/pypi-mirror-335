@@ -1,0 +1,18 @@
+[project]
+name = "db_delta"
+description = "Python library to evaluate changesets when running database unittests."
+version = "1.0.0"
+
+authors = [
+    { name = "Pascal Sauerborn", email = "pascal.sauerborn@gmail.com" }
+]
+
+dependencies = [
+	"pydantic",
+	"moto",
+	"boto3"
+]
+
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
