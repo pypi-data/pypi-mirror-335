@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "lattica-query"
+version = "0.6.0"
+description = "Lattica client"
+authors = ["LatticaAI Inc. <hello@lattica.ai>"]
+homepage = "https://www.lattica.ai/"
+license = "Proprietary"
+readme = "README.md"
+packages = [{include = "lattica_query"}]
+
+# Package includes
+include = [{ path = "lattica_query/cpp_sdk.cpython*.so", format = "wheel" }, "LICENSE.txt"]
+
+# Exclude internal demos from the wheel package
+# exclude = ["lattica_query/internal_demos/**/*"]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+lattica-common = "~0.5.0"
+timeit-decorator = "*"
+
+[tool.poetry.group.dev.dependencies]
+lattica-common = {path = "../lattica_common_src", develop = true}
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
