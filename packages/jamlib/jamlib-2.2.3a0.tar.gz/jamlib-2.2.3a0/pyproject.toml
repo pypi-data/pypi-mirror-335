@@ -1,0 +1,72 @@
+[project]
+name = "jamlib"
+version = "2.2.3-alpha"
+description = "Simple and univirsal library for authorization"
+authors = [
+    {name = "Makridenko Adrian",email = "adrianmakridenko@duck.com"}
+]
+license = {text = "MIT License"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pycryptodome>=3.21.0,<4.0.0",
+    "cryptography (>=44.0.2,<45.0.0)",
+]
+
+[project.urls]
+Homepage = "https://github.com/lyaguxafrog/jam"
+Repository = "https://github.com/lyaguxafrog/jam"
+Issues = "https://github.com/lyaguxafrog/jam/issues"
+
+[dependency-groups]
+dev = [
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.6.9",
+    "mkdocstrings>=0.29.0",
+    "mkdocstrings-python>=1.16.7",
+    "mypy>=1.15.0",
+    "pre-commit>=4.2.0",
+    "pytest>=8.3.5",
+    "ruff>=0.11.2",
+]
+
+
+[tool.ruff]
+target-version = "py313"
+line-length = 80
+ignore = ["UP009", "D100"]
+exclude = ["*__init__.py"]
+
+[tool.ruff.lint]
+extend-select = ["UP", "D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.isort]
+profile = "black"
+default_section = "THIRDPARTY"
+balanced_wrapping = true
+known_first_party = "src"
+line_length = 80
+lines_after_imports = 2
+lines_between_sections = 1
+multi_line_output = 3
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
+skip = ["env", ".env", ".env.example", "migrations/", ".venv/"]
+
+[tool.black]
+line-length = 80
+skip-string-normalization = false
+
+[tool.mypy]
+disable_error_code = ["no-redef", "import-not-found", "import-untyped", "attr-defined"]
+
+[tool.pytest]
+#asyncio_default_fixture_loop_scope = "function"
+python_files = ["test*.py"]
+
+[tool.pytest.ini_options]
+addopts = "--capture=no"
