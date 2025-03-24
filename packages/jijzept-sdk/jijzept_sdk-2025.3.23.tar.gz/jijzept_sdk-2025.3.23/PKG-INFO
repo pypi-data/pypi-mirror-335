@@ -1,0 +1,92 @@
+Metadata-Version: 2.4
+Name: jijzept_sdk
+Version: 2025.3.23
+Summary: Free development kit provided by JijZept.
+Author-email: "Jij Inc." <info@j-ij.com>
+Classifier: Operating System :: POSIX :: Linux
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Requires-Python: <3.13,>=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: jijmodeling==1.12.2
+Requires-Dist: ommx==1.8.6
+Provides-Extra: mip
+Requires-Dist: ommx-python-mip-adapter==1.8.6; extra == "mip"
+Provides-Extra: scip
+Requires-Dist: ommx-pyscipopt-adapter==1.8.6; extra == "scip"
+Provides-Extra: highs
+Requires-Dist: ommx-highs-adapter==1.8.6; extra == "highs"
+Provides-Extra: amplify
+Requires-Dist: ommx-fixstars-amplify-adapter==0.2.1; extra == "amplify"
+Provides-Extra: gurobi
+Requires-Dist: ommx-gurobipy-adapter==0.1.1; extra == "gurobi"
+Provides-Extra: openjij
+Requires-Dist: ommx-openjij-adapter==1.8.6; extra == "openjij"
+Provides-Extra: qamomile
+Requires-Dist: qamomile==0.5.1; extra == "qamomile"
+Provides-Extra: minto
+Requires-Dist: minto==1.1.3; extra == "minto"
+Provides-Extra: lab
+Requires-Dist: jupyterlab; extra == "lab"
+Provides-Extra: all
+Requires-Dist: jijzept_sdk[mip]; extra == "all"
+Requires-Dist: jijzept_sdk[scip]; extra == "all"
+Requires-Dist: jijzept_sdk[highs]; extra == "all"
+Requires-Dist: jijzept_sdk[amplify]; extra == "all"
+Requires-Dist: jijzept_sdk[gurobi]; extra == "all"
+Requires-Dist: jijzept_sdk[openjij]; extra == "all"
+Requires-Dist: jijzept_sdk[qamomile]; extra == "all"
+Requires-Dist: jijzept_sdk[minto]; extra == "all"
+Requires-Dist: jijzept_sdk[lab]; extra == "all"
+
+# JijZeptSDK
+
+JijZeptSDK is a package that allows you to install all the free packages provided by JijZept. Specifically, it includes the following Python packages.
+
+- [jijmodeling](https://pypi.org/project/jijmodeling/)
+- [ommx](https://pypi.org/project/ommx/)
+- [ommx-python-mip-adapter](https://pypi.org/project/ommx-python-mip-adapter/)
+- [ommx-pyscipopt-adapter](https://pypi.org/project/ommx-pyscipopt-adapter/)
+- [ommx-highs-adapter](https://pypi.org/project/ommx-highs-adapter/)
+- [ommx-fixstars-amplify-adapter](https://pypi.org/project/ommx-fixstars-amplify-adapter/)
+- [ommx-gurobipy-adapter](https://pypi.org/project/ommx-gurobipy-adapter/)
+- [ommx-openjij-adapter](https://pypi.org/project/ommx-openjij-adapter/)
+- [minto](https://pypi.org/project/minto/)
+- [qamomile](https://pypi.org/project/qamomile/)
+
+## Basic usage
+
+The following command allows you to install the free packages provided by JijZept along with `jupyterlab`.
+
+```bash
+pip install "jijzept_sdk[all]"
+```
+
+You can also start the JupyterLab environment with the following command.
+
+```bash
+jijzept_sdk
+```
+
+## Advanced usage
+
+You can also install only some packages by specifying options like the following command. However, `jijmodeling` and `ommx` are always included.
+
+```bash
+pip install “jijzept_sdk[mip]"
+```
+
+The list of options is as follows:
+
+- `mip`: Install packages for using `ommx-python-mip-adapter`.
+- `scip`: Install packages for using `ommx-pyscipopt-adapter`.
+- `highs`: Install packages for using `ommx-highs-adapter`.
+- `amplify`: Install packages for using `ommx-fixstars-amplify-adapter`.
+- `gurobi`: Install packages for using `ommx-gurobipy-adapter`.
+- `openjij`: Install packages for using `ommx-openjij-adapter`.
+- `qamomile`: Install packages for using `qamomile`.
+- `minto`: Install packages for using `minto`.
+- `lab`: Install packages for using `jupyterlab`.
+
+Note that the `lab` option is required to run the `jijzept_sdk` command.
