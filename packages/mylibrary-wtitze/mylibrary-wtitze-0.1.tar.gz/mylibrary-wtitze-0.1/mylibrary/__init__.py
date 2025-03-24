@@ -1,0 +1,1 @@
+from .veicolo import Veicolo, Auto
