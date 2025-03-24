@@ -1,0 +1,51 @@
+Metadata-Version: 2.4
+Name: tripo-mcp
+Version: 0.1.1
+Summary: MCP (Model Control Protocol) integration for Tripo
+Author-email: Allen Dang <allen@vastai3d.com>, pookiefoof <caoyanpei@gmail.com>
+License: MIT
+Keywords: mcp,blender,3d,automation
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: aiohttp>=3.11.13
+Requires-Dist: mcp[cli]>=1.4.1
+Provides-Extra: dev
+Dynamic: license-file
+
+# Tripo MCP Server
+
+Tripo MCP provides an interface between AI assistants and [Tripo AI](https://www.tripo3d.ai) via [Model Context Protocol (MCP)](https://github.com/anthropics/anthropic-cookbook/tree/main/mcp). 
+
+> **Note:** This project is in alpha. Currently, it supports Tripo Blender Addon integration.
+
+## Current Features
+
+- Generate 3D asset from natural language using Tripo's API and import to Blender
+- Compatible with Claude and other MCP-enabled AI assistants
+
+## Quick Start
+
+### Prerequisites
+- Python 3.10+
+- [Blender](https://www.blender.org/download/)
+- [Tripo AI Blender Addon](https://www.tripo3d.ai/app/home)
+- Claude for Desktop or Cursor IDE
+
+### Installation
+
+1. Install Tripo AI Blender Addon from [Tripo AI's website](https://www.tripo3d.ai/app/home)
+
+2. Configure the MCP server in Claude Desktop or Cursor.
+
+3. Happy creating in 3D! E.g., "Generate a 3D model of a futuristic chair".
+
+## Acknowledgements
+
+- [Tripo AI](https://www.tripo3d.ai)
+- [blender-mcp](https://github.com/ahujasid/blender-mcp) project for inspiration
