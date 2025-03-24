@@ -1,0 +1,79 @@
+Metadata-Version: 2.4
+Name: logging-extended-handlers
+Version: 0.2.0
+Summary: Extending logging.handlers
+Project-URL: Documentation, https://github.com/m-birke/logging-handlers#readme
+Project-URL: Issues, https://github.com/m-birke/logging-handlers/issues
+Project-URL: Source, https://github.com/m-birke/logging-handlers
+Author-email: mbirke <wesci@web.de>
+License-Expression: MIT
+License-File: LICENSE.txt
+Keywords: handlers,header,headers,http,log,log handlers,logging,logging handlers,mail,smtp
+Classifier: Development Status :: 4 - Beta
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Programming Language :: Python :: Implementation :: CPython
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+
+# logging-extended-handlers
+
+[![PyPI - Version](https://img.shields.io/pypi/v/logging-extended-handlers.svg)](https://pypi.org/project/logging-extended-handlers)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/logging-extended-handlers.svg)](https://pypi.org/project/logging-extended-handlers)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+-----
+
+**Table of Contents**
+
+- [About](#about)
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+
+## About
+
+This package contains the following loggers:
+
+- `HTTPHandlerCustomHeader`: Like `logging.handlers.HTTPHandler` but with full freedom of the HTTP header
+- `BufferingSMTPHandler`: Buffers the logs like `logging.handlers.BufferingHandler` and sends it via smtp
+
+Similar projects with differen handlers:
+
+- [logging-nice-handlers](https://pypi.org/project/logging-nice-handlers/)
+- [external-logging-handlers](https://pypi.org/project/external-logging-handlers/)
+- [aws-logging-handlers](https://pypi.org/project/aws-logging-handlers/)
+- []()
+
+## Installation
+
+```console
+pip install logging-extended-handlers
+```
+
+## Usage
+
+Eg.
+
+```python
+logger = logging.getLogger()
+logger.setLevel("DEBUG")
+my_logger = MyLogger(...)
+my_logger.setLevel("INFO")
+my_formatter = logging.Formatter(
+    fmt="%(asctime)s %(levelname)s by %(funcName)s: %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+    style="%",
+)
+my_logger.setFormatter(my_formatter)
+logger.addHandler(my_logger)
+```
+
+## License
+
+`logging-extended-handlers` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
