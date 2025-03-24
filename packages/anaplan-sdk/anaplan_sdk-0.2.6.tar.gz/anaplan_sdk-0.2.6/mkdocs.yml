@@ -1,0 +1,76 @@
+site_name: Anaplan SDK
+site_description: Provides pythonic access to the Anaplan API.
+site_url: https://vinzenzklass.github.io/anaplan-sdk/
+repo_name: VinzenzKlass/anaplan-sdk
+repo_url: https://github.com/VinzenzKlass/anaplan-sdk
+
+
+theme:
+  name: 'material'
+  palette:
+    - scheme: 'default'
+      media: '(prefers-color-scheme: light)'
+      primary: indigo
+      toggle:
+        icon: 'material/lightbulb'
+        name: "Switch to dark mode"
+    - scheme: 'slate'
+      media: '(prefers-color-scheme: dark)'
+      primary: indigo
+      toggle:
+        icon: 'material/lightbulb-outline'
+        name: 'Switch to light mode'
+  features:
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+  favicon: img/anaplan-sdk.webp
+  logo: img/anaplan-sdk.webp
+
+nav:
+  - Introduction: 'index.md'
+  - Installation: 'installation.md'
+  - Quick Start: 'quickstart.md'
+  - Anaplan Explained: 'anaplan_explained.md'
+  - Guides:
+      - Use the Bulk API: 'bulk.md'
+      - Bulk vs Transactional: 'bulk_vs_transactional.md'
+      - Use the Transactional API: 'transactional.md'
+      - Use the ALM API: 'alm.md'
+      - Multiple Models: 'multiple_models.md'
+      - Logging: 'logging.md'
+  - API Reference:
+      - Developer Interface:
+          - Asynchronous:
+              - Async Client: 'async_client.md'
+              - Async Transactional Client: 'async_transactional_client.md'
+              - Async ALM Client: 'async_alm_client.md'
+          - Synchronous:
+              - Client: 'client.md'
+              - Transactional Client: 'transactional_client.md'
+              - ALM Client: 'alm_client.md'
+      - Models: 'models.md'
+      - Exceptions: 'exceptions.md'
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            separate_signature: true
+            show_signature_annotations: true
+            docstring_style: "sphinx"
+            show_source: false
+            show_bases: false
+
+extra_css:
+  - css/styles.css
+
+markdown_extensions:
+  - pymdownx.superfences
+  - pymdownx.highlight
+  - pymdownx.blocks.tab:
+      alternate_style: true
+  - admonition
