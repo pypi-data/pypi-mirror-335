@@ -1,0 +1,7 @@
+__version__ = "0.0.3"
+__plugin_name__ = "netbox_routeros"
+__title__ = "RouterOS"
+__description__ = "Manage RouterOS devices"
+__license__ = "MIT"
+__author__ = "Nikita Turchaninov"
+__author_email__ = "slowaner@slowaner.ru"

@@ -1,0 +1,98 @@
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
+requires-python = ">=3.10.0,<4.0"
+name =  "netbox-routeros"
+description = "RouterOS plugin"
+license = { text = "MIT" }
+authors = [
+    {name = "Slowaner", email = "slowaner@slowaner.ru"},
+]
+keywords = ["netbox", "routeros", "plugin"]
+dynamic = ["version", "classifiers"]
+dependencies = []
+
+
+[project.optional-dependencies]
+dev = [
+    "tbump==6.11.0",
+    # "netbox", Clone git repo and 'echo "<path_to_repo>/netbox" > <pyenv>/lib/<python_version>/site-packages/netbox.pth'
+    "django==5.1.5",
+    "jinja2==3.1.5",
+    "netaddr==1.3.0",
+    "django-tables2==2.7.5",
+    "djangorestframework==3.15.2",
+]
+test = [
+    "pytest>=7.4.3,<8",
+]
+lint = [
+    "black==23.11.0",
+    "flake8==6.1.0",
+    "mypy==1.15.0",
+    "isort==5.12.0",
+    #"django-stubs[compatible-mypy] (>=5.1.3,<6.0.0)", TODO: fix mypy errors
+]
+docs = []
+
+[project.readme]
+file = "README.md"
+content-type = "text/markdown"
+
+[project.urls]
+homepage = "https://sourcecraft.dev/slowaner/netbox-routeros"
+repository = "https://sourcecraft.dev/slowaner/netbox-routeros"
+documentation = "https://sourcecraft.dev/slowaner/netbox-routeros"
+"Bug Tracker" = "https://sourcecraft.dev/slowaner/netbox-routeros/issues"
+
+
+
+[tool.poetry]
+requires-poetry = ">=2.0"
+version = "0.0.3"
+classifiers=[
+    'Development Status :: 4 - Beta',
+    'Framework :: Django',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3 :: Only',
+]
+packages = [
+    { include = "netbox_routeros" },
+]
+include = [
+    { path = "netbox_routeros/py.typed" },
+    { path = "LICENSE", format = "sdist" },
+    { path = "CHANGELOG.md", format = "sdist" },
+]
+
+[tool.tbump]
+
+[tool.tbump.version]
+current = "0.0.3"
+
+regex = '''
+  ^
+  (?P<major>\d+)
+  \.
+  (?P<minor>\d+)
+  \.
+  (?P<patch>\d+)
+  (?P<extra>[ab]\d+)?
+  $
+  '''
+
+[tool.tbump.git]
+message_template = "Bump to {new_version}"
+tag_template = "v{new_version}"
+
+[[tool.tbump.file]]
+src = "pyproject.toml"
+
+[[tool.tbump.file]]
+src = "netbox_routeros/__version__.py"
+
+[[tool.tbump.before_commit]]
+name = "Update changelog and check if it contains new version"
+cmd = "./update-changelog.sh {new_version}"
