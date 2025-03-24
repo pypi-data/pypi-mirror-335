@@ -1,0 +1,38 @@
+<section class="messages" id="messages">
+    {% for message in conversation.messages %}
+        {% include "partials/message.html" %}
+    {% else %}
+        <p></p>
+    {% endfor %}
+
+    <footer>
+        <form
+            action="{{ url_for('complete') }}"
+            method="post"
+            class="input"
+            hx-target="#messages"
+            hx-trigger="keyup[key=='Enter' && shiftKey] from:textarea[name='new_message']"
+            hx-vals="{{ {"conversation": conversation}|json }}">
+            <label>
+                Backend
+                <select name="backend" hx-get="/models" hx-target="#backend-models" hx-trigger="load,change" hx-include="this" hx-vals="unset">
+                    {% for name, label in backends.items() %}
+                        <option value="{{ name }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+            <label>
+                Model
+                <select name="model" id="backend-models"></select>
+            </label>
+            <label class="message-input">
+                Enter for new-lines, Shift+Enter to submit
+                <textarea
+                    name="new_message"
+                    placeholder="Message"
+                    onkeydown="if(event.shiftKey && event.key=='Enter'){event.preventDefault();return false;}"></textarea>
+            </label>
+            <button type="submit">Send</button>
+        </form>
+    </footer>
+</section>

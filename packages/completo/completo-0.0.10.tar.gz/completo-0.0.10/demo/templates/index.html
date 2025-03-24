@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Completo Demo</title>
+        <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/htmx-ext-json-enc@2.0.1/json-enc.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="{{ url_for('static', path='styles.css') }}">
+    </head>
+
+    <body class="demo" hx-boost="true" hx-ext="json-enc">
+        <header>
+            <h1>Completo demo client</h1>
+        </header>
+
+        <main class="chat" hx-get="/messages" hx-trigger="load" hx-swap="innerHTML"></main>
+    </body>
+</html>

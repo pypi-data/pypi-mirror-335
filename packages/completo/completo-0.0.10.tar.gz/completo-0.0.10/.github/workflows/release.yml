@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  release-build:
+    runs-on: ubuntu-latest
+    concurrency: release
+    permissions:
+      id-token: write
+      contents: write
+    environment: pypi
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.sha }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: "pyproject.toml"
+
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Force correct release branch on workflow sha
+        run: git checkout -B ${{ github.ref_name }} ${{ github.sha }}
+
+      - name: Bump version
+        run: uv run semantic-release version --patch
+
+      - name: Build
+        run: uv build
+
+      - name: Publish build to PyPI
+        uses: pypa/gh-action-pypi-publish@v1.12.4
+
+      - name: Publish build to GitHub
+        run: uv run semantic-release publish
