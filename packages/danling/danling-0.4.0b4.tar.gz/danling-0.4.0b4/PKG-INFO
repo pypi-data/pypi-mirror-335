@@ -1,0 +1,100 @@
+Metadata-Version: 2.4
+Name: danling
+Version: 0.4.0b4
+Summary: Scaffold for experienced Machine Learning Researchers
+Author-email: Zhiyuan Chen <this@zyc.ai>
+Maintainer-email: Zhiyuan Chen <this@zyc.ai>
+License: Unlicense OR AGPL-3.0-or-later OR GPL-2.0-or-later OR BSD-4-Clause OR MIT OR Apache-2.0
+        
+Project-URL: documentation, https://danling.org
+Project-URL: homepage, https://danling.org
+Project-URL: repository, https://github.com/ZhiyuanChen/DanLing
+Keywords: Artificial Intelligence,Deep Learning,Machine Learning
+Classifier: Development Status :: 2 - Pre-Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Education
+Classifier: Intended Audience :: Science/Research
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3 :: Only
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Scientific/Engineering :: Artificial Intelligence
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+License-File: LICENSE.header
+Requires-Dist: cached-property; python_version < "3.8"
+Requires-Dist: chanfig>=0.0.105
+Requires-Dist: gitpython
+Requires-Dist: lazy-imports
+Requires-Dist: strenum; python_version < "3.11"
+Requires-Dist: tqdm
+Provides-Extra: accelerate
+Requires-Dist: accelerate; extra == "accelerate"
+Requires-Dist: torch; extra == "accelerate"
+Requires-Dist: torcheval; extra == "accelerate"
+Requires-Dist: torchmetrics; extra == "accelerate"
+Provides-Extra: deepspeed
+Requires-Dist: deepspeed; extra == "deepspeed"
+Requires-Dist: torch; extra == "deepspeed"
+Requires-Dist: torcheval; extra == "deepspeed"
+Requires-Dist: torchmetrics; extra == "deepspeed"
+Provides-Extra: jax
+Requires-Dist: flax; extra == "jax"
+Requires-Dist: jax; extra == "jax"
+Provides-Extra: tensorflow
+Requires-Dist: tensorflow; extra == "tensorflow"
+Provides-Extra: torch
+Requires-Dist: torch; extra == "torch"
+Requires-Dist: torcheval; extra == "torch"
+Requires-Dist: torchmetrics; extra == "torch"
+Dynamic: license-file
+
+# [DanLing](https://danling.org)
+
+## Introduction
+
+DanLing (丹灵) is a high-level library to help with running neural networks flexibly and transparently.
+
+DanLing is meant to be a scaffold for experienced researchers and engineers who know how to define a training loop, but are bored of writing the same boilerplate code, such as DDP, logging, checkpointing, etc., over and over again.
+
+Therefore, DanLing does not feature complex Runner designs with many pre-defined methods and complicated hooks.
+Instead, the Runner of DanLing just initialise the essential parts for you, and you can do whatever you want, however you want.
+
+Although many attributes and properties are pre-defined and are expected to be used in DanLing, you have full control over your code.
+
+DanLing also provides some utilities, such as [`NestedTensor`][danling.NestedTensor], [`LRScheduler`][danling.optim.LRScheduler], [`catch`][danling.utils.catch], etc.
+
+## Installation
+
+Install the most recent stable version on pypi:
+
+```shell
+pip install danling
+```
+
+Install the latest version from source:
+
+```shell
+pip install git+https://github.com/ZhiyuanChen/DanLing
+```
+
+It works the way it should have worked.
+
+## License
+
+DanLing is multi-licensed under the following licenses:
+
+- The Unlicense
+- GNU Affero General Public License v3.0 or later
+- GNU General Public License v2.0 or later
+- BSD 4-Clause "Original" or "Old" License
+- MIT License
+- Apache License 2.0
+
+You can choose any (one or more) of these licenses if you use this work.
+
+`SPDX-License-Identifier: Unlicense OR AGPL-3.0-or-later OR GPL-2.0-or-later OR BSD-4-Clause OR MIT OR Apache-2.0`
