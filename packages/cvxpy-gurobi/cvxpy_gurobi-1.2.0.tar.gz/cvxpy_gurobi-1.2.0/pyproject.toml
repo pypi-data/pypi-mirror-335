@@ -1,0 +1,218 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs"]
+
+[project]
+name = "cvxpy-gurobi"
+dynamic = ["version"]
+description = "Translate CVXPY problems into gurobipy models"
+readme = "README.md"
+keywords = [
+  "cvxpy",
+  "gurobi",
+  "gurobipy",
+  "optimization",
+]
+license = "Apache-2.0"
+authors = [
+  { name = "Jonathan Berthias", email = "jvberthias@gmail.com" },
+]
+requires-python = ">=3.8"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Topic :: Scientific/Engineering :: Mathematics",
+]
+dependencies = [
+  # "cvxpy" must be available but we don't list it
+  # as a dependency because cvxpy-base is sufficient
+  "gurobipy",
+  "numpy>=1.23.0",
+  "scipy>=1.4.0",
+]
+[project.urls]
+Documentation = "https://github.com/jonathanberthias/cvxpy-gurobi#readme"
+Issues = "https://github.com/jonathanberthias/cvxpy-gurobi/issues"
+Source = "https://github.com/jonathanberthias/cvxpy-gurobi"
+
+[tool.hatch]
+version.source = "vcs"
+version.raw-options = { local_scheme = "no-local-version" }
+build.hooks.vcs.version-file = "src/cvxpy_gurobi/_version.py"
+
+[tool.hatch.envs.default]
+description = "Base environment for other envs to inherit from"
+dependencies = [
+  "pytest==7.4.4",
+  "pytest-insta==0.2.0",
+  "pytest-xdist==3.6.1",
+]
+installer = "uv"
+[tool.hatch.envs.default.scripts]
+tests = [
+  "versions",
+  "pytest {args:tests}",
+]
+versions = [
+  "python --version",
+  "{env:HATCH_UV} pip freeze",
+]
+# convenience script to update the snapshots, it actually runs inside the snapshots env
+update-snapshots = "hatch run snapshots:update {args}"
+
+[tool.hatch.envs.latest]
+description = "Dependencies at their most up-to-date versions"
+python = "3.13"
+extra-dependencies = [
+  "cvxpy-base==1.6.4",
+  "gurobipy==12.0.1",
+  "numpy==2.2.4",
+  "scipy==1.15.2",
+]
+
+[tool.hatch.envs.snapshots]
+description = "The environment used to generate the snapshot LP files"
+template = "latest"
+scripts = { update = "pytest --insta update {args} tests/test_all.py::test_lp" }
+
+[tool.hatch.envs.oldest]
+description = "The oldest supported set of dependencies, for testing purposes"
+env-vars = { UV_RESOLUTION = "lowest-direct" }
+python = "3.8"
+extra-dependencies = [
+  # we have to set a version here since cvxpy is not listed as a dependency
+  # we use cvxpy-base to avoid installing unnecessary dependencies
+  "cvxpy-base>=1.2.0",
+  # bundled license is expired on older versions of gurobipy
+  "gurobipy>=11",
+]
+
+[tool.hatch.envs.hatch-test]
+extra-dependencies = [
+  "cvxpy-base=={matrix:cvxpy}.*",
+  "gurobipy=={matrix:gurobipy}.*",
+  "numpy{matrix:numpy:}",
+  "scipy{matrix:scipy:}",
+  "pytest-insta",
+]
+matrix-name-format = "{variable}{value}"
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.8"]
+gurobipy = ["10"]
+cvxpy = ["1.3"]
+numpy = ["<2"]
+scipy = ["<1.14"] # cvxpy 1.3 uses scipy features (.A) removed in 1.14
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.9"]
+gurobipy = ["11"]
+cvxpy = ["1.4"]
+numpy = ["<2"]
+
+[[tool.hatch.envs.hatch-test.matrix]]
+python = ["3.10", "3.11", "3.12"]
+gurobipy = ["11"]
+cvxpy = ["1.5"]
+
+[tool.hatch.envs.types]
+description = "Type checking environment"
+template = "latest"
+post-install-commands = ["{env:HATCH_UV} pip install mypy pyright"]
+[tool.hatch.envs.types.scripts]
+check = ["- my-py", "py-right"]
+my-py = "mypy {args:src tests}"
+py-right = "pyright {args:src tests}"
+
+[tool.mypy]
+strict = false
+untyped_calls_exclude = ["cvxpy"]
+[[tool.mypy.overrides]]
+module = "scipy.*"
+ignore_missing_imports = true
+[[tool.mypy.overrides]]
+module = "cvxpy.*"
+implicit_reexport = true
+
+[tool.pyright]
+typeCheckingMode = "basic"
+pythonVersion = "3.8"
+
+[tool.hatch.envs.hatch-static-analysis]
+# https://hatch.pypa.io/latest/config/static-analysis/
+config-path = "none"  # don't rely on default hatch config
+
+[tool.ruff]
+preview = true
+show-fixes = true
+unsafe-fixes = true
+
+[tool.ruff.lint]
+select = [ "ALL" ]
+ignore = [
+  "ANN401",  # Any must be used due to poorly typed libraries and very dynamic return types
+  "COM812",  # conflicts with formatter
+  "CPY",     # no copyright on each file
+  "D",       # let's decide when documentation is needed
+  "DOC201",  # return is not documented in docstring
+  "E501",    # comments may exceed line length
+  "FIX",     # TODOs are fine
+  "TD",      # TODOs are fine
+  "PLR2004", # 'magic' constants are not that annoying
+  "S101",    # asserts used for type narrowing
+]
+exclude = [
+  "src/cvxpy_gurobi/_version.py", # autogenerated by hatch-vcs
+]
+[tool.ruff.lint.extend-per-file-ignores]
+"src/cvxpy_gurobi/translation.py" = [
+  "N802",    # visitor uses uppercase letters in method names
+  "PLR6301", # method could be a function or staticmethod
+  "PLR0904", # too many public methods in class
+]
+"tests/*" = [
+  "ANN201",  # missing return type annotations are common in tests
+  "FBT001",  # bool positional arguments are necessary with parametrized tests
+  "INP001",  # no __init__.py in tests
+  "N806",    # uppercase letters for matrices
+  "PLR0915", # test functions can be long
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["cvxpy_gurobi", "test_problems"]
+
+[tool.ruff.lint.pylint]
+max-args = 10
+
+[tool.ruff.format]
+skip-magic-trailing-comma = true
+
+[tool.pytest.ini_options]
+pythonpath = "tests"
+
+[tool.coverage.run]
+source_pkgs = ["cvxpy_gurobi"]
+branch = true
+dynamic_context = "test_function"
+omit = [
+  "*/_version.py", # autogenerated by hatch-vcs
+]
+[tool.coverage.report]
+exclude_also = [
+  "if TYPE_CHECKING:",
+  "@overload",
+]
+show_missing = true
+[tool.coverage.html]
+show_contexts = true

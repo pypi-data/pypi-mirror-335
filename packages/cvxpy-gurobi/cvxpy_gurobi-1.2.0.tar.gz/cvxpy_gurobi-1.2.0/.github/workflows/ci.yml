@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check
+        uses: astral-sh/ruff-action@v3
+
+      - name: Format
+        uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check"
+
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - env: "latest"
+            python: "3.13"
+          - env: "oldest"
+            python: "3.8"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python }}
+
+      - name: Run tests
+        run: uvx hatch -e ${{ matrix.env }} run tests
