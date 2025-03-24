@@ -1,0 +1,43 @@
+Metadata-Version: 2.4
+Name: autorminal
+Version: 0.1.1
+Summary: A simple AI agent for unix-like terminal
+Author-email: littzhch <2371050115@qq.com>
+License: GLWTPL
+Project-URL: Repository, https://github.com/littzhch/autorminal.git
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: openai>=1.68.2
+Requires-Dist: pyte>=0.8.2
+Requires-Dist: psutil>=7.0.0
+Dynamic: license-file
+
+# Autorminal
+
+一个简单的面向终端的 AI Agent，帮你用自然语言操作终端。
+
+## Installation and Usage
+
+### Using pip
+```bash
+pip3 install autorminal             # installation
+autorminal --help                   # usage info
+autorminal --llm-key sk-your-ds-key # start autorminal with offcial deepseek-v3 api
+```
+
+### Using pdm
+```bash
+git clone https://github.com/littzhch/autorminal.git # clone this repo
+cd autorminal
+pdm install                                          # installation
+pdm run autorminal --help                            # usage info
+pdm run autorminal --llm-key sk-your-ds-key          # start autorminal with offcial deepseek-v3 api
+```
+
+## LICENSE
+This program is licensed under [GLWTPL](./LICENSE)
+
+> [!WARNING]
+> 请谨慎使用，AI 可能会破坏你的系统，这与作者无关
+
