@@ -1,0 +1,45 @@
+# ContractMe
+
+![coverage](https://gitlab.com/leogermond/contractme/badges/main/coverage.svg?job=tests)
+
+A lightweight and adaptable framework for design-by-contract in python
+
+# Example code
+
+Here are some examples:
+
+## `result`
+
+```python
+@precondition(lambda x: x >= 0)
+@postcondition(lambda x, result: eps_eq(result * result, x))
+def square_root(x: float) -> float:
+    return x**0.5
+```
+
+## `old`
+
+```python
+@precondition(lambda l, n: n >= 0 and round(n) == n)
+@postcondition(lambda l, n: len(l) > 0)
+@postcondition(lambda l, n: l[-1] == n)
+@postcondition(lambda l, n, old: l[:-1] == old.l)
+def append_count(l: list[int], n: int):
+    l.append(n)
+```
+
+# Test
+
+`uv run pytest`
+
+# Changelog
+
+* v1.1.0
+
+Contracts can be disabled at runtime with `ignore_preconditions()` and `ignore_postconditions()`
+
+Contracts are disabled from the start with python optimized (`-O`) flag.
+
+Fix a bug where contracts would hide an incorrect function call
+
+

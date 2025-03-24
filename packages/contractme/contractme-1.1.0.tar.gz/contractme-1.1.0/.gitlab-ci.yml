@@ -1,0 +1,19 @@
+variables:
+  UV_VERSION: 0.5
+  PYTHON_VERSION: 3.12
+  BASE_LAYER: bookworm-slim
+  # GitLab CI creates a separate mountpoint for the build directory,
+  # so we need to copy instead of using hard links.
+  UV_LINK_MODE: copy
+
+tests:
+  image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+  script:
+    - uv run pytest --cov=contractme --cov-report term-missing --cov-report xml:obj/cov.xml --junitxml=obj/tests_report.xml
+  coverage: /TOTAL.*? (100(?:\.0+)?\%|[1-9]?\d(?:\.\d+)?\%).*$/
+  artifacts:
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: obj/cov.xml
+      junit: obj/tests_report.xml
