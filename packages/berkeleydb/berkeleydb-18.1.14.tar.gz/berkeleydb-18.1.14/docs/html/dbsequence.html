@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>DBSequence &#8212; BerkeleyDB 18.1.14 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css?v=27fed22d" />
+    <script src="static/documentation_options.js?v=03b33202"></script>
+    <script src="static/doctools.js?v=9bcbadda"></script>
+    <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="DBSite" href="dbsite.html" />
+    <link rel="prev" title="DBLock" href="dblock.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dbsequence">
+<h1>DBSequence<a class="headerlink" href="#dbsequence" title="Link to this heading">¶</a></h1>
+<p>Read <a class="extlink-oracle reference external" href="https://docs.oracle.com/database/bdb181/html/programmer_reference/index.html">Oracle documentation</a>
+for better understanding.</p>
+<p>Sequences provide an arbitrary number of persistent objects that return
+an increasing or decreasing sequence of integers. Opening a sequence
+handle associates it with a record in a database. The handle can
+maintain a cache of values from the database so that a database update
+is not needed as the application allocates a value.</p>
+<p><a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seq.html">More info…</a></p>
+<section id="dbsequence-methods">
+<h2>DBSequence Methods<a class="headerlink" href="#dbsequence-methods" title="Link to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="DBSequence">
+<span class="sig-name descname"><span class="pre">DBSequence</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#DBSequence" title="Link to this definition">¶</a></dt>
+<dd><p>Constructor.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqcreate.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="open">
+<span class="sig-name descname"><span class="pre">open</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#open" title="Link to this definition">¶</a></dt>
+<dd><p>Opens the sequence represented by the key.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqopen.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#close" title="Link to this definition">¶</a></dt>
+<dd><p>Close a DBSequence handle.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqclose.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="initial_value">
+<span class="sig-name descname"><span class="pre">initial_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#initial_value" title="Link to this definition">¶</a></dt>
+<dd><p>Set the initial value for a sequence. This call is only effective
+when the sequence is being created.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqinitial_value.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">txn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#get" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the next available element in the sequence and changes the
+sequence value by delta.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get_dbp">
+<span class="sig-name descname"><span class="pre">get_dbp</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_dbp" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the DB object associated to the DBSequence.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget_dbp.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get_key">
+<span class="sig-name descname"><span class="pre">get_key</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_key" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the key for the sequence.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget_key.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">txn</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#remove" title="Link to this definition">¶</a></dt>
+<dd><p>Removes the sequence from the database. This method should not be
+called if there are other open handles on this sequence.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqremove.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get_cachesize">
+<span class="sig-name descname"><span class="pre">get_cachesize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_cachesize" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the current cache size.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget_cachesize.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="set_cachesize">
+<span class="sig-name descname"><span class="pre">set_cachesize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_cachesize" title="Link to this definition">¶</a></dt>
+<dd><p>Configure the number of elements cached by a sequence handle.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqset_cachesize.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get_flags">
+<span class="sig-name descname"><span class="pre">get_flags</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_flags" title="Link to this definition">¶</a></dt>
+<dd><p>Returns the current flags.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget_flags.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="set_flags">
+<span class="sig-name descname"><span class="pre">set_flags</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_flags" title="Link to this definition">¶</a></dt>
+<dd><p>Configure a sequence.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqset_flags.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stat">
+<span class="sig-name descname"><span class="pre">stat</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stat" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a dictionary of sequence statistics with the following keys:</p>
+<blockquote>
+<div><table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p>wait</p></td>
+<td><p>The number of times a thread of control was
+forced to wait on the handle mutex.</p></td>
+</tr>
+<tr class="row-even"><td><p>nowait</p></td>
+<td><p>The number of times that a thread
+of control was able to obtain handle mutex
+without waiting.</p></td>
+</tr>
+<tr class="row-odd"><td><p>current</p></td>
+<td><p>The current value of the sequence
+in the database.</p></td>
+</tr>
+<tr class="row-even"><td><p>value</p></td>
+<td><p>The current cached value of the sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p>last_value</p></td>
+<td><p>The last cached value of the sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p>min</p></td>
+<td><p>The minimum permitted value of the sequence.</p></td>
+</tr>
+<tr class="row-odd"><td><p>max</p></td>
+<td><p>The maximum permitted value of the sequence.</p></td>
+</tr>
+<tr class="row-even"><td><p>cache_size</p></td>
+<td><p>The number of values that will be cached in
+this handle.</p></td>
+</tr>
+<tr class="row-odd"><td><p>flags</p></td>
+<td><p>The flags value for the sequence.</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p><a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqstat.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="stat_print">
+<span class="sig-name descname"><span class="pre">stat_print</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#stat_print" title="Link to this definition">¶</a></dt>
+<dd><p>Prints diagnostic information.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqstat_print.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="get_range">
+<span class="sig-name descname"><span class="pre">get_range</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#get_range" title="Link to this definition">¶</a></dt>
+<dd><p>Returns a tuple representing the range of values in the sequence.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqget_range.html">More info…</a></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="set_range">
+<span class="sig-name descname"><span class="pre">set_range</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">(min</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max)</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#set_range" title="Link to this definition">¶</a></dt>
+<dd><p>Configure a sequence range.
+<a class="extlink-oracleapic reference external" href="https://docs.oracle.com/database/bdb181/html/api_reference/C/seqset_range.html">More info…</a></p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BerkeleyDB</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 Python Extension Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbenv.html">DBEnv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbcursor.html">DBCursor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dblogcursor.html">DBLogCursor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbtxn.html">DBTxn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dblock.html">DBLock</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">DBSequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dbsequence-methods">DBSequence Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#DBSequence"><code class="docutils literal notranslate"><span class="pre">DBSequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial_value"><code class="docutils literal notranslate"><span class="pre">initial_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get_dbp"><code class="docutils literal notranslate"><span class="pre">get_dbp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get_key"><code class="docutils literal notranslate"><span class="pre">get_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get_cachesize"><code class="docutils literal notranslate"><span class="pre">get_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set_cachesize"><code class="docutils literal notranslate"><span class="pre">set_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get_flags"><code class="docutils literal notranslate"><span class="pre">get_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set_flags"><code class="docutils literal notranslate"><span class="pre">set_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stat"><code class="docutils literal notranslate"><span class="pre">stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stat_print"><code class="docutils literal notranslate"><span class="pre">stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#get_range"><code class="docutils literal notranslate"><span class="pre">get_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#set_range"><code class="docutils literal notranslate"><span class="pre">set_range()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dbsite.html">DBSite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog-bsddb3.html">Changelog of legacy “bsddb3” project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">DONATE!</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dblock.html" title="previous chapter">DBLock</a></li>
+      <li>Next: <a href="dbsite.html" title="next chapter">DBSite</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2008-2025 Jesús Cea Avión.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python Bindings for Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 &#8212; BerkeleyDB 18.1.14 documentation</title>
+    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=d1102ebc" />
+    <link rel="stylesheet" type="text/css" href="static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="static/alabaster.css?v=27fed22d" />
+    <script src="static/documentation_options.js?v=03b33202"></script>
+    <script src="static/doctools.js?v=9bcbadda"></script>
+    <script src="static/sphinx_highlight.js?v=dc90522c"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 Python Extension Package" href="introduction.html" />
+   
+  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="python-bindings-for-oracle-berkeley-db-4-8-5-3-6-2-and-18-1">
+<h1>Python Bindings for Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1<a class="headerlink" href="#python-bindings-for-oracle-berkeley-db-4-8-5-3-6-2-and-18-1" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">¶</a></h2>
+<p>This handcrafted package contains Python wrappers for <a class="reference external" href="http://www.oracle.com/technetwork/database/berkeleydb/overview/index.html">Oracle Berkeley DB</a>,
+the Open Source embedded database system. Oracle Berkeley DB is a programmatic
+toolkit that provides high-performance built-in database support for
+desktop and server applications.</p>
+<p>The Oracle Berkeley DB access methods include B+tree, Extended Linear Hashing,
+Fixed and Variable-length records, and Queues. Oracle Berkeley DB provides full
+transactional support, database recovery, online backups, multi-threaded
+and multi-process access, etc.</p>
+<p>The Python wrappers allow you to store Python string objects of any
+length, keyed either by strings or integers depending on the database
+access method. With the use of another module in the package standard
+shelve-like functionality is provided allowing you to store any
+picklable Python object!</p>
+<p>Oracle Berkeley DB is very powerful and versatile, but it is complex to
+use correctly. <a class="extlink-oracle reference external" href="https://docs.oracle.com/database/bdb181/html/index.html">Oracle documentation</a> is very
+complete. Please, review it.</p>
+<p>Since June 2013 (release 6.0.0), this project accepts donations. Please,
+contribute if you can. <a class="reference internal" href="donate.html"><span class="doc">Details</span></a>.</p>
+</section>
+<section id="documentation-index">
+<h2>Documentation Index<a class="headerlink" href="#documentation-index" title="Link to this heading">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 Python Extension Package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#types-provided">Types Provided</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#top-level-functions">Top level functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#version"><code class="docutils literal notranslate"><span class="pre">version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#full_version"><code class="docutils literal notranslate"><span class="pre">full_version()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="introduction.html#py_limited_api"><code class="docutils literal notranslate"><span class="pre">py_limited_api()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#exceptions-provided">Exceptions Provided</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#other-package-modules">Other Package Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#reference">Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dbenv.html">DBEnv</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dbenv.html#dbenv-attributes">DBEnv Attributes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#DBEnv"><code class="docutils literal notranslate"><span class="pre">DBEnv()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbenv.html#dbenv-methods">DBEnv Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#id0"><code class="docutils literal notranslate"><span class="pre">DBEnv()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_cursor"><code class="docutils literal notranslate"><span class="pre">log_cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#memp_stat"><code class="docutils literal notranslate"><span class="pre">memp_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#memp_stat_print"><code class="docutils literal notranslate"><span class="pre">memp_stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#memp_sync"><code class="docutils literal notranslate"><span class="pre">memp_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#memp_trickle"><code class="docutils literal notranslate"><span class="pre">memp_trickle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#dbremove"><code class="docutils literal notranslate"><span class="pre">dbremove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#dbrename"><code class="docutils literal notranslate"><span class="pre">dbrename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#backup"><code class="docutils literal notranslate"><span class="pre">backup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#dbbackup"><code class="docutils literal notranslate"><span class="pre">dbbackup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_backup_config"><code class="docutils literal notranslate"><span class="pre">get_backup_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_backup_config"><code class="docutils literal notranslate"><span class="pre">set_backup_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#fileid_reset"><code class="docutils literal notranslate"><span class="pre">fileid_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_thread_count"><code class="docutils literal notranslate"><span class="pre">get_thread_count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_thread_count"><code class="docutils literal notranslate"><span class="pre">set_thread_count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_encrypt"><code class="docutils literal notranslate"><span class="pre">set_encrypt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_encrypt_flags"><code class="docutils literal notranslate"><span class="pre">get_encrypt_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_intermediate_dir_mode"><code class="docutils literal notranslate"><span class="pre">get_intermediate_dir_mode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_intermediate_dir_mode"><code class="docutils literal notranslate"><span class="pre">set_intermediate_dir_mode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_timeout"><code class="docutils literal notranslate"><span class="pre">get_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_timeout"><code class="docutils literal notranslate"><span class="pre">set_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_mp_max_openfd"><code class="docutils literal notranslate"><span class="pre">get_mp_max_openfd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_mp_max_openfd"><code class="docutils literal notranslate"><span class="pre">set_mp_max_openfd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_mp_max_write"><code class="docutils literal notranslate"><span class="pre">get_mp_max_write()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_mp_max_write"><code class="docutils literal notranslate"><span class="pre">set_mp_max_write()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_shm_key"><code class="docutils literal notranslate"><span class="pre">set_shm_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_shm_key"><code class="docutils literal notranslate"><span class="pre">get_shm_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_cache_max"><code class="docutils literal notranslate"><span class="pre">set_cache_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_cache_max"><code class="docutils literal notranslate"><span class="pre">get_cache_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_cachesize"><code class="docutils literal notranslate"><span class="pre">set_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_cachesize"><code class="docutils literal notranslate"><span class="pre">get_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_data_dir"><code class="docutils literal notranslate"><span class="pre">set_data_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_data_dirs"><code class="docutils literal notranslate"><span class="pre">get_data_dirs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_flags"><code class="docutils literal notranslate"><span class="pre">get_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_flags"><code class="docutils literal notranslate"><span class="pre">set_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_tmp_dir"><code class="docutils literal notranslate"><span class="pre">set_tmp_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_tmp_dir"><code class="docutils literal notranslate"><span class="pre">get_tmp_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_get_returns_none"><code class="docutils literal notranslate"><span class="pre">set_get_returns_none()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_private"><code class="docutils literal notranslate"><span class="pre">set_private()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_private"><code class="docutils literal notranslate"><span class="pre">get_private()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_open_flags"><code class="docutils literal notranslate"><span class="pre">get_open_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lg_filemode"><code class="docutils literal notranslate"><span class="pre">get_lg_filemode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lg_filemode"><code class="docutils literal notranslate"><span class="pre">set_lg_filemode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lg_bsize"><code class="docutils literal notranslate"><span class="pre">get_lg_bsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lg_bsize"><code class="docutils literal notranslate"><span class="pre">set_lg_bsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lg_dir"><code class="docutils literal notranslate"><span class="pre">get_lg_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lg_dir"><code class="docutils literal notranslate"><span class="pre">set_lg_dir()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lg_max"><code class="docutils literal notranslate"><span class="pre">set_lg_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lg_max"><code class="docutils literal notranslate"><span class="pre">get_lg_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lg_regionmax"><code class="docutils literal notranslate"><span class="pre">get_lg_regionmax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lg_regionmax"><code class="docutils literal notranslate"><span class="pre">set_lg_regionmax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lk_partitions"><code class="docutils literal notranslate"><span class="pre">get_lk_partitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lk_partitions"><code class="docutils literal notranslate"><span class="pre">set_lk_partitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lk_detect"><code class="docutils literal notranslate"><span class="pre">get_lk_detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lk_detect"><code class="docutils literal notranslate"><span class="pre">set_lk_detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lk_max_locks"><code class="docutils literal notranslate"><span class="pre">get_lk_max_locks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lk_max_locks"><code class="docutils literal notranslate"><span class="pre">set_lk_max_locks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lk_max_lockers"><code class="docutils literal notranslate"><span class="pre">get_lk_max_lockers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lk_max_lockers"><code class="docutils literal notranslate"><span class="pre">set_lk_max_lockers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_lk_max_objects"><code class="docutils literal notranslate"><span class="pre">get_lk_max_objects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_lk_max_objects"><code class="docutils literal notranslate"><span class="pre">set_lk_max_objects()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_mp_mmapsize"><code class="docutils literal notranslate"><span class="pre">get_mp_mmapsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_mp_mmapsize"><code class="docutils literal notranslate"><span class="pre">set_mp_mmapsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#stat_print"><code class="docutils literal notranslate"><span class="pre">stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_file"><code class="docutils literal notranslate"><span class="pre">log_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_printf"><code class="docutils literal notranslate"><span class="pre">log_printf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_archive"><code class="docutils literal notranslate"><span class="pre">log_archive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_flush"><code class="docutils literal notranslate"><span class="pre">log_flush()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_get_config"><code class="docutils literal notranslate"><span class="pre">log_get_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_set_config"><code class="docutils literal notranslate"><span class="pre">log_set_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_detect"><code class="docutils literal notranslate"><span class="pre">lock_detect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_get"><code class="docutils literal notranslate"><span class="pre">lock_get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_id"><code class="docutils literal notranslate"><span class="pre">lock_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_id_free"><code class="docutils literal notranslate"><span class="pre">lock_id_free()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_put"><code class="docutils literal notranslate"><span class="pre">lock_put()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_stat"><code class="docutils literal notranslate"><span class="pre">lock_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lock_stat_print"><code class="docutils literal notranslate"><span class="pre">lock_stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#cdsgroup_begin"><code class="docutils literal notranslate"><span class="pre">cdsgroup_begin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_tx_max"><code class="docutils literal notranslate"><span class="pre">get_tx_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_tx_max"><code class="docutils literal notranslate"><span class="pre">set_tx_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_tx_timestamp"><code class="docutils literal notranslate"><span class="pre">get_tx_timestamp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_tx_timestamp"><code class="docutils literal notranslate"><span class="pre">set_tx_timestamp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#txn_begin"><code class="docutils literal notranslate"><span class="pre">txn_begin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#txn_checkpoint"><code class="docutils literal notranslate"><span class="pre">txn_checkpoint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#txn_stat"><code class="docutils literal notranslate"><span class="pre">txn_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#txn_stat_print"><code class="docutils literal notranslate"><span class="pre">txn_stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#lsn_reset"><code class="docutils literal notranslate"><span class="pre">lsn_reset()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_stat"><code class="docutils literal notranslate"><span class="pre">log_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#log_stat_print"><code class="docutils literal notranslate"><span class="pre">log_stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#txn_recover"><code class="docutils literal notranslate"><span class="pre">txn_recover()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_verbose"><code class="docutils literal notranslate"><span class="pre">set_verbose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#get_verbose"><code class="docutils literal notranslate"><span class="pre">get_verbose()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#set_event_notify"><code class="docutils literal notranslate"><span class="pre">set_event_notify()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_stat"><code class="docutils literal notranslate"><span class="pre">mutex_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_stat_print"><code class="docutils literal notranslate"><span class="pre">mutex_stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_set_max"><code class="docutils literal notranslate"><span class="pre">mutex_set_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_get_max"><code class="docutils literal notranslate"><span class="pre">mutex_get_max()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_set_increment"><code class="docutils literal notranslate"><span class="pre">mutex_set_increment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_get_increment"><code class="docutils literal notranslate"><span class="pre">mutex_get_increment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_set_align"><code class="docutils literal notranslate"><span class="pre">mutex_set_align()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_get_align"><code class="docutils literal notranslate"><span class="pre">mutex_get_align()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_set_tas_spins"><code class="docutils literal notranslate"><span class="pre">mutex_set_tas_spins()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#mutex_get_tas_spins"><code class="docutils literal notranslate"><span class="pre">mutex_get_tas_spins()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbenv.html#dbenv-replication-manager-methods">DBEnv Replication Manager Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_start"><code class="docutils literal notranslate"><span class="pre">repmgr_start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_site"><code class="docutils literal notranslate"><span class="pre">repmgr_site()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_site_by_eid"><code class="docutils literal notranslate"><span class="pre">repmgr_site_by_eid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_set_ack_policy"><code class="docutils literal notranslate"><span class="pre">repmgr_set_ack_policy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_get_ack_policy"><code class="docutils literal notranslate"><span class="pre">repmgr_get_ack_policy()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_site_list"><code class="docutils literal notranslate"><span class="pre">repmgr_site_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_stat"><code class="docutils literal notranslate"><span class="pre">repmgr_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#repmgr_stat_print"><code class="docutils literal notranslate"><span class="pre">repmgr_stat_print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbenv.html#dbenv-replication-methods">DBEnv Replication Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_elect"><code class="docutils literal notranslate"><span class="pre">rep_elect()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_transport"><code class="docutils literal notranslate"><span class="pre">rep_set_transport()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_process_messsage"><code class="docutils literal notranslate"><span class="pre">rep_process_messsage()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_start"><code class="docutils literal notranslate"><span class="pre">rep_start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_sync"><code class="docutils literal notranslate"><span class="pre">rep_sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_config"><code class="docutils literal notranslate"><span class="pre">rep_set_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_config"><code class="docutils literal notranslate"><span class="pre">rep_get_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_limit"><code class="docutils literal notranslate"><span class="pre">rep_set_limit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_limit"><code class="docutils literal notranslate"><span class="pre">rep_get_limit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_request"><code class="docutils literal notranslate"><span class="pre">rep_set_request()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_request"><code class="docutils literal notranslate"><span class="pre">rep_get_request()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_nsites"><code class="docutils literal notranslate"><span class="pre">rep_set_nsites()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_nsites"><code class="docutils literal notranslate"><span class="pre">rep_get_nsites()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_priority"><code class="docutils literal notranslate"><span class="pre">rep_set_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_priority"><code class="docutils literal notranslate"><span class="pre">rep_get_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_timeout"><code class="docutils literal notranslate"><span class="pre">rep_set_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_timeout"><code class="docutils literal notranslate"><span class="pre">rep_get_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_set_clockskew"><code class="docutils literal notranslate"><span class="pre">rep_set_clockskew()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_get_clockskew"><code class="docutils literal notranslate"><span class="pre">rep_get_clockskew()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_stat"><code class="docutils literal notranslate"><span class="pre">rep_stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbenv.html#rep_stat_print"><code class="docutils literal notranslate"><span class="pre">rep_stat_print()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbenv.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">DB</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="db.html#db-methods">DB Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="db.html#DB"><code class="docutils literal notranslate"><span class="pre">DB()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#append"><code class="docutils literal notranslate"><span class="pre">append()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#associate"><code class="docutils literal notranslate"><span class="pre">associate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#compact"><code class="docutils literal notranslate"><span class="pre">compact()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#consume"><code class="docutils literal notranslate"><span class="pre">consume()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#consume_wait"><code class="docutils literal notranslate"><span class="pre">consume_wait()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#cursor"><code class="docutils literal notranslate"><span class="pre">cursor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#exists"><code class="docutils literal notranslate"><span class="pre">exists()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#fd"><code class="docutils literal notranslate"><span class="pre">fd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#pget"><code class="docutils literal notranslate"><span class="pre">pget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_transactional"><code class="docutils literal notranslate"><span class="pre">get_transactional()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_priority"><code class="docutils literal notranslate"><span class="pre">get_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_priority"><code class="docutils literal notranslate"><span class="pre">set_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_lk_exclusive"><code class="docutils literal notranslate"><span class="pre">get_lk_exclusive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_lk_exclusive"><code class="docutils literal notranslate"><span class="pre">set_lk_exclusive()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_dbname"><code class="docutils literal notranslate"><span class="pre">get_dbname()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_open_flags"><code class="docutils literal notranslate"><span class="pre">get_open_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_private"><code class="docutils literal notranslate"><span class="pre">set_private()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_private"><code class="docutils literal notranslate"><span class="pre">get_private()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_both"><code class="docutils literal notranslate"><span class="pre">get_both()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_byteswapped"><code class="docutils literal notranslate"><span class="pre">get_byteswapped()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_size"><code class="docutils literal notranslate"><span class="pre">get_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_type"><code class="docutils literal notranslate"><span class="pre">get_type()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#join"><code class="docutils literal notranslate"><span class="pre">join()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#key_range"><code class="docutils literal notranslate"><span class="pre">key_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#put"><code class="docutils literal notranslate"><span class="pre">put()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#rename"><code class="docutils literal notranslate"><span class="pre">rename()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_encrypt"><code class="docutils literal notranslate"><span class="pre">set_encrypt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_encrypt_flags"><code class="docutils literal notranslate"><span class="pre">get_encrypt_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_bt_compare"><code class="docutils literal notranslate"><span class="pre">set_bt_compare()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_bt_minkey"><code class="docutils literal notranslate"><span class="pre">get_bt_minkey()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_bt_minkey"><code class="docutils literal notranslate"><span class="pre">set_bt_minkey()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_cachesize"><code class="docutils literal notranslate"><span class="pre">set_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_cachesize"><code class="docutils literal notranslate"><span class="pre">get_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_heapsize"><code class="docutils literal notranslate"><span class="pre">set_heapsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_heapsize"><code class="docutils literal notranslate"><span class="pre">get_heapsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_heap_regionsize"><code class="docutils literal notranslate"><span class="pre">set_heap_regionsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_heap_regionsize"><code class="docutils literal notranslate"><span class="pre">get_heap_regionsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_dup_compare"><code class="docutils literal notranslate"><span class="pre">set_dup_compare()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_get_returns_none"><code class="docutils literal notranslate"><span class="pre">set_get_returns_none()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_flags"><code class="docutils literal notranslate"><span class="pre">get_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_flags"><code class="docutils literal notranslate"><span class="pre">set_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_h_ffactor"><code class="docutils literal notranslate"><span class="pre">get_h_ffactor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_h_ffactor"><code class="docutils literal notranslate"><span class="pre">set_h_ffactor()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_h_nelem"><code class="docutils literal notranslate"><span class="pre">get_h_nelem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_h_nelem"><code class="docutils literal notranslate"><span class="pre">set_h_nelem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_lorder"><code class="docutils literal notranslate"><span class="pre">get_lorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_lorder"><code class="docutils literal notranslate"><span class="pre">set_lorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_pagesize"><code class="docutils literal notranslate"><span class="pre">get_pagesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_pagesize"><code class="docutils literal notranslate"><span class="pre">set_pagesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_re_delim"><code class="docutils literal notranslate"><span class="pre">get_re_delim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_re_delim"><code class="docutils literal notranslate"><span class="pre">set_re_delim()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_re_len"><code class="docutils literal notranslate"><span class="pre">get_re_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_re_len"><code class="docutils literal notranslate"><span class="pre">set_re_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_re_pad"><code class="docutils literal notranslate"><span class="pre">get_re_pad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_re_pad"><code class="docutils literal notranslate"><span class="pre">set_re_pad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_re_source"><code class="docutils literal notranslate"><span class="pre">get_re_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_re_source"><code class="docutils literal notranslate"><span class="pre">set_re_source()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#get_q_extentsize"><code class="docutils literal notranslate"><span class="pre">get_q_extentsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#set_q_extentsize"><code class="docutils literal notranslate"><span class="pre">set_q_extentsize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#stat"><code class="docutils literal notranslate"><span class="pre">stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#stat_print"><code class="docutils literal notranslate"><span class="pre">stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#sync"><code class="docutils literal notranslate"><span class="pre">sync()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#truncate"><code class="docutils literal notranslate"><span class="pre">truncate()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#upgrade"><code class="docutils literal notranslate"><span class="pre">upgrade()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#verify"><code class="docutils literal notranslate"><span class="pre">verify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#db-mapping-and-compatibility-methods">DB Mapping and Compatibility Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="db.html#keys"><code class="docutils literal notranslate"><span class="pre">keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#items"><code class="docutils literal notranslate"><span class="pre">items()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#values"><code class="docutils literal notranslate"><span class="pre">values()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="db.html#has_key"><code class="docutils literal notranslate"><span class="pre">has_key()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="db.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dbcursor.html">DBCursor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dbcursor.html#dbcursor-methods">DBCursor Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#count"><code class="docutils literal notranslate"><span class="pre">count()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#delete"><code class="docutils literal notranslate"><span class="pre">delete()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#dup"><code class="docutils literal notranslate"><span class="pre">dup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#set_priority"><code class="docutils literal notranslate"><span class="pre">set_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#get_priority"><code class="docutils literal notranslate"><span class="pre">get_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#put"><code class="docutils literal notranslate"><span class="pre">put()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#id0"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#id1"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#pget"><code class="docutils literal notranslate"><span class="pre">pget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#id2"><code class="docutils literal notranslate"><span class="pre">pget()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#id3"><code class="docutils literal notranslate"><span class="pre">pget()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbcursor.html#dbcursor-get-methods">DBCursor Get Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#current"><code class="docutils literal notranslate"><span class="pre">current()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#get_current_size"><code class="docutils literal notranslate"><span class="pre">get_current_size()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#next"><code class="docutils literal notranslate"><span class="pre">next()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#prev"><code class="docutils literal notranslate"><span class="pre">prev()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#consume"><code class="docutils literal notranslate"><span class="pre">consume()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#get_both"><code class="docutils literal notranslate"><span class="pre">get_both()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#get_recno"><code class="docutils literal notranslate"><span class="pre">get_recno()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#join_item"><code class="docutils literal notranslate"><span class="pre">join_item()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#next_dup"><code class="docutils literal notranslate"><span class="pre">next_dup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#next_nodup"><code class="docutils literal notranslate"><span class="pre">next_nodup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#prev_dup"><code class="docutils literal notranslate"><span class="pre">prev_dup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#prev_nodup"><code class="docutils literal notranslate"><span class="pre">prev_nodup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#set_range"><code class="docutils literal notranslate"><span class="pre">set_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#set_recno"><code class="docutils literal notranslate"><span class="pre">set_recno()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbcursor.html#set_both"><code class="docutils literal notranslate"><span class="pre">set_both()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dblogcursor.html">DBLogCursor</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dblogcursor.html#dblogcursor-methods">DBLogCursor Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dblogcursor.html#dblogcursor-get-methods">DBLogCursor Get Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#current"><code class="docutils literal notranslate"><span class="pre">current()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#first"><code class="docutils literal notranslate"><span class="pre">first()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#last"><code class="docutils literal notranslate"><span class="pre">last()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#next"><code class="docutils literal notranslate"><span class="pre">next()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#prev"><code class="docutils literal notranslate"><span class="pre">prev()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dblogcursor.html#set"><code class="docutils literal notranslate"><span class="pre">set()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dbtxn.html">DBTxn</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dbtxn.html#dbtxn-methods">DBTxn Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#abort"><code class="docutils literal notranslate"><span class="pre">abort()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#commit"><code class="docutils literal notranslate"><span class="pre">commit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#id"><code class="docutils literal notranslate"><span class="pre">id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#prepare"><code class="docutils literal notranslate"><span class="pre">prepare()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#discard"><code class="docutils literal notranslate"><span class="pre">discard()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#set_timeout"><code class="docutils literal notranslate"><span class="pre">set_timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#get_name"><code class="docutils literal notranslate"><span class="pre">get_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#set_name"><code class="docutils literal notranslate"><span class="pre">set_name()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#get_priority"><code class="docutils literal notranslate"><span class="pre">get_priority()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbtxn.html#set_priority"><code class="docutils literal notranslate"><span class="pre">set_priority()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbtxn.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dblock.html">DBLock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbsequence.html">DBSequence</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dbsequence.html#dbsequence-methods">DBSequence Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#DBSequence"><code class="docutils literal notranslate"><span class="pre">DBSequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#open"><code class="docutils literal notranslate"><span class="pre">open()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#initial_value"><code class="docutils literal notranslate"><span class="pre">initial_value()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get"><code class="docutils literal notranslate"><span class="pre">get()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get_dbp"><code class="docutils literal notranslate"><span class="pre">get_dbp()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get_key"><code class="docutils literal notranslate"><span class="pre">get_key()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get_cachesize"><code class="docutils literal notranslate"><span class="pre">get_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#set_cachesize"><code class="docutils literal notranslate"><span class="pre">set_cachesize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get_flags"><code class="docutils literal notranslate"><span class="pre">get_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#set_flags"><code class="docutils literal notranslate"><span class="pre">set_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#stat"><code class="docutils literal notranslate"><span class="pre">stat()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#stat_print"><code class="docutils literal notranslate"><span class="pre">stat_print()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#get_range"><code class="docutils literal notranslate"><span class="pre">get_range()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsequence.html#set_range"><code class="docutils literal notranslate"><span class="pre">set_range()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dbsite.html">DBSite</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dbsite.html#dbsite-methods">DBSite Methods </a><ul>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#close"><code class="docutils literal notranslate"><span class="pre">close()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#get_address"><code class="docutils literal notranslate"><span class="pre">get_address()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#get_config"><code class="docutils literal notranslate"><span class="pre">get_config()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#get_eid"><code class="docutils literal notranslate"><span class="pre">get_eid()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#remove"><code class="docutils literal notranslate"><span class="pre">remove()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="dbsite.html#set_config"><code class="docutils literal notranslate"><span class="pre">set_config()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="dbsite.html#notes">Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#xxxx-xx-xx">18.1.15 - XXXX-XX-XX</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id1">18.1.14 - 2025-03-23</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id2">18.1.13 - 2025-01-22</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id3">18.1.12 - 2024-12-15</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id4">18.1.11 - 2024-10-29</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id5">18.1.10 - 2024-06-24</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id6">18.1.9 - 2024-06-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id7">18.1.8 - 2023-10-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id8">18.1.7 - 2023-10-05</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id9">18.1.6 - 2023-05-10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id10">18.1.5 - 2022-01-21</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id11">18.1.4 - 2021-05-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id12">18.1.3 - 2021-05-19</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id13">18.1.2 - 2020-12-07</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id14">18.1.1 - 2020-12-01</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#id15">18.1.0 - 2020-11-12</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog.html#pre">18.1.0-pre</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="changelog-bsddb3.html">Changelog of legacy “bsddb3” project</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id1">6.2.9 - 2020-11-26:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id2">6.2.8 - 2020-11-20:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id3">6.2.7:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id4">6.2.6:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id5">6.2.5:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id6">6.2.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id7">6.2.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id8">6.2.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id9">6.2.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id10">6.2.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id11">6.1.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id12">6.1.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id13">6.0.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id14">6.0.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id15">5.3.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id16">5.2.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id17">5.1.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id18">5.1.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id19">5.1.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id20">5.0.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id21">4.8.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id22">4.8.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id23">4.8.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id24">4.8.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id25">4.8.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id26">4.7.6:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id27">4.7.5:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id28">4.7.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#python-2-6-release-first-release-with-python-3-0-support">4.7.3: (Python 2.6 release. First release with Python 3.0 support)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id29">4.7.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id30">4.7.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id31">4.7.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id32">4.6.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id33">4.6.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id34">4.6.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#first-release-from-jesus-cea-avion">4.6.1: (first release from Jesús Cea Avión)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id35">4.6.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id36">4.5.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id37">4.4.5:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id38">4.4.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id39">4.4.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id40">4.4.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id41">4.4.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id42">4.4.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id43">4.3.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id44">4.3.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id45">4.3.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id46">4.3.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id47">4.2.9:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id48">4.2.8:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id49">4.2.7:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id50">4.2.6:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id51">4.2.5:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id52">4.2.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id53">4.2.3:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id54">4.2.2:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id55">4.2.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id56">4.2.0:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#x">4.1.x:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id57">4.1.6:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id58">4.1.5:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id59">4.1.4:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id60">4.1.3 - 2003-02-02:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id61">4.1.2 - 2003-01-17:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id62">4.1.1 - 2002-12-20:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id63">4.1.0 - 2002-12-13:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id64">3.4.3 - 2002-10-18:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id65">3.4.2 - 2002-08-14:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id66">3.4.1:</a></li>
+<li class="toctree-l2"><a class="reference internal" href="changelog-bsddb3.html#id67">3.4.0:</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="license.html#license-text-bsd-3-clause-license">License Text (BSD 3-Clause License)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="license.html#license-of-individual-files">License of individual files</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="license.html#license-of-python-files">License of Python files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="license.html#license-of-c-files">License of C files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">DONATE!</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">BerkeleyDB</a></h1>
+
+
+
+
+
+
+
+
+
+<search id="searchbox" style="display: none" role="search">
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Search"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script><h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 Python Extension Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbenv.html">DBEnv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="db.html">DB</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbcursor.html">DBCursor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dblogcursor.html">DBLogCursor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbtxn.html">DBTxn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dblock.html">DBLock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbsequence.html">DBSequence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dbsite.html">DBSite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="history.html">History</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog-bsddb3.html">Changelog of legacy “bsddb3” project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">LICENSE</a></li>
+<li class="toctree-l1"><a class="reference internal" href="donate.html">DONATE!</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="introduction.html" title="next chapter">Oracle Berkeley DB 4.8, 5.3, 6.2 and 18.1 Python Extension Package</a></li>
+  </ul></li>
+</ul>
+</div>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2008-2025 Jesús Cea Avión.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 8.2.3</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
