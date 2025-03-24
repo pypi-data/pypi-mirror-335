@@ -1,0 +1,102 @@
+# pyproject.toml
+#
+# python project configuration
+#
+# author  : stefan schablowski
+# contact : stefan.schablowski@desmodyne.com
+# created : 2025-03-10
+
+
+[build-system]
+requires       = ['hatchling']
+build-backend  = 'hatchling.build'
+
+
+[project]
+authors = [
+    { name = 'Stefan Schablowski', email = 'stefan.schablowski@desmodyne.com' }
+]
+
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 3',
+    'Topic :: Security',
+    'Typing :: Typed'
+]
+
+dependencies = [
+    "keyring>=25.6.0",
+    "platformdirs>=4.3.6",
+    "pydantic>=2.10.6",
+    "pyyaml>=6.0.2",
+    "rich>=13.9.4",
+]
+
+description        = 'An insecure Keyring backend that stores secrets in plain text.'
+license            = { text = 'MIT' }
+name               = 'keyring-insecure-backend'
+requires-python    = '>=3.10'
+version            = '0.0.0'
+
+
+[dependency-groups]
+dev = []
+
+
+# NOTE: this is required to make Keyring load this backend as plugin:
+#   uv > Plugin entry points:
+#     https://docs.astral.sh/uv/concepts/projects/config/#plugin-entry-points
+#   + project.entry-points is the name of the pyproject.toml conf table:
+#       https://packaging.python.org/en/latest/guides/ ...
+#        ... creating-and-discovering-plugins/#using-package-metadata
+#   + keyring.backends is the name of the plugin group set by Keyring:
+#       https://github.com/jaraco/keyring/blob/main/keyring/backend.py#L241
+#   + InsecureKeyringBackend is the backend plugin name, used internally only
+#   + keyring_insecure_backend.InsecureKeyringBackend is the path to
+#     the module that implements the backend plugin, relative to this file:
+#       keyring_insecure_backend/InsecureKeyringBackend.py
+#     in python import notation, i.e. '/' replaced by '.' and '.py' omitted
+#   + InsecureKeyringBackend is the name of the backend plugin python class
+# TODO: align 'keyring_insecure_backend.InsecureKeyringBackend' with conv:
+#   $ keyring --list-backends
+#   keyring.backends.chainer.ChainerBackend (priority: 10)
+#   keyring_insecure_backend.InsecureKeyringBackend.InsecureKeyringBackend (priority: 30)
+#   keyring.backends.macOS.Keyring (priority: 5)
+#   keyrings.onepassword.keyring.OnePasswordKeyring (priority: 20)
+#   keyring.backends.fail.Keyring (priority: 0)
+#  - but then, there doesn't really seem to be any conv used in practice;
+# from Keyring > Write your own keyring backend at
+#   https://github.com/jaraco/keyring ...
+#    ... ?tab=readme-ov-file#write-your-own-keyring-backend:
+# > Those interested in creating new backends are encouraged to create new,
+# > third-party packages in the keyrings namespace, in a manner modeled by
+# > the keyrings.alt package. See the setup.cfg file in that project for
+# > hints on how to create the requisite entry points.
+# documentation is outdated, there is no setup.cfg file at
+#   https://github.com/jaraco/keyrings.alt
+# the correct file
+#   https://github.com/jaraco/keyrings.alt/blob/main/pyproject.toml#L81
+# has there entry points (reproduction aligned and sorted for clarity):
+#   [project.entry-points."keyring.backends"]
+#   file            = "keyrings.alt.file"
+#   Gnome           = "keyrings.alt.Gnome"
+#   Google          = "keyrings.alt.Google"
+#   keyczar         = "keyrings.alt.keyczar"
+#   multi           = "keyrings.alt.multi"
+#   "Windows (alt)" = "keyrings.alt.Windows"
+# the Keyring project lists these entry point for built-in backends:
+#   [project.entry-points."keyring.backends"]
+#   chainer         = "keyring.backends.chainer"
+#   KWallet         = "keyring.backends.kwallet"
+#   libsecret       = "keyring.backends.libsecret"
+#   macOS           = "keyring.backends.macOS"
+#   SecretService   = "keyring.backends.SecretService"
+#   Windows         = "keyring.backends.Windows"
+# also, aligning enforces folder names onto this project
+[project.entry-points.'keyring.backends']
+InsecureKeyringBackend = 'keyring_insecure_backend.InsecureKeyringBackend:InsecureKeyringBackend'
