@@ -1,0 +1,22 @@
+[project]
+name = "aiormq_lib"
+version = "0.1.1"
+description = "Package for working with RabbitMQ"
+authors = [
+    {name = "MentorSisek",email = "n3m0_22@mail.ru"}
+]
+repository = "https://github.com/Tsunami43/aiormq_lib.git"
+license = "MIT"
+readme = "README.md"
+requires-python = ">=3.13, <4.0"
+dependencies = [
+    "aio-pika (>=9.5.5,<10.0.0)",
+    "aiohttp (>=3.11.14,<4.0.0)",
+]
+
+[tool.poetry.urls]
+"Homepage" = "https://github.com/Tsunami43/aiormq_lib.git"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

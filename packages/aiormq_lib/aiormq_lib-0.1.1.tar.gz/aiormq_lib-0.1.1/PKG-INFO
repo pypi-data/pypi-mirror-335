@@ -1,0 +1,79 @@
+Metadata-Version: 2.3
+Name: aiormq_lib
+Version: 0.1.1
+Summary: Package for working with RabbitMQ
+License: MIT
+Author: MentorSisek
+Author-email: n3m0_22@mail.ru
+Requires-Python: >=3.13, <4.0
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.13
+Requires-Dist: aio-pika (>=9.5.5,<10.0.0)
+Requires-Dist: aiohttp (>=3.11.14,<4.0.0)
+Project-URL: Homepage, https://github.com/Tsunami43/aiormq_lib.git
+Description-Content-Type: text/markdown
+
+# rabbitmq
+
+### Install
+
+```bash
+pip install aiormq_lib
+```
+
+### Example
+
+```python
+import asyncio
+
+from aiormq_lib import RabbitMQClient
+from aiormq_lib.models import BaseFilter
+from aiormq_lib.models import IncomingMessage, Queue
+
+# Create RabbitMQ client
+client = RabbitMQClient(
+    host="localhost",
+    port=5672,
+    username="username",
+    password="password",
+    port_api=15672,
+)
+
+
+# Filter for listener
+class Filter(BaseFilter):
+    async def __call__(self, message: IncomingMessage):
+        # Not handling this message
+        return False
+
+
+# Add listener for queue "test_queue"
+@client.listener("test_queue", Filter())
+async def handle_message_1(queue: Queue, message: IncomingMessage):
+    print(f"Received message: {message.body.decode()}")
+
+
+async def handle_message_2(queue: Queue, message: IncomingMessage):
+    print(f"Received message: {message.body.decode()}")
+
+
+async def main():
+
+    # If start_listening is True, start listening
+    await client.connect(start_listening=True)
+
+    # Add listener for queue "test_queue"
+    await client.add_listener("test_queue", handle_message_2)
+
+    await client.send_message("test_queue", {"content": "test"})  # Handler 2
+    await asyncio.sleep(10)
+
+    # Disconnect and stop listening
+    await client.disconnect()
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
+```
+
