@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "psiconfig"
+version = "0.0.13"
+description = "A module to validate and load config files."
+authors = ["Jeff <jeffwatkins2000@gmail.com>"]
+readme = "README.md"
+include = ["HISTORY.md"]
+
+
+[tool.poetry.dependencies]
+python = ">=3.11"
+pytest = ">=8.3.4"
+tomli = ">=2.2.1"
+tomli-w = ">=1.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
