@@ -1,0 +1,57 @@
+Metadata-Version: 2.4
+Name: wwpdb.utils.ws-utils
+Version: 0.7
+Summary: wwPDB remote services support library
+Project-URL: Homepage, https://github.com/rcsb/py-wwpdb_utils_ws_utils
+Author-email: Ezra Peisach <ezra.peisach@rcsb.org>
+License-Expression: Apache-2.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.8
+Requires-Dist: oslo-concurrency
+Requires-Dist: pyjwt
+Requires-Dist: python-dateutil
+Requires-Dist: webob
+Requires-Dist: wwpdb-utils-config
+Description-Content-Type: text/markdown
+
+# Utilities for OneDep remote services
+
+[![Build Status](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_apis/build/status/wwPDB.py-wwpdb_utils_ws_utils?branchName=master)](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_build/latest?definitionId=3&branchName=master)
+
+## Introduction
+
+This repository povides the tools pertaining to remote API services
+
+### Installation
+
+Download the library source software from the project repository:
+
+```bash
+
+git clone --recurse-submodules https://github.com/wwpdb/py-wwpdb_utils_ws_utils.git
+
+```
+
+Optionally, run test suite using the Tox test runner
+
+```bash
+tox
+```
+
+
+Installation is via the program [pip](https://pypi.python.org/pypi/pip).
+
+```bash
+pip install wwpdb.utils.ws_utils
+
+or from the local repository:
+
+pip install .
+```
