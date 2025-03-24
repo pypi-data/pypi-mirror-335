@@ -1,0 +1,81 @@
+Metadata-Version: 2.4
+Name: gosms-ru-client
+Version: 0.1.1
+Summary: Python client for GoSMS API
+Home-page: https://github.com/yourusername/gosms
+Author: Your Name
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Requires-Dist: requests>=2.25.0
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# GoSMS Python Client
+
+Python client for GoSMS API.
+
+## Installation
+
+```bash
+pip install gosms-ru-client
+```
+
+## Authentication
+
+Р”Р»СЏ СЂР°Р±РѕС‚С‹ СЃ API РЅРµРѕР±С…РѕРґРёРј JWT С‚РѕРєРµРЅ. РџРѕР»СѓС‡РёС‚СЊ РµРіРѕ РјРѕР¶РЅРѕ РІ РїР°РЅРµР»Рё СѓРїСЂР°РІР»РµРЅРёСЏ GoSMS:
+
+1. Р’РѕР№РґРёС‚Рµ РІ РїР°РЅРµР»СЊ СѓРїСЂР°РІР»РµРЅРёСЏ РїРѕ Р°РґСЂРµСЃСѓ https://cms.gosms.ru
+2. РџРµСЂРµР№РґРёС‚Рµ РІ СЂР°Р·РґРµР» "API РёРЅС‚РµРіСЂР°С†РёСЏ"
+3. РќР°Р¶РјРёС‚Рµ "РЎРѕР·РґР°С‚СЊ С‚РѕРєРµРЅ"
+4. РЎРєРѕРїРёСЂСѓР№С‚Рµ РїРѕР»СѓС‡РµРЅРЅС‹Р№ С‚РѕРєРµРЅ Рё РёСЃРїРѕР»СЊР·СѓР№С‚Рµ РµРіРѕ РїСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РєР»РёРµРЅС‚Р°
+
+## Usage
+
+```python
+from gosms import GoSMSClient
+
+# Initialize client
+client = GoSMSClient(token="your_jwt_token")
+
+try:
+    # Send SMS
+    message = client.send_sms(
+        phone_number="79999999999",
+        message="Test message"
+    )
+    print(f"Message sent: {message}")
+    
+    # Get message list
+    messages = client.get_messages(limit=10)
+    print(f"Recent messages: {messages}")
+    
+except GoSMSError as e:
+    print(f"API Error: {e}")
+```
+
+## Features
+
+- Send SMS messages
+- Get message list with pagination and search
+- API error handling
+- Type hints
+
+## Requirements
+
+- Python 3.7+
+- requests>=2.25.0
+
+## License
+
+MIT 
