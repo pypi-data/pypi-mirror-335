@@ -1,0 +1,68 @@
+Metadata-Version: 2.4
+Name: wwpdb.utils.oe-util
+Version: 0.9.0
+Summary: wwPDB workflow engine utils
+Project-URL: Homepage, https://github.com/rcsb/py-wwpdb_apps_wf_engine_utils
+Author-email: Ezra Peisach <ezra.peisach@rcsb.org>
+License-Expression: Apache-2.0
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: Apache Software License
+Classifier: Natural Language :: English
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Requires-Python: >=3.6
+Requires-Dist: mmcif-utils
+Requires-Dist: openeye-toolkits-python2-7-ucs2-linux-x64==2016.6.1; python_version == '2.7' and sys_platform == 'linux2'
+Requires-Dist: openeye-toolkits; python_version >= '3'
+Requires-Dist: wwpdb-utils-cc-dict-util>=0.2
+Provides-Extra: dev
+Requires-Dist: check-manifest; extra == 'dev'
+Provides-Extra: test
+Requires-Dist: coverage; extra == 'test'
+Description-Content-Type: text/markdown
+
+# OneDep OpenEye Utility Library
+
+master: [![Build Status](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_apis/build/status/wwPDB.py-wwpdb_utils_oe_util?branchName=master)](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_build/latest?definitionId=9&branchName=master)
+
+develop: [![Build Status](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_apis/build/status/wwPDB.py-wwpdb_utils_oe_util?branchName=develop)](https://dev.azure.com/wwPDB/wwPDB%20Python%20Projects/_build/latest?definitionId=9&branchName=develop)
+
+## Introduction
+
+This repository povides the tools and access to OneDep configuration environments.
+
+### Installation
+
+Download the library source software from the project repository:
+
+```bash
+
+git clone --recurse-submodules https://github.com/wwpdb/py-wwpdb_utils_oe_util.git
+
+```
+
+Optionally, run test suite using the Tox test runner
+
+```bash
+python setup.py test
+
+or simply run
+
+tox
+
+Installation is via the program [pip](https://pypi.python.org/pypi/pip).
+
+```bash
+pip install wwpdb.utils.oe_util
+
+or from the local repository:
+
+pip install .
+```
+
+### Usage notes
+
+The OpenEye library requires a license file to run. The *OE_LICENSE* environment should point to an active license.
