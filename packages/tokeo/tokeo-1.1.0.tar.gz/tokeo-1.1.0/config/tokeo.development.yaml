@@ -1,0 +1,12 @@
+### <p><strong>The Tokeo Development Configuration Settings</strong></p>
+### - Settings will be merged into Application Configuration.
+---
+
+
+
+scheduler:
+  tasks:
+    ### each entry is defined by its method to call
+    count_words_timer:
+      ### one or multiple entries in crontab style when to run the task
+      crontab: '* * * * *'
