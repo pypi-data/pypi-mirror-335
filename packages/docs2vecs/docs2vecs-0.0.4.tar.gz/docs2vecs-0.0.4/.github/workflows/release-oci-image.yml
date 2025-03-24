@@ -1,0 +1,165 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - v*
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+  # workflow_dispatch:
+  #   inputs:
+  #     tag:
+  #       description: 'Tag to create'
+  #       required: true
+  #       default: 'v0.0.0'
+  #     version:
+  #       description: 'Version to create'
+  #       required: true
+  #       default: '0.0.0'
+permissions:
+    pull-requests: read
+    contents: read
+
+env:
+    OCI_REGISTRY: ghcr.io
+
+jobs:
+    generate-release-version:
+        runs-on: ubuntu-latest
+        outputs:
+            generated_version: ${{ steps.output-generated-version.outputs.generated_version }}
+            image_tag: ${{ steps.generate_tag.outputs.image_tag }}
+            image_tag_latest: ${{ steps.output-generated-version.outputs.image_tag_latest }}
+            tag_prefix: ${{ steps.generate_tag.outputs.tag_prefix }}
+        permissions:
+            contents: write
+            id-token: write
+        steps:
+        -
+            name: Checkout
+            uses: actions/checkout@v4
+            with:
+                fetch-depth: 0
+        -
+            name: Generate next version
+            uses: paulhatch/semantic-version@v5.4.0
+            id: semantic-version
+            with:
+                tag_prefix: 'v'
+                major_pattern: "/((BREAKING CHANGE|BREAKING|breaking|MAJOR|major):?|\\S*!).*/"
+                minor_pattern: '/(FEATURE|feature|MINOR|minor|FEAT|feat):?[^!].*/'
+                version_format: '${major}.${minor}.${patch}'
+        -
+            name: Output generated version
+            id: output-generated-version
+            run: |
+                echo "generated_version=${{ steps.semantic-version.outputs.version }}" >> $GITHUB_OUTPUT
+                echo "image_tag_latest=${{ env.OCI_REGISTRY }}/${repo_name}:latest" >> $GITHUB_OUTPUT
+
+        - 
+            name: Version tag ${{ steps.semantic-version.outputs.version }} on main branch or tag
+            if: ${{ github.ref == 'refs/heads/main' }} || startsWith(github.ref, 'refs/tags/v')
+            shell: bash
+            run: |
+                echo "generated_tag=${{ steps.semantic-version.outputs.version }}" >> $GITHUB_ENV
+                echo "GITHUB_REPO=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
+                echo "tag_prefix=v" >> $GITHUB_OUTPUT
+    
+        - 
+            name: Version tag ${{ steps.semantic-version.outputs.version }} on pull request
+            if: ${{ github.event_name == 'pull_request' }}
+            shell: bash
+            run: |
+                echo "generated_tag=pr-${{github.event.pull_request.number}}-${{ steps.semantic-version.outputs.version }}-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+                echo "GITHUB_REPO=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
+                echo "tag_prefix=" >> $GITHUB_OUTPUT
+    
+        - 
+            name: Compute image tag based on version tag ${{ env.generated_tag }}
+            id: generate_tag
+            shell: bash
+            run: |
+                # image tag needs to be all lower case
+                repo_name=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]')
+                echo "image_tag=${{ env.OCI_REGISTRY }}/${repo_name}:${{ env.generated_tag }}" >> $GITHUB_OUTPUT
+
+    docker-image-release:
+        needs: [generate-release-version]
+        timeout-minutes: 30
+        permissions:
+            contents: read
+            packages: write
+            id-token: write
+        strategy:
+          fail-fast: false
+          matrix:
+            os: [ubuntu-24.04, ubuntu-24.04-arm]
+        runs-on: ${{ matrix.os }}
+        steps:
+          - 
+            uses: actions/checkout@v4
+          - 
+            uses: docker/setup-docker-action@v4.1.0
+          - 
+            name: Login to GitHub Container Registry
+            uses: docker/login-action@v3
+            with:
+                registry: ${{ env.OCI_REGISTRY }}
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+          - 
+            name: Build image for ${{ matrix.os }}
+            run: |
+              docker build --tag ${{ needs.generate-release-version.outputs.image_tag }}-${{ runner.arch }} .
+              docker images
+              docker run -i ${{ needs.generate-release-version.outputs.image_tag }}-${{ runner.arch }} -h
+              docker image inspect ${{ needs.generate-release-version.outputs.image_tag }}-${{ runner.arch }}
+          -
+            name: Push image for ${{ matrix.os }}
+            if: startsWith(github.ref, 'refs/tags/v')
+            run: |
+              docker push ${{ needs.generate-release-version.outputs.image_tag }}-${{ runner.arch }}
+
+    create-image-release:
+        if: startsWith(github.ref, 'refs/tags/v')
+        permissions:
+            packages: write
+            id-token: write
+            contents: write
+            issues: write
+            pull-requests: write
+
+        needs: [generate-release-version, docker-image-release]
+        runs-on: ubuntu-24.04
+        steps:
+          -
+            uses: actions/checkout@v4
+          -
+            uses: docker/setup-docker-action@v4.1.0
+          -
+            name: Login to GitHub Container Registry
+            uses: docker/login-action@v3
+            with:
+                registry: ${{ env.OCI_REGISTRY }}
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+          -
+            name: Build manifest and push it registry
+            run: |
+              docker manifest create \
+              ${{ needs.generate-release-version.outputs.image_tag }} \
+              --amend ${{ needs.generate-release-version.outputs.image_tag }}-X64 \
+              --amend ${{ needs.generate-release-version.outputs.image_tag }}-ARM64
+              docker manifest push ${{ needs.generate-release-version.outputs.image_tag }}
+              docker manifest inspect ${{ needs.generate-release-version.outputs.image_tag }}
+
+              docker manifest create \
+              ${{ needs.generate-release-version.outputs.image_tag_latest }} \
+              --amend ${{ needs.generate-release-version.outputs.image_tag_latest }}-X64 \
+              --amend ${{ needs.generate-release-version.outputs.image_tag_latest }}-ARM64
+              docker manifest push ${{ needs.generate-release-version.outputs.image_tag_latest }}
+              docker manifest inspect ${{ needs.generate-release-version.outputs.image_tag_latest }}
+              
